@@ -19,7 +19,7 @@ const { buildHairMatrix, CUT_IDS } = require('./hair.js');
 const { buildClothingMatrix, OUTFIT_IDS } = require('./clothing.js');
 const {
   INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, OUTFIT_COLOR_OPTIONS, GOGGLE_RAMP, GOGGLE_STRAP,
-  GLOVE_RAMP, TECH_RAMP, DIGIVICE_RAMP, paletteMapFor,
+  GLOVE_RAMP, TECH_RAMP, DIGIVICE_RAMP, paletteMapFor, selOutline,
 } = require('./palettes.js');
 
 const OUT_DIR = path.resolve(__dirname, '../../../../../../assets/GAME-ASSETS/11-characters/player');
@@ -44,14 +44,15 @@ function frameName(prefix, variantId, anim, dir, n) {
 // Generic driver: for each direction, builds idle(3)+walk(4)+point(1) frames
 // via `buildFn(direction, anim, frame)` -> CharMatrix, renders with
 // `paletteMap`, outlines, and (bodies only) adds the ground-contact shadow.
-function generateFrames(buildFn, paletteMap, outDir, prefix, variantId, withShadow) {
+function generateFrames(buildFn, paletteMap, outDir, prefix, variantId, withShadow, outlineColor) {
   fs.mkdirSync(outDir, { recursive: true });
+  const ink = outlineColor || INK;
   const manifestFrames = { idle: {}, walk: {}, point: {} };
   for (const dir of DIRS) {
     const idle = [];
     for (let f = 0; f < IDLE_FRAMES; f++) {
       const c = render(buildFn(dir, 'idle', f), paletteMap);
-      c.autoOutline(INK);
+      c.autoOutline(ink);
       if (withShadow) addGroundShadow(c, INK);
       const name = frameName(prefix, variantId, 'idle', dir, f + 1);
       c.save(path.join(outDir, name));
@@ -62,7 +63,7 @@ function generateFrames(buildFn, paletteMap, outDir, prefix, variantId, withShad
     const walk = [];
     for (let f = 0; f < WALK_FRAMES; f++) {
       const c = render(buildFn(dir, 'walk', f), paletteMap);
-      c.autoOutline(INK);
+      c.autoOutline(ink);
       if (withShadow) addGroundShadow(c, INK);
       const name = frameName(prefix, variantId, 'walk', dir, f + 1);
       c.save(path.join(outDir, name));
@@ -74,7 +75,7 @@ function generateFrames(buildFn, paletteMap, outDir, prefix, variantId, withShad
   // "vitrine" pose, same convention ANIMATION_STANDARD.md uses for
   // showcase-style animations).
   const cp = render(buildFn('S', 'point', 0), paletteMap);
-  cp.autoOutline(INK);
+  cp.autoOutline(ink);
   if (withShadow) addGroundShadow(cp, INK);
   const pname = frameName(prefix, variantId, 'point', null, 1);
   cp.save(path.join(outDir, pname));
@@ -117,7 +118,7 @@ function run() {
       const paletteMap = paletteMapFor({ skin });
       const frames = generateFrames(
         (dir, anim, frame) => buildBodyMatrix({ model, direction: dir, anim, frame }),
-        paletteMap, bodyOutDir, 'body', variantId, true,
+        paletteMap, bodyOutDir, 'body', variantId, true, selOutline(skin),
       );
       manifest.layers.body.variants[variantId] = { model, skin: skinId, frames };
     }
@@ -136,7 +137,7 @@ function run() {
       const paletteMap = paletteMapFor({ hair: color });
       const frames = generateFrames(
         (dir, anim, frame) => buildHairMatrix({ cut, direction: dir, anim, frame }),
-        paletteMap, hairOutDir, 'hair', variantId, false,
+        paletteMap, hairOutDir, 'hair', variantId, false, selOutline(color),
       );
       manifest.layers.hair.variants[variantId] = { cut, color: colorId, frames };
     }
@@ -168,7 +169,7 @@ function run() {
         const fullVariantId = `${variantId}_${model}`;
         const frames = generateFrames(
           (dir, anim, frame) => buildClothingMatrix({ outfit, model, direction: dir, anim, frame }),
-          paletteMap, clothOutDir, 'clothing', fullVariantId, false,
+          paletteMap, clothOutDir, 'clothing', fullVariantId, false, selOutline(color),
         );
         manifest.layers.clothing.variants[fullVariantId] = { outfit, color: colorId, model, goggle, frames };
       }

@@ -6,7 +6,27 @@
 // ART_STYLE_GUIDE.md section 5 ("2-3 tons por cor, blocos sólidos").
 const { E32 } = require('../endesga32.js');
 
-const INK = E32.c26; // #181425, shared 1px outline ink for every layer.
+const INK = E32.c26; // #181425, shared 1px outline ink (fallback / outer contour).
+
+// Mix two {r,g,b,a} arrays, t in [0,1] (0 = a, 1 = b).
+function mix(a, b, t) {
+  return [
+    Math.round(a[0] + (b[0] - a[0]) * t),
+    Math.round(a[1] + (b[1] - a[1]) * t),
+    Math.round(a[2] + (b[2] - a[2]) * t),
+    255,
+  ];
+}
+
+// Selective outline ("sel-out", DS-style): each layer's own outline uses a
+// darkened version of that layer's dark tone instead of flat black, so the
+// line color shifts with what it borders (dark-skin line on the face,
+// dark-hair line on the hair, dark-cloth line on the jacket) instead of one
+// uniform ink everywhere. Kept dark enough (65% toward INK) to stay legible
+// at 32px.
+function selOutline(ramp) {
+  return mix(ramp.dark, INK, 0.65);
+}
 
 // -- Body skin tones (3, ART_STYLE_GUIDE palette only) ----------------------
 const SKIN_TONES = {
@@ -66,7 +86,12 @@ const DIGIVICE_RAMP = { light: E32.c19, base: E32.c23, dark: E32.c25 }; // cyan 
 function paletteMapFor({ skin, hair, cloth, goggle = false }) {
   const m = { ink: INK };
   if (skin) { m.skinL = skin.light; m.skin = skin.base; m.skinD = skin.dark; }
-  if (hair) { m.hairL = hair.light; m.hair = hair.base; m.hairD = hair.dark; }
+  if (hair) {
+    m.hairL = hair.light; m.hair = hair.base; m.hairD = hair.dark;
+    // 4th tone: a crown shine streak, lightened toward white ("destaque de
+    // luz" required on top of the 3-tone light/base/dark ramp).
+    m.hairHi = mix(hair.light, E32.c20, 0.55);
+  }
   if (cloth) {
     m.clothL = cloth.light; m.cloth = cloth.base; m.clothD = cloth.dark;
     // Gloves/tech-trim/Digivice only make sense when clothing is being
@@ -85,10 +110,12 @@ function paletteMapFor({ skin, hair, cloth, goggle = false }) {
   m.eye = E32.c26;
   m.eyeShine = E32.c20;
   m.mouth = E32.c7;
+  m.brow = E32.c26;
   return m;
 }
 
 module.exports = {
   INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, OUTFIT_COLOR_OPTIONS,
   GOGGLE_RAMP, GOGGLE_STRAP, GLOVE_RAMP, TECH_RAMP, DIGIVICE_RAMP, paletteMapFor,
+  mix, selOutline,
 };

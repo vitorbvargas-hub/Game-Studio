@@ -13,7 +13,7 @@ const { render, addGroundShadow, FRAME_W, FRAME_H } = require('./grid.js');
 const { buildBodyMatrix } = require('./body.js');
 const { buildHairMatrix } = require('./hair.js');
 const { buildClothingMatrix } = require('./clothing.js');
-const { INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, paletteMapFor } = require('./palettes.js');
+const { INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, paletteMapFor, selOutline } = require('./palettes.js');
 const { PREVIEW_DIR } = require('./generator.js');
 
 const UI = [0xc0, 0xcb, 0xdc, 255];
@@ -30,12 +30,13 @@ function canvasFromDecoded(decoded) {
 function buildOurTamer() {
   const model = 'male', skin = 'tan', cut = 'espetado-tai', hairColor = 'preto';
   const outfit = 'tamer-classico', clothColor = 'azul', direction = 'S';
-  const cb = render(buildBodyMatrix({ model, direction }), paletteMapFor({ skin: SKIN_TONES[skin] }));
-  cb.autoOutline(INK);
-  const ch = render(buildHairMatrix({ cut, direction }), paletteMapFor({ hair: HAIR_COLORS[hairColor] }));
-  ch.autoOutline(INK);
-  const cc = render(buildClothingMatrix({ outfit, model, direction }), paletteMapFor({ cloth: CLOTH_RAMPS[clothColor], goggle: true }));
-  cc.autoOutline(INK);
+  const skinTone = SKIN_TONES[skin], hairTone = HAIR_COLORS[hairColor], clothTone = CLOTH_RAMPS[clothColor];
+  const cb = render(buildBodyMatrix({ model, direction }), paletteMapFor({ skin: skinTone }));
+  cb.autoOutline(selOutline(skinTone));
+  const ch = render(buildHairMatrix({ cut, direction }), paletteMapFor({ hair: hairTone }));
+  ch.autoOutline(selOutline(hairTone));
+  const cc = render(buildClothingMatrix({ outfit, model, direction }), paletteMapFor({ cloth: clothTone, goggle: true }));
+  cc.autoOutline(selOutline(clothTone));
   const combo = new Canvas(FRAME_W, FRAME_H);
   combo.blit(cb, 0, 0);
   combo.blit(ch, 0, 0);
@@ -76,9 +77,9 @@ function run() {
   drawText(sheet, 'altura do personagem ~29px (y4-y33)', ourX, groundY + 24, UI);
 
   fs.mkdirSync(PREVIEW_DIR, { recursive: true });
-  const outPath = path.join(PREVIEW_DIR, 'character_vs_ds_tamer_comparison.png');
+  const outPath = path.join(PREVIEW_DIR, 'character_v2_vs_ds.png');
   sheet.save(outPath);
-  console.log('character_vs_ds_tamer_comparison.png:', sheet.w, 'x', sheet.h);
+  console.log('character_v2_vs_ds.png:', sheet.w, 'x', sheet.h);
 }
 
 module.exports = { run };

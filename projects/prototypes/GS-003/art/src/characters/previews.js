@@ -9,7 +9,7 @@ const { buildBodyMatrix, MODELS } = require('./body.js');
 const { buildHairMatrix, CUT_IDS } = require('./hair.js');
 const { buildClothingMatrix, OUTFIT_IDS } = require('./clothing.js');
 const {
-  INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, OUTFIT_COLOR_OPTIONS, paletteMapFor,
+  INK, SKIN_TONES, HAIR_COLORS, CLOTH_RAMPS, OUTFIT_COLOR_OPTIONS, paletteMapFor, selOutline,
 } = require('./palettes.js');
 const { Canvas } = require('../canvas.js');
 const { drawText } = require('../font5x3.js');
@@ -20,12 +20,15 @@ const UI = [0xc0, 0xcb, 0xdc, 255];
 
 function buildCharacter({ model, skin, cut, hairColor, outfit, clothColor, direction, anim = 'idle', frame = 0 }) {
   const goggle = outfit === 'tamer-classico';
-  const cb = render(buildBodyMatrix({ model, direction, anim, frame }), paletteMapFor({ skin: SKIN_TONES[skin] }));
-  cb.autoOutline(INK);
-  const ch = render(buildHairMatrix({ cut, direction, anim, frame }), paletteMapFor({ hair: HAIR_COLORS[hairColor] }));
-  ch.autoOutline(INK);
-  const cc = render(buildClothingMatrix({ outfit, model, direction, anim, frame }), paletteMapFor({ cloth: CLOTH_RAMPS[clothColor], goggle }));
-  cc.autoOutline(INK);
+  const skinTone = SKIN_TONES[skin];
+  const hairTone = HAIR_COLORS[hairColor];
+  const clothTone = CLOTH_RAMPS[clothColor];
+  const cb = render(buildBodyMatrix({ model, direction, anim, frame }), paletteMapFor({ skin: skinTone }));
+  cb.autoOutline(selOutline(skinTone));
+  const ch = render(buildHairMatrix({ cut, direction, anim, frame }), paletteMapFor({ hair: hairTone }));
+  ch.autoOutline(selOutline(hairTone));
+  const cc = render(buildClothingMatrix({ outfit, model, direction, anim, frame }), paletteMapFor({ cloth: clothTone, goggle }));
+  cc.autoOutline(selOutline(clothTone));
   const combo = new Canvas(FRAME_W, FRAME_H);
   combo.blit(cb, 0, 0);
   combo.blit(ch, 0, 0);
@@ -96,8 +99,8 @@ function buildCreatorGrid() {
   sheet.blit(sectionB, pad, pad + aH + pad);
 
   fs.mkdirSync(PREVIEW_DIR, { recursive: true });
-  sheet.save(path.join(PREVIEW_DIR, 'character_creator_grid.png'));
-  console.log('character_creator_grid.png:', sheet.w, 'x', sheet.h);
+  sheet.save(path.join(PREVIEW_DIR, 'character_creator_grid_v2.png'));
+  console.log('character_creator_grid_v2.png:', sheet.w, 'x', sheet.h);
 }
 
 function buildWalkStrip() {
@@ -130,8 +133,8 @@ function buildWalkStrip() {
   });
 
   fs.mkdirSync(PREVIEW_DIR, { recursive: true });
-  sheet.save(path.join(PREVIEW_DIR, 'character_walk_strip.png'));
-  console.log('character_walk_strip.png:', sheet.w, 'x', sheet.h);
+  sheet.save(path.join(PREVIEW_DIR, 'character_walk_strip_v2.png'));
+  console.log('character_walk_strip_v2.png:', sheet.w, 'x', sheet.h);
 }
 
 function run() {

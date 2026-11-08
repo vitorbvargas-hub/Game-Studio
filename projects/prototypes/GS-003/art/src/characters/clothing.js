@@ -4,10 +4,11 @@
 // leg geometry with body.js's bare-skin legs (legs.js) so pants/shorts line
 // up with the leg they cover in every walk frame, and shares head geometry
 // with body.js/hair.js for the Tamer-classico goggles.
-const { buildMatrix, shiftBand } = require('./grid.js');
+const { buildMatrix, shiftBand, setCell } = require('./grid.js');
 const { shadeSpan } = require('./shading.js');
 const { MODELS, headSpan, HEAD_WIDTHS, HEAD_Y0, headBobOffset } = require('./body.js');
 const legs = require('./legs.js');
+const arms = require('./arms.js');
 
 const CLOTH_TOKENS = ['clothL', 'cloth', 'clothD'];
 const BOOT_TOKENS = ['clothD', 'clothD', 'ink'];
@@ -34,6 +35,16 @@ function buildTorsoWear(rows, direction, model, hemY) {
   // Collar notch.
   const collarW = direction === 'E' ? [16, 18] : [14, 17];
   push(rows, 17, collarW[0], collarW[1], ['clothD', 'clothD', 'ink']);
+  // Waist fold: a single dark crease row just above the hem, breaking up
+  // the flat torso block with a hint of cloth bunching (ART_STYLE_GUIDE.md
+  // "dobras/sombras").
+  const foldY = Math.min(hemY, 22);
+  const foldIdx = foldY - 17;
+  if (foldIdx >= 0 && foldIdx < m.shoulders.length) {
+    const fw = m.shoulders[foldIdx] + 1;
+    const [fx0, fx1] = direction === 'E' ? [15 - fw, 14 + fw] : [16 - fw, 15 + fw];
+    push(rows, foldY, fx0 + 1, fx1 - 1, ['clothD', 'clothD', 'clothD']);
+  }
 }
 
 function buildBottomWear(rows, direction, coverShin, anim, frame) {
@@ -80,24 +91,34 @@ const GLOVE_TOKENS = ['gloveL', 'glove', 'gloveD'];
 const TECH_TOKENS = ['techL', 'tech', 'techD'];
 const DEVICE_TOKENS = ['deviceL', 'device', 'deviceD'];
 
-function buildGloves(rows, direction, model) {
-  // Extends the sleeve cuff 2px beyond the torso silhouette at wrist height
-  // (rows 20-22) so it stays connected to the torso already pushed by
-  // buildTorsoWear -- no gap, unlike the floating hand nubs rejected in
-  // iteration 1 (see DECISIONS.md).
+// Full sleeve over body.js's bare arm (arms.js geometry): upper arm +
+// forearm in the jacket's own cloth color, hand in the glove color. Replaces
+// v1's floating 2px wrist-cuff accent (DECISIONS.md iteration 3) now that
+// body.js draws an actual arm the sleeve needs to cover, swinging the same
+// way per walk frame (arms.armSwingDx) so sleeve and arm never separate.
+function buildSleeves(rows, direction, model, anim, frame) {
   const m = MODELS[model];
-  for (const i of [3, 4, 5]) { // y20, y21, y22
-    const y = 17 + i;
-    const w = m.shoulders[i] + 1;
-    if (direction === 'E') {
-      const x1 = 14 + w;
-      push(rows, y, x1 + 1, x1 + 2, GLOVE_TOKENS);
-    } else {
-      const x0 = 16 - w;
-      const x1 = 15 + w;
-      push(rows, y, x0 - 2, x0 - 1, GLOVE_TOKENS);
-      push(rows, y, x1 + 1, x1 + 2, GLOVE_TOKENS);
-    }
+  const shoulderW = m.shoulders[1];
+  if (direction === 'E') {
+    const ax0 = 14 + shoulderW + 1;
+    const ax1 = ax0 + 1;
+    for (const y of arms.UPPER_ROWS) push(rows, y, ax0, ax1);
+    const dx = anim === 'walk' ? arms.armSwingDx(frame, 'right') : 0;
+    for (const y of arms.FORE_ROWS) push(rows, y, ax0 + dx, ax1 + dx);
+    push(rows, arms.HAND_ROW, ax0 + dx, ax1 + dx, GLOVE_TOKENS);
+    return;
+  }
+  const x0 = 16 - shoulderW;
+  const x1 = 15 + shoulderW;
+  const sides = [
+    { side: 'left', ux0: x0 - 2, ux1: x0 - 1 },
+    { side: 'right', ux0: x1 + 1, ux1: x1 + 2 },
+  ];
+  for (const { side, ux0, ux1 } of sides) {
+    for (const y of arms.UPPER_ROWS) push(rows, y, ux0, ux1);
+    const dx = anim === 'walk' ? arms.armSwingDx(frame, side) : 0;
+    for (const y of arms.FORE_ROWS) push(rows, y, ux0 + dx, ux1 + dx);
+    push(rows, arms.HAND_ROW, ux0 + dx, ux1 + dx, GLOVE_TOKENS);
   }
 }
 
@@ -174,7 +195,7 @@ function buildClothingMatrix(pose) {
   const { rows, hemY, coverShin, goggles } = spec(direction);
   buildTorsoWear(rows, direction, model, hemY);
   buildBottomWear(rows, direction, coverShin, anim, frame);
-  buildGloves(rows, direction, model);
+  buildSleeves(rows, direction, model, anim, frame);
   buildTechTrim(rows, direction, hemY);
   buildDigivice(rows, direction, hemY);
   if (goggles) buildGoggles(rows, direction);
@@ -184,6 +205,15 @@ function buildClothingMatrix(pose) {
   if (bob !== 0) {
     // Only the torso/goggles band bobs with the head; legs stay grounded.
     shiftBand(matrix, 4, 24, bob);
+  }
+  if (anim === 'point') {
+    // Mirrors body.js's point-pose arm raise so the sleeve stays over the
+    // raised arm instead of sitting flat while the bare arm underneath
+    // pokes up through it.
+    const shoulderW = MODELS[model].shoulders[1];
+    const armX = 15 + shoulderW + 1;
+    for (let y = 18; y <= 20; y++) { setCell(matrix, armX, y, 'clothD'); setCell(matrix, armX + 1, y, 'cloth'); }
+    setCell(matrix, armX + 1, 17, 'cloth');
   }
   return matrix;
 }

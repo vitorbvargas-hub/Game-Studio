@@ -5,6 +5,7 @@
 const { buildMatrix } = require('./grid.js');
 const { shadeSpan } = require('./shading.js');
 const legs = require('./legs.js');
+const arms = require('./arms.js');
 
 // Big chibi bobblehead: head max half-width (8 => 16px) is clearly wider
 // than the shoulders below it, per the DS Hero / IdleDex scale references.
@@ -51,12 +52,47 @@ function buildHead(rows, direction) {
   const neckSpan = direction === 'E' ? [13, 17] : [14, 17];
   pushShaded(rows, 16, neckSpan[0], neckSpan[1], skinTokens);
 
+  buildEars(rows, direction);
+
   if (direction === 'S') {
-    rows[9].push([12, 12, 'eye'], [19, 19, 'eye']);
-    rows[12] = (rows[12] || []).concat([[14, 17, 'mouth']]);
+    // Face sits at y10+ -- one clear row below any hair cut's hairline (the
+    // lowest cap bottomY used anywhere in hair.js is y8), because
+    // Canvas.autoOutline() stamps an outline pixel on *every* transparent
+    // cell adjacent to a filled one, including the row directly below the
+    // hair's own silhouette. Placing eyes/brows at y9 put them directly on
+    // that auto-generated fringe row and the hair layer's outline color
+    // silently painted over them on composite -- this is why v1's eyes were
+    // never visible no matter what token they used.
+    // Eyebrows, y10: a short dark dash above each eye.
+    rows[10] = (rows[10] || []).concat([[11, 12, 'brow'], [19, 20, 'brow']]);
+    // Eyes, y11-12: 2px-wide dark iris with a 1px bright shine pixel on the
+    // top-left corner so the eye reads as lit, not a flat dot.
+    rows[11] = (rows[11] || []).concat([[11, 11, 'eyeShine'], [12, 12, 'eye'], [19, 19, 'eyeShine'], [20, 20, 'eye']]);
+    rows[12] = (rows[12] || []).concat([[11, 12, 'eye'], [19, 20, 'eye']]);
+    // Mouth, y14: simple closed line.
+    rows[14] = (rows[14] || []).concat([[14, 17, 'mouth']]);
   } else if (direction === 'E') {
-    rows[9].push([19, 19, 'eye']);
+    rows[10] = (rows[10] || []).concat([[18, 19, 'brow']]);
+    rows[11] = (rows[11] || []).concat([[18, 18, 'eyeShine'], [19, 19, 'eye']]);
+    rows[12] = (rows[12] || []).concat([[18, 19, 'eye']]);
   }
+}
+
+// Ear nubs just outside the head silhouette at ear height (y13-14, level
+// with the eyes), touching the head edge so autoOutline merges them into
+// the head blob instead of reading them as floating islands.
+function buildEars(rows, direction) {
+  const idx = 13 - HEAD_Y0;
+  const w = HEAD_WIDTHS[idx];
+  if (direction === 'E') {
+    const [x0] = headSpan(direction, w, idx);
+    rows[13] = (rows[13] || []).concat([[x0 - 1, x0 - 1, 'skin']]);
+    rows[14] = (rows[14] || []).concat([[x0 - 1, x0 - 1, 'skinD']]);
+    return;
+  }
+  const [x0, x1] = headSpan(direction, w, idx);
+  rows[13] = (rows[13] || []).concat([[x0 - 1, x0 - 1, 'skin'], [x1 + 1, x1 + 1, 'skin']]);
+  rows[14] = (rows[14] || []).concat([[x0 - 1, x0 - 1, 'skinD'], [x1 + 1, x1 + 1, 'skinD']]);
 }
 
 function buildTorso(rows, direction, model) {
@@ -75,6 +111,38 @@ function buildTorso(rows, direction, model) {
   const hipW = m.hip;
   const [hx0, hx1] = direction === 'E' ? [15 - hipW, 14 + hipW] : [16 - hipW, 15 + hipW];
   pushShaded(rows, 24, hx0, hx1, skinTokens);
+}
+
+// Bare-skin arm: upper arm hugs the shoulder, forearm+hand swing per walk
+// frame (arms.armSwingDx), opposite the leg that is forward that frame so
+// the walk reads as a real gait instead of a static torso. clothing.js's
+// buildSleeves mirrors this exact geometry so a sleeve always covers the
+// arm it belongs to.
+function buildArms(rows, direction, model, anim, frame) {
+  const m = MODELS[model];
+  const skinTokens = ['skinL', 'skin', 'skinD'];
+  const shoulderW = m.shoulders[1]; // width at y18, arm attach row
+  if (direction === 'E') {
+    const ax0 = 14 + shoulderW + 1;
+    const ax1 = ax0 + 1;
+    for (const y of arms.UPPER_ROWS) pushShaded(rows, y, ax0, ax1, skinTokens);
+    const dx = anim === 'walk' ? arms.armSwingDx(frame, 'right') : 0;
+    for (const y of arms.FORE_ROWS) pushShaded(rows, y, ax0 + dx, ax1 + dx, skinTokens);
+    rows[arms.HAND_ROW] = (rows[arms.HAND_ROW] || []).concat([[ax0 + dx, ax1 + dx, 'skinD']]);
+    return;
+  }
+  const x0 = 16 - shoulderW;
+  const x1 = 15 + shoulderW;
+  const sides = [
+    { side: 'left', ux0: x0 - 2, ux1: x0 - 1 },
+    { side: 'right', ux0: x1 + 1, ux1: x1 + 2 },
+  ];
+  for (const { side, ux0, ux1 } of sides) {
+    for (const y of arms.UPPER_ROWS) pushShaded(rows, y, ux0, ux1, skinTokens);
+    const dx = anim === 'walk' ? arms.armSwingDx(frame, side) : 0;
+    for (const y of arms.FORE_ROWS) pushShaded(rows, y, ux0 + dx, ux1 + dx, skinTokens);
+    rows[arms.HAND_ROW] = (rows[arms.HAND_ROW] || []).concat([[ux0 + dx, ux1 + dx, 'skinD']]);
+  }
 }
 
 function buildLegsSkin(rows, direction, anim, frame) {
@@ -129,6 +197,7 @@ function buildBodyMatrix(pose) {
   const rows = {};
   buildHead(rows, direction);
   buildTorso(rows, direction, model);
+  buildArms(rows, direction, model, anim, frame);
   buildLegsSkin(rows, direction, anim, frame);
 
   // Bob the head+torso band (y4-23); legs/hip stay put (feet are grounded).
@@ -139,11 +208,14 @@ function buildBodyMatrix(pose) {
     shiftBand(matrix, 4, 23, bob);
   }
   if (anim === 'point') {
-    // Command/point pose: a short raised-arm nub reads as "pointing forward"
-    // at this scale, touching the torso silhouette so autoOutline treats it
-    // as one shape instead of a floating island.
+    // Command/point pose: raises the right arm's upper-arm segment one row
+    // and recolors it, reading as "pointing forward" at this scale. armX is
+    // derived from the model's own shoulder width (buildArms uses the same
+    // formula) so it stays attached to the torso for both models instead of
+    // the fixed column v1 used, which only lined up for the male model.
     const { setCell } = require('./grid.js');
-    const armX = 21;
+    const shoulderW = MODELS[model].shoulders[1];
+    const armX = 15 + shoulderW + 1;
     for (let y = 18; y <= 20; y++) { setCell(matrix, armX, y, 'skinD'); setCell(matrix, armX + 1, y, 'skin'); }
     setCell(matrix, armX + 1, 17, 'skin');
   }
