@@ -1,0 +1,42 @@
+{
+  "biome": "floresta-dwds",
+  "layer": "mixed",
+  "assets": [
+    {
+      "group": "tiles (ground, real crop)",
+      "layer": "official-fan-use",
+      "files": [
+        "tiles/ground_grass_shade_real.png"
+      ],
+      "source": {
+        "type": "game-rip",
+        "game": "Digimon World DS (Nintendo DS)",
+        "site": "The Spriters Resource",
+        "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+        "providedBy": "varredura automatica (Spriters Resource), fundador autorizou em 2026-11-08",
+        "retrievedAt": "2026-11-08",
+        "modifications": "recorte retangular direto 32x32 de uma area plana da cena (sem objetos sobrepostos); nenhum chroma-key necessario (tile de chao e sempre opaco); sem redesenho."
+      },
+      "credit": {
+        "ripper": "Atlanta",
+        "site": "The Spriters Resource"
+      },
+      "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+      "basis": "ADR-009 Secao Licenca (fundador, 2026-11-08)",
+      "nonCommercial": true,
+      "restrictions": [
+        "ADR-007: sem monetizacao, sem logo oficial, aviso de fan game",
+        "Publicacao exige aprovacao do fundador"
+      ]
+    },
+    {
+      "group": "tiles (derivados) + props",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "pixel matrix (Canvas.js mask-paint + seeded dither), paleta amostrada das folhas DW DS reais acima (art/src/dwds_palette.js) -- nao e recorte, e composicao original informada pela referencia visual.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- sem IP de terceiro alem da paleta de cor amostrada"
+    }
+  ],
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art"
+}

@@ -28,6 +28,17 @@ function loadCreature(id) {
         frames[f.atlasKey] = pngToCanvas(path.join(spritesDir, f.atlasKey));
       }
     }
+    // schema2 (CREATURE-000X) also carries per-direction frame lists
+    // (dirFrames.S/N/W) alongside the default top-level `frames` (S only);
+    // without this, any non-default direction atlasKey is missing from the
+    // returned map even though the PNG exists on disk.
+    for (const dirList of Object.values(anim.dirFrames || {})) {
+      for (const f of dirList) {
+        if (!frames[f.atlasKey]) {
+          frames[f.atlasKey] = pngToCanvas(path.join(spritesDir, f.atlasKey));
+        }
+      }
+    }
   }
   return { meta, frames };
 }

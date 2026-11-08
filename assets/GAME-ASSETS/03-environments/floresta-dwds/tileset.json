@@ -1,0 +1,67 @@
+{
+  "biome": "floresta-dwds",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "tiles": [
+    {
+      "file": "tiles/ground_grass_shade_real.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_edge.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    }
+  ],
+  "props": [
+    {
+      "file": "props/tree_a.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/tree_b.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/tree_c.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bush_a.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bush_b.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_patch_white.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    }
+  ]
+}

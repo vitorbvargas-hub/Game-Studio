@@ -1,0 +1,38 @@
+{
+  "characterId": "TAMER-0001",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "Hero (protagonista padrao, Digimon World DS)",
+  "basis": "ADR-009 Secao Licenca (fundador, 2026-11-08: sprites oficiais liberados em todo o projeto, inclusive git)",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "restrictions": [
+    "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game",
+    "Publicacao exige aprovacao separada do fundador",
+    "Substituir por arte propria (camada 'original') ao longo do projeto (ADR-009)"
+  ],
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Hero__48323.png",
+    "sha256": "120eecc53e01c33a96153cb1e84bb65114e10ff199683b102fb4311c392847d0",
+    "bytes": 36331,
+    "providedBy": "varredura automatica (Spriters Resource), fundador autorizou em 2026-11-08",
+    "retrievedAt": "2026-11-08",
+    "modifications": "chroma key por celula (fundo alterna tom entre celulas); grade de variante 1 (boy, bloco esquerdo) recortada em 4 direcoes x 3 quadros de 32x32; pivo recalculado pelo bbox do quadro down-idle; sem redimensionar nem redesenhar o personagem."
+  },
+  "credit": {
+    "ripper": "redblueyellow",
+    "creditTextOnSheet": "Ripped by redblueyellow. No credit needed.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art",
+  "notes": "Credito dado por padrao do estudio mesmo a folha dizendo 'no credit needed': redblueyellow (rip DW DS, The Spriters Resource); (c) Bandai Namco. Substitui tamer_placeholder.js (avatar procedural em retangulos) como Tamer jogavel padrao."
+}

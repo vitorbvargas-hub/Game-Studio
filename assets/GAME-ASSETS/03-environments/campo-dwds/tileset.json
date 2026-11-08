@@ -1,0 +1,87 @@
+{
+  "biome": "campo-dwds",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "tiles": [
+    {
+      "file": "tiles/ground_grass_real.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/ground_sand_real.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_full.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_edge_s.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    }
+  ],
+  "props": [
+    {
+      "file": "props/tree_a.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/tree_b.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bush_a.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bush_b.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_patch_red.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_patch_pink.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/wood_signpost.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/wood_fence.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    }
+  ]
+}

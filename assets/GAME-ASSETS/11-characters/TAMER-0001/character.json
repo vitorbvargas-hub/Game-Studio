@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "TAMER-0001",
+  "name": "Tamer (protagonista)",
+  "category": "tamer",
+  "role": "player",
+  "description": "Tamer: sprites oficiais de Digimon World DS (protagonista/NPC Hero). No mapa: idle e walk nas 4 direcoes (S/N/W/E desenhadas, sem espelhamento -- a folha ja traz as 4).",
+  "dimensions": {
+    "frameW": 32,
+    "frameH": 32,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 16,
+    "y": 31
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "TAMER-0001_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0001_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0001_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0001_walk_W_01.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0001_walk_E_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0001_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0001_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0001_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0001_walk_S_02.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_W_02.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_E_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0001_walk_E_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 140,
+  "sprites": "./sprites/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Hero\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por redblueyellow; baixada por varredura automatica em 10-source-files/spriters-resource/. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Grade de 4 variantes (outfits) x 4 direcoes x 3 colunas (32x32) detectada por deteccao de banda vazia (sem suposicao de grade fixa); usada a variante 1 de cada bloco (boy/girl).",
+    "Chroma key por celula (cada celula amostra sua propria cor de canto) porque a folha alterna o tom de fundo entre celulas adjacentes.",
+    "Coluna do meio = idle (de pe); colunas 0/2 = extremos do passo de caminhada, ciclo renderizado f0-f1-f0-f2 como no pipeline de CREATURE-000X.",
+    "Pivo = centro-x da celula (16) e y logo abaixo do pixel mais baixo nao-transparente do quadro down-idle."
+  ]
+}

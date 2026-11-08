@@ -1,0 +1,62 @@
+{
+  "biome": "agua-dwds",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "tiles": [
+    {
+      "file": "tiles/ground_water_real.png",
+      "collision": true,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/water_00.png",
+      "collision": true,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/water_01.png",
+      "collision": true,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/shore_edge_s.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    }
+  ],
+  "props": [
+    {
+      "file": "props/reeds_a.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/reeds_b.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/lily_pad.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bridge_deck.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bridge_post.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    }
+  ]
+}
