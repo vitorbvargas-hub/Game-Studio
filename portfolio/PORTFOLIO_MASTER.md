@@ -53,3 +53,8 @@ Nenhum projeto morto ainda. Nenhuma oportunidade foi formalmente descartada — 
 ## Índice de documentos do portfólio
 
 Ver `portfolio/README.md`.
+
+## Atualização 2026-11-08: GS-003
+| ID | Projeto | Estágio | Owner | Próxima decisão |
+|---|---|---|---|---|
+| GS-003 | Idle de coleção de monstros original (Linha A coleção; Linha B monstros digitais BR) | DISCOVERY concluído | game-studio | Fundador aprova ou não o protótipo vertical slice da Linha A (ver `projects/discovery/GS-003/EXECUTIVE_SUMMARY.md`) |
