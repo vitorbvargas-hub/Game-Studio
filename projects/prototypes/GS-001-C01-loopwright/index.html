@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Loopwright — protótipo descartável do core loop</title>
+<style>
+  body { font-family: monospace; background: #1a1612; color: #e8d9b8; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 18px; }
+  .panel { border: 1px solid #5a4a30; padding: 12px; margin: 12px 0; border-radius: 6px; background: #241e16; }
+  button { font-family: monospace; background: #4a3b24; color: #e8d9b8; border: 1px solid #7a6240; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button:hover:not(:disabled) { background: #5a4a30; }
+  .big { font-size: 22px; font-weight: bold; }
+  .muted { color: #a8906a; font-size: 12px; }
+  .log { max-height: 140px; overflow-y: auto; font-size: 11px; color: #a8906a; }
+</style>
+</head>
+<body>
+<h1>⚙ Loopwright — protótipo de sensação de loop (descartável, sem rede)</h1>
+<p class="muted">Não é o jogo final. Serve só para sentir a cadência de clique/espera do core loop de GS-001-C01 antes do spike de simulação headless.</p>
+
+<div class="panel">
+  <div class="big" id="gears">0</div>
+  <div class="muted">Engrenagens totais geradas: <span id="totalGears">0</span></div>
+</div>
+
+<div class="panel">
+  <strong>Estação 1</strong> — nível <span id="lvl">1</span> — produção: <span id="rate">1</span>/s
+  <br><br>
+  <button id="clickBtn">⚙ Girar manivela (+produção/s atual)</button>
+  <br><br>
+  <button id="upgradeBtn"></button>
+</div>
+
+<div class="panel">
+  <strong>★ Prestígio</strong>
+  <div class="muted">Disponível ao atingir 50.000 engrenagens totais geradas (meta de pacing do GDD).</div>
+  <button id="prestigeBtn" disabled>Reiniciar (indisponível)</button>
+  <div class="muted">Essência Eterna: <span id="essence">0</span> (multiplicador: <span id="mult">1.00</span>x)</div>
+</div>
+
+<div class="panel log" id="log"></div>
+
+<script>
+// Fórmulas do GDD (GS-001/PROTOTYPES.md §1.9):
+// custo(n) = custo_base * 1.15^n ; produção = base_produção * nível * mult_prestigio
+// prestígio em total >= 50000 ; essência = floor(sqrt(total/10000)) ; mult = 1 + essência*0.05
+
+let gears = 0;
+let totalGears = 0;
+let level = 1;
+const baseProd = 1;
+const baseCost = 10;
+let essence = 0;
+let prestigeMult = 1;
+
+const $ = id => document.getElementById(id);
+
+function currentRate() { return baseProd * level * prestigeMult; }
+function upgradeCost() { return Math.floor(baseCost * Math.pow(1.15, level)); }
+
+function log(msg) {
+  const el = $('log');
+  el.innerHTML = `<div>${msg}</div>` + el.innerHTML;
+}
+
+function render() {
+  $('gears').textContent = Math.floor(gears).toLocaleString('pt-BR');
+  $('totalGears').textContent = Math.floor(totalGears).toLocaleString('pt-BR');
+  $('lvl').textContent = level;
+  $('rate').textContent = currentRate().toFixed(1);
+  $('upgradeBtn').textContent = `▲ Upgrade (nível ${level + 1}) — custo: ${upgradeCost().toLocaleString('pt-BR')}`;
+  $('upgradeBtn').disabled = gears < upgradeCost();
+  $('essence').textContent = essence;
+  $('mult').textContent = prestigeMult.toFixed(2);
+  $('prestigeBtn').disabled = totalGears < 50000;
+  $('prestigeBtn').textContent = totalGears >= 50000 ? '★ Reiniciar e ganhar Essência' : 'Reiniciar (indisponível)';
+}
+
+function addGears(n) {
+  gears += n;
+  totalGears += n;
+}
+
+$('clickBtn').addEventListener('click', () => {
+  addGears(currentRate());
+  render();
+});
+
+$('upgradeBtn').addEventListener('click', () => {
+  const cost = upgradeCost();
+  if (gears >= cost) {
+    gears -= cost;
+    level += 1;
+    log(`Upgrade comprado → nível ${level}, produção agora ${currentRate().toFixed(1)}/s`);
+    render();
+  }
+});
+
+$('prestigeBtn').addEventListener('click', () => {
+  if (totalGears < 50000) return;
+  const gained = Math.floor(Math.sqrt(totalGears / 10000));
+  essence += gained;
+  prestigeMult = 1 + essence * 0.05;
+  log(`★ Prestígio! +${gained} Essência Eterna (total ${essence}, multiplicador ${prestigeMult.toFixed(2)}x)`);
+  gears = 0;
+  totalGears = 0;
+  level = 1;
+  render();
+});
+
+// tick automático (produção/s), igual ao idle real
+setInterval(() => {
+  addGears(currentRate() / 10); // atualiza a cada 100ms em fração do rate/s
+  render();
+}, 100);
+
+render();
+log('Protótipo iniciado. Clique na manivela ou espere a produção automática.');
+</script>
+</body>
+</html>
