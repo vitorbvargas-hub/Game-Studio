@@ -1,0 +1,23 @@
+{
+  "_comment": "Espécies do vertical slice. O id é o id da criatura em GAME-ASSETS/01-creatures. 'pack' reaproveita stats/skills do pacote digimon-fan do protótipo idle (prototype/game/packs/digimon-fan). A linha Guilmon não existe no pacote: stats e skills locais abaixo são [H], modelados na linha Agumon.",
+  "radiusByStage": { "1": 12, "2": 16, "3": 22 },
+  "species": [
+    { "id": "CREATURE-0002", "name": "Gigimon", "stage": 1, "affinity": "virus", "base": { "hp": 47, "atk": 14, "def": 7, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["hot_head", "investida"] },
+    { "id": "CREATURE-0003", "name": "Guilmon", "stage": 2, "affinity": "virus", "base": { "hp": 65, "atk": 20, "def": 10, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["pyro_sphere", "investida"] },
+    { "id": "CREATURE-0004", "name": "Growlmon", "stage": 3, "affinity": "virus", "base": { "hp": 88, "atk": 27, "def": 17, "spd": 20 }, "growth": { "hp": 5.5, "atk": 2.2, "def": 1.3, "spd": 0.9 }, "skills": ["exhaust_flame", "investida"] },
+    { "id": "CREATURE-0005", "pack": "koromon" },
+    { "id": "CREATURE-0006", "pack": "agumon" },
+    { "id": "CREATURE-0007", "pack": "greymon_ofensivo", "name": "Greymon" },
+    { "id": "CREATURE-0008", "pack": "tsunomon" },
+    { "id": "CREATURE-0009", "pack": "gabumon" },
+    { "id": "CREATURE-0010", "pack": "garurumon_ofensivo", "name": "Garurumon" },
+    { "id": "CREATURE-0011", "pack": "tokomon" },
+    { "id": "CREATURE-0012", "pack": "patamon" },
+    { "id": "CREATURE-0013", "pack": "angemon_ofensivo", "name": "Angemon" }
+  ],
+  "skills": [
+    { "id": "hot_head", "name": "Hot Head", "kind": "damage", "power": 130, "cooldownTicks": 40 },
+    { "id": "pyro_sphere", "name": "Pyro Sphere", "kind": "damage", "power": 150, "cooldownTicks": 50 },
+    { "id": "exhaust_flame", "name": "Exhaust Flame", "kind": "damage", "power": 175, "cooldownTicks": 60 }
+  ]
+}

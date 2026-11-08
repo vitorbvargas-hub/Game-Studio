@@ -1,0 +1,25 @@
+{
+  "name": "gs003-world",
+  "private": true,
+  "version": "0.1.0",
+  "description": "GS-003 vertical slice — mundo em tilemap com combate no próprio mapa (Canvas 2D, sim autoritativa local)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "map": "node scripts/gen-test-map.mjs",
+    "shots": "vite-node scripts/capture-screens.ts"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.100",
+    "@types/node": "^26.6.6",
+    "jsdom": "^26.1.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vite-node": "3.2.4",
+    "vitest": "3.2.7"
+  }
+}
