@@ -1,0 +1,37 @@
+{
+  "_doc": "Dados de cena da prova visual ao vivo (GS-004 §4). 'players' alimenta a sim (mesmo contrato do mapa de teste). O resto é só apresentação: nível do Tamer, equipe extra, Box e chat são PLACEHOLDERS de cena, sem persistência nem regra de jogo.",
+  "map": "forest-proof",
+  "region": { "name": "Floresta Densa", "route": "Rota 3" },
+  "players": [
+    { "id": "p1", "name": "Kaio", "start": "player", "partnerSpecies": "CREATURE-0003", "partnerLevel": 5, "bot": false, "tamerLevel": 12, "tint": 0 },
+    { "id": "bot1", "name": "Lumi", "start": "bot", "partnerSpecies": "CREATURE-0012", "partnerLevel": 6, "bot": true, "tamerLevel": 18, "tint": 0 },
+    { "id": "bot2", "name": "RafaDGT", "start": "bot2", "partnerSpecies": "CREATURE-0009", "partnerLevel": 5, "bot": true, "tamerLevel": 9, "tint": 150 },
+    { "id": "bot3", "name": "Bia_Tamer", "start": "bot3", "partnerSpecies": "CREATURE-0006", "partnerLevel": 7, "bot": true, "tamerLevel": 24, "tint": 280 }
+  ],
+  "team": [
+    { "species": "CREATURE-0011", "level": 4, "hpPct": 100 },
+    { "species": "CREATURE-0008", "level": 6, "hpPct": 72 },
+    { "species": "CREATURE-0006", "level": 9, "hpPct": 100 },
+    { "species": "CREATURE-0013", "level": 14, "hpPct": 45 }
+  ],
+  "box": [
+    { "species": "CREATURE-0005", "level": 3 },
+    { "species": "CREATURE-0002", "level": 2 },
+    { "species": "CREATURE-0012", "level": 5 },
+    { "species": "CREATURE-0009", "level": 7 },
+    { "species": "CREATURE-0004", "level": 16 },
+    { "species": "CREATURE-0007", "level": 15 },
+    { "species": "CREATURE-0010", "level": 15 },
+    { "species": "CREATURE-0005", "level": 4 },
+    { "species": "CREATURE-0011", "level": 2 },
+    { "species": "CREATURE-0008", "level": 3 },
+    { "species": "CREATURE-0006", "level": 6 },
+    { "species": "CREATURE-0003", "level": 8 }
+  ],
+  "chat": [
+    { "from": "Lumi", "text": "alguém pra caçar na clareira leste?" },
+    { "from": "RafaDGT", "text": "Gabumon quase evoluindo aqui" },
+    { "from": "Bia_Tamer", "text": "chefe mundial abre em 6h" }
+  ],
+  "tamerXp": { "base": 40, "perLevel": 18 }
+}

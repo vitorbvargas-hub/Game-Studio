@@ -20,7 +20,8 @@ import {
   type Dir4,
 } from "./anim";
 import { drawCharge, drawImpact, drawProjectile, projectilePos, shakeOffset } from "./fx";
-import type { CanvasFactory, ImageStore } from "./images";
+import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
+import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
 import { drawOutlinedText, pixelTextWidth } from "./pixelfont";
 import { EXCLAIM_MS, type Presenter, type VisualEntity } from "./presenter";
@@ -37,6 +38,10 @@ export interface ViewOptions {
   tamers?: { local?: CreatureVisual; remote?: CreatureVisual };
   /** Suavização visual do movimento (desligar para comparar com a v1). */
   smoothing?: boolean;
+  /** Só apresentação (dados de cena): nível exibido no nome de cada Tamer, por id de jogador. */
+  tamerLevels?: Record<string, number>;
+  /** Só apresentação: matiz (graus) do sprite de cada outro jogador, para diferenciar quem usa o mesmo sprite. */
+  tamerTints?: Record<string, number>;
 }
 
 const LOCOMOTION: LogicState[] = ["IDLE", "WALK", "FOLLOW", "ENGAGE", "RETURN"];
@@ -67,6 +72,7 @@ export class WorldView {
   private silhouettes = new Map<string, HTMLCanvasElement>();
   private shadows = new Map<string, HTMLCanvasElement>();
   private propImages = new Map<string, HTMLCanvasElement>();
+  private tinted = new Map<string, HTMLCanvasElement>();
   private tamers: Record<string, ReturnType<typeof makeTamerFrames>>;
   /** Estatística do último quadro (culling). */
   stats = { entitiesDrawn: 0, propsDrawn: 0, chunksDrawn: 0 };
@@ -320,7 +326,7 @@ export class WorldView {
   private drawEntity(v: VisualEntity, pos: Vec, p: Presenter, now: number): void {
     if (v.kind === "player" || v.kind === "remote_player") {
       const tv = v.kind === "player" ? this.opts.tamers?.local : this.opts.tamers?.remote;
-      if (tv && this.images.get(tv.sheetUrl)) return this.drawSprite(tv, v, pos, p, now);
+      if (tv && this.images.get(tv.sheetUrl)) return this.drawSprite(tv, v, pos, p, now, this.opts.tamerTints?.[v.id]);
       return this.drawTamer(v, pos, now);
     }
     const cv = this.visualOf(v);
@@ -350,11 +356,18 @@ export class WorldView {
     return { key: frames[fi]?.atlasKey ?? "", mirror: face.mirror, state, anim: choice.name };
   }
 
-  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number): void {
+  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number): void {
     const mo = this.motions.get(v.id);
     const { key, mirror, state } = this.frameFor(cv, v, p, now);
-    const img = this.images.get(imageUrlOf(cv, key));
+    const url = imageUrlOf(cv, key);
+    let img: ImageLike | HTMLCanvasElement | undefined = this.images.get(url);
     if (!img) return;
+    if (tint) {
+      const id = `${url}|${tint}`;
+      let t = this.tinted.get(id);
+      if (!t) this.tinted.set(id, (t = hueShifted(img, tint, this.makeCanvas)));
+      img = t;
+    }
     const fr = cv.atlas.frames[key]?.frame;
     if (!fr) return;
     const pv = framePivot(cv, key);
@@ -550,10 +563,46 @@ export class WorldView {
     }
     ctx.fillStyle = ratio > 0.5 ? "#63c74d" : ratio > 0.25 ? "#feae34" : "#e43b44";
     ctx.fillRect(bx + 1, by + 1, Math.max(hp > 0 ? 1 : 0, Math.round(inner * ratio)), 2);
-    const partner = p.entities.get(p.localPartnerId);
-    if (v.id === p.localPartnerId || partner?.targetId === v.id) {
-      const label = `LV${v.level}`;
-      drawOutlinedText(ctx, label, x0 - Math.floor(pixelTextWidth(label) / 2), by - 7, v.id === p.localPartnerId ? "#2ce8f5" : "#ffffff");
+  }
+
+  /** Altura (px) do topo da cabeça acima dos pés, para Tamers com sprite real ou placeholder. */
+  private tamerTop(v: VisualEntity): number {
+    const tv = v.kind === "player" ? this.opts.tamers?.local : this.opts.tamers?.remote;
+    if (!tv) return TAMER_PIVOT.y;
+    const m = tv.manifest;
+    return m.pivot.y - (m.anchors?.head?.y ?? 0);
+  }
+
+  /**
+   * Rótulos de nome e nível (Tamers e Digimon) das entidades visíveis, ancorados acima da cabeça (e acima da barra
+   * de HP quando ela aparece), em px lógicos de tela. A disposição sem sobreposição fica em labels.ts.
+   */
+  labels(p: Presenter, alpha: number, now: number): EntityLabel[] {
+    const out: EntityLabel[] = [];
+    const cam = this.camera;
+    const localPartner = p.entities.get(p.localPartnerId);
+    for (const v of p.entities.values()) {
+      if (v.defeatedAt !== undefined && now > v.defeatedAt + 400) continue;
+      const pos = this.posOf(p, v, alpha);
+      const x = Math.round(pos.x - cam.x);
+      const y = Math.round(pos.y - cam.y);
+      if (x < -40 || y < -10 || x > cam.w + 40 || y > cam.h + 120) continue;
+      const tamer = v.kind === "player" || v.kind === "remote_player";
+      const top = tamer ? this.tamerTop(v) : this.headOffset(v).top;
+      const bar = p.barVisible(v, now) ? 8 : 1;
+      const mine = v.kind === "player" || v.ownerId === p.localPlayerId;
+      const off = tamer ? { x: 0, y: 0 } : this.combatOffset(v, p, now);
+      out.push({
+        id: v.id,
+        name: v.name,
+        level: tamer ? this.opts.tamerLevels?.[v.id] : v.level,
+        x: x + off.x,
+        y: y - Math.round(top) - bar - 1,
+        color: tamer ? (mine ? "#ffe9a8" : "#ffffff") : v.kind === "wild" ? "#ffb4a2" : mine ? "#9ff0ff" : "#cdb8ff",
+        priority: v.kind === "player" ? 5 : v.id === p.localPartnerId ? 4 : localPartner?.targetId === v.id ? 3 : tamer || v.kind === "remote_partner" ? 2 : 1,
+        alpha: v.defeatedAt !== undefined ? 0.5 : v.kind === "wild" && !v.encounterId ? 0.85 : 1,
+      });
     }
+    return out;
   }
 }

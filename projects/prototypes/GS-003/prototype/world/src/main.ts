@@ -3,17 +3,22 @@
 
 import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
+import { aliasSummary, resolveSceneTiles, type SceneAliases } from "./assets/scene-tiles";
 import { countDwdsSources, loadTileSources } from "./assets/tiles";
+import forestProofAliases from "./data/maps/forest-proof.aliases.json";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
+import { drawLabels, labelMetrics, layoutLabels, measureWith } from "./render/labels";
+import { makePortraitFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
 import { pxToSub } from "./sim/map";
 import { TICK_MS } from "./sim/params";
-import { createDefaultWorld, LOCAL_PLAYER } from "./sim/setup";
+import { createDefaultWorld, createForestProofWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent } from "./sim/types";
 import { getEntity, getPlayer, snapshot, snapshotOf, stepWorld } from "./sim/world";
 import "./style.css";
-import { Hud } from "./ui/hud";
+import { Hud, type HudScene } from "./ui/hud";
+import { Minimap, type MinimapDot } from "./ui/minimap";
 
 const params = new URLSearchParams(location.search);
 const SEED = Number(params.get("seed") ?? Date.now() % 100000);
@@ -23,16 +28,31 @@ const SIZE_MODE = params.get("size") ?? "native";
 /** ?smooth=0 desliga a suavização visual (comparação com a v1). ?tiles=original ignora os biomas DS. */
 const SMOOTH = params.get("smooth") !== "0";
 const TILES_DWDS = params.get("tiles") !== "original";
+/** ?map=meadow volta ao mapa de teste da v2; padrão = cena da prova visual (floresta densa + 3 jogadores bot). */
+const MAP = params.get("map") === "meadow" ? "meadow" : "forest-proof";
+/** Altura da barra inferior do HUD (CSS px): a câmera centra o Tamer na área visível acima dela. */
+const HUD_BOTTOM_PX = 96;
+const ZOOM = Math.max(0, Math.floor(Number(params.get("zoom") ?? 0)));
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
 
 async function boot() {
   const canvas = document.querySelector<HTMLCanvasElement>("#world")!;
+  const labelCanvas = document.querySelector<HTMLCanvasElement>("#labels")!;
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
-  const { sim, events: spawnEvents } = createDefaultWorld(SEED, { auto: params.get("auto") === "1" });
+  const forest = MAP === "forest-proof";
+  const auto = params.get("auto") === "1";
+  const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto }) : createDefaultWorld(SEED, { auto });
   const creatures = loadCreatureCatalog();
-  const tiles = loadTileSources(TILES_DWDS);
+  let tiles = loadTileSources(TILES_DWDS);
+  if (forest) {
+    const aliases = forestProofAliases as SceneAliases;
+    const pack = loadTileSources(true, (p) => p.includes(`/${aliases.pack}/`));
+    const scene = resolveSceneTiles(tiles, pack, aliases);
+    tiles = scene.tiles;
+    console.info(`forest-proof · tiles ${aliasSummary(aliases, scene.report)}`, scene.report);
+  }
   const tamers = pickTamers(loadCharacterCatalog());
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
   const images = new ImageStore(browserImageLoader);
@@ -43,7 +63,7 @@ async function boot() {
   ]);
   if (failed.length) console.warn("assets não carregados:", failed);
   console.info(
-    `GS-003 world v2 · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
+    `GS-003 world v2 · mapa ${MAP} · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
       `Tamer ${tamers.local?.manifest.id ?? "placeholder"}/${tamers.remote?.manifest.id ?? "placeholder"} · tamanho ${sizeTable ? `tabela (${Object.keys(sizeTable).length})` : "nativo DS"}`,
   );
 
@@ -53,13 +73,26 @@ async function boot() {
     sizeTable,
     tamers,
     smoothing: SMOOTH,
+    tamerLevels: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel])) : undefined,
+    tamerTints: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint])) : undefined,
   });
   const intents: Intent[] = [];
   const player = getPlayer(sim.state, LOCAL_PLAYER)!;
-  const hud = new Hud(hudRoot, sim.content, LOCAL_PLAYER, {
-    onAuto: (on) => intents.push({ t: "set_auto", playerId: LOCAL_PLAYER, on }),
-    onFlee: () => intents.push({ t: "flee", playerId: LOCAL_PLAYER }),
-  }, player.auto);
+  const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
+  const hudScene: HudScene | undefined = forest
+    ? { region: FOREST_PROOF_SCENE.region, tamerName: me.name, tamerLevel: me.tamerLevel, tamerXp: FOREST_PROOF_SCENE.tamerXp, team: FOREST_PROOF_SCENE.team, box: FOREST_PROOF_SCENE.box, chat: FOREST_PROOF_SCENE.chat }
+    : undefined;
+  const hud = new Hud(
+    hudRoot,
+    sim.content,
+    LOCAL_PLAYER,
+    {
+      onAuto: (on) => intents.push({ t: "set_auto", playerId: LOCAL_PLAYER, on }),
+      onFlee: () => intents.push({ t: "flee", playerId: LOCAL_PLAYER }),
+    },
+    player.auto,
+    { scene: hudScene, portrait: makePortraitFn(creatures, images), minimap: new Minimap(sim.map, browserCanvasFactory) },
+  );
   hud.onEvents(spawnEvents);
   presenter.onTick(snapshot(sim), spawnEvents, performance.now());
 
@@ -68,11 +101,17 @@ async function boot() {
   const resize = () => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    scale = Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
+    // Prova visual: enquadramento da referência (~25 × 14 tiles visíveis) → escala arredondada sobre 640 × 400.
+    // ?zoom=N força a escala; o mapa de teste mantém a regra antiga (maior inteiro que caiba em 400 × 240).
+    scale = ZOOM > 0 ? ZOOM : forest ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
     canvas.width = Math.ceil(vw / scale);
     canvas.height = Math.ceil(vh / scale);
     canvas.style.width = `${canvas.width * scale}px`;
     canvas.style.height = `${canvas.height * scale}px`;
+    labelCanvas.width = canvas.width * scale;
+    labelCanvas.height = canvas.height * scale;
+    labelCanvas.style.width = `${labelCanvas.width}px`;
+    labelCanvas.style.height = `${labelCanvas.height}px`;
   };
   window.addEventListener("resize", resize);
   resize();
@@ -90,6 +129,8 @@ async function boot() {
     const k = e.key.toLowerCase();
     if ("wasd".includes(k) && k.length === 1) keys.add(k);
     if (k === "f") intents.push({ t: "flee", playerId: LOCAL_PLAYER });
+    if (k === "e" && !e.repeat) hud.toggleTeam();
+    if (k === "escape") hud.closeTeam();
   });
   window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
   window.addEventListener("blur", () => keys.clear());
@@ -114,6 +155,31 @@ async function boot() {
     return best;
   }
 
+  // ---- nomes e níveis (camada nítida na resolução da tela) ----
+  const lctx = labelCanvas.getContext("2d")!;
+  const drawNameplates = (alpha: number, now: number) => {
+    lctx.clearRect(0, 0, labelCanvas.width, labelCanvas.height);
+    const m = labelMetrics(scale);
+    drawLabels(lctx, layoutLabels(view.labels(presenter, alpha, now), measureWith(lctx, m), scale, m), m);
+  };
+
+  // ---- minimapa / coordenadas / qps (4 Hz) ----
+  let lastHudWorld = 0;
+  let frames = 0;
+  const updateHudWorld = (now: number) => {
+    frames++;
+    if (now - lastHudWorld < 250) return;
+    const dots: MinimapDot[] = [];
+    for (const v of presenter.entities.values()) {
+      if (v.defeatedAt !== undefined) continue;
+      const kind = v.id === LOCAL_PLAYER ? "me" : v.id === presenter.localPartnerId ? "partner" : v.kind === "remote_player" ? "player" : v.kind === "wild" ? "wild" : undefined;
+      if (kind) dots.push({ x: v.cur.x, y: v.cur.y, kind });
+    }
+    hud.updateWorld(view.motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
+    lastHudWorld = now;
+    frames = 0;
+  };
+
   // ---- loop ----
   let acc = 0;
   let last = performance.now();
@@ -136,16 +202,18 @@ async function boot() {
     presenter.update(now);
     const alpha = acc / TICK_MS;
     view.update(presenter, alpha, now);
-    const me = view.motionPos(LOCAL_PLAYER);
-    if (me) view.follow(me, now - lastFrame, view.shakeFor(presenter, now));
+    const mePos = view.motionPos(LOCAL_PLAYER);
+    if (mePos) view.follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / scale }, now - lastFrame, view.shakeFor(presenter, now));
     lastFrame = now;
     view.render(presenter, alpha, now);
+    drawNameplates(alpha, now);
+    updateHudWorld(now);
     const partner = getEntity(sim.state, player.partnerId);
     if (partner) hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(sim.content.balance, partner.level), player.bits);
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  Object.assign(window, { __gs003: { sim, presenter, view } });
+  Object.assign(window, { __gs003: { sim, presenter, view, hud } });
 }
 
 boot();

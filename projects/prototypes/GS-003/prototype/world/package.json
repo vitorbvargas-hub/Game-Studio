@@ -11,6 +11,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "map": "node scripts/gen-test-map.mjs",
+    "map:forest": "node scripts/gen-forest-proof.mjs",
+    "shots:live": "node scripts/capture-live.mjs",
     "shots": "vite-node scripts/capture-screens.ts"
   },
   "devDependencies": {

@@ -3,6 +3,24 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Prova visual ao vivo (2026-11-08, GS-004 §4 / ADR-010)
+
+Versão jogável da prova visual pedida pelo fundador, na estrutura da referência canônica do IdleDex (`GS-003/evidence/idledex-canonical/`). **A arquitetura não mudou:** sim, presenter e contrato de eventos são os mesmos da v2. Mexi só em apresentação, HUD e dados de cena.
+
+- **Cena `forest-proof` (padrão; `?map=meadow` volta ao mapa da v2).** O mapa vem de `scripts/gen-forest-proof.mjs` (`npm run map:forest`): mata densa em grade escalonada de copas sobrepostas, 5 clareiras de borda irregular, trilha de 1 tile, manchas de grama alta em grade, flores, cogumelos, troncos e pedras. As chaves visuais são lógicas (`fp_*`), e `src/data/maps/forest-proof.aliases.json` define o PNG de cada uma: primeiro o pacote **`03-environments/forest-v3/`** (já em uso: árvores redondas, coníferas e arbustivas, `grass_rich`, `forest_floor`, grama alta, flores, cogumelo, tronco, pedra, `path_rich`), depois os biomas `*-dwds` e os originais, e por fim um placeholder em código. Para ligar um PNG novo do forest-v3, basta pôr o nome dele em `v3`. O console mostra o resumo (`forest-v3: N/23 · fallback · placeholder`).
+- **Jogadores:** `src/data/scenes/forest-proof.scene.json` traz o jogador local e mais 3 Tamers bot (Lumi + Patamon, RafaDGT + Gabumon, Bia_Tamer + Agumon), todos com AUTO. Eles usam a IA de bot e o contrato `remote_player` que já existiam. Quem usa o mesmo sprite (TAMER-0002) ganha uma variação de matiz na roupa, que é só apresentação.
+- **Nomes e níveis** (`render/labels.ts`): uma camada `#labels` na resolução da tela, com texto e contorno escuro. Mostra o Tamer com `Nv.` (nível vindo da cena), o Digimon com o nível da sim e os selvagens com cor própria. A disposição evita sobreposição: o rótulo prioritário fica no lugar e os que colidem sobem e empilham, com um traço-guia quando sobem muito.
+- **HUD em DOM** (`ui/hud.ts`, `ui/icons.ts` com ícones pixel-art originais, `ui/minimap.ts`, `render/portrait.ts`):
+  - barra inferior com minimapa (região e coordenadas), Inventário, Bolsa e grade de 12 atalhos com ícones;
+  - Digimon ativo com retrato, nome, Nv, PV e XP, e equipe de 5 slots com mini-retrato, Nv e PV;
+  - XP do Tamer com nível; AUTO LIG./DESL. no topo central, com Fugir;
+  - à direita, bits (da sim) e painéis de evento placeholder; log de batalha à direita;
+  - chat recolhido à esquerda (mensagens simuladas); aviso "em breve" nos atalhos sem função.
+- **Modal "Equipe & Box"**: abre pelo atalho, pela tecla **E** ou ao clicar num slot da equipe, e fecha com Esc, × ou clique fora, com transição fade + escala de 180 ms. Tem a grade da equipe, o Box com busca, a ficha (PV/Ataque/Defesa/Velocidade por `statsAtLevel`, estágio, afinidade, golpes) e as ações **Evoluir, Golpes, Item e Soltar desabilitadas**.
+- **Câmera e enquadramento:** a escala é escolhida para mostrar cerca de 25 × 14 tiles, como na referência (escala 2 em 1600×900; `?zoom=N` força outro valor). O Tamer fica centrado na área acima da barra inferior.
+- **Capturas ao vivo** (`npm run shots:live`, `scripts/capture-live.mjs`): sobe o Vite, abre o jogo no Chromium headless pelo DevTools Protocol e fotografa o DOM real em `docs/screens/proof_live_geral.png`, `proof_live_combate.png` (+ `_zoom`), `proof_live_jogadores.png`, `proof_live_modal_transicao.png` e `proof_live_modal.png`. Neste host, o Chromium do cache do Playwright precisa de `CHROME_LIBS` com libnss3/libnspr4/libasound extraídas dos .deb do Ubuntu (`apt-get download` + `dpkg-deb -x`, sem root).
+- **Testes novos:** `tests/forest-proof.test.ts` (composição do mapa, aliases sem placeholder, prioridade do pacote, formato de tileset em lista, 3 bots lutando com AUTO, determinismo), `tests/labels.test.ts` (sem sobreposição, prioridade, escala) e `tests/hud.test.ts` reescrito (barra inferior, 5 slots, modal e ações desabilitadas, textos em pt-BR).
+
 ## v2 (2026-11-08): sprites de mapa, movimento fluido e combate animado
 
 - **Sprites de mapa do DS** (`tools/dwds_import/import_dwds_sheets.py`): walk e idle nas 4 direções, attack e hurt das poses do DS reduzidas para a escala do mapa. O tamanho nativo do DS já é relativo entre espécies (Koromon 17 px, Agumon 27, Greymon 38, Angemon 40). O Tamer oficial vem de `GAME-ASSETS/11-characters/TAMER-0001` (local) e `TAMER-0002` (outro jogador), feito pelo game-art. Os tiles DS vêm de `03-environments/*-dwds/` e têm prioridade sobre os originais.
@@ -22,10 +40,13 @@ npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale
 npm test                  # vitest: FSM, sim, presenter, assets, HUD
 npm run build             # tsc --noEmit + vite build → dist/
 npm run shots             # capturas em docs/screens/ (@napi-rs/canvas, sem navegador)
+npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png
+                          #   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu npm run shots:live
 npm run map               # regenera src/data/maps/test-meadow.tmj.json
+npm run map:forest        # regenera src/data/maps/forest-proof.tmj.json
 ```
 
-Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F).
+Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F) · **E** abre ou fecha "Equipe & Box" · Esc fecha.
 
 ## Arquitetura
 
@@ -42,7 +63,8 @@ src/render/   APRESENTAÇÃO. Lê snapshots e eventos e nunca escreve na sim.
   anim.ts     slots de animação por estado + fallback procedural (lunge, knockback, fade, bob)
   view.ts     Canvas 2D: chunks de chão 16×16 tiles, culling, ordenação por Y, sombras, barras, números, efeito de golpe
 src/assets/   loaders da biblioteca GAME-ASSETS (creature.json + atlas; tiles e props por nome de arquivo)
-src/ui/hud.ts HUD em DOM: parceira, AUTO, Fugir, log, barra de menus inativa
+src/ui/        HUD em DOM (padrão IdleDex): barra inferior, minimapa, atalhos, equipe, AUTO, log, chat, modal Equipe & Box
+src/render/labels.ts  nomes e níveis sem sobreposição (camada #labels na resolução da tela)
 ```
 
 - **A animação não decide o dano:** o golpe é resolvido no tick em que ATTACK começa (`attack_start` e `damage` saem juntos). A view só escolhe *quando* mostrar o número: com o `hitFrame` do manifest, ou com 160 ms no ataque procedural. Os testes rodam a mesma semente com o manifest só-idle, com um manifest com `attack` real e sem apresentação nenhuma, e conferem eventos idênticos e o mesmo conjunto de danos exibidos (só o horário muda).

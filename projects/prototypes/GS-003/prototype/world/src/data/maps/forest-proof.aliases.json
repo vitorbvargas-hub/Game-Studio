@@ -1,0 +1,29 @@
+{
+  "_doc": "Chave lógica do mapa forest-proof → PNG real. 1) pacote 03-environments/forest-v3/: o PNG com o nome da própria chave lógica (fp_tree_a.png) ou o primeiro de 'v3' que existir. 2) senão, o primeiro de 'fallback' nos outros pacotes (DS primeiro). 3) senão, placeholder em código. Para ligar um nome novo do forest-v3, basta acrescentá-lo em 'v3'.",
+  "pack": "forest-v3",
+  "aliases": {
+    "fp_floor_forest_a": { "v3": ["forest_floor_00"], "fallback": ["forest_floor_00"] },
+    "fp_floor_forest_b": { "v3": ["forest_floor_01"], "fallback": ["forest_floor_01"] },
+    "fp_floor_edge": { "v3": ["forest_floor_02", "ground_canopy_shade_real"], "fallback": ["forest_floor_01"] },
+    "fp_floor_clearing_a": { "v3": ["grass_rich_00"], "fallback": ["forest_floor_00"] },
+    "fp_floor_clearing_b": { "v3": ["grass_rich_01"], "fallback": ["forest_floor_01", "ground_grass_shade_real"] },
+    "fp_floor_clearing_c": { "v3": ["grass_rich_02"], "fallback": ["forest_floor_00"] },
+    "fp_path": { "v3": ["path_rich", "path_full"], "fallback": ["path_full"] },
+    "fp_tree_a": { "v3": ["tree_round_a"], "fallback": ["tree_forest_a"] },
+    "fp_tree_b": { "v3": ["tree_round_b"], "fallback": ["tree_forest_b"] },
+    "fp_tree_c": { "v3": ["tree_conifer_a"], "fallback": ["tree_forest_c"] },
+    "fp_tree_d": { "v3": ["tree_conifer_b"], "fallback": ["tree_forest_a"] },
+    "fp_tree_e": { "v3": ["tree_bushy_a"], "fallback": ["tree_big_a"] },
+    "fp_tree_f": { "v3": ["tree_bushy_b"], "fallback": ["tree_big_b"] },
+    "fp_tree_flowering": { "v3": ["tree_flowering"], "fallback": ["tree_big_a"] },
+    "fp_tall_grass_a": { "v3": ["tall_grass_a"], "fallback": [] },
+    "fp_tall_grass_b": { "v3": ["tall_grass_b"], "fallback": [] },
+    "fp_bush_a": { "v3": ["bush_accent"], "fallback": ["bush_fern_a"] },
+    "fp_flower_a": { "v3": ["flower_cluster_white"], "fallback": ["flower_patch_white"] },
+    "fp_flower_b": { "v3": ["flower_cluster_red"], "fallback": ["flower_patch_pink"] },
+    "fp_flower_c": { "v3": ["flower_cluster_purple"], "fallback": ["flower_patch_blue"] },
+    "fp_mushroom": { "v3": ["mushroom_cluster"], "fallback": [] },
+    "fp_log": { "v3": ["fallen_log"], "fallback": ["wood_fence"] },
+    "fp_rock": { "v3": ["rock_cluster"], "fallback": ["rock_cluster"] }
+  }
+}

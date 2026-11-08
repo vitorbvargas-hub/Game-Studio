@@ -13,8 +13,18 @@ export interface TileSource {
   pivot?: [number, number];
 }
 
+interface TilesetEntry {
+  image?: string;
+  /** Formato dos pacotes *-dwds: lista de { file, collision, suggestedLayer }; a chave é o nome do arquivo. */
+  file?: string;
+  key?: string;
+  rect?: [number, number, number, number];
+  pivot?: [number, number];
+}
+
 interface TilesetJson {
-  tiles: Record<string, { image: string; rect?: [number, number, number, number]; pivot?: [number, number] }>;
+  tiles?: Record<string, TilesetEntry> | TilesetEntry[];
+  props?: TilesetEntry[];
 }
 
 export function buildTileSources(pngs: Record<string, string>, tilesets: Record<string, unknown>): Record<string, TileSource> {
@@ -30,8 +40,14 @@ export function buildTileSources(pngs: Record<string, string>, tilesets: Record<
   }
   for (const [path, raw] of Object.entries(tilesets)) {
     const base = norm(path).split("/").slice(0, -1).join("/");
-    for (const [key, t] of Object.entries((raw as TilesetJson).tiles ?? {})) {
-      const imgPath = `${base}/${t.image}`.replace(/\/\.\//g, "/");
+    const ts = raw as TilesetJson;
+    const entries: [string, TilesetEntry][] = Array.isArray(ts.tiles) || ts.props
+      ? [...(Array.isArray(ts.tiles) ? ts.tiles : []), ...(ts.props ?? [])].map((t) => [t.key ?? String(t.image ?? t.file).split("/").pop()!.replace(/\.png$/i, ""), t])
+      : Object.entries(ts.tiles ?? {});
+    for (const [key, t] of entries) {
+      // Entrada simples (só "file", sem recorte) já foi coberta pelo PNG de mesmo nome.
+      if (!t.image && !t.rect && !t.pivot && !t.key) continue;
+      const imgPath = `${base}/${t.image ?? t.file}`.replace(/\/\.\//g, "/");
       const url = Object.entries(pngs).find(([p]) => norm(p) === imgPath)?.[1];
       if (url) out[key] = { url, rect: t.rect, pivot: t.pivot };
     }
@@ -40,8 +56,8 @@ export function buildTileSources(pngs: Record<string, string>, tilesets: Record<
 }
 
 /** `includeDwds=false` ignora os biomas DS (`03-environments/*-dwds/`), para comparar com os originais (?tiles=original). */
-export function loadTileSources(includeDwds = true): Record<string, TileSource> {
-  const keep = <T,>(o: Record<string, T>) => (includeDwds ? o : Object.fromEntries(Object.entries(o).filter(([p]) => !/-dwds\//.test(p))));
+export function loadTileSources(includeDwds = true, filter: (path: string) => boolean = () => true): Record<string, TileSource> {
+  const keep = <T,>(o: Record<string, T>) => Object.fromEntries(Object.entries(o).filter(([p]) => filter(p) && (includeDwds || !/-dwds\//.test(p))));
   const pngs = import.meta.glob<string>("@game-assets/03-environments/**/*.png", { eager: true, query: "?url", import: "default" });
   const tilesets = import.meta.glob("@game-assets/03-environments/**/tileset.json", { eager: true, import: "default" });
   return buildTileSources(keep(pngs), keep(tilesets));
@@ -96,6 +112,7 @@ function fillStyled(ctx: Ctx2D, style: string, ox: number, oy: number, x0: numbe
  * `<feição>_edge_<lado>` / `shore_<lado>` = meia célula da feição no lado indicado; `*_corner_<ns><ew>` = duas metades.
  */
 export function drawPlaceholderTile(ctx: Ctx2D, key: string, ox: number, oy: number, tile: number): void {
+  key = key.replace(/^fp_floor_forest/, "forest_floor").replace(/^fp_/, "");
   const seed = [...key].reduce((a, ch) => a + ch.charCodeAt(0), 0);
   const feature = key.startsWith("shore") || key.startsWith("water") ? "water" : key.startsWith("path") ? "path" : key.startsWith("forest") ? "forest" : "grass";
   const m = /_(?:edge_|corner_)?([nsew]{1,2})$/.exec(key);
@@ -163,6 +180,29 @@ const PROP_PLACEHOLDERS: Record<string, PropPlaceholder> = {
       blob(ctx, "#8b9bb4", 10, 7, 5, 3);
     },
   },
+  /** Tufo de grama alta (folhas em leque, escuras na base), como a grade de mato da referência. */
+  tall: {
+    w: 30,
+    h: 26,
+    pivot: [15, 25],
+    draw(ctx) {
+      const leaf = (angle: number, len: number, col: string, tip: string) => {
+        const dx = Math.sin(angle);
+        const dy = -Math.cos(angle);
+        for (let i = 0; i <= len; i++) {
+          const x = Math.round(15 + dx * i * (0.6 + i / (len * 2.2)));
+          const y = Math.round(24 + dy * i);
+          rect(ctx, "#0f2420", x - 1, y, 4, 2);
+          rect(ctx, i > len - 3 ? tip : col, x, y, 2, 1);
+        }
+      };
+      blob(ctx, "#0f2420", 15, 22, 13, 4);
+      const L = [-1.15, -0.8, -0.45, -0.15, 0.15, 0.45, 0.8, 1.15];
+      L.forEach((a, i) => leaf(a, [12, 17, 20, 22, 21, 19, 16, 12][i], i % 2 ? "#265c42" : "#1d4a36", "#3e8948"));
+      [-0.6, 0, 0.6].forEach((a, i) => leaf(a, [13, 16, 13][i], "#3e8948", "#63c74d"));
+      blob(ctx, "#193c3e", 15, 23, 9, 2);
+    },
+  },
   small: {
     w: 8,
     h: 6,
@@ -176,6 +216,6 @@ const PROP_PLACEHOLDERS: Record<string, PropPlaceholder> = {
 
 /** Placeholder de prop por prefixo da chave (tree_*, bush_*, rock_*; o resto vira um marcador pequeno). */
 export function propPlaceholder(key: string): PropPlaceholder {
-  const prefix = key.split("_")[0];
+  const prefix = key.replace(/^fp_/, "").split("_")[0];
   return PROP_PLACEHOLDERS[prefix] ?? PROP_PLACEHOLDERS.small;
 }
