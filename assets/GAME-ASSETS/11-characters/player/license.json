@@ -1,0 +1,32 @@
+{
+  "assetId": "PLAYER-TAMER",
+  "assetType": "player-character-creator",
+  "layer": "original",
+  "officialRip": false,
+  "fanException": false,
+  "baseCharacter": null,
+  "basis": "ADR-009 (GS-003 reset, 'Digimon primeiro' nao se aplica a este asset -- e o Tamer do jogador, nao uma criatura) + pedido direto do fundador 2026-11-08: 'crie personagens PROPRIOS onde a pessoa vai escolher o modelo, o corte de cabelo e a cor do cabelo'",
+  "nonCommercial": true,
+  "noRip": true,
+  "copyright": "Obra original do estudio (GameStudio / game-art). Nenhum pixel, silhueta ou arquivo de terceiro foi aberto, baixado ou traçado como base -- ver ASSET_QA_CHECKLIST.md e ART_STYLE_GUIDE.md secao 8.",
+  "restrictions": [
+    "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game",
+    "Publicacao exige aprovacao separada do fundador",
+    "Nenhum nome, termo ou marca oficial de terceiros usado para este personagem (e o Tamer generico do jogador, nao um personagem licenciado)"
+  ],
+  "source": {
+    "type": "original-generated",
+    "technique": "Matriz de caracteres pixel a pixel (character-matrix), renderizada via Canvas.setPixel/autoOutline/scaleNearest/flipX -- nunca Canvas.fillRect/fillEllipse/fillCircle/fillPolygon, conforme ADR-009 (o fundador reprovou o pipeline parametrico anterior).",
+    "generator": "projects/prototypes/GS-003/art/src/characters/ (grid.js, body.js, hair.js, clothing.js, legs.js, shading.js, palettes.js, generator.js, previews.js, ds_comparison.js)",
+    "paletteSource": "Lospec Endesga 32 (lospec.com/palette-list/endesga-32), ja adotada pelo projeto em ART_STYLE_GUIDE.md secao 4",
+    "scaleReferences": [
+      "Hero (Digimon World DS), assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Hero__48323.png -- so para calibrar escala/proporcao chibi, nao copiado (ver DECISIONS.md desta pasta de codigo)",
+      "Tamers do IdleDex, GS-003/evidence/founder-video-idledex/t22_map_walk.png -- so para calibrar escala no mapa (~30px), nao copiado"
+    ],
+    "generatedAt": "2026-11-08"
+  },
+  "credit": null,
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art",
+  "notes": "Sistema modular (paper doll): corpo (2 modelos x 3 tons de pele), cabelo (7 cortes x 8 cores -- os 6 pedidos pelo fundador mais moicano) e roupa (3 conjuntos x 2-3 cores), todos no mesmo grid 32x40 e mesmo pivo (16,35). Identidade de Tamer Digimon (goggles, luvas, jaqueta com trim ciano, Digivice proprio no cinto, sem bone estilo Ash) presente em todo outfit -- goggles exclusivos do outfit tamer-classico. Ver character_parts.json para o manifest completo e DECISIONS.md (pasta do gerador) para as 3 iteracoes de autocritica feitas nesta entrega (incluindo a comparacao de escala com TAMER-0001 em 09-previews/character_vs_ds_tamer_comparison.png)."
+}
