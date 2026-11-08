@@ -111,4 +111,33 @@ describe("animação idle por tempo real", () => {
     const gaps = changes.slice(1).map((t, i) => t - changes[i]);
     expect(gaps.every((g) => g === 500)).toBe(true);
   });
+
+  it("batalha automática: attack ao agir, hit ao tomar dano, depois volta ao idle", () => {
+    (globalThis as any).Image = class { complete = true; naturalWidth = SPRITE_MAX; naturalHeight = SPRITE_MAX; src = ""; };
+    const drawn: string[] = [];
+    const ctx = new Proxy({}, {
+      get: (_t, p) => (p === "drawImage" ? (img: { src: string }) => void drawn.push(img.src) : () => {}),
+      set: () => true,
+    });
+    const canvas = { getContext: () => ctx, style: {} } as unknown as HTMLCanvasElement;
+    const c = loadPack("digimon-fan");
+    const def = Object.values(c.creatures).find((x) => x.anims?.attack && x.anims?.hit)!;
+    const unit = makeCombatant(def, "c1", "ally", def.baseLevel ?? 1);
+    const state = { battle: { kind: "wave", allies: [unit], enemies: [] } } as unknown as GameState;
+    const r = new BattleRenderer(canvas, c);
+    const url = (path: string) => c.assets[path];
+    const last = () => drawn[drawn.length - 1];
+    r.draw(state, 1000);
+    expect((def.anims!.idle as string[]).map(url)).toContain(last());
+    r.onEvents([{ t: "act", actor: "c1", skillId: "x", hits: [] }]);
+    r.draw(state, 1001);
+    expect(last()).toBe(url((def.anims!.attack as string[])[0]));
+    // Uma passada (3 frames) e acabou: ~16 ms por quadro durante 1 s.
+    for (let t = 1017; t <= 2001; t += 16) r.draw(state, t);
+    expect((def.anims!.idle as string[]).map(url)).toContain(last());
+    r.onEvents([{ t: "act", actor: "x", skillId: "x", hits: [{ uid: "c1", amount: 3, kind: "damage" }] }]);
+    r.draw(state, 2017);
+    expect(last()).toBe(url((def.anims!.hit as string[])[0]));
+    delete (globalThis as any).Image;
+  });
 });

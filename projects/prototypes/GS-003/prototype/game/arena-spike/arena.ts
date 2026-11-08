@@ -7,7 +7,7 @@
 
 import { affinityMult, computeDamage, statsAtLevel } from "../src/sim/formulas";
 import { nextFloat } from "../src/sim/rng";
-import type { ContentBundle, SkillDef, SpriteRef } from "../src/sim/types";
+import type { AnimName, ContentBundle, SkillDef, SpriteAnims, SpriteRef } from "../src/sim/types";
 
 export interface ArenaConfig {
   simHz: number;
@@ -47,6 +47,8 @@ export interface Fighter {
   color: string;
   sprite?: SpriteRef;
   spriteFrameMs?: number;
+  anims?: SpriteAnims;
+  animFrameMs?: Partial<Record<AnimName, number>>;
   level: number;
   x: number;
   y: number;
@@ -69,6 +71,8 @@ export interface Fighter {
   guard: number;
   /** Ticks restantes da animação de ataque básico (só visual). */
   swing: number;
+  /** Andou neste tick por input próprio (só visual: escolhe a animação walk; knockback não conta). */
+  moving: boolean;
 }
 
 export interface Projectile {
@@ -115,7 +119,22 @@ export interface FighterSpec {
   level: number;
 }
 
-const msToTicks = (cfg: ArenaConfig, ms: number) => Math.max(1, Math.round((ms * cfg.simHz) / 1000));
+/** Duração do golpe básico na tela (arco + animação attack). */
+export const SWING_MS = 150;
+
+export const msToTicks = (cfg: ArenaConfig, ms: number) => Math.max(1, Math.round((ms * cfg.simHz) / 1000));
+
+/**
+ * Par padrão do spike, escolhido pelos dados do pacote (o código não conhece espécies): entre as criaturas
+ * com sprite, a primeira dupla em que o jogador tem vantagem de afinidade sobre a IA — compensa a IA
+ * reagir melhor que um humano. Sem vantagem possível, as duas primeiras com sprite.
+ */
+export function defaultMatchup(content: ContentBundle): [string, string] {
+  const withSprite = Object.values(content.creatures).filter((c) => c.sprite || c.anims?.idle);
+  const pool = withSprite.length ? withSprite : Object.values(content.creatures);
+  for (const p of pool) for (const e of pool) if (p.id !== e.id && affinityMult(content, p.affinity, e.affinity) > 1) return [p.id, e.id];
+  return [pool[0].id, (pool[1] ?? pool[0]).id];
+}
 
 /** Especial = primeira habilidade da criatura que não é o básico do pacote. */
 export function pickSkills(content: ContentBundle, creatureId: string): { basic: SkillDef; special: SkillDef } {
@@ -141,6 +160,8 @@ function makeFighter(content: ContentBundle, cfg: ArenaConfig, spec: FighterSpec
     color: def.color,
     sprite: def.sprite,
     spriteFrameMs: def.spriteFrameMs,
+    anims: def.anims,
+    animFrameMs: def.animFrameMs,
     level: spec.level,
     x: idx === 0 ? cfg.width * 0.25 : cfg.width * 0.75,
     y: (cfg.height + cfg.topClearancePx) / 2,
@@ -160,6 +181,7 @@ function makeFighter(content: ContentBundle, cfg: ArenaConfig, spec: FighterSpec
     hitstun: 0,
     guard: 0,
     swing: 0,
+    moving: false,
   };
 }
 
@@ -201,7 +223,7 @@ function clampToArena(cfg: ArenaConfig, f: Fighter): void {
 
 function useBasic(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, me: Fighter, foe: Fighter, ev: ArenaEvent[]): void {
   me.basicCd = msToTicks(cfg, Math.max(cfg.basic.cooldownMs, me.basic.cooldownTicks * content.balance.tickMs));
-  me.swing = msToTicks(cfg, 150);
+  me.swing = msToTicks(cfg, SWING_MS);
   const dx = foe.x - me.x;
   const dy = foe.y - me.y;
   const d = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -252,6 +274,7 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
     if (me.specialCd > 0) me.specialCd--;
     if (me.guard > 0) me.guard--;
     if (me.swing > 0) me.swing--;
+    me.moving = false;
     if (me.hitstun > 0) {
       me.hitstun--;
       continue;
@@ -264,6 +287,7 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
       me.y += my * n * me.speed;
       me.fx = mx * n;
       me.fy = my * n;
+      me.moving = true;
       clampToArena(cfg, me);
     }
     if (inp.basic && me.basicCd === 0) useBasic(st, content, cfg, me, foe, ev);

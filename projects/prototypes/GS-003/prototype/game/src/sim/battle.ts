@@ -41,6 +41,8 @@ export function makeCombatant(
     color: def.color,
     sprite: def.sprite,
     spriteFrameMs: def.spriteFrameMs,
+    anims: def.anims,
+    animFrameMs: def.animFrameMs,
     level,
     isBoss: "size" in def && def.size === "boss",
     maxHp: s.hp,

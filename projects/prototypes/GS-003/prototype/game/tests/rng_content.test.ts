@@ -64,6 +64,21 @@ describe("content packs", () => {
     expect(() => buildContent(raw)).toThrow(/frame_fantasma\.png[\s\S]*spriteFrameMs[\s\S]*lista não vazia/);
   });
 
+  it("anims por criatura: nomes conhecidos, frames existentes e animFrameMs > 0; sprite segue valendo como idle", () => {
+    const withAnims = Object.values(loadPack("digimon-fan").creatures).filter((c) => c.anims);
+    expect(withAnims.length).toBeGreaterThan(0);
+    for (const c of withAnims) {
+      expect(Object.keys(c.anims!).sort()).toEqual(["attack", "hit", "idle", "walk"]);
+      expect(c.sprite).toEqual(c.anims!.idle);
+    }
+    const raw = structuredClone(RAW_PACKS["digimon-fan"]);
+    const cr = raw.creatures.find((c) => c.anims)!;
+    (cr.anims as Record<string, string[]>).dance = [...(cr.anims!.idle as string[])];
+    cr.anims!.walk = ["sprites/passo_fantasma.png"];
+    cr.animFrameMs = { attack: 0 };
+    expect(() => buildContent(raw)).toThrow(/passo_fantasma\.png[\s\S]*animação desconhecida "dance"[\s\S]*animFrameMs\.attack/);
+  });
+
   it("rejeita referências quebradas", () => {
     const raw = structuredClone(RAW_PACKS["original-b"]);
     raw.creatures[0].skills.push("nao_existe");

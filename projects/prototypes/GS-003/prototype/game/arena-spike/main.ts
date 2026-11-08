@@ -1,21 +1,20 @@
 // SPIKE — shell da Arena de Ação: teclado -> ArenaInput, loop de passo fixo, render em Canvas 320x180.
-// Parâmetros de URL: ?pack=digimon-fan&p=agumon&e=gabumon&lv=10&seed=1
+// Parâmetros de URL: ?pack=<id>&p=<criatura>&e=<criatura>&lv=10&seed=1
 
 import { defaultPackId, loadPack } from "../src/packs";
 import type { ContentBundle } from "../src/sim/types";
-import { aiInput, createArena, stepArena, type ArenaConfig, type ArenaInput, type ArenaState, type Fighter } from "./arena";
+import { aiInput, createArena, defaultMatchup, stepArena, type ArenaConfig, type ArenaInput, type ArenaState, type Fighter } from "./arena";
 import { ArenaRenderer } from "./render";
 import cfgJson from "./arena.json";
 
 const cfg = cfgJson as ArenaConfig;
 const params = new URLSearchParams(location.search);
 const content: ContentBundle = loadPack(params.get("pack") ?? defaultPackId());
-const withSprite = Object.values(content.creatures).filter((c) => c.sprite);
-// Padrão do spike: Gabumon (jogador) x Agumon (IA) — no pack, dado > vacina (1,25x), o que compensa
-// a IA reagir melhor que um humano. Outro par: ?p=agumon&e=patamon. Sem os dois: primeiros com sprite.
-const pick = (id: string | null, fallback: string | undefined) => (id && content.creatures[id] ? id : fallback);
-const playerId = pick(params.get("p") ?? "gabumon", withSprite[0]?.id) ?? Object.keys(content.creatures)[0];
-const enemyId = pick(params.get("e") ?? "agumon", withSprite.find((c) => c.id !== playerId)?.id) ?? playerId;
+// Padrão: par do pacote em que o jogador tem vantagem de afinidade (ver defaultMatchup). Outro par: ?p=<id>&e=<id>.
+const [defP, defE] = defaultMatchup(content);
+const pick = (id: string | null, fallback: string) => (id && content.creatures[id] ? id : fallback);
+const playerId = pick(params.get("p"), defP);
+const enemyId = pick(params.get("e"), defE);
 const level = Number(params.get("lv") ?? content.creatures[playerId]?.baseLevel ?? 1) || 1;
 let seed = Number(params.get("seed") ?? Date.now()) >>> 0;
 

@@ -20,7 +20,9 @@ Legenda: **[E]** evidência, com fonte e data ou com medição feita neste host.
 | `arena-spike/capture.ts` + `screens/*.png` | Capturas geradas com o render real numa luta de IA x IA |
 
 Controles: WASD/setas para mover (8 direções), J/Espaço para o básico, K/E para o especial (sai na direção em que o lutador olha) e R para a revanche.
-URL: `?p=agumon&e=patamon&lv=12&seed=3&pack=digimon-fan`. O padrão é Gabumon (jogador) x Agumon (IA), Nv 8.
+URL: `?p=agumon&e=patamon&lv=12&seed=3&pack=digimon-fan`. O padrão vem dos dados (`defaultMatchup`: primeiro par com sprite em que o jogador tem vantagem de afinidade; no pack atual, Gabumon x Agumon), Nv base da criatura.
+
+Animações (2026-11-08): o render usa `anims` do pack — walk ao andar por input, attack no básico (`swing`) e no especial (evento `cast`), hit durante o `hitstun`, idle parado — e espelha o sprite quando o último lado horizontal é a esquerda. A escolha é só visual; a simulação ganhou apenas o campo `moving`. Capturas em `screens/` (inclui `arena_walk.png`).
 
 Verificação [E] (2026-11-08, neste host):
 - `npx tsc --noEmit -p arena-spike/tsconfig.json` passou sem erros.

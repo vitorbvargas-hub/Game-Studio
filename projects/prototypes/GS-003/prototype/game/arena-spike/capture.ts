@@ -1,13 +1,13 @@
 // Captura headless do spike com o render real (Chromium headless não roda neste host).
 // Uso: npx vite-node arena-spike/capture.ts   (usa @napi-rs/canvas já presente em node_modules, fora do package.json)
-// Luta IA x IA (Gabumon x Agumon, Nv 10, seed 5); salva quadros em arena-spike/screens/.
+// Luta IA x IA (par padrão do pacote, Nv 10, seed 5); salva quadros em arena-spike/screens/.
 
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadPack } from "../src/packs";
-import { aiInput, createArena, stepArena, type ArenaConfig } from "./arena";
+import { aiInput, createArena, defaultMatchup, stepArena, type ArenaConfig } from "./arena";
 import cfgJson from "./arena.json";
 import { ArenaRenderer, type ImageLike } from "./render";
 
@@ -33,15 +33,22 @@ const shot = (name: string) => {
   console.log("screens/" + name + ".png");
 };
 
-const st = createArena(content, cfg, { creatureId: "gabumon", level: 10 }, { creatureId: "agumon", level: 10 }, 5);
+const [pId, eId] = defaultMatchup(content);
+const st = createArena(content, cfg, { creatureId: pId, level: 10 }, { creatureId: eId, level: 10 }, 5);
 let shotProjectile = false;
 let shotMelee = false;
+let shotWalk = false;
 r.draw(st);
 shot("arena_start");
 while (!st.outcome) {
   const evs = stepArena(st, content, cfg, [aiInput(st, cfg, 0), aiInput(st, cfg, 1)]);
   for (const e of evs) r.onEvent(st, e);
   r.draw(st);
+  // Os dois andando e o da direita olhando para a esquerda: walk + espelhamento no mesmo quadro.
+  if (!shotWalk && st.tick > 10 && st.fighters.every((f) => f.moving) && st.fighters[1].fx < 0) {
+    shot("arena_walk");
+    shotWalk = true;
+  }
   if (!shotProjectile && st.projectiles.length && st.tick > 60 && st.projectiles[0].travelled > 30) {
     shot("arena_special");
     shotProjectile = true;

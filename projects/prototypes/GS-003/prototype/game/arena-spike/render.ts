@@ -1,9 +1,10 @@
 // SPIKE — render da arena em Canvas 2D, resolução lógica cfg.width x cfg.height (320x180),
 // ampliada por fator inteiro via CSS. Só LÊ o estado e consome eventos para efeitos visuais.
 
+import { animDurationMs, animFrameMs, animFrames, hasAnim, oneShotFrame } from "../src/render/anim";
 import { drawPixelText, pixelTextWidth } from "../src/render/pixelfont";
-import type { ContentBundle, SpriteRef } from "../src/sim/types";
-import type { ArenaConfig, ArenaEvent, ArenaState, Fighter } from "./arena";
+import type { AnimName, ContentBundle } from "../src/sim/types";
+import { msToTicks, SWING_MS, type ArenaConfig, type ArenaEvent, type ArenaState, type Fighter } from "./arena";
 
 /** Imagem mínima que o renderer precisa (HTMLImageElement no navegador, Image do @napi-rs/canvas na captura). */
 export interface ImageLike {
@@ -19,6 +20,10 @@ export class ArenaRenderer {
   private floaters: { x: number; y: number; text: string; color: string; life: number }[] = [];
   private flash: [number, number] = [0, 0];
   private frame = 0;
+  /** Draws restantes da animação attack disparada pelo especial (o básico usa f.swing do estado). */
+  private cast: [number, number] = [0, 0];
+  /** Último lado horizontal para onde cada lutador olhou: andar na vertical (fx = 0) não desvira o sprite. */
+  private side: [1 | -1, 1 | -1] = [1, -1];
 
   constructor(
     private ctx: CanvasRenderingContext2D,
@@ -35,10 +40,15 @@ export class ArenaRenderer {
   reset(): void {
     this.floaters = [];
     this.flash = [0, 0];
+    this.cast = [0, 0];
+    this.side = [1, -1];
   }
 
   onEvent(st: ArenaState, e: ArenaEvent): void {
-    if (e.t === "hit") {
+    if (e.t === "cast") {
+      const f = st.fighters[e.who];
+      this.cast[e.who] = Math.max(1, Math.ceil(animDurationMs(f, "attack") / MS_PER_DRAW));
+    } else if (e.t === "hit") {
       const f = st.fighters[e.target];
       this.flash[e.target] = 6;
       this.floaters.push({ x: f.x, y: f.y - 30, text: `-${e.amount}${e.crit ? "!" : ""}`, color: e.crit ? "#ffd84a" : "#ffffff", life: 40 });
@@ -48,10 +58,29 @@ export class ArenaRenderer {
     }
   }
 
-  private sprite(ref: SpriteRef | undefined, frameMs = 500): ImageLike | null {
-    if (!ref) return null;
-    const frames = typeof ref === "string" ? [ref] : ref;
-    const img = this.image(frames[Math.floor((this.frame * MS_PER_DRAW) / frameMs) % frames.length]);
+  /** Animação do lutador agora: hit (atordoado) > attack (golpe/especial) > walk (andando) > idle. */
+  animOf(f: Fighter): { name: AnimName; path: string | undefined } {
+    // Uma passada esticada/encolhida para caber na duração do estado (hitstun, swing).
+    const oneShot = (name: AnimName, left: number, total: number) => ({
+      name,
+      path: oneShotFrame(f, name, (1 - left / total) * animDurationMs(f, name)),
+    });
+    if (f.hp > 0 && f.hitstun > 0 && hasAnim(f, "hit")) return oneShot("hit", f.hitstun, msToTicks(this.cfg, this.cfg.hitstunMs));
+    if (f.hp > 0 && f.swing > 0 && hasAnim(f, "attack")) return oneShot("attack", f.swing, msToTicks(this.cfg, SWING_MS));
+    if (f.hp > 0 && this.cast[f.idx] > 0 && hasAnim(f, "attack")) {
+      const total = Math.max(1, Math.ceil(animDurationMs(f, "attack") / MS_PER_DRAW));
+      return oneShot("attack", this.cast[f.idx], total);
+    }
+    const name: AnimName = f.hp > 0 && f.moving && hasAnim(f, "walk") ? "walk" : "idle";
+    const frames = animFrames(f, name);
+    // Desfase no idle para os dois não respirarem em uníssono.
+    const t = this.frame * MS_PER_DRAW + (name === "idle" ? f.idx * 250 : 0);
+    return { name, path: frames.length ? frames[Math.floor(t / animFrameMs(f, name)) % frames.length] : undefined };
+  }
+
+  private sprite(f: Fighter): ImageLike | null {
+    const { path } = this.animOf(f);
+    const img = path ? this.image(path) : null;
     return img && img.complete !== false && (img.naturalWidth ?? img.width) > 0 ? img : null;
   }
 
@@ -68,7 +97,8 @@ export class ArenaRenderer {
       ctx.strokeStyle = "#7ee0ff";
       ctx.strokeRect(x - 14.5, y - 26.5, 29, 39);
     }
-    const img = this.sprite(f.sprite, f.spriteFrameMs);
+    if (f.fx !== 0) this.side[f.idx] = f.fx > 0 ? 1 : -1;
+    const img = this.sprite(f);
     ctx.save();
     ctx.globalAlpha = this.flash[f.idx] > 0 && this.flash[f.idx] % 2 ? 0.4 : f.hp > 0 ? 1 : 0.3;
     if (img) {
@@ -76,7 +106,7 @@ export class ArenaRenderer {
       const ix = x - Math.round(w / 2);
       const iy = y + 10 - img.height;
       // Sprites do pacote olham para a direita; espelha quando o lutador olha para a esquerda.
-      if (f.fx < 0) {
+      if (this.side[f.idx] < 0) {
         ctx.translate(ix * 2 + w, 0);
         ctx.scale(-1, 1);
       }
@@ -136,6 +166,7 @@ export class ArenaRenderer {
     }
     this.floaters = this.floaters.filter((f) => f.life > 0);
     this.flash = [Math.max(0, this.flash[0] - 1), Math.max(0, this.flash[1] - 1)];
+    this.cast = [Math.max(0, this.cast[0] - 1), Math.max(0, this.cast[1] - 1)];
     // Relógio (segundos restantes).
     const left = String(Math.max(0, Math.ceil(cfg.timeLimitSec - st.tick / cfg.simHz)));
     drawPixelText(ctx, left, cfg.width / 2 - pixelTextWidth(left) / 2, 3, pal.text);

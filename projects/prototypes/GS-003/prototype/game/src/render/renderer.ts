@@ -2,6 +2,7 @@
 // ampliada por fator INTEIRO via CSS (image-rendering: pixelated) => pixel art sem blur.
 // O renderer só LÊ o estado da simulação e consome eventos para efeitos visuais.
 
+import { animDurationMs, animFrameMs, animFrames, hasAnim, oneShotFrame } from "./anim";
 import { drawPixelText, pixelTextWidth } from "./pixelfont";
 import type { Combatant, ContentBundle, GameEvent, GameState, ThemeDef } from "../sim/types";
 
@@ -28,8 +29,6 @@ export const BOSS_PLACEHOLDER_SIZE = 40;
 /** Barra de HP + nível desenhados abaixo dos pés: ocupam BAR_BELOW px. */
 export const BAR_GAP = 5;
 export const BAR_BELOW = BAR_GAP + 3 + 2 + 5;
-/** Duração padrão de cada frame idle quando o pacote não define spriteFrameMs. */
-const IDLE_FRAME_MS = 500;
 /** Efeitos curtos em ms de tempo real (antes eram contados em quadros de 60 Hz). */
 const FLASH_MS = 67;
 const LUNGE_MS = 100;
@@ -56,6 +55,9 @@ interface Fx {
   /** ms restantes */
   flash: number;
   lunge: number;
+  /** ms decorridos nas animações de uma passada; -1 = parada. */
+  attack: number;
+  hit: number;
 }
 interface Floater {
   x: number;
@@ -101,13 +103,19 @@ export class BattleRenderer {
   onEvents(events: GameEvent[]): void {
     for (const e of events) {
       if (e.t === "act" || e.t === "sync") {
-        if (e.t === "act") this.fxOf(e.actor).lunge = LUNGE_MS;
+        if (e.t === "act") {
+          const fx = this.fxOf(e.actor);
+          fx.lunge = LUNGE_MS;
+          fx.attack = 0;
+        }
         for (const h of e.hits) {
           const [px, y] = this.lastPos.get(h.uid) ?? [VIEW_W / 2, VIEW_H / 2];
           // Espalha números simultâneos no mesmo alvo para não se sobreporem.
           const x = px + ((this.floaters.filter((f) => f.life > FLOATER_MS * (2 / 3)).length % 3) - 1) * 10;
           if (h.kind === "damage") {
-            this.fxOf(h.uid).flash = FLASH_MS;
+            const fx = this.fxOf(h.uid);
+            fx.flash = FLASH_MS;
+            fx.hit = 0;
             this.floaters.push({ x, y: y - 18, text: `-${h.amount}`, color: e.t === "sync" ? "#ffe066" : "#ffffff", life: FLOATER_MS });
           } else if (h.kind === "heal") {
             this.floaters.push({ x, y: y - 18, text: `+${h.amount}`, color: "#8dff9a", life: FLOATER_MS });
@@ -161,23 +169,33 @@ export class BattleRenderer {
     for (const fx of this.fx.values()) {
       fx.flash = Math.max(0, fx.flash - dt);
       fx.lunge = Math.max(0, fx.lunge - dt);
+      if (fx.attack >= 0) fx.attack += dt;
+      if (fx.hit >= 0) fx.hit += dt;
     }
   }
 
   private fxOf(uid: string): Fx {
     let f = this.fx.get(uid);
-    if (!f) this.fx.set(uid, (f = { flash: 0, lunge: 0 }));
+    if (!f) this.fx.set(uid, (f = { flash: 0, lunge: 0, attack: -1, hit: -1 }));
     return f;
   }
 
-  /** Frame atual do sprite do content pack (lista = animação idle em loop), se existir e já tiver carregado. */
+  /**
+   * Frame atual do sprite do content pack, se existir e já tiver carregado: hit ao tomar dano, attack ao agir
+   * (uma passada cada, só se o pacote declarar), senão idle em loop (`anims.idle` ou `sprite`).
+   */
   private spriteFor(c: Combatant): HTMLImageElement | null {
-    if (!c.sprite || typeof Image === "undefined") return null;
-    const frames = typeof c.sprite === "string" ? [c.sprite] : c.sprite;
-    if (!frames.length) return null;
+    if (typeof Image === "undefined") return null;
+    const idle = animFrames(c, "idle");
+    if (!idle.length) return null;
     // Todos os frames começam a carregar juntos para a animação não piscar na troca.
-    const imgs = frames.map((f) => this.image(f));
-    const img = imgs[idleFrameIndex(this.now, c.spriteFrameMs ?? IDLE_FRAME_MS, imgs.length, c.uid)];
+    for (const name of ["idle", "attack", "hit"] as const) animFrames(c, name).forEach((f) => this.image(f));
+    const fx = this.fxOf(c.uid);
+    let path: string | undefined;
+    if (fx.hit >= 0 && fx.hit < animDurationMs(c, "hit") && hasAnim(c, "hit")) path = oneShotFrame(c, "hit", fx.hit);
+    else if (fx.attack >= 0 && fx.attack < animDurationMs(c, "attack") && hasAnim(c, "attack")) path = oneShotFrame(c, "attack", fx.attack);
+    else path = idle[idleFrameIndex(this.now, animFrameMs(c, "idle"), idle.length, c.uid)];
+    const img = path ? this.image(path) : null;
     return img && img.complete && img.naturalWidth > 0 ? img : null;
   }
 
@@ -201,7 +219,7 @@ export class BattleRenderer {
     const size = c.isBoss ? BOSS_PLACEHOLDER_SIZE : PLACEHOLDER_SIZE;
     const [w, h] = img ? [img.naturalWidth, img.naturalHeight] : [size, size];
     // Sprite com frames idle já traz o próprio movimento; o bob procedural fica para estáticos e placeholders.
-    const animated = Array.isArray(c.sprite) && c.sprite.length > 1;
+    const animated = animFrames(c, "idle").length > 1;
     const bob = c.hp > 0 && !animated ? Math.round(Math.sin((this.now / (1000 / 60) + slot[1]) / 10)) : 0;
     // Avanço curto em direção ao alvo: triângulo de 0 a 6 px e volta, em LUNGE_MS.
     const k = fx.lunge / LUNGE_MS;

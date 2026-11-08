@@ -12,11 +12,12 @@ import type {
   EnemyDef,
   PackManifest,
   SkillDef,
-  SpriteRef,
+  SpriteSource,
   Strings,
   ThemeDef,
   WaveDef,
 } from "./types";
+import { ANIM_NAMES } from "./types";
 
 export interface RawContent {
   pack: PackManifest;
@@ -96,13 +97,25 @@ export function validateContent(c: ContentBundle): string[] {
     if (!p.disclaimer?.trim()) e.push(`pack ${p.id}: fan pack exige disclaimer`);
   }
   for (const k of REQUIRED_STRINGS) if (typeof c.strings[k] !== "string") e.push(`strings: chave obrigatória ausente "${k}"`);
-  const sprite = (def: { sprite?: SpriteRef; spriteFrameMs?: number }, where: string) => {
-    if (def.sprite === undefined) return;
-    const frames = typeof def.sprite === "string" ? [def.sprite] : def.sprite;
+  const frameList = (ref: unknown, where: string) => {
+    const frames = typeof ref === "string" ? [ref] : ref;
     if (!Array.isArray(frames) || !frames.length) e.push(`${where}: sprite deve ser um caminho ou lista não vazia de frames`);
     else for (const path of frames) if (!c.assets[path]) e.push(`${where}: sprite não encontrado no pacote "${path}"`);
-    const ms = def.spriteFrameMs;
-    if (ms !== undefined && !(typeof ms === "number" && ms > 0)) e.push(`${where}: spriteFrameMs deve ser > 0`);
+  };
+  const positiveMs = (ms: unknown, where: string) => {
+    if (ms !== undefined && !(typeof ms === "number" && ms > 0)) e.push(`${where} deve ser > 0`);
+  };
+  const sprite = (def: SpriteSource, where: string) => {
+    if (def.sprite !== undefined) frameList(def.sprite, where);
+    positiveMs(def.spriteFrameMs, `${where}: spriteFrameMs`);
+    for (const [name, ref] of Object.entries(def.anims ?? {})) {
+      if (!(ANIM_NAMES as readonly string[]).includes(name)) e.push(`${where}.anims: animação desconhecida "${name}" (use ${ANIM_NAMES.join("/")})`);
+      else frameList(ref, `${where}.anims.${name}`);
+    }
+    for (const [name, ms] of Object.entries(def.animFrameMs ?? {})) {
+      if (!(ANIM_NAMES as readonly string[]).includes(name)) e.push(`${where}.animFrameMs: animação desconhecida "${name}"`);
+      else positiveMs(ms, `${where}: animFrameMs.${name}`);
+    }
   };
 
   skill(c.balance.basicSkillId, "balance.basicSkillId");

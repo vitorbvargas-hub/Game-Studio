@@ -64,6 +64,21 @@ export interface EvolutionOption {
 /** Um PNG estático ou a lista de frames de uma animação idle em loop. */
 export type SpriteRef = string | string[];
 
+/** Animações conhecidas pelos renderers. Sem a animação pedida, cai em idle e depois em `sprite`. */
+export const ANIM_NAMES = ["idle", "walk", "attack", "hit"] as const;
+export type AnimName = (typeof ANIM_NAMES)[number];
+/** Frames por animação, relativos ao pacote. Sprites olham para a direita; o renderer espelha. */
+export type SpriteAnims = Partial<Record<AnimName, SpriteRef>>;
+
+/** Campos visuais comuns a criaturas, inimigos e combatentes. */
+export interface SpriteSource {
+  sprite?: SpriteRef;
+  spriteFrameMs?: number;
+  anims?: SpriteAnims;
+  /** Duração de cada frame por animação (ms); sem valor = padrão do renderer. */
+  animFrameMs?: Partial<Record<AnimName, number>>;
+}
+
 export interface CreatureDef {
   id: string;
   name: string;
@@ -75,6 +90,9 @@ export interface CreatureDef {
   sprite?: SpriteRef;
   /** Duração de cada frame idle em ms (só com 2+ frames). Padrão no renderer. */
   spriteFrameMs?: number;
+  /** Animações por estado (idle/walk/attack/hit). `sprite` continua valendo como idle quando `anims.idle` falta. */
+  anims?: SpriteAnims;
+  animFrameMs?: Partial<Record<AnimName, number>>;
   /** Nível em que `base` vale (stats = base + growth × (nível − baseLevel)). Padrão 1. */
   baseLevel?: number;
   base: StatBlock;
@@ -92,6 +110,8 @@ export interface EnemyDef {
   color: string;
   sprite?: SpriteRef;
   spriteFrameMs?: number;
+  anims?: SpriteAnims;
+  animFrameMs?: Partial<Record<AnimName, number>>;
   size?: "normal" | "boss";
   baseLevel?: number;
   base: StatBlock;
@@ -256,6 +276,8 @@ export interface Combatant {
   /** Caminho(s) de sprite relativo(s) ao pacote (resolvido pelo renderer); lista = frames idle. */
   sprite?: SpriteRef;
   spriteFrameMs?: number;
+  anims?: SpriteAnims;
+  animFrameMs?: Partial<Record<AnimName, number>>;
   level: number;
   isBoss: boolean;
   maxHp: number;

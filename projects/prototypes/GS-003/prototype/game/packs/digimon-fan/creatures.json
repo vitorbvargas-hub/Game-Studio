@@ -105,6 +105,32 @@
       "sprites/agumon_idle_01.png",
       "sprites/agumon_idle_02.png"
     ],
+    "anims": {
+      "idle": [
+        "sprites/agumon_idle_01.png",
+        "sprites/agumon_idle_02.png"
+      ],
+      "walk": [
+        "sprites/agumon_walk_01.png",
+        "sprites/agumon_walk_02.png",
+        "sprites/agumon_walk_03.png",
+        "sprites/agumon_walk_04.png"
+      ],
+      "attack": [
+        "sprites/agumon_attack_01.png",
+        "sprites/agumon_attack_02.png",
+        "sprites/agumon_attack_03.png"
+      ],
+      "hit": [
+        "sprites/agumon_hit_01.png",
+        "sprites/agumon_hit_02.png"
+      ]
+    },
+    "animFrameMs": {
+      "walk": 120,
+      "attack": 80,
+      "hit": 100
+    },
     "baseLevel": 8,
     "base": {
       "hp": 64,
@@ -146,6 +172,32 @@
       "sprites/gabumon_idle_01.png",
       "sprites/gabumon_idle_02.png"
     ],
+    "anims": {
+      "idle": [
+        "sprites/gabumon_idle_01.png",
+        "sprites/gabumon_idle_02.png"
+      ],
+      "walk": [
+        "sprites/gabumon_walk_01.png",
+        "sprites/gabumon_walk_02.png",
+        "sprites/gabumon_walk_03.png",
+        "sprites/gabumon_walk_04.png"
+      ],
+      "attack": [
+        "sprites/gabumon_attack_01.png",
+        "sprites/gabumon_attack_02.png",
+        "sprites/gabumon_attack_03.png"
+      ],
+      "hit": [
+        "sprites/gabumon_hit_01.png",
+        "sprites/gabumon_hit_02.png"
+      ]
+    },
+    "animFrameMs": {
+      "walk": 120,
+      "attack": 80,
+      "hit": 100
+    },
     "baseLevel": 8,
     "base": {
       "hp": 62,
@@ -187,6 +239,32 @@
       "sprites/patamon_idle_01.png",
       "sprites/patamon_idle_02.png"
     ],
+    "anims": {
+      "idle": [
+        "sprites/patamon_idle_01.png",
+        "sprites/patamon_idle_02.png"
+      ],
+      "walk": [
+        "sprites/patamon_walk_01.png",
+        "sprites/patamon_walk_02.png",
+        "sprites/patamon_walk_03.png",
+        "sprites/patamon_walk_04.png"
+      ],
+      "attack": [
+        "sprites/patamon_attack_01.png",
+        "sprites/patamon_attack_02.png",
+        "sprites/patamon_attack_03.png"
+      ],
+      "hit": [
+        "sprites/patamon_hit_01.png",
+        "sprites/patamon_hit_02.png"
+      ]
+    },
+    "animFrameMs": {
+      "walk": 120,
+      "attack": 80,
+      "hit": 100
+    },
     "baseLevel": 8,
     "base": {
       "hp": 66,
