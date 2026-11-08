@@ -57,4 +57,4 @@ Ver `portfolio/README.md`.
 ## Atualização 2026-11-08: GS-003
 | ID | Projeto | Estágio | Owner | Próxima decisão |
 |---|---|---|---|---|
-| GS-003 | Idle de coleção de monstros original (Linha A coleção; Linha B monstros digitais BR) | DISCOVERY concluído | game-studio | Fundador aprova ou não o protótipo vertical slice da Linha A (ver `projects/discovery/GS-003/EXECUTIVE_SUMMARY.md`) |
+| GS-003 | Idle de coleção de monstros original (Linha A estilo Pokémon; Linha B monstros digitais estilo Digimon) | **PROTOTYPE** (2026-11-08, [ADR-006](../shared/decisions/ADR-006-gs003-prototipo-linha-b.md)), começando pela Linha B em pixel art | game-studio; game-design, game-art, game-research, game-dev | Protótipo local da Linha B (`projects/prototypes/GS-003/`) |
