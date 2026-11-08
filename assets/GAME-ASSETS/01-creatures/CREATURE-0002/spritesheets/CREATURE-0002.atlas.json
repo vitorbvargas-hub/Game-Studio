@@ -1,58 +1,94 @@
 {
   "frames": {
-    "CREATURE-0002_idle_SW_00.png": {
+    "CREATURE-0002_walk_W_00.png": {
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "sourceSize": {
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "pivot": {
         "x": 0.5,
-        "y": 0.9804
+        "y": 0.9545
+      },
+      "pivotPx": {
+        "x": 14,
+        "y": 21
       }
     },
-    "CREATURE-0002_idle_SW_01.png": {
+    "CREATURE-0002_walk_W_01.png": {
       "frame": {
-        "x": 77,
+        "x": 29,
         "y": 0,
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "sourceSize": {
-        "w": 76,
-        "h": 51
+        "w": 28,
+        "h": 22
       },
       "pivot": {
         "x": 0.5,
-        "y": 0.9804
+        "y": 0.9545
+      },
+      "pivotPx": {
+        "x": 14,
+        "y": 21
       }
     },
-    "CREATURE-0002_idle_SW_02.png": {
+    "CREATURE-0002_walk_W_02.png": {
       "frame": {
-        "x": 154,
+        "x": 58,
         "y": 0,
-        "w": 76,
+        "w": 28,
+        "h": 22
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 22
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 22
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9545
+      },
+      "pivotPx": {
+        "x": 14,
+        "y": 21
+      }
+    },
+    "CREATURE-0002_battle_idle_SW_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 23,
+        "w": 64,
         "h": 51
       },
       "rotated": false,
@@ -60,27 +96,87 @@
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 76,
+        "w": 64,
         "h": 51
       },
       "sourceSize": {
-        "w": 76,
+        "w": 64,
         "h": 51
       },
       "pivot": {
         "x": 0.5,
         "y": 0.9804
+      },
+      "pivotPx": {
+        "x": 32,
+        "y": 50
+      }
+    },
+    "CREATURE-0002_battle_idle_SW_01.png": {
+      "frame": {
+        "x": 65,
+        "y": 23,
+        "w": 64,
+        "h": 51
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 51
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 51
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9804
+      },
+      "pivotPx": {
+        "x": 32,
+        "y": 50
+      }
+    },
+    "CREATURE-0002_battle_idle_SW_02.png": {
+      "frame": {
+        "x": 130,
+        "y": 23,
+        "w": 64,
+        "h": 51
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 51
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 51
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9804
+      },
+      "pivotPx": {
+        "x": 32,
+        "y": 50
       }
     }
   },
   "meta": {
-    "app": "GS-003 tools/dwds_import/import_ember.py",
-    "version": "1",
+    "app": "GS-003 tools/dwds_import/import_dwds_sheets.py",
+    "version": "2",
     "image": "CREATURE-0002.png",
     "format": "RGBA8888",
     "size": {
-      "w": 230,
-      "h": 51
+      "w": 194,
+      "h": 74
     },
     "scale": "1"
   }

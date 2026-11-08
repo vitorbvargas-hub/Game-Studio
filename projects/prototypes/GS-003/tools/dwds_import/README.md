@@ -1,5 +1,21 @@
 # dwds_import: sprites oficiais de DW DS/Dawn/Dusk → GAME-ASSETS
 
+## v2: folhas DS do Spriters Resource (`import_dwds_sheets.py`, 2026-11-08)
+
+```bash
+python3 import_dwds_sheets.py   # lê 10-source-files/dwds-sheets/*.png e regrava CREATURE-0002..0013 (v1 vai para versions/v1/)
+```
+
+- **Recorte:** chroma key pelas cores de fundo e de caixa de cada folha, componentes conexos (8-vizinhança) por região (mapa, batalha, HURT/ATTACK) e caixas fundidas a ≤ 2 px. A tabela `SHEETS` no script guarda, por folha, as cores-chave, as regiões e quais quadros são S/N/W/E. As direções foram conferidas no olho [H].
+- **Mapa:** walk em 3 direções desenhadas (S, N, W) com E espelhado. Tsunomon e Gabumon desenham E também. O ciclo é f0-f1-f0-f2 e o idle é o quadro do meio. Todos os quadros de mapa de uma criatura têm o mesmo tamanho, com os pés na última linha e o centróide no pivô.
+- **Ataque/dano no mapa:** a pose de batalha HURT/ATTACK é reduzida para a altura do sprite de mapa (moda por bloco, contorno escuro com peso 1,4, sem interpolar cor), o que mantém a proporção. O original em escala de batalha fica em `battle_idle`, `battle_hurt` e `battle_attack` (`space: "battle"`).
+- **creature.json v2:** `schemaVersion: 2`, `dirFrames` por direção, `mapScale`, `targetHeightPx`, `nativeMapHeightPx`, `walkSpeedPxPerSec`, `combatStates` com `walk`, `attack` (`hitFrame`) e `hurt`. Atlas com `pivotPx` por quadro. A v1 fica intacta em `versions/v1/` (creature.json, license.json, sprites, spritesheets e previews).
+- **license.json v2:** ripper e texto de crédito transcritos de cada folha, sha256 da folha e a v1 em `previousVersions`.
+- **Gigimon (CREATURE-0002):** não existe no DS. O sprite de mapa é o idle E-M-B-E-R reduzido para a altura média dos In-Training do DS (19 px), com status `PENDING_OFFICIAL_MAP_SPRITE`.
+- **Revisão:** `09-previews/dwds_map_sprites_contact_sheet.png` mostra uma linha por criatura, com walk de cada direção + hurt + attack de mapa, a 3x.
+
+## v1: rip E-M-B-E-R (`import_ember.py`)
+
 Importa os GIFs animados de `E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites` (rip de AngelOfHope, With the Will) das 4 linhas piloto para `assets/GAME-ASSETS/01-creatures/CREATURE-0002…0013`. Camada `official-fan-use` (ADR-009).
 
 ```bash

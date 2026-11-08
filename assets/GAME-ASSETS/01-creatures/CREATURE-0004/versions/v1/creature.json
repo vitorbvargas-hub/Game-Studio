@@ -1,0 +1,106 @@
+{
+  "id": "CREATURE-0004",
+  "name": "Growlmon",
+  "description": "Growlmon (Champion), sprite animado oficial de Digimon World DS/Dawn/Dusk (pose de batalha, idle). Linha piloto Gigimon → Guilmon → Growlmon. Rip importado sem edição de pixels; só recorte com pivô nos pés.",
+  "category": "digital-creature",
+  "rarity": "uncommon",
+  "element": "virus",
+  "attributes": {},
+  "evolutionStage": "champion",
+  "evolutionLine": {
+    "lineId": "guilmon",
+    "previous": "CREATURE-0003",
+    "next": []
+  },
+  "evolutionRequirements": {},
+  "dimensions": {
+    "frameW": 114,
+    "frameH": 103,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 57,
+    "y": 102
+  },
+  "hitbox": {
+    "x": 3,
+    "y": 2,
+    "w": 82,
+    "h": 100
+  },
+  "anchors": {
+    "head": {
+      "x": 57,
+      "y": 2
+    },
+    "hit": {
+      "x": 44,
+      "y": 52
+    },
+    "shadow": {
+      "cx": 57,
+      "cy": 102,
+      "rx": 29,
+      "ry": 9
+    }
+  },
+  "directions": {
+    "idle": {
+      "drawn": [
+        "SW"
+      ],
+      "mirrored": {
+        "SE": "SW"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "fps": 5.0,
+      "frames": [
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0004_idle_SW_00.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0004_idle_SW_01.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0004_idle_SW_02.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0004_idle_SW_01.png"
+        }
+      ],
+      "events": []
+    }
+  },
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "idle",
+    "FOLLOW": "idle",
+    "ENGAGE": "idle",
+    "ATTACK": "idle",
+    "HURT": "idle",
+    "DEFEAT": "idle",
+    "RETURN": "idle"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Rip oficial DW DS/Dawn/Dusk por AngelOfHope (With the Will), preservado em https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites (champion/Growlmon.gif, commit 4b2273e). Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Só existe idle (4 quadros, 3 poses únicas A-B-C-B) — a fonte E-M-B-E-R tem um GIF de batalha por Digimon, sem walk/attack/hurt/sleep.",
+    "Uma direção desenhada (SW, pose de batalha 3/4 virada para a esquerda); SE é espelho. As outras 6 não existem na fonte.",
+    "combatStates aponta tudo para 'idle' até existirem as outras animações (fonte provável: folhas overworld do Spriters Resource, bloqueadas neste host).",
+    "Escala nativa do DS (114x103); não bate com o tile 32 do ART_STYLE_GUIDE — decisão de escala fica com game-art.",
+    "rarity, element (atributo Vaccine/Data/Virus) e evolutionStage 'baby' para In-Training são preenchimentos provisórios [H]; game design decide."
+  ]
+}

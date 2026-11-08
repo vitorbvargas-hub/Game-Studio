@@ -20,6 +20,10 @@ interface TilesetJson {
 export function buildTileSources(pngs: Record<string, string>, tilesets: Record<string, unknown>): Record<string, TileSource> {
   const out: Record<string, TileSource> = {};
   const norm = (p: string) => p.replace(/\\/g, "/");
+  // Biomas DS (pastas *-dwds) têm prioridade sobre os originais quando a chave coincide: entram por último.
+  const dwds = (p: string) => (/-dwds\//.test(norm(p)) ? 1 : 0);
+  pngs = Object.fromEntries(Object.entries(pngs).sort(([a], [b]) => dwds(a) - dwds(b)));
+  tilesets = Object.fromEntries(Object.entries(tilesets).sort(([a], [b]) => dwds(a) - dwds(b)));
   for (const [path, url] of Object.entries(pngs)) {
     const key = norm(path).split("/").pop()!.replace(/\.png$/i, "");
     out[key] = { url };
@@ -35,10 +39,17 @@ export function buildTileSources(pngs: Record<string, string>, tilesets: Record<
   return out;
 }
 
-export function loadTileSources(): Record<string, TileSource> {
+/** `includeDwds=false` ignora os biomas DS (`03-environments/*-dwds/`), para comparar com os originais (?tiles=original). */
+export function loadTileSources(includeDwds = true): Record<string, TileSource> {
+  const keep = <T,>(o: Record<string, T>) => (includeDwds ? o : Object.fromEntries(Object.entries(o).filter(([p]) => !/-dwds\//.test(p))));
   const pngs = import.meta.glob<string>("@game-assets/03-environments/**/*.png", { eager: true, query: "?url", import: "default" });
   const tilesets = import.meta.glob("@game-assets/03-environments/**/tileset.json", { eager: true, import: "default" });
-  return buildTileSources(pngs, tilesets);
+  return buildTileSources(keep(pngs), keep(tilesets));
+}
+
+/** Quantos tiles/props vêm de biomas DS (para o HUD/log e para os testes). */
+export function countDwdsSources(src: Record<string, TileSource>): number {
+  return Object.values(src).filter((t) => /-dwds\//.test(t.url)).length;
 }
 
 // ---------- placeholders ----------

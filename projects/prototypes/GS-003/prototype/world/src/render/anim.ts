@@ -3,7 +3,7 @@
 // sem mudar código (o hitAtMs passa a vir do evento `hitFrame` do manifest).
 // Nada daqui decide dano: só QUANDO mostrar um resultado que a sim já confirmou.
 
-import type { CreatureAnimation, CreatureManifest } from "../assets/creatures";
+import type { AnimFrame, CreatureAnimation, CreatureManifest } from "../assets/creatures";
 import type { Dir8, LogicState } from "../sim/types";
 
 export type Procedural = "lunge" | "knockback" | "fade" | "bob" | null;
@@ -14,14 +14,23 @@ export interface AnimChoice {
   procedural: Procedural;
 }
 
-/** Ataque procedural: avanço até o impacto, recuo depois. */
-export const PROCEDURAL_ATTACK_MS = 360;
+/** Ataque procedural: antecipação (recuo) → avanço até o impacto → volta. */
+export const PROCEDURAL_ATTACK_MS = 380;
 export const PROCEDURAL_HIT_AT_MS = 160;
+/** Avanço curto até o impacto e recuo de antecipação, em px. */
 export const LUNGE_PX = 8;
-/** HURT visual: flash branco + recuo de 2 px. */
-export const HURT_VIS_MS = 220;
-export const HURT_FLASH_MS = 67;
-export const KNOCKBACK_PX = 2;
+export const ANTICIPATION_PX = 3;
+/** Fração do tempo até o impacto gasta na antecipação. */
+export const ANTICIPATION_FRAC = 0.5;
+/** Hit-stop no impacto: atacante e alvo congelam (spec do fundador: 60–80 ms). */
+export const HIT_STOP_MS = 70;
+/** Golpe especial (projétil): o impacto sai este tanto depois do impacto do golpe básico. */
+export const SPECIAL_EXTRA_MS = 180;
+/** HURT visual: flash branco (durante o hit-stop) + knockback com easing. */
+export const HURT_VIS_MS = 320;
+export const HURT_FLASH_MS = 80;
+export const KNOCKBACK_PX = 6;
+export const KNOCKBACK_CRIT_PX = 9;
 export const DEFEAT_FADE_MS = 600;
 /** Sem `damage` até hitAtMs + este prazo: a animação termina sem número e sem HURT. */
 export const DAMAGE_GRACE_MS = 500;
@@ -70,13 +79,29 @@ export function animDurationMs(a: CreatureAnimation): number {
   return a.frames.reduce((s, f) => s + f.durationMs, 0);
 }
 
-/** Momento do impacto dentro do ataque. Real: soma das durações até o frame `hitFrame`. */
-export function attackTiming(m: CreatureManifest | undefined): { hitAtMs: number; durationMs: number; procedural: boolean } {
+/**
+ * Momento do impacto dentro do ataque. Real: soma das durações até o frame `hitFrame`. Golpe especial
+ * (projétil): + SPECIAL_EXTRA_MS de voo. Só muda QUANDO o resultado confirmado aparece, nunca o resultado.
+ */
+export function attackTiming(
+  m: CreatureManifest | undefined,
+  special = false,
+): { hitAtMs: number; durationMs: number; procedural: boolean; launchAtMs?: number } {
+  const extra = special ? SPECIAL_EXTRA_MS : 0;
   const a = m && realAnim(m, m.combatStates?.ATTACK ?? "attack");
-  if (!a) return { hitAtMs: PROCEDURAL_HIT_AT_MS, durationMs: PROCEDURAL_ATTACK_MS, procedural: true };
+  if (!a) {
+    const base = { hitAtMs: PROCEDURAL_HIT_AT_MS + extra, durationMs: PROCEDURAL_ATTACK_MS + extra, procedural: true };
+    return special ? { ...base, launchAtMs: PROCEDURAL_HIT_AT_MS } : base;
+  }
   const hit = a.events?.find((e) => e.name === "hitFrame")?.frame ?? Math.floor(a.frames.length / 2);
   const hitAtMs = a.frames.slice(0, hit).reduce((s, f) => s + f.durationMs, 0);
-  return { hitAtMs, durationMs: animDurationMs(a), procedural: false };
+  const base = { hitAtMs: hitAtMs + extra, durationMs: animDurationMs(a) + extra, procedural: false };
+  return special ? { ...base, launchAtMs: hitAtMs } : base;
+}
+
+/** Quadros da animação para a direção desenhada (v2 `dirFrames`), ou os quadros padrão. */
+export function framesFor(a: CreatureAnimation, dir: string): AnimFrame[] {
+  return a.dirFrames?.[dir] ?? a.frames;
 }
 
 /** Índice do frame no tempo `elapsedMs` (loop ou one-shot preso no último). */
@@ -101,9 +126,69 @@ export function resolveFacing(m: CreatureManifest, animName: string, facing: Dir
   if (drawn.includes(facing)) return { dir: facing, mirror: false };
   const src = d?.mirrored?.[facing];
   if (src && drawn.includes(src)) return { dir: src, mirror: true };
+  // v2 (4 direções do DS): diagonal cai no eixo horizontal (NE/SE → E, NW/SW → W).
+  const four = to4(facing);
+  if (four !== facing) {
+    if (drawn.includes(four)) return { dir: four, mirror: false };
+    const src4 = d?.mirrored?.[four];
+    if (src4 && drawn.includes(src4)) return { dir: src4, mirror: true };
+  }
   const isEast = (x: string) => x === "E" || x === "NE" || x === "SE";
   const isWest = (x: string) => x === "W" || x === "NW" || x === "SW";
   const base = drawn[0];
   const mirror = (isWest(base) && isEast(facing)) || (isEast(base) && isWest(facing));
   return { dir: base, mirror };
+}
+
+export type Dir4 = "S" | "N" | "E" | "W";
+
+export function to4(d: Dir8): Dir4 {
+  if (d === "N" || d === "S") return d;
+  return d === "E" || d === "NE" || d === "SE" ? "E" : "W";
+}
+
+/** Easing (apresentação). */
+export const ease = {
+  outCubic: (t: number) => 1 - Math.pow(1 - clamp01(t), 3),
+  inCubic: (t: number) => Math.pow(clamp01(t), 3),
+  inOutSine: (t: number) => -(Math.cos(Math.PI * clamp01(t)) - 1) / 2,
+  outBack: (t: number) => {
+    const c = 1.70158;
+    const x = clamp01(t) - 1;
+    return 1 + (c + 1) * x * x * x + c * x * x;
+  },
+};
+
+export function clamp01(t: number): number {
+  return t < 0 ? 0 : t > 1 ? 1 : t;
+}
+
+/**
+ * Deslocamento do atacante ao longo de `dir` (px, +avanço/−recuo) no tempo `t` desde o início do golpe.
+ * Antecipação (recua ANTICIPATION_PX com ease-out) → avanço (ease-in) até LUNGE_PX no impacto → hit-stop
+ * segura → volta (ease-in-out). `reach` limita o avanço quando o alvo está colado.
+ */
+export function attackLunge(t: number, hitAtMs: number, durationMs: number, reach = LUNGE_PX, launchAtMs?: number): number {
+  const strikeAt = launchAtMs ?? hitAtMs; // projétil: o "impacto" do corpo é o lançamento
+  const lunge = launchAtMs !== undefined ? Math.min(reach, 4) : reach;
+  const antEnd = strikeAt * ANTICIPATION_FRAC;
+  if (t < 0) return 0;
+  if (t < antEnd) return -ANTICIPATION_PX * ease.outCubic(t / antEnd);
+  if (t < strikeAt) return -ANTICIPATION_PX + (lunge + ANTICIPATION_PX) * ease.inCubic((t - antEnd) / Math.max(1, strikeAt - antEnd));
+  const holdEnd = strikeAt + HIT_STOP_MS;
+  if (t < holdEnd) return lunge;
+  const end = Math.max(holdEnd + 1, durationMs);
+  if (t < end) return lunge * (1 - ease.inOutSine((t - holdEnd) / (end - holdEnd)));
+  return 0;
+}
+
+/** Knockback do alvo (px ao longo da direção do golpe): parado no hit-stop, empurrão ease-out, volta suave. */
+export function knockback(t: number, px: number): number {
+  if (t < HIT_STOP_MS) return 0;
+  const u = t - HIT_STOP_MS;
+  const out = 110;
+  const back = HURT_VIS_MS - HIT_STOP_MS - out;
+  if (u < out) return px * ease.outCubic(u / out);
+  if (u < out + back) return px * (1 - ease.inOutSine((u - out) / back));
+  return 0;
 }

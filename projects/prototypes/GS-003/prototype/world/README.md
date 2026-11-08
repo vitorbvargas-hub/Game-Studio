@@ -3,6 +3,16 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## v2 (2026-11-08): sprites de mapa, movimento fluido e combate animado
+
+- **Sprites de mapa do DS** (`tools/dwds_import/import_dwds_sheets.py`): walk e idle nas 4 direções, attack e hurt das poses do DS reduzidas para a escala do mapa. O tamanho nativo do DS já é relativo entre espécies (Koromon 17 px, Agumon 27, Greymon 38, Angemon 40). O Tamer oficial vem de `GAME-ASSETS/11-characters/TAMER-0001` (local) e `TAMER-0002` (outro jogador), feito pelo game-art. Os tiles DS vêm de `03-environments/*-dwds/` e têm prioridade sobre os originais.
+- **Movimento** (`render/motion.ts`): mola (SmoothDamp, 75 ms) sobre a posição interpolada da sim, que dá aceleração e desaceleração sem saltos. A direção (4 eixos) sai da velocidade visual, com histerese. O quadro do walk depende da **distância andada** (a cadência acompanha a velocidade), e há bob de 1 px parado. A câmera usa lerp exponencial (τ 110 ms) e desenha em pixel inteiro. A escala de tela continua inteira.
+- **Parceira** (sim): segue a trilha de pontos do Tamer (`trailPoint`, follow-the-leader) e abre espaço se ele vem para cima dela (`partnerMinSep`).
+- **Combate** (`render/anim.ts`, `render/fx.ts`, `presenter.ts`): antecipação (recuo de 3 px) → avanço curto → pose ATTACK do DS no impacto → **hit-stop de 70 ms** (atacante e alvo congelam) → knockback com ease-out (6 px, 9 no crítico) → volta. Flash branco, faíscas e riscos (básico), anel de choque (especial ou crítico), partículas deterministas, número de dano em arco com fade e tremida de câmera de 2 px no crítico local. **Golpe especial** (qualquer skill ≠ `investida`): carga, projétil do elemento da espécie (`src/data/world-vfx.json`: fire, frost, wind, light, bubble; efeitos originais desenhados em código) e impacto 180 ms depois.
+- **A sim continua autoritativa:** o dano sai no tick do `attack_start`, e a apresentação só escolhe o momento de mostrar. `tests/v2.test.ts` roda o catálogo real v2 (com especiais) contra a sim sem apresentação e confere que os eventos são idênticos.
+- **Parâmetros de URL novos:** `?size=table` (usa `GS-003/research/DIGIMON_SIZE_TABLE.json` quando existir: escala inteira = altura-alvo/altura nativa), `?smooth=0` (sem suavização, para comparar) e `?tiles=original` (ignora os biomas DS).
+- **Capturas:** `docs/screens/06-attack-sequence-6f.png` (antecipação, avanço, impacto/hit-stop, knockback, número em arco, volta) e os 6 quadros soltos `06-attack-seq-*.png`, mais `07-special-projectile.png`.
+
 ## Como rodar
 
 ```bash

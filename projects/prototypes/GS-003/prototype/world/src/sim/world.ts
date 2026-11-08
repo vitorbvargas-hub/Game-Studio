@@ -52,6 +52,7 @@ export function createWorld(map: WorldMap, content: WorldContent, seed: number, 
   for (const p of players) {
     const tamer = baseEntity(p.id, p.bot ? "remote_player" : "player", p.name, p.start);
     tamer.speed = WORLD.tamerSpeed;
+    tamer.trail = [{ x: p.start.x - WORLD.followBack, y: p.start.y }, { ...p.start }];
     addEntity(ctx, tamer);
     const partner = makeCreature(ctx, `${p.id}:partner`, p.bot ? "remote_partner" : "partner", p.partnerSpecies, p.partnerLevel, {
       x: p.start.x - WORLD.followBack,
@@ -316,6 +317,36 @@ function thinkTamer(ctx: Ctx, e: Entity): void {
     moving = !reached;
   }
   setState(e, moving ? "WALK" : "IDLE", w.tick, ctx.ev);
+  if (moving) pushTrail(e);
+}
+
+/** Registra a posição do Tamer na trilha (um ponto a cada trailStep sub andados). */
+function pushTrail(e: Entity): void {
+  const t = (e.trail ??= []);
+  const last = t[t.length - 1];
+  if (last && dist(last, e) < WORLD.trailStep) return;
+  t.push({ x: e.x, y: e.y });
+  if (t.length > WORLD.trailMax) t.shift();
+}
+
+/**
+ * Ponto da trilha a `distance` sub do Tamer, medido ao longo do caminho que ele fez (follow-the-leader).
+ * Sem trilha suficiente, cai no ponto atrás dele na direção em que olha.
+ */
+export function trailPoint(owner: Entity, distance: number): Vec {
+  const t = owner.trail ?? [];
+  let prev: Vec = { x: owner.x, y: owner.y };
+  let left = distance;
+  for (let i = t.length - 1; i >= 0; i--) {
+    const seg = dist(prev, t[i]);
+    if (seg >= left && seg > 0) {
+      const k = left / seg;
+      return { x: Math.round(prev.x + (t[i].x - prev.x) * k), y: Math.round(prev.y + (t[i].y - prev.y) * k) };
+    }
+    left -= seg;
+    prev = t[i];
+  }
+  return behind(owner, distance);
 }
 
 /** IA do "outro jogador": passeia por pontos aleatórios perto de onde nasceu, com AUTO ligado. */
@@ -411,9 +442,18 @@ function thinkPartner(ctx: Ctx, e: Entity): void {
   const d = dist(e, owner);
   if (e.state === "FOLLOW" || d > WORLD.followDist) {
     if (e.state !== "FOLLOW") setState(e, "FOLLOW", w.tick, ctx.ev);
-    const back = behind(owner, WORLD.followBack);
+    // Follow-the-leader: anda até o ponto da trilha followBack atrás do Tamer, pelo caminho que ele fez.
+    const back = trailPoint(owner, WORLD.followBack);
     const speed = d > WORLD.followDist * 3 ? WORLD.partnerCatchupSpeed : e.speed;
     if (moveToward(ctx, e, back, speed, 2) || (d <= WORLD.followDist && e.stuckTicks > 3)) setState(e, "IDLE", w.tick, ctx.ev);
+    return;
+  }
+  // Parada e o Tamer veio para cima dela: abre espaço (não sobrepor), afastando-se na linha entre os dois.
+  if (d < WORLD.partnerMinSep) {
+    const ux = d > 0 ? (e.x - owner.x) / d : -1;
+    const uy = d > 0 ? (e.y - owner.y) / d : 0;
+    // Passo curto sem trocar de estado (a view anima pelo deslocamento real).
+    moveToward(ctx, e, { x: owner.x + Math.round(ux * WORLD.partnerMinSep), y: owner.y + Math.round(uy * WORLD.partnerMinSep) }, e.speed);
   }
 }
 

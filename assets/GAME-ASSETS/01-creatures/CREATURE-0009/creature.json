@@ -1,7 +1,15 @@
 {
+  "schemaVersion": 2,
+  "version": "2.0.0",
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/v1/creature.json",
+      "summary": "rip E-M-B-E-R, pose de batalha idle (SW/S), sem walk/attack/hurt"
+    }
+  ],
   "id": "CREATURE-0009",
   "name": "Gabumon",
-  "description": "Gabumon (Rookie), sprite animado oficial de Digimon World DS/Dawn/Dusk (pose de batalha, idle). Linha piloto Tsunomon → Gabumon → Garurumon. Rip importado sem edição de pixels; só recorte com pivô nos pés.",
   "category": "digital-creature",
   "rarity": "common",
   "element": "data",
@@ -15,39 +23,79 @@
     ]
   },
   "evolutionRequirements": {},
+  "description": "Gabumon: sprites oficiais de Digimon World DS. No mapa: walk em 4 direções (desenhadas S, N, W, E), idle e ataque/dano reduzidos para a escala do mapa. As poses de batalha em escala nativa ficam em battle_*.",
   "dimensions": {
-    "frameW": 78,
-    "frameH": 82,
+    "frameW": 36,
+    "frameH": 34,
     "tile": 32
   },
   "pivot": {
-    "x": 39,
-    "y": 81
+    "x": 18,
+    "y": 33
   },
+  "mapScale": 1,
+  "targetHeightPx": 29,
+  "nativeMapHeightPx": 29,
+  "nativeBattleHeightPx": 76,
+  "sizeNotes": "Altura nativa do sprite de mapa do DS (pose de pé, frente), já relativa entre espécies. mapScale inteiro; o renderer usa targetHeightPx/DIGIMON_SIZE_TABLE só se pedido (?size=table).",
   "hitbox": {
-    "x": 3,
+    "x": 4,
     "y": 2,
-    "w": 58,
-    "h": 79
+    "w": 29,
+    "h": 31
   },
   "anchors": {
     "head": {
-      "x": 10,
+      "x": 18,
       "y": 2
     },
     "hit": {
-      "x": 32,
-      "y": 41
+      "x": 18,
+      "y": 17
     },
     "shadow": {
-      "cx": 39,
-      "cy": 81,
-      "rx": 20,
-      "ry": 6
+      "cx": 18,
+      "cy": 33,
+      "rx": 11,
+      "ry": 4
     }
   },
   "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    },
     "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    },
+    "attack": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "hurt": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "battle_idle": {
       "drawn": [
         "SW"
       ],
@@ -59,50 +107,231 @@
   "animations": {
     "idle": {
       "loop": true,
-      "fps": 5.0,
+      "space": "map",
       "frames": [
         {
-          "durationMs": 200,
-          "atlasKey": "CREATURE-0009_idle_SW_00.png"
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0009_walk_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0009_walk_S_00.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0009_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0009_walk_W_01.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0009_walk_E_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0009_walk_S_00.png"
         },
         {
-          "durationMs": 200,
-          "atlasKey": "CREATURE-0009_idle_SW_01.png"
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0009_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_W_02.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_E_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0009_walk_E_02.png"
+          }
+        ]
+      }
+    },
+    "attack": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 180,
+          "atlasKey": "CREATURE-0009_walk_W_01.png"
         },
         {
-          "durationMs": 200,
-          "atlasKey": "CREATURE-0009_idle_SW_02.png"
+          "durationMs": 160,
+          "atlasKey": "CREATURE-0009_attack_W_00.png"
         },
         {
-          "durationMs": 200,
-          "atlasKey": "CREATURE-0009_idle_SW_01.png"
+          "durationMs": 60,
+          "atlasKey": "CREATURE-0009_walk_W_01.png"
+        }
+      ],
+      "events": [
+        {
+          "frame": 1,
+          "name": "hitFrame"
+        }
+      ]
+    },
+    "hurt": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 220,
+          "atlasKey": "CREATURE-0009_hurt_W_00.png"
         }
       ],
       "events": []
+    },
+    "battle_idle": {
+      "loop": true,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0009_battle_idle_SW_00.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0009_battle_idle_SW_01.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0009_battle_idle_SW_02.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0009_battle_idle_SW_01.png"
+        }
+      ],
+      "events": []
+    },
+    "battle_hurt": {
+      "loop": false,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 300,
+          "atlasKey": "CREATURE-0009_battle_hurt_SW_00.png"
+        }
+      ],
+      "events": []
+    },
+    "battle_attack": {
+      "loop": false,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0009_battle_attack_SW_00.png"
+        }
+      ],
+      "events": [
+        {
+          "frame": 0,
+          "name": "hitFrame"
+        }
+      ]
     }
   },
+  "walkSpeedPxPerSec": 160,
   "combatStates": {
     "IDLE": "idle",
-    "WALK": "idle",
-    "FOLLOW": "idle",
-    "ENGAGE": "idle",
-    "ATTACK": "idle",
-    "HURT": "idle",
-    "DEFEAT": "idle",
-    "RETURN": "idle"
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk",
+    "ATTACK": "attack",
+    "HURT": "hurt",
+    "DEFEAT": "hurt"
   },
   "sprites": "./sprites/",
   "spritesheets": "./spritesheets/",
   "assetOrigin": {
     "layer": "official-fan-use",
-    "sourceDescription": "Rip oficial DW DS/Dawn/Dusk por AngelOfHope (With the Will), preservado em https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites (rookie/Gabumon.gif, commit 4b2273e). Detalhe em license.json."
+    "sourceDescription": "Folha Digimon World DS do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por redblueyellow; enviada pelo fundador em 2026-11-08 (10-source-files/dwds-sheets/gabumon.png). Detalhe em license.json."
   },
   "approvalStatus": "UNDER_REVIEW",
   "qaNotes": [
-    "Só existe idle (4 quadros, 3 poses únicas A-B-C-B) — a fonte E-M-B-E-R tem um GIF de batalha por Digimon, sem walk/attack/hurt/sleep.",
-    "Uma direção desenhada (SW, pose de batalha 3/4 virada para a esquerda); SE é espelho. As outras 6 não existem na fonte.",
-    "combatStates aponta tudo para 'idle' até existirem as outras animações (fonte provável: folhas overworld do Spriters Resource, bloqueadas neste host).",
-    "Escala nativa do DS (78x82); não bate com o tile 32 do ART_STYLE_GUIDE — decisão de escala fica com game-art.",
-    "rarity, element (atributo Vaccine/Data/Virus) e evolutionStage 'baby' para In-Training são preenchimentos provisórios [H]; game design decide."
+    "Direções conferidas no olho [H]: {'W': [1, 2, 3], 'E': [4, 5, 6], 'N': [7, 8, 9], 'S': [13, 14]} (índices na grade de mapa da folha). Quadros extras não usados: [10, 11, 12, 15].",
+    "Alturas de mapa por direção (px): {'S': 29, 'N': 30, 'W': 29, 'E': 29}. Escala nativa do DS, sem redimensionar.",
+    "attack/hurt no mapa = poses de batalha reduzidas por moda de bloco (fator 0.382, de 76 para ~29 px). É derivado do rip, não um quadro do jogo; revisar com o game-art.",
+    "Os sprites de mapa do DS têm 3 quadros por direção; o ciclo de walk é f0-f1-f0-f2 e o idle é o quadro do meio (de pé).",
+    "rarity, element e evolutionStage herdados da v1 (provisórios [H])."
   ]
 }

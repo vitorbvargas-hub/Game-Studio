@@ -27,7 +27,7 @@
     "retrievedAt": "2026-11-08",
     "retrievedVia": "api.github.com /git/blobs/<sha> (base64) pelo web_fetch do OpenClaw; git/curl bloqueados pelo proxy deste host",
     "localCopy": "source/Gigimon.gif",
-    "modifications": "nenhuma nos pixels; quadros recortados (pivô nos pés), quadros repetidos deduplicados e reempacotados em PNG"
+    "modifications": "nenhuma nos pixels; quadros recortados (pivô nos pés), quadros repetidos deduplicados e reempacotados em PNG; v2: quadros reduzidos por moda de bloco para sprite de mapa provisório"
   },
   "credit": {
     "ripper": "AngelOfHope",
@@ -38,5 +38,13 @@
   },
   "verifiedAt": "2026-11-08",
   "verifiedBy": "game-dev",
-  "notes": "Rip oficial. Créditos obrigatórios em qualquer build/tela de créditos: AngelOfHope (With the Will), preservação E-M-B-E-R; © Bandai Namco."
+  "notes": "Rip oficial. Créditos obrigatórios em qualquer build/tela de créditos: AngelOfHope (With the Will), preservação E-M-B-E-R; © Bandai Namco.",
+  "version": "2.0.0",
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/v1/license.json",
+      "stillShipped": true
+    }
+  ]
 }

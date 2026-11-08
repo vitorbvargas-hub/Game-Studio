@@ -2,8 +2,8 @@
 // Ordem por tick: intents → WorldSim.step → Presenter.onTick (eventos confirmados) → HUD.
 
 import { xpToNext } from "@game/src/sim/formulas";
-import { loadCreatureCatalog } from "./assets/creatures";
-import { loadTileSources } from "./assets/tiles";
+import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
+import { countDwdsSources, loadTileSources } from "./assets/tiles";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
@@ -18,6 +18,11 @@ import { Hud } from "./ui/hud";
 const params = new URLSearchParams(location.search);
 const SEED = Number(params.get("seed") ?? Date.now() % 100000);
 const CREATURE_SCALE = Math.max(1, Math.floor(Number(params.get("creatureScale") ?? 1)));
+/** ?size=table liga a tabela de tamanhos do game-research (escala inteira por espécie); padrão = nativo do DS. */
+const SIZE_MODE = params.get("size") ?? "native";
+/** ?smooth=0 desliga a suavização visual (comparação com a v1). ?tiles=original ignora os biomas DS. */
+const SMOOTH = params.get("smooth") !== "0";
+const TILES_DWDS = params.get("tiles") !== "original";
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
@@ -27,13 +32,28 @@ async function boot() {
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
   const { sim, events: spawnEvents } = createDefaultWorld(SEED, { auto: params.get("auto") === "1" });
   const creatures = loadCreatureCatalog();
-  const tiles = loadTileSources();
+  const tiles = loadTileSources(TILES_DWDS);
+  const tamers = pickTamers(loadCharacterCatalog());
+  const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
   const images = new ImageStore(browserImageLoader);
-  const failed = await images.loadAll([...Object.values(creatures).map((c) => c.sheetUrl), ...Object.values(tiles).map((t) => t.url)]);
+  const failed = await images.loadAll([
+    ...Object.values(creatures).map((c) => c.sheetUrl),
+    ...Object.values(tiles).map((t) => t.url),
+    ...[tamers.local, tamers.remote].flatMap((t) => (t ? imageUrlsOf(t) : [])),
+  ]);
   if (failed.length) console.warn("assets não carregados:", failed);
+  console.info(
+    `GS-003 world v2 · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
+      `Tamer ${tamers.local?.manifest.id ?? "placeholder"}/${tamers.remote?.manifest.id ?? "placeholder"} · tamanho ${sizeTable ? `tabela (${Object.keys(sizeTable).length})` : "nativo DS"}`,
+  );
 
   const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
-  const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, { creatureScale: CREATURE_SCALE });
+  const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, {
+    creatureScale: CREATURE_SCALE,
+    sizeTable,
+    tamers,
+    smoothing: SMOOTH,
+  });
   const intents: Intent[] = [];
   const player = getPlayer(sim.state, LOCAL_PLAYER)!;
   const hud = new Hud(hudRoot, sim.content, LOCAL_PLAYER, {
@@ -97,6 +117,7 @@ async function boot() {
   // ---- loop ----
   let acc = 0;
   let last = performance.now();
+  let lastFrame = last;
   const frame = (now: number) => {
     acc += Math.min(1000, now - last);
     last = now;
@@ -113,9 +134,11 @@ async function boot() {
     }
     if (steps === 10) acc = 0;
     presenter.update(now);
-    const me = presenter.entities.get(LOCAL_PLAYER);
     const alpha = acc / TICK_MS;
-    if (me) view.follow(presenter.renderPos(me, alpha));
+    view.update(presenter, alpha, now);
+    const me = view.motionPos(LOCAL_PLAYER);
+    if (me) view.follow(me, now - lastFrame, view.shakeFor(presenter, now));
+    lastFrame = now;
     view.render(presenter, alpha, now);
     const partner = getEntity(sim.state, player.partnerId);
     if (partner) hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(sim.content.balance, partner.level), player.bits);

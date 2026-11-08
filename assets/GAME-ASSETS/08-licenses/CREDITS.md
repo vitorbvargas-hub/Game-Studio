@@ -8,7 +8,9 @@ Digimon e todos os personagens, nomes e sprites oficiais são propriedade de Ban
 |---|---|---|---|---|
 | CREATURE-0002 a 0013: Gigimon, Guilmon, Growlmon, Koromon, Agumon, Greymon, Tsunomon, Gabumon, Garurumon, Tokomon, Patamon e Angemon (idle de batalha) | Digimon World DS / Dawn / Dusk (Nintendo DS) | AngelOfHope ([With the Will](https://withthewill.net/threads/digimon-sprite-animation-thread-read-first-post-fully-working.10472/)) | [E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites](https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites), commit `4b2273e`, obtido em 2026-11-08 | Sem licença aberta. O README da fonte diz: "Sprites are property of Digimon and Bandai Namco Entertainment Inc/Namco Bandai Games". O uso foi liberado pelo fundador (ADR-009) só para este fan game |
 
-O detalhe de cada arquivo (caminho, blob sha, sha256, modificações) está em `01-creatures/CREATURE-NNNN/license.json`.
+| CREATURE-0003 a 0013 v2: sprites de MAPA (walk 4 direções, idle) e poses de batalha IDLE/HURT/ATTACK | Digimon World DS (Nintendo DS) | Guilmon: **Sonicteam24** · Growlmon e Koromon: **Atlanta** · Agumon e Patamon: **Mighty Jetters e redblueyellow** · Greymon: **A.J. Nitro e redblueyellow** · Angemon: **A.J. Nitro e Dazz** · Gabumon e Tsunomon: **redblueyellow** · Garurumon: **redblueyellow** (rip), **RadSpyro** (compilação), agradecimento a **Dazz** · Tokomon: **Verion** (texto de crédito transcrito de cada folha) | [The Spriters Resource, Digimon World DS](https://www.spriters-resource.com/ds_dsi/dgmnworldds/); folhas enviadas pelo fundador em 2026-11-08 (`10-source-files/dwds-sheets/`) | Sem licença aberta; © Bandai Namco. Uso liberado pelo fundador (ADR-009) só para este fan game. Importador: `projects/prototypes/GS-003/tools/dwds_import/import_dwds_sheets.py` |
+
+O detalhe de cada arquivo (caminho, blob sha, sha256, modificações) está em `01-creatures/CREATURE-NNNN/license.json`. A v1 (rip E-M-B-E-R) de cada criatura fica preservada em `CREATURE-NNNN/versions/v1/`. O Gigimon não existe no DS: o sprite de mapa dele é o rip E-M-B-E-R reduzido (pendente).
 
 ## original: biomas e mockup de mundo (game-art, 2026-11-08)
 

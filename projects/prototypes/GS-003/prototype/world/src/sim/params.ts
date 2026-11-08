@@ -17,8 +17,13 @@ export const WORLD = {
   wildReturnSpeed: 4,
   /** Distância (sub) a partir da qual a parceira começa a seguir. */
   followDist: 2 * SUB,
-  /** Distância atrás do Tamer onde a parceira para. */
+  /** Distância atrás do Tamer onde a parceira para, medida AO LONGO da trilha. */
   followBack: Math.round(1.25 * SUB),
+  /** Separação mínima parceira–Tamer fora de combate (não sobrepor). */
+  partnerMinSep: Math.round(0.9 * SUB),
+  /** Trilha do Tamer: um ponto a cada `trailStep` sub andados, no máximo `trailMax` pontos. */
+  trailStep: 4,
+  trailMax: 64,
   /** Raio (sub) em que a parceira em AUTO procura selvagens. */
   aggroRadius: 5 * SUB,
   /** Folga (sub) somada aos raios dos corpos para definir o alcance de ataque. */

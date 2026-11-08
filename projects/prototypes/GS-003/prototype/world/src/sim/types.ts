@@ -123,6 +123,8 @@ export interface Entity {
   fleeRolled: boolean;
   /** Zona de spawn de origem (selvagens), para o respawn. */
   zoneIndex?: number;
+  /** Tamers: trilha de pontos (mais recente por último) que a parceira segue (follow-the-leader). */
+  trail?: Vec[];
   removed: boolean;
 }
 

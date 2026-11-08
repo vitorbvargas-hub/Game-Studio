@@ -1,86 +1,434 @@
 {
   "frames": {
-    "CREATURE-0007_idle_SW_00.png": {
+    "CREATURE-0007_walk_S_00.png": {
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "sourceSize": {
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "pivot": {
         "x": 0.5,
-        "y": 0.9915
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
       }
     },
-    "CREATURE-0007_idle_SW_01.png": {
+    "CREATURE-0007_walk_S_01.png": {
       "frame": {
-        "x": 133,
+        "x": 41,
         "y": 0,
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "sourceSize": {
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "pivot": {
         "x": 0.5,
-        "y": 0.9915
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
       }
     },
-    "CREATURE-0007_idle_SW_02.png": {
+    "CREATURE-0007_walk_N_00.png": {
       "frame": {
-        "x": 266,
-        "y": 0,
-        "w": 132,
-        "h": 118
+        "x": 0,
+        "y": 43,
+        "w": 40,
+        "h": 42
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "sourceSize": {
-        "w": 132,
-        "h": 118
+        "w": 40,
+        "h": 42
       },
       "pivot": {
         "x": 0.5,
-        "y": 0.9915
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_walk_N_01.png": {
+      "frame": {
+        "x": 41,
+        "y": 43,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_walk_N_02.png": {
+      "frame": {
+        "x": 82,
+        "y": 43,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_walk_W_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 86,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_walk_W_01.png": {
+      "frame": {
+        "x": 41,
+        "y": 86,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_walk_W_02.png": {
+      "frame": {
+        "x": 82,
+        "y": 86,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_hurt_W_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 129,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_attack_W_00.png": {
+      "frame": {
+        "x": 41,
+        "y": 129,
+        "w": 40,
+        "h": 42
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 40,
+        "h": 42
+      },
+      "sourceSize": {
+        "w": 40,
+        "h": 42
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9762
+      },
+      "pivotPx": {
+        "x": 20,
+        "y": 41
+      }
+    },
+    "CREATURE-0007_battle_idle_SW_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 172,
+        "w": 112,
+        "h": 121
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 121
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 121
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9917
+      },
+      "pivotPx": {
+        "x": 56,
+        "y": 120
+      }
+    },
+    "CREATURE-0007_battle_idle_SW_01.png": {
+      "frame": {
+        "x": 113,
+        "y": 172,
+        "w": 112,
+        "h": 121
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 121
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 121
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9917
+      },
+      "pivotPx": {
+        "x": 56,
+        "y": 120
+      }
+    },
+    "CREATURE-0007_battle_idle_SW_02.png": {
+      "frame": {
+        "x": 226,
+        "y": 172,
+        "w": 112,
+        "h": 121
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 121
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 121
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9917
+      },
+      "pivotPx": {
+        "x": 56,
+        "y": 120
+      }
+    },
+    "CREATURE-0007_battle_hurt_SW_00.png": {
+      "frame": {
+        "x": 339,
+        "y": 172,
+        "w": 112,
+        "h": 121
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 121
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 121
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9917
+      },
+      "pivotPx": {
+        "x": 56,
+        "y": 120
+      }
+    },
+    "CREATURE-0007_battle_attack_SW_00.png": {
+      "frame": {
+        "x": 452,
+        "y": 172,
+        "w": 112,
+        "h": 121
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 121
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 121
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9917
+      },
+      "pivotPx": {
+        "x": 56,
+        "y": 120
       }
     }
   },
   "meta": {
-    "app": "GS-003 tools/dwds_import/import_ember.py",
-    "version": "1",
+    "app": "GS-003 tools/dwds_import/import_dwds_sheets.py",
+    "version": "2",
     "image": "CREATURE-0007.png",
     "format": "RGBA8888",
     "size": {
-      "w": 398,
-      "h": 118
+      "w": 564,
+      "h": 293
     },
     "scale": "1"
   }

@@ -1,0 +1,19 @@
+{
+  "_comment": "Efeitos de golpe por espécie (apresentação apenas). Elementos genéricos e efeitos ORIGINAIS desenhados em código (orbe, faíscas, anel), sem imitar golpes do anime/jogo. 'basicSkillId' = golpe básico (corpo a corpo); qualquer outra skill de dano vira projétil do elemento da espécie.",
+  "basicSkillId": "investida",
+  "default": "spark",
+  "species": {
+    "CREATURE-0002": "fire",
+    "CREATURE-0003": "fire",
+    "CREATURE-0004": "fire",
+    "CREATURE-0005": "bubble",
+    "CREATURE-0006": "fire",
+    "CREATURE-0007": "fire",
+    "CREATURE-0008": "bubble",
+    "CREATURE-0009": "frost",
+    "CREATURE-0010": "frost",
+    "CREATURE-0011": "bubble",
+    "CREATURE-0012": "wind",
+    "CREATURE-0013": "light"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "creatureId": "CREATURE-0006",
+  "version": "2.0.0",
   "layer": "official-fan-use",
   "officialRip": true,
   "fanException": false,
@@ -7,7 +8,7 @@
   "basis": "ADR-009 §Licença (fundador, 2026-11-08: sprites oficiais liberados em todo o projeto, inclusive git)",
   "nonCommercial": true,
   "noRip": false,
-  "copyright": "Sprites are property of Digimon and Bandai Namco Entertainment Inc/Namco Bandai Games (README do repo de origem)",
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
   "restrictions": [
     "ADR-007: fan game sem monetização de nenhum tipo, sem logo oficial, com aviso de fan game",
     "Publicação exige aprovação separada do fundador",
@@ -15,28 +16,31 @@
   ],
   "source": {
     "type": "game-rip",
-    "game": "Digimon World DS / Digimon World Dawn / Digimon World Dusk (Nintendo DS)",
-    "gamePerFile": "não informado pela fonte (o repo agrupa DS/Dawn/Dusk)",
-    "repository": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites",
-    "commit": "4b2273e163f023b9562cc69e4642f97a0684cb87",
-    "path": "rookie/Agumon.gif",
-    "fileUrl": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites/blob/4b2273e163f023b9562cc69e4642f97a0684cb87/rookie/Agumon.gif",
-    "gitBlobSha": "82a2b8b290753a5346bf30e71c5c39cab0a9259e",
-    "sha256": "1b5989ff5083af22098e88c73e5567857476e3a7c3896bdef55fc7e0fba122ff",
-    "bytes": 3522,
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/dwds-sheets/agumon.png",
+    "sha256": "a3e23aac73c971158444bd24f87cf8da9925bc9c0721209c3458389b919fc5c0",
+    "bytes": 17577,
+    "providedBy": "fundador",
     "retrievedAt": "2026-11-08",
-    "retrievedVia": "api.github.com /git/blobs/<sha> (base64) pelo web_fetch do OpenClaw; git/curl bloqueados pelo proxy deste host",
-    "localCopy": "source/Agumon.gif",
-    "modifications": "nenhuma nos pixels; quadros recortados (pivô nos pés), quadros repetidos deduplicados e reempacotados em PNG"
+    "modifications": "chroma key do fundo e das caixas; quadros recortados e realinhados pelo pivô nos pés; attack/hurt de mapa = poses de batalha reduzidas por moda de bloco (derivado)"
   },
   "credit": {
-    "ripper": "AngelOfHope",
-    "ripperCommunity": "With the Will",
-    "ripperUrl": "https://withthewill.net/threads/digimon-sprite-animation-thread-read-first-post-fully-working.10472/",
-    "preservedBy": "E-M-B-E-R",
-    "preservedByUrl": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites"
+    "ripper": "Mighty Jetters, redblueyellow",
+    "creditTextOnSheet": "Agumon from Digimon World DS ripped by Mighty Jetters and redblueyellow. Credit is not required.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
   },
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/v1/license.json",
+      "credit": "AngelOfHope (With the Will), preservado por E-M-B-E-R",
+      "stillShipped": false
+    }
+  ],
   "verifiedAt": "2026-11-08",
   "verifiedBy": "game-dev",
-  "notes": "Rip oficial. Créditos obrigatórios em qualquer build/tela de créditos: AngelOfHope (With the Will), preservação E-M-B-E-R; © Bandai Namco."
+  "notes": "Créditos em qualquer build/tela de créditos: Mighty Jetters, redblueyellow (rip DW DS, The Spriters Resource); © Bandai Namco. O texto de crédito acima foi transcrito da própria folha."
 }

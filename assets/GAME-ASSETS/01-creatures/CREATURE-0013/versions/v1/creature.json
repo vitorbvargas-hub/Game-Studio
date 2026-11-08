@@ -1,0 +1,104 @@
+{
+  "id": "CREATURE-0013",
+  "name": "Angemon",
+  "description": "Angemon (Champion), sprite animado oficial de Digimon World DS/Dawn/Dusk (pose de batalha, idle). Linha piloto Tokomon → Patamon → Angemon. Rip importado sem edição de pixels; só recorte com pivô nos pés.",
+  "category": "digital-creature",
+  "rarity": "uncommon",
+  "element": "vaccine",
+  "attributes": {},
+  "evolutionStage": "champion",
+  "evolutionLine": {
+    "lineId": "patamon",
+    "previous": "CREATURE-0012",
+    "next": []
+  },
+  "evolutionRequirements": {},
+  "dimensions": {
+    "frameW": 110,
+    "frameH": 135,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 55,
+    "y": 134
+  },
+  "hitbox": {
+    "x": 3,
+    "y": 2,
+    "w": 96,
+    "h": 132
+  },
+  "anchors": {
+    "head": {
+      "x": 51,
+      "y": 2
+    },
+    "hit": {
+      "x": 51,
+      "y": 68
+    },
+    "shadow": {
+      "cx": 55,
+      "cy": 134,
+      "rx": 34,
+      "ry": 10
+    }
+  },
+  "directions": {
+    "idle": {
+      "drawn": [
+        "S"
+      ],
+      "mirrored": {}
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "fps": 5.0,
+      "frames": [
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0013_idle_S_00.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0013_idle_S_01.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0013_idle_S_02.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0013_idle_S_01.png"
+        }
+      ],
+      "events": []
+    }
+  },
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "idle",
+    "FOLLOW": "idle",
+    "ENGAGE": "idle",
+    "ATTACK": "idle",
+    "HURT": "idle",
+    "DEFEAT": "idle",
+    "RETURN": "idle"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Rip oficial DW DS/Dawn/Dusk por AngelOfHope (With the Will), preservado em https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites (champion/Angemon.gif, commit 4b2273e). Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Só existe idle (4 quadros, 3 poses únicas A-B-C-B) — a fonte E-M-B-E-R tem um GIF de batalha por Digimon, sem walk/attack/hurt/sleep.",
+    "Uma direção desenhada (S, pose de batalha de frente); as outras 7 não existem na fonte.",
+    "combatStates aponta tudo para 'idle' até existirem as outras animações (fonte provável: folhas overworld do Spriters Resource, bloqueadas neste host).",
+    "Escala nativa do DS (110x135); não bate com o tile 32 do ART_STYLE_GUIDE — decisão de escala fica com game-art.",
+    "rarity, element (atributo Vaccine/Data/Virus) e evolutionStage 'baby' para In-Training são preenchimentos provisórios [H]; game design decide."
+  ]
+}
