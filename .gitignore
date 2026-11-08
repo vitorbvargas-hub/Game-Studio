@@ -1,0 +1,37 @@
+# Secrets & credentials — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*credentials*.json
+*secret*.json
+*token*.json
+secrets/
+service-account*.json
+.npmrc
+# Sensitive dumps
+*.sql.gz
+*.dump
+*.sqlite
+*.db
+backups/
+# Dependencies & builds
+node_modules/
+dist/
+build/
+.next/
+out/
+.expo/
+__pycache__/
+*.pyc
+.venv/
+coverage/
+*.log
+.DS_Store
+# Agent workspaces are their own git repos
+workspaces/
