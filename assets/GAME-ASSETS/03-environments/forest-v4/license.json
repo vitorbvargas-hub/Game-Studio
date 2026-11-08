@@ -1,0 +1,43 @@
+{
+  "biome": "forest-v4",
+  "layer": "mixed",
+  "assets": [
+    {
+      "group": "tiles (chao, recorte real, mantido do forest-v3 por continuidade)",
+      "layer": "official-fan-use",
+      "files": [
+        "tiles/ground_grass_real.png",
+        "night/tiles/ground_grass_real.png"
+      ],
+      "source": {
+        "type": "game-rip",
+        "game": "Digimon World DS (Nintendo DS)",
+        "site": "The Spriters Resource",
+        "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+        "providedBy": "varredura automatica (Spriters Resource), fundador autorizou em 2026-11-08",
+        "retrievedAt": "2026-11-08",
+        "modifications": "recorte retangular direto 32x32 de area plana (sem objetos sobrepostos); versao noturna = multiplicacao de brilho/tingimento roxo-azulado sem redesenho dos pixels originais."
+      },
+      "credit": {
+        "ripper": "Atlanta",
+        "site": "The Spriters Resource"
+      },
+      "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+      "basis": "ADR-009 Secao Licenca + ADR-010 (fundador, 2026-11-08)",
+      "nonCommercial": true,
+      "restrictions": [
+        "ADR-007: sem monetizacao, sem logo oficial, aviso de fan game",
+        "Publicacao exige aprovacao do fundador"
+      ]
+    },
+    {
+      "group": "tiles (autotile grama/caminho, mata-densa/clareira) + props (6 tipos de arvore, grama alta, flores, pedra, folhas caidas, cogumelo, tronco caido, sombra de dossel)",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "pixel matrix (autotile blob 16-pecas, Canvas.js mask-paint + dither seeded) + primitivas em camadas (fillCircle leaf-puff clusters, fillPolygon tronco afunilado, roots tendrils) para props de cenario -- nao sao corpos de criatura, permitido por ADR-009/biome_props.js. Paleta estendida forest_v4_palette.js (ramps de 8 tons feitos a mao), nao parametrica/procedural por formula de criatura.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- sem IP de terceiro alem da paleta de cor amostrada"
+    }
+  ],
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art"
+}

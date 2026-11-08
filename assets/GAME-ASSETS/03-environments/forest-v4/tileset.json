@@ -1,0 +1,434 @@
+{
+  "biome": "forest-v4",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "resolutionDecision": {
+    "chosen": "32px native art, render scale 1x (no 16px-upscale)",
+    "reason": "See README.md section 2. forest-v3 trees were already drawn at native size (56-92px canvases), not upscaled blocky art -- the flatness came from palette range (3 greens) and smooth-ellipse canopy shading, not pixel density. Keeping 32px tiles matches the DS-era sprite scale already locked by DIGIMON_SIZE_TABLE.md and avoids an engine/scale break (ADR-010 \"sem mudanca de arquitetura antes da prova visual\")."
+  },
+  "layers": [
+    "ground",
+    "decor",
+    "canopy-top"
+  ],
+  "canopyTopRule": "Every tree_*_top.png renders on the canopy-top layer, always above every entity sprite regardless of Y-sort. Every tree_*_base.png renders on the decor layer with normal Y-sort + collision=true. Pair base/top of the same tree name at the same X; top anchors so its bottom sits \"overlap\" px above the base trunk top (see props manifest).",
+  "presets": {
+    "day": "tiles/ + props/",
+    "night": "night/tiles/ + night/props/ (same filenames, palette swap only)"
+  },
+  "autotile": {
+    "pattern": "16-tile blob (Wang-lite), bitmask = N*1 + E*2 + S*4 + W*8, 1 = same-type neighbor present",
+    "sets": [
+      {
+        "name": "path_blob",
+        "center": "dirt path",
+        "surround": "grass",
+        "files": [
+          "tiles/path_blob_0.png",
+          "tiles/path_blob_1.png",
+          "tiles/path_blob_2.png",
+          "tiles/path_blob_3.png",
+          "tiles/path_blob_4.png",
+          "tiles/path_blob_5.png",
+          "tiles/path_blob_6.png",
+          "tiles/path_blob_7.png",
+          "tiles/path_blob_8.png",
+          "tiles/path_blob_9.png",
+          "tiles/path_blob_10.png",
+          "tiles/path_blob_11.png",
+          "tiles/path_blob_12.png",
+          "tiles/path_blob_13.png",
+          "tiles/path_blob_14.png",
+          "tiles/path_blob_15.png"
+        ]
+      },
+      {
+        "name": "denseedge_blob",
+        "center": "dense forest floor",
+        "surround": "clearing grass",
+        "files": [
+          "tiles/denseedge_blob_0.png",
+          "tiles/denseedge_blob_1.png",
+          "tiles/denseedge_blob_2.png",
+          "tiles/denseedge_blob_3.png",
+          "tiles/denseedge_blob_4.png",
+          "tiles/denseedge_blob_5.png",
+          "tiles/denseedge_blob_6.png",
+          "tiles/denseedge_blob_7.png",
+          "tiles/denseedge_blob_8.png",
+          "tiles/denseedge_blob_9.png",
+          "tiles/denseedge_blob_10.png",
+          "tiles/denseedge_blob_11.png",
+          "tiles/denseedge_blob_12.png",
+          "tiles/denseedge_blob_13.png",
+          "tiles/denseedge_blob_14.png",
+          "tiles/denseedge_blob_15.png"
+        ]
+      }
+    ],
+    "cornerRule": "Each tile corner independently rounded via a quarter-circle cut (R=0 both neighbors same-type / R=7 one neighbor / R=12 neither) with 1px seeded dither along the arc -- no square 4px stair-step seam."
+  },
+  "tiles": [
+    {
+      "file": "tiles/grass_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_02.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_03.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_04.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_05.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_center.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_0.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_1.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_2.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_3.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_4.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_5.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_6.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_7.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_8.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_9.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_10.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_11.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_12.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_13.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_14.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_blob_15.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_0.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_1.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_2.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_3.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_4.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_5.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_6.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_7.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_8.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_9.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_10.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_11.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_12.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_13.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_14.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/denseedge_blob_15.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/ground_grass_real.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "note": "legacy official-fan-use DWDS crop kept for license continuity with forest-v3; not part of the default autotile pool (clashes with the forest-v4 ramp, see README self-critique iteration 1)"
+    }
+  ],
+  "props": [
+    {
+      "file": "props/tree_round_a_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_round_a_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_round_b_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_round_b_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_conifer_a_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_conifer_a_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_conifer_b_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_conifer_b_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_bushy_a_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_bushy_a_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_bushy_b_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_bushy_b_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_flowering_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_flowering_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_birch_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_birch_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tree_ancient_base.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tree_ancient_top.png",
+      "collision": false,
+      "suggestedLayer": "canopy-top"
+    },
+    {
+      "file": "props/tall_grass_a.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tall_grass_b.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/flower_cluster_red.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/flower_cluster_white.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/flower_cluster_purple.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/fallen_leaves_cluster.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/mushroom_cluster.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/fallen_log.png",
+      "collision": true,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/canopy_shadow_small.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/canopy_shadow_large.png",
+      "collision": false,
+      "suggestedLayer": "decor"
+    }
+  ]
+}
