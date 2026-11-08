@@ -190,6 +190,26 @@ class Canvas {
     return nc;
   }
 
+  // Horizontal mirror -- used by the PMD-format pipeline to derive W/NW/SW
+  // direction rows from the hand-drawn E/NE/SE rows instead of redrawing them.
+  flipX() {
+    const nc = new Canvas(this.w, this.h);
+    for (let y = 0; y < this.h; y++) {
+      for (let x = 0; x < this.w; x++) nc.setPixel(this.w - 1 - x, y, this.getPixel(x, y));
+    }
+    return nc;
+  }
+
+  // Vertical mirror -- used by biome tile authoring to derive N/S edge and
+  // corner tile variants from one hand-authored mask instead of redrawing it.
+  flipY() {
+    const nc = new Canvas(this.w, this.h);
+    for (let y = 0; y < this.h; y++) {
+      for (let x = 0; x < this.w; x++) nc.setPixel(x, this.h - 1 - y, this.getPixel(x, y));
+    }
+    return nc;
+  }
+
   save(path) {
     savePNG(path, this.w, this.h, this.data);
   }

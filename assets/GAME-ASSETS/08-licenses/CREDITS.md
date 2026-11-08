@@ -10,6 +10,17 @@ Digimon e todos os personagens, nomes e sprites oficiais são propriedade de Ban
 
 O detalhe de cada arquivo (caminho, blob sha, sha256, modificações) está em `01-creatures/CREATURE-NNNN/license.json`.
 
+## original: biomas e mockup de mundo (game-art, 2026-11-08)
+
+| Asset | Pasta | Técnica | Licença |
+|---|---|---|---|
+| Bioma campo de grama (tiles de grama/caminho + props: árvores, arbustos, pedras, flores, placa, cerca) | `03-environments/grass/` | Matriz de pixel (Canvas.js, máscara 8x8 + dither determinístico) e primitivas em camadas para props | `original`, estudio (GS-003, ADR-007/ADR-009), sem IP de terceiros |
+| Bioma floresta (piso + bordas + árvores densas, samambaia, pedras) | `03-environments/forest/` | Idem acima | `original`, estudio |
+| Bioma beira d'agua (agua animada 2 quadros + margens + ponte de madeira + vitoria-regia + juncos) | `03-environments/water/` | Idem acima | `original`, estudio |
+| `world_mockup_v1.png` (mockup 1280x720, campo de grama) | `09-previews/world_mockup_v1.png` | Composicao dos biomas acima + sprites oficiais reais (CREATURE-0003/0006/0009/0012, ja creditados acima) + placeholder de Tamer original + HUD original | Mista: tiles/props/Tamer/HUD `original`; Guilmon/Agumon/Gabumon/Patamon `official-fan-use` (mesma linha da tabela acima) |
+
+Nota de processo: `ASSET_DISCOVERY_CATALOG.md` recomenda tentar primeiro fontes CC0/CC-BY (Kenney Roguelike/RPG pack, Pipoya, ansimuz Explosion Pack) antes de arte propria. Nesta tarefa, download binario via `exec`/`curl` retornou bloqueio de proxy ("403 CONNECT tunnel failed") e `web_search` ficou indisponivel -- o mesmo bloqueio ja documentado em sessoes anteriores (`TECH_AUDIT.md`, `ART_STYLE_GUIDE.md`). Sem poder baixar nem verificar hash dos pacotes do catalogo, os 3 biomas e o efeito de impacto do mockup usam a 2a prioridade do briefing (tiles proprios por matriz de pixel), evitando qualquer risco de licenca nao verificada. Detalhe por biome em `03-environments/<bioma>/license.json`.
+
 ## Restrições
 
 - Nenhuma monetização, nenhum logo oficial, aviso de fan game visível (ADR-007).

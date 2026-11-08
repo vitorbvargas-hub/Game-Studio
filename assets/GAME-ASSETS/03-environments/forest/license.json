@@ -1,0 +1,101 @@
+{
+  "biome": "forest",
+  "layer": "original",
+  "author": "game-art",
+  "technique": "hand-authored pixel matrix (Canvas.js mask-paint + seeded dither) and layered primitives for props; no external file opened, traced, or downloaded as a basis",
+  "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- no third-party IP, free to use/modify within the project",
+  "tile": 32,
+  "generator": "projects/prototypes/GS-003/art/src/gen_biomes.js",
+  "date": "2026-11-08",
+  "catalogAttemptNote": "ASSET_DISCOVERY_CATALOG.md prioriza fontes CC0/CC-BY (ex.: Kenney Roguelike/RPG pack A02, Pipoya A13, ansimuz A14) antes de tiles proprios. Nesta sessao, download binario via exec/curl retornou \"403 CONNECT tunnel failed\" (mesmo bloqueio de proxy ja documentado em TECH_AUDIT.md/ART_STYLE_GUIDE.md) e web_search ficou indisponivel (\"disabled or no provider\"), entao nao foi possivel baixar nem verificar hash dos pacotes do catalogo nesta tarefa. Fallback para a 2a prioridade do briefing: tiles proprios desenhados pixel a pixel por matriz -- ver AUTOCRITICA.md.",
+  "assets": [
+    {
+      "file": "tiles/forest_floor_00.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "tiles/forest_floor_01.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "tiles/forest_edge_s.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "tiles/forest_edge_n.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "tiles/forest_edge_w.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "tiles/forest_edge_e.png",
+      "kind": "tile",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "file": "props/tree_forest_a.png",
+      "kind": "prop",
+      "size": [
+        56,
+        104
+      ]
+    },
+    {
+      "file": "props/tree_forest_b.png",
+      "kind": "prop",
+      "size": [
+        56,
+        104
+      ]
+    },
+    {
+      "file": "props/tree_forest_c.png",
+      "kind": "prop",
+      "size": [
+        56,
+        104
+      ]
+    },
+    {
+      "file": "props/bush_fern_a.png",
+      "kind": "prop",
+      "size": [
+        24,
+        18
+      ]
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "kind": "prop",
+      "size": [
+        22,
+        14
+      ]
+    }
+  ]
+}
