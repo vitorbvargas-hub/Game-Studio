@@ -1,0 +1,60 @@
+[
+  {
+    "id": "zona_01",
+    "name": "Campo de Bits",
+    "levelRange": [
+      1,
+      3
+    ],
+    "restHealPct": 1,
+    "background": "grid",
+    "waves": [
+      {
+        "enemies": [
+          "noise_mite"
+        ],
+        "weight": 2
+      },
+      {
+        "enemies": [
+          "noise_mite",
+          "lost_packet"
+        ],
+        "weight": 3
+      },
+      {
+        "enemies": [
+          "loop_worm",
+          "lost_packet",
+          "noise_mite"
+        ],
+        "weight": 2
+      }
+    ],
+    "boss": {
+      "enemyId": "corrupt_sentinel",
+      "level": 4,
+      "escorts": [
+        {
+          "enemyId": "noise_mite",
+          "level": 3
+        }
+      ],
+      "unlockAfterWins": 25,
+      "lethal": false,
+      "decisionAtHpPct": [
+        100,
+        50
+      ],
+      "syncOptions": [
+        "sync_overload",
+        "sync_restore",
+        "sync_shield"
+      ],
+      "reward": {
+        "xp": 150,
+        "bits": 60
+      }
+    }
+  }
+]

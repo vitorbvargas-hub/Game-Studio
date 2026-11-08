@@ -1,0 +1,4 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["arena.ts", "render.ts", "main.ts", "arena.check.ts", "../src"]
+}

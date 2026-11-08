@@ -1,0 +1,102 @@
+[
+  {
+    "id": "noise_mite",
+    "name": "Ácaro de Ruído",
+    "affinity": "erratico",
+    "color": "#ff6b8b",
+    "placeholder": true,
+    "base": {
+      "hp": 34,
+      "atk": 10,
+      "def": 4,
+      "spd": 9
+    },
+    "growth": {
+      "hp": 6,
+      "atk": 1.6,
+      "def": 0.8,
+      "spd": 0.2
+    },
+    "skills": [
+      "pulse"
+    ],
+    "xp": 8,
+    "bits": 2
+  },
+  {
+    "id": "lost_packet",
+    "name": "Pacote Perdido",
+    "affinity": "estavel",
+    "color": "#ffd166",
+    "placeholder": true,
+    "base": {
+      "hp": 28,
+      "atk": 11,
+      "def": 3,
+      "spd": 11
+    },
+    "growth": {
+      "hp": 5,
+      "atk": 1.8,
+      "def": 0.6,
+      "spd": 0.25
+    },
+    "skills": [
+      "pulse"
+    ],
+    "xp": 7,
+    "bits": 3
+  },
+  {
+    "id": "loop_worm",
+    "name": "Verme de Laço",
+    "affinity": "fluido",
+    "color": "#9cff6b",
+    "placeholder": true,
+    "base": {
+      "hp": 44,
+      "atk": 9,
+      "def": 7,
+      "spd": 7
+    },
+    "growth": {
+      "hp": 7,
+      "atk": 1.4,
+      "def": 1.0,
+      "spd": 0.15
+    },
+    "skills": [
+      "corrupt_bite",
+      "pulse"
+    ],
+    "xp": 10,
+    "bits": 2
+  },
+  {
+    "id": "corrupt_sentinel",
+    "name": "Sentinela-Bastião",
+    "affinity": "erratico",
+    "color": "#ff3d6e",
+    "size": "boss",
+    "placeholder": true,
+    "base": {
+      "hp": 900,
+      "atk": 17,
+      "def": 10,
+      "spd": 9
+    },
+    "growth": {
+      "hp": 40,
+      "atk": 2.0,
+      "def": 1.0,
+      "spd": 0.1
+    },
+    "skills": [
+      "null_storm",
+      "corrupt_bite",
+      "pulse"
+    ],
+    "xp": 0,
+    "bits": 0
+  }
+]

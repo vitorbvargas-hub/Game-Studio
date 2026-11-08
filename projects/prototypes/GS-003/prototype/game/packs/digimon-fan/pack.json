@@ -1,0 +1,17 @@
+{
+  "id": "digimon-fan",
+  "name": "Digimon (fan pack)",
+  "version": "0.1.0",
+  "kind": "fan",
+  "line": "B",
+  "default": true,
+  "nonCommercial": true,
+  "disclaimer": "Fan game não oficial e sem fins comerciais. Sem afiliação com Bandai, Toei Animation ou qualquer detentor de Digimon. Digimon e nomes relacionados pertencem aos seus donos. Arte redesenhada pelo estúdio; nenhum arquivo oficial é usado.",
+  "sources": [
+    "Nomes, atributos, tipos e golpes: prototype/data/content-pack-digimon-oficial.json (game-design, via Wikimon/Digimon Reference Book, consultado em 2026-11-08)",
+    "Stats de adultos e do chefe: prototype/data/content-pack-digimon-oficial.json e prototype/data/bosses.json"
+  ],
+  "credits": [
+    "Conteúdo de design: game-design (GDD_PROTOTYPE_B.md, ADR-007)"
+  ]
+}

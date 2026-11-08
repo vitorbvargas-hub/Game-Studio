@@ -1,0 +1,44 @@
+[
+  {
+    "id": "rota_01",
+    "name": "[PH] Rota 1",
+    "levelRange": [
+      1,
+      3
+    ],
+    "restHealPct": 1,
+    "waves": [
+      {
+        "enemies": [
+          "a_wild"
+        ],
+        "weight": 1
+      },
+      {
+        "enemies": [
+          "a_wild",
+          "a_wild"
+        ],
+        "weight": 2
+      }
+    ],
+    "boss": {
+      "enemyId": "a_guardian",
+      "level": 4,
+      "unlockAfterWins": 25,
+      "lethal": false,
+      "decisionAtHpPct": [
+        100,
+        50
+      ],
+      "syncOptions": [
+        "cmd_focus",
+        "cmd_rest"
+      ],
+      "reward": {
+        "xp": 150,
+        "bits": 60
+      }
+    }
+  }
+]

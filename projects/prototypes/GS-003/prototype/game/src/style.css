@@ -1,0 +1,31 @@
+:root { --bg: #0b1020; --ui: #121a2e; --accent: #5ad1ff; --text: #e6f1ff; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.35 system-ui, sans-serif; }
+#app { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px; }
+#view { image-rendering: pixelated; image-rendering: crisp-edges; display: block; border: 2px solid #000; }
+#hud { width: min(100%, 960px); position: relative; }
+header { display: flex; gap: 16px; flex-wrap: wrap; padding: 6px 10px; background: var(--ui); border-radius: 6px; }
+.row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.party { flex: 2 1 320px; list-style: none; margin: 0; padding: 8px; background: var(--ui); border-radius: 6px; }
+.party li { padding: 4px 0; border-bottom: 1px solid #ffffff14; }
+.sw { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border: 1px solid #000; }
+.aff { font-size: 12px; margin: 0 4px; }
+.bar { height: 4px; background: #000; margin-top: 3px; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.evo { margin-top: 4px; }
+.side { flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; padding: 8px; background: var(--ui); border-radius: 6px; }
+button { background: #1f2b49; color: var(--text); border: 1px solid var(--accent); border-radius: 4px; padding: 4px 8px; cursor: pointer; font: inherit; }
+button:disabled { opacity: .45; cursor: default; }
+button.on { background: var(--accent); color: #000; }
+.log { margin: 0; padding-left: 18px; font-size: 12px; opacity: .85; min-height: 8em; }
+.modal { position: fixed; inset: 0; background: #000a; display: grid; place-items: center; z-index: 10; }
+.card { background: var(--ui); border: 2px solid var(--accent); border-radius: 8px; padding: 16px; max-width: 520px; }
+.card h2 { margin-top: 0; }
+.decision .card button { display: block; width: 100%; margin: 6px 0; text-align: left; }
+.areas button { margin: 2px 4px 2px 0; }
+.disclaimer { margin-top: 8px; font-size: 11px; opacity: .7; text-align: center; }
+select { background: #1f2b49; color: var(--text); border: 1px solid var(--accent); border-radius: 4px; font: inherit; }
+.train { margin-top: 4px; font-size: 12px; }
+.train button { padding: 1px 6px; }
+.party .scan { font-size: 12px; opacity: .85; border-bottom: 0; }
+.starter .card button .sw { vertical-align: middle; }

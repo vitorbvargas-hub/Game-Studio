@@ -1,0 +1,31 @@
+{
+  "contentPackRef": "content-pack-digimon-oficial.json",
+  "bosses": [
+    {
+      "bossId": "devimon_zona",
+      "name": "Devimon",
+      "context": "Chefe de Zona (fim da Zona 2)",
+      "level": 14,
+      "damageCap": { "rule": "nunca reduz HP de nenhuma criatura do time abaixo de 1 HP" },
+      "purpose": "ensina a habilidade de Sincronizacao sem risco real de derrota",
+      "stats": { "hp": 420, "atk": 24, "def": 16, "spd": 10 },
+      "specialMove": "Death Claw (oficial)"
+    },
+    {
+      "bossId": "devimon_forca_plena",
+      "name": "Devimon (forca plena)",
+      "context": "Chefe final da Masmorra Brecha Instavel (Setor 4)",
+      "designNote": "[H] Nao e uma forma/digivolucao oficial distinta de Devimon — reescala de dificuldade do mesmo Devimon para o desafio real do protótipo (ver content-pack-digimon-oficial.json).",
+      "level": 20,
+      "damageCap": null,
+      "purpose": "desafio real do protótipo; pode derrotar o time (sem perda permanente de progresso ja ganho no run)",
+      "stats": { "hp": 900, "atk": 46, "def": 28, "spd": 16 },
+      "telegraphedAttack": {
+        "name": "Death Claw",
+        "warningWindowSeconds": 3,
+        "damageMultiplierIfUnmitigated": 2.5,
+        "mitigation": "qualquer habilidade de Sincronizacao do time ativada dentro da janela de aviso reduz o dano desse ataque para 1.0x"
+      }
+    }
+  ]
+}

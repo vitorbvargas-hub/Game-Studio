@@ -1,0 +1,110 @@
+[
+  {
+    "id": "brecha_instavel",
+    "name": "Brecha Instável",
+    "unlockAreaId": "distrito_metalico",
+    "baseLevel": 14,
+    "hpPersists": true,
+    "corruptionAtkPerPoint": 0.08,
+    "floors": [
+      {
+        "id": "setor1",
+        "name": "Setor 1",
+        "levelBonus": 0,
+        "wavesToClear": 3,
+        "waves": [
+          {
+            "enemies": [
+              "wild_agumon",
+              "wild_gabumon"
+            ],
+            "weight": 1
+          }
+        ],
+        "routes": [
+          {
+            "id": "estavel",
+            "label": "Rota estável",
+            "healPct": 0.3,
+            "rewardMult": 1,
+            "corruption": 0
+          },
+          {
+            "id": "corrompida",
+            "label": "Rota corrompida",
+            "healPct": 0,
+            "rewardMult": 1.6,
+            "corruption": 1
+          }
+        ]
+      },
+      {
+        "id": "setor2",
+        "name": "Setor 2",
+        "levelBonus": 1,
+        "wavesToClear": 3,
+        "waves": [
+          {
+            "enemies": [
+              "wild_patamon",
+              "wild_agumon"
+            ],
+            "weight": 1
+          }
+        ],
+        "routes": [
+          {
+            "id": "estavel",
+            "label": "Rota estável",
+            "healPct": 0.3,
+            "rewardMult": 1,
+            "corruption": 0
+          },
+          {
+            "id": "corrompida",
+            "label": "Rota corrompida",
+            "healPct": 0,
+            "rewardMult": 1.6,
+            "corruption": 1
+          }
+        ]
+      },
+      {
+        "id": "setor3",
+        "name": "Setor 3",
+        "levelBonus": 2,
+        "wavesToClear": 2,
+        "waves": [
+          {
+            "enemies": [
+              "wild_agumon",
+              "wild_gabumon",
+              "wild_patamon"
+            ],
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "boss": {
+      "enemyId": "devimon_pleno",
+      "level": 20,
+      "unlockAfterWins": 0,
+      "lethal": true,
+      "decisionAtHpPct": [
+        100,
+        60,
+        25
+      ],
+      "syncOptions": [
+        "sync_petit_fire",
+        "sync_air_shot",
+        "sync_baby_flame"
+      ],
+      "reward": {
+        "xp": 600,
+        "bits": 300
+      }
+    }
+  }
+]

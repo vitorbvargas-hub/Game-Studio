@@ -1,0 +1,52 @@
+[
+  {
+    "id": "a_wild",
+    "name": "[PH] Rato-de-Mato",
+    "affinity": "broto",
+    "color": "#a3c46b",
+    "placeholder": true,
+    "base": {
+      "hp": 34,
+      "atk": 10,
+      "def": 4,
+      "spd": 9
+    },
+    "growth": {
+      "hp": 6,
+      "atk": 1.6,
+      "def": 0.8,
+      "spd": 0.2
+    },
+    "skills": [
+      "tackle"
+    ],
+    "xp": 8,
+    "bits": 2
+  },
+  {
+    "id": "a_guardian",
+    "name": "[PH] Guardião da Rota",
+    "affinity": "mare",
+    "color": "#2d6cdf",
+    "size": "boss",
+    "placeholder": true,
+    "base": {
+      "hp": 900,
+      "atk": 17,
+      "def": 10,
+      "spd": 9
+    },
+    "growth": {
+      "hp": 40,
+      "atk": 2,
+      "def": 1,
+      "spd": 0.1
+    },
+    "skills": [
+      "burst",
+      "tackle"
+    ],
+    "xp": 0,
+    "bits": 0
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "contentPackRef": "content-pack-digimon-oficial.json",
+  "dungeonId": "brecha_instavel",
+  "name": "Brecha Instavel",
+  "unlock": "derrotar Devimon (forma de zona) pelo menos 1 vez",
+  "entryCost": { "chargeFlat": 20, "appliesTo": "todo o time" },
+  "chargeDrainPerMinutePerFloor": 3,
+  "hpPersistence": "HP do time NAO recupera entre Setores",
+  "repairItem": { "name": "Fragmento de Reparo", "effect": "Cura 40% do HP maximo do time", "usesPerRun": 1 },
+  "floors": [
+    {
+      "floor": 1,
+      "name": "Setor 1",
+      "enemyType": "greymon_garurumon_ou_angemon_em_nivel_mais_alto",
+      "statMultiplierOverZone2AdultBase": 1.15
+    },
+    {
+      "floor": 2,
+      "name": "Setor 2",
+      "enemyType": "greymon_garurumon_ou_angemon_em_nivel_mais_alto",
+      "statMultiplierOverZone2AdultBase": 1.30
+    },
+    {
+      "floor": 3,
+      "name": "Setor 3",
+      "enemyType": "greymon_garurumon_ou_angemon_em_nivel_mais_alto",
+      "statMultiplierOverZone2AdultBase": 1.45
+    },
+    {
+      "floor": 4,
+      "name": "Setor 4 (Chefe final)",
+      "enemyType": "boss",
+      "bossId": "devimon_forca_plena",
+      "permadeathRule": "derrota apenas termina o run; Bits/Dados/XP ja ganhos nos Setores 1-3 sao mantidos"
+    }
+  ]
+}

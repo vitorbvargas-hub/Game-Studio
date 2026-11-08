@@ -1,0 +1,4 @@
+{
+  "_deprecated": true,
+  "_note": "Substituido por content-pack-digimon-oficial.json apos ADR-007 (fan game com Digimon oficiais). Mantido como stub para nao quebrar referencias antigas. Nao usar para implementacao."
+}

@@ -1,0 +1,19 @@
+{
+  "tickMs": 100,
+  "gaugeMax": 100,
+  "basicSkillId": "pulse",
+  "defenseK": 40,
+  "damageVariance": 0.1,
+  "xpCurve": {
+    "base": 30,
+    "exponent": 2.4
+  },
+  "maxLevel": 30,
+  "ticksBetweenBattles": 10,
+  "offline": {
+    "capHours": 8,
+    "minSeconds": 60,
+    "efficiency": 0.5,
+    "sampleTicks": 6000
+  }
+}

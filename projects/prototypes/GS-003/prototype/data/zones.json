@@ -1,0 +1,35 @@
+{
+  "contentPackRef": "content-pack-digimon-oficial.json",
+  "zones": [
+    {
+      "zoneId": "zona1_campo_de_bits",
+      "name": "Campo de Bits",
+      "tier": "tutorial",
+      "enemyLevelRange": [1, 5],
+      "unlock": "disponivel desde o inicio",
+      "encounterTable": [
+        { "speciesId": "tsunomon_ou_tokomon_nao_inicial", "weight": 0.45 },
+        { "speciesId": "tsunomon_ou_tokomon_nao_inicial_2", "weight": 0.45 },
+        { "speciesId": "baby_mesma_linhagem_do_jogador", "weight": 0.10 }
+      ],
+      "baseRates": { "xpPerMinute": 15, "bitsPerMinute": 10, "chargeCostPerMinute": 1 },
+      "emergencyHeal": { "triggerHpPercent": 15, "healPercent": 30, "usesPerHuntSession": 1 },
+      "zoneBoss": null
+    },
+    {
+      "zoneId": "zona2_distrito_metalico",
+      "name": "Distrito Metalico",
+      "tier": "intermediaria",
+      "enemyLevelRange": [6, 13],
+      "unlock": "nivel do time >= 6",
+      "encounterTable": [
+        { "speciesId": "agumon", "weight": 0.333 },
+        { "speciesId": "gabumon", "weight": 0.333 },
+        { "speciesId": "patamon", "weight": 0.334 }
+      ],
+      "baseRates": { "xpPerMinute": 30, "bitsPerMinute": 22, "chargeCostPerMinute": 2 },
+      "emergencyHeal": { "triggerHpPercent": 15, "healPercent": 30, "usesPerHuntSession": 1 },
+      "zoneBoss": { "bossId": "devimon_zona", "unlockCondition": "10 vitorias contra Child-stage em Zona 2" }
+    }
+  ]
+}

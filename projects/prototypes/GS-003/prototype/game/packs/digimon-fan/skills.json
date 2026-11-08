@@ -1,0 +1,161 @@
+[
+  {
+    "id": "investida",
+    "name": "Investida",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 100,
+    "cooldownTicks": 0,
+    "description": "Ataque básico."
+  },
+  {
+    "id": "bubble_blow",
+    "name": "Bubble Blow",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 130,
+    "cooldownTicks": 40
+  },
+  {
+    "id": "vigilia_timida",
+    "name": "Vigília Tímida",
+    "kind": "heal",
+    "target": "ally_lowest",
+    "power": 80,
+    "cooldownTicks": 60
+  },
+  {
+    "id": "mordida_inocente",
+    "name": "Mordida Inocente",
+    "kind": "heal",
+    "target": "all_allies",
+    "power": 45,
+    "cooldownTicks": 70
+  },
+  {
+    "id": "baby_flame",
+    "name": "Baby Flame",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 170,
+    "cooldownTicks": 40
+  },
+  {
+    "id": "petit_fire",
+    "name": "Petit Fire",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 170,
+    "cooldownTicks": 40
+  },
+  {
+    "id": "air_shot",
+    "name": "Air Shot",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 150,
+    "cooldownTicks": 35
+  },
+  {
+    "id": "hane_binta",
+    "name": "Hane Binta",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 70,
+    "cooldownTicks": 60
+  },
+  {
+    "id": "mega_flame",
+    "name": "Mega Flame",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 230,
+    "cooldownTicks": 45
+  },
+  {
+    "id": "mega_flame_guarda",
+    "name": "Mega Flame (Guarda)",
+    "kind": "guard",
+    "target": "all_allies",
+    "power": 0,
+    "cooldownTicks": 90,
+    "durationTicks": 30
+  },
+  {
+    "id": "fox_fire",
+    "name": "Fox Fire",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 230,
+    "cooldownTicks": 45
+  },
+  {
+    "id": "postura_defensiva",
+    "name": "Postura Defensiva",
+    "kind": "guard",
+    "target": "all_allies",
+    "power": 0,
+    "cooldownTicks": 90,
+    "durationTicks": 30
+  },
+  {
+    "id": "heavens_knuckle",
+    "name": "Heaven's Knuckle",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 120,
+    "cooldownTicks": 50
+  },
+  {
+    "id": "asas_protetoras",
+    "name": "Asas Protetoras",
+    "kind": "heal",
+    "target": "all_allies",
+    "power": 70,
+    "cooldownTicks": 60
+  },
+  {
+    "id": "death_claw",
+    "name": "Death Claw",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 180,
+    "cooldownTicks": 50
+  },
+  {
+    "id": "sombra_caida",
+    "name": "Sombra Caída",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 90,
+    "cooldownTicks": 70
+  },
+  {
+    "id": "sync_baby_flame",
+    "name": "Baby Flame (Sincronia)",
+    "kind": "guard",
+    "target": "all_allies",
+    "power": 0,
+    "cooldownTicks": 0,
+    "durationTicks": 100,
+    "description": "Escudo: DEF do time ampliada por 10 s."
+  },
+  {
+    "id": "sync_petit_fire",
+    "name": "Petit Fire (Sincronia)",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 320,
+    "cooldownTicks": 0,
+    "description": "Dano alto direto no chefe."
+  },
+  {
+    "id": "sync_air_shot",
+    "name": "Air Shot (Sincronia)",
+    "kind": "heal",
+    "target": "all_allies",
+    "power": 220,
+    "cooldownTicks": 0,
+    "description": "Cura todo o time."
+  }
+]

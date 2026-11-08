@@ -1,0 +1,116 @@
+[
+  {
+    "id": "campo_de_bits",
+    "name": "Campo de Bits",
+    "levelRange": [
+      1,
+      5
+    ],
+    "restHealPct": 1,
+    "waves": [
+      {
+        "enemies": [
+          "wild_tsunomon"
+        ],
+        "weight": 3
+      },
+      {
+        "enemies": [
+          "wild_tokomon"
+        ],
+        "weight": 3
+      },
+      {
+        "enemies": [
+          "wild_koromon"
+        ],
+        "weight": 1
+      },
+      {
+        "enemies": [
+          "wild_tsunomon",
+          "wild_tokomon"
+        ],
+        "weight": 3
+      }
+    ],
+    "encounterChoice": {
+      "firstAfterWins": 3,
+      "everyWins": 25,
+      "autoPickAfterTicks": 150
+    },
+    "enemiesMaxParty": true,
+    "enemyLevelMaxAboveParty": 2
+  },
+  {
+    "id": "distrito_metalico",
+    "name": "Distrito Metálico",
+    "levelRange": [
+      6,
+      13
+    ],
+    "restHealPct": 1,
+    "unlock": {
+      "minPartyLevel": 6
+    },
+    "waves": [
+      {
+        "enemies": [
+          "wild_agumon"
+        ],
+        "weight": 2
+      },
+      {
+        "enemies": [
+          "wild_gabumon"
+        ],
+        "weight": 2
+      },
+      {
+        "enemies": [
+          "wild_patamon"
+        ],
+        "weight": 2
+      },
+      {
+        "enemies": [
+          "wild_agumon",
+          "wild_gabumon"
+        ],
+        "weight": 2
+      },
+      {
+        "enemies": [
+          "wild_gabumon",
+          "wild_patamon",
+          "wild_agumon"
+        ],
+        "weight": 1
+      }
+    ],
+    "boss": {
+      "enemyId": "devimon",
+      "level": 14,
+      "unlockAfterWins": 10,
+      "lethal": false,
+      "decisionAtHpPct": [
+        100,
+        50
+      ],
+      "syncOptions": [
+        "sync_petit_fire",
+        "sync_air_shot",
+        "sync_baby_flame"
+      ],
+      "reward": {
+        "xp": 300,
+        "bits": 100
+      }
+    },
+    "encounterChoice": {
+      "firstAfterWins": 3,
+      "everyWins": 25,
+      "autoPickAfterTicks": 150
+    }
+  }
+]

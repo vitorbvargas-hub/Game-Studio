@@ -1,0 +1,58 @@
+{
+  "affinities": [
+    {
+      "id": "vaccine",
+      "name": "Vacina",
+      "color": "#7ee0ff"
+    },
+    {
+      "id": "data",
+      "name": "Dado",
+      "color": "#8dff9a"
+    },
+    {
+      "id": "virus",
+      "name": "Vírus",
+      "color": "#ff6b8b"
+    },
+    {
+      "id": "free",
+      "name": "Livre",
+      "color": "#c8c8d8"
+    }
+  ],
+  "affinityChart": {
+    "vaccine": {
+      "virus": 1.25,
+      "data": 0.8
+    },
+    "virus": {
+      "data": 1.25,
+      "vaccine": 0.8
+    },
+    "data": {
+      "vaccine": 1.25,
+      "virus": 0.8
+    }
+  },
+  "palette": {
+    "bg": "#0b1020",
+    "grid": "#16305a",
+    "ground": "#10213f",
+    "ui": "#121a2e",
+    "accent": "#ffb347",
+    "text": "#e6f1ff"
+  },
+  "startingParty": [
+    "koromon",
+    "tsunomon",
+    "tokomon"
+  ],
+  "startingLevel": 1,
+  "startingAreaId": "campo_de_bits",
+  "starterOptions": [
+    "koromon",
+    "tsunomon",
+    "tokomon"
+  ]
+}

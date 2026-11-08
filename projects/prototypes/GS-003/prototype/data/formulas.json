@@ -1,0 +1,63 @@
+{
+  "damage": {
+    "formula": "round(max(1, atk_atacante * (potencia/100) - def_defensor * 0.5) * multProtocolo * variancia)",
+    "basicAttackPotencia": 100,
+    "varianceMin": 0.9,
+    "varianceMax": 1.1,
+    "critChance": 0.05,
+    "critMultiplier": 1.5,
+    "combatTickSeconds": 1.5
+  },
+  "attributeTriangle": {
+    "advantageMultiplier": 1.25,
+    "disadvantageMultiplier": 0.8,
+    "neutralMultiplier": 1.0,
+    "officialCycle": "Vaccine > Virus > Data > Vaccine",
+    "source": "[E] Atributo oficial Digimon (Wikimon/Digimon Reference Book), autorizado pelo ADR-007"
+  },
+  "experience": {
+    "xpToNextLevel": "round(20 * nivel^1.5)",
+    "xpPerVictory": "8 * nivelDoInimigo",
+    "levelCap": 20
+  },
+  "scan": {
+    "progressPerEncounter": 0.25,
+    "cap": 1.0,
+    "recruitRule": "ao atingir 100%, a proxima vitoria contra a especie recruta 1 copia automaticamente (deterministico, sem RNG)"
+  },
+  "evolution": {
+    "larvaToJuvenil": { "levelRequired": 8, "totalDadosRequired": 30 },
+    "juvenilToAdulto": {
+      "levelRequired": 16,
+      "totalDadosRequired": 60,
+      "branchRule": "SE dadosLinhaGastos >= dadosRuidoGastos ENTAO modoB (defensivo) SENAO modoA (ofensivo)"
+    },
+    "dadosLinhaSource": "Zona 1: +2 por vitoria contra a propria linhagem, +1 generico por qualquer vitoria em Zona 1",
+    "dadosRuidoSource": "Zona 2 ou Masmorra: +2 por vitoria"
+  },
+  "charge": {
+    "maxPerCreature": 100,
+    "regenPerMinuteInHub": 1,
+    "drainZona1PerMinute": 1,
+    "drainZona2PerMinute": 2,
+    "dungeonEntryCostFlat": 20,
+    "dungeonDrainPerMinutePerFloor": 3,
+    "atZeroRule": "criatura retorna ao hub automaticamente, sem penalidade"
+  },
+  "offline": {
+    "capMinutes": 240,
+    "factor": 0.5,
+    "formula": "min(minutosOffline, 240) * (taxaPorMinutoDaZonaAtiva * 0.5)"
+  },
+  "trainingPoints": {
+    "earnedPerLevelUp": 1,
+    "effectPerPointAllocated": "+2% no growth atual do stat escolhido (ATK/DEF/SPD)",
+    "capPerCreature": 20
+  },
+  "difficultyCurve": {
+    "emergencyHeal": { "triggerHpPercent": 15, "healPercent": 30, "usesPerHuntSession": 1, "appliesTo": "Zona 1 e Zona 2, fora de chefe/masmorra" },
+    "zoneBossDamageCap": "nunca reduz HP de nenhuma criatura abaixo de 1",
+    "dungeonFloorMultiplier": "statsBase * (1 + 0.15 * numeroDoSetor)",
+    "dungeonFinalBoss": "dano real, pode causar derrota do run sem perda permanente de Bits/Dados/XP ja ganhos"
+  }
+}

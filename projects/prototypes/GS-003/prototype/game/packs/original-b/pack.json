@@ -1,0 +1,11 @@
+{
+  "id": "original-b",
+  "name": "Originais · Linha B",
+  "version": "0.2.0",
+  "kind": "original",
+  "line": "B",
+  "nonCommercial": false,
+  "credits": [
+    "Criaturas originais do Game Studio (GDD_PROTOTYPE_B.md)"
+  ]
+}

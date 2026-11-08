@@ -1,0 +1,34 @@
+{
+  "simHz": 30,
+  "width": 320,
+  "height": 180,
+  "margin": 12,
+  "bodyRadius": 14,
+  "topClearancePx": 34,
+  "hpMult": 4,
+  "moveBase": 40,
+  "movePerSpd": 2.5,
+  "basic": {
+    "rangePx": 30,
+    "arcDot": 0.35,
+    "cooldownMs": 450,
+    "knockbackPx": 8
+  },
+  "special": {
+    "projectileSpeed": 170,
+    "projectileRadius": 5,
+    "rangePx": 220,
+    "knockbackPx": 14,
+    "selfHealMult": 2
+  },
+  "hitstunMs": 150,
+  "guardReduction": 0.5,
+  "timeLimitSec": 90,
+  "ai": {
+    "reactionMs": 200,
+    "preferredRangePx": 26,
+    "specialMaxRangePx": 180,
+    "aimToleranceDot": 0.9,
+    "strafeEveryMs": 900
+  }
+}

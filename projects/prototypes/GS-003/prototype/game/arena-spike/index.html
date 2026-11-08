@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GS-003 — Arena de Ação (spike)</title>
+    <style>
+      html, body { margin: 0; background: #0b1020; color: #e6f1ff; font: 14px/1.35 system-ui, sans-serif; }
+      #app { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px; }
+      #arena { image-rendering: pixelated; image-rendering: crisp-edges; display: block; border: 2px solid #000; }
+      #hud { width: min(100%, 960px); display: flex; flex-wrap: wrap; gap: 8px; }
+      .f { flex: 1 1 360px; background: #121a2e; border-radius: 6px; padding: 6px 10px; }
+      .hp { height: 6px; background: #000; margin: 4px 0; }
+      .hp i { display: block; height: 100%; background: #ffb347; }
+      .end { flex: 1 1 100%; text-align: center; font-size: 22px; font-weight: bold; }
+      .keys { flex: 1 1 100%; margin: 0; opacity: .8; font-size: 12px; text-align: center; }
+      .disclaimer { flex: 1 1 100%; font-size: 11px; opacity: .7; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="arena" aria-label="Arena de ação 1v1"></canvas>
+      <div id="hud"></div>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

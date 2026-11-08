@@ -1,0 +1,373 @@
+[
+  {
+    "id": "koromon",
+    "name": "Koromon",
+    "affinity": "vaccine",
+    "stage": 1,
+    "color": "#ff9fb0",
+    "baseLevel": 1,
+    "base": {
+      "hp": 46,
+      "atk": 14,
+      "def": 7,
+      "spd": 12
+    },
+    "growth": {
+      "hp": 3.5,
+      "atk": 1.4,
+      "def": 0.8,
+      "spd": 0.6
+    },
+    "skills": [
+      "bubble_blow",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "agumon",
+        "level": 8,
+        "label": ""
+      }
+    ],
+    "flavor": "Baby II · Lesser"
+  },
+  {
+    "id": "tsunomon",
+    "name": "Tsunomon",
+    "affinity": "free",
+    "stage": 1,
+    "color": "#c9a27a",
+    "baseLevel": 1,
+    "base": {
+      "hp": 48,
+      "atk": 13,
+      "def": 8,
+      "spd": 11
+    },
+    "growth": {
+      "hp": 3.7,
+      "atk": 1.3,
+      "def": 0.9,
+      "spd": 0.6
+    },
+    "skills": [
+      "vigilia_timida",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "gabumon",
+        "level": 8,
+        "label": ""
+      }
+    ],
+    "flavor": "Baby II · Lesser"
+  },
+  {
+    "id": "tokomon",
+    "name": "Tokomon",
+    "affinity": "free",
+    "stage": 1,
+    "color": "#f2efe6",
+    "baseLevel": 1,
+    "base": {
+      "hp": 51,
+      "atk": 12,
+      "def": 8,
+      "spd": 11
+    },
+    "growth": {
+      "hp": 3.8,
+      "atk": 1.2,
+      "def": 0.9,
+      "spd": 0.6
+    },
+    "skills": [
+      "mordida_inocente",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "patamon",
+        "level": 8,
+        "label": ""
+      }
+    ],
+    "flavor": "Baby II · Lesser"
+  },
+  {
+    "id": "agumon",
+    "name": "Agumon",
+    "affinity": "vaccine",
+    "stage": 2,
+    "color": "#ffb347",
+    "sprite": [
+      "sprites/agumon_idle_01.png",
+      "sprites/agumon_idle_02.png"
+    ],
+    "baseLevel": 8,
+    "base": {
+      "hp": 64,
+      "atk": 19,
+      "def": 11,
+      "spd": 16
+    },
+    "growth": {
+      "hp": 3.5,
+      "atk": 1.4,
+      "def": 0.8,
+      "spd": 0.8
+    },
+    "skills": [
+      "baby_flame",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "greymon_ofensivo",
+        "level": 16,
+        "label": "Foco ofensivo"
+      },
+      {
+        "to": "greymon_defensivo",
+        "level": 16,
+        "label": "Foco defensivo"
+      }
+    ],
+    "flavor": "Child · Reptile"
+  },
+  {
+    "id": "gabumon",
+    "name": "Gabumon",
+    "affinity": "data",
+    "stage": 2,
+    "color": "#f5d76e",
+    "sprite": [
+      "sprites/gabumon_idle_01.png",
+      "sprites/gabumon_idle_02.png"
+    ],
+    "baseLevel": 8,
+    "base": {
+      "hp": 62,
+      "atk": 20,
+      "def": 10,
+      "spd": 15
+    },
+    "growth": {
+      "hp": 3.4,
+      "atk": 1.5,
+      "def": 0.8,
+      "spd": 0.8
+    },
+    "skills": [
+      "petit_fire",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "garurumon_ofensivo",
+        "level": 16,
+        "label": "Foco ofensivo"
+      },
+      {
+        "to": "garurumon_defensivo",
+        "level": 16,
+        "label": "Foco defensivo"
+      }
+    ],
+    "flavor": "Child · Reptile"
+  },
+  {
+    "id": "patamon",
+    "name": "Patamon",
+    "affinity": "data",
+    "stage": 2,
+    "color": "#f0b27a",
+    "sprite": [
+      "sprites/patamon_idle_01.png",
+      "sprites/patamon_idle_02.png"
+    ],
+    "baseLevel": 8,
+    "base": {
+      "hp": 66,
+      "atk": 17,
+      "def": 11,
+      "spd": 16
+    },
+    "growth": {
+      "hp": 3.6,
+      "atk": 1.3,
+      "def": 0.9,
+      "spd": 0.8
+    },
+    "skills": [
+      "hane_binta",
+      "air_shot",
+      "investida"
+    ],
+    "evolutions": [
+      {
+        "to": "angemon_ofensivo",
+        "level": 16,
+        "label": "Foco ofensivo"
+      },
+      {
+        "to": "angemon_defensivo",
+        "level": 16,
+        "label": "Foco defensivo"
+      }
+    ],
+    "flavor": "Child · Mammal"
+  },
+  {
+    "id": "greymon_ofensivo",
+    "name": "Greymon (ofensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#ff8a3d",
+    "baseLevel": 16,
+    "base": {
+      "hp": 85,
+      "atk": 26,
+      "def": 16,
+      "spd": 22
+    },
+    "growth": {
+      "hp": 5,
+      "atk": 2.4,
+      "def": 1.5,
+      "spd": 1.8
+    },
+    "skills": [
+      "mega_flame",
+      "investida"
+    ],
+    "flavor": "Adult · Dinosaur"
+  },
+  {
+    "id": "greymon_defensivo",
+    "name": "Greymon (defensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#d9702e",
+    "baseLevel": 16,
+    "base": {
+      "hp": 105,
+      "atk": 17,
+      "def": 28,
+      "spd": 16
+    },
+    "growth": {
+      "hp": 6,
+      "atk": 1.6,
+      "def": 2.3,
+      "spd": 1.2
+    },
+    "skills": [
+      "mega_flame_guarda",
+      "investida"
+    ],
+    "flavor": "Adult · Dinosaur"
+  },
+  {
+    "id": "garurumon_ofensivo",
+    "name": "Garurumon (ofensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#9ec9ff",
+    "baseLevel": 16,
+    "base": {
+      "hp": 75,
+      "atk": 32,
+      "def": 18,
+      "spd": 17
+    },
+    "growth": {
+      "hp": 4.4,
+      "atk": 2.8,
+      "def": 1.6,
+      "spd": 1.4
+    },
+    "skills": [
+      "fox_fire",
+      "investida"
+    ],
+    "flavor": "Adult · Beast"
+  },
+  {
+    "id": "garurumon_defensivo",
+    "name": "Garurumon (defensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#6f9fd9",
+    "baseLevel": 16,
+    "base": {
+      "hp": 95,
+      "atk": 22,
+      "def": 32,
+      "spd": 13
+    },
+    "growth": {
+      "hp": 5.6,
+      "atk": 1.9,
+      "def": 2.6,
+      "spd": 1
+    },
+    "skills": [
+      "postura_defensiva",
+      "fox_fire",
+      "investida"
+    ],
+    "flavor": "Adult · Beast"
+  },
+  {
+    "id": "angemon_ofensivo",
+    "name": "Angemon (ofensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#fff6d6",
+    "baseLevel": 16,
+    "base": {
+      "hp": 90,
+      "atk": 21,
+      "def": 19,
+      "spd": 18
+    },
+    "growth": {
+      "hp": 5.2,
+      "atk": 2,
+      "def": 1.6,
+      "spd": 1.5
+    },
+    "skills": [
+      "heavens_knuckle",
+      "investida"
+    ],
+    "flavor": "Adult · Angel"
+  },
+  {
+    "id": "angemon_defensivo",
+    "name": "Angemon (defensivo)",
+    "affinity": "vaccine",
+    "stage": 3,
+    "color": "#e8e2c4",
+    "baseLevel": 16,
+    "base": {
+      "hp": 120,
+      "atk": 13,
+      "def": 30,
+      "spd": 14
+    },
+    "growth": {
+      "hp": 6.4,
+      "atk": 1.3,
+      "def": 2.4,
+      "spd": 1.1
+    },
+    "skills": [
+      "asas_protetoras",
+      "investida"
+    ],
+    "flavor": "Adult · Angel"
+  }
+]

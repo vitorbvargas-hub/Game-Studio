@@ -1,0 +1,88 @@
+[
+  {
+    "id": "pulse",
+    "name": "Pulso",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 100,
+    "cooldownTicks": 0,
+    "description": "Ataque básico."
+  },
+  {
+    "id": "data_burst",
+    "name": "Rajada",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 170,
+    "cooldownTicks": 40
+  },
+  {
+    "id": "static_wave",
+    "name": "Onda Estática",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 75,
+    "cooldownTicks": 60
+  },
+  {
+    "id": "patch",
+    "name": "Remendo",
+    "kind": "heal",
+    "target": "ally_lowest",
+    "power": 120,
+    "cooldownTicks": 50
+  },
+  {
+    "id": "firewall",
+    "name": "Barreira",
+    "kind": "guard",
+    "target": "all_allies",
+    "power": 0,
+    "cooldownTicks": 90,
+    "durationTicks": 30
+  },
+  {
+    "id": "corrupt_bite",
+    "name": "Mordida Corrompida",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 130,
+    "cooldownTicks": 50
+  },
+  {
+    "id": "null_storm",
+    "name": "Tempestade Nula",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 85,
+    "cooldownTicks": 70
+  },
+  {
+    "id": "sync_overload",
+    "name": "Sobrecarga",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 260,
+    "cooldownTicks": 0,
+    "description": "Sincronização: dano alto em todos os inimigos."
+  },
+  {
+    "id": "sync_restore",
+    "name": "Restauração",
+    "kind": "heal",
+    "target": "all_allies",
+    "power": 220,
+    "cooldownTicks": 0,
+    "description": "Sincronização: cura todo o time."
+  },
+  {
+    "id": "sync_shield",
+    "name": "Escudo de Vínculo",
+    "kind": "guard",
+    "target": "all_allies",
+    "power": 0,
+    "cooldownTicks": 0,
+    "durationTicks": 80,
+    "description": "Sincronização: DEF ampliada por 8 s."
+  }
+]

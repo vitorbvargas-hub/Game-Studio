@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tackle",
+    "name": "Investida",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 100,
+    "cooldownTicks": 0
+  },
+  {
+    "id": "burst",
+    "name": "Golpe Forte",
+    "kind": "damage",
+    "target": "enemy",
+    "power": 170,
+    "cooldownTicks": 40
+  },
+  {
+    "id": "mend",
+    "name": "Recompor",
+    "kind": "heal",
+    "target": "ally_lowest",
+    "power": 120,
+    "cooldownTicks": 50
+  },
+  {
+    "id": "cmd_focus",
+    "name": "Foco Total",
+    "kind": "damage",
+    "target": "all_enemies",
+    "power": 260,
+    "cooldownTicks": 0
+  },
+  {
+    "id": "cmd_rest",
+    "name": "Fôlego",
+    "kind": "heal",
+    "target": "all_allies",
+    "power": 220,
+    "cooldownTicks": 0
+  }
+]

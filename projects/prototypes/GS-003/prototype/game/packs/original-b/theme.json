@@ -1,0 +1,48 @@
+{
+  "affinities": [
+    {
+      "id": "estavel",
+      "name": "Estável",
+      "color": "#7ee0ff"
+    },
+    {
+      "id": "erratico",
+      "name": "Errático",
+      "color": "#ff6b8b"
+    },
+    {
+      "id": "fluido",
+      "name": "Fluido",
+      "color": "#8dff9a"
+    }
+  ],
+  "affinityChart": {
+    "estavel": {
+      "erratico": 1.25,
+      "fluido": 0.8
+    },
+    "erratico": {
+      "fluido": 1.25,
+      "estavel": 0.8
+    },
+    "fluido": {
+      "estavel": 1.25,
+      "erratico": 0.8
+    }
+  },
+  "palette": {
+    "bg": "#0b1020",
+    "grid": "#16305a",
+    "ground": "#10213f",
+    "ui": "#121a2e",
+    "accent": "#5ad1ff",
+    "text": "#e6f1ff"
+  },
+  "startingParty": [
+    "pixelume",
+    "ferrolim",
+    "aquabit"
+  ],
+  "startingLevel": 1,
+  "startingAreaId": "zona_01"
+}

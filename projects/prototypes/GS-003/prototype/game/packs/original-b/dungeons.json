@@ -1,0 +1,120 @@
+[
+  {
+    "id": "servidor_01",
+    "name": "Brecha Instável",
+    "unlockAreaId": "zona_01",
+    "baseLevel": 5,
+    "hpPersists": true,
+    "corruptionAtkPerPoint": 0.08,
+    "floors": [
+      {
+        "id": "s1",
+        "name": "Setor 1",
+        "levelBonus": 0,
+        "wavesToClear": 3,
+        "waves": [
+          {
+            "enemies": [
+              "noise_mite",
+              "lost_packet"
+            ],
+            "weight": 1
+          }
+        ],
+        "routes": [
+          {
+            "id": "safe",
+            "label": "Rota estável",
+            "healPct": 0.3,
+            "rewardMult": 1,
+            "corruption": 0
+          },
+          {
+            "id": "risky",
+            "label": "Rota corrompida",
+            "healPct": 0,
+            "rewardMult": 1.6,
+            "corruption": 1
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Setor 2",
+        "levelBonus": 1,
+        "wavesToClear": 3,
+        "waves": [
+          {
+            "enemies": [
+              "loop_worm",
+              "noise_mite"
+            ],
+            "weight": 1
+          }
+        ],
+        "routes": [
+          {
+            "id": "safe",
+            "label": "Rota estável",
+            "healPct": 0.3,
+            "rewardMult": 1,
+            "corruption": 0
+          },
+          {
+            "id": "risky",
+            "label": "Rota corrompida",
+            "healPct": 0,
+            "rewardMult": 1.6,
+            "corruption": 1
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Setor 3",
+        "levelBonus": 2,
+        "wavesToClear": 2,
+        "waves": [
+          {
+            "enemies": [
+              "loop_worm",
+              "lost_packet",
+              "noise_mite"
+            ],
+            "weight": 1
+          }
+        ]
+      }
+    ],
+    "boss": {
+      "enemyId": "corrupt_sentinel",
+      "level": 7,
+      "escorts": [
+        {
+          "enemyId": "loop_worm",
+          "level": 6
+        },
+        {
+          "enemyId": "lost_packet",
+          "level": 6
+        }
+      ],
+      "unlockAfterWins": 0,
+      "lethal": true,
+      "decisionAtHpPct": [
+        100,
+        60,
+        25
+      ],
+      "syncOptions": [
+        "sync_overload",
+        "sync_restore",
+        "sync_shield"
+      ],
+      "reward": {
+        "xp": 400,
+        "bits": 200
+      }
+    }
+  }
+]

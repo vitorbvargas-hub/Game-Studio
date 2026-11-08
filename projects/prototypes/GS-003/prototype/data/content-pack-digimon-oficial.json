@@ -1,0 +1,216 @@
+{
+  "_contentPackNote": "Pacote de dados trocavel (ADR-007, condicao 5). Contem apenas identidade/flavor dos Digimon oficiais (nomes, atributo, tipo, golpe especial, estagio). Mecanicas, formulas e stats/numericos de jogo ficam em formulas.json e permanecem reutilizaveis por qualquer content pack (ex.: uma versao futura com monstros originais).",
+  "sourceDisclosure": "Nomes, atributos, tipos e golpes especiais sao conteudo oficial da franquia Digimon (Bandai/Toei), citados a partir do Digimon Reference Book via Wikimon (wikimon.net), consultado em 2026-11-08. Fan game nao comercial, sem afiliacao com Bandai/Toei/Digimon. Nao ripar sprites, sons ou arquivos oficiais (ADR-007, condicao 2) — arte deve ser redesenhada do zero pelo estudio em pixel art original a partir das descricoes textuais abaixo.",
+  "attributeTriangle": {
+    "advantageMultiplier": 1.25,
+    "disadvantageMultiplier": 0.8,
+    "neutralMultiplier": 1.0,
+    "officialCycle": "Vaccine > Virus > Data > Vaccine",
+    "note": "[H] Nenhuma das 3 linhagens do protótipo tem estagio Virus; a vantagem Data>Vaccine aparece quando Gabumon/Patamon (Data) enfrentam Agumon/Greymon (Vaccine). Virus fica reservado para futuros encontros selvagens/chefes fora do roster de 9."
+  },
+  "lineages": [
+    {
+      "lineageId": "agumon",
+      "canonNote": "[E, Wikimon/Digimon Reference Book, 2026-11-08] Linha evolutiva classica de Digimon Adventure (1999)",
+      "stages": [
+        {
+          "speciesId": "koromon",
+          "name": "Koromon",
+          "stage": "Baby II (In-Training)",
+          "gameplayStage": "larva",
+          "levelRange": [1, 7],
+          "attribute": "Vaccine",
+          "type": "Lesser",
+          "officialSpecialMove": "Bubble Blow",
+          "canonNote": "[E] Perfil oficial descreve Koromon como 'ainda incapaz de batalhar'. [H] Decisao de design do protótipo: Koromon luta desde o inicio por motivo de jogabilidade (onboarding exige 1a vitoria antes de 1min30); desvio documentado do flavor oficial.",
+          "skills": { "passive": { "name": "Bubble Blow", "effect": "Cura 8% do HP maximo do time 1x por luta quando HP do time < 40%" } },
+          "evolvesTo": "agumon",
+          "evolutionRequirement": { "level": 8, "totalDados": 30 }
+        },
+        {
+          "speciesId": "agumon",
+          "name": "Agumon",
+          "stage": "Child (Rookie)",
+          "gameplayStage": "juvenil",
+          "levelRange": [8, 15],
+          "attribute": "Vaccine",
+          "type": "Reptile",
+          "officialSpecialMove": "Baby Flame",
+          "skills": {
+            "passive": { "name": "Baby Flame", "effect": "12% de chance de dano dobrado no ataque basico" },
+            "sync": { "name": "Baby Flame (Sincronia)", "effect": "Escudo que absorve 20% do HP maximo total do time por 10s", "cooldownSeconds": 45, "bossOnly": true }
+          },
+          "evolvesTo": "greymon",
+          "evolutionRequirement": { "level": 16, "totalDados": 60, "branchRule": "dadosLinhaGastos >= dadosRuidoGastos -> modoDefensivo; senao -> modoOfensivo" }
+        },
+        {
+          "speciesId": "greymon",
+          "name": "Greymon",
+          "stage": "Adult (Champion)",
+          "gameplayStage": "adulto",
+          "levelRange": [16, 20],
+          "attribute": "Vaccine",
+          "type": "Dinosaur",
+          "officialSpecialMove": "Mega Flame",
+          "modes": {
+            "modoOfensivo": {
+              "label": "Greymon (foco ofensivo)",
+              "stats": { "hpBase": 85, "hpGrowth": 5, "atkBase": 26, "atkGrowth": 2.4, "defBase": 16, "defGrowth": 1.5, "spdBase": 22, "spdGrowth": 1.8 },
+              "skills": {
+                "passive": { "name": "Mega Flame", "effect": "+20% dano no proximo ataque apos 3 acertos seguidos" },
+                "sync": { "name": "Mega Flame (Sincronia)", "effect": "Escudo 35% HP maximo do time por 10s + time ganha +15% ATK durante o escudo", "cooldownSeconds": 40, "bossOnly": true }
+              }
+            },
+            "modoDefensivo": {
+              "label": "Greymon (foco defensivo)",
+              "stats": { "hpBase": 105, "hpGrowth": 6, "atkBase": 17, "atkGrowth": 1.6, "defBase": 28, "defGrowth": 2.3, "spdBase": 16, "spdGrowth": 1.2 },
+              "skills": {
+                "passive": { "name": "Mega Flame (Guarda)", "effect": "Reduz 25% do dano recebido pelo time 1x por luta quando HP do time < 30%" },
+                "sync": { "name": "Mega Flame (Sincronia)", "effect": "Escudo 35% HP maximo do time por 10s + time ganha +15% DEF durante o escudo", "cooldownSeconds": 40, "bossOnly": true }
+              }
+            }
+          },
+          "modeDesignNote": "[H] Modo ofensivo/defensivo e uma camada de jogabilidade do protótipo (nao existe como 2 Digimon oficiais distintos); mesmo Greymon, 2 configuracoes de stat decididas pela proporcao de Dados-Linha/Dados-Ruido acumulados antes da evolucao."
+        }
+      ]
+    },
+    {
+      "lineageId": "gabumon",
+      "canonNote": "[E, Wikimon/Digimon Reference Book, 2026-11-08]",
+      "stages": [
+        {
+          "speciesId": "tsunomon",
+          "name": "Tsunomon",
+          "stage": "Baby II (In-Training)",
+          "gameplayStage": "larva",
+          "levelRange": [1, 7],
+          "attribute": "None (oficial, sem atributo definido neste estagio)",
+          "type": "Lesser",
+          "officialSpecialMove": "(nao documentado no perfil oficial consultado)",
+          "skills": { "passive": { "name": "Vigilia Timida", "effect": "Cura 8% do proprio HP maximo a cada 3 ataques" } },
+          "evolvesTo": "gabumon",
+          "evolutionRequirement": { "level": 8, "totalDados": 30 }
+        },
+        {
+          "speciesId": "gabumon",
+          "name": "Gabumon",
+          "stage": "Child (Rookie)",
+          "gameplayStage": "juvenil",
+          "levelRange": [8, 15],
+          "attribute": "Data",
+          "type": "Reptile",
+          "officialSpecialMove": "Petit Fire",
+          "skills": {
+            "passive": { "name": "Petit Fire", "effect": "15% de chance de dano dobrado no ataque basico" },
+            "sync": { "name": "Petit Fire (Sincronia)", "effect": "Dano direto ao chefe = 150% do ATK, ignora 30% da DEF do chefe", "cooldownSeconds": 35, "bossOnly": true }
+          },
+          "evolvesTo": "garurumon",
+          "evolutionRequirement": { "level": 16, "totalDados": 60, "branchRule": "dadosLinhaGastos >= dadosRuidoGastos -> modoDefensivo; senao -> modoOfensivo" }
+        },
+        {
+          "speciesId": "garurumon",
+          "name": "Garurumon",
+          "stage": "Adult (Champion)",
+          "gameplayStage": "adulto",
+          "levelRange": [16, 20],
+          "attribute": "Vaccine (primario per Wikimon; Data aparece como atributo secundario em outra fonte de jogo)",
+          "type": "Beast",
+          "officialSpecialMove": "Fox Fire",
+          "modes": {
+            "modoOfensivo": {
+              "label": "Garurumon (foco ofensivo)",
+              "stats": { "hpBase": 75, "hpGrowth": 4.4, "atkBase": 32, "atkGrowth": 2.8, "defBase": 18, "defGrowth": 1.6, "spdBase": 17, "spdGrowth": 1.4 },
+              "skills": {
+                "passive": { "name": "Fox Fire", "effect": "+5% ATK cumulativo por acerto sofrido na luta, cap +25%" },
+                "sync": { "name": "Fox Fire (Sincronia)", "effect": "Dano 220% do ATK, ignora 40% DEF, aplica sangramento 5% HP do chefe por 3s", "cooldownSeconds": 30, "bossOnly": true }
+              }
+            },
+            "modoDefensivo": {
+              "label": "Garurumon (foco defensivo)",
+              "stats": { "hpBase": 95, "hpGrowth": 5.6, "atkBase": 22, "atkGrowth": 1.9, "defBase": 32, "defGrowth": 2.6, "spdBase": 13, "spdGrowth": 1.0 },
+              "skills": {
+                "passive": { "name": "Mithril Pelt", "effect": "Reflete 20% do dano recebido de volta ao atacante" },
+                "sync": { "name": "Fox Fire (Sincronia)", "effect": "Dano 220% do ATK, ignora 40% DEF, reduz ATK do chefe em 20% por 6s", "cooldownSeconds": 30, "bossOnly": true }
+              }
+            }
+          },
+          "modeDesignNote": "[H] Mesma ressalva de Greymon: modo ofensivo/defensivo e camada de jogabilidade do protótipo, nao uma forma oficial distinta."
+        }
+      ]
+    },
+    {
+      "lineageId": "patamon",
+      "canonNote": "[E, Wikimon/Digimon Reference Book, 2026-11-08]",
+      "stages": [
+        {
+          "speciesId": "tokomon",
+          "name": "Tokomon",
+          "stage": "Baby II (In-Training)",
+          "gameplayStage": "larva",
+          "levelRange": [1, 7],
+          "attribute": "(nao confirmado nesta sessao)",
+          "type": "Lesser (aparencia de limbos, 'morde quem tenta acariciar')",
+          "officialSpecialMove": "(nao documentado no perfil oficial consultado)",
+          "skills": { "passive": { "name": "Mordida Inocente", "effect": "Cura 5% do HP maximo do time inteiro a cada 3 ataques" } },
+          "evolvesTo": "patamon",
+          "evolutionRequirement": { "level": 8, "totalDados": 30 }
+        },
+        {
+          "speciesId": "patamon",
+          "name": "Patamon",
+          "stage": "Child (Rookie)",
+          "gameplayStage": "juvenil",
+          "levelRange": [8, 15],
+          "attribute": "Data",
+          "type": "Mammal",
+          "officialSpecialMove": "Air Shot / Hane Binta",
+          "skills": {
+            "passive": { "name": "Hane Binta", "effect": "15% de chance de ataque acertar 2 inimigos (cleave)" },
+            "sync": { "name": "Air Shot (Sincronia)", "effect": "Cura instantanea 25% do HP maximo do time", "cooldownSeconds": 40, "bossOnly": true }
+          },
+          "evolvesTo": "angemon",
+          "evolutionRequirement": { "level": 16, "totalDados": 60, "branchRule": "dadosLinhaGastos >= dadosRuidoGastos -> modoDefensivo; senao -> modoOfensivo" }
+        },
+        {
+          "speciesId": "angemon",
+          "name": "Angemon",
+          "stage": "Adult (Champion)",
+          "gameplayStage": "adulto",
+          "levelRange": [16, 20],
+          "attribute": "Vaccine",
+          "type": "Angel",
+          "officialSpecialMove": "Heaven's Knuckle",
+          "canonNote": "[E] Mesma especie de origem de Devimon (chefe do protótipo) antes de cair para o Dark Area, per perfil oficial de Angemon.",
+          "modes": {
+            "modoOfensivo": {
+              "label": "Angemon (foco ofensivo)",
+              "stats": { "hpBase": 90, "hpGrowth": 5.2, "atkBase": 21, "atkGrowth": 2.0, "defBase": 19, "defGrowth": 1.6, "spdBase": 18, "spdGrowth": 1.5 },
+              "skills": {
+                "passive": { "name": "Heaven's Knuckle (Golpe)", "effect": "15% de chance de ataque acertar 2 inimigos (cleave)" },
+                "sync": { "name": "Heaven's Knuckle (Sincronia)", "effect": "Cura 40% HP maximo do time e remove debuffs", "cooldownSeconds": 35, "bossOnly": true }
+              }
+            },
+            "modoDefensivo": {
+              "label": "Angemon (foco defensivo)",
+              "stats": { "hpBase": 120, "hpGrowth": 6.4, "atkBase": 13, "atkGrowth": 1.3, "defBase": 30, "defGrowth": 2.4, "spdBase": 14, "spdGrowth": 1.1 },
+              "skills": {
+                "passive": { "name": "Asas Protetoras", "effect": "Regenera 4% HP maximo do time por tick de combate enquanto Angemon estiver na linha de frente" },
+                "sync": { "name": "Heaven's Knuckle (Sincronia)", "effect": "Cura 40% HP maximo do time e concede +10% DEF por 8s", "cooldownSeconds": 35, "bossOnly": true }
+              }
+            }
+          },
+          "modeDesignNote": "[H] Mesma ressalva de Greymon/Garurumon."
+        }
+      ]
+    }
+  ],
+  "boss": {
+    "speciesId": "devimon",
+    "name": "Devimon",
+    "canonNote": "[E, Wikimon] Fallen Angel, Adult (Champion), Special Move 'Death Claw'. Originalmente da mesma especie de Angemon antes de cair ao Dark Area.",
+    "attribute": "(nao confirmado nesta sessao — tratado como neutro na formula de dano do protótipo ate confirmacao)",
+    "type": "Fallen Angel",
+    "officialSpecialMove": "Death Claw",
+    "designNote": "[H] Decisao do coordenador: usar Devimon (vilao classico de Digimon Adventure) como chefe de Zona e chefe de Masmorra do protótipo, nas 2 formas de dificuldade descritas em bosses.json. Devimon NAO possui uma segunda forma/digivolucao oficial em Digimon Adventure (1999); a 'forma plena' da Masmorra e uma reescala de dificuldade do mesmo Devimon, nao uma forma oficial distinta — nomeada 'Devimon em forca plena' para nao sugerir um nome canonico inexistente."
+  }
+}

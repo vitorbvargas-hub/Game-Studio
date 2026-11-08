@@ -1,0 +1,48 @@
+{
+  "affinities": [
+    {
+      "id": "brasa",
+      "name": "Brasa",
+      "color": "#ff8a3d"
+    },
+    {
+      "id": "mare",
+      "name": "Maré",
+      "color": "#3da5ff"
+    },
+    {
+      "id": "broto",
+      "name": "Broto",
+      "color": "#5ccf5c"
+    }
+  ],
+  "affinityChart": {
+    "brasa": {
+      "broto": 1.5,
+      "mare": 0.75
+    },
+    "mare": {
+      "brasa": 1.5,
+      "broto": 0.75
+    },
+    "broto": {
+      "mare": 1.5,
+      "brasa": 0.75
+    }
+  },
+  "palette": {
+    "bg": "#1d2b1a",
+    "grid": "#2f4a28",
+    "ground": "#3b5e2f",
+    "ui": "#1f2a1c",
+    "accent": "#ffd166",
+    "text": "#f4f1de"
+  },
+  "startingParty": [
+    "a_ember",
+    "a_tide",
+    "a_sprout"
+  ],
+  "startingLevel": 1,
+  "startingAreaId": "rota_01"
+}
