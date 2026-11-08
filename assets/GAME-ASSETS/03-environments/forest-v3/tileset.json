@@ -1,0 +1,147 @@
+{
+  "biome": "forest-v3",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "tiles": [
+    {
+      "file": "tiles/ground_grass_real.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/ground_canopy_shade_real.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_rich_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_rich_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/grass_rich_02.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_00.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_01.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/forest_floor_02.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_rich.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_edge_s.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    },
+    {
+      "file": "tiles/path_corner_ne.png",
+      "collision": false,
+      "suggestedLayer": "ground"
+    }
+  ],
+  "props": [
+    {
+      "file": "props/tree_round_a.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_round_b.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_conifer_a.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_conifer_b.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_bushy_a.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_bushy_b.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tree_flowering.png",
+      "collision": true,
+      "suggestedLayer": "canopy"
+    },
+    {
+      "file": "props/tall_grass_a.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/tall_grass_b.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_cluster_red.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_cluster_white.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/flower_cluster_purple.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/fallen_log.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/mushroom_cluster.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/rock_cluster.png",
+      "collision": true,
+      "suggestedLayer": "decoration"
+    },
+    {
+      "file": "props/bush_accent.png",
+      "collision": false,
+      "suggestedLayer": "decoration"
+    }
+  ]
+}

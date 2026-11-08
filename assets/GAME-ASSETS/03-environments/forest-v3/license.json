@@ -1,0 +1,43 @@
+{
+  "biome": "forest-v3",
+  "layer": "mixed",
+  "assets": [
+    {
+      "group": "tiles (chao, recorte real)",
+      "layer": "official-fan-use",
+      "files": [
+        "tiles/ground_grass_real.png",
+        "tiles/ground_canopy_shade_real.png"
+      ],
+      "source": {
+        "type": "game-rip",
+        "game": "Digimon World DS (Nintendo DS)",
+        "site": "The Spriters Resource",
+        "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+        "providedBy": "varredura automatica (Spriters Resource), fundador autorizou em 2026-11-08",
+        "retrievedAt": "2026-11-08",
+        "modifications": "recorte retangular direto 32x32 de area plana (sem objetos sobrepostos), tingido (multiplicacao de brilho) para compor sombra de dossel; sem redesenho dos pixels originais."
+      },
+      "credit": {
+        "ripper": "Atlanta",
+        "site": "The Spriters Resource"
+      },
+      "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+      "basis": "ADR-009 Secao Licenca + ADR-010 (fundador, 2026-11-08)",
+      "nonCommercial": true,
+      "restrictions": [
+        "ADR-007: sem monetizacao, sem logo oficial, aviso de fan game",
+        "Publicacao exige aprovacao do fundador"
+      ]
+    },
+    {
+      "group": "tiles (derivados) + props (arvores, grama alta, flores, clareira)",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "pixel matrix (grama/caminho, Canvas.js mask-paint + dither seeded) + primitivas em camadas para props de cenario (copas, troncos -- nao sao corpos de criatura, permitido por ADR-009/biome_props.js), paleta Endesga-32 compartilhada.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- sem IP de terceiro alem da paleta de cor amostrada"
+    }
+  ],
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art"
+}
