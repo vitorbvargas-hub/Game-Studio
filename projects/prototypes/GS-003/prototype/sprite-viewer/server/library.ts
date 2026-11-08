@@ -120,7 +120,26 @@ export function scanLibrary(roots: RootDef[], opts: { fileBase?: string; schemaP
       } catch (e) {
         item.parseError = (e as Error).message;
       }
-      const m = item.manifest as { versions?: { id?: string; format?: string; path?: string }[] } | undefined;
+      const m = item.manifest as { versions?: { id?: string; format?: string; path?: string }[]; spritesheets?: unknown } | undefined;
+      // Schema oficial (07-manifests): license.json ao lado e atlas JSON na pasta `spritesheets`.
+      const lic = path.join(d, "license.json");
+      if (fs.existsSync(lic)) {
+        try {
+          item.licenseJson = JSON.parse(fs.readFileSync(lic, "utf8"));
+        } catch {
+          /* license.json quebrado: o parser acusa a falta */
+        }
+      }
+      const sheetsDir = typeof m?.spritesheets === "string" ? safeResolve(d, m.spritesheets) : undefined;
+      if (sheetsDir && fs.existsSync(sheetsDir) && fs.statSync(sheetsDir).isDirectory()) {
+        for (const f of fs.readdirSync(sheetsDir)) if (f.toLowerCase().endsWith(".json")) {
+          try {
+            (item.atlases ??= {})[toPosix(path.relative(root.path, path.join(sheetsDir, f)))] = JSON.parse(fs.readFileSync(path.join(sheetsDir, f), "utf8"));
+          } catch {
+            /* ignora JSON inválido */
+          }
+        }
+      }
       for (const v of Array.isArray(m?.versions) ? m!.versions : []) {
         if (v?.format !== "pmd" || typeof v.path !== "string" || typeof v.id !== "string") continue;
         const abs = safeResolve(d, v.path);
@@ -173,7 +192,9 @@ export function applyReview(roots: RootDef[], req: ReviewRequest, now = new Date
   const text = fs.readFileSync(file, "utf8");
   const json = JSON.parse(text) as Record<string, unknown>;
   const status = req.status as AssetStatus;
-  json.status = status;
+  // Schema oficial usa `approvalStatus`; o provisório, `status`.
+  if ("approvalStatus" in json) json.approvalStatus = status;
+  else json.status = status;
   const entry: Record<string, string> = { status, at: now.toISOString() };
   if (req.by?.trim()) entry.by = req.by.trim().slice(0, 80);
   if (req.note?.trim()) entry.note = req.note.trim().slice(0, 500);

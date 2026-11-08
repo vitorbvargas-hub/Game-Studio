@@ -1,0 +1,14 @@
+{
+  "lineId": "gabumon",
+  "label": "Tsunomon → Gabumon → Garurumon",
+  "sequence": [
+    "CREATURE-0008",
+    "CREATURE-0009",
+    "CREATURE-0010"
+  ],
+  "names": [
+    "Tsunomon",
+    "Gabumon",
+    "Garurumon"
+  ]
+}

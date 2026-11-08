@@ -1,0 +1,106 @@
+{
+  "id": "CREATURE-0008",
+  "name": "Tsunomon",
+  "description": "Tsunomon (In-Training), sprite animado oficial de Digimon World DS/Dawn/Dusk (pose de batalha, idle). Linha piloto Tsunomon → Gabumon → Garurumon. Rip importado sem edição de pixels; só recorte com pivô nos pés.",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "baby",
+  "evolutionLine": {
+    "lineId": "gabumon",
+    "previous": null,
+    "next": [
+      "CREATURE-0009"
+    ]
+  },
+  "evolutionRequirements": {},
+  "dimensions": {
+    "frameW": 38,
+    "frameH": 54,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 19,
+    "y": 53
+  },
+  "hitbox": {
+    "x": 5,
+    "y": 2,
+    "w": 31,
+    "h": 51
+  },
+  "anchors": {
+    "head": {
+      "x": 19,
+      "y": 2
+    },
+    "hit": {
+      "x": 20,
+      "y": 27
+    },
+    "shadow": {
+      "cx": 19,
+      "cy": 53,
+      "rx": 11,
+      "ry": 3
+    }
+  },
+  "directions": {
+    "idle": {
+      "drawn": [
+        "S"
+      ],
+      "mirrored": {}
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "fps": 4.0,
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0008_idle_S_00.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0008_idle_S_01.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0008_idle_S_00.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0008_idle_S_02.png"
+        }
+      ],
+      "events": []
+    }
+  },
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "idle",
+    "FOLLOW": "idle",
+    "ENGAGE": "idle",
+    "ATTACK": "idle",
+    "HURT": "idle",
+    "DEFEAT": "idle",
+    "RETURN": "idle"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Rip oficial DW DS/Dawn/Dusk por AngelOfHope (With the Will), preservado em https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites (in-training/Tsunomon.gif, commit 4b2273e). Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Só existe idle (4 quadros, 3 poses únicas A-B-C-B) — a fonte E-M-B-E-R tem um GIF de batalha por Digimon, sem walk/attack/hurt/sleep.",
+    "Uma direção desenhada (S, pose de batalha de frente); as outras 7 não existem na fonte.",
+    "combatStates aponta tudo para 'idle' até existirem as outras animações (fonte provável: folhas overworld do Spriters Resource, bloqueadas neste host).",
+    "Escala nativa do DS (38x54); não bate com o tile 32 do ART_STYLE_GUIDE — decisão de escala fica com game-art.",
+    "rarity, element (atributo Vaccine/Data/Virus) e evolutionStage 'baby' para In-Training são preenchimentos provisórios [H]; game design decide."
+  ]
+}

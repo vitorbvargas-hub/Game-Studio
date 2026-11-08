@@ -63,7 +63,7 @@ describe("sprite viewer (jsdom)", () => {
     byText(".card", "Blob de Teste (laranja)")!.click();
     const detail = document.querySelector("#detail")!;
     expect(detail.querySelector("h2")!.textContent).toBe("Blob de Teste (laranja)");
-    const animOpts = [...detail.querySelectorAll<HTMLOptionElement>(".box select")[1].options].map((o) => o.value);
+    const animOpts = [...detail.querySelectorAll<HTMLSelectElement>(".box select")[1].options].map((o) => o.value);
     expect(animOpts).toEqual(["idle", "walk", "attack", "hurt", "sleep"]);
     const enabledDirs = [...detail.querySelectorAll<HTMLButtonElement>(".dirs button")].filter((b) => !b.disabled).map((b) => b.textContent);
     expect(enabledDirs.sort()).toEqual(["E", "N", "S", "W"]);

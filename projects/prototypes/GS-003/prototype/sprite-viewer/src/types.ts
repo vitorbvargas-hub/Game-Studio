@@ -7,7 +7,7 @@ export type Dir = (typeof DIRS8)[number];
 export const STATUSES = ["DISCOVERED", "UNDER_REVIEW", "APPROVED", "REJECTED", "NEEDS_CREATION", "INTEGRATED"] as const;
 export type AssetStatus = (typeof STATUSES)[number];
 
-export const LICENSE_TIERS = ["reference", "private-prototype", "licensed", "original", "rejected"] as const;
+export const LICENSE_TIERS = ["reference", "private-prototype", "official-fan-use", "licensed", "original", "rejected"] as const;
 export type LicenseTier = (typeof LICENSE_TIERS)[number];
 
 export interface Point {
@@ -109,6 +109,10 @@ export interface LibraryItem {
   /** creature.json já parseado (kind=creature) — ou erro de parse. */
   manifest?: unknown;
   parseError?: string;
+  /** license.json ao lado do creature.json (schema oficial), se existir. */
+  licenseJson?: unknown;
+  /** Atlas JSON Hash (`*.json` da pasta `spritesheets`), por caminho relativo à raiz. */
+  atlases?: Record<string, unknown>;
   /** PMD: versões (cada uma uma pasta com AnimData.xml). Para creature, versões format=pmd. */
   pmd?: PmdSource[];
 }

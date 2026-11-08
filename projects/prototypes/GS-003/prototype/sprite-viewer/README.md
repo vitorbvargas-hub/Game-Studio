@@ -35,12 +35,22 @@ npm run fixtures          # regenera fixtures/ (também desfaz aprovações feit
 | Chave | Caminho padrão | Gravável | Variável de ambiente |
 |---|---|---|---|
 | `assets` | `~/projects/GameStudio/assets/GAME-ASSETS/` (procura `creature.json` recursivamente, até 6 níveis) | sim | `GS_ASSETS_ROOT` |
-| `fixtures` | `fixtures/GAME-ASSETS-sample/`: 3 criaturas de teste geradas por código (formas geométricas originais) | sim | — |
+| `fixtures` | `fixtures/GAME-ASSETS-sample/`: 3 criaturas de teste geradas por código (formas geométricas originais). **Fora da galeria padrão**; usadas pelos testes | sim | `GS_VIEWER_FIXTURES=1` inclui na galeria |
 | `pmd`, `pmd-v2` | `GS-003/art/sprites/pmd/`, `.../pmd-v2/`: cada subpasta com `AnimData.xml` é uma criatura. O mesmo nome em várias raízes vira **versões** da mesma criatura | **não** (sem `creature.json`) | `GS_PMD_ROOTS` (separadas por `:`) |
 
 Os arquivos são servidos por `GET /fs/<chave>/<caminho>` (só `.png/.json/.xml/.md/.txt`, com proteção contra `..` e contra symlinks que saem da raiz). `POST /api/review` recusa POST de outra origem.
 
-## Schema: PROVISÓRIO
+## Schema oficial (07-manifests)
+
+`creature.json` no formato de `GAME-ASSETS/07-manifests/creature.schema.json` (tem `approvalStatus` ou `animations.*.frames[]`) é lido por `parseOfficial` em `src/manifest.ts`:
+
+- Quadros: `animations.<anim>.frames[].atlasKey` → retângulo no atlas JSON Hash (`spritesheets/*.json`, `meta.image` = folha). Tempo por `durationMs` (ou `fps`).
+- Direções: `directions.<anim>.drawn` + `mirrored` (flipX). Para a 2ª direção desenhada em diante, a chave é a da 1ª com `_<DIR>_` trocado (nome `<id>_<anim>_<dir>_<NN>.png`, SPRITE_SPECIFICATION §6).
+- Licença: `license.json` ao lado (camada `layer`, `credit.ripper`/`preservedBy`, `source.fileUrl`, `copyright`); sem ele, cai em `assetOrigin.layer` com aviso. Camadas aceitas incluem `official-fan-use` (ADR-009).
+- Âncoras: `pivot` vira `feet`; `shadow {cx,cy}` vira ponto. Review grava `approvalStatus` (não cria `status`).
+- Primeiro uso: as 4 linhas piloto DW DS (`CREATURE-0002`…`0013`, importadas por `GS-003/tools/dwds_import/`).
+
+## Schema provisório (legado)
 
 Às 16:00 de 2026-11-08, `GAME-ASSETS/07-manifests/creature.schema.json` (do game-art) **ainda não existia**. O viewer usa então `schema/creature.schema.provisional.json`, escrito a partir do briefing 01 §5 e do ADR-009: id, nome, descrição, categoria, raridade, elemento, atributos, estágio, linha e requisitos de evolução, dimensões, hitbox, âncoras, origem, licença, status e score, mais o histórico `review[]` e as `versions[]` com animações.
 
@@ -66,7 +76,7 @@ server/library.ts varredura das raízes, tamanho de PNG, proteção de caminho, 
 vite.config.ts    raízes + middleware de dev (/api/library, /fs/*, /api/review)
 schema/           schema provisório
 scripts/make-fixtures.mjs  gera fixtures (PNG próprio via zlib)
-tests/            vitest (34 testes)
+tests/            vitest (39 testes; official.test.ts abre as 12 criaturas piloto reais se GAME-ASSETS existir)
 ```
 
 ## Limitações

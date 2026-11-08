@@ -196,6 +196,7 @@ export function normalizeItem(item: LibraryItem, ctx: NormalizeCtx): CreatureVie
     return base;
   }
   base.editable = item.editable;
+  if (isOfficialManifest(m)) return parseOfficial(item, m, base, ctx);
   base.id = str(m.id) ?? (errors.push("id ausente"), base.id);
   base.name = str(m.name) ?? (errors.push("name ausente"), base.id);
   base.description = str(m.description);
@@ -292,6 +293,160 @@ export function normalizeItem(item: LibraryItem, ctx: NormalizeCtx): CreatureVie
     const cur = base.versions.find((v) => v.id === base.currentVersion);
     if (cur && !cur.anims.some((a) => a.name.toLowerCase() === p)) warnings.push(`versão atual sem animação P0 "${p}"`);
   }
+  return base;
+}
+
+/** creature.json no schema oficial (GAME-ASSETS/07-manifests): `approvalStatus` + `animations.*.frames[]` com `atlasKey`. */
+export function isOfficialManifest(m: Obj): boolean {
+  return "approvalStatus" in m || (isObj(m.animations) && Object.values(m.animations).some((a) => isObj(a) && Array.isArray(a.frames)));
+}
+
+interface AtlasEntry {
+  imageRel: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/** Junta os atlas JSON Hash (TexturePacker/Phaser) da criatura num índice chave → retângulo. */
+function atlasIndex(atlases: Record<string, unknown> | undefined, errors: string[]): Map<string, AtlasEntry> {
+  const out = new Map<string, AtlasEntry>();
+  for (const [rel, a] of Object.entries(atlases ?? {})) {
+    if (!isObj(a) || !isObj(a.frames)) continue;
+    const image = isObj(a.meta) ? str(a.meta.image) : undefined;
+    if (!image) {
+      errors.push(`atlas ${rel}: meta.image ausente`);
+      continue;
+    }
+    const imageRel = joinRel(rel.split("/").slice(0, -1).join("/"), image);
+    if (!imageRel) {
+      errors.push(`atlas ${rel}: meta.image sai da pasta`);
+      continue;
+    }
+    for (const [key, f] of Object.entries(a.frames)) {
+      const r = isObj(f) && isObj(f.frame) ? f.frame : undefined;
+      if (r && ["x", "y", "w", "h"].every((k) => num(r[k]) !== undefined))
+        out.set(key, { imageRel, x: r.x as number, y: r.y as number, w: r.w as number, h: r.h as number });
+    }
+  }
+  return out;
+}
+
+/**
+ * Schema oficial → CreatureView. Direções: `directions[anim].drawn` + `mirrored` (flipX). O schema dá um
+ * `atlasKey` por quadro; para a 2ª direção desenhada em diante, a chave é a da 1ª com `_<DIR>_` trocado
+ * (convenção de nome `<id>_<anim>_<dir>_<NN>` do SPRITE_SPECIFICATION §6).
+ */
+function parseOfficial(item: LibraryItem, m: Obj, base: CreatureView, ctx: NormalizeCtx): CreatureView {
+  const { errors, warnings } = base;
+  base.id = str(m.id) ?? (errors.push("id ausente"), base.id);
+  base.name = str(m.name) ?? (errors.push("name ausente"), base.id);
+  base.description = str(m.description);
+  base.category = str(m.category);
+  base.rarity = str(m.rarity);
+  base.element = str(m.element);
+  base.stage = str(m.evolutionStage);
+  base.evolutionLine = isObj(m.evolutionLine) ? str(m.evolutionLine.lineId) : undefined;
+  base.score = num(m.score);
+  const st = normalizeStatus(m.approvalStatus);
+  if (!st) errors.push(`approvalStatus inválido: ${JSON.stringify(m.approvalStatus)} (use ${STATUSES.join(", ")})`);
+  base.status = st ?? "UNKNOWN";
+
+  const origin = isObj(m.assetOrigin) ? m.assetOrigin : {};
+  const lic = isObj(item.licenseJson) ? item.licenseJson : undefined;
+  const tier = str(lic?.layer) ?? str(origin.layer);
+  if (!tier || !(LICENSE_TIERS as readonly string[]).includes(tier))
+    errors.push(`camada de licença inválida: ${JSON.stringify(tier)} (use ${LICENSE_TIERS.join(", ")})`);
+  if (!lic) warnings.push("license.json ausente (só assetOrigin)");
+  const credit = lic && isObj(lic.credit) ? lic.credit : {};
+  const source = lic && isObj(lic.source) ? lic.source : {};
+  base.license = {
+    tier: tier ?? "desconhecida",
+    author: [str(credit.ripper), str(credit.preservedBy)].filter(Boolean).join(" · ") || undefined,
+    url: str(source.fileUrl) ?? str(source.repository),
+    file: lic ? "license.json" : undefined,
+    notes: str(lic?.copyright) ?? str(lic?.notes),
+  };
+  base.origin = { type: str(origin.layer), source: str(origin.sourceDescription), author: str(credit.ripper) };
+
+  const dims = isObj(m.dimensions) ? m.dimensions : {};
+  if (num(dims.frameW) && num(dims.frameH)) base.dimensions = { width: dims.frameW as number, height: dims.frameH as number };
+  if (isObj(m.hitbox) && ["x", "y", "w", "h"].every((k) => num((m.hitbox as Obj)[k]) !== undefined))
+    base.hitbox = m.hitbox as CreatureView["hitbox"];
+  const pivot = isObj(m.pivot) && num(m.pivot.x) !== undefined && num(m.pivot.y) !== undefined ? { x: m.pivot.x as number, y: m.pivot.y as number } : undefined;
+  if (!pivot) errors.push("pivot ausente");
+  base.anchors = pivot ? { feet: pivot } : {};
+  if (isObj(m.anchors))
+    for (const [k, v] of Object.entries(m.anchors)) {
+      if (isObj(v) && num(v.x) !== undefined && num(v.y) !== undefined) base.anchors[k] = { x: v.x as number, y: v.y as number };
+      else if (isObj(v) && num(v.cx) !== undefined && num(v.cy) !== undefined) base.anchors[k] = { x: v.cx as number, y: v.cy as number };
+      else errors.push(`anchors.${k} inválido`);
+    }
+  if (Array.isArray(m.review))
+    base.review = m.review.filter(isObj).flatMap((r): ReviewEntry[] => {
+      const s = normalizeStatus(r.status);
+      return s && str(r.at) ? [{ status: s, at: r.at as string, by: str(r.by), note: str(r.note) }] : [];
+    });
+
+  const atlas = atlasIndex(item.atlases, errors);
+  if (!atlas.size) errors.push("nenhum atlas JSON em spritesheets/");
+  const dirsByAnim = isObj(m.directions) ? m.directions : {};
+  const anims: AnimView[] = [];
+  for (const [name, raw] of Object.entries(isObj(m.animations) ? m.animations : {})) {
+    const where = `animations.${name}`;
+    if (!isObj(raw) || !Array.isArray(raw.frames) || !raw.frames.length) {
+      errors.push(`${where}: sem frames`);
+      continue;
+    }
+    const fps = num(raw.fps);
+    const spec = raw.frames.filter(isObj).map((f) => ({ key: str(f.atlasKey), ms: num(f.durationMs) ?? 1000 / (fps && fps > 0 ? fps : DEFAULT_FPS) }));
+    const dcfg = isObj(dirsByAnim[name]) ? (dirsByAnim[name] as Obj) : {};
+    const drawn = (Array.isArray(dcfg.drawn) ? dcfg.drawn : []).filter((d) => {
+      if (!isDir(d)) errors.push(`directions.${name}.drawn: "${String(d)}" inválida`);
+      return isDir(d);
+    }) as Dir[];
+    if (!drawn.length) drawn.push("S");
+    const out: Partial<Record<Dir, FrameRef[]>> = {};
+    let fw = 0;
+    let fh = 0;
+    for (const d of drawn) {
+      const frames: FrameRef[] = [];
+      for (const [i, f] of spec.entries()) {
+        const key = f.key && (d === drawn[0] ? f.key : f.key.replace(`_${drawn[0]}_`, `_${d}_`));
+        const e = key ? atlas.get(key) : undefined;
+        if (!e) {
+          errors.push(`${where}[${d}] quadro ${i}: atlasKey ${JSON.stringify(key)} não está no atlas`);
+          continue;
+        }
+        if (ctx.sheetSizes && !ctx.sheetSizes[e.imageRel]) warnings.push(`${where}: folha ${e.imageRel} não encontrada`);
+        fw = Math.max(fw, e.w);
+        fh = Math.max(fh, e.h);
+        frames.push({ image: ctx.fileUrl(item.root, e.imageRel), sx: e.x, sy: e.y, sw: e.w, sh: e.h, flipX: false, durationMs: f.ms });
+      }
+      if (frames.length) out[d] = frames;
+    }
+    const directions = Object.keys(out) as Dir[];
+    if (!directions.length) continue;
+    if (isObj(dcfg.mirrored))
+      for (const [to, from] of Object.entries(dcfg.mirrored)) {
+        if (!isDir(to) || !isDir(from) || !out[from]) {
+          errors.push(`directions.${name}.mirrored: ${to}←${String(from)} inválido`);
+          continue;
+        }
+        out[to] = out[from]!.map((f) => ({ ...f, flipX: !f.flipX }));
+        if (!directions.includes(to)) directions.push(to);
+      }
+    directions.sort((a, b) => DIRS8.indexOf(a) - DIRS8.indexOf(b));
+    const events = Array.isArray(raw.events)
+      ? raw.events.filter(isObj).flatMap((e) => (num(e.frame) !== undefined && str(e.name) ? [{ frame: e.frame as number, name: e.name as string }] : []))
+      : [];
+    anims.push({ name, loop: typeof raw.loop === "boolean" ? raw.loop : true, frameWidth: fw, frameHeight: fh, directions, frames: out, origin: pivot, events });
+  }
+  base.versions.push({ id: "current", label: "atual", format: "grid", anims });
+  base.currentVersion = "current";
+  if (!anims.length) errors.push("nenhuma animação legível");
+  for (const p of ["idle", "walk"]) if (!anims.some((a) => a.name.toLowerCase() === p)) warnings.push(`sem animação P0 "${p}"`);
   return base;
 }
 

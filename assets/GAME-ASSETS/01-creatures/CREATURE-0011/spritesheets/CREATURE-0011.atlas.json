@@ -1,0 +1,87 @@
+{
+  "frames": {
+    "CREATURE-0011_idle_S_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "sourceSize": {
+        "w": 60,
+        "h": 46
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9783
+      }
+    },
+    "CREATURE-0011_idle_S_01.png": {
+      "frame": {
+        "x": 61,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "sourceSize": {
+        "w": 60,
+        "h": 46
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9783
+      }
+    },
+    "CREATURE-0011_idle_S_02.png": {
+      "frame": {
+        "x": 122,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 46
+      },
+      "sourceSize": {
+        "w": 60,
+        "h": 46
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.9783
+      }
+    }
+  },
+  "meta": {
+    "app": "GS-003 tools/dwds_import/import_ember.py",
+    "version": "1",
+    "image": "CREATURE-0011.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 182,
+      "h": 46
+    },
+    "scale": "1"
+  }
+}

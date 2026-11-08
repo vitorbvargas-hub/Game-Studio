@@ -15,9 +15,14 @@ const pmdRoots = (process.env.GS_PMD_ROOTS ?? ["pmd", "pmd-v2"].map((d) => path.
   .split(":")
   .filter(Boolean);
 
+// As fixtures geométricas só servem aos testes; na galeria só entram com GS_VIEWER_FIXTURES=1.
+const fixtureRoots: RootDef[] = process.env.GS_VIEWER_FIXTURES === "1"
+  ? [{ key: "fixtures", path: path.join(here, "fixtures/GAME-ASSETS-sample"), editable: true, kind: "assets" }]
+  : [];
+
 export const ROOTS: RootDef[] = [
   { key: "assets", path: assetsRoot, editable: true, kind: "assets" },
-  { key: "fixtures", path: path.join(here, "fixtures/GAME-ASSETS-sample"), editable: true, kind: "assets" },
+  ...fixtureRoots,
   ...pmdRoots.map((p): RootDef => ({ key: path.basename(p), path: p, editable: false, kind: "pmd" })),
 ];
 
