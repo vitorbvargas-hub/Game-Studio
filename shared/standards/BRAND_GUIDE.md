@@ -1,4 +1,4 @@
-# Brand Guide — Game Studio (marca-mãe)
+# Brand Guide — Nação Games (marca-mãe)
 
 > **Autor:** game-art (Art Director) · **Data:** 2026-11-08 · **Status:** rascunho para aprovação do fundador
 >
@@ -8,9 +8,9 @@
 
 ---
 
-## 1. Nome de marca **[PROPOSTA — fundador decide]**
+## 1. Nome de marca — **Nação Games** (decidido pelo fundador em 2026-11-08, ADR-005)
 
-O nome de trabalho atual é "Game Studio" (genérico, usado internamente). Proponho 3 opções de nome de marca-mãe para avaliação do fundador. Nenhuma foi registrada, comprada (domínio) ou usada publicamente.
+Nome oficial: **Nação Games**. As propostas abaixo ficam só como registro histórico. Nenhum domínio foi comprado e nenhuma marca foi registrada; isso exige aprovação.
 
 | # | Nome proposto | Racional |
 |---|---|---|
