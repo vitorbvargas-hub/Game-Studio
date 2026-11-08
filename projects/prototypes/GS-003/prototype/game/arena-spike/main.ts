@@ -78,7 +78,7 @@ function frame(now: number) {
     pressed.clear();
     for (const e of evs) renderer.onEvent(st, e);
   }
-  renderer.draw(st);
+  renderer.draw(st, now);
   renderHud();
   requestAnimationFrame(frame);
 }

@@ -22,7 +22,7 @@ Legenda: **[E]** evidência, com fonte e data ou com medição feita neste host.
 Controles: WASD/setas para mover (8 direções), J/Espaço para o básico, K/E para o especial (sai na direção em que o lutador olha) e R para a revanche.
 URL: `?p=agumon&e=patamon&lv=12&seed=3&pack=digimon-fan`. O padrão vem dos dados (`defaultMatchup`: primeiro par com sprite em que o jogador tem vantagem de afinidade; no pack atual, Gabumon x Agumon), Nv base da criatura.
 
-Animações (2026-11-08): o render usa `anims` do pack — walk ao andar por input, attack no básico (`swing`) e no especial (evento `cast`), hit durante o `hitstun`, idle parado — e espelha o sprite quando o último lado horizontal é a esquerda. A escolha é só visual; a simulação ganhou apenas o campo `moving`. Capturas em `screens/` (inclui `arena_walk.png`).
+Animações (2026-11-08): o render usa `anims` do pack — walk ao andar por input, attack no básico (`swing`) e no especial (evento `cast`), hit durante o `hitstun`, idle parado — e espelha o sprite quando o último lado horizontal é a esquerda. A escolha é só visual; a simulação ganhou apenas o campo `moving`. Capturas em `screens/` (inclui `arena_walk.png`). Desde a rodada QA R2, idle/walk e os efeitos de tela (piscar, números, attack do especial) derivam do timestamp do `requestAnimationFrame` passado a `draw(st, now)`, não da contagem de `draw()`; `arena.check.ts` confere frames idênticos a 30, 60, 120 e 144 Hz.
 
 Verificação [E] (2026-11-08, neste host):
 - `npx tsc --noEmit -p arena-spike/tsconfig.json` passou sem erros.
@@ -30,7 +30,14 @@ Verificação [E] (2026-11-08, neste host):
 - `npm test` principal: 47/47 antes do spike e 47/47 depois. Às 11:15 o resultado era 7 arquivos e 60/60, porque outra sessão alterou `src/` e `tests/` durante este trabalho. O spike não escreve em `src/` nem em `tests/`. `npm run typecheck` também passou.
 - `npm run dev` serve `/arena-spike/` e `/arena-spike/main.ts` com HTTP 200.
 - Capturas em `screens/` (início, golpe básico, especial e fim). **Não testei com teclado num navegador real**: o Chromium headless não roda neste host (veja `scripts/capture-screens.ts`). O sentimento do controle não foi validado.
-- Balanceamento IA x IA, 200 seeds, Nv 10: Gabumon x Agumon dá 97,5% de vitória para o Gabumon, com lutas de ~14 s. Agumon x Gabumon dá 8% de vitória para o Agumon (~18 s). A diferença vem do `affinityChart` do pack (dado → vacina = 1,25x; vacina → dado = 0,8x). Para ação em tempo real, esse multiplicador é forte demais [H].
+- (Histórico, antes da rodada QA R2) Balanceamento IA x IA, 200 seeds, Nv 10: Gabumon x Agumon dá 97,5% de vitória para o Gabumon, com lutas de ~14 s. Agumon x Gabumon dá 8% de vitória para o Agumon (~18 s). A diferença vem do `affinityChart` do pack (dado → vacina = 1,25x; vacina → dado = 0,8x). Para ação em tempo real, esse multiplicador é forte demais [H].
+- **Rodada QA R2 (2026-11-08)** [E] — medido com `npx vite-node arena-spike/balance.ts <lutas> <nível>` (IA x IA, mesma `aiInput` nos dois lados, lados alternados a cada luta, seeds 1..N):
+  - **Assimetria de lado corrigida.** `stepArena` resolvia o lutador 0 antes do 1 dentro do tick (o 0 batia primeiro e o atordoamento do 1 já valia no mesmo tick). Agora a resolução é simultânea, em fases (movimento → especiais → básicos → projéteis; dano aplicado depois que os dois decidiram). Posições iniciais já eram espelhadas (x = 25%/75% da largura). Antes (2000 lutas, Nv 10): espelho Gabumon 41,0% como idx0 x 61,0% como idx1; depois: 51,6% x 48,9% (4000 lutas: 51,3% x 49,2%).
+  - **Afinidade amortecida só na arena:** `arena.json` → `affinity: { advantage: 1.04, disadvantage: 0.96 }` substitui o 1,25x/0,8x do `theme.affinityChart` (que continua valendo no idle, sem mudança). 1,1/0,9 ainda dava ~81%; testei 1,03–1,10.
+  - Gabumon x Agumon, Nv 10: antes 94,4% (2000 lutas; 91,9% idx0 / 96,9% idx1) → depois **67,6%** (2000; 67,5% idx0 / 67,7% idx1). 400 lutas: 66,0%. Nv 20 (4000): 69,9%.
+  - Espelhos (Nv 10, 2000): Agumon 49,1%, Gabumon 50,2%, Patamon 48,9%.
+  - Limitação [H]: Agumon x Patamon (Patamon com vantagem de afinidade) vira **77,8% para o Agumon** e Gabumon x Patamon (afinidade neutra) dá 83,5% ao Gabumon — a diferença de stats/kit entre espécies pesa mais que a afinidade amortecida. Corrigir isso pede ajuste por espécie/skill (fora do escopo: não mexer em valores do idle).
+  - `arena.check.ts` trava isso: espelho entre 43% e 57%, par com vantagem entre 60% e 70% e diferença de lado < 10 p.p. (400 lutas, determinístico).
 - Custo da simulação: **0,16 µs por tick** da arena (2 lutadores com IA) e **0,43 µs por tick** do idle (`stepN`), num Ryzen 5 5500 com Node v24 sob vitest.
 
 ## 1. Como a arena reaproveita o motor e os packs
@@ -48,7 +55,7 @@ A arena seguiu as regras do motor: simulação pura, determinística e serializ�
 Lacunas para virar modo de jogo [H]:
 - Os packs não descrevem ação: alcance, forma (cone, projétil, área), velocidade, *startup/recovery* e hitbox. Proposta: um bloco opcional `action` em `skills.json` (por exemplo `{ "shape": "projectile", "speed": 170, "range": 220 }`), validado em `content.ts` com padrões para quem não declarar. Hoje isso está fixo em `arena.json`.
 - Faltam sprites de andar e de ataque. Só existem 2 frames de idle, então o personagem desliza. A arte precisa seguir a regra de arte do ADR-007.
-- A afinidade de 1,25x/0,8x decide a luta. A arena deve ter um `affinityChart` próprio ou um multiplicador amortecido.
+- ~~A afinidade de 1,25x/0,8x decide a luta.~~ Resolvido na rodada QA R2 com `arena.json` → `affinity` (1,04x/0,96x, só na arena). Falta balancear stats/kit por espécie (Agumon x Patamon 78%).
 - A IA é uma máquina de estados simples, sem desvio de projéteis nem pathfinding. Basta para PvE de treino, não para dar desafio.
 - Faltam integração com o save (escolher entre os monstros do time e ganhar XP ou bits), menu, áudio e controle por toque e gamepad.
 

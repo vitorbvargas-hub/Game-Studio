@@ -14,13 +14,27 @@ export interface ImageLike {
   complete?: boolean;
 }
 
-const MS_PER_DRAW = 1000 / 60;
+/** Passo assumido quando draw() é chamado sem `now` (captura headless, testes antigos). */
+const DEFAULT_DRAW_MS = 1000 / 60;
+/** Duração dos efeitos de tela (piscar ao apanhar, número flutuante), em ms reais. */
+const FLASH_MS = 100;
+const FLOATER_MS = 667;
+/** Subida do número flutuante, px por ms (0,3 px por quadro a 60 Hz). */
+const FLOATER_RISE = 0.3 / DEFAULT_DRAW_MS;
+
+/** Frame de uma animação em loop no instante `nowMs` de tempo real (independe da taxa de draw()). */
+export function loopFrameIndex(nowMs: number, frameMs: number, frames: number): number {
+  return Math.floor(nowMs / frameMs) % frames;
+}
 
 export class ArenaRenderer {
+  /** life em ms restantes. */
   private floaters: { x: number; y: number; text: string; color: string; life: number }[] = [];
+  /** ms restantes do piscar de cada lutador. */
   private flash: [number, number] = [0, 0];
-  private frame = 0;
-  /** Draws restantes da animação attack disparada pelo especial (o básico usa f.swing do estado). */
+  /** Timestamp do rAF do último draw(): idle/walk e efeitos derivam do tempo real, não da contagem de draw(). */
+  private now = 0;
+  /** ms restantes da animação attack disparada pelo especial (o básico usa f.swing do estado). */
   private cast: [number, number] = [0, 0];
   /** Último lado horizontal para onde cada lutador olhou: andar na vertical (fx = 0) não desvira o sprite. */
   private side: [1 | -1, 1 | -1] = [1, -1];
@@ -47,14 +61,14 @@ export class ArenaRenderer {
   onEvent(st: ArenaState, e: ArenaEvent): void {
     if (e.t === "cast") {
       const f = st.fighters[e.who];
-      this.cast[e.who] = Math.max(1, Math.ceil(animDurationMs(f, "attack") / MS_PER_DRAW));
+      this.cast[e.who] = Math.max(1, animDurationMs(f, "attack"));
     } else if (e.t === "hit") {
       const f = st.fighters[e.target];
-      this.flash[e.target] = 6;
-      this.floaters.push({ x: f.x, y: f.y - 30, text: `-${e.amount}${e.crit ? "!" : ""}`, color: e.crit ? "#ffd84a" : "#ffffff", life: 40 });
+      this.flash[e.target] = FLASH_MS;
+      this.floaters.push({ x: f.x, y: f.y - 30, text: `-${e.amount}${e.crit ? "!" : ""}`, color: e.crit ? "#ffd84a" : "#ffffff", life: FLOATER_MS });
     } else if (e.t === "heal") {
       const f = st.fighters[e.target];
-      this.floaters.push({ x: f.x, y: f.y - 30, text: `+${e.amount}`, color: "#8dff9a", life: 40 });
+      this.floaters.push({ x: f.x, y: f.y - 30, text: `+${e.amount}`, color: "#8dff9a", life: FLOATER_MS });
     }
   }
 
@@ -68,14 +82,13 @@ export class ArenaRenderer {
     if (f.hp > 0 && f.hitstun > 0 && hasAnim(f, "hit")) return oneShot("hit", f.hitstun, msToTicks(this.cfg, this.cfg.hitstunMs));
     if (f.hp > 0 && f.swing > 0 && hasAnim(f, "attack")) return oneShot("attack", f.swing, msToTicks(this.cfg, SWING_MS));
     if (f.hp > 0 && this.cast[f.idx] > 0 && hasAnim(f, "attack")) {
-      const total = Math.max(1, Math.ceil(animDurationMs(f, "attack") / MS_PER_DRAW));
-      return oneShot("attack", this.cast[f.idx], total);
+      return oneShot("attack", this.cast[f.idx], Math.max(1, animDurationMs(f, "attack")));
     }
     const name: AnimName = f.hp > 0 && f.moving && hasAnim(f, "walk") ? "walk" : "idle";
     const frames = animFrames(f, name);
     // Desfase no idle para os dois não respirarem em uníssono.
-    const t = this.frame * MS_PER_DRAW + (name === "idle" ? f.idx * 250 : 0);
-    return { name, path: frames.length ? frames[Math.floor(t / animFrameMs(f, name)) % frames.length] : undefined };
+    const t = this.now + (name === "idle" ? f.idx * 250 : 0);
+    return { name, path: frames.length ? frames[loopFrameIndex(t, animFrameMs(f, name), frames.length)] : undefined };
   }
 
   private sprite(f: Fighter): ImageLike | null {
@@ -100,7 +113,8 @@ export class ArenaRenderer {
     if (f.fx !== 0) this.side[f.idx] = f.fx > 0 ? 1 : -1;
     const img = this.sprite(f);
     ctx.save();
-    ctx.globalAlpha = this.flash[f.idx] > 0 && this.flash[f.idx] % 2 ? 0.4 : f.hp > 0 ? 1 : 0.3;
+    // Pisca a cada ~33 ms de tempo real enquanto dura o flash.
+    ctx.globalAlpha = this.flash[f.idx] > 0 && Math.floor(this.flash[f.idx] / (FLASH_MS / 6)) % 2 ? 0.4 : f.hp > 0 ? 1 : 0.3;
     if (img) {
       const w = img.naturalWidth ?? img.width;
       const ix = x - Math.round(w / 2);
@@ -138,10 +152,13 @@ export class ArenaRenderer {
     ctx.fillRect(x - bw / 2, by + 3, Math.round(bw * (1 - f.specialCd / f.specialCdMax)), 1);
   }
 
-  draw(st: ArenaState): void {
+  /** `now` = timestamp do requestAnimationFrame (ms). Sem `now`, avança um quadro de 60 Hz. */
+  draw(st: ArenaState, now: number = this.now + DEFAULT_DRAW_MS): void {
     const { ctx, cfg } = this;
     const pal = this.content.theme.palette;
-    this.frame++;
+    // Passo real desde o último draw (teto de 250 ms, como o acumulador do shell, para abas que voltam do fundo).
+    const dt = Math.max(0, Math.min(250, now - this.now));
+    this.now = now;
     ctx.fillStyle = pal.bg;
     ctx.fillRect(0, 0, cfg.width, cfg.height);
     ctx.fillStyle = pal.ground;
@@ -161,12 +178,12 @@ export class ArenaRenderer {
     }
     for (const fl of this.floaters) {
       drawPixelText(ctx, fl.text, fl.x - pixelTextWidth(fl.text) / 2, fl.y, fl.color);
-      fl.y -= 0.3;
-      fl.life--;
+      fl.y -= FLOATER_RISE * dt;
+      fl.life -= dt;
     }
     this.floaters = this.floaters.filter((f) => f.life > 0);
-    this.flash = [Math.max(0, this.flash[0] - 1), Math.max(0, this.flash[1] - 1)];
-    this.cast = [Math.max(0, this.cast[0] - 1), Math.max(0, this.cast[1] - 1)];
+    this.flash = [Math.max(0, this.flash[0] - dt), Math.max(0, this.flash[1] - dt)];
+    this.cast = [Math.max(0, this.cast[0] - dt), Math.max(0, this.cast[1] - dt)];
     // Relógio (segundos restantes).
     const left = String(Math.max(0, Math.ceil(cfg.timeLimitSec - st.tick / cfg.simHz)));
     drawPixelText(ctx, left, cfg.width / 2 - pixelTextWidth(left) / 2, 3, pal.text);

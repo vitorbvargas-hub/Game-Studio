@@ -24,6 +24,10 @@
   "hitstunMs": 150,
   "guardReduction": 0.5,
   "timeLimitSec": 90,
+  "affinity": {
+    "advantage": 1.04,
+    "disadvantage": 0.96
+  },
   "ai": {
     "reactionMs": 200,
     "preferredRangePx": 26,

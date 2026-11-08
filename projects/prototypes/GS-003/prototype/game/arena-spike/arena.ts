@@ -26,6 +26,12 @@ export interface ArenaConfig {
   hitstunMs: number;
   guardReduction: number;
   timeLimitSec: number;
+  /**
+   * Afinidade só da arena: substitui o multiplicador do affinityChart do pacote (que vale para o idle)
+   * por um valor amortecido — em ação em tempo real, 1,25x/0,8x decidia a luta quase sozinho.
+   * Ausente = usa o affinityChart do pacote.
+   */
+  affinity?: { advantage: number; disadvantage: number };
   ai: { reactionMs: number; preferredRangePx: number; specialMaxRangePx: number; aimToleranceDot: number; strafeEveryMs: number };
 }
 
@@ -199,20 +205,39 @@ export function createArena(content: ContentBundle, cfg: ArenaConfig, player: Fi
   };
 }
 
-function dealDamage(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, from: Fighter, to: Fighter, skill: SkillDef, kbx: number, kby: number, kb: number, ev: ArenaEvent[]): void {
+/** Multiplicador de afinidade na arena: o do pacote, ou o amortecido de `cfg.affinity` quando houver. */
+export function arenaAffinityMult(content: ContentBundle, cfg: ArenaConfig, attacker: string, defender: string): number {
+  const m = affinityMult(content, attacker, defender);
+  if (!cfg.affinity || m === 1) return m;
+  return m > 1 ? cfg.affinity.advantage : cfg.affinity.disadvantage;
+}
+
+/** Golpe já decidido no tick; aplicado depois que os dois lados decidiram (resolução simultânea). */
+interface PendingHit {
+  from: Fighter;
+  to: Fighter;
+  skill: SkillDef;
+  kbx: number;
+  kby: number;
+  kb: number;
+}
+
+function dealDamage(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, h: PendingHit, ev: ArenaEvent[]): void {
+  const { from, to, skill } = h;
   const b = content.balance;
   const variance = 1 + (nextFloat(st) * 2 - 1) * b.damageVariance;
   const crit = nextFloat(st) < (b.critChance ?? 0);
-  const mult = affinityMult(content, skill.affinity ?? from.affinity, to.affinity) * (crit ? (b.critMult ?? 1.5) : 1);
+  const mult = arenaAffinityMult(content, cfg, skill.affinity ?? from.affinity, to.affinity) * (crit ? (b.critMult ?? 1.5) : 1);
   let amount = computeDamage(b, skill.power, from.atk, to.def, mult, variance);
   if (to.guard > 0) amount = Math.max(1, Math.round(amount * (1 - cfg.guardReduction)));
+  const wasAlive = to.hp > 0;
   to.hp = Math.max(0, to.hp - amount);
   to.hitstun = msToTicks(cfg, cfg.hitstunMs);
-  to.x += kbx * kb;
-  to.y += kby * kb;
+  to.x += h.kbx * h.kb;
+  to.y += h.kby * h.kb;
   clampToArena(cfg, to);
   ev.push({ t: "hit", target: to.idx, amount, crit, skillId: skill.id });
-  if (to.hp === 0) ev.push({ t: "ko", target: to.idx });
+  if (wasAlive && to.hp === 0) ev.push({ t: "ko", target: to.idx });
 }
 
 function clampToArena(cfg: ArenaConfig, f: Fighter): void {
@@ -221,16 +246,17 @@ function clampToArena(cfg: ArenaConfig, f: Fighter): void {
   f.y = Math.min(cfg.height - r, Math.max(cfg.margin + cfg.topClearancePx, f.y));
 }
 
-function useBasic(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, me: Fighter, foe: Fighter, ev: ArenaEvent[]): void {
+/** Inicia o básico e devolve o golpe, se acertar (alvo no alcance e num cone à frente). Não aplica dano. */
+function useBasic(content: ContentBundle, cfg: ArenaConfig, me: Fighter, foe: Fighter): PendingHit | null {
   me.basicCd = msToTicks(cfg, Math.max(cfg.basic.cooldownMs, me.basic.cooldownTicks * content.balance.tickMs));
   me.swing = msToTicks(cfg, SWING_MS);
   const dx = foe.x - me.x;
   const dy = foe.y - me.y;
   const d = Math.sqrt(dx * dx + dy * dy) || 1;
-  // Acerta se o alvo está no alcance e num cone à frente.
   if (d <= cfg.basic.rangePx + cfg.bodyRadius && (dx * me.fx + dy * me.fy) / d >= cfg.basic.arcDot) {
-    dealDamage(st, content, cfg, me, foe, me.basic, dx / d, dy / d, cfg.basic.knockbackPx, ev);
+    return { from: me, to: foe, skill: me.basic, kbx: dx / d, kby: dy / d, kb: cfg.basic.knockbackPx };
   }
+  return null;
 }
 
 function useSpecial(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, me: Fighter, ev: ArenaEvent[]): void {
@@ -260,15 +286,21 @@ function useSpecial(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, me
   }
 }
 
-/** Avança 1 tick. inputs[0] = jogador, inputs[1] = IA (ou segundo jogador). Devolve eventos do tick. */
+/**
+ * Avança 1 tick. inputs[0] = jogador, inputs[1] = IA (ou segundo jogador). Devolve eventos do tick.
+ * Resolução simultânea em fases (movimento -> especiais -> básicos -> projéteis): nenhum lado age antes do
+ * outro dentro do tick, então idx0 e idx1 são equivalentes (só o RNG compartilhado é sorteado em ordem fixa).
+ */
 export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConfig, inputs: [ArenaInput, ArenaInput]): ArenaEvent[] {
   const ev: ArenaEvent[] = [];
   if (st.outcome) return ev;
   st.tick++;
   const [a, b] = st.fighters;
+  const foeOf = (me: Fighter) => (me.idx === 0 ? b : a);
 
+  // 1) Recargas, atordoamento e movimento dos dois.
+  const canAct = [false, false];
   for (const me of st.fighters) {
-    const foe = me.idx === 0 ? b : a;
     const inp = inputs[me.idx];
     if (me.basicCd > 0) me.basicCd--;
     if (me.specialCd > 0) me.specialCd--;
@@ -279,6 +311,7 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
       me.hitstun--;
       continue;
     }
+    canAct[me.idx] = true;
     const mx = Math.sign(inp.mx);
     const my = Math.sign(inp.my);
     if (mx || my) {
@@ -290,8 +323,6 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
       me.moving = true;
       clampToArena(cfg, me);
     }
-    if (inp.basic && me.basicCd === 0) useBasic(st, content, cfg, me, foe, ev);
-    if (inp.special && me.specialCd === 0) useSpecial(st, content, cfg, me, ev);
   }
 
   // Corpos não se sobrepõem: empurra os dois igualmente.
@@ -311,9 +342,20 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
     clampToArena(cfg, b);
   }
 
-  // Projéteis.
+  // 2) Especiais (guarda/cura valem já neste tick para os dois; o projétil novo anda junto com os outros).
+  for (const me of st.fighters) if (canAct[me.idx] && inputs[me.idx].special && me.specialCd === 0) useSpecial(st, content, cfg, me, ev);
+
+  // 3) Básicos: os dois decidem com as posições do mesmo instante; o dano entra depois (troca de golpes é possível).
+  const hits: PendingHit[] = [];
+  for (const me of st.fighters) {
+    if (!canAct[me.idx] || !inputs[me.idx].basic || me.basicCd !== 0) continue;
+    const h = useBasic(content, cfg, me, foeOf(me));
+    if (h) hits.push(h);
+  }
+
+  // 4) Projéteis andam; colisões também decididas antes de aplicar.
   const keep: Projectile[] = [];
-  for (const p of st.projectiles) {
+  st.projectiles.forEach((p) => {
     p.x += p.vx;
     p.y += p.vy;
     p.travelled += Math.sqrt(p.vx * p.vx + p.vy * p.vy);
@@ -322,15 +364,15 @@ export function stepArena(st: ArenaState, content: ContentBundle, cfg: ArenaConf
     const ty = target.y - p.y;
     const r = cfg.bodyRadius + cfg.special.projectileRadius;
     if (target.hp > 0 && tx * tx + ty * ty <= r * r) {
-      const owner = st.fighters[p.owner];
       const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy) || 1;
-      dealDamage(st, content, cfg, owner, target, content.skills[p.skillId], p.vx / sp, p.vy / sp, cfg.special.knockbackPx, ev);
-      continue;
+      hits.push({ from: st.fighters[p.owner], to: target, skill: content.skills[p.skillId], kbx: p.vx / sp, kby: p.vy / sp, kb: cfg.special.knockbackPx });
+      return;
     }
     const out = p.x < 0 || p.y < 0 || p.x > cfg.width || p.y > cfg.height;
     if (!out && p.travelled < cfg.special.rangePx) keep.push(p);
-  }
+  });
   st.projectiles = keep;
+  for (const h of hits) dealDamage(st, content, cfg, h, ev);
 
   // Fim de luta: KO ou tempo esgotado (vence maior % de HP).
   if (a.hp === 0 || b.hp === 0) {
