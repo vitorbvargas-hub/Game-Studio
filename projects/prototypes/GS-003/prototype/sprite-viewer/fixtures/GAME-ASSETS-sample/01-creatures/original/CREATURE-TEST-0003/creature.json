@@ -1,0 +1,18 @@
+{
+  "id": "CREATURE-TEST-0003",
+  "name": "Manifest inválido (teste)",
+  "category": "advanced",
+  "rarity": "epic",
+  "status": "aprovadissimo",
+  "license": {
+    "tier": "free-for-all"
+  },
+  "animations": {
+    "idle": {
+      "sheet": "../../../../fora.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 2
+    }
+  }
+}

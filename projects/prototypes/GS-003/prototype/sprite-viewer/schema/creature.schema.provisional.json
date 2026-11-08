@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gs003/creature.schema.provisional.json",
+  "title": "GS-003 creature.json (PROVISÓRIO — game-dev, 2026-11-08)",
+  "description": "Schema provisório usado pelo sprite viewer enquanto GAME-ASSETS/07-manifests/creature.schema.json (game-art) não existe. Campos do briefing 01 §5 + status/licença do ADR-009. O viewer prefere o schema oficial quando ele existir e aceita campos extras.",
+  "type": "object",
+  "required": ["id", "name", "status", "license"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$", "description": "ex. CREATURE-0001" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "category": { "type": "string", "description": "ex. starter, intermediate, advanced, wild, npc" },
+    "rarity": { "type": "string", "description": "ex. common, uncommon, rare, epic, legendary" },
+    "element": { "type": "string" },
+    "attributes": { "type": "object", "additionalProperties": { "type": "number" } },
+    "stage": { "type": "string" },
+    "evolutionLine": { "type": "string" },
+    "evolution": {
+      "type": "object",
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": {
+          "type": "array",
+          "items": { "type": "object", "required": ["id"], "properties": { "id": { "type": "string" }, "requirements": { "type": "object" } } }
+        }
+      }
+    },
+    "dimensions": { "$ref": "#/$defs/size" },
+    "hitbox": { "type": "object", "required": ["x", "y", "w", "h"], "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "w": { "type": "number" }, "h": { "type": "number" } } },
+    "anchors": { "type": "object", "additionalProperties": { "$ref": "#/$defs/point" }, "description": "feet (obrigatório na prática), head, hit, fx…" },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "type": { "enum": ["original", "licensed", "reference", "private-prototype", "adapted", "generated"] },
+        "source": { "type": "string" },
+        "author": { "type": "string" }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": ["tier"],
+      "properties": {
+        "tier": { "enum": ["reference", "private-prototype", "licensed", "original", "rejected"] },
+        "spdx": { "type": "string" },
+        "url": { "type": "string" },
+        "author": { "type": "string" },
+        "file": { "type": "string", "description": "caminho relativo, ex. license.json" },
+        "notes": { "type": "string" }
+      }
+    },
+    "status": { "enum": ["DISCOVERED", "UNDER_REVIEW", "APPROVED", "REJECTED", "NEEDS_CREATION", "INTEGRATED"] },
+    "score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "review": {
+      "type": "array",
+      "description": "Histórico de homologação; o viewer acrescenta uma entrada a cada aprovar/rejeitar.",
+      "items": {
+        "type": "object",
+        "required": ["status", "at"],
+        "properties": { "status": { "type": "string" }, "at": { "type": "string" }, "by": { "type": "string" }, "note": { "type": "string" } }
+      }
+    },
+    "currentVersion": { "type": "string" },
+    "versions": { "type": "array", "items": { "$ref": "#/$defs/version" } },
+    "animations": { "$ref": "#/$defs/animations", "description": "Atalho: equivale a uma única versão 'current' com format=grid." }
+  },
+  "$defs": {
+    "point": { "type": "object", "required": ["x", "y"], "properties": { "x": { "type": "number" }, "y": { "type": "number" } } },
+    "size": { "type": "object", "required": ["width", "height"], "properties": { "width": { "type": "number" }, "height": { "type": "number" } } },
+    "dir": { "enum": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"] },
+    "version": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "notes": { "type": "string" },
+        "format": { "enum": ["grid", "pmd"], "default": "grid" },
+        "path": { "type": "string", "description": "format=pmd: pasta (relativa à criatura) com AnimData.xml" },
+        "animations": { "$ref": "#/$defs/animations" }
+      }
+    },
+    "animations": {
+      "type": "object",
+      "description": "nome → animação (idle, walk, sleep, follow, hurt, attack, …)",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["sheet", "frameWidth", "frameHeight"],
+        "properties": {
+          "sheet": { "type": "string", "description": "PNG relativo à pasta da criatura; grade linhas=direções, colunas=quadros" },
+          "frameWidth": { "type": "integer", "minimum": 1 },
+          "frameHeight": { "type": "integer", "minimum": 1 },
+          "frames": { "type": "integer", "minimum": 1, "description": "nº de quadros; padrão = largura da folha / frameWidth" },
+          "fps": { "type": "number", "exclusiveMinimum": 0 },
+          "durationsMs": { "type": "array", "items": { "type": "number", "exclusiveMinimum": 0 } },
+          "loop": { "type": "boolean" },
+          "directions": { "type": "array", "items": { "$ref": "#/$defs/dir" }, "description": "ordem das linhas na folha; padrão [S]" },
+          "mirror": { "type": "object", "additionalProperties": { "$ref": "#/$defs/dir" }, "description": "direção derivada → direção de origem espelhada (ex. {\"W\":\"E\"})" },
+          "origin": { "$ref": "#/$defs/point" },
+          "events": { "type": "array", "items": { "type": "object", "required": ["frame", "name"], "properties": { "frame": { "type": "integer" }, "name": { "type": "string" } } } }
+        }
+      }
+    }
+  }
+}

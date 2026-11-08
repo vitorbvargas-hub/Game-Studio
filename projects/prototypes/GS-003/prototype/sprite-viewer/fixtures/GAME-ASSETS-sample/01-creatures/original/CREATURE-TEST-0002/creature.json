@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "0.1-provisional",
+  "id": "CREATURE-TEST-0002",
+  "name": "Blob de Teste (azul, PMD)",
+  "description": "Fixture: versão em formato PMD (AnimData.xml) referenciada pelo creature.json.",
+  "category": "intermediate",
+  "rarity": "rare",
+  "element": "water",
+  "stage": "champion",
+  "evolutionLine": "test-line",
+  "evolution": {
+    "from": "CREATURE-TEST-0001",
+    "to": []
+  },
+  "dimensions": {
+    "width": 32,
+    "height": 32
+  },
+  "anchors": {
+    "feet": {
+      "x": 16,
+      "y": 29
+    }
+  },
+  "origin": {
+    "type": "original",
+    "source": "scripts/make-fixtures.mjs",
+    "author": "game-dev"
+  },
+  "license": {
+    "tier": "original",
+    "spdx": "LicenseRef-GameStudio-Internal"
+  },
+  "status": "DISCOVERED",
+  "score": 20,
+  "currentVersion": "pmd-v1",
+  "versions": [
+    {
+      "id": "pmd-v1",
+      "date": "2026-11-08",
+      "format": "pmd",
+      "path": "spritesheets/pmd-v1"
+    }
+  ]
+}

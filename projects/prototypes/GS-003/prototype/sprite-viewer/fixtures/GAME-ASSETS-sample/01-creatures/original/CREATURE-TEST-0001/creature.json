@@ -1,0 +1,206 @@
+{
+  "schemaVersion": "0.1-provisional",
+  "id": "CREATURE-TEST-0001",
+  "name": "Blob de Teste (laranja)",
+  "description": "Fixture do sprite viewer. Forma geométrica gerada por scripts/make-fixtures.mjs; não é criatura do jogo.",
+  "category": "starter",
+  "rarity": "common",
+  "element": "fire",
+  "stage": "rookie",
+  "evolutionLine": "test-line",
+  "attributes": {
+    "hp": 40,
+    "atk": 12,
+    "def": 8,
+    "spd": 10
+  },
+  "evolution": {
+    "from": null,
+    "to": [
+      {
+        "id": "CREATURE-TEST-0002",
+        "requirements": {
+          "level": 12
+        }
+      }
+    ]
+  },
+  "dimensions": {
+    "width": 32,
+    "height": 32
+  },
+  "hitbox": {
+    "x": 8,
+    "y": 12,
+    "w": 16,
+    "h": 18
+  },
+  "anchors": {
+    "feet": {
+      "x": 16,
+      "y": 29
+    },
+    "head": {
+      "x": 16,
+      "y": 10
+    },
+    "hit": {
+      "x": 16,
+      "y": 20
+    }
+  },
+  "origin": {
+    "type": "original",
+    "source": "scripts/make-fixtures.mjs",
+    "author": "game-dev"
+  },
+  "license": {
+    "tier": "original",
+    "spdx": "LicenseRef-GameStudio-Internal",
+    "notes": "Arte de teste gerada por código."
+  },
+  "status": "UNDER_REVIEW",
+  "score": 40,
+  "review": [],
+  "currentVersion": "v2",
+  "versions": [
+    {
+      "id": "v1",
+      "date": "2026-11-08",
+      "notes": "Primeira passada: só direção S, 2 quadros.",
+      "format": "grid",
+      "animations": {
+        "idle": {
+          "sheet": "spritesheets/v1/idle.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "fps": 2,
+          "loop": true
+        },
+        "walk": {
+          "sheet": "spritesheets/v1/walk.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "fps": 4,
+          "loop": true
+        }
+      }
+    },
+    {
+      "id": "v2",
+      "date": "2026-11-08",
+      "notes": "3 direções desenhadas + W espelhado; P0 completo.",
+      "format": "grid",
+      "animations": {
+        "idle": {
+          "sheet": "spritesheets/v2/idle.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "directions": [
+            "S",
+            "E",
+            "N"
+          ],
+          "mirror": {
+            "W": "E"
+          },
+          "origin": {
+            "x": 16,
+            "y": 29
+          },
+          "fps": 4,
+          "loop": true
+        },
+        "walk": {
+          "sheet": "spritesheets/v2/walk.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "directions": [
+            "S",
+            "E",
+            "N"
+          ],
+          "mirror": {
+            "W": "E"
+          },
+          "origin": {
+            "x": 16,
+            "y": 29
+          },
+          "fps": 8,
+          "loop": true
+        },
+        "attack": {
+          "sheet": "spritesheets/v2/attack.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "directions": [
+            "S",
+            "E",
+            "N"
+          ],
+          "mirror": {
+            "W": "E"
+          },
+          "origin": {
+            "x": 16,
+            "y": 29
+          },
+          "durationsMs": [
+            120,
+            160,
+            120
+          ],
+          "loop": false,
+          "events": [
+            {
+              "frame": 1,
+              "name": "hit"
+            }
+          ]
+        },
+        "hurt": {
+          "sheet": "spritesheets/v2/hurt.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "directions": [
+            "S",
+            "E",
+            "N"
+          ],
+          "mirror": {
+            "W": "E"
+          },
+          "origin": {
+            "x": 16,
+            "y": 29
+          },
+          "durationsMs": [
+            80,
+            160
+          ],
+          "loop": false
+        },
+        "sleep": {
+          "sheet": "spritesheets/v2/sleep.png",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "directions": [
+            "S",
+            "E",
+            "N"
+          ],
+          "mirror": {
+            "W": "E"
+          },
+          "origin": {
+            "x": 16,
+            "y": 29
+          },
+          "fps": 1.5,
+          "loop": true
+        }
+      }
+    }
+  ]
+}
