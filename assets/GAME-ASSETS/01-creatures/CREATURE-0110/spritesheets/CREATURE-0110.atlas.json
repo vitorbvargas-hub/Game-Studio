@@ -1,0 +1,266 @@
+{
+  "frames": {
+    "CREATURE-0110_walk_S_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_S_01.png": {
+      "frame": {
+        "x": 30,
+        "y": 1,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_S_02.png": {
+      "frame": {
+        "x": 59,
+        "y": 1,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_N_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 26,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_N_01.png": {
+      "frame": {
+        "x": 30,
+        "y": 26,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_N_02.png": {
+      "frame": {
+        "x": 59,
+        "y": 26,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_W_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 51,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_W_01.png": {
+      "frame": {
+        "x": 30,
+        "y": 51,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    },
+    "CREATURE-0110_walk_W_02.png": {
+      "frame": {
+        "x": 59,
+        "y": 51,
+        "w": 28,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 28,
+        "h": 24
+      },
+      "pivot": {
+        "x": 0.4642857142857143,
+        "y": 0.9583333333333334
+      },
+      "pivotPx": {
+        "x": 13,
+        "y": 23
+      }
+    }
+  },
+  "meta": {
+    "app": "GS-003 tools/dwds_import/import_wild_dwds.js",
+    "image": "CREATURE-0110.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 88,
+      "h": 76
+    },
+    "scale": "1"
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "id": "CREATURE-0107",
+  "name": "Palmon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": null,
+  "evolutionRequirements": {},
+  "description": "Palmon: sprites de mapa oficiais de Digimon World DS (walk em S, N, W; E espelhado de W). Selvagem do mundo do GS-003; sem attack/hurt de mapa (o renderer usa o avanço procedural).",
+  "dimensions": {
+    "frameW": 28,
+    "frameH": 31,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 14,
+    "y": 30
+  },
+  "mapScale": 1,
+  "targetHeightPx": 29,
+  "nativeMapHeightPx": 29,
+  "sizeNotes": "Altura nativa do sprite de mapa do DS (pose de pé), já relativa entre espécies.",
+  "hitbox": {
+    "x": 2,
+    "y": 0,
+    "w": 25,
+    "h": 30
+  },
+  "anchors": {
+    "head": {
+      "x": 14,
+      "y": 0
+    },
+    "hit": {
+      "x": 14,
+      "y": 15
+    },
+    "shadow": {
+      "cx": 14,
+      "cy": 30,
+      "rx": 10,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0107_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0107_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0107_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0107_walk_W_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0107_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0107_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0107_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0107_walk_S_02.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0107_walk_W_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Palmon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Palmon__48283.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Quadros de mapa achados automaticamente (16); direções pela tabela SPECIES, conferidas no olho na folha de contato [H]: {\"S\":[2,3,4],\"W\":[5,6,7],\"N\":[8,9,10]}.",
+    "Sem poses de ataque/dano de mapa; sem pose de batalha (não importada nesta passada).",
+    "rarity/element/evolutionStage provisórios [H]."
+  ]
+}

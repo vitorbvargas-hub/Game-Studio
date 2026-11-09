@@ -265,12 +265,12 @@ const spawn = (name, tx, ty, tw, th, species, levelMin, levelMax, count) =>
       { name: "count", type: "int", value: count },
     ],
   });
-spawn("clareira-central-oeste", 21, 20, 8, 8, ["CREATURE-0005", "CREATURE-0008", "CREATURE-0011", "CREATURE-0002"], 2, 4, 5);
-spawn("clareira-central-leste", 33, 20, 8, 8, ["CREATURE-0006", "CREATURE-0009", "CREATURE-0005", "CREATURE-0011"], 3, 5, 5);
-spawn("clareira-noroeste", 7, 8, 9, 6, ["CREATURE-0006", "CREATURE-0009", "CREATURE-0003"], 4, 6, 3);
-spawn("clareira-leste", 46, 10, 10, 7, ["CREATURE-0012", "CREATURE-0008", "CREATURE-0009"], 4, 6, 4);
-spawn("clareira-sul", 42, 33, 10, 6, ["CREATURE-0007", "CREATURE-0010", "CREATURE-0013", "CREATURE-0004"], 8, 10, 3);
-spawn("clareira-sudoeste", 8, 32, 8, 6, ["CREATURE-0005", "CREATURE-0002", "CREATURE-0011"], 1, 3, 3);
+spawn("clareira-central-oeste", 21, 20, 8, 8, ["CREATURE-0005", "CREATURE-0008", "CREATURE-0011", "CREATURE-0002", "CREATURE-0116"], 2, 4, 5);
+spawn("clareira-central-leste", 33, 20, 8, 8, ["CREATURE-0006", "CREATURE-0009", "CREATURE-0107", "CREATURE-0106", "CREATURE-0111"], 3, 5, 5);
+spawn("clareira-noroeste", 7, 8, 9, 6, ["CREATURE-0006", "CREATURE-0101", "CREATURE-0115", "CREATURE-0003"], 4, 6, 3);
+spawn("clareira-leste", 46, 10, 10, 7, ["CREATURE-0012", "CREATURE-0104", "CREATURE-0009", "CREATURE-0112", "CREATURE-0109"], 4, 6, 4);
+spawn("clareira-sul", 42, 33, 10, 6, ["CREATURE-0007", "CREATURE-0010", "CREATURE-0102", "CREATURE-0110", "CREATURE-0004"], 8, 10, 3);
+spawn("clareira-sudoeste", 8, 32, 8, 6, ["CREATURE-0005", "CREATURE-0002", "CREATURE-0117", "CREATURE-0116"], 1, 3, 3);
 
 const map = {
   type: "map",

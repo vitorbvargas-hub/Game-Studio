@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "id": "CREATURE-0115",
+  "name": "Goburimon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": null,
+  "evolutionRequirements": {},
+  "description": "Goburimon: sprites de mapa oficiais de Digimon World DS (walk em S, W; E espelhado de W). Selvagem do mundo do GS-003; sem attack/hurt de mapa (o renderer usa o avanço procedural).",
+  "dimensions": {
+    "frameW": 35,
+    "frameH": 33,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 18,
+    "y": 32
+  },
+  "mapScale": 1,
+  "targetHeightPx": 30,
+  "nativeMapHeightPx": 30,
+  "sizeNotes": "Altura nativa do sprite de mapa do DS (pose de pé), já relativa entre espécies.",
+  "hitbox": {
+    "x": 2,
+    "y": 0,
+    "w": 32,
+    "h": 32
+  },
+  "anchors": {
+    "head": {
+      "x": 18,
+      "y": 0
+    },
+    "hit": {
+      "x": 18,
+      "y": 16
+    },
+    "shadow": {
+      "cx": 18,
+      "cy": 32,
+      "rx": 12,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0115_walk_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0115_walk_S_00.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0115_walk_W_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0115_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0115_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_S_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0115_walk_W_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Goburimon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Goburimon__48522.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Quadros de mapa achados automaticamente (6); direções pela tabela SPECIES, conferidas no olho na folha de contato [H]: {\"W\":[1,2,3],\"S\":[4,5]}.",
+    "Sem poses de ataque/dano de mapa; sem pose de batalha (não importada nesta passada).",
+    "rarity/element/evolutionStage provisórios [H]."
+  ]
+}

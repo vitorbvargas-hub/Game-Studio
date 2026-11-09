@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0113",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "Crabmon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Crabmon__48327.png",
+    "sha256": "a1aa2d9a03f89dc706a01e54678a3bbbcb42e89025801759d841713dcc2c4730",
+    "bytes": 13543,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa recortados por componentes conexos e realinhados pelo pivô nos pés"
+  },
+  "credit": {
+    "ripper": "Mighty Jetters, redblueyellow (conferir na folha)",
+    "creditTextOnSheet": "Rip de Digimon World DS do Spriters Resource; ver a folha original.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-dev",
+  "notes": "Créditos em qualquer build/tela de créditos: Mighty Jetters, redblueyellow (conferir na folha) (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0103",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "DoruGreymon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__DoruGreymon__48605.png",
+    "sha256": "40dc7d63f9200350745006dd603ac21a6a901159d64281eaea7707b580f732a0",
+    "bytes": 67105,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa recortados por componentes conexos e realinhados pelo pivô nos pés"
+  },
+  "credit": {
+    "ripper": "Mighty Jetters, redblueyellow (conferir na folha)",
+    "creditTextOnSheet": "Rip de Digimon World DS do Spriters Resource; ver a folha original.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-dev",
+  "notes": "Créditos em qualquer build/tela de créditos: Mighty Jetters, redblueyellow (conferir na folha) (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

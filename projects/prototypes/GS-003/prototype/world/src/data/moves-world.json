@@ -1,22 +1,47 @@
 {
-  "_doc": "Golpes e learnsets das espécies que o game-dev adicionou ao mundo (bebês iniciais novos e selvagens importados de DW DS), no mesmo schema de src/data/moves/{moves,learnsets}.json do game-design. São somados a eles em loadMoveContent. Nomes de golpe = nomes oficiais em inglês (ADR-007); poder, recarga, custo e níveis são [H], verified=false, para o game-design revisar e mover para os arquivos dele.",
-  "version": 1,
+  "_doc": "Golpes e learnsets das espécies que o game-dev adicionou ao mundo (bebês iniciais novos e selvagens importados de DW DS, CREATURE-0101..0118), no mesmo schema de src/data/moves/{moves,learnsets}.json do game-design. São somados a eles em loadMoveContent. Nomes de golpe = nomes oficiais em inglês (ADR-007); poder, recarga, custo e níveis são [H], verified=false, para o game-design revisar e mover para os arquivos dele. Learnset mínimo: 2-3 golpes por espécie, no nível de entrada do estágio (8 Criança, 16 Adulto, 24 Perfeito). Linha Dorimon → Dorumon (Nv.8) → Dorugamon (Nv.16) → DoruGreymon (Nv.24).",
+  "version": 2,
   "moves": [
-    { "id": "metal_ball", "displayName": "Metal Ball", "kind": "special", "element": "neutral", "target": { "shape": "projectile", "side": "enemy" }, "power": 92, "cooldownTicks": 28, "costMp": 7, "vfxArchetype": "fireball", "verified": false }
+    {"id": "metal_ball", "displayName": "Metal Ball", "kind": "special", "element": "neutral", "target": {"shape": "projectile", "side": "enemy"}, "power": 92, "cooldownTicks": 28, "costMp": 7, "vfxArchetype": "fireball", "verified": false},
+    {"id": "metal_cannon", "displayName": "Metal Cannon", "kind": "special", "element": "neutral", "target": {"shape": "projectile", "side": "enemy"}, "power": 150, "cooldownTicks": 45, "costMp": 15, "vfxArchetype": "beam", "verified": false},
+    {"id": "dash_metal", "displayName": "Dash Metal", "kind": "physical", "element": "neutral", "target": {"shape": "single", "side": "enemy"}, "power": 140, "cooldownTicks": 42, "costMp": 13, "vfxArchetype": "tackle_impact", "verified": false},
+    {"id": "power_metal", "displayName": "Power Metal", "kind": "special", "element": "neutral", "target": {"shape": "projectile", "side": "enemy"}, "power": 172, "cooldownTicks": 55, "costMp": 19, "vfxArchetype": "beam", "verified": false},
+    {"id": "metal_meteor", "displayName": "Metal Meteor", "kind": "special", "element": "neutral", "target": {"shape": "area", "side": "enemy"}, "power": 200, "cooldownTicks": 70, "costMp": 26, "vfxArchetype": "fireball", "verified": false},
+    {"id": "spiral_twister", "displayName": "Spiral Twister", "kind": "special", "element": "fire", "target": {"shape": "projectile", "side": "enemy"}, "power": 140, "cooldownTicks": 44, "costMp": 14, "vfxArchetype": "tornado_field", "verified": false},
+    {"id": "marching_fishes", "displayName": "Marching Fishes", "kind": "special", "element": "water", "target": {"shape": "line", "side": "enemy"}, "power": 138, "cooldownTicks": 46, "costMp": 15, "vfxArchetype": "bubble_spit", "verified": false},
+    {"id": "petit_thunder", "displayName": "Petit Thunder", "kind": "special", "element": "thunder", "target": {"shape": "projectile", "side": "enemy"}, "power": 142, "cooldownTicks": 44, "costMp": 14, "vfxArchetype": "beam", "verified": false},
+    {"id": "poison_ivy", "displayName": "Poison Ivy", "kind": "physical", "element": "neutral", "target": {"shape": "single", "side": "enemy"}, "power": 136, "cooldownTicks": 40, "costMp": 12, "vfxArchetype": "multi_hit_flurry", "verified": false},
+    {"id": "electric_shock", "displayName": "Electric Shock", "kind": "special", "element": "thunder", "target": {"shape": "single", "side": "enemy"}, "power": 140, "cooldownTicks": 44, "costMp": 14, "vfxArchetype": "beam", "verified": false},
+    {"id": "rock_fist", "displayName": "Rock Fist", "kind": "physical", "element": "neutral", "target": {"shape": "single", "side": "enemy"}, "power": 142, "cooldownTicks": 42, "costMp": 13, "vfxArchetype": "tackle_impact", "verified": false},
+    {"id": "nume_sludge", "displayName": "Nume-Sludge", "kind": "special", "element": "dark", "target": {"shape": "projectile", "side": "enemy"}, "power": 150, "cooldownTicks": 46, "costMp": 15, "vfxArchetype": "bubble_spit", "verified": false},
+    {"id": "rain_of_pollen", "displayName": "Rain of Pollen", "kind": "debuff", "element": "wind", "target": {"shape": "area", "side": "enemy"}, "power": 0, "cooldownTicks": 70, "costMp": 14, "vfxArchetype": "tornado_field", "verified": false},
+    {"id": "darkness_gear", "displayName": "Darkness Gear", "kind": "special", "element": "dark", "target": {"shape": "projectile", "side": "enemy"}, "power": 140, "cooldownTicks": 44, "costMp": 14, "vfxArchetype": "energy_blade", "verified": false},
+    {"id": "scissor_arm", "displayName": "Scissor Arm", "kind": "physical", "element": "water", "target": {"shape": "single", "side": "enemy"}, "power": 138, "cooldownTicks": 40, "costMp": 12, "vfxArchetype": "claw_slash", "verified": false},
+    {"id": "lullaby_bubble", "displayName": "Lullaby Bubble", "kind": "special", "element": "water", "target": {"shape": "projectile", "side": "enemy"}, "power": 132, "cooldownTicks": 44, "costMp": 13, "vfxArchetype": "bubble_spit", "verified": false},
+    {"id": "goblin_strike", "displayName": "Goblin Strike", "kind": "special", "element": "fire", "target": {"shape": "projectile", "side": "enemy"}, "power": 142, "cooldownTicks": 44, "costMp": 14, "vfxArchetype": "fireball", "verified": false},
+    {"id": "nuts_shoot", "displayName": "Nuts Shoot", "kind": "special", "element": "wind", "target": {"shape": "projectile", "side": "enemy"}, "power": 136, "cooldownTicks": 42, "costMp": 13, "vfxArchetype": "fireball", "verified": false},
+    {"id": "eternal_slapping", "displayName": "Eternal Slapping", "kind": "physical", "element": "ice", "target": {"shape": "single", "side": "enemy"}, "power": 136, "cooldownTicks": 40, "costMp": 12, "vfxArchetype": "multi_hit_flurry", "verified": false}
   ],
-  "speciesElement": {
-    "CREATURE-0014": "neutral"
-  },
+  "speciesElement": {"CREATURE-0101": "neutral", "CREATURE-0102": "neutral", "CREATURE-0103": "neutral", "CREATURE-0104": "wind", "CREATURE-0105": "water", "CREATURE-0106": "thunder", "CREATURE-0107": "wind", "CREATURE-0108": "thunder", "CREATURE-0109": "neutral", "CREATURE-0110": "dark", "CREATURE-0111": "wind", "CREATURE-0112": "dark", "CREATURE-0113": "water", "CREATURE-0114": "water", "CREATURE-0115": "fire", "CREATURE-0116": "neutral", "CREATURE-0117": "wind", "CREATURE-0118": "ice", "CREATURE-0014": "neutral"},
   "species": [
-    {
-      "speciesId": "CREATURE-0014",
-      "name": "Dorimon",
-      "stage": 1,
-      "learnset": [
-        { "level": 1, "moveId": "investida" },
-        { "level": 3, "moveId": "metal_ball" },
-        { "level": 6, "moveId": "tackle" }
-      ]
-    }
+    {"speciesId": "CREATURE-0014", "name": "Dorimon", "stage": 1, "evolvesTo": ["CREATURE-0101"], "learnset": [{"level": 1, "moveId": "investida"}, {"level": 3, "moveId": "metal_ball"}, {"level": 6, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0101", "name": "Dorumon", "stage": 2, "evolvesTo": ["CREATURE-0102"], "learnset": [{"level": 8, "moveId": "metal_cannon"}, {"level": 8, "moveId": "claw_attack"}, {"level": 11, "moveId": "dash_metal"}]},
+    {"speciesId": "CREATURE-0102", "name": "Dorugamon", "stage": 3, "evolvesTo": ["CREATURE-0103"], "learnset": [{"level": 16, "moveId": "power_metal"}, {"level": 16, "moveId": "dash_metal"}, {"level": 19, "moveId": "metal_cannon"}]},
+    {"speciesId": "CREATURE-0103", "name": "DoruGreymon", "stage": 4, "learnset": [{"level": 24, "moveId": "metal_meteor"}, {"level": 24, "moveId": "power_metal"}]},
+    {"speciesId": "CREATURE-0104", "name": "Biyomon", "stage": 2, "learnset": [{"level": 8, "moveId": "spiral_twister"}, {"level": 8, "moveId": "hane_binta"}]},
+    {"speciesId": "CREATURE-0105", "name": "Gomamon", "stage": 2, "learnset": [{"level": 8, "moveId": "marching_fishes"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0106", "name": "Tentomon", "stage": 2, "learnset": [{"level": 8, "moveId": "petit_thunder"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0107", "name": "Palmon", "stage": 2, "learnset": [{"level": 8, "moveId": "poison_ivy"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0108", "name": "Betamon", "stage": 2, "learnset": [{"level": 8, "moveId": "electric_shock"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0109", "name": "Gotsumon", "stage": 2, "learnset": [{"level": 8, "moveId": "rock_fist"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0110", "name": "Numemon", "stage": 3, "learnset": [{"level": 16, "moveId": "nume_sludge"}, {"level": 16, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0111", "name": "Floramon", "stage": 2, "learnset": [{"level": 8, "moveId": "rain_of_pollen"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0112", "name": "Hagurumon", "stage": 2, "learnset": [{"level": 8, "moveId": "darkness_gear"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0113", "name": "Crabmon", "stage": 2, "learnset": [{"level": 8, "moveId": "scissor_arm"}, {"level": 8, "moveId": "bubble_blow"}]},
+    {"speciesId": "CREATURE-0114", "name": "Otamamon", "stage": 2, "learnset": [{"level": 8, "moveId": "lullaby_bubble"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0115", "name": "Goburimon", "stage": 2, "learnset": [{"level": 8, "moveId": "goblin_strike"}, {"level": 8, "moveId": "claw_attack"}]},
+    {"speciesId": "CREATURE-0116", "name": "Tanemon", "stage": 1, "learnset": [{"level": 1, "moveId": "investida"}, {"level": 3, "moveId": "bubble_blow"}]},
+    {"speciesId": "CREATURE-0117", "name": "Lalamon", "stage": 2, "learnset": [{"level": 8, "moveId": "nuts_shoot"}, {"level": 8, "moveId": "tackle"}]},
+    {"speciesId": "CREATURE-0118", "name": "Penguinmon", "stage": 2, "learnset": [{"level": 8, "moveId": "eternal_slapping"}, {"level": 8, "moveId": "tackle"}]}
   ]
 }

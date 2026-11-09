@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0104",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "Biyomon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Biyomon__48423.png",
+    "sha256": "89ba1f26ab761397bff8467a6ddeb894ca328ffeb4da80a8723942af0321e485",
+    "bytes": 19338,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa recortados por componentes conexos e realinhados pelo pivô nos pés"
+  },
+  "credit": {
+    "ripper": "Mighty Jetters, redblueyellow",
+    "creditTextOnSheet": "Biyomon from Digimon World DS ripped by Mighty Jetters and redblueyellow. Credit is not required.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-dev",
+  "notes": "Créditos em qualquer build/tela de créditos: Mighty Jetters, redblueyellow (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

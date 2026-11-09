@@ -1,6 +1,6 @@
 {
-  "_comment": "Espécies do vertical slice. O id é o id da criatura em GAME-ASSETS/01-creatures. 'pack' reaproveita stats/skills do pacote digimon-fan do protótipo idle (prototype/game/packs/digimon-fan). A linha Guilmon não existe no pacote: stats e skills locais abaixo são [H], modelados na linha Agumon.",
-  "radiusByStage": { "1": 12, "2": 16, "3": 22 },
+  "_comment": "Espécies do vertical slice. O id é o id da criatura em GAME-ASSETS/01-creatures. 'pack' reaproveita stats/skills do pacote digimon-fan do protótipo idle (prototype/game/packs/digimon-fan). A linha Guilmon não existe no pacote: stats e skills locais abaixo são [H], modelados na linha Agumon. CREATURE-0014 (Dorimon) e CREATURE-0101..0118 (selvagens de DW DS, tools/dwds_import/import_wild_dwds.js): stats por estágio com pequenas variações, todos [H]; afinidade = atributo oficial (Tanemon sem atributo → free).",
+  "radiusByStage": { "1": 12, "2": 16, "3": 22, "4": 26 },
   "species": [
     { "id": "CREATURE-0002", "name": "Gigimon", "stage": 1, "affinity": "virus", "base": { "hp": 47, "atk": 14, "def": 7, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["hot_head", "investida"] },
     { "id": "CREATURE-0003", "name": "Guilmon", "stage": 2, "affinity": "virus", "base": { "hp": 65, "atk": 20, "def": 10, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["pyro_sphere", "investida"] },
@@ -14,7 +14,25 @@
     { "id": "CREATURE-0011", "pack": "tokomon" },
     { "id": "CREATURE-0012", "pack": "patamon" },
     { "id": "CREATURE-0013", "pack": "angemon_ofensivo", "name": "Angemon" },
-    { "id": "CREATURE-0014", "name": "Dorimon", "stage": 1, "affinity": "data", "base": { "hp": 48, "atk": 14, "def": 8, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["investida"] }
+    { "id": "CREATURE-0014", "name": "Dorimon", "stage": 1, "affinity": "data", "base": { "hp": 48, "atk": 14, "def": 8, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["investida"] },
+    { "id": "CREATURE-0101", "name": "Dorumon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 20, "def": 11, "spd": 17 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0102", "name": "Dorugamon", "stage": 3, "affinity": "data", "base": { "hp": 86, "atk": 26, "def": 17, "spd": 20 }, "growth": { "hp": 5.5, "atk": 2.2, "def": 1.3, "spd": 0.9 }, "skills": ["investida"] },
+    { "id": "CREATURE-0103", "name": "DoruGreymon", "stage": 4, "affinity": "data", "base": { "hp": 108, "atk": 33, "def": 22, "spd": 24 }, "growth": { "hp": 6.4, "atk": 2.6, "def": 1.6, "spd": 1.1 }, "skills": ["investida"] },
+    { "id": "CREATURE-0104", "name": "Biyomon", "stage": 2, "affinity": "vaccine", "base": { "hp": 63, "atk": 19, "def": 10, "spd": 18 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0105", "name": "Gomamon", "stage": 2, "affinity": "vaccine", "base": { "hp": 63, "atk": 18, "def": 12, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0106", "name": "Tentomon", "stage": 2, "affinity": "vaccine", "base": { "hp": 63, "atk": 19, "def": 13, "spd": 15 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0107", "name": "Palmon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 18, "def": 11, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0108", "name": "Betamon", "stage": 2, "affinity": "virus", "base": { "hp": 63, "atk": 20, "def": 10, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0109", "name": "Gotsumon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 20, "def": 14, "spd": 14 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0110", "name": "Numemon", "stage": 3, "affinity": "virus", "base": { "hp": 86, "atk": 23, "def": 15, "spd": 21 }, "growth": { "hp": 5.5, "atk": 2.2, "def": 1.3, "spd": 0.9 }, "skills": ["investida"] },
+    { "id": "CREATURE-0111", "name": "Floramon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 18, "def": 11, "spd": 17 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0112", "name": "Hagurumon", "stage": 2, "affinity": "virus", "base": { "hp": 63, "atk": 19, "def": 13, "spd": 15 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0113", "name": "Crabmon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 19, "def": 14, "spd": 14 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0114", "name": "Otamamon", "stage": 2, "affinity": "virus", "base": { "hp": 63, "atk": 18, "def": 11, "spd": 17 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0115", "name": "Goburimon", "stage": 2, "affinity": "virus", "base": { "hp": 63, "atk": 21, "def": 10, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0116", "name": "Tanemon", "stage": 1, "affinity": "free", "base": { "hp": 47, "atk": 13, "def": 8, "spd": 11 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["investida"] },
+    { "id": "CREATURE-0117", "name": "Lalamon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 18, "def": 11, "spd": 17 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "CREATURE-0118", "name": "Penguinmon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 19, "def": 11, "spd": 18 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] }
   ],
   "skills": [
     { "id": "hot_head", "name": "Hot Head", "kind": "damage", "power": 130, "cooldownTicks": 40 },

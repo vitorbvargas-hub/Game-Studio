@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "_comment": "6 regiões do GDD_MMO_V1 §1. wildSpecies referencia os ids de world-species.json (roster atual: 13 iniciais/linhas piloto + 18 selvagens de DW DS, CREATURE-0101..0118, adicionados pelo game-dev em 2026-11-09 [H]). boss referencia bosses.json. Tudo [H] exceto a área oficial de File Island citada em officialArea.",
+  "regions": [
+    {
+      "id": "vila_dos_bebes",
+      "name": "Vila dos Bebês",
+      "officialArea": "Village of Beginnings (はじまりの街)",
+      "evidence": "wikimon:PrimaryVillage",
+      "role": "hub_inicial",
+      "levelRange": [
+        1,
+        5
+      ],
+      "safeZone": true,
+      "unlock": {
+        "type": "none",
+        "note": "disponível desde o início"
+      },
+      "wildSpecies": [],
+      "npcs": [
+        "NPC-BOTAMON",
+        "NPC-PUNIMON",
+        "NPC-POYOMON",
+        "NPC-YURAMON",
+        "NPC-ELECMON"
+      ],
+      "boss": null,
+      "routesTo": [
+        "floresta_densa"
+      ]
+    },
+    {
+      "id": "floresta_densa",
+      "name": "Floresta Densa",
+      "officialArea": "Tropical Jungle + Unwavering Forest",
+      "evidence": "wikimon:File_Island",
+      "levelRange": [
+        1,
+        15
+      ],
+      "safeZone": false,
+      "unlock": {
+        "type": "none",
+        "note": "região inicial de exploração"
+      },
+      "wildSpecies": [
+        {
+          "speciesId": "CREATURE-0002",
+          "name": "Gigimon",
+          "stage": 1,
+          "levelRange": [
+            1,
+            5
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0005",
+          "name": "Koromon",
+          "stage": 1,
+          "levelRange": [
+            1,
+            5
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0008",
+          "name": "Tsunomon",
+          "stage": 1,
+          "levelRange": [
+            1,
+            5
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0011",
+          "name": "Tokomon",
+          "stage": 1,
+          "levelRange": [
+            1,
+            5
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0003",
+          "name": "Guilmon",
+          "stage": 2,
+          "levelRange": [
+            5,
+            12
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0006",
+          "name": "Agumon",
+          "stage": 2,
+          "levelRange": [
+            5,
+            12
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0009",
+          "name": "Gabumon",
+          "stage": 2,
+          "levelRange": [
+            5,
+            12
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0012",
+          "name": "Patamon",
+          "stage": 2,
+          "levelRange": [
+            5,
+            12
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0116",
+          "name": "Tanemon",
+          "stage": 1,
+          "levelRange": [
+            1,
+            4
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0117",
+          "name": "Lalamon",
+          "stage": 2,
+          "levelRange": [
+            1,
+            3
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0107",
+          "name": "Palmon",
+          "stage": 2,
+          "levelRange": [
+            3,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0106",
+          "name": "Tentomon",
+          "stage": 2,
+          "levelRange": [
+            3,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0111",
+          "name": "Floramon",
+          "stage": 2,
+          "levelRange": [
+            3,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0101",
+          "name": "Dorumon",
+          "stage": 2,
+          "levelRange": [
+            4,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0115",
+          "name": "Goburimon",
+          "stage": 2,
+          "levelRange": [
+            4,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0104",
+          "name": "Biyomon",
+          "stage": 2,
+          "levelRange": [
+            4,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0112",
+          "name": "Hagurumon",
+          "stage": 2,
+          "levelRange": [
+            4,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0109",
+          "name": "Gotsumon",
+          "stage": 2,
+          "levelRange": [
+            4,
+            6
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0102",
+          "name": "Dorugamon",
+          "stage": 3,
+          "levelRange": [
+            8,
+            10
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0110",
+          "name": "Numemon",
+          "stage": 3,
+          "levelRange": [
+            8,
+            10
+          ]
+        }
+      ],
+      "boss": "BOSS-KUWAGAMON",
+      "routesTo": [
+        "vila_dos_bebes",
+        "praia_dos_postes",
+        "montanha"
+      ]
+    },
+    {
+      "id": "praia_dos_postes",
+      "name": "Praia dos Postes",
+      "officialArea": null,
+      "officialAreaNote": "[H] nome não-oficial — litoral de File Island, visual icônico do ep.1 (postes no mar); ver GDD_MMO_V1 Limitações #1",
+      "levelRange": [
+        10,
+        25
+      ],
+      "safeZone": false,
+      "unlock": {
+        "type": "level_or_boss",
+        "minLevel": 10,
+        "orDefeatBoss": "BOSS-KUWAGAMON"
+      },
+      "wildSpecies": [
+        {
+          "speciesId": "CREATURE-0008",
+          "name": "Tsunomon",
+          "stage": 1,
+          "levelRange": [
+            10,
+            14
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0009",
+          "name": "Gabumon",
+          "stage": 2,
+          "levelRange": [
+            12,
+            20
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0004",
+          "name": "Growlmon",
+          "stage": 3,
+          "levelRange": [
+            18,
+            25
+          ],
+          "rare": true
+        },
+        {
+          "speciesId": "CREATURE-0105",
+          "name": "Gomamon",
+          "stage": 2,
+          "levelRange": [
+            10,
+            14
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0108",
+          "name": "Betamon",
+          "stage": 2,
+          "levelRange": [
+            10,
+            14
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0113",
+          "name": "Crabmon",
+          "stage": 2,
+          "levelRange": [
+            10,
+            15
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0114",
+          "name": "Otamamon",
+          "stage": 2,
+          "levelRange": [
+            10,
+            14
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0118",
+          "name": "Penguinmon",
+          "stage": 2,
+          "levelRange": [
+            11,
+            15
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0104",
+          "name": "Biyomon",
+          "stage": 2,
+          "levelRange": [
+            10,
+            13
+          ]
+        }
+      ],
+      "boss": "BOSS-SHELLMON",
+      "routesTo": [
+        "floresta_densa"
+      ]
+    },
+    {
+      "id": "montanha",
+      "name": "Montanha",
+      "officialArea": "Outlook Mountain + Infinity Mountain + Ancient Dino Region",
+      "evidence": "wikimon:File_Island",
+      "levelRange": [
+        20,
+        35
+      ],
+      "safeZone": false,
+      "unlock": {
+        "type": "level_and_boss",
+        "minLevel": 20,
+        "requiresDefeated": "BOSS-KUWAGAMON"
+      },
+      "wildSpecies": [
+        {
+          "speciesId": "CREATURE-0004",
+          "name": "Growlmon",
+          "stage": 3,
+          "levelRange": [
+            20,
+            28
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0007",
+          "name": "Greymon",
+          "stage": 3,
+          "levelRange": [
+            22,
+            30
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0109",
+          "name": "Gotsumon",
+          "stage": 2,
+          "levelRange": [
+            20,
+            24
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0103",
+          "name": "DoruGreymon",
+          "stage": 4,
+          "levelRange": [
+            28,
+            32
+          ]
+        }
+      ],
+      "boss": "BOSS-TYRANNOMON",
+      "routesTo": [
+        "floresta_densa",
+        "deserto"
+      ]
+    },
+    {
+      "id": "deserto",
+      "name": "Deserto",
+      "officialArea": "Gear Savannah",
+      "officialAreaNote": "[E] área oficial; [H] reinterpretação como 'deserto mecânico' — ver GDD_MMO_V1 Limitações #2",
+      "evidence": "wikimon:File_Island",
+      "levelRange": [
+        30,
+        45
+      ],
+      "safeZone": false,
+      "unlock": {
+        "type": "level_and_boss",
+        "minLevel": 30,
+        "requiresDefeated": "BOSS-SHELLMON"
+      },
+      "wildSpecies": [
+        {
+          "speciesId": "CREATURE-0010",
+          "name": "Garurumon",
+          "stage": 3,
+          "levelRange": [
+            30,
+            38
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0013",
+          "name": "Angemon",
+          "stage": 3,
+          "levelRange": [
+            32,
+            40
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0112",
+          "name": "Hagurumon",
+          "stage": 2,
+          "levelRange": [
+            30,
+            34
+          ]
+        },
+        {
+          "speciesId": "CREATURE-0110",
+          "name": "Numemon",
+          "stage": 3,
+          "levelRange": [
+            30,
+            35
+          ]
+        }
+      ],
+      "boss": "BOSS-GUARDROMON",
+      "routesTo": [
+        "montanha",
+        "zona_corrompida"
+      ]
+    },
+    {
+      "id": "zona_corrompida",
+      "name": "Zona Corrompida",
+      "officialArea": "Devimon's Mansion + Dark Area",
+      "evidence": "wikimon:File_Island",
+      "levelRange": [
+        40,
+        55
+      ],
+      "safeZone": false,
+      "unlock": {
+        "type": "level_and_bosses",
+        "minLevel": 40,
+        "requiresDefeated": [
+          "BOSS-TYRANNOMON",
+          "BOSS-GUARDROMON"
+        ]
+      },
+      "wildSpecies": [
+        {
+          "speciesId": "CREATURE-0004",
+          "name": "Growlmon",
+          "stage": 3,
+          "levelRange": [
+            40,
+            50
+          ],
+          "corrupted": true
+        },
+        {
+          "speciesId": "CREATURE-0007",
+          "name": "Greymon",
+          "stage": 3,
+          "levelRange": [
+            40,
+            50
+          ],
+          "corrupted": true
+        },
+        {
+          "speciesId": "CREATURE-0010",
+          "name": "Garurumon",
+          "stage": 3,
+          "levelRange": [
+            40,
+            50
+          ],
+          "corrupted": true
+        },
+        {
+          "speciesId": "CREATURE-0013",
+          "name": "Angemon",
+          "stage": 3,
+          "levelRange": [
+            40,
+            50
+          ],
+          "corrupted": true
+        }
+      ],
+      "corruptedModifiers": {
+        "atkMult": 1.15,
+        "defMult": 0.9,
+        "alwaysAggressive": true
+      },
+      "boss": "BOSS-DEVIMON",
+      "megaWorldBoss": "BOSS-VENOMMYOTISMON",
+      "routesTo": [
+        "deserto"
+      ]
+    }
+  ]
+}

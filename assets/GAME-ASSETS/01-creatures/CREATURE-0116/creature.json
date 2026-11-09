@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "id": "CREATURE-0116",
+  "name": "Tanemon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "in-training",
+  "evolutionLine": null,
+  "evolutionRequirements": {},
+  "description": "Tanemon: sprites de mapa oficiais de Digimon World DS (walk em S, N; E espelhado de W). Selvagem do mundo do GS-003; sem attack/hurt de mapa (o renderer usa o avanço procedural).",
+  "dimensions": {
+    "frameW": 21,
+    "frameH": 22,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 10,
+    "y": 21
+  },
+  "mapScale": 1,
+  "targetHeightPx": 21,
+  "nativeMapHeightPx": 21,
+  "sizeNotes": "Altura nativa do sprite de mapa do DS (pose de pé), já relativa entre espécies.",
+  "hitbox": {
+    "x": 1,
+    "y": 0,
+    "w": 19,
+    "h": 21
+  },
+  "anchors": {
+    "head": {
+      "x": 10,
+      "y": 0
+    },
+    "hit": {
+      "x": 10,
+      "y": 10
+    },
+    "shadow": {
+      "cx": 10,
+      "cy": 21,
+      "rx": 7,
+      "ry": 2
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0116_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0116_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0116_walk_N_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0116_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0116_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0116_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0116_walk_S_02.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0116_walk_N_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Tanemon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Tanemon__48413.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Quadros de mapa achados automaticamente (6); direções pela tabela SPECIES, conferidas no olho na folha de contato [H]: {\"N\":[1,2,3],\"S\":[4,5,6]}.",
+    "Sem poses de ataque/dano de mapa; sem pose de batalha (não importada nesta passada).",
+    "rarity/element/evolutionStage provisórios [H]."
+  ]
+}

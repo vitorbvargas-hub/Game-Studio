@@ -1,0 +1,266 @@
+{
+  "frames": {
+    "CREATURE-0103_walk_S_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_S_01.png": {
+      "frame": {
+        "x": 38,
+        "y": 1,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_S_02.png": {
+      "frame": {
+        "x": 75,
+        "y": 1,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_N_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 42,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_N_01.png": {
+      "frame": {
+        "x": 38,
+        "y": 42,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_N_02.png": {
+      "frame": {
+        "x": 75,
+        "y": 42,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_W_00.png": {
+      "frame": {
+        "x": 1,
+        "y": 83,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_W_01.png": {
+      "frame": {
+        "x": 38,
+        "y": 83,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    },
+    "CREATURE-0103_walk_W_02.png": {
+      "frame": {
+        "x": 75,
+        "y": 83,
+        "w": 36,
+        "h": 40
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 36,
+        "h": 40
+      },
+      "sourceSize": {
+        "w": 36,
+        "h": 40
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.975
+      },
+      "pivotPx": {
+        "x": 18,
+        "y": 39
+      }
+    }
+  },
+  "meta": {
+    "app": "GS-003 tools/dwds_import/import_wild_dwds.js",
+    "image": "CREATURE-0103.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 112,
+      "h": 124
+    },
+    "scale": "1"
+  }
+}

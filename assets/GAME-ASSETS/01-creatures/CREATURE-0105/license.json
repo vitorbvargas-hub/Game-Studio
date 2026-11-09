@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0105",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "Gomamon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Gomamon__48321.png",
+    "sha256": "8f019129cb7a82360a39b3cd8356722c93a113cacab82a044cb7550b1abac608",
+    "bytes": 37925,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa recortados por componentes conexos e realinhados pelo pivô nos pés"
+  },
+  "credit": {
+    "ripper": "RadSpyro",
+    "creditTextOnSheet": "Ripped by RadSpyro. Credit appreciated.",
+    "creditRequiredBySheet": true,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-dev",
+  "notes": "Créditos em qualquer build/tela de créditos: RadSpyro (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

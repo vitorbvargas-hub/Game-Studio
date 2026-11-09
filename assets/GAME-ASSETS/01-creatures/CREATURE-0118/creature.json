@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "id": "CREATURE-0118",
+  "name": "Penguinmon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": null,
+  "evolutionRequirements": {},
+  "description": "Penguinmon: sprites de mapa oficiais de Digimon World DS (walk em S, N, W; E espelhado de W). Selvagem do mundo do GS-003; sem attack/hurt de mapa (o renderer usa o avanço procedural).",
+  "dimensions": {
+    "frameW": 32,
+    "frameH": 27,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 16,
+    "y": 26
+  },
+  "mapScale": 1,
+  "targetHeightPx": 25,
+  "nativeMapHeightPx": 25,
+  "sizeNotes": "Altura nativa do sprite de mapa do DS (pose de pé), já relativa entre espécies.",
+  "hitbox": {
+    "x": 1,
+    "y": 0,
+    "w": 29,
+    "h": 26
+  },
+  "anchors": {
+    "head": {
+      "x": 16,
+      "y": 0
+    },
+    "hit": {
+      "x": 16,
+      "y": 13
+    },
+    "shadow": {
+      "cx": 16,
+      "cy": 26,
+      "rx": 11,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0118_walk_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0118_walk_S_00.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0118_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0118_walk_W_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0118_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0118_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0118_walk_W_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Penguinmon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Penguinmon__48521.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Quadros de mapa achados automaticamente (10); direções pela tabela SPECIES, conferidas no olho na folha de contato [H]: {\"N\":[1,2,3],\"W\":[4,5,6],\"S\":[7,8]}.",
+    "Sem poses de ataque/dano de mapa; sem pose de batalha (não importada nesta passada).",
+    "rarity/element/evolutionStage provisórios [H]."
+  ]
+}
