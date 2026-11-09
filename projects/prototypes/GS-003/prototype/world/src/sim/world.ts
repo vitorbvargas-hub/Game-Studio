@@ -41,7 +41,8 @@ export interface WorldSim {
   content: WorldContent;
 }
 
-interface Ctx {
+/** Contexto de um passo da sim (exportado para a Arena reaproveitar o mesmo motor de combate). */
+export interface Ctx {
   w: WorldState;
   map: WorldMap;
   c: WorldContent;
@@ -119,7 +120,7 @@ function baseEntity(id: string, kind: Entity["kind"], name: string, pos: Vec): E
   };
 }
 
-function makeCreature(ctx: Ctx, id: string, kind: Entity["kind"], speciesId: string, level: number, pos: Vec): Entity {
+export function makeCreature(ctx: Ctx, id: string, kind: Entity["kind"], speciesId: string, level: number, pos: Vec): Entity {
   const sp = ctx.c.species[speciesId];
   if (!sp) throw new Error(`espécie desconhecida: ${speciesId}`);
   const e = baseEntity(id, kind, sp.name, pos);
@@ -137,7 +138,7 @@ function makeCreature(ctx: Ctx, id: string, kind: Entity["kind"], speciesId: str
   return e;
 }
 
-function applyStats(ctx: Ctx, e: Entity, hpRatio: number): void {
+export function applyStats(ctx: Ctx, e: Entity, hpRatio: number): void {
   const sp = ctx.c.species[e.speciesId!];
   const s = statsAtLevel(sp.base, sp.growth, e.level);
   const mult = e.kind === "wild" ? WORLD.wildStatMult : 1;
@@ -208,7 +209,7 @@ export function getPlayer(w: WorldState, id: string): PlayerState | undefined {
   return w.players.find((p) => p.id === id);
 }
 
-function alive(e: Entity | undefined): e is Entity {
+export function alive(e: Entity | undefined): e is Entity {
   return !!e && !e.removed && e.state !== "DEFEAT";
 }
 
@@ -226,7 +227,7 @@ export function dirFromVector(dx: number, dy: number, fallback: Dir8): Dir8 {
   return DIRS[(oct + 8) % 8];
 }
 
-function attackRange(a: Entity, t: Entity): number {
+export function attackRange(a: Entity, t: Entity): number {
   return a.radius + t.radius + WORLD.attackReach;
 }
 
@@ -247,7 +248,7 @@ function moveToward(ctx: Ctx, e: Entity, target: Vec, speed: number, stopAt = 0)
   return dist(e, target) <= stopAt + 0.5;
 }
 
-function tryMove(ctx: Ctx, e: Entity, mx: number, my: number): boolean {
+export function tryMove(ctx: Ctx, e: Entity, mx: number, my: number): boolean {
   let moved = false;
   if (mx !== 0 && !isSolidAt(ctx.map, e.x + mx, e.y)) {
     e.x += mx;
@@ -335,9 +336,8 @@ function applyIntent(ctx: Ctx, it: Intent): void {
       const partner = getEntity(w, p.partnerId);
       const id = partner?.moves[it.slot];
       if (!partner || !id) return reject("slot vazio");
-      const m = ctx.c.moves.moves[id];
-      if ((partner.moveCd[id] ?? 0) > 0) return reject(`${m.name} em recarga`);
-      if (partner.mp < m.cost) return reject("MP insuficiente");
+      const err = useMoveError(ctx.c.moves.moves[id], partner);
+      if (err) return reject(err);
       partner.queuedMove = id;
       return;
     }
@@ -384,6 +384,14 @@ function applyIntent(ctx: Ctx, it: Intent): void {
       return;
     }
   }
+}
+
+/** Por que o golpe pedido (use_move) não pode ir para a fila agora; undefined = pode. Mesma regra no campo e na Arena. */
+export function useMoveError(m: MoveDef | undefined, e: Entity): string | undefined {
+  if (!m) return "slot vazio";
+  if ((e.moveCd[m.id] ?? 0) > 0) return `${m.name} em recarga`;
+  if (e.mp < m.cost) return "MP insuficiente";
+  return undefined;
 }
 
 // ---------- Tamers ----------
@@ -458,7 +466,7 @@ function botBrain(ctx: Ctx, e: Entity): void {
 // ---------- criaturas ----------
 
 /** Estados temporizados comuns (ATTACK, HURT, DEFEAT). Devolve true se o tick da entidade acabou aqui. */
-function timedStates(ctx: Ctx, e: Entity): boolean {
+export function timedStates(ctx: Ctx, e: Entity): boolean {
   const { w } = ctx;
   if (e.state === "DEFEAT") {
     if (--e.stateTicks <= 0) onDefeatTimeout(ctx, e);
@@ -485,7 +493,7 @@ function timedStates(ctx: Ctx, e: Entity): boolean {
   return false;
 }
 
-function tickCooldowns(ctx: Ctx, e: Entity): void {
+export function tickCooldowns(ctx: Ctx, e: Entity): void {
   if (e.attackCd > 0) e.attackCd--;
   for (const k of Object.keys(e.moveCd)) {
     if (e.moveCd[k] > 0) e.moveCd[k]--;
@@ -673,7 +681,7 @@ function engage(ctx: Ctx, a: Entity, t: Entity): void {
  * ENGAGE: escolhe o golpe (puro, sem RNG) e aproxima até o alcance DELE (golpes à distância lançam de mais longe);
  * no alcance e com a recarga geral pronta, resolve o golpe NESTE tick.
  */
-function fight(ctx: Ctx, a: Entity, t: Entity): void {
+export function fight(ctx: Ctx, a: Entity, t: Entity): void {
   const { w } = ctx;
   if (a.state !== "ENGAGE") setState(a, "ENGAGE", w.tick, ctx.ev);
   const move = ctx.c.moves.moves[chooseMove(ctx.c.moves, a, t)];
@@ -694,6 +702,8 @@ function fight(ctx: Ctx, a: Entity, t: Entity): void {
 /** Pode ser atingido por golpe de área/linha de `a`? Parceira: selvagens livres ou do mesmo encontro. Selvagem: inimigos do encontro. */
 function hostileTo(a: Entity, x: Entity): boolean {
   if (!alive(x) || x.id === a.id) return false;
+  // Arena: lados explícitos (time A × time B), sem selvagens nem encontros.
+  if (a.team !== undefined || x.team !== undefined) return a.team !== undefined && x.team !== undefined && a.team !== x.team;
   if (a.kind === "wild") return (x.kind === "partner" || x.kind === "remote_partner") && !!a.encounterId && x.encounterId === a.encounterId;
   return x.kind === "wild" && (!x.encounterId || x.encounterId === a.encounterId) && x.state !== "RETURN";
 }
@@ -721,7 +731,12 @@ function affected(ctx: Ctx, a: Entity, t: Entity, m: MoveDef): { list: Entity[];
   return { list, at };
 }
 
-function resolveAttack(ctx: Ctx, a: Entity, t: Entity, m: MoveDef): void {
+/**
+ * Resolve um golpe confirmado: paga MP/recarga, emite attack_start e aplica dano/cura/efeito. `aimed` (Arena manual)
+ * troca a escolha dos afetados por alvo (`affected`) pelos atingidos na direção da mira; sem ninguém na mira o golpe
+ * sai do mesmo jeito (paga o custo) e erra o ar — `t` pode faltar nesse caso.
+ */
+export function resolveAttack(ctx: Ctx, a: Entity, t: Entity | undefined, m: MoveDef, aimed?: { list: Entity[]; at: Vec }): void {
   const { w, c } = ctx;
   const mc = c.moves;
   const seq = ++w.seq;
@@ -729,8 +744,8 @@ function resolveAttack(ctx: Ctx, a: Entity, t: Entity, m: MoveDef): void {
   if (m.cooldownTicks > 0) a.moveCd[m.id] = m.cooldownTicks;
   a.mp = Math.max(0, a.mp - m.cost);
   a.attackCd = attackCooldownTicks(Math.round(effectiveStat(a, "spd")));
-  const { list, at } = affected(ctx, a, t, m);
-  ctx.ev.push({ t: "attack_start", tick: w.tick, attackerId: a.id, targetId: t.id, skillId: m.id, seq, targetIds: list.map((x) => x.id), at });
+  const { list, at } = aimed ?? affected(ctx, a, t!, m);
+  ctx.ev.push({ t: "attack_start", tick: w.tick, attackerId: a.id, targetId: t?.id ?? "", skillId: m.id, seq, targetIds: list.map((x) => x.id), at });
   setState(a, "ATTACK", w.tick, ctx.ev);
   a.stateTicks = WORLD.attackTicks;
   const b = c.balance;

@@ -216,6 +216,8 @@ export interface Entity {
   fleeRolled: boolean;
   /** Zona de spawn de origem (selvagens), para o respawn. */
   zoneIndex?: number;
+  /** Arena: lado da partida ("A" | "B"). Com lado, só o lado oposto é hostil (sem selvagens, sem encontros). */
+  team?: string;
   /** Tamers: trilha de pontos (mais recente por último) que a parceira segue (follow-the-leader). */
   trail?: Vec[];
   removed: boolean;

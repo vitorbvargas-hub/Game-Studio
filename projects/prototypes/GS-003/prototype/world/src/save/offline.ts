@@ -10,6 +10,7 @@ import { TICK_MS } from "../sim/params";
 import type { WorldEvent } from "../sim/types";
 import { getEntity, getPlayer, grantXp, partnerSaveOf, restorePartner, stepWorld, type WorldSim } from "../sim/world";
 import type { SaveData } from "./save";
+import { emptyArena } from "./arena-league";
 
 export interface OfflineReport {
   elapsedMs: number;
@@ -122,11 +123,13 @@ export function applyOffline(sim: WorldSim, playerId: string, elapsedMs: number,
 // ---------- save ↔ sim ----------
 
 /** Copia o progresso do jogador local da sim (+ dados de apresentação) para o formato do save. */
-export function captureSave(sim: WorldSim, playerId: string, extra: Pick<SaveData, "tamer" | "tamerLevel" | "tamerXp" | "team" | "starter" | "map" | "seen" | "inventory" | "quests" | "settings">): SaveData {
+export function captureSave(sim: WorldSim, playerId: string, extra: Pick<SaveData, "tamer" | "tamerLevel" | "tamerXp" | "team" | "starter" | "map" | "seen" | "inventory" | "quests" | "settings"> & Partial<Pick<SaveData, "box" | "arena">>): SaveData {
   const p = getPlayer(sim.state, playerId)!;
   const partner = getEntity(sim.state, p.partnerId)!;
   return {
     ...extra,
+    box: extra.box ?? [],
+    arena: extra.arena ?? emptyArena(),
     bits: p.bits,
     auto: p.auto,
     autoEvolve: !!p.autoEvolve,

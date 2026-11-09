@@ -58,6 +58,8 @@ export interface ViewOptions {
   trees?: TreesCfg;
   /** Autotile Wang-47 com recorte suave (pathsmooth.ts): conjuntos por prefixo de chave. */
   smoothAutotile?: PathSmoothCfg[];
+  /** Desenho extra logo acima do chão e abaixo das entidades (Arena: arquibancada e linhas do campo). */
+  underlay?: (ctx: CanvasRenderingContext2D, camera: Camera, now: number) => void;
 }
 
 /** Árvores em 2 sprites (forest-v4) + luz do forest-v4.1 (sombra projetada, rim-light, ajuste fino da copa). */
@@ -317,6 +319,7 @@ export class WorldView {
     ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawGround(now);
     const cam = this.camera;
+    this.opts.underlay?.(ctx, cam, now);
     const margin = 160;
     const inView = (x: number, y: number) => x > cam.x - margin && x < cam.x + cam.w + margin && y > cam.y - 32 && y < cam.y + cam.h + margin;
 

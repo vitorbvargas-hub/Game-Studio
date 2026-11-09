@@ -40,6 +40,11 @@ import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
 import { drawMoveIcon } from "./render/vfx/icon";
 import type { Entity } from "./sim/types";
 import type { WorldSim } from "./sim/world";
+import { ArenaScreen } from "./ui/arena";
+import { ARENA_OWNER } from "./sim/arena";
+import { emptyArena, type ArenaSave } from "./save/arena-league";
+import vilaPack from "./data/maps/vila.aliases.json";
+import type { ScenePack } from "./assets/scene-tiles";
 
 const params = new URLSearchParams(location.search);
 const SEED = Number(params.get("seed") ?? Date.now() % 100000);
@@ -274,7 +279,8 @@ async function boot() {
         tamerXp: FOREST_PROOF_SCENE.tamerXp,
         // Jogo novo com inicial: a equipe é só a parceira; sem criador (capturas), a equipe placeholder da cena.
         team: loaded.ok ? loaded.data.team : newStarter ? [] : FOREST_PROOF_SCENE.team,
-        box: FOREST_PROOF_SCENE.box,
+        // Box do save (v8); jogo novo com inicial começa vazio; sem criador (capturas), o Box placeholder da cena.
+        box: loaded.ok ? loaded.data.box : newStarter ? [] : FOREST_PROOF_SCENE.box,
         chat: FOREST_PROOF_SCENE.chat,
       }
     : undefined;
@@ -300,7 +306,7 @@ async function boot() {
       portrait: makePortraitFn(creatures, images),
       minimap: new Minimap(cur.sim.map, browserCanvasFactory),
       moveIcon: drawMoveIcon,
-      shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear"] : [],
+      shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear", "arena"] : [],
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -309,10 +315,12 @@ async function boot() {
 
   // ---- save (a cada 5 s, ao esconder a aba e ao sair) e relatório offline ----
   const portrait = makePortraitFn(creatures, images);
+  /** Arena local (save v8): composições, histórico e rating placeholder. */
+  let arenaData: ArenaSave = loaded.ok ? loaded.data.arena : emptyArena();
   const capture = (): SaveData => {
     const t = hud.tamerProgress();
     return captureSave(cur.sim, LOCAL_PLAYER, {
-      tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter, map: cur.mapId,
+      tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], box: hudScene?.box ?? [], arena: arenaData, starter, map: cur.mapId,
       seen: [...seen], inventory: { ...inventory }, quests: { ...quests, kills: { ...quests.kills }, claimed: [...quests.claimed] }, settings: { ...settings },
     });
   };
@@ -448,6 +456,7 @@ async function boot() {
     return settingsHtml({ auto: player().auto, autoEvolve: !!player().autoEvolve, time: settings.time, confirmReset });
   };
   function openScreen(id: string): void {
+    if (id === "arena") return openArena();
     const p = (panels as Record<string, Panel>)[id];
     if (!p) return;
     for (const o of Object.values(panels)) if (o !== p) o.close();
@@ -574,7 +583,53 @@ async function boot() {
     panels.gear.update(screenHtml("gear"));
     persist();
   });
+  // ---- Arena PvP local (GS-006): tela cheia; o mundo fica pausado enquanto ela está aberta ----
+  const arenaSprite = makePortraitFn(creatures, images);
+  const arena = new ArenaScreen({
+    root: document.body,
+    content: cur.sim.content,
+    owned: () => {
+      const d = capture();
+      return { partner: d.partner, team: d.team, box: d.box };
+    },
+    arena: () => arenaData,
+    setArena: (a) => {
+      arenaData = a;
+      persist();
+    },
+    portrait: (sp, c) => arenaSprite(sp, c),
+    moveIcon: drawMoveIcon,
+    makeView: async (cnv, map, underlay) => {
+      const t = loadSceneTiles(vilaPack as ScenePack, "day", usedKeys(map), TILES_DWDS);
+      const urls = usedKeys(map).map((k) => t.tiles[k]?.url).filter((u): u is string => !!u);
+      const failed = await images.loadAll(urls);
+      if (failed.length || t.missing.length) console.warn("arena: tiles", failed, t.missing);
+      return new WorldView(cnv, map, creatures, t.tiles, images, browserCanvasFactory, {
+        creatureScale: CREATURE_SCALE,
+        sizeTable,
+        tamers,
+        smoothing: SMOOTH,
+        fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
+        underlay,
+      });
+    },
+    newPresenter: () => new Presenter((id) => (id ? creatures[id]?.manifest : undefined), ARENA_OWNER[0]),
+    seed: () => (params.has("arenaSeed") ? Number(params.get("arenaSeed")) : Date.now() % 1_000_000),
+    onClose: () => {
+      keys.clear();
+      last = performance.now();
+      acc = 0;
+    },
+  });
+  function openArena(): void {
+    if (!regionMode || traveling) return;
+    for (const o of Object.values(panels)) o.close();
+    hud.closeTeam();
+    persist();
+    arena.open();
+  }
   panels.map.body.addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).closest("[data-arena]")) return openArena();
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-travel]");
     if (!b || b.disabled) return;
     const dest = mapOfRegion(b.dataset.travel!);
@@ -615,6 +670,7 @@ async function boot() {
   const SCREEN_KEYS: Record<string, string> = { m: "map", v: "dex", i: "inv", q: "quest", o: "gear" };
   window.addEventListener("keydown", (e) => {
     const k = e.key.toLowerCase();
+    if (arena.isOpen) return;
     if ((e.target as HTMLElement).closest?.("input, select, textarea")) return;
     if ("wasd".includes(k) && k.length === 1) keys.add(k);
     if (k === "f") intents.push({ t: "flee", playerId: LOCAL_PLAYER });
@@ -690,6 +746,12 @@ async function boot() {
   let last = performance.now();
   let lastFrame = last;
   const frame = (now: number) => {
+    if (arena.isOpen) {
+      // Arena aberta: o mundo pausa (sem passo, sem render); volta do ponto em que parou.
+      last = now;
+      requestAnimationFrame(frame);
+      return;
+    }
     acc += Math.min(1000, now - last);
     last = now;
     let steps = 0;
@@ -748,6 +810,8 @@ async function boot() {
       travel,
       panels,
       openScreen,
+      arena,
+      openArena,
       openEvolve,
       /** Capturas/testes: troca a parceira (espécie + nível, stats recalculados) sem passar pelo save. */
       setPartner(speciesId: string, level: number) {

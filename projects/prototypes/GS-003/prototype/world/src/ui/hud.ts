@@ -6,13 +6,12 @@
 
 import { statsAtLevel } from "@game/src/sim/formulas";
 import type { PortraitFn } from "../render/portrait";
-import { defaultAutoRules } from "../sim/moves";
 import type { WorldContent } from "../sim/species";
-import type { AutoCond, AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types";
+import type { AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types";
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
-import { moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
+import { editRules, moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
 
 export interface HudCallbacks {
   onAuto(on: boolean): void;
@@ -58,10 +57,10 @@ export const SHORTCUTS: { id: string; label: string; icon: string; key?: string 
   { id: "map", label: "Mapa-múndi", icon: "map", key: "M" },
   { id: "shop", label: "Loja", icon: "shop" },
   { id: "evo", label: "Evolução", icon: "evo" },
-  { id: "arena", label: "Arena", icon: "arena" },
+  { id: "arena", label: "Arena", icon: "trophy" },
   { id: "friends", label: "Amigos", icon: "friends" },
   { id: "guild", label: "Guilda", icon: "guild" },
-  { id: "trophy", label: "Conquistas", icon: "trophy" },
+  { id: "trophy", label: "Conquistas", icon: "star" },
   { id: "mail", label: "Correio", icon: "mail" },
   { id: "gear", label: "Configurações", icon: "gear", key: "O" },
 ];
@@ -157,7 +156,7 @@ export class Hud {
         <button class="event gold" data-soon="Passe de Temporada">${icon("star", 16)}<b>PASSE DE TEMPORADA</b></button>
         <div class="event">${icon("gift", 16)}<span>Fonte dos Desejos</span><em>61%</em></div>
         <div class="icon-grid">
-          ${["arena", "map", "friends", "mail", "boss", "trophy"].map((n) => `<button data-soon="Evento" title="Em breve">${icon(n, 18)}</button>`).join("")}
+          ${["arena", "map", "friends", "mail", "boss", "trophy"].map((n) => (n === "trophy" && this.enabled("arena") ? `<button data-short="arena" title="Arena (PvP local)">${icon(n, 18)}</button>` : `<button data-soon="Evento" title="Em breve">${icon(n, 18)}</button>`)).join("")}
         </div>
         <div class="event dim">${icon("boss", 16)}<span>Chefe Mundial</span><em>6h55</em></div>
         <div class="event dim">${icon("guild", 16)}<span>Guilda dominante da rota</span><em>—</em></div>
@@ -447,8 +446,7 @@ export class Hud {
       const swap = t.closest<HTMLElement>("[data-swap]")?.dataset.swap;
       const slot = t.closest<HTMLElement>(".mslot.pick")?.dataset.slot;
       const clear = t.closest<HTMLElement>("[data-clear]")?.dataset.clear;
-      const up = t.closest<HTMLElement>("[data-up]")?.dataset.up;
-      const down = t.closest<HTMLElement>("[data-down]")?.dataset.down;
+      const edited = editRules(rules(), v.moves, e as unknown as { type: string; target: HTMLElement });
       if (swap !== undefined) {
         this.swapping = this.swapping === swap ? undefined : swap;
         this.renderRight();
@@ -465,29 +463,14 @@ export class Hud {
         const slots = [...v.moves];
         slots[Number(clear)] = null;
         cb.onSetMoves?.(slots);
-      } else if (up !== undefined || down !== undefined) {
-        const r = rules();
-        const i = Number(up ?? down);
-        const j = up !== undefined ? i - 1 : i + 1;
-        if (j < 0 || j >= r.length) return;
-        [r[i], r[j]] = [r[j], r[i]];
-        cb.onSetAutoRules?.(r);
-      } else if (t.closest("[data-reset-rules]")) cb.onSetAutoRules?.(defaultAutoRules(v.moves));
+      } else if (edited) cb.onSetAutoRules?.(edited);
     });
     this.modal.addEventListener("change", (e) => {
       const t = e.target as HTMLInputElement | HTMLSelectElement;
       if (!this.activeView() || !this.movesTab) return;
       if (t.dataset.evoPref !== undefined) return cb.onSetEvoPref?.(t.dataset.evoPref, t.value || null);
-      const r = rules();
-      const d = t.dataset;
-      const i = Number(d.cond ?? d.pct ?? d.on);
-      if (!r[i]) return;
-      if (d.cond !== undefined) {
-        r[i].cond = t.value as AutoCond;
-        if (r[i].cond.endsWith("_pct") && r[i].pct === undefined) r[i].pct = r[i].cond === "target_hp_below_pct" ? 30 : 40;
-      } else if (d.pct !== undefined) r[i].pct = Number(t.value);
-      else if (d.on !== undefined) r[i].off = !(t as HTMLInputElement).checked;
-      cb.onSetAutoRules?.(r);
+      const r = editRules(rules(), this.activeView()!.moves, e as unknown as { type: string; target: HTMLElement });
+      if (r) cb.onSetAutoRules?.(r);
     });
     this.modal.addEventListener("keydown", (e) => e.stopPropagation());
   }

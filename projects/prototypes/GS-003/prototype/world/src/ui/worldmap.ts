@@ -1,6 +1,7 @@
 // Mapa-múndi (pt-BR): as 6 regiões do GDD num esquema de nós ligados pelas rotas (routesTo), com faixa de nível,
 // selvagens, estado (você está aqui / liberada / bloqueada e o motivo / sem mapa) e "Viajar" para as liberadas.
 
+import { icon } from "./icons";
 import { canTravel, mapOfRegion, REGIONS, unlockState, type Progress } from "../world/regions";
 
 /** Posição esquemática (%) de cada região no mapa-múndi [H]. */
@@ -42,6 +43,7 @@ export function worldMapHtml(current: string, p: Progress): string {
   }).join("");
   return `<div class="worldmap">
       <div class="wm-canvas"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${svg}</svg>${nodes}</div>
+      <button type="button" class="wm-arena" data-arena title="Arena PvP local (oponente fantasma)">${icon("trophy", 14)} Arena</button>
       <p class="note">Viagem entre regiões liberadas (regra do GDD: nível do Tamer e chefes). Também dá para trocar de mapa pelas saídas na borda. Montanha, Deserto e Zona Corrompida ainda não têm mapa nesta prova.</p>
     </div>`;
 }

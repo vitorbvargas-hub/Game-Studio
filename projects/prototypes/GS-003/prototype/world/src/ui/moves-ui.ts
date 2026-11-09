@@ -2,7 +2,7 @@
 // Equipe & Box (slots ativos, aprendidos, "Trocar") e o editor de prioridade do AUTO. Só monta HTML e lê estado;
 // as mudanças saem como intents (set_moves, set_auto_priority, use_move), que a sim aceita ou recusa.
 
-import { initialLoadout, MOVE_SLOTS, type MoveContent } from "../sim/moves";
+import { defaultAutoRules, initialLoadout, MOVE_SLOTS, type MoveContent } from "../sim/moves";
 import { TICK_MS } from "../sim/params";
 import type { AutoCond, AutoRule, MoveDef, StatBlock } from "../sim/types";
 
@@ -111,6 +111,62 @@ export function rulesFor(v: MovesView): AutoRule[] {
   return [...v.autoRules.filter((r) => eq.includes(r.moveId)), ...eq.filter((id) => !v.autoRules.some((r) => r.moveId === id)).map((moveId) => ({ moveId, cond: "always" as AutoCond }))];
 }
 
+/**
+ * Editor da prioridade do AUTO (gambit simples, §2.5): ordem, condição, % e "usar" por golpe equipado. Usado na aba
+ * Golpes do Equipe & Box e na preparação da Arena; as edições saem por editRules (mesma regra nos dois lugares).
+ */
+export function autoRulesEditorHtml(mc: MoveContent, rules: AutoRule[], editable: boolean, title = "Prioridade do AUTO"): string {
+  const ruleRow = (r: AutoRule, i: number) => {
+    const m = mc.moves[r.moveId];
+    const needsPct = r.cond === "target_hp_below_pct" || r.cond === "self_hp_below_pct" || r.cond === "ally_hp_below_pct";
+    return `<li data-rule="${i}" class="${r.off ? "off" : ""}">
+      <span class="n">${i + 1}</span><canvas class="mi" width="24" height="24" data-icon="${r.moveId}"></canvas><b>${esc(m?.name ?? r.moveId)}</b>
+      <select data-cond="${i}" ${editable ? "" : "disabled"} aria-label="Condição">${(Object.keys(COND_PT) as AutoCond[]).filter((c) => c !== "ally_hp_below_pct").map((c) => `<option value="${c}"${c === r.cond ? " selected" : ""}>${COND_PT[c]}</option>`).join("")}</select>
+      ${needsPct ? `<input type="number" min="1" max="99" step="5" value="${r.pct ?? 50}" data-pct="${i}" ${editable ? "" : "disabled"} aria-label="Porcentagem" /><span>%</span>` : "<span class='pad'></span>"}
+      <label class="use"><input type="checkbox" data-on="${i}" ${r.off ? "" : "checked"} ${editable ? "" : "disabled"} />usar</label>
+      <button class="mini" data-up="${i}" ${editable && i > 0 ? "" : "disabled"} title="Subir na prioridade">▲</button>
+      <button class="mini" data-down="${i}" ${editable && i < rules.length - 1 ? "" : "disabled"} title="Descer na prioridade">▼</button>
+    </li>`;
+  };
+  return `<div class="sec"><b>${esc(title)}</b></div>
+        <ol class="rules">${rules.map(ruleRow).join("")}</ol>
+        <p class="note">O AUTO tenta de cima para baixo: usa o primeiro golpe pronto, com MP e cuja condição vale. Se nenhum servir, usa ${esc(mc.moves[mc.basicMoveId]?.name ?? "o básico")} (sem custo).</p>
+        ${editable ? `<button class="act" data-reset-rules>Restaurar padrão</button>` : ""}`;
+}
+
+/**
+ * Aplica uma interação do editor de prioridade (clique em ▲/▼/Restaurar ou mudança de condição/%/usar) sobre uma
+ * cópia das regras. Devolve as regras novas, ou undefined se o evento não era do editor.
+ */
+export function editRules(rules: AutoRule[], slots: (string | null)[], ev: { type: string; target: HTMLElement }): AutoRule[] | undefined {
+  const r = rules.map((x) => ({ ...x }));
+  const t = ev.target;
+  if (ev.type === "click") {
+    const up = t.closest<HTMLElement>("[data-up]")?.dataset.up;
+    const down = t.closest<HTMLElement>("[data-down]")?.dataset.down;
+    if (up !== undefined || down !== undefined) {
+      const i = Number(up ?? down);
+      const j = up !== undefined ? i - 1 : i + 1;
+      if (j < 0 || j >= r.length) return undefined;
+      [r[i], r[j]] = [r[j], r[i]];
+      return r;
+    }
+    if (t.closest("[data-reset-rules]")) return defaultAutoRules(slots);
+    return undefined;
+  }
+  const el = t as HTMLInputElement | HTMLSelectElement;
+  const d = el.dataset;
+  if (d.cond === undefined && d.pct === undefined && d.on === undefined) return undefined;
+  const i = Number(d.cond ?? d.pct ?? d.on);
+  if (!r[i]) return undefined;
+  if (d.cond !== undefined) {
+    r[i].cond = el.value as AutoCond;
+    if (r[i].cond.endsWith("_pct") && r[i].pct === undefined) r[i].pct = r[i].cond === "target_hp_below_pct" ? 30 : 40;
+  } else if (d.pct !== undefined) r[i].pct = Number(el.value);
+  else if (d.on !== undefined) r[i].off = !(el as HTMLInputElement).checked;
+  return r;
+}
+
 export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, swapping?: string, extra = ""): string {
   const ls = mc.learnsets[v.speciesId] ?? [];
   const locked = ls.filter((e) => !v.learned.includes(e.move));
@@ -133,19 +189,6 @@ export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, s
     const act = at >= 0 ? `<span class="tag">Slot ${at + 1}</span>` : canSwap ? `<button class="act swap${swapping === id ? " on" : ""}" data-swap="${id}">${swapping === id ? "Cancelar" : "Trocar"}</button>` : "";
     return `<li class="${at >= 0 ? "eq" : ""}${swapping === id ? " sel" : ""}"><canvas class="mi" width="24" height="24" data-icon="${m.id}"></canvas><div><b>${esc(m.name)}</b><small>${esc(moveSummary(m))}</small></div>${act}</li>`;
   };
-  const rules = rulesFor(v);
-  const ruleRow = (r: AutoRule, i: number) => {
-    const m = mc.moves[r.moveId];
-    const needsPct = r.cond === "target_hp_below_pct" || r.cond === "self_hp_below_pct" || r.cond === "ally_hp_below_pct";
-    return `<li data-rule="${i}" class="${r.off ? "off" : ""}">
-      <span class="n">${i + 1}</span><canvas class="mi" width="24" height="24" data-icon="${r.moveId}"></canvas><b>${esc(m?.name ?? r.moveId)}</b>
-      <select data-cond="${i}" ${editable ? "" : "disabled"} aria-label="Condição">${(Object.keys(COND_PT) as AutoCond[]).filter((c) => c !== "ally_hp_below_pct").map((c) => `<option value="${c}"${c === r.cond ? " selected" : ""}>${COND_PT[c]}</option>`).join("")}</select>
-      ${needsPct ? `<input type="number" min="1" max="99" step="5" value="${r.pct ?? 50}" data-pct="${i}" ${editable ? "" : "disabled"} aria-label="Porcentagem" /><span>%</span>` : "<span class='pad'></span>"}
-      <label class="use"><input type="checkbox" data-on="${i}" ${r.off ? "" : "checked"} ${editable ? "" : "disabled"} />usar</label>
-      <button class="mini" data-up="${i}" ${editable && i > 0 ? "" : "disabled"} title="Subir na prioridade">▲</button>
-      <button class="mini" data-down="${i}" ${editable && i < rules.length - 1 ? "" : "disabled"} title="Descer na prioridade">▼</button>
-    </li>`;
-  };
   return `<div class="moves-tab" data-testid="moves-tab">
     <div class="mt-head"><h3>${esc(v.name)} <span>Nv.${v.level}</span></h3>
       ${editable ? `<div class="row"><label>MP</label><div class="hud-bar mpb"><i style="width:${Math.round((v.mp / Math.max(1, v.maxMp)) * 100)}%"></i></div><em>${Math.floor(v.mp)}/${v.maxMp}</em></div>` : ""}
@@ -157,11 +200,7 @@ export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, s
       <div><div class="sec"><b>Aprendidos</b> <span>${v.learned.length}</span></div>
         <ul class="mlist">${v.learned.map(row).join("")}${locked.map((e) => `<li class="locked"><canvas class="mi" width="24" height="24" data-icon="${e.move}"></canvas><div><b>${esc(mc.moves[e.move]?.name ?? e.move)}</b><small>aprende no Nv.${e.level}</small></div><span class="tag">Nv.${e.level}</span></li>`).join("")}</ul>
       </div>
-      <div><div class="sec"><b>Prioridade do AUTO</b></div>
-        <ol class="rules">${rules.map(ruleRow).join("")}</ol>
-        <p class="note">O AUTO tenta de cima para baixo: usa o primeiro golpe pronto, com MP e cuja condição vale. Se nenhum servir, usa ${esc(mc.moves[mc.basicMoveId]?.name ?? "o básico")} (sem custo).</p>
-        ${editable ? `<button class="act" data-reset-rules>Restaurar padrão</button>` : ""}
-      </div>
+      <div>${autoRulesEditorHtml(mc, rulesFor(v), editable)}</div>
     </div>
     ${extra}
   </div>`;

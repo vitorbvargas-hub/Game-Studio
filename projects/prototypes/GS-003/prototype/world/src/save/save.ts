@@ -6,6 +6,8 @@
 import { normalizeLook, type TamerLook } from "../assets/tamer-presets";
 import { dayKey, emptyQuestLog, type QuestLogData } from "./questlog";
 import type { PartnerSave } from "../sim/world";
+import { emptyArena, normalizeArena, type ArenaSave, type BoxMember } from "./arena-league";
+import forestScene from "../data/scenes/forest-proof.scene.json";
 
 export const SAVE_KEY = "gs003.world.save";
 export const SAVE_GAME = "gs003-world";
@@ -15,9 +17,10 @@ export const SAVE_GAME = "gs003-world";
  * v4: mapa atual (troca de mapa / Mapa-múndi). v5: telas secundárias — espécies vistas (Digivice), inventário,
  * progresso das missões e configurações (tempo do dia). v6: Tamer v3 (preset oficial-base DS + cor do cabelo); o
  * Tamer modular v2 vira o preset mais parecido (ou o preset 1). v7: preferência de caminho de evolução por espécie
- * (Auto-evoluir com ramificação).
+ * (Auto-evoluir com ramificação). v8: Box persistido (antes era placeholder da cena) e Arena local (composições
+ * salvas, histórico e rating local por modo).
  */
-export const SAVE_VERSION = 7;
+export const SAVE_VERSION = 8;
 
 /** Inventário inicial [H]: o Digivice padrão (economy.json, captura x1.0). */
 export const STARTING_INVENTORY: Record<string, number> = { digivice_padrao: 1 };
@@ -45,6 +48,10 @@ export interface SaveData {
   partner: PartnerSave;
   /** Demais membros da equipe (slots 2–5). */
   team: TeamMember[];
+  /** Box (v8). */
+  box: BoxMember[];
+  /** Arena local (v8): composições, histórico e rating placeholder. */
+  arena: ArenaSave;
   scans: Record<string, number>;
   captured: string[];
   /** Bebê escolhido na tela "Escolha seu parceiro" (v3); null = save anterior à escolha. */
@@ -116,6 +123,9 @@ export const MIGRATIONS: Migrations = {
   5: (env) => ({ ...env, v: 6, data: { ...env.data, tamer: normalizeLook(env.data?.tamer ?? {}) } }),
   // v6 → v7: sem preferência de evolução (o Auto-evoluir espera o jogador nas ramificações).
   6: (env) => ({ ...env, v: 7, data: { ...env.data, evoPrefs: {} } }),
+  // v7 → v8: o Box era o placeholder da cena; quem não escolheu inicial via a cena inteira (equipe + Box) e fica com
+  // ele, quem escolheu (jogo de verdade) começa com o Box vazio. Arena do zero.
+  7: (env) => ({ ...env, v: 8, data: { ...env.data, box: env.data?.starter ? [] : forestScene.box.map((b) => ({ ...b })), arena: emptyArena() } }),
 };
 
 export function serialize(data: SaveData, now: number): string {
@@ -157,6 +167,8 @@ export function deserialize(raw: string | null, migrations: Migrations = MIGRATI
     tamerXp: Math.max(0, Math.floor(d.tamerXp ?? 0)),
     bits: Math.max(0, Math.floor(d.bits ?? 0)),
     team: Array.isArray(d.team) ? d.team : [],
+    box: Array.isArray(d.box) ? d.box.filter((b) => b && typeof b.species === "string" && typeof b.level === "number") : [],
+    arena: normalizeArena(d.arena),
     evoPrefs: Object.fromEntries(Object.entries(d.evoPrefs && typeof d.evoPrefs === "object" ? d.evoPrefs : {}).filter(([, v]) => typeof v === "string")) as Record<string, string>,
     scans: d.scans ?? {},
     captured: Array.isArray(d.captured) ? d.captured : [],
