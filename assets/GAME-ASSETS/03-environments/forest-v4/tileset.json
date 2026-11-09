@@ -430,5 +430,168 @@
       "collision": false,
       "suggestedLayer": "decor"
     }
-  ]
+  ],
+  "autotileV41": {
+    "pattern": "Wang/blob-47, 8-neighbor bitmask (N=1,E=2,S=4,W=8,NE=16,SE=32,SW=64,NW=128) normalized by zeroing diagonal bits whose two adjacent edges are not both set -- collapses the 256 raw combinations to 47 unique shapes. File suffix is the literal normalized mask value, e.g. tiles/path_w47_7.png.",
+    "cornerRule": "Each corner classified from (edge1, edge2, diagonal): both edges + diagonal = flat fill (no cut); both edges, no diagonal = small concave notch (fixes the v4 hard square inner-corner \"cruz/xadrez\" bug); one edge = medium convex round; no edge = large convex round. +-2px seeded radius jitter per corner for organic width variation, plus a boundary-noise pass that bleeds grass tufts into the fg and drops pebbles into the bg right at the seam.",
+    "addedInVersion": "forest-v4.1",
+    "supersedesForNewMaps": "autotile.sets (16-tile, still present/valid for any map data already authored against it)",
+    "sets": [
+      {
+        "name": "path_w47",
+        "center": "dirt path",
+        "surround": "grass",
+        "maskCount": 47,
+        "files": [
+          "tiles/path_w47_0.png",
+          "tiles/path_w47_1.png",
+          "tiles/path_w47_2.png",
+          "tiles/path_w47_3.png",
+          "tiles/path_w47_4.png",
+          "tiles/path_w47_5.png",
+          "tiles/path_w47_6.png",
+          "tiles/path_w47_7.png",
+          "tiles/path_w47_8.png",
+          "tiles/path_w47_9.png",
+          "tiles/path_w47_10.png",
+          "tiles/path_w47_11.png",
+          "tiles/path_w47_12.png",
+          "tiles/path_w47_13.png",
+          "tiles/path_w47_14.png",
+          "tiles/path_w47_15.png",
+          "tiles/path_w47_19.png",
+          "tiles/path_w47_23.png",
+          "tiles/path_w47_27.png",
+          "tiles/path_w47_31.png",
+          "tiles/path_w47_38.png",
+          "tiles/path_w47_39.png",
+          "tiles/path_w47_46.png",
+          "tiles/path_w47_47.png",
+          "tiles/path_w47_55.png",
+          "tiles/path_w47_63.png",
+          "tiles/path_w47_76.png",
+          "tiles/path_w47_77.png",
+          "tiles/path_w47_78.png",
+          "tiles/path_w47_79.png",
+          "tiles/path_w47_95.png",
+          "tiles/path_w47_110.png",
+          "tiles/path_w47_111.png",
+          "tiles/path_w47_127.png",
+          "tiles/path_w47_137.png",
+          "tiles/path_w47_139.png",
+          "tiles/path_w47_141.png",
+          "tiles/path_w47_143.png",
+          "tiles/path_w47_155.png",
+          "tiles/path_w47_159.png",
+          "tiles/path_w47_175.png",
+          "tiles/path_w47_191.png",
+          "tiles/path_w47_205.png",
+          "tiles/path_w47_207.png",
+          "tiles/path_w47_223.png",
+          "tiles/path_w47_239.png",
+          "tiles/path_w47_255.png"
+        ]
+      },
+      {
+        "name": "denseedge_w47",
+        "center": "dense forest floor",
+        "surround": "clearing (use clearing_floor_v41_* as the clearing ground tile for best match)",
+        "maskCount": 47,
+        "files": [
+          "tiles/denseedge_w47_0.png",
+          "tiles/denseedge_w47_1.png",
+          "tiles/denseedge_w47_2.png",
+          "tiles/denseedge_w47_3.png",
+          "tiles/denseedge_w47_4.png",
+          "tiles/denseedge_w47_5.png",
+          "tiles/denseedge_w47_6.png",
+          "tiles/denseedge_w47_7.png",
+          "tiles/denseedge_w47_8.png",
+          "tiles/denseedge_w47_9.png",
+          "tiles/denseedge_w47_10.png",
+          "tiles/denseedge_w47_11.png",
+          "tiles/denseedge_w47_12.png",
+          "tiles/denseedge_w47_13.png",
+          "tiles/denseedge_w47_14.png",
+          "tiles/denseedge_w47_15.png",
+          "tiles/denseedge_w47_19.png",
+          "tiles/denseedge_w47_23.png",
+          "tiles/denseedge_w47_27.png",
+          "tiles/denseedge_w47_31.png",
+          "tiles/denseedge_w47_38.png",
+          "tiles/denseedge_w47_39.png",
+          "tiles/denseedge_w47_46.png",
+          "tiles/denseedge_w47_47.png",
+          "tiles/denseedge_w47_55.png",
+          "tiles/denseedge_w47_63.png",
+          "tiles/denseedge_w47_76.png",
+          "tiles/denseedge_w47_77.png",
+          "tiles/denseedge_w47_78.png",
+          "tiles/denseedge_w47_79.png",
+          "tiles/denseedge_w47_95.png",
+          "tiles/denseedge_w47_110.png",
+          "tiles/denseedge_w47_111.png",
+          "tiles/denseedge_w47_127.png",
+          "tiles/denseedge_w47_137.png",
+          "tiles/denseedge_w47_139.png",
+          "tiles/denseedge_w47_141.png",
+          "tiles/denseedge_w47_143.png",
+          "tiles/denseedge_w47_155.png",
+          "tiles/denseedge_w47_159.png",
+          "tiles/denseedge_w47_175.png",
+          "tiles/denseedge_w47_191.png",
+          "tiles/denseedge_w47_205.png",
+          "tiles/denseedge_w47_207.png",
+          "tiles/denseedge_w47_223.png",
+          "tiles/denseedge_w47_239.png",
+          "tiles/denseedge_w47_255.png"
+        ]
+      }
+    ],
+    "dirtInteriorVariants": [
+      "grooves (sulcos)",
+      "pebbles (pedrinhas)",
+      "leaves (folhas)",
+      "mixed"
+    ]
+  },
+  "clearingFloorV41": {
+    "note": "Seamless-tileable dithered clearing ground (replaces grass_NN for clearing cells specifically) -- fixes the \"dark square patches\" caused by v4 clearing texture using per-tile random ellipses that got hard-clipped at the 32px edge. 4 variants, cycle per cell.",
+    "files": [
+      "tiles/clearing_floor_v41_00.png",
+      "tiles/clearing_floor_v41_01.png",
+      "tiles/clearing_floor_v41_02.png",
+      "tiles/clearing_floor_v41_03.png"
+    ]
+  },
+  "lightingV41": {
+    "direction": "upper-left (sun/moon), matches the existing ambient overlay and grass/trunk highlight bias already used by forest-v4",
+    "castShadow": "procedural, composited by the scene builder per tree instance (not a static prop file): elongated ellipse offset toward lower-right (away from the light) under each tree footprint.",
+    "rimLight": "applied as a post-process over any tree canopy-top canvas: brightens the upper-left silhouette edge pixels using the ramp's existing foliage[7] rim tone. See forest_v4_1_props.js applyCanopyRimLight()."
+  },
+  "treesV41": {
+    "note": "2 additional tree types, additive to the existing 9 tree_* entries.",
+    "props": [
+      {
+        "file": "props/tree_palm_digital_base.png",
+        "collision": true,
+        "suggestedLayer": "decor"
+      },
+      {
+        "file": "props/tree_palm_digital_top.png",
+        "collision": false,
+        "suggestedLayer": "canopy-top"
+      },
+      {
+        "file": "props/tree_data_leaf_base.png",
+        "collision": true,
+        "suggestedLayer": "decor"
+      },
+      {
+        "file": "props/tree_data_leaf_top.png",
+        "collision": false,
+        "suggestedLayer": "canopy-top"
+      }
+    ]
+  }
 }

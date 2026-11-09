@@ -36,6 +36,13 @@
       "author": "game-art",
       "technique": "pixel matrix (autotile blob 16-pecas, Canvas.js mask-paint + dither seeded) + primitivas em camadas (fillCircle leaf-puff clusters, fillPolygon tronco afunilado, roots tendrils) para props de cenario -- nao sao corpos de criatura, permitido por ADR-009/biome_props.js. Paleta estendida forest_v4_palette.js (ramps de 8 tons feitos a mao), nao parametrica/procedural por formula de criatura.",
       "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- sem IP de terceiro alem da paleta de cor amostrada"
+    },
+    {
+      "group": "forest-v4.1 patch (wang-47 autotile, clearing dither fix, 2 new tree types, lighting post-process)",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Same Canvas.js pixel-matrix / primitive-layering technique as the rest of forest-v4 (ADR-009 scenery scope). No third-party art referenced pixel-for-pixel; new cyan accent reuses the studio Endesga-32 palette (c18/c19).",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009)"
     }
   ],
   "verifiedAt": "2026-11-08",
