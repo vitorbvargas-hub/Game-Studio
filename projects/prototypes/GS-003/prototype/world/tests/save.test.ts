@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_LOOK } from "../src/assets/tamer-parts";
+import { defaultLook } from "../src/assets/tamer-presets";
 import { applyOffline, applySave, captureSave, offlineSeed } from "../src/save/offline";
 import { deserialize, loadFromStorage, SAVE_KEY, SAVE_VERSION, saveToStorage, serialize, type SaveData, type StorageLike } from "../src/save/save";
 import { createForestProofWorld, LOCAL_PLAYER } from "../src/sim/setup";
@@ -18,7 +18,7 @@ function world(seed = 7) {
   return sim;
 }
 
-const extra = { tamer: { ...DEFAULT_LOOK, name: "Nina", hairCut: "moicano" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }], starter: "CREATURE-0014", map: "forest-proof", seen: ["CREATURE-0014"], inventory: { digivice_padrao: 1 }, quests: { day: "2026-11-09", kills: { floresta_densa: 3 }, captures: 1, claimed: ["main_00_tutorial"] }, settings: { time: "night" as const } };
+const extra = { tamer: { ...defaultLook(), name: "Nina", preset: "TAMER-0009", hair: "azul" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }], starter: "CREATURE-0014", map: "forest-proof", seen: ["CREATURE-0014"], inventory: { digivice_padrao: 1 }, quests: { day: "2026-11-09", kills: { floresta_densa: 3 }, captures: 1, claimed: ["main_00_tutorial"] }, settings: { time: "night" as const } };
 
 describe("save (localStorage, versionado)", () => {
   it("ida e volta: Tamer, equipe, golpes, nível, XP, bits, AUTO e Auto-evoluir", () => {
@@ -51,13 +51,14 @@ describe("save (localStorage, versionado)", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.migratedFrom).toBe(1);
-    expect(SAVE_VERSION).toBe(5);
+    expect(SAVE_VERSION).toBe(6);
     expect(r.data.starter).toBeNull();
     expect(r.data.partner.learned).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.partner.moves).toEqual(["pyro_sphere", null, "investida", null]);
     expect(r.data.partner.autoRules.map((x) => x.moveId)).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.autoEvolve).toBe(false);
-    expect(r.data.tamer).toMatchObject({ name: "Rui", model: "female", skin: DEFAULT_LOOK.skin });
+    // Tamer modular v2 (modelo 2) → preset v3 mais parecido (base feminina), nome mantido
+    expect(r.data.tamer).toEqual({ name: "Rui", preset: "TAMER-0005", hair: "ruivo" });
   });
 
   it("migração v2 → v3: mantém a parceira e marca o inicial como desconhecido; o inicial escolhido volta do save", () => {

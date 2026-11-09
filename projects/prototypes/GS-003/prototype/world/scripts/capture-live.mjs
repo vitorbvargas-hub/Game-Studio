@@ -210,12 +210,12 @@ async function creator(cdp) {
   await cdp.waitFor(`!!document.querySelector(".creator [data-testid=cr-preview]")`, 30000, "o criador abrir");
   await sleep(800);
   await cdp.shot("creator_tela.png");
+  // Criador v3: um preset da grade, uma cor de cabelo e o nome
   await cdp.eval(`(() => { const c = (sel) => document.querySelector(sel).click();
-    c('[data-opt="model"][data-val="female"]'); c('[data-opt="skin"][data-val="deep"]'); c('[data-opt="hairCut"][data-val="marias-chiquinhas"]');
-    c('[data-opt="hairColor"][data-val="rosa"]'); c('[data-opt="outfit"][data-val="aventureiro"]'); c('[data-opt="outfitColor"][data-val="roxo"]');
+    c('[data-preset="${process.env.PRESET ?? "TAMER-0004"}"]'); c('[data-hair="${process.env.HAIR ?? "verde"}"]');
     const i = document.querySelector('[data-testid="cr-name"]'); i.value = "Nina"; i.dispatchEvent(new Event("input")); })()`);
-  await sleep(400);
-  await cdp.shot("creator_escolhas.png");
+  await sleep(600);
+  await cdp.shot("creator_v3.png");
   // preview: um recorte por direção (o preview troca a cada 1,4 s)
   const box = await cdp.eval(`(() => { const r = document.querySelector('[data-testid="cr-preview"]').getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; })()`);
   const { createCanvas, loadImage } = await import("@napi-rs/canvas");

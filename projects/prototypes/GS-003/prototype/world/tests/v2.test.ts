@@ -87,9 +87,10 @@ describe("sprites de mapa DS (creature.json v2)", () => {
     expect(h("CREATURE-0011")).toBeLessThan(h("CREATURE-0013"));
   });
 
-  it("Gigimon (fora do DS) fica marcado como pendente, com sprite reduzido do rip v1", () => {
+  it("Gigimon (fora do DS) fica marcado como pendente de aprovação, com sprite reduzido", () => {
     const m = cat["CREATURE-0002"].manifest as typeof cat[string]["manifest"] & { approvalStatus?: string };
-    expect(m.approvalStatus).toBe("PENDING_OFFICIAL_MAP_SPRITE");
+    // o game-art troca o sprite do Gigimon (rip v1 → desenho próprio): o status muda, mas nunca é aprovado sozinho
+    expect(["PENDING_OFFICIAL_MAP_SPRITE", "UNDER_REVIEW"]).toContain(m.approvalStatus);
     expect(m.targetHeightPx).toBeLessThan(25);
   });
 

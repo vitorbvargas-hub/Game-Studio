@@ -1430,8 +1430,8 @@ body {
   min-height: 300px;
 }
 .creator .cr-preview canvas {
-  width: 192px;
-  height: 240px;
+  width: 220px;
+  height: 170px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
@@ -2263,4 +2263,57 @@ body {
   background: linear-gradient(#4fa85a, #2f7a3b);
   border: 2px solid #63c74d;
   box-shadow: 0 2px 0 #1a3d22;
+}
+
+/* ---------- criador v3: grade de presets ---------- */
+.creator .cr-card {
+  width: min(1100px, 97vw);
+}
+.creator .cr-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 3px;
+}
+.creator .cr-preset {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-areas: "portrait sprite" "label label";
+  align-items: end;
+  justify-items: center;
+  gap: 2px 4px;
+  padding: 5px 6px 4px;
+}
+.creator .cr-preset canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.creator .cr-preset .cr-portrait {
+  grid-area: portrait;
+  width: 48px;
+  height: 40px;
+  background: #0f121a;
+  border-radius: 4px;
+  align-self: center;
+}
+.creator .cr-preset .cr-sprite {
+  grid-area: sprite;
+  width: 88px;
+  height: 68px;
+}
+.creator .cr-preset b,
+.creator .cr-preset small {
+  grid-column: 1 / 3;
+}
+.creator .cr-preset b {
+  font-size: 13px;
+  line-height: 1.1;
+}
+.creator .cr-preset small {
+  font-size: 10px;
+  color: var(--ui-dim);
+  line-height: 1.1;
+}
+.creator .cr-preset[aria-pressed="true"] small {
+  color: #e8d9a0;
 }

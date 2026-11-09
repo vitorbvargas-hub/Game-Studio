@@ -5,7 +5,7 @@ import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
 import { loadSceneTiles, packSummary, usedKeys } from "./assets/scene-tiles";
 import { clockFromParams, formatClock, GameClock } from "./render/daynight";
-import { botLook, composeTamer, DEFAULT_LOOK, frameList, loadPartUrls, lookKey, PARTS, type TamerLook } from "./assets/tamer-parts";
+import { botLook, defaultLook, loadPresets, lookKey, presetVisual, urlsForLook, type TamerLook } from "./assets/tamer-presets";
 import { TamerCreator, type PreviewDir } from "./ui/creator";
 import { applyOffline, applySave, captureSave, offlineBalance, offlineSeed, type OfflineReport } from "./save/offline";
 import { browserStorage, loadFromStorage, SAVE_KEY, saveToStorage, STARTING_INVENTORY, type LoadResult, type SaveData, type SettingsData } from "./save/save";
@@ -63,34 +63,52 @@ const MIN_H = 240;
 const CREATOR = params.get("criador") !== "0";
 
 /**
- * Tela do criador de Tamer (antes do mundo). Carrega só os PNGs-base das camadas (o resto sai por recolor) e
- * compõe o preview sob demanda, com cache por combinação.
+ * Tela do criador de Tamer v3 (antes do mundo): grade dos 12 presets do disco. Pré-carrega a cor canônica de cada
+ * preset; as outras cores carregam quando escolhidas (o preview aparece assim que a imagem chega).
  */
-async function chooseLook(images: ImageStore, partUrls: Record<string, string>, initial: TamerLook = DEFAULT_LOOK): Promise<TamerLook> {
+async function chooseLook(images: ImageStore, initial: TamerLook = defaultLook()): Promise<TamerLook> {
   if (!CREATOR) return initial;
-  const cache = new Map<string, CreatureVisual>();
+  const presets = loadPresets();
+  await images.loadAll([...presets.flatMap((p) => urlsForLook({ name: "", preset: p.id, hair: p.defaultHair })), ...urlsForLook(initial)]);
+  const cache = new Map<string, CreatureVisual | undefined>();
   const visualOf = (l: TamerLook) => {
     const k = lookKey(l);
-    let v = cache.get(k);
-    if (!v) cache.set(k, (v = composeTamer(l, partUrls, images, browserCanvasFactory)));
-    return v;
+    if (!cache.has(k)) {
+      const v = presetVisual(l, presets);
+      cache.set(k, v);
+      if (v) void images.loadAll(urlsForLook(l, presets));
+    }
+    return cache.get(k);
   };
-  const draw = (cv: HTMLCanvasElement, l: TamerLook, dir: PreviewDir, frame: number) => {
+  const blit = (cv: HTMLCanvasElement, l: TamerLook, dir: PreviewDir, frame: number, bust: boolean) => {
     const v = visualOf(l);
-    const src = v.manifest.animations.walk.dirFrames![dir === "W" ? "E" : dir];
-    const fr = v.atlas.frames[src[frame % src.length].atlasKey!].frame;
     const g = cv.getContext("2d")!;
     g.imageSmoothingEnabled = false;
     g.clearRect(0, 0, cv.width, cv.height);
-    g.save();
-    if (dir === "W") {
-      g.translate(cv.width, 0);
-      g.scale(-1, 1);
+    if (!v) return;
+    const src = v.manifest.animations.walk.dirFrames![dir];
+    const key = src[frame % src.length].atlasKey!;
+    const img = images.get(v.frameUrls![key]);
+    if (!img) return;
+    const { frameW: w, frameH: h } = v.manifest.dimensions;
+    const pv = v.manifest.pivot;
+    if (bust) {
+      // retrato: a cabeça (topo do quadro, 24×20 em volta do pivô x) parada de frente
+      g.drawImage(img as CanvasImageSource, Math.max(0, pv.x - 12), 0, 24, 20, 0, 0, 24, 20);
+      return;
     }
-    g.drawImage(images.get(v.sheetUrl) as CanvasImageSource, fr.x, fr.y, fr.w, fr.h, 0, 0, fr.w, fr.h);
-    g.restore();
+    // pés no pivô, centrado no canvas
+    g.drawImage(img as CanvasImageSource, 0, 0, w, h, Math.round(cv.width / 2 - pv.x), cv.height - 1 - pv.y, w, h);
   };
-  return new Promise((resolve) => new TamerCreator(document.body, { initial, drawPreview: draw, onConfirm: resolve }));
+  return new Promise((resolve) =>
+    new TamerCreator(document.body, {
+      initial,
+      presets,
+      drawPreview: (cv, l, dir, frame) => blit(cv, l, dir, frame, false),
+      drawPortrait: (cv, l) => blit(cv, l, "S", 0, true),
+      onConfirm: resolve,
+    }),
+  );
 }
 
 /** Tela "Escolha seu parceiro" (jogo novo, depois do criador): devolve o bebê escolhido. */
@@ -114,16 +132,13 @@ interface Live {
 
 async function boot() {
   const images = new ImageStore(browserImageLoader);
-  const partUrls = loadPartUrls();
-  const partsFailed = await images.loadAll(Object.values(partUrls));
-  if (partsFailed.length) console.warn("partes do Tamer não carregadas:", partsFailed.length);
   const regionMode = MAP !== "meadow";
   // Save (só nos mapas das regiões). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
   const storage = regionMode ? browserStorage() : undefined;
   const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
-  const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, partUrls, loaded.ok ? loaded.data.tamer : DEFAULT_LOOK);
+  const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, loaded.ok ? loaded.data.tamer : defaultLook());
   const creatures = loadCreatureCatalog();
   // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
   const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
@@ -180,12 +195,15 @@ async function boot() {
     const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].map((t) => t.url));
     if (tFailed.length) console.warn("tiles não carregados:", tFailed);
     const ids = sim.state.players.map((p) => p.id);
+    const tv = tamerVisuals(ids, look, SEED, (id) => sim.state.entities.find((e) => e.id === getPlayer(sim.state, id)?.tamerId)?.name ?? id);
+    const tvFailed = await images.loadAll(Object.values(tv).flatMap(imageUrlsOf));
+    if (tvFailed.length) console.warn("Tamers v3 não carregados:", tvFailed);
     const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, {
       creatureScale: CREATURE_SCALE,
       sizeTable,
       tamers,
       smoothing: SMOOTH,
-      tamerVisuals: tamerVisuals(ids, look, SEED, (id) => sim.state.entities.find((e) => e.id === getPlayer(sim.state, id)?.tamerId)?.name ?? id, images),
+      tamerVisuals: tv,
       tamerLevels: def ? tamerLevels : undefined,
       tamerTints: def?.scene ? tamerTints : undefined,
       trees: def?.pack.trees,
@@ -227,7 +245,7 @@ async function boot() {
     cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
   }
-  console.info(`Tamer ${look.name}: ${lookKey(look)} · ${frameList().length} linhas × ${PARTS.frame.w}×${PARTS.frame.h}`);
+  console.info(`Tamer ${look.name}: ${lookKey(look)} (preset v3)`);
   const intents: Intent[] = [];
   const player = () => getPlayer(cur.sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
@@ -653,10 +671,14 @@ async function boot() {
   });
 }
 
-/** Visual composto de cada Tamer: o local vem do criador; os bots, de combinações aleatórias (semente do mundo + id). */
-function tamerVisuals(ids: string[], look: TamerLook, seed: number, nameOf: (id: string) => string, images: ImageStore): Record<string, CreatureVisual> {
-  const urls = loadPartUrls();
-  return Object.fromEntries(ids.map((id) => [id, composeTamer(id === LOCAL_PLAYER ? look : botLook(seed, id, nameOf(id)), urls, images, browserCanvasFactory)]));
+/** Visual de cada Tamer: o local vem do criador; os bots, de presets v3 aleatórios (semente do mundo + id). */
+function tamerVisuals(ids: string[], look: TamerLook, seed: number, nameOf: (id: string) => string): Record<string, CreatureVisual> {
+  const out: Record<string, CreatureVisual> = {};
+  for (const id of ids) {
+    const v = presetVisual(id === LOCAL_PLAYER ? look : botLook(seed, id, nameOf(id)));
+    if (v) out[id] = v;
+  }
+  return out;
 }
 
 /** Estado de golpes da parceira para o HUD (cópia somente leitura). */

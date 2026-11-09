@@ -3,7 +3,7 @@
 // corrompido. Persistido: Tamer (visual + nome + nível/XP), equipe (parceira ativa completa + demais membros),
 // golpes (aprendidos, 4 slots, prioridade do AUTO), nível e XP, bits, Digidex (varredura), AUTO e Auto-evoluir.
 
-import { normalizeLook, type TamerLook } from "../assets/tamer-parts";
+import { normalizeLook, type TamerLook } from "../assets/tamer-presets";
 import { dayKey, emptyQuestLog, type QuestLogData } from "./questlog";
 import type { PartnerSave } from "../sim/world";
 
@@ -13,9 +13,10 @@ export const SAVE_GAME = "gs003-world";
  * v1: primeiro esquema (Tamer, parceira com espécie/nível/XP/4 slots, bits). v2: lista de golpes aprendidos,
  * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe. v3: Digimon inicial escolhido.
  * v4: mapa atual (troca de mapa / Mapa-múndi). v5: telas secundárias — espécies vistas (Digivice), inventário,
- * progresso das missões e configurações (tempo do dia).
+ * progresso das missões e configurações (tempo do dia). v6: Tamer v3 (preset oficial-base DS + cor do cabelo); o
+ * Tamer modular v2 vira o preset mais parecido (ou o preset 1).
  */
-export const SAVE_VERSION = 5;
+export const SAVE_VERSION = 6;
 
 /** Inventário inicial [H]: o Digivice padrão (economy.json, captura x1.0). */
 export const STARTING_INVENTORY: Record<string, number> = { digivice_padrao: 1 };
@@ -108,6 +109,8 @@ export const MIGRATIONS: Migrations = {
     const seen = [...new Set([...Object.keys(d.scans ?? {}), ...(d.partner?.speciesId ? [d.partner.speciesId] : [])])];
     return { ...env, v: 5, data: { ...d, seen, inventory: { ...STARTING_INVENTORY }, quests: emptyQuestLog(dayKey(new Date(env.savedAt ?? 0))), settings: { time: "auto" } } };
   },
+  // v5 → v6: Tamer modular v2 → preset v3 mais parecido (normalizeLook reconhece o look v2).
+  5: (env) => ({ ...env, v: 6, data: { ...env.data, tamer: normalizeLook(env.data?.tamer ?? {}) } }),
 };
 
 export function serialize(data: SaveData, now: number): string {

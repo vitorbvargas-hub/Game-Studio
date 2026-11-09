@@ -3,6 +3,20 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Tamers v3 no criador, escolha de evolução e cache do dev (2026-11-09)
+
+Pedido do fundador: o criador ainda mostrava os Tamers modulares v2, que ele reprovou. Um commit por item.
+
+- **Criador v3** (`src/ui/creator.ts`, `src/assets/tamer-presets.ts`):
+  - O criador agora é uma grade com os **12 presets oficiais-base DS** (`GAME-ASSETS/11-characters/TAMER-0003..0014`, `TAMERS_V3_PRESETS.md`). Cada cartão tem o retrato (busto de frente) e o sprite andando e girando nas 4 direções. Do lado, fica o preview grande (×5) com o nome.
+  - Também há a **cor do cabelo** (as 8 variantes `hairRecolors` do preset; trocar de preset volta à cor original dele) e o **nome**, com a mesma validação (`checkTamerName`). O botão **Aleatório** continua.
+  - Saíram da UI as opções modulares antigas (modelo, pele, corte, roupa e cor da roupa). O código modular (`tamer-parts.ts` e o teste de recolor) foi removido, porque a migração só precisa dos nomes dos campos v2.
+  - Os arquivos são lidos **do disco pelo glob do Vite**, sem cópia (`character.json` + `sprites/recolor_<cor>/*.png`). Como o game-art está mexendo nos acessórios de 0004, 0005, 0012 e 0013, o jogo pega a versão nova na próxima carga. Uma cor sem PNG no disco some da lista em vez de quebrar.
+  - O Tamer do mundo usa os quadros desenhados nas 4 direções, sem espelho: walk `00-01-00-02` e idle `01`, com o pivô do preset.
+  - **Bots:** preset v3 + cor aleatórios, pela semente do mundo + id do jogador (estável entre sessões).
+  - **Save v6:** o Tamer é `{ name, preset, hair }`. Um save com o Tamer modular recebe o **preset mais parecido**: modelo 3 pts, corte 2, cor canônica do cabelo igual 2, roupa 1, e o empate vai para o menor id. A cor do cabelo é mantida (rosa → ruivo, branco → prateado). Sem dado, o save recebe o **preset 1** (TAMER-0003). A leitura de "feminino" e de corte por preset é [H].
+  - Captura: `docs/screens/creator_v3.png` (`ONLY=creator`, `PRESET=`/`HAIR=` opcionais).
+
 ## Inicial, Digimon selvagens, troca de mapa e telas secundárias (2026-11-09)
 
 Pedido do fundador: "ir criando as telas secundárias e outros Digimon para testar, e algo para trocar de mapa". Um commit por item: `8a02f1a` (QA R1), `b1b17ba` (inicial), `fdba15f` (selvagens), `b29fe28` (troca de mapa), `36198a5` (telas).

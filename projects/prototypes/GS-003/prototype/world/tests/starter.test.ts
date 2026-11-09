@@ -6,7 +6,7 @@ import { createForestProofWorld, LOCAL_PLAYER } from "../src/sim/setup";
 import { loadWorldContent } from "../src/sim/species";
 import { getEntity, getPlayer } from "../src/sim/world";
 import { linePreview, STARTER_LEVEL, StarterPicker, STARTERS } from "../src/ui/starter";
-import { DEFAULT_LOOK } from "../src/assets/tamer-parts";
+import { defaultLook } from "../src/assets/tamer-presets";
 
 const content = loadWorldContent();
 
@@ -72,7 +72,7 @@ describe("escolha do Digimon inicial", () => {
     const partner = getEntity(sim.state, getPlayer(sim.state, LOCAL_PLAYER)!.partnerId)!;
     expect([partner.speciesId, partner.name, partner.level]).toEqual(["CREATURE-0014", "Dorimon", 1]);
     expect(partner.moves[0]).toBe("investida");
-    const data = captureSave(sim, LOCAL_PLAYER, { tamer: DEFAULT_LOOK, tamerLevel: 1, tamerXp: 0, team: [], starter: "CREATURE-0014", map: "forest-proof", seen: ["CREATURE-0014"], inventory: { digivice_padrao: 1 }, quests: { day: "2026-11-09", kills: { floresta_densa: 3 }, captures: 1, claimed: ["main_00_tutorial"] }, settings: { time: "night" as const } });
+    const data = captureSave(sim, LOCAL_PLAYER, { tamer: defaultLook(), tamerLevel: 1, tamerXp: 0, team: [], starter: "CREATURE-0014", map: "forest-proof", seen: ["CREATURE-0014"], inventory: { digivice_padrao: 1 }, quests: { day: "2026-11-09", kills: { floresta_densa: 3 }, captures: 1, claimed: ["main_00_tutorial"] }, settings: { time: "night" as const } });
     const back = deserialize(serialize(data, 1));
     expect(back.ok && [back.data.starter, back.data.partner.speciesId, back.data.partner.level]).toEqual(["CREATURE-0014", "CREATURE-0014", 1]);
     // os bots continuam com as parceiras da cena
