@@ -4,7 +4,7 @@
 
 import { framePivot, imageUrlOf, mapScaleOf, type CreatureVisual, type SizeEntry } from "../assets/creatures";
 import { ANIMATED_TILES, animatedTileKey, drawPlaceholderTile, propPlaceholder, type TileSource } from "../assets/tiles";
-import type { MapProp, WorldMap } from "../sim/map";
+import type { MapCurve, MapProp, WorldMap } from "../sim/map";
 import type { Dir8, LogicState, Vec } from "../sim/types";
 import {
   attackLunge,
@@ -29,6 +29,7 @@ import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
 import { ambientAt } from "./daynight";
 import { castShadowCanvas, castShadowGeometry, rimLit, type CastShadowCfg, type RimLightCfg } from "./lighting";
 import { NIGHT_STEPS, nightFrame, nightStep } from "./nightgrade";
+import { buildCurveIndex, composeCurveOverlay, type CurveIndex } from "./curves";
 import { composePathTile, pathMask, type PathSmoothCfg } from "./pathsmooth";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
 
@@ -136,6 +137,9 @@ export class WorldView {
   /** Pixels RGBA dos PNGs de chão (por URL) e tiles de recorte suave já compostos (por célula e preset). */
   private pixels = new Map<string, Uint8ClampedArray>();
   private smoothTiles = new Map<string, HTMLCanvasElement | null>();
+  /** Curvas contínuas (camada `curves`): índice por célula e faixas já compostas (por célula e preset). */
+  private curveIdx?: CurveIndex;
+  private curveTiles = new Map<string, HTMLCanvasElement | null>();
   /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
   nightMix = 0;
   /** Estatística do último quadro (culling). */
@@ -166,6 +170,7 @@ export class WorldView {
   invalidateGround(): void {
     this.chunks.clear();
     this.smoothTiles.clear();
+    this.curveTiles.clear();
     this.litTops.clear();
     this.propImages.clear();
     this.trees = undefined;
@@ -532,12 +537,18 @@ export class WorldView {
         const mx = cx * CHUNK_TILES + tx;
         const my = cy * CHUNK_TILES + ty;
         if (mx >= this.map.width || my >= this.map.height) continue;
-        for (const layer of this.map.tileLayers) {
+        this.map.tileLayers.forEach((layer, li) => {
           const key = layer.keys[my * this.map.width + mx];
-          const smooth = key ? this.smoothTile(layer.keys, key, mx, my, set, night) : undefined;
-          if (smooth) g.drawImage(smooth, tx * ts, ty * ts);
+          // célula pintada por uma curva contínua: o chão de baixo no lugar do tile Wang (a faixa vem logo depois)
+          const own = li === 0 ? this.curveOwner(mx, my) : undefined;
+          const smooth = !own && key ? this.smoothTile(layer.keys, key, mx, my, set, night) : undefined;
+          if (own) this.drawTile(g, own.ground[(mx * 7 + my * 3) % own.ground.length], tx * ts, ty * ts, set);
+          else if (smooth) g.drawImage(smooth, tx * ts, ty * ts);
           else if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
-        }
+          // a faixa das curvas fica sobre o chão e sob ground_detail (ponte)
+          const band = li === 0 ? this.curveTile(mx, my, set, night) : undefined;
+          if (band) g.drawImage(band, tx * ts, ty * ts);
+        });
       }
     // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
     const x0 = cx * CHUNK_TILES * ts;
@@ -553,20 +564,71 @@ export class WorldView {
     return c;
   }
 
-  /** Pixels RGBA de um PNG de 1 tile (cache por URL); undefined enquanto a imagem não carregou. */
-  private pixelsOf(url: string | undefined): Uint8ClampedArray | undefined {
+  /**
+   * Pixels RGBA de um PNG de 1 tile (cache por URL e recorte); undefined enquanto a imagem não carregou. `rect`: o
+   * tile é um recorte de uma prancha (ex. o Wang-16 do forest-v7).
+   */
+  private pixelsOf(url: string | undefined, rect?: [number, number, number, number]): Uint8ClampedArray | undefined {
     if (!url) return undefined;
-    const hit = this.pixels.get(url);
+    const id = rect ? `${url}#${rect.join(",")}` : url;
+    const hit = this.pixels.get(id);
     if (hit) return hit;
     const img = this.images.get(url);
     if (!img) return undefined;
     const ts = this.map.tileSize;
     const c = this.makeCanvas(ts, ts);
     const g = c.getContext("2d")!;
-    g.drawImage(img, 0, 0, ts, ts);
+    if (rect) g.drawImage(img, rect[0], rect[1], rect[2], rect[3], 0, 0, ts, ts);
+    else g.drawImage(img, 0, 0, ts, ts);
     const d = g.getImageData(0, 0, ts, ts).data;
-    this.pixels.set(url, d);
+    this.pixels.set(id, d);
     return d;
+  }
+
+  /** Índice das curvas contínuas do mapa (preguiçoso: só mapas com a camada `curves`). */
+  private curveIndex(): CurveIndex | undefined {
+    if (!this.map.curves?.length) return undefined;
+    if (!this.curveIdx) {
+      const keys = this.map.tileLayers[0]?.keys ?? [];
+      this.curveIdx = buildCurveIndex(this.map.curves, this.map.width, this.map.height, this.map.tileSize, (i) => keys[i] ?? "");
+    }
+    return this.curveIdx;
+  }
+
+  /** Curva dona da célula (célula do conjunto pintada por ela), ou undefined. */
+  private curveOwner(mx: number, my: number): MapCurve | undefined {
+    const idx = this.curveIndex();
+    const ci = idx?.owner.get(my * this.map.width + mx);
+    return ci === undefined ? undefined : idx!.curves[ci];
+  }
+
+  /** Faixa das curvas na célula (transparente fora dela), ou undefined se nenhuma curva passa ali. */
+  private curveTile(mx: number, my: number, set: Record<string, TileSource>, night: boolean): HTMLCanvasElement | undefined {
+    const idx = this.curveIndex();
+    if (!idx?.near.has(my * this.map.width + mx)) return undefined;
+    const id = `${mx},${my}|${night ? "n" : "d"}`;
+    const hit = this.curveTiles.get(id);
+    if (hit !== undefined) return hit ?? undefined;
+    const ts = this.map.tileSize;
+    let missing = false;
+    const px = composeCurveOverlay(idx, mx, my, ts, this.map.width, (ci) => {
+      const src = set[idx.curves[ci].fill];
+      const d = this.pixelsOf(src?.url, src?.rect);
+      if (!d) missing = true;
+      return d;
+    });
+    // imagem ainda não carregada: não guarda (tenta de novo no próximo chunk)
+    if (missing) return undefined;
+    let c: HTMLCanvasElement | null = null;
+    if (px) {
+      c = this.makeCanvas(ts, ts);
+      const g = c.getContext("2d")!;
+      const data = g.createImageData(ts, ts);
+      data.data.set(px);
+      g.putImageData(data, 0, 0);
+    }
+    this.curveTiles.set(id, c);
+    return c ?? undefined;
   }
 
   /**
@@ -583,9 +645,9 @@ export class WorldView {
     const H = this.map.height;
     const ts = this.map.tileSize;
     const variant = cfg.ground[(mx * 7 + my * 3) % cfg.ground.length];
-    const full = this.pixelsOf(set[cfg.full]?.url);
-    const ground = this.pixelsOf(set[variant]?.url);
-    const own = cfg.keepOwnDirt ? this.pixelsOf(set[key]?.url) : undefined;
+    const full = this.pixelsOf(set[cfg.full]?.url, set[cfg.full]?.rect);
+    const ground = this.pixelsOf(set[variant]?.url, set[variant]?.rect);
+    const own = cfg.keepOwnDirt ? this.pixelsOf(set[key]?.url, set[key]?.rect) : undefined;
     if (!full || !ground || (cfg.keepOwnDirt && !own)) return undefined;
     const isSet = (x: number, y: number) => {
       if (x < 0 || y < 0 || x >= W || y >= H) {

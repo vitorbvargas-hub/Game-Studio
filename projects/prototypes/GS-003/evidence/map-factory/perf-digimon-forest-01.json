@@ -1,6 +1,6 @@
 {
   "map": "digimon-forest-01",
-  "date": "2026-11-09T17:05:34.739Z",
+  "date": "2026-11-09T20:43:51.188Z",
   "method": {
     "headless": true,
     "note": "Ambiente headless (chrome-headless-shell, --disable-gpu: Canvas 2D rasterizado em software, sem vsync de monitor real). Não é medição de dispositivo de jogador; serve para comparar versões do mapa/renderer na mesma máquina.",
@@ -36,9 +36,9 @@
           56,
           40
         ],
-        "props": 852,
-        "entidades": 34,
-        "selvagens": 31,
+        "props": 642,
+        "entidades": 32,
+        "selvagens": 29,
         "jogadores": 0,
         "canvasPx": [
           1792,
@@ -47,36 +47,36 @@
       },
       "loopWorkMs": {
         "n": 600,
-        "p50": 4,
-        "p95": 5.6,
-        "p99": 6.6,
-        "mean": 4.173,
-        "max": 10.5,
-        "min": 2.6
+        "p50": 3.1,
+        "p95": 3.9,
+        "p99": 4.5,
+        "mean": 3.214,
+        "max": 11.2,
+        "min": 2.1
       },
       "loopIntervalMs": {
         "n": 600,
         "p50": 16.7,
         "p95": 33.4,
         "p99": 33.4,
-        "mean": 24.749,
-        "max": 50.1,
+        "mean": 20.055,
+        "max": 33.5,
         "min": 16.5
       },
-      "fpsAvg": 40.4,
-      "fpsPotentialFromWorkP50": 250,
+      "fpsAvg": 49.9,
+      "fpsPotentialFromWorkP50": 322.6,
       "renderRasterMs": {
         "n": 600,
-        "p50": 15.9,
-        "p95": 20,
-        "p99": 24.8,
-        "mean": 16.431,
-        "max": 33.1,
-        "min": 14
+        "p50": 12.6,
+        "p95": 14,
+        "p99": 15.9,
+        "mean": 12.717,
+        "max": 17.8,
+        "min": 11.5
       },
       "framesOver16_7ms": {
         "loopWork": 0,
-        "renderRaster": 207
+        "renderRaster": 4
       }
     },
     {
@@ -87,9 +87,9 @@
           56,
           40
         ],
-        "props": 852,
-        "entidades": 34,
-        "selvagens": 31,
+        "props": 642,
+        "entidades": 32,
+        "selvagens": 29,
         "jogadores": 0,
         "canvasPx": [
           1792,
@@ -98,36 +98,36 @@
       },
       "loopWorkMs": {
         "n": 600,
-        "p50": 5.8,
-        "p95": 7.7,
-        "p99": 9.4,
-        "mean": 5.951,
-        "max": 15.4,
-        "min": 4.4
+        "p50": 4.7,
+        "p95": 6.2,
+        "p99": 7,
+        "mean": 4.949,
+        "max": 20,
+        "min": 3.9
       },
       "loopIntervalMs": {
         "n": 600,
-        "p50": 33.3,
+        "p50": 16.7,
         "p95": 33.4,
-        "p99": 33.5,
-        "mean": 26.055,
-        "max": 50.1,
+        "p99": 33.4,
+        "mean": 21.055,
+        "max": 50,
         "min": 16.5
       },
-      "fpsAvg": 38.4,
-      "fpsPotentialFromWorkP50": 172.4,
+      "fpsAvg": 47.5,
+      "fpsPotentialFromWorkP50": 212.8,
       "renderRasterMs": {
         "n": 600,
-        "p50": 17.9,
-        "p95": 20.4,
-        "p99": 23.2,
-        "mean": 18.129,
-        "max": 37.1,
-        "min": 15.6
+        "p50": 14.7,
+        "p95": 16.4,
+        "p99": 20.9,
+        "mean": 14.99,
+        "max": 30.6,
+        "min": 13.7
       },
       "framesOver16_7ms": {
-        "loopWork": 0,
-        "renderRaster": 526
+        "loopWork": 3,
+        "renderRaster": 25
       }
     }
   ]

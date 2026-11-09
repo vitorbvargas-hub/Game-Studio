@@ -1,7 +1,7 @@
 {
   "briefVersion": "0.1",
   "id": "digimon-forest-01",
-  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'digimon-forest-01' (schemaVersion 1) com o kit 'forest-v6'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'digimon-forest-01' (schemaVersion 1) com o kit 'forest-v7'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
   "profile": "factory-v1",
   "seed": 20261109,
   "size": {
@@ -17,7 +17,7 @@
     "levelMax": 15,
     "safeZone": false,
     "briefSchema": "game-design/map-brief v1",
-    "kit": "forest-v6"
+    "kit": "forest-v7"
   },
   "pack": {
     "pack": "forest-v4",
@@ -85,6 +85,173 @@
             ]
           }
         }
+      },
+      {
+        "pack": "forest-v7-pixellab",
+        "prefix": "fp7_",
+        "root": "map-factory",
+        "crops": {
+          "wg_c16_2": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_5": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_11": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_3": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_9": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_7": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_15": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_14": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_4": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_12": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_13": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_10": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_0": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_1": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_6": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_8": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              96,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ],
+    "smoothAutotile": [
+      {
+        "prefix": "fp7_wg_c16_",
+        "full": "fp7_wg_c16_15",
+        "outside": "edge",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "threshold": 0.62,
+        "noise": 0.1,
+        "noiseScale": 6
       }
     ]
   },
@@ -109,13 +276,34 @@
       "prefix": "fp4_path_w47_",
       "outside": "clamp",
       "solid": false,
-      "border": "clearing"
+      "border": "clearing",
+      "curve": {
+        "fill": "fp4_path_w47_255",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "edge": "dither"
+      }
     },
     "water": {
-      "autotile": "blob16",
-      "prefix": "fp6_water_blob_",
+      "autotile": "c16",
+      "prefix": "fp7_wg_c16_",
       "outside": "clamp",
-      "solid": true
+      "solid": true,
+      "curve": {
+        "fill": "fp7_wg_c16_15",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "edge": "foam",
+        "foam": "#4fa7b5"
+      }
     }
   },
   "base": "forest",
@@ -154,51 +342,105 @@
       "shape": "river",
       "points": [
         [
-          28.489739331459788,
+          28.5,
           -1.5,
-          1.6182950615650042,
+          1.7696505291755975,
           0
         ],
         [
-          29.56084639517464,
-          1.0666666666666669,
-          1.4640462389448656,
+          28.5,
+          3.5,
+          1.6207646259142572,
           0
         ],
         [
-          27.73448989362847,
-          3.6333333333333337,
-          1.8798546682111918,
+          28.5,
+          6.5,
+          1.355467372258249,
           0
         ],
         [
-          27.31767298327646,
-          6.2,
-          2.042409142019848,
-          0
-        ],
-        [
-          28,
-          7.5,
-          2,
-          1
-        ],
-        [
-          28,
+          28.3,
           9.5,
-          2,
+          1.9,
           1
         ],
         [
-          28,
-          11.5,
-          2,
+          26.5,
+          12.3,
+          1.8479789773532709,
+          0
+        ],
+        [
+          23.5,
+          13.5,
+          1.3946326165704201,
+          0
+        ],
+        [
+          20.5,
+          13.5,
+          1.5565771515070035,
+          0
+        ],
+        [
+          17.7,
+          14.7,
+          2.2983788611381026,
+          0
+        ],
+        [
+          16.5,
+          17.5,
+          2.0045763737150204,
+          0
+        ],
+        [
+          16.5,
+          20.5,
+          1.9,
           1
         ],
         [
-          28.45720782882985,
-          13.9,
-          1.0608957228176297,
+          16.5,
+          23.5,
+          1.9,
+          1
+        ],
+        [
+          16.5,
+          26.5,
+          2.007618878702135,
+          0
+        ],
+        [
+          16.5,
+          29.5,
+          1.5827289283638448,
+          0
+        ],
+        [
+          16.5,
+          32.5,
+          1.4320872347214553,
+          0
+        ],
+        [
+          16.5,
+          35.5,
+          1.9108972179325654,
+          0
+        ],
+        [
+          16.5,
+          38,
+          2.008700894861546,
+          0
+        ],
+        [
+          16.5,
+          41.5,
+          1.3241606925341827,
           0
         ]
       ],
@@ -208,7 +450,10 @@
         0.3,
         1.5
       ],
-      "afterPaths": true
+      "afterPaths": true,
+      "curve": {
+        "pad": 0.5
+      }
     },
     {
       "name": "zona_concentracao",
@@ -310,32 +555,40 @@
           20.5
         ],
         [
-          30.5,
-          20.5
+          29.667787428664152,
+          19.835574857328304
         ],
         [
-          33.166666666666664,
-          21.58423846586801
+          31.5,
+          18.5
         ],
         [
-          35.833333333333336,
-          20.422486106116903
+          33.92264681680495,
+          20.59669147899381
         ],
         [
-          38.5,
-          20.5
+          36.5,
+          22.5
+        ],
+        [
+          38.68104403065995,
+          20.46840671776658
         ],
         [
           41.5,
-          20.616029774792572
+          19.5
+        ],
+        [
+          43.117118879547746,
+          20.324321680678377
         ],
         [
           44.5,
-          20.5
+          21.5
         ],
         [
-          46.5,
-          20.074725374213266
+          46.535667074489275,
+          21.1426682979571
         ],
         [
           48.5,
@@ -346,7 +599,11 @@
         0.73,
         0.89
       ],
-      "meander": 0.3
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
     },
     {
       "name": "rota_secundaria_pedras",
@@ -357,48 +614,52 @@
           33.5
         ],
         [
-          27.67109521147872,
-          32.03099981368436
+          28.200898056745398,
+          33.9977548581365
         ],
         [
-          30.24191337816506,
-          33.360060313822096
+          30.5,
+          35.5
         ],
         [
-          32.5,
-          32.5
+          32.933654755186836,
+          34.81714879944692
         ],
         [
-          35.166666666666664,
-          33.36730951037367
+          33.864407873439,
+          31.87994514349183
         ],
         [
-          37.833333333333336,
-          31.228815746877995
+          36.5,
+          31.5
         ],
         [
-          40.5,
-          32.5
+          39.325552473022846,
+          31.686118817442885
         ],
         [
-          42.674447526977154,
-          30.686118817442885
+          41.5,
+          33.5
+        ],
+        [
+          43.59154649682862,
+          31.591546496828617
         ],
         [
           45.5,
-          30.5
+          29.5
         ],
         [
-          47.13731974524293,
-          27.568659872621463
+          47.3667403162659,
+          27.22004418975954
         ],
         [
           48.5,
           24.5
         ],
         [
-          49.79339225301272,
-          22.64669612650636
+          50.06142984910046,
+          22.78071492455023
         ],
         [
           50.5,
@@ -409,7 +670,11 @@
         0.73,
         0.89
       ],
-      "meander": 0.3
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
     },
     {
       "name": "rota_secundaria_riacho",
@@ -484,7 +749,94 @@
         0.6,
         0.75
       ],
-      "meander": 0.3
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.675,
+        "pad": 0.45
+      }
+    },
+    {
+      "name": "rota_vau_pedras",
+      "terrain": "path",
+      "points": [
+        [
+          20.5,
+          34.5
+        ],
+        [
+          20.65684284193939,
+          32.5
+        ],
+        [
+          20.5,
+          30.5
+        ],
+        [
+          20.47636128282526,
+          28.5
+        ],
+        [
+          20.5,
+          26.5
+        ],
+        [
+          21.170449680197553,
+          24.5
+        ],
+        [
+          20.5,
+          22.5
+        ],
+        [
+          15.5,
+          22.5
+        ],
+        [
+          11.5,
+          21.5
+        ],
+        [
+          11.318536142946233,
+          19.420365964263443
+        ],
+        [
+          10.5,
+          17.5
+        ],
+        [
+          11.493005785948636,
+          15.623251446487158
+        ],
+        [
+          11.5,
+          13.5
+        ],
+        [
+          14.5,
+          10.5
+        ],
+        [
+          19.5,
+          9.5
+        ],
+        [
+          21.54600745626157,
+          9.184029825046284
+        ],
+        [
+          23.5,
+          8.5
+        ]
+      ],
+      "radius": [
+        0.6,
+        0.75
+      ],
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.675,
+        "pad": 0.45
+      }
     },
     {
       "name": "exit-sul-vila-acesso",
@@ -498,21 +850,50 @@
           25.5,
           36.5
         ]
-      ]
+      ],
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
     }
   ],
   "bridges": [
     {
       "name": "poi-ponte-riacho",
       "auto": true,
-      "axis": "h",
+      "axis": "auto",
       "x": 27,
       "y": 9,
       "set": [
         "fp6_bridge_h_0",
         "fp6_bridge_h_1",
         "fp6_bridge_h_2"
-      ]
+      ],
+      "setV": [
+        "fp6_bridge_v_0",
+        "fp6_bridge_v_1",
+        "fp6_bridge_v_2"
+      ],
+      "kind": "bridge",
+      "pad": 1
+    },
+    {
+      "name": "poi-vau-pedras",
+      "auto": true,
+      "axis": "auto",
+      "x": 15,
+      "y": 22,
+      "set": [
+        "fp6_bridge_h_0",
+        "fp6_bridge_h_1",
+        "fp6_bridge_h_2"
+      ],
+      "setV": [
+        "fp6_bridge_v_0",
+        "fp6_bridge_v_1",
+        "fp6_bridge_v_2"
+      ],
+      "kind": "ford"
     }
   ],
   "props": [
@@ -585,7 +966,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 8,
       "offset": [
@@ -605,7 +987,8 @@
         "h": 9
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 1,
       "offset": [
@@ -627,7 +1010,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 13,
       "offset": [
@@ -647,7 +1031,8 @@
         "h": 14
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 2,
       "offset": [
@@ -662,7 +1047,8 @@
       "on": "clearing",
       "keys": [
         "fp4_tall_grass_a",
-        "fp4_tall_grass_b"
+        "fp4_tall_grass_b",
+        "fp7_tall_grass_c"
       ],
       "patches": [
         [
@@ -690,7 +1076,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 8,
       "offset": [
@@ -710,7 +1097,8 @@
         "h": 10
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 2,
       "offset": [
@@ -732,7 +1120,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 5,
       "offset": [
@@ -752,7 +1141,8 @@
         "h": 8
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 1,
       "offset": [
@@ -773,7 +1163,8 @@
       },
       "keys": [
         "fp6_rock_big",
-        "fp4_rock_cluster"
+        "fp4_rock_cluster",
+        "fp7_rock_small_flat"
       ],
       "count": 6,
       "solid": true,
@@ -810,7 +1201,8 @@
       "on": "clearing",
       "keys": [
         "fp4_tall_grass_a",
-        "fp4_tall_grass_b"
+        "fp4_tall_grass_b",
+        "fp7_tall_grass_c"
       ],
       "patches": [
         [
@@ -838,7 +1230,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 7,
       "offset": [
@@ -858,7 +1251,8 @@
         "h": 8
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 3,
       "offset": [
@@ -880,7 +1274,8 @@
       "keys": [
         "fp4_flower_cluster_white",
         "fp4_flower_cluster_red",
-        "fp4_flower_cluster_purple"
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
       ],
       "count": 4,
       "offset": [
@@ -900,7 +1295,8 @@
         "h": 10
       },
       "keys": [
-        "fp4_mushroom_cluster"
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
       ],
       "count": 1,
       "offset": [
@@ -932,12 +1328,13 @@
           "solid": true,
           "force": true,
           "ox": 0,
-          "oy": 0
+          "oy": 0,
+          "openKey": "fp7_chest_open"
         },
         {
           "x": 24,
           "y": 31,
-          "key": "fp6_sign_post",
+          "key": "fp7_sign_post_arrow",
           "solid": true,
           "force": true,
           "ox": 0,
@@ -960,6 +1357,31 @@
           "force": true,
           "ox": 0,
           "oy": 0
+        },
+        {
+          "x": 43,
+          "y": 24,
+          "key": "fp7_npc_ranger",
+          "solid": true,
+          "force": true,
+          "npc": "npc-ranger",
+          "oy": 0
+        },
+        {
+          "x": 25,
+          "y": 22,
+          "key": "fp7_npc_merchant",
+          "solid": true,
+          "force": true,
+          "npc": "npc-merchant",
+          "oy": 0
+        },
+        {
+          "x": 13,
+          "y": 6,
+          "key": "fp7_bush_dense_secret",
+          "solid": false,
+          "force": true
         }
       ]
     }
@@ -979,8 +1401,8 @@
       "name": "spawn-gigimon",
       "x": 22,
       "y": 15,
-      "w": 13,
-      "h": 13,
+      "w": 12,
+      "h": 12,
       "species": [
         "CREATURE-0002"
       ],
@@ -992,8 +1414,8 @@
       "name": "spawn-koromon",
       "x": 22,
       "y": 15,
-      "w": 13,
-      "h": 13,
+      "w": 12,
+      "h": 12,
       "species": [
         "CREATURE-0005"
       ],
@@ -1003,10 +1425,10 @@
     },
     {
       "name": "spawn-tsunomon",
-      "x": 20,
-      "y": 29,
-      "w": 11,
-      "h": 9,
+      "x": 21,
+      "y": 30,
+      "w": 8,
+      "h": 8,
       "species": [
         "CREATURE-0008"
       ],
@@ -1016,9 +1438,9 @@
     },
     {
       "name": "spawn-tanemon",
-      "x": 4,
+      "x": 5,
       "y": 2,
-      "w": 9,
+      "w": 8,
       "h": 8,
       "species": [
         "CREATURE-0116"
@@ -1068,9 +1490,9 @@
     },
     {
       "name": "spawn-dorumon",
-      "x": 40,
+      "x": 41,
       "y": 28,
-      "w": 10,
+      "w": 8,
       "h": 8,
       "species": [
         "CREATURE-0101"
@@ -1091,7 +1513,33 @@
         "role": "guia",
         "aggressive": false,
         "speciesId": "CREATURE-0002",
-        "dialogue": "Diálogo placeholder: dá uma dica sobre as duas rotas até o covil (principal pela clareira, alternativa pelas pedras).",
+        "dialogue": "Diálogo placeholder: dá uma dica sobre as rotas até o covil (principal pela clareira, alternativa pelas pedras, e o vau de pedras do riacho como caminho panorâmico).",
+        "behavior": "static"
+      }
+    },
+    {
+      "name": "npc-ranger",
+      "x": 43,
+      "y": 24,
+      "properties": {
+        "displayName": "Guarda-Florestal",
+        "kind": "tamer",
+        "role": "guarda_rota_alternativa",
+        "aggressive": false,
+        "dialogue": "Diálogo placeholder: alerta sobre o Kuwagamon mais adiante e explica que o Campo de Pedras é a rota mais difícil até o covil.",
+        "behavior": "static"
+      }
+    },
+    {
+      "name": "npc-merchant",
+      "x": 25,
+      "y": 22,
+      "properties": {
+        "displayName": "Comerciante Itinerante",
+        "kind": "tamer",
+        "role": "comerciante",
+        "aggressive": false,
+        "dialogue": "Diálogo placeholder: oferece itens básicos (poções/bits) na Clareira Central, ponto de parada natural entre as 3 rotas.",
         "behavior": "static"
       }
     }
@@ -1104,7 +1552,17 @@
       "kind": "crossing",
       "properties": {
         "title": "Ponte do Riacho",
-        "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. Único ponto de travessia do mapa."
+        "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. 1ª travessia do mapa (inalterada desde o v1)."
+      }
+    },
+    {
+      "name": "poi-vau-pedras",
+      "x": 15,
+      "y": 22,
+      "kind": "crossing",
+      "properties": {
+        "title": "Vau de Pedras",
+        "description": "v2 — NOVA. Fileira de pedras planas que permite cruzar a pé o braço sul do riacho, na Rota do Vau de Pedras. 2ª travessia do mapa, pedida pela correção de 'riacho maior precisa de 2 travessias'. Pode usar `rock_small_flat.png` do forest-v7 como as pedras do vau (decorativo/sólido nas margens, a faixa central de travessia precisa ficar sem colisão — decisão de implementação do game-dev)."
       }
     },
     {
@@ -1114,7 +1572,7 @@
       "kind": "secret_entrance",
       "properties": {
         "title": "Entrada da Clareira Oculta",
-        "description": "Passagem estreita entre rochas e arbustos; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim."
+        "description": "Passagem estreita escondida por um arbusto denso; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim."
       }
     },
     {
@@ -1124,7 +1582,7 @@
       "kind": "arena_entrance",
       "properties": {
         "title": "Entrada do Covil",
-        "description": "Ponto onde as 3 rotas (principal e as 2 secundárias) convergem antes da arena do chefe."
+        "description": "Ponto onde a rota principal e a Rota das Pedras convergem antes da arena do chefe."
       }
     },
     {
@@ -1134,7 +1592,7 @@
       "kind": "viewpoint",
       "properties": {
         "title": "Mirante da Clareira",
-        "description": "Pequena elevação de onde se vê o riacho ao norte e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
+        "description": "Pequena elevação de onde se vê o braço norte do riacho e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
       }
     },
     {
@@ -1157,8 +1615,8 @@
       "properties": {
         "interactable": true,
         "title": "Placa de madeira na entrada sul.",
-        "text": "Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura, mas também chega ao covil.",
-        "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura, mas também chega ao covil.'"
+        "text": "Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura. Rota do Vau, a oeste, é mais longa mas mais calma.",
+        "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura. Rota do Vau, a oeste, é mais longa mas mais calma.'"
       }
     },
     {
@@ -1226,5 +1684,53 @@
   ],
   "organic": {
     "borderJitter": 0.3
-  }
+  },
+  "fordStones": [
+    "fp7_rock_small_flat",
+    "fp6_rock_small"
+  ],
+  "details": [
+    {
+      "x": 51,
+      "y": 20,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 50,
+      "y": 17,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 53,
+      "y": 18,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 53,
+      "y": 16,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 49,
+      "y": 21,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 52,
+      "y": 22,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    }
+  ]
 }

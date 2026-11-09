@@ -33,6 +33,8 @@ export interface TiledObject {
   width?: number;
   height?: number;
   point?: boolean;
+  /** Polilinha (Tiled), relativa a (x, y). Map Factory: curvas contínuas de trilha/riacho. */
+  polyline?: { x: number; y: number }[];
   properties?: TiledProperty[];
 }
 
@@ -57,6 +59,30 @@ export interface MapProp {
   x: number;
   y: number;
   solid: boolean;
+  /** 2º estado do sprite (baú aberto): a UI troca `key` por ele quando o baú da mesma célula é aberto. */
+  openKey?: string;
+}
+
+/**
+ * Curva contínua (camada `curves`, Map Factory R2): trilha ou riacho desenhado como faixa de meia-largura `hw` em
+ * volta da polilinha, por cima do chão. Só apresentação: a colisão continua nas células (chave Wang em `prefix`).
+ */
+export interface MapCurve {
+  name: string;
+  terrain: string;
+  /** Prefixo das chaves das células do conjunto (ex. "fp4_path_w47_"). */
+  prefix: string;
+  /** Textura cheia da faixa e chão (variantes) que fica embaixo nas células do conjunto. */
+  fill: string;
+  ground: string[];
+  edge: "dither" | "foam";
+  foam?: string;
+  z: number;
+  /** Vértices em px e meia-largura em px por vértice. */
+  points: Vec[];
+  hw: number[];
+  /** Vaus: retângulos em px onde a água fica rasa (mais clara). */
+  fords: { x: number; y: number; w: number; h: number }[];
 }
 
 export interface SpawnZone {
@@ -124,6 +150,8 @@ export interface WorldMap {
   npcs?: MapNpc[];
   interactables?: MapInteractable[];
   arenas?: MapArena[];
+  /** Curvas contínuas (trilha/riacho), por z crescente. */
+  curves?: MapCurve[];
   /**
    * Células (1 = sim) alcançáveis andando (4 vizinhos, colisão) a partir dos inícios do mapa. Calculado no
    * carregamento (parseTiledMap); mapas montados em código ganham o cálculo na primeira consulta (reachableOf).
@@ -155,6 +183,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const npcs: MapNpc[] = [];
   const interactables: MapInteractable[] = [];
   const arenas: MapArena[] = [];
+  const curves: MapCurve[] = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
   for (const layer of m.layers) {
@@ -173,7 +202,8 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     for (const o of layer.objects) {
       const cls = o.class ?? o.type ?? "";
       if (cls === "prop") {
-        const p: MapProp = { key: String(prop(o.properties, "key")), x: o.x, y: o.y, solid: prop(o.properties, "solid") === true };
+        const ok = prop(o.properties, "openKey");
+        const p: MapProp = { key: String(prop(o.properties, "key")), x: o.x, y: o.y, solid: prop(o.properties, "solid") === true, ...(ok ? { openKey: String(ok) } : {}) };
         props.push(p);
         if (p.solid) {
           // Área de colisão opcional (casas, postes): solidW × solidH tiles, centrada no pé e subindo a partir dele.
@@ -219,6 +249,25 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
           text: String(prop(o.properties, "text") ?? prop(o.properties, "title") ?? ""),
           pos: { x: toSub(cx), y: toSub(cy) },
         });
+      } else if (cls === "curve" && o.polyline?.length) {
+        const num = (k: string) => String(prop(o.properties, k) ?? "").split(",").filter(Boolean).map(Number);
+        const hw = num("hw");
+        curves.push({
+          name: o.name ?? "",
+          terrain: String(prop(o.properties, "terrain") ?? ""),
+          prefix: String(prop(o.properties, "prefix") ?? ""),
+          fill: String(prop(o.properties, "fill") ?? ""),
+          ground: String(prop(o.properties, "ground") ?? "").split(",").filter(Boolean),
+          edge: prop(o.properties, "edge") === "foam" ? "foam" : "dither",
+          foam: prop(o.properties, "foam") === undefined ? undefined : String(prop(o.properties, "foam")),
+          z: Number(prop(o.properties, "z") ?? 0),
+          points: o.polyline.map((q) => ({ x: o.x + q.x, y: o.y + q.y })),
+          hw: o.polyline.map((_, i) => hw[i] ?? hw[hw.length - 1] ?? tile / 2),
+          fords: String(prop(o.properties, "fords") ?? "").split(";").filter(Boolean).map((r) => {
+            const [x, y, w, h] = r.split(",").map(Number);
+            return { x, y, w, h };
+          }),
+        });
       } else if (cls === "boss_arena") {
         arenas.push({ id: o.name || `arena-${o.id}`, boss: String(prop(o.properties, "boss") ?? ""), x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile });
       } else if (cls === "portal") {
@@ -226,7 +275,8 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
       }
     }
   }
-  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas };
+  curves.sort((a, b) => a.z - b.z);
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}) };
   map.reachable = computeReachable(map);
   return map;
 }

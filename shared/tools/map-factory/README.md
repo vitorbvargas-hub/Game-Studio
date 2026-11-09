@@ -123,3 +123,11 @@ A colisão do validador é a mesma da sim. Há um teste que compara a grade com 
 - **Sem medição de performance (60 fps).** Esse gate do §7 fica para a integração do piloto.
 - **Licença do sprite não é conferida.** O gate de espécies verifica só a existência em `world-species.json`, não a licença em `CREDITS.md`.
 - **Água só em blob-16 e só de dia** (forest-v6). Não tem Wang-47 nem preset noturno.
+
+## Rodada 2 — curvas contínuas e kit forest-v7 (2026-11-09)
+
+- **Kit `forest-v7`** (`world/scripts/map-factory/kits/forest-v7.kit.json`): forest-v6 + pacote do PixelLab `art/map-factory/forest-v7-pixellab/` com prefixo `fp7_` (aditivo). Colisão de cada peça no campo `collision` do kit. O mapa escolhe o kit no `.build.json` (`"kit"`), ou `--kit`.
+- **Trilhas e riacho contínuos:** terreno com `curve: { fill, ground, edge, foam? }` no kit; trilha com `curve: { halfWidth, pad }` e riacho (`shape: "river"`) com `curve: { pad }` no brief v0.1. O gerador escreve a camada de objetos `curves` (polilinha em px + `hw` por vértice, `fill`, `ground`, `prefix`, `edge`, `z`, `fords`); o renderer (`world/src/render/curves.ts`) pinta a faixa por distância à linha central. As células continuam com a chave Wang (colisão e gates).
+- **Autotile `c16`** (Wang de 16 por cantos, bit NW8 NE4 SW2 SE1): chave `<prefixo>c16_<máscara>`, conferida pelo gate `wang`.
+- **Travessias:** `bridges[]` com `auto: true` aceita `axis: "auto"` (perpendicular ao riacho), `pad` (tiles de terra em cada ponta), `setV` (arte da ponte vertical) e `kind: "ford"` (vau: células andáveis + `fordStones` não sólidas + água rasa no renderer).
+- **Adaptador:** zona de água em **polígono** vira riacho pela linha mediana (`polygonCenterline`), de borda a borda; POI não-travessia dentro dele fica seco; `crossingKind` lê vau/ponte do POI; NPC sem `speciesId` ganha corpo do kit (`npcSprites`, prop com `npc` = id); POI `secret_entrance` recebe `secretEntrance`; `openStateAssetRef`/`altAssetRef` do brief → `openKey`/placa com seta; `arenaFloor` vira decalques em `ground_detail`. Raio de spawn agora mede 2r (como a sim).

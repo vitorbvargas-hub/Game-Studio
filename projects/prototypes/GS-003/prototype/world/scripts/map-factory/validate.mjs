@@ -5,7 +5,8 @@
 //   reach       BFS (4 vizinhos) na colisão a partir do início `player` chega a 100% dos inícios, spawns, NPCs,
 //               POIs, portais e arena de chefe
 //   placement   nenhum início, centro de spawn ou NPC em célula bloqueada, sobre portal ou empilhado em outro
-//   wang        máscaras de autotile (`*_w47_<m>` 8 vizinhos, `*_blob_<m>` 4 vizinhos) coerentes com os vizinhos
+//   wang        máscaras de autotile (`*_w47_<m>` 8 vizinhos, `*_blob_<m>` 4 vizinhos, `*_c16_<m>` cantos) coerentes
+//               com os vizinhos
 //   species     espécies dos spawns existem em world-species.json; níveis e contagem válidos
 //   portals     destino (`to`) é um mapa conhecido; `toStart` existe lá, é livre e não cai sobre outro portal
 // Puro: o contexto (espécies, outros mapas, resolvedor de assets) vem de fora (context.mjs).
@@ -51,7 +52,7 @@ const portalHasCell = (p, x, y, T) => {
   return px >= p.x && px < p.x + (p.width ?? T) && py >= p.y && py < p.y + (p.height ?? T);
 };
 
-const AUTOTILE_RE = /^(.*_(w47|blob))_(\d+)$/;
+const AUTOTILE_RE = /^(.*_(w47|blob|c16))_(\d+)$/;
 
 /** Máscara esperada da célula (x,y) para a família, sob uma política de "fora do mapa". */
 function expectedMask(inFam, x, y, W, H, mode, outside) {
@@ -63,6 +64,11 @@ function expectedMask(inFam, x, y, W, H, mode, outside) {
     }
     return inFam(a, b);
   };
+  if (mode === "c16") {
+    // corner16 (Wang por cantos): canto ligado quando as 4 células em volta dele são da família (NW8 NE4 SW2 SE1)
+    const c = (dx, dy) => same(x + dx, y + dy);
+    return (c(-1, -1) && c(0, -1) && c(-1, 0) ? 8 : 0) | (c(1, -1) && c(0, -1) && c(1, 0) ? 4 : 0) | (c(-1, 1) && c(0, 1) && c(-1, 0) ? 2 : 0) | (c(1, 1) && c(0, 1) && c(1, 0) ? 1 : 0);
+  }
   const N = same(x, y - 1);
   const E = same(x + 1, y);
   const S = same(x, y + 1);
@@ -145,6 +151,10 @@ export function validateMap(id, m, ctx = {}) {
       const keys = new Set();
       for (const l of tileLayers) for (const gidv of l.data ?? []) if (gidv && gids.has(gidv)) keys.add(gids.get(gidv).key);
       for (const o of objs) if (o.cls === "prop" && prop(o.properties, "key")) keys.add(String(prop(o.properties, "key")));
+      // 2º estado do prop (baú aberto) e texturas das curvas (faixa cheia + chão embaixo)
+      for (const o of objs) if (o.cls === "prop" && prop(o.properties, "openKey")) keys.add(String(prop(o.properties, "openKey")));
+      for (const o of objs)
+        if (o.cls === "curve") for (const k of [prop(o.properties, "fill"), ...String(prop(o.properties, "ground") ?? "").split(",")]) if (k) keys.add(String(k));
       for (const k of keys) {
         const r = ctx.assets(k);
         if (!r.day) fail(g, `'${k}' sem imagem (placeholder)`);
@@ -178,6 +188,12 @@ export function validateMap(id, m, ctx = {}) {
     }
   }
   const reached = (x, y) => x >= 0 && y >= 0 && x < W && y < H && seen[y * W + x] === 1;
+  // NPC com corpo (prop com `npc` = nome do NPC, ex. o ranger parado do forest-v7): a célula dele é sólida pelo próprio
+  // corpo; vale chegar ao lado (como um POI sólido) e ele não conta como bloqueado por si mesmo
+  const bodyCells = new Map();
+  for (const o of objs) if (o.cls === "prop" && prop(o.properties, "npc")) for (const [x, y] of propSolidCells(o, T)) bodyCells.set(`${x},${y}`, `${prop(o.properties, "npc")}`);
+  const ownBody = (name, x, y) => bodyCells.get(`${x},${y}`) === name;
+  const nearReached = (x, y) => reached(x, y) || [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => reached(x + dx, y + dy));
   const anyReached = (r) => {
     for (let y = r.y0; y <= r.y1; y++) for (let x = r.x0; x <= r.x1; x++) if (reached(x, y)) return true;
     return false;
@@ -202,7 +218,11 @@ export function validateMap(id, m, ctx = {}) {
         if (o.cls === "spawn") {
           const c = spawnCenter(o);
           check("spawn", o.name || `#${o.id}`, reached(c.x, c.y));
-        } else if (o.cls === "npc") check("npc", o.name || `#${o.id}`, reached(Math.floor(o.x / T), Math.floor(o.y / T)));
+        } else if (o.cls === "npc") {
+          const x = Math.floor(o.x / T);
+          const y = Math.floor(o.y / T);
+          check("npc", o.name || `#${o.id}`, ownBody(o.name, x, y) ? nearReached(x, y) : reached(x, y));
+        }
         else if (o.cls === "poi") {
           // POI pode ser um objeto sólido (santuário, baú): vale chegar ao lado dele
           const r = objectCells(o, T);
@@ -224,7 +244,7 @@ export function validateMap(id, m, ctx = {}) {
     const occupied = new Map();
     const blockedBy = (x, y) => (x < 0 || y < 0 || x >= W || y >= H ? "fora do mapa" : solid[y * W + x] ? why.get(y * W + x) : null);
     const place = (kind, label, x, y, { exclusive }) => {
-      const b = blockedBy(x, y);
+      const b = kind === "npc" && ownBody(label, x, y) ? null : blockedBy(x, y);
       if (b) fail(g, `${kind} '${label}' em (${x},${y}) bloqueado por ${b}`);
       const p = portals.find((pp) => portalHasCell(pp, x, y, T));
       if (p) fail(g, `${kind} '${label}' em (${x},${y}) sobre o portal '${p.name}'`);
@@ -270,7 +290,7 @@ export function validateMap(id, m, ctx = {}) {
       keyAt.forEach((k, i) => {
         const r = AUTOTILE_RE.exec(k);
         if (!r) return;
-        if (!fams.has(r[1])) fams.set(r[1], { mode: r[2] === "w47" ? "w47" : "blob16", cells: [] });
+        if (!fams.has(r[1])) fams.set(r[1], { mode: r[2] === "w47" ? "w47" : r[2] === "c16" ? "c16" : "blob16", cells: [] });
         fams.get(r[1]).cells.push([i, Number(r[3])]);
       });
       for (const [fam, f] of fams) {

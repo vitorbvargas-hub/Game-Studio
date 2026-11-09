@@ -2,7 +2,7 @@
 // Uso: npm run map:brief -- <brief.json> [--out <dir>] [--kit <kit>] [--build <x.build.json>] [--no-validate]
 //   Aceita os dois formatos de brief:
 //   - brief do game-design (world-design/map-brief.schema.json, schemaVersion 1): passa antes pelo adaptador
-//     (scripts/map-factory/adapt-brief.mjs) com o kit (--kit, padrão forest-v6 → scripts/map-factory/kits/) e os
+//     (scripts/map-factory/adapt-brief.mjs) com o kit (--kit, senão build.kit, senão forest-v6 → scripts/map-factory/kits/) e os
 //     ajustes de montagem (--build, senão scripts/map-factory/briefs/<id>.build.json se existir). O brief v0.1
 //     resultante fica em scripts/map-factory/briefs/adapted/<id>.brief.json (para revisão e reprodução).
 //   - brief v0.1 do gerador (scripts/map-factory/brief.schema.json): direto.
@@ -23,7 +23,7 @@ const opt = (n) => {
   return i >= 0 ? args.splice(i, 2)[1] : undefined;
 };
 const outArg = opt("--out");
-const kitArg = opt("--kit") ?? "forest-v6";
+const kitOpt = opt("--kit");
 const buildArg = opt("--build");
 const noValidate = args.includes("--no-validate");
 const briefPath = args.find((a) => !a.startsWith("--"));
@@ -34,10 +34,13 @@ if (!briefPath) {
 const readJson = (p) => JSON.parse(readFileSync(p, "utf8"));
 let brief = readJson(resolve(process.cwd(), briefPath));
 if (isDesignBrief(brief)) {
-  const kitPath = kitArg.endsWith(".json") ? resolve(process.cwd(), kitArg) : join(WORLD_DIR, "scripts/map-factory/kits", `${kitArg}.kit.json`);
   const defBuild = join(WORLD_DIR, "scripts/map-factory/briefs", `${brief.id}.build.json`);
   const buildPath = buildArg ? resolve(process.cwd(), buildArg) : existsSync(defBuild) ? defBuild : null;
-  const { brief: adapted, report, warnings } = adaptDesignBrief(brief, readJson(kitPath), buildPath ? readJson(buildPath) : {});
+  const build = buildPath ? readJson(buildPath) : {};
+  // kit: --kit, senão o da montagem (build.kit), senão forest-v6
+  const kitArg = kitOpt ?? build.kit ?? "forest-v6";
+  const kitPath = kitArg.endsWith(".json") ? resolve(process.cwd(), kitArg) : join(WORLD_DIR, "scripts/map-factory/kits", `${kitArg}.kit.json`);
+  const { brief: adapted, report, warnings } = adaptDesignBrief(brief, readJson(kitPath), build);
   console.log(`brief do game-design '${brief.id}' → v0.1 (kit ${kitArg}${buildPath ? `, montagem ${buildPath.replace(WORLD_DIR + "/", "")}` : ""})`);
   for (const r of report) if (!warnings.includes(r)) console.log(`   · ${r}`);
   for (const w of warnings) console.warn(`   ⚠ ${w}`);

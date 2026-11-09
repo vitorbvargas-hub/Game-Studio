@@ -84,8 +84,88 @@ export function paintRiver(water, bank, points, { W, H, noise = 0.3, bankWidth =
   }
 }
 
+/**
+ * Curva contínua (Map Factory R2): amostra a spline Catmull-Rom pelos pontos [x, y, meiaLargura?] a cada `step`
+ * tiles, sem meandro por amostra (a curvatura vem só dos pontos de controle). Devolve [{x, y, hw, s}] (s = distância
+ * acumulada ao longo da curva, em tiles). hw ausente no ponto → `hw` padrão.
+ */
+export function sampleCurve(points, { step = 0.25, hw = 1 } = {}) {
+  const pts = [points[0], ...points, points[points.length - 1]];
+  const out = [];
+  let s = 0;
+  for (let i = 1; i < pts.length - 2; i++) {
+    const n = Math.max(1, Math.ceil(Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) / step));
+    const h0 = pts[i][2] ?? hw;
+    const h1 = pts[i + 1][2] ?? hw;
+    for (let k = i === 1 ? 0 : 1; k <= n; k++) {
+      const t = k / n;
+      const [x, y] = catmull(pts[i - 1], pts[i], pts[i + 1], pts[i + 2], t);
+      // largura: smoothstep entre os pontos (sem quina na emenda)
+      const e = t * t * (3 - 2 * t);
+      const prev = out[out.length - 1];
+      if (prev) s += Math.hypot(x - prev.x, y - prev.y);
+      out.push({ x, y, hw: h0 + (h1 - h0) * e, s });
+    }
+  }
+  return out;
+}
+
+/**
+ * Campo da curva na célula (x, y): para cada célula a até `reach` tiles da curva, a menor folga d − hw (d = distância
+ * do centro da célula ao segmento mais perto, hw interpolada) e o índice da amostra. Map<índice da célula, {f, k}>.
+ */
+export function curveField(samples, { W, H, reach = 3 }) {
+  const field = new Map();
+  for (let k = 0; k < samples.length - 1; k++) {
+    const a = samples[k];
+    const b = samples[k + 1];
+    const r = Math.max(a.hw, b.hw) + reach;
+    for (let y = Math.max(0, Math.floor(Math.min(a.y, b.y) - r)); y <= Math.min(H - 1, Math.floor(Math.max(a.y, b.y) + r)); y++)
+      for (let x = Math.max(0, Math.floor(Math.min(a.x, b.x) - r)); x <= Math.min(W - 1, Math.floor(Math.max(a.x, b.x) + r)); x++) {
+        const px = x + 0.5;
+        const py = y + 0.5;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const l2 = dx * dx + dy * dy || 1;
+        const t = Math.max(0, Math.min(1, ((px - a.x) * dx + (py - a.y) * dy) / l2));
+        const f = Math.hypot(px - a.x - dx * t, py - a.y - dy * t) - (a.hw + (b.hw - a.hw) * t);
+        const i = y * W + x;
+        const cur = field.get(i);
+        if (!cur || f < cur.f) field.set(i, { f, k: t < 0.5 ? k : k + 1 });
+      }
+  }
+  return field;
+}
+
+/** Polilinha da curva para o TMJ: amostras a cada ~`every` tiles (em px), com a meia-largura em px por vértice. */
+export function curvePolyline(samples, T, every = 0.5) {
+  const keep = [];
+  let last = -Infinity;
+  samples.forEach((p, i) => {
+    if (i === 0 || i === samples.length - 1 || p.s - last >= every) {
+      keep.push(p);
+      last = p.s;
+    }
+  });
+  return { points: keep.map((p) => ({ x: +(p.x * T).toFixed(2), y: +(p.y * T).toFixed(2) })), hw: keep.map((p) => +(p.hw * T).toFixed(2)) };
+}
+
+/**
+ * Máscara de canto (corner16, Wang de 16 por cantos, ex. água/grama do forest-v7): bit NW8 NE4 SW2 SE1, ligado quando
+ * as 4 células em volta daquele canto são do terreno (a água encolhe meio tile por dentro da colisão, nunca vaza).
+ */
+export function cornerMask(same, x, y) {
+  const c = (dx, dy) => same(x + dx, y + dy);
+  const nw = c(-1, -1) && c(0, -1) && c(-1, 0);
+  const ne = c(1, -1) && c(0, -1) && c(1, 0);
+  const sw = c(-1, 1) && c(0, 1) && c(-1, 0);
+  const se = c(1, 1) && c(0, 1) && c(1, 0);
+  return (nw ? 8 : 0) | (ne ? 4 : 0) | (sw ? 2 : 0) | (se ? 1 : 0);
+}
+
 /** Máscara de autotile: w47 = 8 vizinhos com diagonal normalizada (N1 E2 S4 W8 NE16 SE32 SW64 NW128); blob16 = 4. */
 export function autotileMask(same, x, y, mode) {
+  if (mode === "c16") return cornerMask(same, x, y);
   const N = same(x, y - 1);
   const E = same(x + 1, y);
   const S = same(x, y + 1);
@@ -167,7 +247,8 @@ export function checkBrief(b) {
   }
   for (const [n, t] of Object.entries(b.terrains)) {
     req(t.autotile ? typeof t.prefix === "string" : Array.isArray(t.variants) && t.variants.length > 0, `terreno '${n}': autotile+prefix ou variants`);
-    req(!t.autotile || ["w47", "blob16"].includes(t.autotile), `terreno '${n}': autotile deve ser w47 ou blob16`);
+    req(!t.autotile || ["w47", "blob16", "c16"].includes(t.autotile), `terreno '${n}': autotile deve ser w47, blob16 ou c16`);
+    req(!t.curve || (typeof t.curve.fill === "string" && Array.isArray(t.curve.ground)), `terreno '${n}': curve precisa de fill e ground`);
   }
   req(b.starts?.player, "starts.player obrigatório");
 }
@@ -197,8 +278,36 @@ export function generateFromBrief(b) {
   const seed0 = (b.seed ?? 1) >>> 0;
   // áreas com afterPaths (água) são pintadas depois das trilhas: a trilha não atravessa a água (só a ponte)
   const rivers = [];
+  /** Curvas contínuas (riacho/trilha com curve): vão para a camada `curves` e o renderer desenha a faixa por cima. */
+  const curves = [];
   const paintArea = (a) => {
-    if (a.shape === "rect")
+    if (a.shape === "river" && a.curve) {
+      // riacho contínuo: água = células com o centro a até hw + pad da linha central (a faixa desenhada tem hw: no
+      // máximo ~0,2 tile dela vaza para a célula vizinha, que o renderer cobre); margem = anel de largura variável
+      const pad = a.curve.pad ?? 0.5;
+      const bw0 = a.bankWidth ?? [0.4, 1.4];
+      const s = sampleCurve(a.points, { step: 0.25 });
+      const fld = curveField(s, { W, H, reach: pad + bw0[1] + 1 });
+      const r = mulberry(seed0 ^ strHash(a.name ?? "river"));
+      const ph = Array.from({ length: 4 }, () => r() * Math.PI * 2);
+      const ws = new Set();
+      const bs = new Set();
+      for (const [i, { f, k }] of fld) {
+        if (f <= pad) {
+          ws.add(i);
+          continue;
+        }
+        const p = s[k];
+        const q = s[Math.min(s.length - 1, k + 1)] === p ? s[k - 1] : s[Math.min(s.length - 1, k + 1)];
+        const side = (q.x - p.x) * ((Math.floor(i / W) + 0.5) - p.y) - (q.y - p.y) * ((i % W) + 0.5 - p.x) > 0 ? 0 : 2;
+        const bw = bw0[0] + (bw0[1] - bw0[0]) * (0.5 + 0.5 * Math.sin(p.s * 0.47 + ph[side]) * (0.7 + 0.3 * Math.sin(p.s * 1.3 + ph[side + 1])));
+        if (f <= pad + bw) bs.add(i);
+      }
+      if (a.bank) for (const i of bs) if (kind[i] === b.base) kind[i] = a.bank;
+      for (const i of ws) kind[i] = a.terrain;
+      curves.push({ name: a.name ?? "river", terrain: a.terrain, samples: s, z: 1 });
+      rivers.push({ name: a.name, cells: ws.size, curve: true });
+    } else if (a.shape === "rect")
       for (let y = Math.max(0, a.y); y < Math.min(H, a.y + a.h); y++) for (let x = Math.max(0, a.x); x < Math.min(W, a.x + a.w); x++) kind[at(x, y)] = a.terrain;
     else if (a.shape === "river") {
       // riacho em spline: água + margem (só sobre o terreno base: não apaga trilha nem clareira)
@@ -236,13 +345,22 @@ export function generateFromBrief(b) {
   (b.paths ?? []).forEach((p, pi) => {
     const set = pathCells.get(p.terrain) ?? new Set();
     const ends = new Set();
-    paintSpline(set, p.points, { W, H, radius: p.radius, meander: p.meander, phase: pi });
+    if (p.curve) {
+      // trilha contínua de largura constante: células andadas = centro a até hw + pad da spline (sem meandro por
+      // amostra nem limpeza de borda: a forma vem da curva, não da grade)
+      const hw = p.curve.halfWidth ?? ((p.radius?.[0] ?? 0.73) + (p.radius?.[1] ?? 0.89)) / 2;
+      const s = sampleCurve(p.points.map((q) => [q[0], q[1], hw]), { hw });
+      for (const [i, { f }] of curveField(s, { W, H, reach: 1 })) if (f <= (p.curve.pad ?? 0.45)) set.add(i);
+      curves.push({ name: p.name ?? `path-${pi}`, terrain: p.terrain, samples: s, z: 0 });
+      set.curves = (set.curves ?? 0) + 1;
+    } else paintSpline(set, p.points, { W, H, radius: p.radius, meander: p.meander, phase: pi });
+    set.count = (set.count ?? 0) + 1;
     for (const [x, y] of [p.points[0], p.points[p.points.length - 1]]) ends.add(at(Math.min(W - 1, Math.max(0, Math.floor(x))), Math.min(H - 1, Math.max(0, Math.floor(y)))));
     pathCells.set(p.terrain, set);
     set.ends = new Set([...(set.ends ?? []), ...ends]);
   });
   for (const [terrain, set] of pathCells) {
-    if (b.terrains[terrain].cleanEdges !== false) cleanPath(set, set.ends, W, H);
+    if (b.terrains[terrain].cleanEdges !== false && set.curves !== set.count) cleanPath(set, set.ends, W, H);
     // ao longo da trilha, o terreno base recua (dá para andar ao lado dela)
     const border = b.terrains[terrain].border;
     // organic.borderJitter: onde o ruído suave passa do limiar a mata recua 2 tiles em vez de 1 (borda irregular)
@@ -261,10 +379,27 @@ export function generateFromBrief(b) {
   // pontes: células andáveis por cima de um terreno sólido (água); o chão mantém a chave do terreno (autotile
   // intacto) com solid=false e a arte da ponte vai na camada ground_detail
   // auto: a ponte cobre a faixa contínua de água da linha (h) / coluna (v) que passa pelo ponto de travessia
+  // kind "ford" (vau): mesma faixa, sem arte de ponte; as células ficam andáveis e ganham pedras (fordStones).
+  // axis "auto": perpendicular ao riacho contínuo mais perto. pad: a ponte avança N tiles de terra em cada ponta.
+  const fords = [];
   const bridges = (b.bridges ?? []).map((br) => {
     if (!br.auto) return br;
     const over = br.over ?? "water";
-    const h = (br.axis ?? "h") === "h";
+    let axis = br.axis ?? "h";
+    if (axis === "auto") {
+      let best;
+      for (const c of curves)
+        if (c.terrain === over)
+          c.samples.forEach((p, k) => {
+            const d = Math.hypot(p.x - br.x - 0.5, p.y - br.y - 0.5);
+            if (!best || d < best.d) best = { d, c, k };
+          });
+      const ss = best?.c.samples;
+      const a = ss && ss[Math.max(0, best.k - 2)];
+      const z = ss && ss[Math.min(ss.length - 1, best.k + 2)];
+      axis = a && Math.abs(z.x - a.x) >= Math.abs(z.y - a.y) ? "v" : "h";
+    }
+    const h = axis === "h";
     const n = h ? W : H;
     const isW = (i) => (h ? inside(i, br.y) && kind[at(i, br.y)] === over : inside(br.x, i) && kind[at(br.x, i)] === over);
     let c = h ? br.x : br.y;
@@ -277,10 +412,17 @@ export function generateFromBrief(b) {
     let i1 = c;
     while (isW(i0 - 1)) i0--;
     while (isW(i1 + 1)) i1++;
+    const pad = br.pad ?? 0;
+    i0 = Math.max(0, i0 - pad);
+    i1 = Math.min(n - 1, i1 + pad);
     const len = i1 - i0 + 1;
-    const set = br.set ?? [];
+    const set = br.kind === "ford" ? [] : (h ? br.set : br.setV ?? br.set) ?? [];
     const det = Array.from({ length: len }, (_, i) => (i === 0 ? set[0] : i === len - 1 ? set[2] : set[1]));
-    return h ? { name: br.name, x: i0, y: br.y, w: len, h: 1, detail: det } : { name: br.name, x: br.x, y: i0, w: 1, h: len, detail: det };
+    const out = h ? { name: br.name, x: i0, y: br.y, w: len, h: 1, detail: det } : { name: br.name, x: br.x, y: i0, w: 1, h: len, detail: det };
+    out.kind = br.kind ?? "bridge";
+    out.over = over;
+    if (out.kind === "ford") fords.push(out);
+    return out;
   });
   const walkable = new Set();
   const detail = new Array(W * H).fill("");
@@ -293,7 +435,8 @@ export function generateFromBrief(b) {
         if (br.detail?.[k]) detail[at(x, y)] = br.detail[k];
       }
   }
-  for (const d of b.details ?? []) if (inside(d.x, d.y)) detail[at(d.x, d.y)] = d.key;
+  // avoidPath: decalque que não vai sobre trilha nem água (ex. o chão da arena, com moldura de grama)
+  for (const d of b.details ?? []) if (inside(d.x, d.y) && !(d.avoidPath && ([...pathCells.values()].some((ps) => ps.has(at(d.x, d.y))) || walkable.has(at(d.x, d.y)) || kind[at(d.x, d.y)] !== (d.on ?? kind[at(d.x, d.y)])))) detail[at(d.x, d.y)] = d.key;
   const kAt = (x, y) => (inside(x, y) ? kind[at(x, y)] : b.base);
   const nearOther = (x, y, r, t) => {
     for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (kAt(x + dx, y + dy) !== t) return true;
@@ -368,6 +511,9 @@ export function generateFromBrief(b) {
         { name: "key", type: "string", value: key },
         { name: "solid", type: "bool", value: !!solid },
         ...(extra.solidW ? [{ name: "solidW", type: "int", value: extra.solidW }, { name: "solidH", type: "int", value: extra.solidH ?? 1 }] : []),
+        // openKey: sprite do 2º estado (baú aberto); npc: o prop é o corpo daquele NPC (o gate aceita o NPC sobre ele)
+        ...(extra.openKey ? [{ name: "openKey", type: "string", value: extra.openKey }] : []),
+        ...(extra.npc ? [{ name: "npc", type: "string", value: extra.npc }] : []),
       ],
     });
     return true;
@@ -425,6 +571,11 @@ export function generateFromBrief(b) {
       for (const p of r.at) addProp(p.key ?? pick(keysOf(r)), p.x * T + T / 2 + (p.ox ?? 0), (p.y + 1) * T + (p.oy ?? 0), p.solid ?? !!r.solid, { ...r, ...p });
     } else throw new Error(`brief inválido: props.kind '${r.kind}'`);
   }
+  // pedras do vau: uma por célula de água da travessia, alternando o lado (decoração, não sólida)
+  for (const f of fords)
+    for (let y = f.y, k = 0; y < f.y + f.h; y++)
+      for (let x = f.x; x < f.x + f.w; x++, k++)
+        if (inside(x, y) && kind[at(x, y)] === f.over && b.fordStones?.length) addProp(b.fordStones[k % b.fordStones.length], x * T + (k % 2 ? 11 : 21), y * T + (k % 2 ? 14 : 26), false, { force: true });
 
   // ---- camadas de objetos de jogo ----
   const P = (props2) => Object.entries(props2 ?? {}).map(([name, value]) => ({ name, type: typeof value === "number" ? (Number.isInteger(value) ? "int" : "float") : typeof value === "boolean" ? "bool" : "string", value }));
@@ -437,6 +588,17 @@ export function generateFromBrief(b) {
   const poiObjs = (b.pois ?? []).map((p) => (p.w || p.h ? rect(p, "poi", { kind: p.kind ?? "poi", ...(p.properties ?? {}) }) : { id: oid++, name: p.name, type: "poi", x: center(p.x), y: center(p.y), point: true, properties: P({ kind: p.kind ?? "poi", ...(p.properties ?? {}) }) }));
   if (b.bossArena) poiObjs.push(rect(b.bossArena, "boss_arena", { boss: b.bossArena.boss ?? "", ...(b.bossArena.properties ?? {}) }));
   const collisionObjs = (b.collision ?? []).map((c) => rect(c, "collision", {}));
+  // curvas: polilinha em px + o que o renderer precisa (conjunto, textura cheia, chão embaixo, borda, vaus)
+  const curveObjs = curves.map((c) => {
+    const t = b.terrains[c.terrain];
+    if (!t.curve) throw new Error(`brief inválido: terreno '${c.terrain}' sem curve (fill/ground) para a curva '${c.name}'`);
+    const pl = curvePolyline(c.samples, T);
+    const fr = fords.filter((f) => f.over === c.terrain).map((f) => [f.x * T, f.y * T, f.w * T, f.h * T].join(",")).join(";");
+    return {
+      id: oid++, name: c.name, type: "curve", x: 0, y: 0, polyline: pl.points,
+      properties: P({ terrain: c.terrain, prefix: t.prefix ?? "", fill: t.curve.fill, ground: t.curve.ground.join(","), edge: t.curve.edge ?? "dither", ...(t.curve.foam ? { foam: t.curve.foam } : {}), z: c.z, hw: pl.hw.join(","), ...(fr ? { fords: fr } : {}) }),
+    };
+  });
 
   const profile = b.profile ?? "factory-v1";
   const layers =
@@ -452,6 +614,7 @@ export function generateFromBrief(b) {
           { type: "objectgroup", name: "objects_below", objects: props },
           { type: "objectgroup", name: "objects_above", objects: [] },
           { type: "objectgroup", name: "collision", objects: collisionObjs },
+          ...(curveObjs.length ? [{ type: "objectgroup", name: "curves", objects: curveObjs }] : []),
           { type: "objectgroup", name: "spawns", objects: [...startsObjs, ...spawnObjs] },
           { type: "objectgroup", name: "npcs", objects: npcObjs },
           { type: "objectgroup", name: "triggers", objects: [...portalObjs, ...triggerObjs] },
@@ -473,15 +636,16 @@ export function generateFromBrief(b) {
       props: props.length,
       terrain: Object.fromEntries(Object.keys(b.terrains).map((t) => [t, count(t)])),
       tiles: TILES.length,
-      bridges: bridges.map(({ name, x, y, w, h }) => ({ name, x, y, w, h })),
+      bridges: bridges.map(({ name, x, y, w, h, kind: k }) => ({ name, x, y, w, h, kind: k ?? "bridge" })),
       rivers,
+      curves: curves.length,
     },
   };
 }
 
 /** Aliases do mapa (<id>.aliases.json): base copiada de outro mapa + pack/prefix/night do brief + _doc. */
 export function aliasesFor(b, baseAliases) {
-  const { pack, prefix, night, extraPacks } = b.pack ?? {};
+  const { pack, prefix, night, extraPacks, smoothAutotile } = b.pack ?? {};
   return {
     ...(baseAliases ?? {}),
     _doc: `Mapa ${b.id} (gerado de brief por gen-map-from-brief.mjs) → pacote GAME-ASSETS/03-environments/${pack ?? baseAliases?.pack}/. Chave '${prefix ?? baseAliases?.prefix}<nome>' = PNG <nome> do pacote.${baseAliases ? " Demais campos copiados do mapa base." : ""}`,
@@ -489,5 +653,7 @@ export function aliasesFor(b, baseAliases) {
     ...(prefix ? { prefix } : {}),
     ...(night ? { night } : {}),
     ...(extraPacks?.length ? { extraPacks } : {}),
+    // recortes suaves extras do kit (ex. a água corner16 do forest-v7) somam aos do mapa base
+    ...(smoothAutotile?.length ? { smoothAutotile: [...(baseAliases?.smoothAutotile ?? []).filter((s) => !smoothAutotile.some((x) => x.prefix === s.prefix)), ...smoothAutotile] } : {}),
   };
 }

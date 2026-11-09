@@ -1,11 +1,104 @@
 {
-  "_doc": "Ajustes de montagem (game-dev) do piloto digimon-forest-01 sobre o brief do game-design (world-design/briefs/digimon-forest-01.json). Só o que o brief não resolve sozinho; cada ajuste tem o motivo.",
+  "_doc": "Ajustes de montagem (game-dev) do digimon-forest-01 sobre o brief do game-design (world-design/briefs/digimon-forest-01.json; v2 desde 2026-11-09, histórico em digimon-forest-01.v1.json). Só o que o brief não resolve sozinho; cada ajuste tem o motivo.",
+  "kit": "forest-v7",
+  "_kitDoc": "forest-v7 (R2): trilhas e riacho contínuos, água Wang-16 do PixelLab, vau, NPCs humanos, baú com 2º estado, arbusto da entrada secreta, chão da arena.",
   "seed": 20261109,
   "routes": {
     "rota_secundaria_riacho": {
-      "reason": "no brief a rota sobe por x=27, dentro do riacho (zona de água x 26..29): sobe pela margem leste (x=33, fora do meandro do riacho, que chega a x=30), atravessa reto na ponte (27,9) e segue pela margem oeste até a Clareira Oculta",
+      "reason": "no brief (v1 e v2) a rota sobe por x=27, dentro do braço norte do riacho (polígono x26..30): sobe pela margem leste (x=33, fora da faixa do riacho, que chega a x≈30,5 na curva), atravessa reto na ponte (27,9) e segue pela margem oeste até a Clareira Oculta",
       "widthTiles": 1.5,
-      "waypoints": [[32, 19], [33, 15], [33, 11], [31, 9], [25, 9], [23, 8], [20, 5], [16, 5], [12, 6], [8, 6]]
+      "waypoints": [
+        [
+          32,
+          19
+        ],
+        [
+          33,
+          15
+        ],
+        [
+          33,
+          11
+        ],
+        [
+          31,
+          9
+        ],
+        [
+          25,
+          9
+        ],
+        [
+          23,
+          8
+        ],
+        [
+          20,
+          5
+        ],
+        [
+          16,
+          5
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ]
+    },
+    "rota_vau_pedras": {
+      "reason": "brief v2: os waypoints (17,30)→(15,25)→(14,20)→(15,16) caem dentro do braço sul do riacho (polígono x14..18) e as duas pontas (Entrada Sul e Clareira Central) ficam do MESMO lado (leste) do riacho, então um vau no meio não liga uma à outra. O riacho em Z divide o mapa em leste/oeste; aqui a rota sobe pela margem leste (x=20), atravessa o vau em (15,22) para a margem oeste, sobe por ela (x≈10-11) até o norte da curva e entra na Rota do Riacho em (23,8), voltando à Clareira Central pela ponte (27,9): mais longa e mais calma, como diz a placa da entrada. A ligar com o game-design se a intenção era outra.",
+      "widthTiles": 1.5,
+      "waypoints": [
+        [
+          20,
+          34
+        ],
+        [
+          20,
+          30
+        ],
+        [
+          20,
+          26
+        ],
+        [
+          20,
+          22
+        ],
+        [
+          15,
+          22
+        ],
+        [
+          11,
+          21
+        ],
+        [
+          10,
+          17
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          19,
+          9
+        ],
+        [
+          23,
+          8
+        ]
+      ]
     }
   }
 }

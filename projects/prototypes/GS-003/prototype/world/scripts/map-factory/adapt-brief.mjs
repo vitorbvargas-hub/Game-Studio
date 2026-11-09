@@ -136,6 +136,141 @@ export function riverPoints(r, crossings, rng, o, { W, H }, dry = []) {
   return all.map(([a, lat, hw, fixed]) => (vertical ? [c + lat, a, hw, fixed] : [a, c + lat, hw, fixed]));
 }
 
+/** Ponto (x, y) dentro do polígono (par-ímpar). */
+export function inPolygon(pts, x, y) {
+  let ins = false;
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const [xi, yi] = pts[i];
+    const [xj, yj] = pts[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) ins = !ins;
+  }
+  return ins;
+}
+
+/**
+ * Linha central de uma zona de água em polígono (riacho em L/Z do brief v2): células cujo centro cai no polígono,
+ * distância até a borda dele, as duas pontas (trechos do polígono que tocam a borda do mapa; senão as duas células
+ * mais distantes) e o caminho mais barato entre elas, com custo alto longe do eixo (segue o meio do corredor) e perto
+ * de POIs que precisam ficar secos. Devolve pontos [x, y, distânciaDaBorda] a cada ~`step` tiles, suavizados, com as
+ * pontas estendidas 1,5 tile para fora do mapa quando tocam a borda.
+ */
+export function polygonCenterline(poly, { W, H }, { step = 2.5, dry = [] } = {}) {
+  const inside = new Uint8Array(W * H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (inPolygon(poly, x + 0.5, y + 0.5)) inside[y * W + x] = 1;
+  // distância (4 vizinhos) até a célula de fora mais perto; a borda do mapa não conta como fora (o riacho sai por ela)
+  const dist = new Float32Array(W * H).fill(Infinity);
+  const q = [];
+  for (let i = 0; i < W * H; i++) if (!inside[i]) (dist[i] = 0), q.push(i);
+  for (let h = 0; h < q.length; h++) {
+    const x = q[h] % W;
+    const y = Math.floor(q[h] / W);
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H || dist[ny * W + nx] <= dist[q[h]] + 1) continue;
+      dist[ny * W + nx] = dist[q[h]] + 1;
+      q.push(ny * W + nx);
+    }
+  }
+  // pontas: trechos do polígono em cada borda do mapa (centro do trecho)
+  const ends = [];
+  const runs = (cells, edge) => {
+    let run = [];
+    for (const c of [...cells, null]) {
+      if (c !== null && inside[c[1] * W + c[0]]) run.push(c);
+      else if (run.length) {
+        const m = run[Math.floor(run.length / 2)];
+        ends.push({ x: m[0], y: m[1], edge, n: run.length });
+        run = [];
+      }
+    }
+  };
+  runs(Array.from({ length: W }, (_, x) => [x, 0]), "n");
+  runs(Array.from({ length: W }, (_, x) => [x, H - 1]), "s");
+  runs(Array.from({ length: H }, (_, y) => [0, y]), "w");
+  runs(Array.from({ length: H }, (_, y) => [W - 1, y]), "e");
+  ends.sort((a, b) => b.n - a.n);
+  const cellsIn = [];
+  for (let i = 0; i < W * H; i++) if (inside[i]) cellsIn.push(i);
+  if (!cellsIn.length) return [];
+  const penal = (x, y) => dry.reduce((a, [px, py]) => a + Math.max(0, 4 - Math.hypot(x - px, y - py)) * 6, 0);
+  // Dijkstra (8 vizinhos) dentro do polígono
+  const path = (a) => {
+    const cost = new Float64Array(W * H).fill(Infinity);
+    const prev = new Int32Array(W * H).fill(-1);
+    const open = [[0, a]];
+    cost[a] = 0;
+    while (open.length) {
+      let bi = 0;
+      for (let i = 1; i < open.length; i++) if (open[i][0] < open[bi][0]) bi = i;
+      const [c, i] = open.splice(bi, 1)[0];
+      if (c > cost[i]) continue;
+      const x = i % W;
+      const y = Math.floor(i / W);
+      for (let dy = -1; dy <= 1; dy++)
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx;
+          const ny = y + dy;
+          if ((!dx && !dy) || nx < 0 || ny < 0 || nx >= W || ny >= H || !inside[ny * W + nx]) continue;
+          const j = ny * W + nx;
+          const nc = c + Math.hypot(dx, dy) * (1 + 8 / (dist[j] * dist[j]) + penal(nx, ny));
+          if (nc < cost[j]) {
+            cost[j] = nc;
+            prev[j] = i;
+            open.push([nc, j]);
+          }
+        }
+    }
+    return { cost, prev };
+  };
+  let A;
+  let B;
+  if (ends.length >= 2) {
+    A = ends[0].y * W + ends[0].x;
+    B = ends[1].y * W + ends[1].x;
+  } else {
+    // sem duas bordas: as duas células mais distantes (duas varreduras)
+    const far = (from) => {
+      const { cost } = path(from);
+      return cellsIn.reduce((m, i) => (cost[i] < Infinity && cost[i] > cost[m] ? i : m), from);
+    };
+    A = ends.length ? ends[0].y * W + ends[0].x : far(cellsIn[0]);
+    B = far(A);
+  }
+  const { prev } = path(A);
+  const cells = [];
+  for (let i = B; i !== -1; i = prev[i]) cells.push([(i % W) + 0.5, Math.floor(i / W) + 0.5, dist[i]]);
+  cells.reverse();
+  // suaviza (média móvel de 5) e reamostra a cada ~step tiles
+  const sm = cells.map((_, k) => {
+    const win = cells.slice(Math.max(0, k - 2), k + 3);
+    return [0, 1, 2].map((d) => win.reduce((a, p) => a + p[d], 0) / win.length);
+  });
+  sm[0] = cells[0];
+  sm[sm.length - 1] = cells[cells.length - 1];
+  const out = [sm[0]];
+  let acc = 0;
+  for (let k = 1; k < sm.length; k++) {
+    acc += Math.hypot(sm[k][0] - sm[k - 1][0], sm[k][1] - sm[k - 1][1]);
+    if (acc >= step || k === sm.length - 1) {
+      out.push(sm[k]);
+      acc = 0;
+    }
+  }
+  // pontas na borda do mapa: estende 1,5 tile para fora (a água sai do mapa, não termina na última linha)
+  const ext = (p) => {
+    const o = [...p];
+    if (p[1] < 1) o[1] = -1.5;
+    else if (p[1] > H - 1) o[1] = H + 1.5;
+    else if (p[0] < 1) o[0] = -1.5;
+    else if (p[0] > W - 1) o[0] = W + 1.5;
+    return o;
+  };
+  out[0] = ext(out[0]);
+  out[out.length - 1] = ext(out[out.length - 1]);
+  return out;
+}
+
 /** Hash FNV-1a de 32 bits (semente padrão a partir do id). */
 export function hashSeed(s) {
   let h = 0x811c9dc5;
@@ -177,6 +312,32 @@ export function signText(it) {
   return m ? m[1] : it.description;
 }
 
+/** Meia-largura (tiles) da trilha contínua para a largura da rota: a faixa desenhada fica com ~90% da largura pedida. */
+export function halfWidthFor(widthTiles) {
+  return Math.max(0.6, (widthTiles ?? 2) * 0.45);
+}
+
+/** Travessia da POI crossing: "ford" (vau) quando o brief pede (subtype/crossingType/kind ou nome com vau/ford). */
+export function crossingKind(p, fallback = "bridge") {
+  const t = String(p.crossingType ?? p.subtype ?? p.kind ?? "").toLowerCase();
+  if (/ford|vau/.test(t)) return "ford";
+  if (/bridge|ponte/.test(t)) return "bridge";
+  return /\bvau\b|ford/i.test(`${p.id} ${p.name ?? ""}`) ? "ford" : fallback;
+}
+
+/** Sprite do NPC humano (sem speciesId) pelo kit.npcSprites: ranger, comerciante ou ranger como padrão. */
+export function npcSpriteOf(n, kit) {
+  const s = kit.npcSprites;
+  if (!s || n.speciesId) return null;
+  if (n.sprite && s[n.sprite]) return s[n.sprite];
+  // assetRef do brief v2 (art/map-factory/forest-v7-pixellab/props/npc_<x>.png) manda, se o kit tiver a peça
+  const ref = /npc_([a-z]+)\.png$/i.exec(n.assetRef ?? "")?.[1];
+  if (ref && s[ref]) return s[ref];
+  const t = `${n.role ?? ""} ${n.kind ?? ""} ${n.id ?? ""} ${n.name ?? ""}`.toLowerCase();
+  if (/merchant|comerci|vend|loja|mercad/.test(t)) return s.merchant;
+  return s.ranger ?? null;
+}
+
 /** Raio da spline do gerador para a largura em tiles da rota. */
 export function radiusFor(widthTiles) {
   if (!widthTiles || widthTiles >= 1.9 && widthTiles <= 2.1) return DEFAULT_RADIUS;
@@ -216,6 +377,8 @@ export function adaptDesignBrief(gd, kit, build = {}) {
 
   // ---- zonas → áreas ----
   const org = organicOf(kit, build);
+  // curvas contínuas (kit.curves): trilhas e riacho viram faixas de largura constante; build.curves = false desliga
+  const cv = build.curves === false ? null : kit.curves ?? null;
   const seed = build.seed ?? hashSeed(gd.id);
   const areas = [];
   const water = [];
@@ -225,11 +388,45 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     if (terrain === undefined) report.push(`zona '${z.id}': tipo '${z.type}' sem terreno no kit (fica ${kit.base})`);
     if (!terrain) continue;
     if (terrain === "water") {
-      water.push({ z, r });
+      water.push({ z, r, poly: z.shape === "polygon" && !build.water?.[z.id]?.rect ? z.polygon?.points : null });
       const long = Math.max(r.w, r.h);
       const short = Math.min(r.w, r.h);
       if (!org) areas.push({ name: z.id, terrain, shape: "rect", x: r.x, y: r.y, w: r.w, h: r.h, afterPaths: true });
-      else if (long >= 2 * short) {
+      else if (water[water.length - 1].poly) {
+        // riacho em polígono (L/Z): linha mediana do corredor, meia-largura = metade da largura local do corredor
+        // (varia ~±20%), trecho reto e largura exata em volta de cada travessia, POIs não-travessia ficam secos
+        const poly = z.polygon.points;
+        const inPoly = (p) => inPolygon(poly, p.position[0] + 0.5, p.position[1] + 0.5);
+        const dryPois = (gd.pois ?? []).filter((p) => p.type !== "crossing" && inPoly(p)).map((p) => [p.position[0] + 0.5, p.position[1] + 0.5, p.id]);
+        const cross = (gd.pois ?? []).filter((p) => p.type === "crossing" && inPoly(p)).map((p) => [p.position[0] + 0.5, p.position[1] + 0.5]);
+        const line = polygonCenterline(poly, { W, H }, { step: org.river.step, dry: dryPois });
+        const rr = mulberry(seed ^ hashSeed(`river:${z.id}`));
+        const ph = rr() * Math.PI * 2;
+        let s = 0;
+        const points = line.map((p, k) => {
+          if (k) s += Math.hypot(p[0] - line[k - 1][0], p[1] - line[k - 1][1]);
+          const half = Math.max(1.2, Math.min(2.2, p[2] - 0.1));
+          const dc = cross.length ? Math.min(...cross.map(([cx, cy]) => Math.hypot(cx - p[0], cy - p[1]))) : Infinity;
+          const fixed = dc <= org.river.straight + 0.6 ? 1 : 0;
+          let hw = fixed ? half : half * (0.88 + 0.17 * Math.sin(ph + (s * 2 * Math.PI) / (org.river.wavelength ?? 11)) + 0.05 * (rr() * 2 - 1));
+          let [x, y] = p;
+          for (const [px, py] of dryPois) {
+            // POI seco: a faixa (hw) fica a ≥ 1,6 tile do centro dele; se não couber, o ponto se afasta
+            const d = Math.hypot(x - px, y - py);
+            if (d - hw >= 1.6) continue;
+            hw = Math.max(1.1, Math.min(hw, d - 1.6));
+            if (d - hw < 1.6 && d > 0) {
+              const push = 1.6 + hw - d;
+              x += ((x - px) / d) * push;
+              y += ((y - py) / d) * push;
+            }
+          }
+          return [x, y, hw, fixed];
+        });
+        for (const [, , id] of dryPois) report.push(`zona '${z.id}': POI '${id}' fica em terra (a faixa do riacho passa a ≥ 1,6 tile dele)`);
+        areas.push({ name: z.id, terrain, shape: "river", points, noise: org.river.noise, bank: org.river.bank, bankWidth: org.river.bankWidth, afterPaths: true, ...(cv?.river ? { curve: { pad: cv.riverPad ?? 0.5 } } : {}) });
+        report.push(`zona '${z.id}': riacho pela linha mediana do polígono (${points.length} pontos, de borda a borda: (${points[0][0].toFixed(1)},${points[0][1].toFixed(1)}) → (${points[points.length - 1][0].toFixed(1)},${points[points.length - 1][1].toFixed(1)}), meia-largura ${Math.min(...points.map((p) => p[2])).toFixed(1)}–${Math.max(...points.map((p) => p[2])).toFixed(1)}, ${cross.length} travessia(s))`);
+      } else if (long >= 2 * short) {
         // riacho: travessias (POI crossing) da zona viram trechos retos; o resto meandra
         const vertical = r.h >= r.w;
         const crossings = (gd.pois ?? []).filter((p) => p.type === "crossing").map((p) => cell(p.position)).filter(([px, py]) => px >= r.x && py >= r.y && px < r.x + r.w && py < r.y + r.h).map(([px, py]) => (vertical ? py : px));
@@ -241,7 +438,7 @@ export function adaptDesignBrief(gd, kit, build = {}) {
         const dry = dryPois.map((p) => cell(p.position)[vertical ? 1 : 0]);
         const points = riverPoints(r, crossings, mulberry(seed ^ hashSeed(`river:${z.id}`)), org.river, { W, H }, dry);
         for (const p of dryPois) report.push(`zona '${z.id}': POI '${p.id}' (${p.type}) fica em terra: a ponta do riacho recua ${org.river.dryGap} tile(s) antes dele`);
-        areas.push({ name: z.id, terrain, shape: "river", points, noise: org.river.noise, bank: org.river.bank, bankWidth: org.river.bankWidth, afterPaths: true });
+        areas.push({ name: z.id, terrain, shape: "river", points, noise: org.river.noise, bank: org.river.bank, bankWidth: org.river.bankWidth, afterPaths: true, ...(cv?.river ? { curve: { pad: cv.riverPad ?? 0.5 } } : {}), _rect: r, _vertical: vertical });
         const ext = vertical ? [points[0][1], points[points.length - 1][1]] : [points[0][0], points[points.length - 1][0]];
         report.push(`zona '${z.id}': riacho em spline (${points.length} pontos, meia-largura ${org.river.halfWidth.join("–")}, meandro ±${org.river.meander}, ${crossings.length} trecho(s) reto(s) de ponte)${ext[0] < 0 || ext[1] > (vertical ? H : W) ? " encostado na borda do mapa (zona a ≤ " + org.river.edgeSnap + " tiles dela)" : ""}`);
       } else {
@@ -251,18 +448,42 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     } else areas.push({ name: z.id, terrain, shape: "ellipse", cx: r.x + r.w / 2, cy: r.y + r.h / 2, rx: r.w / 2 + 0.75, ry: r.h / 2 + 0.75, wobble: org ? org.clearings.wobble : 0.08, ...(org ? { organic: { nooks: org.clearings.nooks, amp: org.clearings.amp } } : {}) });
   }
 
+  // riacho que nasce/deságua numa lagoa: a ponta (não encostada na borda) mais perto de uma lagoa a ≤ 4 tiles
+  // ganha o centro da lagoa como último ponto, sem afinar (a água corre de uma para a outra)
+  const lakes = areas.filter((a) => a.terrain === "water" && a.shape === "ellipse");
+  for (const a of areas) {
+    if (a.shape !== "river") continue;
+    const { _rect: r, _vertical: vertical } = a;
+    delete a._rect;
+    delete a._vertical;
+    for (const end of [0, 1]) {
+      const p = end ? a.points[a.points.length - 1] : a.points[0];
+      if (p[0] < 0 || p[1] < 0 || p[0] > W || p[1] > H) continue;
+      const lake = lakes.map((l) => ({ l, d: Math.max(0, Math.hypot(p[0] - l.cx, p[1] - l.cy) - Math.min(l.rx, l.ry)) })).filter((e) => e.d <= 4).sort((x, y) => x.d - y.d)[0]?.l;
+      if (!lake) continue;
+      const hw = (vertical ? r.w : r.h) / 2;
+      p[2] = Math.max(p[2], hw);
+      const c = [lake.cx, lake.cy, Math.min(lake.rx, lake.ry) * 0.6, 0];
+      if (end) a.points.push(c);
+      else a.points.unshift(c);
+      report.push(`zona '${a.name}': riacho ${end ? "deságua" : "nasce"} na lagoa '${lake.name}'`);
+    }
+  }
+
   // ---- rotas → trilhas ----
   const paths = [];
   // trecho que passa a menos de waterClear tiles de uma zona de água fica reto (chega reto na ponte)
   const nearWater = (a, b) =>
-    water.some(({ r }) => {
+    water.some(({ r, poly }) => {
       const m = org?.routes.waterClear ?? 0;
       return [0, 0.25, 0.5, 0.75, 1].some((t) => {
         const x = a[0] + (b[0] - a[0]) * t;
         const y = a[1] + (b[1] - a[1]) * t;
+        if (poly) return [[0, 0], [m, 0], [-m, 0], [0, m], [0, -m]].some(([dx, dy]) => inPolygon(poly, x + dx, y + dy));
         return x >= r.x - m && y >= r.y - m && x < r.x + r.w + m && y < r.y + r.h + m;
       });
     });
+  const curveOf = (widthTiles) => (cv?.paths ? { curve: { halfWidth: halfWidthFor(widthTiles), pad: cv.pathPad ?? 0.45 } } : {});
   const routePoints = (id, wps, ov) => {
     const pts = wps.map(([x, y]) => [x + 0.5, y + 0.5]);
     if (!org || ov?.meander === false) return pts;
@@ -274,16 +495,17 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     const ov = build.routes?.[rt.id];
     const wps = ov?.waypoints ?? rt.waypoints;
     if (ov?.waypoints) report.push(`rota '${rt.id}': waypoints da montagem (${ov.reason ?? "ajuste do game-dev"})`);
-    paths.push({ name: rt.id, terrain: "path", points: routePoints(rt.id, wps, ov), radius: radiusFor(ov?.widthTiles ?? rt.widthTiles), ...(org ? { meander: org.routes.wobble } : {}) });
+    paths.push({ name: rt.id, terrain: "path", points: routePoints(rt.id, wps, ov), radius: radiusFor(ov?.widthTiles ?? rt.widthTiles), ...(org ? { meander: org.routes.wobble } : {}), ...curveOf(ov?.widthTiles ?? rt.widthTiles) });
   }
-  for (const rt of build.extraRoutes ?? []) paths.push({ name: rt.id, terrain: "path", points: routePoints(rt.id, rt.waypoints, rt), radius: radiusFor(rt.widthTiles), ...(org ? { meander: org.routes.wobble } : {}) });
+  for (const rt of build.extraRoutes ?? []) paths.push({ name: rt.id, terrain: "path", points: routePoints(rt.id, rt.waypoints, rt), radius: radiusFor(rt.widthTiles), ...(org ? { meander: org.routes.wobble } : {}), ...curveOf(rt.widthTiles) });
+  if (cv?.paths) report.push(`trilhas contínuas (curves): ${paths.length} rota(s) como faixa de largura constante (meia-largura = 0,45 × largura da rota)`);
 
   // ---- pontes (POI crossing dentro de água) ----
   const bridges = [];
   for (const p of gd.pois ?? []) {
     if (p.type !== "crossing") continue;
     const [px, py] = cell(p.position);
-    const w = water.find(({ r }) => px >= r.x && py >= r.y && px < r.x + r.w && py < r.y + r.h);
+    const w = water.find(({ r, poly }) => (poly ? inPolygon(poly, px + 0.5, py + 0.5) : px >= r.x && py >= r.y && px < r.x + r.w && py < r.y + r.h));
     if (!w) {
       report.push(`POI '${p.id}' (crossing) fora de zona de água: sem ponte`);
       continue;
@@ -291,6 +513,13 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     const vertical = w.r.h >= w.r.w; // riacho vertical → ponte horizontal (atravessa de leste a oeste)
     const n = vertical ? w.r.w : w.r.h;
     const set = vertical ? kit.bridge.h : kit.bridge.v;
+    if (org && cv?.river) {
+      // riacho contínuo: eixo perpendicular ao riacho no ponto, ponte avança bridgePad tiles de terra; vau sem arte
+      const kind = crossingKind(p, cv.crossingDefault ?? "bridge");
+      bridges.push({ name: p.id, auto: true, axis: "auto", x: px, y: py, set: kit.bridge.h, setV: kit.bridge.v, kind, ...(kind === "bridge" ? { pad: cv.bridgePad ?? 1 } : {}) });
+      report.push(`POI '${p.id}': ${kind === "ford" ? "vau (células andáveis com pedras)" : "ponte"} perpendicular ao riacho em (${px},${py})`);
+      continue;
+    }
     if (org) {
       // o gerador mede a faixa de água real na linha/coluna da travessia (trecho reto com a largura da zona)
       bridges.push({ name: p.id, auto: true, axis: vertical ? "h" : "v", x: px, y: py, set });
@@ -312,7 +541,7 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     const arr = arrivalOf(e, W, H);
     starts[`from_${e.to}`] = arr;
     const edgePt = e.edge === "s" ? [arr[0], H] : e.edge === "n" ? [arr[0], -1] : e.edge === "e" ? [W, arr[1]] : [-1, arr[1]];
-    paths.push({ name: `${e.id}-acesso`, terrain: "path", points: [[edgePt[0] + 0.5, edgePt[1] + 0.5], [arr[0] + 0.5, arr[1] + 0.5]] });
+    paths.push({ name: `${e.id}-acesso`, terrain: "path", points: [[edgePt[0] + 0.5, edgePt[1] + 0.5], [arr[0] + 0.5, arr[1] + 0.5]], ...curveOf(2) });
   }
   // início do jogador: build.starts.player, senão a chegada da primeira saída, senão o centro da 1ª spawn_area
   const sa = gd.zones.find((z) => z.type === "spawn_area");
@@ -323,10 +552,9 @@ export function adaptDesignBrief(gd, kit, build = {}) {
   // ---- spawns ----
   const spawns = (gd.spawns ?? []).map((s) => {
     const zr = rectOf(s.zoneRef) ?? { x: 0, y: 0, w: W, h: H };
-    const cx = Math.floor(zr.x + zr.w / 2);
-    const cy = Math.floor(zr.y + zr.h / 2);
+    // a sim sorteia num quadrado centro ± max(w,h)/2: raio r = retângulo 2r×2r em volta do centro da zona
     const rad = Math.max(1, Math.round(s.radiusTiles));
-    const sq = { x: cx - rad, y: cy - rad, w: 2 * rad + 1, h: 2 * rad + 1 };
+    const sq = { x: Math.round(zr.x + zr.w / 2 - rad), y: Math.round(zr.y + zr.h / 2 - rad), w: 2 * rad, h: 2 * rad };
     const r = intersect(sq, zr) ?? zr;
     if (r.w < sq.w || r.h < sq.h) {
       // o quadrado do raio não cabe na zona: recorta (a criatura não sai da zona do brief), mas avisa
@@ -356,19 +584,52 @@ export function adaptDesignBrief(gd, kit, build = {}) {
   for (const it of gd.interactables ?? []) {
     const [x, y] = cell(it.position);
     pois.push({ name: it.id, x, y, kind: it.type, properties: { interactable: true, title: it.description, text: signText(it), ...(it.effect ? { effect: it.effect } : {}) } });
-    const k = kit.interactables[it.type] ?? kit.interactables.other;
-    fixedProps.push({ x, y, key: k.key, solid: !!k.solid, force: true, ox: k.ox ?? 0, oy: k.oy ?? 0 });
+    // placa que indica direção (norte/sul/leste/oeste ou seta no texto) usa a placa com seta, se o kit tiver
+    const arrow = it.type === "sign" && kit.interactables.sign_arrow && (/sign_post_arrow/.test(it.altAssetRef ?? "") || /\b(norte|sul|leste|oeste)\b|[←↑→↓]/i.test(signText(it)));
+    const k = (arrow ? kit.interactables.sign_arrow : kit.interactables[it.type]) ?? kit.interactables.other;
+    fixedProps.push({ x, y, key: k.key, solid: !!k.solid, force: true, ox: k.ox ?? 0, oy: k.oy ?? 0, ...(k.openKey ? { openKey: k.openKey } : {}) });
+  }
+  // NPC humano: corpo parado (sprite do kit) na célula do NPC; o gate aceita o NPC sobre o próprio corpo
+  for (const n of gd.npcs ?? []) {
+    const s = npcSpriteOf(n, kit);
+    if (!s) continue;
+    const [x, y] = cell(n.position);
+    fixedProps.push({ x, y, key: s.key, solid: !!s.solid, force: true, npc: n.id, oy: 0 });
+    report.push(`NPC '${n.id}': sprite ${s.key}${s.solid ? " (sólido)" : ""}`);
+  }
+  // entrada secreta (POI secret_entrance): arbusto denso do kit, não sólido (passa-se por ele)
+  for (const p of gd.pois ?? []) {
+    if (p.type !== "secret_entrance" || !kit.secretEntrance) continue;
+    const [x, y] = cell(p.position);
+    fixedProps.push({ x, y, key: kit.secretEntrance.key, solid: !!kit.secretEntrance.solid, force: true });
+    report.push(`POI '${p.id}': entrada secreta com ${kit.secretEntrance.key}`);
   }
 
   // ---- arena do chefe ----
   let bossArena;
   const triggers = [];
+  const arenaDetails = [];
   if (gd.bossArena) {
     const a = gd.bossArena;
     const [px, py] = cell(a.position);
     const rad = Math.round(a.radiusTiles);
     const r = rectOf(a.zoneRef) ?? clampRect({ x: px - rad, y: py - rad, w: 2 * rad + 1, h: 2 * rad + 1 }, W, H);
     bossArena = { name: a.id, x: r.x, y: r.y, w: r.w, h: r.h, boss: a.bossId, properties: { triggerType: a.triggerType ?? "approach", arenaType: a.arenaType ?? "", centerX: px, centerY: py } };
+    // chão da arena (kit.arenaFloor, ex. boss_arena_floor do forest-v7): decalques esparsos em ground_detail em volta do
+    // centro (o PNG tem moldura de grama, então como terreno inteiro viraria adesivo repetido)
+    if (kit.arenaFloor) {
+      const rr = mulberry(seed ^ hashSeed(`arena:${a.id}`));
+      const n = kit.arenaFloor.count ?? 6;
+      const spots = [[0, 0]];
+      for (let k = 0; spots.length < n && k < 60; k++) {
+        const ang = rr() * Math.PI * 2;
+        const d = 1.6 + rr() * Math.min(2.6, Math.min(r.w, r.h) / 2 - 1);
+        const s2 = [Math.round(Math.cos(ang) * d), Math.round(Math.sin(ang) * d)];
+        if (spots.every(([x, y]) => Math.max(Math.abs(x - s2[0]), Math.abs(y - s2[1])) >= 2)) spots.push(s2);
+      }
+      arenaDetails.push(...spots.map(([dx, dy]) => ({ x: px + dx, y: py + dy, key: kit.arenaFloor.key, avoidPath: true, on: "clearing" })).filter((d) => d.x >= r.x && d.y >= r.y && d.x < r.x + r.w && d.y < r.y + r.h));
+      report.push(`arena '${a.id}': ${arenaDetails.length} decalques de ${kit.arenaFloor.key} no chão`);
+    }
     triggers.push({ name: `${a.id}-entrada`, x: r.x, y: r.y, w: r.w, h: r.h, properties: { event: "boss_approach", boss: a.bossId } });
   }
 
@@ -433,6 +694,8 @@ export function adaptDesignBrief(gd, kit, build = {}) {
     triggers,
     portals,
     ...(org ? { organic: { borderJitter: org.borderJitter } } : {}),
+    ...(kit.fordStones ? { fordStones: kit.fordStones } : {}),
+    ...(arenaDetails.length ? { details: arenaDetails } : {}),
   };
   return { brief, report, warnings };
 }

@@ -1,0 +1,492 @@
+{
+  "_doc": "Kit da Map Factory R2 (game-dev): forest-v6 + pacote forest-v7-pixellab do game-art (art/map-factory/forest-v7-pixellab, prefixo fp7_, só dia, gerado no PixelLab). Novidades: (1) trilhas e riacho CONTÍNUOS (curves): a spline vira uma faixa de largura constante desenhada por distância à linha central (camada curves do TMJ, src/render/curves.ts), sem os degraus de 90° do Wang-47; as células continuam com a chave Wang (colisão, minimapa, gate wang). (2) água = tileset Wang-16 por cantos água/grama do forest-v7 (autotile c16, recortes wg_c16_<NW8|NE4|SW2|SE1>); na tela a borda da lagoa sai do recorte suave (smoothAutotile) e a do riacho da faixa da curva. (3) travessias: ponte (avança 1 tile de terra em cada ponta) e vau (células andáveis com pedras fp7_rock_small_flat). (4) props: flor e cogumelo digitais, grama alta c, pedra chata, placa com seta, baú aberto (openKey do baú), NPCs humanos ranger/comerciante (sprite parado, sólido), arbusto da entrada secreta, chão de arena (decalques). O kuwagamon_concept.png NÃO entra (concept, não é produção). Colisão por peça em `collision`.",
+  "id": "forest-v7",
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      },
+      {
+        "pack": "forest-v7-pixellab",
+        "prefix": "fp7_",
+        "root": "map-factory",
+        "crops": {
+          "wg_c16_2": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_5": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_11": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_3": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_9": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_7": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_15": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_14": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_4": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_12": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_13": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_10": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_0": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_1": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_6": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_8": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              96,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ],
+    "smoothAutotile": [
+      {
+        "prefix": "fp7_wg_c16_",
+        "full": "fp7_wg_c16_15",
+        "outside": "edge",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "threshold": 0.62,
+        "noise": 0.1,
+        "noiseScale": 6
+      }
+    ]
+  },
+  "_collisionDoc": "Colisão de cada peça do forest-v7 (decisão do game-dev; o tileset.json do game-art sugeria, aqui é a regra usada). true = a célula do pé bloqueia; terreno: water é sólido por célula.",
+  "collision": {
+    "fp7_wg_c16_*": "sólido (terreno water: toda célula de água bloqueia; vau e ponte liberam as células da travessia)",
+    "fp7_flower_digital": false,
+    "fp7_mushroom_digital": false,
+    "fp7_tall_grass_c": false,
+    "fp7_rock_small_flat": "por uso: sólida no Campo de Pedras (rocks.solid, decorAssets do brief v2: collision true); não sólida como pedra do vau (fordStones: a faixa da travessia fica livre)",
+    "fp7_bush_dense_secret": false,
+    "fp7_boss_arena_floor": false,
+    "fp7_chest_open": true,
+    "fp7_npc_ranger": true,
+    "fp7_npc_merchant": true,
+    "fp7_rock_crack_secret": true,
+    "fp7_sign_post_arrow": true,
+    "_notes": "bush_dense_secret: arbusto por onde se passa para a área secreta (não bloqueia; escolhido pelo game-design no brief v2). rock_crack_secret: alternativa sólida, fica no kit (secretEntrance.alt) mas não é usada."
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing",
+      "curve": {
+        "fill": "fp4_path_w47_255",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "edge": "dither"
+      }
+    },
+    "water": {
+      "autotile": "c16",
+      "prefix": "fp7_wg_c16_",
+      "outside": "clamp",
+      "solid": true,
+      "curve": {
+        "fill": "fp7_wg_c16_15",
+        "ground": [
+          "fp4_clearing_floor_v41_00",
+          "fp4_clearing_floor_v41_01",
+          "fp4_clearing_floor_v41_02",
+          "fp4_clearing_floor_v41_03"
+        ],
+        "edge": "foam",
+        "foam": "#4fa7b5"
+      }
+    }
+  },
+  "base": "forest",
+  "_curvesDoc": "curves.paths/river: trilhas e riacho contínuos. pathPad/riverPad: folga (tiles) além da meia-largura em que o centro da célula ainda conta como trilha/água. bridgePad: tiles de terra que a ponte avança em cada ponta (a faixa de água pode passar ~0,2 tile da última célula de água).",
+  "curves": {
+    "paths": true,
+    "river": true,
+    "pathPad": 0.45,
+    "riverPad": 0.5,
+    "bridgePad": 1,
+    "crossingDefault": "bridge"
+  },
+  "zoneTerrain": {
+    "spawn_area": "clearing",
+    "clearing": "clearing",
+    "concentration": "clearing",
+    "secret": "clearing",
+    "boss_arena": "clearing",
+    "rock_field": "clearing",
+    "village_hub": "clearing",
+    "cave_floor": "clearing",
+    "dune": "clearing",
+    "other": "clearing",
+    "water": "water",
+    "dense_border": null,
+    "cliff": null
+  },
+  "trees": [
+    {
+      "key": "fp4_tree_round_a",
+      "weight": 22
+    },
+    {
+      "key": "fp4_tree_round_b",
+      "weight": 22
+    },
+    {
+      "key": "fp4_tree_conifer_a",
+      "weight": 12
+    },
+    {
+      "key": "fp4_tree_conifer_b",
+      "weight": 12
+    },
+    {
+      "key": "fp4_tree_bushy_a",
+      "weight": 4
+    },
+    {
+      "key": "fp4_tree_bushy_b",
+      "weight": 4
+    },
+    {
+      "key": "fp4_tree_birch",
+      "weight": 5
+    },
+    {
+      "key": "fp4_tree_flowering",
+      "weight": 4
+    },
+    {
+      "key": "fp4_tree_data_leaf",
+      "weight": 9
+    },
+    {
+      "key": "fp4_tree_palm_digital",
+      "weight": 14,
+      "where": "edge"
+    },
+    {
+      "key": "fp4_tree_ancient",
+      "weight": 2,
+      "where": "interior"
+    }
+  ],
+  "tallGrass": [
+    "fp4_tall_grass_a",
+    "fp4_tall_grass_b",
+    "fp7_tall_grass_c"
+  ],
+  "flowers": [
+    "fp4_flower_cluster_white",
+    "fp4_flower_cluster_red",
+    "fp4_flower_cluster_purple",
+    "fp7_flower_digital"
+  ],
+  "mushrooms": [
+    "fp4_mushroom_cluster",
+    "fp7_mushroom_digital"
+  ],
+  "edgeLitter": [
+    "fp4_fallen_leaves_cluster",
+    "fp4_tall_grass_a",
+    "fp4_tall_grass_b"
+  ],
+  "rocks": {
+    "solid": [
+      "fp6_rock_big",
+      "fp4_rock_cluster",
+      "fp7_rock_small_flat"
+    ],
+    "decor": [
+      "fp6_rock_small"
+    ]
+  },
+  "density": {
+    "low": {
+      "patches": 0,
+      "flowers": 6,
+      "mushrooms": 1
+    },
+    "medium": {
+      "patches": 1.5,
+      "flowers": 8,
+      "mushrooms": 2
+    },
+    "high": {
+      "patches": 3,
+      "flowers": 10,
+      "mushrooms": 4
+    }
+  },
+  "rockField": {
+    "solidPer100": 7,
+    "decorPer100": 6
+  },
+  "interactables": {
+    "chest": {
+      "key": "fp6_chest_closed",
+      "openKey": "fp7_chest_open",
+      "solid": true
+    },
+    "sign": {
+      "key": "fp6_sign_post",
+      "solid": true
+    },
+    "heal_point": {
+      "key": "fp6_healing_point",
+      "solid": false,
+      "oy": -10
+    },
+    "other": {
+      "key": "fp6_sign_post",
+      "solid": true
+    },
+    "sign_arrow": {
+      "key": "fp7_sign_post_arrow",
+      "solid": true
+    }
+  },
+  "_npcDoc": "NPC sem speciesId (humano) ganha um sprite parado sólido na célula dele: role/kind/name com ranger|guarda|patrulh → ranger; merchant|comerci|vend|loja|mercad → merchant; outro humano → ranger. Digimon residente (speciesId) continua entidade da sim.",
+  "npcSprites": {
+    "ranger": {
+      "key": "fp7_npc_ranger",
+      "solid": true
+    },
+    "merchant": {
+      "key": "fp7_npc_merchant",
+      "solid": true
+    }
+  },
+  "secretEntrance": {
+    "key": "fp7_bush_dense_secret",
+    "solid": false,
+    "alt": "fp7_rock_crack_secret"
+  },
+  "fordStones": [
+    "fp7_rock_small_flat",
+    "fp6_rock_small"
+  ],
+  "bridge": {
+    "h": [
+      "fp6_bridge_h_0",
+      "fp6_bridge_h_1",
+      "fp6_bridge_h_2"
+    ],
+    "v": [
+      "fp6_bridge_v_0",
+      "fp6_bridge_v_1",
+      "fp6_bridge_v_2"
+    ]
+  },
+  "_arenaDoc": "boss_arena_floor tem moldura de grama (não emenda): vai como decalque esparso em ground_detail em volta do centro da arena (arenaFloor), não como terreno.",
+  "arenaFloor": {
+    "key": "fp7_boss_arena_floor",
+    "count": 6
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-09T17:09:28.125Z",
+  "date": "2026-11-09T20:41:06.359Z",
   "map": "digimon-forest-01",
   "profile": "factory-v1",
   "ok": true,
@@ -27,7 +27,7 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "93 chaves verificadas"
+        "109 chaves verificadas"
       ]
     },
     {
@@ -37,7 +37,7 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "alvos alcançados: 21/21 (start 2, spawn 8, npc 1, poi 8, boss_arena 1, portal 1)"
+        "alvos alcançados: 24/24 (start 2, spawn 8, npc 3, poi 9, boss_arena 1, portal 1)"
       ]
     },
     {
@@ -45,9 +45,7 @@
       "title": "Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição",
       "status": "pass",
       "errors": [],
-      "warnings": [
-        "spawn 'spawn-tanemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)"
-      ],
+      "warnings": [],
       "info": []
     },
     {
@@ -57,9 +55,9 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "ground/fp4_denseedge_w47: 1276 tiles w47, borda 'in'",
-        "ground/fp6_water_blob: 58 tiles blob16, borda 'in'",
-        "ground/fp4_path_w47: 157 tiles w47, borda 'in'"
+        "ground/fp4_denseedge_w47: 954 tiles w47, borda 'in'",
+        "ground/fp7_wg_c16: 222 tiles c16, borda 'in'",
+        "ground/fp4_path_w47: 394 tiles w47, borda 'in'"
       ]
     },
     {
@@ -83,19 +81,20 @@
     "size": "56x40",
     "tileSize": 32,
     "tileLayers": 2,
-    "objects": 874,
+    "objects": 673,
     "byClass": {
-      "prop": 852,
+      "prop": 642,
+      "curve": 6,
       "start": 2,
       "spawn": 8,
-      "npc": 1,
+      "npc": 3,
       "portal": 1,
       "trigger": 1,
-      "poi": 8,
+      "poi": 9,
       "boss_arena": 1
     },
-    "solidPct": 53.7,
-    "reachablePctOfFree": 99.6
+    "solidPct": 47.7,
+    "reachablePctOfFree": 99.1
   },
   "file": "src/data/maps/digimon-forest-01.tmj.json"
 }

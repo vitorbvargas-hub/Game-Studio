@@ -32,8 +32,8 @@ Todos usam a arte de floresta (forest-v4 + forest-v6): não há kit de caverna, 
 
 ## Decisões do adaptador por modelo
 
-- `template-cave`: sem ajuste
-- `template-desert`: sem ajuste
-- `template-forest`: sem ajuste
-- `template-mountain`: sem ajuste
-- `template-village`: sem ajuste
+- `template-cave`: rota 'rota_atalho': meandro (9 pontos intermediários entre 7 waypoints); rota 'rota_tesouro': meandro (5 pontos intermediários entre 4 waypoints); AVISO spawn 'spawn-tesouro-miniboss': radiusTiles 5 recortado pela zona 'bifurcacao_tesouro' (9×8) → área de sorteio 9×8 tiles (raio efetivo ~4, 72% da área pedida)
+- `template-desert`: rota 'rota_principal': meandro (7 pontos intermediários entre 5 waypoints); rota 'rota_secundaria': meandro (17 pontos intermediários entre 7 waypoints); AVISO spawn 'spawn-hagurumon': radiusTiles 10 recortado pela zona 'duna_aberta' (40×16) → área de sorteio 20×16 tiles (raio efetivo ~8, 80% da área pedida); AVISO spawn 'spawn-numemon': radiusTiles 7 recortado pela zona 'zona_concentracao' (10×10) → área de sorteio 10×10 tiles (raio efetivo ~5, 51% da área pedida); AVISO spawn 'spawn-garurumon': radiusTiles 7 recortado pela zona 'zona_concentracao' (10×10) → área de sorteio 10×10 tiles (raio efetivo ~5, 51% da área pedida); AVISO spawn 'spawn-angemon': radiusTiles 5 recortado pela zona 'oasis_secreto' (9×7) → área de sorteio 9×7 tiles (raio efetivo ~3, 63% da área pedida)
+- `template-forest`: rota 'rota_principal': meandro (7 pontos intermediários entre 6 waypoints); rota 'rota_secundaria': meandro (6 pontos intermediários entre 4 waypoints); AVISO spawn 'spawn-stage2-a': radiusTiles 7 recortado pela zona 'zona_concentracao' (9×9) → área de sorteio 9×9 tiles (raio efetivo ~4, 41% da área pedida)
+- `template-mountain`: rota 'rota_principal': meandro (10 pontos intermediários entre 8 waypoints); rota 'rota_secundaria': meandro (10 pontos intermediários entre 5 waypoints); AVISO spawn 'spawn-gotsumon': radiusTiles 6 recortado pela zona 'encosta_1' (14×10) → área de sorteio 12×10 tiles (raio efetivo ~5, 83% da área pedida); AVISO spawn 'spawn-growlmon': radiusTiles 7 recortado pela zona 'zona_concentracao' (16×10) → área de sorteio 14×10 tiles (raio efetivo ~5, 71% da área pedida); AVISO spawn 'spawn-greymon': radiusTiles 7 recortado pela zona 'zona_concentracao' (16×10) → área de sorteio 14×10 tiles (raio efetivo ~5, 71% da área pedida); AVISO spawn 'spawn-dorugreymon': radiusTiles 4 recortado pela zona 'boss_arena' (12×7) → área de sorteio 8×7 tiles (raio efetivo ~3, 88% da área pedida)
+- `template-village`: rota 'trilha_cruz_vertical': meandro (4 pontos intermediários entre 3 waypoints); rota 'trilha_cruz_horizontal': meandro (6 pontos intermediários entre 3 waypoints)

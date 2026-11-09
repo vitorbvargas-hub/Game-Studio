@@ -21,7 +21,7 @@ import { makePortraitFn, makeSpriteFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
 import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
-import { arenaOf, interact, nearestInteraction, type InteractResult } from "./sim/interact";
+import { applyOpenedChests, arenaOf, interact, nearestInteraction, type InteractResult } from "./sim/interact";
 import { TICK_MS } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
@@ -428,8 +428,14 @@ async function boot() {
   let lastInteract = "";
   let lastArena = "";
   const interactions: InteractResult[] = [];
+  let chestsShown: unknown;
   const checkInteract = () => {
     if (!cur.def || traveling) return;
+    // baú já aberto (nesta sessão) aparece aberto ao voltar ao mapa
+    if (chestsShown !== cur.sim.map) {
+      applyOpenedChests(cur.sim.map, openedChests);
+      chestsShown = cur.sim.map;
+    }
     const near = nearestInteraction(cur.sim, LOCAL_PLAYER);
     const key = near ? `${cur.mapId}:${near.id}` : "";
     // dispara uma vez ao chegar; só arma de novo depois de sair do alcance
@@ -437,6 +443,7 @@ async function boot() {
       const r = interact(cur.sim, LOCAL_PLAYER, near.id, openedChests);
       if (r) {
         interactions.push(r);
+        if (r.kind === "chest") applyOpenedChests(cur.sim.map, openedChests);
         hud.toast(r.kind === "npc" ? `${r.title}: ${r.text}` : r.text);
       }
     }

@@ -85,3 +85,48 @@ OUT=$(cd ../../evidence/map-factory && pwd) W=1792 H=1280 CHROME_LIBS=/tmp/chrom
 - **P2 raio recortado:** `adapt-brief.mjs` devolve `warnings` e o `map:brief` imprime `⚠ AVISO spawn …` (6 spawns do piloto).
 - **Capturas antes/depois:** `factory_00_mapa_inteiro_{dia,noite}.png` → `_v2.png`; `factory_06_riacho_ponte`, `factory_07_riacho_sobre_a_ponte`, `factory_11_riacho_noite` → `_v2.png`; `previews/digimon-forest-01{,_art}_v2.png`. As demais `factory_*.png` foram refeitas no lugar com o mapa v2.
 - **Limitação visual:** a água do forest-v6 é blob-16 sem peças diagonais, então de perto a margem do riacho fica em degraus de 1 tile; a curva aparece na escala do mapa, não no contorno do tile.
+
+## Rodada 2 — brief v2 + kit forest-v7 (trilhas e riacho contínuos) — `_v3`
+
+Brief: `world-design/briefs/digimon-forest-01.json` (v2 do game-design, 2026-11-09 17:29; v1 em `digimon-forest-01.v1.json`). Kit: `prototype/world/scripts/map-factory/kits/forest-v7.kit.json` (escolhido em `briefs/digimon-forest-01.build.json` → `"kit": "forest-v7"`).
+
+```
+npm run map:brief -- ../../world-design/briefs/digimon-forest-01.json
+OUT=../../evidence/map-factory CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu ONLY=factory-v3 npm run shots:live
+OUT=../../evidence/map-factory W=1792 H=1280 SUFFIX=_v3 CHROME_LIBS=… ONLY=factory-full npm run shots:live
+OUT=../../evidence/map-factory W=1792 H=1280 CHROME_LIBS=… ONLY=perf npm run shots:live
+```
+
+**O que mudou no motor**
+
+- **Curvas contínuas** (`generate.mjs`: `sampleCurve`/`curveField`/`curvePolyline`; `src/render/curves.ts`): a trilha e o riacho saem como polilinha da spline (camada `curves` do TMJ, amostra a cada 0,5 tile, meia-largura em px por vértice). O renderer pinta a faixa pela **distância à linha central** (largura constante, ruído de borda ±1,25 px), com a textura cheia do pacote repetida em coordenadas do mundo. Não há mais degrau de 90°: o Wang-47 continua nas células (colisão, minimapa, gate `wang`), mas a borda vista é a da curva. Trilha: borda pontilhada de 1 px; água: 2 px de espuma.
+- **Riacho em polígono** (`adapt-brief.mjs`: `polygonCenterline`): linha mediana do Z do brief (Dijkstra pelo meio do corredor), de borda a borda (norte → sul), meia-largura = metade do corredor (≈1,4–2,2 tiles, varia ~±20%), reta e com largura exata em volta de cada travessia; o POI `poi-mirante-clareira` (dentro do polígono) fica seco (faixa a ≥ 1,6 tile).
+- **Duas travessias:** ponte `poi-ponte-riacho` 7×1 em (25..31, 9), eixo perpendicular ao riacho calculado no ponto, avançando 1 tile de terra em cada ponta; vau `poi-vau-pedras` 5×1 em (14..18, 22): células andáveis, pedras `fp7_rock_small_flat`/`fp6_rock_small` não sólidas, água rasa (mais clara, borda suave).
+- **Água = Wang-16 do PixelLab** (autotile `c16`, 16 recortes `fp7_wg_c16_<NW8|NE4|SW2|SE1>` da prancha); lagoas usam o recorte suave (`smoothAutotile`), o riacho a faixa da curva. Gate `wang` agora confere `*_c16_*`.
+- **Peças forest-v7 (fp7_)**: NPCs `npc-ranger` e `npc-merchant` com corpo parado sólido (o gate aceita o NPC sobre o próprio corpo e exige chegar ao lado); baú troca para `chest_open` ao abrir (`openKey`, `applyOpenedChests`); placa da entrada com seta; arbusto da entrada secreta (não sólido); flor/cogumelo digitais e grama c; pedra chata sólida no Campo de Pedras; chão da arena em 6 decalques. `kuwagamon_concept.png` fica de fora (o carregador ignora `concept/`).
+- **Raio de spawn:** o adaptador media o quadrado como 2r+1; a sim sorteia em 2r. Corrigido: o brief v2 sai com **zero** avisos de recorte.
+
+**Gates (digimon-forest-01, factory-v1):** layers, tile_ids, asset_keys, reach, placement, wang, species, portals — todos **pass**. Aviso: `spawn-dorumon` tem 1 célula livre fora do alcance (bolsão entre rochas).
+
+**Capturas `_v3`:** `factory_00_mapa_inteiro_{dia,noite}_v3.png`; `factory_v3_01_riacho_ponte`, `02_sobre_a_ponte`, `03_riacho_vau`, `04_no_vau`, `05_trilha_curva_margem_oeste`, `06_entrada_secreta`, `07_arena`, `08_bau_aberto`, `09_npc_ranger_perto` (zoom 4), `10_npc_comerciante_vs_tamer` (zoom 4, escala), `11_riacho_noite`.
+
+**Escala NPC × Tamer (captura 10):** os NPCs do PixelLab têm 58–59 px de altura opaca (comerciante 45×59, ranger 36×58, canvas 48×64); o Tamer do jogador mede ~28 px na mesma captura (régua: o comerciante). O NPC sai **≈ 2× maior** que o Tamer. Não redimensionei (pixel art não se reescala); precisa de um redesenho no tamanho do Tamer (game-art).
+
+**Performance (`ONLY=perf`, headless, mesmo método da v2):**
+
+| Hora | trabalho p50/p95/p99 (ms) | fps médio | render+raster p50/p95/p99 (ms) | quadros > 16,7 ms (raster) | props |
+|---|---|---|---|---|---|
+| day v2 | 4 / 5.6 / 6.6 | 40.4 | 15.9 / 20 / 24.8 | 207/600 | 852 |
+| **day v3** | 3.1 / 3.9 / 4.5 | 49.9 | 12.6 / 14 / 15.9 | 4/600 | 642 |
+| night v2 | 5.8 / 7.7 / 9.4 | 38.4 | 17.9 / 20.4 / 23.2 | 526/600 | 852 |
+| **night v3** | 4.7 / 6.2 / 7 | 47.5 | 14.7 / 16.4 / 20.9 | 25/600 | 642 |
+
+A faixa das curvas é composta uma vez por célula e fica no cache do chunk; o ganho vem sobretudo de ~25% menos props (o riacho maior e as trilhas tiram mata). Headless com raster em software; o dev server do fundador estava rodando na mesma máquina durante a medição.
+
+**Limitações R2**
+
+- Prévia PNG (`map:preview`) e minimapa desenham as células (Wang), não a faixa contínua; o jogo desenha a faixa.
+- A colisão continua por célula: a água bloqueia até ~0,5 tile além da faixa vista e a faixa pode passar ~0,2 tile na célula vizinha andável.
+- Junção riacho/lagoa: a célula de lagoa a ≤ 0,5 tile da linha do riacho vira faixa (sem caso no mapa atual).
+- Arte: NPCs ≈ 2× o Tamer; `boss_arena_floor` e `flower_digital` têm moldura/base de grama de outra paleta (lêem como adesivo); a água do forest-v7 não tem noite (usa o PNG do dia sob o grade noturno).
+- Rota do Vau reinterpretada em `.build.json` (ver o motivo lá): no brief v2 ela corria dentro do braço sul e ligava dois pontos do mesmo lado do riacho.

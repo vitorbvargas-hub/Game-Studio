@@ -2,7 +2,7 @@
 // O mínimo que a sim suporta hoje: chegar perto dispara a interação (sem botão), o efeito é aplicado direto no
 // estado autoritativo (bits do jogador, PV/MP da parceira) e o texto volta para a UI mostrar. Puro: sem DOM.
 
-import type { MapArena } from "./map";
+import type { MapArena, WorldMap } from "./map";
 import { PX_PER_SUB, SUB } from "./params";
 import { getEntity, getPlayer, type WorldSim } from "./world";
 
@@ -72,4 +72,24 @@ export function arenaOf(sim: WorldSim, playerId: string): MapArena | undefined {
   const x = t.x * PX_PER_SUB;
   const y = t.y * PX_PER_SUB;
   return (sim.map.arenas ?? []).find((a) => x >= a.x && x < a.x + a.w && y >= a.y && y < a.y + a.h);
+}
+
+/**
+ * Baús abertos mudam de sprite: todo prop com `openKey` na célula de um baú aberto (`<mapa>:<id>` em `opened`) passa a
+ * desenhar o 2º estado (forest-v7: chest_open). Devolve quantos props trocaram. Idempotente.
+ */
+export function applyOpenedChests(map: WorldMap, opened: Set<string>): number {
+  const T = map.tileSize;
+  let n = 0;
+  for (const it of map.interactables ?? []) {
+    if (it.kind !== "chest" || !opened.has(`${map.id}:${it.id}`)) continue;
+    const cx = Math.floor(it.pos.x / SUB);
+    const cy = Math.floor(it.pos.y / SUB);
+    for (const p of map.props)
+      if (p.openKey && p.key !== p.openKey && Math.floor(p.x / T) === cx && Math.floor((p.y - 1) / T) === cy) {
+        p.key = p.openKey;
+        n++;
+      }
+  }
+  return n;
 }

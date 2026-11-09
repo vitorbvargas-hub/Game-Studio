@@ -102,6 +102,12 @@ export function loadSceneTiles(
 }
 
 /** Chaves visuais usadas por um mapa (tiles e props). */
-export function usedKeys(map: { tileLayers: { keys: string[] }[]; props: { key: string }[] }): string[] {
-  return [...new Set([...map.tileLayers.flatMap((l) => l.keys.filter(Boolean)), ...map.props.map((p) => p.key)])];
+export function usedKeys(map: { tileLayers: { keys: string[] }[]; props: { key: string; openKey?: string }[]; curves?: { fill: string; ground: string[] }[] }): string[] {
+  return [
+    ...new Set([
+      ...map.tileLayers.flatMap((l) => l.keys.filter(Boolean)),
+      ...map.props.flatMap((p) => (p.openKey ? [p.key, p.openKey] : [p.key])),
+      ...(map.curves ?? []).flatMap((c) => [c.fill, ...c.ground]),
+    ]),
+  ];
 }

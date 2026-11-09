@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|perf
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|perf
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -139,6 +139,7 @@ async function main() {
     if (process.env.ONLY === "maps") return await maps(cdp);
     if (process.env.ONLY === "factory") return await factory(cdp);
     if (process.env.ONLY === "factory-full") return await factoryFull(cdp);
+    if (process.env.ONLY === "factory-v3") return await factoryV3(cdp);
     if (process.env.ONLY === "perf") return await perf(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
@@ -451,6 +452,68 @@ async function factory(cdp) {
   console.log("volta:", await cdp.eval(`window.__gs003.mapId`));
 }
 
+/**
+ * Map Factory R2 (brief v2 + kit forest-v7): riacho contínuo com a ponte e o vau, trilha curva, entrada secreta, arena,
+ * NPC do PixelLab de perto, NPC × Tamer lado a lado (escala), baú aberto e o riacho de noite. Sufixo _v3. Uso:
+ *   OUT=../../evidence/map-factory CHROME_LIBS=… ONLY=factory-v3 npm run shots:live
+ * O mapa inteiro (dia/noite): W=1792 H=1280 SUFFIX=_v3 ONLY=factory-full.
+ */
+async function factoryV3(cdp) {
+  const ID = "digimon-forest-01";
+  const open = async (time, zoom = 0) => {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&map=${ID}${zoom ? `&zoom=${zoom}` : ""}${QUERY}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar no mapa da Map Factory");
+    await sleep(2500);
+  };
+  /** Teleporta o Tamer local (e a parceira, deslocada dx tiles) para o tile (tx, ty); AUTO desligado para ninguém sair andando. */
+  const tp = (tx, ty, dx = -1.3) =>
+    cdp.eval(`(() => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1"); p.auto = false;
+      const t = s.state.entities.find((e) => e.id === p.tamerId), pa = s.state.entities.find((e) => e.id === p.partnerId);
+      t.x = ${tx} * SUB + 8; t.y = ${ty} * SUB + 8; t.dest = undefined; t.trail = [{ x: t.x - 20, y: t.y }, { x: t.x, y: t.y }];
+      if (pa) { pa.x = t.x + ${dx} * SUB; pa.y = t.y; pa.targetId = undefined; pa.dest = undefined; }
+      return [t.x, t.y]; })()`);
+  const shot = async (name, wait = 2200) => {
+    await sleep(wait);
+    await cdp.shot(name);
+  };
+  await open("day");
+  await tp(33, 12);
+  await shot("factory_v3_01_riacho_ponte_v3.png");
+  await tp(28, 9);
+  await shot("factory_v3_02_sobre_a_ponte_v3.png", 1500);
+  await tp(21, 22);
+  await shot("factory_v3_03_riacho_vau_v3.png");
+  await tp(16, 22);
+  await shot("factory_v3_04_no_vau_v3.png", 1500);
+  await tp(10, 16);
+  await shot("factory_v3_05_trilha_curva_margem_oeste_v3.png");
+  await tp(15, 6);
+  await shot("factory_v3_06_entrada_secreta_v3.png");
+  await tp(50, 20);
+  await shot("factory_v3_07_arena_v3.png");
+  // baú (31,18): ao chegar perto abre e troca para o chest_open
+  await tp(31, 19);
+  await shot("factory_v3_08_bau_aberto_v3.png", 1800);
+  console.log("baú:", JSON.stringify(await cdp.eval(`(() => { const g = window.__gs003; return { interacoes: g.interactions.map((i) => i.kind + ":" + i.id), bau: g.sim.map.props.filter((p) => p.openKey).map((p) => p.key) }; })()`)));
+  // NPC do PixelLab de perto e lado a lado com o Tamer (zoom 4)
+  await open("day", 4);
+  await tp(43, 26, 1.4);
+  await shot("factory_v3_09_npc_ranger_perto_v3.png");
+  await tp(26, 22, 1.4);
+  await shot("factory_v3_10_npc_comerciante_vs_tamer_v3.png");
+  // escala: altura visível (px opacos) do sprite do NPC e do quadro do Tamer, para o relatório
+  console.log("escala:", JSON.stringify(await cdp.eval(`(async () => { const g = window.__gs003; const out = {};
+    const opaque = async (url) => { const img = new Image(); img.src = url; await img.decode(); const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
+      const x = c.getContext("2d"); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, c.width, c.height).data; let y0 = 1e9, y1 = -1, x0 = 1e9, x1 = -1;
+      for (let y = 0; y < c.height; y++) for (let xx = 0; xx < c.width; xx++) if (d[(y * c.width + xx) * 4 + 3] > 0) { y0 = Math.min(y0, y); y1 = Math.max(y1, y); x0 = Math.min(x0, xx); x1 = Math.max(x1, xx); }
+      return { canvas: [img.width, img.height], opaqueW: x1 - x0 + 1, opaqueH: y1 - y0 + 1 }; };
+    for (const k of ["fp7_npc_merchant", "fp7_npc_ranger"]) out[k] = await opaque(g.view.tiles?.[k]?.url ?? "");
+    return out; })()`)));
+  await open("night");
+  await tp(33, 12);
+  await shot("factory_v3_11_riacho_noite_v3.png");
+}
+
 /** Mapa inteiro no jogo real: janela do tamanho do mapa (W=1792 H=1280), zoom 1, HUD escondido. */
 async function factoryFull(cdp) {
   const ID = "digimon-forest-01";
@@ -460,7 +523,7 @@ async function factoryFull(cdp) {
     await sleep(2500);
     await cdp.eval(`document.querySelector("#hud").style.visibility = "hidden"`);
     await sleep(300);
-    await cdp.shot(`factory_00_mapa_inteiro_${time === "day" ? "dia" : "noite"}.png`);
+    await cdp.shot(`factory_00_mapa_inteiro_${time === "day" ? "dia" : "noite"}${process.env.SUFFIX ?? ""}.png`);
   }
 }
 
