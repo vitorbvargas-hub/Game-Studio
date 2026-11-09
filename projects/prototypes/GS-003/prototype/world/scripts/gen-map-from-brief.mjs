@@ -11,11 +11,12 @@
 // Sai com código 1 se a validação falhar.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { adaptDesignBrief, isDesignBrief } from "./map-factory/adapt-brief.mjs";
 import { contextFor, loadMaps, loadSpecies, MAPS_DIR, WORLD_DIR } from "./map-factory/context.mjs";
 import { aliasesFor, generateFromBrief } from "./map-factory/generate.mjs";
 import { validateMap } from "./map-factory/validate.mjs";
+import { applyLook, lookAliases } from "./map-factory/look.mjs";
 
 const args = process.argv.slice(2);
 const opt = (n) => {
@@ -36,7 +37,9 @@ let brief = readJson(resolve(process.cwd(), briefPath));
 if (isDesignBrief(brief)) {
   const defBuild = join(WORLD_DIR, "scripts/map-factory/briefs", `${brief.id}.build.json`);
   const buildPath = buildArg ? resolve(process.cwd(), buildArg) : existsSync(defBuild) ? defBuild : null;
-  const build = buildPath ? readJson(buildPath) : {};
+  let build = buildPath ? readJson(buildPath) : {};
+  // build.extends: outra montagem como base (ex. o look v8 por cima da montagem do mapa padrão), campos rasos por cima
+  if (build.extends) build = { ...readJson(resolve(dirname(buildPath), build.extends)), ...build, extends: undefined };
   // kit: --kit, senão o da montagem (build.kit), senão forest-v6
   const kitArg = kitOpt ?? build.kit ?? "forest-v6";
   const kitPath = kitArg.endsWith(".json") ? resolve(process.cwd(), kitArg) : join(WORLD_DIR, "scripts/map-factory/kits", `${kitArg}.kit.json`);
@@ -46,7 +49,9 @@ if (isDesignBrief(brief)) {
   for (const w of warnings) console.warn(`   ⚠ ${w}`);
   const adaptedDir = join(WORLD_DIR, "scripts/map-factory/briefs/adapted");
   mkdirSync(adaptedDir, { recursive: true });
-  writeFileSync(join(adaptedDir, `${brief.id}.brief.json`), JSON.stringify(adapted, null, 2) + "\n");
+  // look (ex. v8): passe de profundidade e troca do chão; o brief adaptado vai para <id>.<look>.brief.json
+  if (build.look) applyLook(adapted, build);
+  writeFileSync(join(adaptedDir, `${brief.id}${build.look ? `.${build.look.id}` : ""}.brief.json`), JSON.stringify(adapted, null, 2) + "\n");
   brief = adapted;
 }
 const outDir = outArg ? resolve(process.cwd(), outArg) : resolve(WORLD_DIR, brief.out ?? "src/data/maps");
@@ -58,12 +63,13 @@ if (basePath && !existsSync(basePath)) {
 }
 
 const { tmj, stats } = generateFromBrief(brief);
-const aliases = aliasesFor(brief, basePath ? readJson(basePath) : null);
+const aliases = lookAliases(brief, aliasesFor(brief, basePath ? readJson(basePath) : null));
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, `${brief.id}.tmj.json`), JSON.stringify(tmj) + "\n");
 writeFileSync(join(outDir, `${brief.id}.aliases.json`), JSON.stringify(aliases, null, 2) + "\n");
 console.log(`ok: ${join(outDir, `${brief.id}.tmj.json`).replace(WORLD_DIR + "/", "")} (${stats.size}, ${stats.props} props, ${stats.tiles} tiles; terreno ${Object.entries(stats.terrain).map(([k, v]) => `${k} ${v}`).join(", ")})`);
 for (const br of stats.bridges) console.log(`   ponte '${br.name}': ${br.w}×${br.h} em (${br.x},${br.y})`);
+if (stats.depth) console.log(`   depth: ${JSON.stringify(stats.depth)}`);
 
 if (!noValidate) {
   const maps = loadMaps([MAPS_DIR, outDir]);

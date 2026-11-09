@@ -34,7 +34,8 @@ import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
 import { loadWorldContent } from "./sim/species";
 import { Panel } from "./ui/panel";
 import { worldMapHtml } from "./ui/worldmap";
-import { canTravel, DEFAULT_MAP, MAPS, mapOfRegion, regionById, type MapDef, type Progress } from "./world/regions";
+import { canTravel, DEFAULT_MAP, MAPS, mapOfRegion, regionById, withLook, type MapDef, type Progress } from "./world/regions";
+import { gradeTiles } from "./render/look";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
 import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
@@ -63,7 +64,15 @@ const TILES_DWDS = params.get("tiles") !== "original";
 const MAP = params.get("map") === "meadow" ? "meadow" : params.get("map") ?? "";
 /** Altura da barra inferior do HUD (CSS px): a câmera centra o Tamer na área visível acima dela. */
 const HUD_BOTTOM_PX = 96;
-const ZOOM = Math.max(0, Math.floor(Number(params.get("zoom") ?? 0)));
+/**
+ * ?zoom=N força a escala inteira N; ?zoom=1.5x / 2x multiplica a escala automática (arredondada para inteiro: o
+ * pixel continua perfeito). Sem ?zoom, o look do mapa pode trazer o seu multiplicador (v8: ×1,5).
+ */
+const ZOOM_RAW = (params.get("zoom") ?? "").trim().toLowerCase();
+const ZOOM = /x$/.test(ZOOM_RAW) ? 0 : Math.max(0, Math.round(Number(ZOOM_RAW || 0)));
+const ZOOM_MUL = /x$/.test(ZOOM_RAW) ? Math.max(0.5, Number(ZOOM_RAW.slice(0, -1)) || 1) : undefined;
+/** ?look=v8: variante de look do mapa (luz, paleta, profundidade), quando o mapa tiver uma (regions.ts `looks`). */
+const LOOK = params.get("look");
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
@@ -204,7 +213,8 @@ async function boot() {
    * `carry` = save do estado atual (parceira, golpes, bits, Digidex, AUTO), aplicado por cima da sim nova.
    */
   async function buildMap(mapId: string, start: string | undefined, carry?: SaveData): Promise<Live> {
-    const def = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
+    const def0 = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
+    const def = def0 && withLook(def0, LOOK);
     const opts = { auto, localName: look.name, start, ...(newStarter && !carry ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}) };
     const { sim, events } = def ? createMapWorld(parseTiledMap(def.id, def.tmj), def.scene, SEED, opts) : createDefaultWorld(SEED, { auto });
     if (carry) {
@@ -224,6 +234,13 @@ async function boot() {
     }
     const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].map((t) => t.url));
     if (tFailed.length) console.warn("tiles não carregados:", tFailed);
+    const mapLook = def?.pack.look;
+    if (mapLook) {
+      // look v8: grade de cor (palette.json) na arte do cenário; criaturas, UI e emissores ficam como estão
+      tiles = gradeTiles(tiles, mapLook, images, browserCanvasFactory);
+      if (nightTiles) nightTiles = gradeTiles(nightTiles, mapLook, images, browserCanvasFactory, true);
+      console.info(`look ${mapLook.id}: grade + ${Object.keys(mapLook.lights).length} tipos de luz`);
+    }
     const ids = sim.state.players.map((p) => p.id);
     const tv = tamerVisuals(ids, look, SEED, (id) => sim.state.entities.find((e) => e.id === getPlayer(sim.state, id)?.tamerId)?.name ?? id);
     const tvFailed = await images.loadAll(Object.values(tv).flatMap(imageUrlsOf));
@@ -236,7 +253,11 @@ async function boot() {
       tamerVisuals: tv,
       tamerLevels: def ? tamerLevels : undefined,
       tamerTints: def?.scene ? tamerTints : undefined,
-      trees: def?.pack.trees,
+      trees:
+        def?.pack.trees && mapLook?.trees
+          ? { ...def.pack.trees, castShadow: mapLook.trees.castShadow ?? def.pack.trees.castShadow, rimLight: def.pack.trees.rimLight && { ...def.pack.trees.rimLight, ...mapLook.trees.rimLight } }
+          : def?.pack.trees,
+      look: mapLook,
       smoothAutotile: def?.pack.smoothAutotile,
       fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
     });
@@ -422,6 +443,7 @@ async function boot() {
     const carry = capture();
     const next = await buildMap(mapId, start, carry);
     cur = next;
+    resize();
     hud.setRegion(regionName(cur.def), cur.def?.route ?? "");
     hud.setMinimap(new Minimap(cur.sim.map, browserCanvasFactory));
     hud.onEvents(cur.spawnEvents);
@@ -712,7 +734,10 @@ async function boot() {
     const vh = window.innerHeight;
     // Prova visual: enquadramento da referência (~25 × 14 tiles visíveis) → escala arredondada sobre 640 × 400.
     // ?zoom=N força a escala; o mapa de teste mantém a regra antiga (maior inteiro que caiba em 400 × 240).
-    scale = ZOOM > 0 ? ZOOM : regionMode ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
+    const auto = regionMode ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
+    const mul = ZOOM_MUL ?? cur.def?.pack.look?.zoomMul ?? 1;
+    scale = ZOOM > 0 ? ZOOM : Math.max(1, Math.round(Math.min(vw / 640, vh / 400) * mul) || auto);
+    if (ZOOM <= 0 && mul === 1) scale = auto;
     canvas.width = Math.ceil(vw / scale);
     canvas.height = Math.ceil(vh / scale);
     canvas.style.width = `${canvas.width * scale}px`;

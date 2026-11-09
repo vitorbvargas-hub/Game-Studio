@@ -32,6 +32,7 @@ import { NIGHT_STEPS, nightFrame, nightStep } from "./nightgrade";
 import { buildCurveIndex, composeCurveOverlay, type CurveIndex } from "./curves";
 import { composePathTile, pathMask, type PathSmoothCfg } from "./pathsmooth";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
+import { ambientMix, drawDecals, drawParticles, drawPatches, drawPropShadows, flicker, fogAnchors, fogSprite, lightSprite, mapLights, type LightSource, type LookCfg } from "./look";
 
 export const CHUNK_TILES = 16;
 
@@ -59,6 +60,8 @@ export interface ViewOptions {
   trees?: TreesCfg;
   /** Autotile Wang-47 com recorte suave (pathsmooth.ts): conjuntos por prefixo de chave. */
   smoothAutotile?: PathSmoothCfg[];
+  /** Look v8 (render/look.ts): lama, decalques e sombra de contato no chão; grade ambiente, luzes, névoa, partículas. */
+  look?: LookCfg;
   /** Desenho extra logo acima do chão e abaixo das entidades (Arena: arquibancada e linhas do campo). */
   underlay?: (ctx: CanvasRenderingContext2D, camera: Camera, now: number) => void;
 }
@@ -140,6 +143,12 @@ export class WorldView {
   /** Curvas contínuas (camada `curves`): índice por célula e faixas já compostas (por célula e preset). */
   private curveIdx?: CurveIndex;
   private curveTiles = new Map<string, HTMLCanvasElement | null>();
+  /** Look v8: luzes do mapa, sprites de luz em cache, âncoras e sprite da névoa, brilho dos vagalumes. */
+  private lookLights?: LightSource[];
+  private lightSprites = new Map<string, HTMLCanvasElement>();
+  private fog?: { anchors: Vec[]; img: HTMLCanvasElement };
+  private glow?: HTMLCanvasElement;
+  private veil?: { id: string; c: HTMLCanvasElement };
   /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
   nightMix = 0;
   /** Estatística do último quadro (culling). */
@@ -357,7 +366,8 @@ export class WorldView {
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
     this.drawCanopies(p, trees, visible, now);
-    this.drawAmbient();
+    if (this.opts.look) this.drawLook(this.opts.look, p, alpha, now);
+    else this.drawAmbient();
 
     for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "over");
     // Impacto genérico da v2 só para golpes sem Cast (eventos sintéticos/legado).
@@ -411,6 +421,93 @@ export class WorldView {
     g.addColorStop(1, `rgba(24,20,37,${amb.vignette.toFixed(3)})`);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
+  }
+
+  /**
+   * Look v8 por cima do mundo e das copas (abaixo do VFX e dos números): ambiente em multiply + véu frio + vinheta,
+   * névoa na borda da mata, luzes pontuais aditivas com flicker (fracas de dia, fortes à noite, + a luz do Tamer à
+   * noite) e partículas (vagalumes, poeira digital, folhas).
+   */
+  private drawLook(look: LookCfg, p: Presenter, alpha: number, now: number): void {
+    const ctx = this.ctx;
+    const cam = this.camera;
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+    const night = this.nightMix;
+    const amb = ambientMix(look, night);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "multiply";
+    ctx.fillStyle = amb.multiply;
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = "source-over";
+    // véu frio + vinheta num canvas só (cache por tamanho e degrau da noite: 1 drawImage por quadro)
+    const vid = `${w}x${h}|${Math.round(night * 16)}`;
+    if (this.veil?.id !== vid) {
+      const c = this.veil?.c.width === w && this.veil.c.height === h ? this.veil.c : this.makeCanvas(w, h);
+      const g = c.getContext("2d")!;
+      g.clearRect(0, 0, w, h);
+      g.globalAlpha = amb.tintAlpha;
+      g.fillStyle = amb.tint;
+      g.fillRect(0, 0, w, h);
+      g.globalAlpha = 1;
+      const r = Math.hypot(w, h) / 2;
+      const vg = g.createRadialGradient(w / 2, h / 2, r * 0.55, w / 2, h / 2, r);
+      vg.addColorStop(0, "rgba(10,8,22,0)");
+      vg.addColorStop(1, `rgba(10,8,22,${amb.vignette.toFixed(3)})`);
+      g.fillStyle = vg;
+      g.fillRect(0, 0, w, h);
+      this.veil = { id: vid, c };
+    }
+    ctx.globalAlpha = 1;
+    ctx.drawImage(this.veil.c, 0, 0);
+    // névoa
+    if (look.fog) {
+      this.fog ??= { anchors: fogAnchors(this.map, look.fog.every ?? 3), img: fogSprite(look.fog.color, this.makeCanvas) };
+      const fa = look.fog.dayAlpha + (look.fog.nightAlpha - look.fog.dayAlpha) * night;
+      const t = now / 1000;
+      for (const a of this.fog.anchors) {
+        const ph = (a.x * 0.37 + a.y * 0.71) % 6.283;
+        const x = Math.round(a.x - 36 + Math.sin(t * 0.12 + ph) * 10 - cam.x);
+        const y = Math.round(a.y - 15 + Math.sin(t * 0.09 + ph * 1.7) * 3 - cam.y);
+        if (x > w || y > h || x < -72 || y < -30) continue;
+        ctx.globalAlpha = fa * (0.7 + 0.3 * Math.sin(t * 0.3 + ph));
+        ctx.drawImage(this.fog.img, x, y);
+      }
+      ctx.globalAlpha = 1;
+    }
+    // luzes
+    this.lookLights ??= mapLights(this.map, look);
+    ctx.globalCompositeOperation = "lighter";
+    const drawLight = (l: { color: string; radius: number }, x: number, y: number, a: number) => {
+      const rad = Math.max(4, Math.round(l.radius));
+      if (x + rad < 0 || y + rad < 0 || x - rad > w || y - rad > h || a <= 0.01) return;
+      ctx.globalAlpha = Math.min(1, a);
+      ctx.drawImage(lightSprite(l.color, rad, this.makeCanvas, this.lightSprites), Math.round(x - rad), Math.round(y - rad));
+    };
+    for (const l of this.lookLights) {
+      const f = flicker(l, now);
+      drawLight({ color: l.color, radius: l.radius * f.r }, l.x + (l.ox ?? 0) - cam.x, l.y + (l.oy ?? 0) - cam.y, l.intensity * f.k * amb.lightScale);
+    }
+    const me = p.entities.get(p.localPlayerId);
+    if (look.playerLight && me && night > 0.05) {
+      const pos = this.posOf(p, me, alpha);
+      drawLight(look.playerLight, pos.x - cam.x, pos.y - 10 - cam.y, look.playerLight.intensity * night);
+    }
+    ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1;
+    // partículas
+    if (look.particles) {
+      if (!this.glow) {
+        this.glow = this.makeCanvas(7, 7);
+        const g = this.glow.getContext("2d")!;
+        g.fillStyle = "rgba(220,255,140,0.35)";
+        g.fillRect(1, 2, 5, 3);
+        g.fillRect(2, 1, 3, 5);
+        g.fillStyle = "rgba(240,255,170,0.6)";
+        g.fillRect(2, 2, 3, 3);
+      }
+      drawParticles(ctx, cam, now, night, look.particles, this.glow);
+    }
   }
 
   /**
@@ -554,6 +651,41 @@ export class WorldView {
     const x0 = cx * CHUNK_TILES * ts;
     const y0 = cy * CHUNK_TILES * ts;
     const size = CHUNK_TILES * ts;
+    const look = this.opts.look;
+    if (look) {
+      // look v8: lama roxa, decalques e sombra de contato dos props (estáticos: ficam no chunk)
+      if (this.map.patches?.length) drawPatches(g, this.map.patches, x0, y0, size, ts, this.map.width, look);
+      if (this.map.decals?.length)
+        drawDecals(g, this.map.decals, x0, y0, size, (key) => {
+          const src = set[key];
+          const img = src && this.images.get(src.url);
+          if (!img) return undefined;
+          return { img, w: src.rect?.[2] ?? img.width, h: src.rect?.[3] ?? img.height, rect: src.rect };
+        });
+      // oclusão na base da face do penhasco: faixa escura em degraus logo abaixo (a face é a camada ground_detail)
+      const det = this.map.tileLayers.find((l) => l.name === "ground_detail")?.keys;
+      if (det) {
+        g.fillStyle = look.shadows?.color ?? "#0a0812";
+        for (let ty = 0; ty < CHUNK_TILES; ty++)
+          for (let tx = 0; tx < CHUNK_TILES; tx++) {
+            const mx = cx * CHUNK_TILES + tx;
+            const my = cy * CHUNK_TILES + ty - 1;
+            if (my < 0 || mx >= this.map.width || !/cliff_face|cliff_ramp/.test(det[my * this.map.width + mx] ?? "")) continue;
+            for (const [dy, h, a] of [[0, 2, 0.45], [2, 3, 0.25], [5, 3, 0.12]]) {
+              g.globalAlpha = a;
+              g.fillRect(tx * ts, ty * ts + dy, ts, h);
+            }
+          }
+        g.globalAlpha = 1;
+      }
+      const treeKeys = new Set(this.treeGeoms().map((t) => t.key));
+      drawPropShadows(g, this.map.props, x0, y0, size, look, (pr) => {
+        if (treeKeys.has(pr.key)) return { w: 18, tree: true };
+        const src = this.tiles[pr.key];
+        const img = src && this.images.get(src.url);
+        return img ? { w: src.rect?.[2] ?? img.width, tree: false } : undefined;
+      });
+    }
     for (const t of this.treeGeoms()) {
       const s = t.shadow;
       if (!s || s.x > x0 + size || s.x + s.w < x0 || s.y > y0 + size || s.y + s.h < y0) continue;
@@ -1027,6 +1159,16 @@ export class WorldView {
       ox = Math.round((s.cx - cv.manifest.pivot.x) * S);
       oy = Math.round((s.cy - cv.manifest.pivot.y) * S);
     }
+    // look v8: sombra de contato um pouco maior, com núcleo mais escuro logo abaixo dos pés
+    if (this.opts.look) {
+      const core = this.shadowImage(Math.max(2, Math.round(rx * 0.6)), Math.max(1, Math.round(ry * 0.7)));
+      rx = Math.round(rx * 1.15);
+      ry += 1;
+      const off0 = p ? this.combatOffset(v, p, now) : { x: 0, y: 0 };
+      const fade0 = v.defeatedAt !== undefined && now >= v.defeatedAt ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;
+      this.ctx.globalAlpha = 0.3 * fade0;
+      this.ctx.drawImage(core, Math.round(pos.x - this.camera.x + ox - (core.width - 1) / 2 + off0.x), Math.round(pos.y - this.camera.y + oy - (core.height - 1) / 2 + off0.y));
+    }
     const key = `${rx}x${ry}`;
     let c = this.shadows.get(key);
     if (!c) {
@@ -1040,10 +1182,27 @@ export class WorldView {
       this.shadows.set(key, c);
     }
     const fade = v.defeatedAt !== undefined && now >= v.defeatedAt ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;
-    this.ctx.globalAlpha = 0.28 * fade;
+    this.ctx.globalAlpha = (this.opts.look?.shadows?.entityAlpha ?? 0.28) * fade;
     const off = p ? this.combatOffset(v, p, now) : { x: 0, y: 0 };
     this.ctx.drawImage(c, Math.round(pos.x - this.camera.x + ox - rx + off.x), Math.round(pos.y - this.camera.y + oy - ry + off.y));
     this.ctx.globalAlpha = 1;
+  }
+
+  /** Elipse preta cheia (cache por tamanho), base das sombras de entidade. */
+  private shadowImage(rx: number, ry: number): HTMLCanvasElement {
+    const key = `${rx}x${ry}`;
+    let c = this.shadows.get(key);
+    if (!c) {
+      c = this.makeCanvas(rx * 2 + 1, ry * 2 + 1);
+      const g = c.getContext("2d")!;
+      g.fillStyle = "#000000";
+      for (let y = -ry; y <= ry; y++) {
+        const half = Math.floor(rx * Math.sqrt(Math.max(0, 1 - (y * y) / (ry * ry))));
+        g.fillRect(rx - half, ry + y, half * 2 + 1, 1);
+      }
+      this.shadows.set(key, c);
+    }
+    return c;
   }
 
   private drawTargetRing(v: VisualEntity, pos: Vec, now: number): void {

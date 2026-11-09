@@ -1,0 +1,2223 @@
+{
+  "briefVersion": "0.1",
+  "id": "digimon-forest-01",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'digimon-forest-01' (schemaVersion 1) com o kit 'forest-v7'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "out": "src/data/maps/v8",
+  "profile": "factory-v1",
+  "seed": 20261109,
+  "size": {
+    "width": 56,
+    "height": 40,
+    "tile": 32
+  },
+  "properties": {
+    "biome": "forest",
+    "regionName": "Digimon Forest — Prototype 01",
+    "regionRef": "floresta_densa",
+    "levelMin": 1,
+    "levelMax": 15,
+    "safeZone": false,
+    "briefSchema": "game-design/map-brief v1",
+    "kit": "forest-v7"
+  },
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      },
+      {
+        "pack": "forest-v7-pixellab",
+        "prefix": "fp7_",
+        "root": "map-factory",
+        "crops": {
+          "wg_c16_2": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_5": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_11": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_3": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              0,
+              32,
+              32
+            ]
+          },
+          "wg_c16_9": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_7": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_15": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_14": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              32,
+              32,
+              32
+            ]
+          },
+          "wg_c16_4": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_12": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_13": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_10": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              64,
+              32,
+              32
+            ]
+          },
+          "wg_c16_0": {
+            "from": "water_grass_tileset",
+            "rect": [
+              0,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_1": {
+            "from": "water_grass_tileset",
+            "rect": [
+              32,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_6": {
+            "from": "water_grass_tileset",
+            "rect": [
+              64,
+              96,
+              32,
+              32
+            ]
+          },
+          "wg_c16_8": {
+            "from": "water_grass_tileset",
+            "rect": [
+              96,
+              96,
+              32,
+              32
+            ]
+          }
+        }
+      },
+      {
+        "pack": "forest-v8-depth",
+        "prefix": "fp8_",
+        "root": "map-factory"
+      }
+    ],
+    "smoothAutotile": [
+      {
+        "prefix": "fp7_wg_c16_",
+        "full": "fp7_wg_c16_15",
+        "outside": "edge",
+        "ground": [
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_1",
+          "fp8_ground_variant_2",
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_6"
+        ],
+        "threshold": 0.62,
+        "noise": 0.1,
+        "noiseScale": 6
+      }
+    ]
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing",
+      "curve": {
+        "fill": "fp4_path_w47_255",
+        "ground": [
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_1",
+          "fp8_ground_variant_2",
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_6"
+        ],
+        "edge": "dither"
+      }
+    },
+    "water": {
+      "autotile": "c16",
+      "prefix": "fp7_wg_c16_",
+      "outside": "clamp",
+      "solid": true,
+      "curve": {
+        "fill": "fp7_wg_c16_15",
+        "ground": [
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_1",
+          "fp8_ground_variant_2",
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_6"
+        ],
+        "edge": "foam",
+        "foam": "#4fa7b5"
+      }
+    }
+  },
+  "base": "forest",
+  "areas": [
+    {
+      "name": "spawn_area",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 25,
+      "cy": 33.5,
+      "rx": 7.75,
+      "ry": 5.25,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "clareira_central",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 28,
+      "cy": 21,
+      "rx": 8.75,
+      "ry": 7.75,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "agua_riacho",
+      "terrain": "water",
+      "shape": "river",
+      "points": [
+        [
+          28.5,
+          -1.5,
+          1.7696505291755975,
+          0
+        ],
+        [
+          28.5,
+          3.5,
+          1.6207646259142572,
+          0
+        ],
+        [
+          28.5,
+          6.5,
+          1.355467372258249,
+          0
+        ],
+        [
+          28.3,
+          9.5,
+          1.9,
+          1
+        ],
+        [
+          26.5,
+          12.3,
+          1.8479789773532709,
+          0
+        ],
+        [
+          23.5,
+          13.5,
+          1.3946326165704201,
+          0
+        ],
+        [
+          20.5,
+          13.5,
+          1.5565771515070035,
+          0
+        ],
+        [
+          17.7,
+          14.7,
+          2.2983788611381026,
+          0
+        ],
+        [
+          16.5,
+          17.5,
+          2.0045763737150204,
+          0
+        ],
+        [
+          16.5,
+          20.5,
+          1.9,
+          1
+        ],
+        [
+          16.5,
+          23.5,
+          1.9,
+          1
+        ],
+        [
+          16.5,
+          26.5,
+          2.007618878702135,
+          0
+        ],
+        [
+          16.5,
+          29.5,
+          1.5827289283638448,
+          0
+        ],
+        [
+          16.5,
+          32.5,
+          1.4320872347214553,
+          0
+        ],
+        [
+          16.5,
+          35.5,
+          1.9108972179325654,
+          0
+        ],
+        [
+          16.5,
+          38,
+          2.008700894861546,
+          0
+        ],
+        [
+          16.5,
+          41.5,
+          1.3241606925341827,
+          0
+        ]
+      ],
+      "noise": 0.35,
+      "bank": "clearing",
+      "bankWidth": [
+        0.3,
+        1.5
+      ],
+      "afterPaths": true,
+      "curve": {
+        "pad": 0.5
+      }
+    },
+    {
+      "name": "zona_concentracao",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 43,
+      "cy": 21,
+      "rx": 5.75,
+      "ry": 5.75,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "campo_de_pedras",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 45,
+      "cy": 32,
+      "rx": 5.75,
+      "ry": 4.75,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "clareira_oculta",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 8.5,
+      "cy": 6,
+      "rx": 5.25,
+      "ry": 4.75,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "boss_arena",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 51.5,
+      "cy": 20,
+      "rx": 4.25,
+      "ry": 5.75,
+      "wobble": 0.08,
+      "organic": {
+        "nooks": 4,
+        "amp": 0.2
+      }
+    },
+    {
+      "name": "exit-sul-vila-chao",
+      "terrain": "clearing",
+      "shape": "rect",
+      "x": 22,
+      "y": 38,
+      "w": 6,
+      "h": 2
+    }
+  ],
+  "paths": [
+    {
+      "name": "rota_principal",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          36.5
+        ],
+        [
+          26.280659051534432,
+          33.5497028575779
+        ],
+        [
+          27.43919335160801,
+          30.64139185388237
+        ],
+        [
+          26.5,
+          27.5
+        ],
+        [
+          27.683395743565296,
+          25.288104153842664
+        ],
+        [
+          26.08815281858458,
+          22.679259926464464
+        ],
+        [
+          27.5,
+          20.5
+        ],
+        [
+          29.667787428664152,
+          19.835574857328304
+        ],
+        [
+          31.5,
+          18.5
+        ],
+        [
+          33.92264681680495,
+          20.59669147899381
+        ],
+        [
+          36.5,
+          22.5
+        ],
+        [
+          38.68104403065995,
+          20.46840671776658
+        ],
+        [
+          41.5,
+          19.5
+        ],
+        [
+          43.117118879547746,
+          20.324321680678377
+        ],
+        [
+          44.5,
+          21.5
+        ],
+        [
+          46.535667074489275,
+          21.1426682979571
+        ],
+        [
+          48.5,
+          20.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ],
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
+    },
+    {
+      "name": "rota_secundaria_pedras",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          33.5
+        ],
+        [
+          28.200898056745398,
+          33.9977548581365
+        ],
+        [
+          30.5,
+          35.5
+        ],
+        [
+          32.933654755186836,
+          34.81714879944692
+        ],
+        [
+          33.864407873439,
+          31.87994514349183
+        ],
+        [
+          36.5,
+          31.5
+        ],
+        [
+          39.325552473022846,
+          31.686118817442885
+        ],
+        [
+          41.5,
+          33.5
+        ],
+        [
+          43.59154649682862,
+          31.591546496828617
+        ],
+        [
+          45.5,
+          29.5
+        ],
+        [
+          47.3667403162659,
+          27.22004418975954
+        ],
+        [
+          48.5,
+          24.5
+        ],
+        [
+          50.06142984910046,
+          22.78071492455023
+        ],
+        [
+          50.5,
+          20.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ],
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
+    },
+    {
+      "name": "rota_secundaria_riacho",
+      "terrain": "path",
+      "points": [
+        [
+          32.5,
+          19.5
+        ],
+        [
+          33.67779394448477,
+          17.669448486121194
+        ],
+        [
+          33.5,
+          15.5
+        ],
+        [
+          33.281484382835856,
+          13.5
+        ],
+        [
+          33.5,
+          11.5
+        ],
+        [
+          31.5,
+          9.5
+        ],
+        [
+          25.5,
+          9.5
+        ],
+        [
+          23.5,
+          8.5
+        ],
+        [
+          22.442495214634263,
+          6.557504785365737
+        ],
+        [
+          20.5,
+          5.5
+        ],
+        [
+          18.5,
+          4.852464601903938
+        ],
+        [
+          16.5,
+          5.5
+        ],
+        [
+          14.68723433606086,
+          6.748937344243434
+        ],
+        [
+          12.5,
+          6.5
+        ],
+        [
+          10.5,
+          5.813409375599003
+        ],
+        [
+          8.5,
+          6.5
+        ]
+      ],
+      "radius": [
+        0.6,
+        0.75
+      ],
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.675,
+        "pad": 0.45
+      }
+    },
+    {
+      "name": "rota_vau_pedras",
+      "terrain": "path",
+      "points": [
+        [
+          20.5,
+          34.5
+        ],
+        [
+          20.65684284193939,
+          32.5
+        ],
+        [
+          20.5,
+          30.5
+        ],
+        [
+          20.47636128282526,
+          28.5
+        ],
+        [
+          20.5,
+          26.5
+        ],
+        [
+          21.170449680197553,
+          24.5
+        ],
+        [
+          20.5,
+          22.5
+        ],
+        [
+          15.5,
+          22.5
+        ],
+        [
+          11.5,
+          21.5
+        ],
+        [
+          11.318536142946233,
+          19.420365964263443
+        ],
+        [
+          10.5,
+          17.5
+        ],
+        [
+          11.493005785948636,
+          15.623251446487158
+        ],
+        [
+          11.5,
+          13.5
+        ],
+        [
+          14.5,
+          10.5
+        ],
+        [
+          19.5,
+          9.5
+        ],
+        [
+          21.54600745626157,
+          9.184029825046284
+        ],
+        [
+          23.5,
+          8.5
+        ]
+      ],
+      "radius": [
+        0.6,
+        0.75
+      ],
+      "meander": 0.3,
+      "curve": {
+        "halfWidth": 0.675,
+        "pad": 0.45
+      }
+    },
+    {
+      "name": "exit-sul-vila-acesso",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          40.5
+        ],
+        [
+          25.5,
+          36.5
+        ]
+      ],
+      "curve": {
+        "halfWidth": 0.9,
+        "pad": 0.45
+      }
+    }
+  ],
+  "bridges": [
+    {
+      "name": "poi-ponte-riacho",
+      "auto": true,
+      "axis": "auto",
+      "x": 27,
+      "y": 9,
+      "set": [
+        "fp6_bridge_h_0",
+        "fp6_bridge_h_1",
+        "fp6_bridge_h_2"
+      ],
+      "setV": [
+        "fp6_bridge_v_0",
+        "fp6_bridge_v_1",
+        "fp6_bridge_v_2"
+      ],
+      "kind": "bridge",
+      "pad": 1
+    },
+    {
+      "name": "poi-vau-pedras",
+      "auto": true,
+      "axis": "auto",
+      "x": 15,
+      "y": 22,
+      "set": [
+        "fp6_bridge_h_0",
+        "fp6_bridge_h_1",
+        "fp6_bridge_h_2"
+      ],
+      "setV": [
+        "fp6_bridge_v_0",
+        "fp6_bridge_v_1",
+        "fp6_bridge_v_2"
+      ],
+      "kind": "ford"
+    }
+  ],
+  "props": [
+    {
+      "kind": "grid",
+      "on": "forest",
+      "dx": 44,
+      "dy": 40,
+      "jitter": 10,
+      "edgeSkip": 0.12,
+      "solid": true,
+      "pick": [
+        {
+          "key": "fp4_tree_round_a",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_round_b",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_conifer_a",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_conifer_b",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_bushy_a",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_bushy_b",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_birch",
+          "weight": 5
+        },
+        {
+          "key": "fp4_tree_flowering",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_data_leaf",
+          "weight": 9
+        },
+        {
+          "key": "fp4_tree_palm_digital",
+          "weight": 14,
+          "where": "edge"
+        },
+        {
+          "key": "fp4_tree_ancient",
+          "weight": 2,
+          "where": "interior"
+        }
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 18,
+        "y": 29,
+        "w": 14,
+        "h": 9
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 8,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 18,
+        "y": 29,
+        "w": 14,
+        "h": 9
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 20,
+        "y": 14,
+        "w": 16,
+        "h": 14
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 13,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 20,
+        "y": 14,
+        "w": 16,
+        "h": 14
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 2,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b",
+        "fp7_tall_grass_c"
+      ],
+      "patches": [
+        [
+          40.5,
+          19,
+          1.8
+        ],
+        [
+          45.5,
+          23,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 38,
+        "y": 16,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 8,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 38,
+        "y": 16,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 2,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 5,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp6_rock_big",
+        "fp4_rock_cluster",
+        "fp7_rock_small_flat"
+      ],
+      "count": 6,
+      "solid": true,
+      "avoidPath": true,
+      "offset": [
+        16,
+        28,
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp6_rock_small"
+      ],
+      "count": 5,
+      "offset": [
+        8,
+        18,
+        16,
+        12
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b",
+        "fp7_tall_grass_c"
+      ],
+      "patches": [
+        [
+          6.25,
+          4.4,
+          1.8
+        ],
+        [
+          10.75,
+          7.6,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 2,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 7,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 2,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 3,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 48,
+        "y": 15,
+        "w": 7,
+        "h": 10
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple",
+        "fp7_flower_digital"
+      ],
+      "count": 4,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 48,
+        "y": 15,
+        "w": 7,
+        "h": 10
+      },
+      "keys": [
+        "fp4_mushroom_cluster",
+        "fp7_mushroom_digital"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "edge",
+      "on": "clearing",
+      "adjacentTo": "forest",
+      "side": "north",
+      "chance": 0.3,
+      "keys": [
+        "fp4_fallen_leaves_cluster",
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ]
+    },
+    {
+      "kind": "fixed",
+      "at": [
+        {
+          "x": 31,
+          "y": 18,
+          "key": "fp6_chest_closed",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0,
+          "openKey": "fp7_chest_open"
+        },
+        {
+          "x": 24,
+          "y": 31,
+          "key": "fp7_sign_post_arrow",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 33,
+          "y": 21,
+          "key": "fp6_healing_point",
+          "solid": false,
+          "force": true,
+          "ox": 0,
+          "oy": -10
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 43,
+          "y": 24,
+          "key": "fp7_npc_ranger",
+          "solid": true,
+          "force": true,
+          "npc": "npc-ranger",
+          "oy": 0
+        },
+        {
+          "x": 25,
+          "y": 22,
+          "key": "fp7_npc_merchant",
+          "solid": true,
+          "force": true,
+          "npc": "npc-merchant",
+          "oy": 0
+        },
+        {
+          "x": 13,
+          "y": 6,
+          "key": "fp7_bush_dense_secret",
+          "solid": false,
+          "force": true
+        }
+      ]
+    }
+  ],
+  "starts": {
+    "from_vila": [
+      25,
+      36
+    ],
+    "player": [
+      25,
+      36
+    ]
+  },
+  "spawns": [
+    {
+      "name": "spawn-gigimon",
+      "x": 22,
+      "y": 15,
+      "w": 12,
+      "h": 12,
+      "species": [
+        "CREATURE-0002"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 4
+    },
+    {
+      "name": "spawn-koromon",
+      "x": 22,
+      "y": 15,
+      "w": 12,
+      "h": 12,
+      "species": [
+        "CREATURE-0005"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 4
+    },
+    {
+      "name": "spawn-tsunomon",
+      "x": 21,
+      "y": 30,
+      "w": 8,
+      "h": 8,
+      "species": [
+        "CREATURE-0008"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 3
+    },
+    {
+      "name": "spawn-tanemon",
+      "x": 5,
+      "y": 2,
+      "w": 8,
+      "h": 8,
+      "species": [
+        "CREATURE-0116"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 3
+    },
+    {
+      "name": "spawn-palmon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0107"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 5
+    },
+    {
+      "name": "spawn-tentomon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0106"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 5
+    },
+    {
+      "name": "spawn-floramon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0111"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 4
+    },
+    {
+      "name": "spawn-dorumon",
+      "x": 41,
+      "y": 28,
+      "w": 8,
+      "h": 8,
+      "species": [
+        "CREATURE-0101"
+      ],
+      "levelMin": 4,
+      "levelMax": 6,
+      "count": 3
+    }
+  ],
+  "npcs": [
+    {
+      "name": "npc-guia-gigimon",
+      "x": 23,
+      "y": 30,
+      "properties": {
+        "displayName": "Gigimon Guia",
+        "kind": "digimon_resident",
+        "role": "guia",
+        "aggressive": false,
+        "speciesId": "CREATURE-0002",
+        "dialogue": "Diálogo placeholder: dá uma dica sobre as rotas até o covil (principal pela clareira, alternativa pelas pedras, e o vau de pedras do riacho como caminho panorâmico).",
+        "behavior": "static"
+      }
+    },
+    {
+      "name": "npc-ranger",
+      "x": 43,
+      "y": 24,
+      "properties": {
+        "displayName": "Guarda-Florestal",
+        "kind": "tamer",
+        "role": "guarda_rota_alternativa",
+        "aggressive": false,
+        "dialogue": "Diálogo placeholder: alerta sobre o Kuwagamon mais adiante e explica que o Campo de Pedras é a rota mais difícil até o covil.",
+        "behavior": "static"
+      }
+    },
+    {
+      "name": "npc-merchant",
+      "x": 25,
+      "y": 22,
+      "properties": {
+        "displayName": "Comerciante Itinerante",
+        "kind": "tamer",
+        "role": "comerciante",
+        "aggressive": false,
+        "dialogue": "Diálogo placeholder: oferece itens básicos (poções/bits) na Clareira Central, ponto de parada natural entre as 3 rotas.",
+        "behavior": "static"
+      }
+    }
+  ],
+  "pois": [
+    {
+      "name": "poi-ponte-riacho",
+      "x": 27,
+      "y": 9,
+      "kind": "crossing",
+      "properties": {
+        "title": "Ponte do Riacho",
+        "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. 1ª travessia do mapa (inalterada desde o v1)."
+      }
+    },
+    {
+      "name": "poi-vau-pedras",
+      "x": 15,
+      "y": 22,
+      "kind": "crossing",
+      "properties": {
+        "title": "Vau de Pedras",
+        "description": "v2 — NOVA. Fileira de pedras planas que permite cruzar a pé o braço sul do riacho, na Rota do Vau de Pedras. 2ª travessia do mapa, pedida pela correção de 'riacho maior precisa de 2 travessias'. Pode usar `rock_small_flat.png` do forest-v7 como as pedras do vau (decorativo/sólido nas margens, a faixa central de travessia precisa ficar sem colisão — decisão de implementação do game-dev)."
+      }
+    },
+    {
+      "name": "poi-entrada-secreta",
+      "x": 13,
+      "y": 6,
+      "kind": "secret_entrance",
+      "properties": {
+        "title": "Entrada da Clareira Oculta",
+        "description": "Passagem estreita escondida por um arbusto denso; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim."
+      }
+    },
+    {
+      "name": "poi-entrada-covil",
+      "x": 47,
+      "y": 20,
+      "kind": "arena_entrance",
+      "properties": {
+        "title": "Entrada do Covil",
+        "description": "Ponto onde a rota principal e a Rota das Pedras convergem antes da arena do chefe."
+      }
+    },
+    {
+      "name": "poi-mirante-clareira",
+      "x": 28,
+      "y": 15,
+      "kind": "viewpoint",
+      "properties": {
+        "title": "Mirante da Clareira",
+        "description": "Pequena elevação de onde se vê o braço norte do riacho e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
+      }
+    },
+    {
+      "name": "interact-bau",
+      "x": 31,
+      "y": 18,
+      "kind": "chest",
+      "properties": {
+        "interactable": true,
+        "title": "Baú de madeira simples na Clareira Central.",
+        "text": "Baú de madeira simples na Clareira Central.",
+        "effect": "[H] loot não balanceado nesta entrega: bits e/ou 1 item comum de economy.json, a definir pelo game-dev na integração."
+      }
+    },
+    {
+      "name": "interact-placa-entrada",
+      "x": 24,
+      "y": 31,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa de madeira na entrada sul.",
+        "text": "Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura. Rota do Vau, a oeste, é mais longa mas mais calma.",
+        "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura. Rota do Vau, a oeste, é mais longa mas mais calma.'"
+      }
+    },
+    {
+      "name": "interact-fonte-cura",
+      "x": 33,
+      "y": 21,
+      "kind": "heal_point",
+      "properties": {
+        "interactable": true,
+        "title": "Pequena fonte/altar na Clareira Central.",
+        "text": "Pequena fonte/altar na Clareira Central.",
+        "effect": "[H] restaura o HP da equipe ao interagir, seguindo o mesmo padrão de healPointBeforeBoss usado em dungeons.json (cripta_das_raizes, andar 5)."
+      }
+    },
+    {
+      "name": "interact-placa-secreta",
+      "x": 9,
+      "y": 7,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa desgastada na Clareira Oculta.",
+        "text": "Placa desgastada na Clareira Oculta.",
+        "effect": "Texto pt-BR placeholder: lore/curiosidade sobre a zona secreta, sem efeito de jogo."
+      }
+    }
+  ],
+  "bossArena": {
+    "name": "arena-kuwagamon",
+    "x": 48,
+    "y": 15,
+    "w": 7,
+    "h": 10,
+    "boss": "BOSS-KUWAGAMON",
+    "properties": {
+      "triggerType": "approach",
+      "arenaType": "clareira_aberta",
+      "centerX": 51,
+      "centerY": 20
+    }
+  },
+  "triggers": [
+    {
+      "name": "arena-kuwagamon-entrada",
+      "x": 48,
+      "y": 15,
+      "w": 7,
+      "h": 10,
+      "properties": {
+        "event": "boss_approach",
+        "boss": "BOSS-KUWAGAMON"
+      }
+    }
+  ],
+  "portals": [
+    {
+      "name": "exit-sul-vila",
+      "x": 22,
+      "y": 38,
+      "w": 6,
+      "h": 2,
+      "to": "vila",
+      "toStart": "from_digimon-forest-01"
+    }
+  ],
+  "organic": {
+    "borderJitter": 0.3
+  },
+  "fordStones": [
+    "fp7_rock_small_flat",
+    "fp6_rock_small"
+  ],
+  "details": [
+    {
+      "x": 51,
+      "y": 20,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 50,
+      "y": 17,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 53,
+      "y": 18,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 53,
+      "y": 16,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 49,
+      "y": 21,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    },
+    {
+      "x": 52,
+      "y": 22,
+      "key": "fp7_boss_arena_floor",
+      "avoidPath": true,
+      "on": "clearing"
+    }
+  ],
+  "look": {
+    "id": "v8",
+    "render": {
+      "doc": "grade escuro/frio no chão e nas copas, luzes pontuais aditivas, névoa na borda da mata, partículas, sombra de contato, zoom x1,5",
+      "prefix": "fp8_",
+      "zoomMul": 1.5,
+      "grade": {
+        "rules": [
+          {
+            "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem)$",
+            "skip": true
+          },
+          {
+            "match": "^fp8_ground_variant_",
+            "saturationMul": 0.78,
+            "valueMul": 0.6
+          },
+          {
+            "match": "^fp8_cliff_",
+            "saturationMul": 0.8,
+            "valueMul": 0.8,
+            "tint": "#6c5a86",
+            "tintMix": 0.3
+          },
+          {
+            "match": "^fp4_path_",
+            "saturationMul": 0.55,
+            "valueMul": 0.74,
+            "tint": "#5e4a62",
+            "tintMix": 0.28
+          },
+          {
+            "match": "^fp8_",
+            "saturationMul": 0.85,
+            "valueMul": 0.74
+          },
+          {
+            "match": "^fp7_(npc_|chest|sign)",
+            "skip": true
+          },
+          {
+            "match": "^fp6_(healing_point|chest|sign)",
+            "skip": true
+          },
+          {
+            "match": "^fp4_flower_cluster|^fp7_flower_digital|^fp7_mushroom_digital",
+            "saturationMul": 0.9,
+            "valueMul": 0.85
+          },
+          {
+            "match": "^fp7_wg_c16_|^water",
+            "saturationMul": 0.7,
+            "valueMul": 0.78,
+            "hueShift": 8
+          }
+        ],
+        "coolShift": 0.06
+      },
+      "lights": {
+        "fp6_healing_point": {
+          "color": "#7df0ff",
+          "radius": 46,
+          "intensity": 0.6,
+          "oy": -10
+        },
+        "fp6_sign_post": {
+          "color": "#ffc35a",
+          "radius": 30,
+          "intensity": 0.5,
+          "oy": -22
+        },
+        "fp7_sign_post_arrow": {
+          "color": "#ffc35a",
+          "radius": 30,
+          "intensity": 0.5,
+          "oy": -22
+        },
+        "fp7_flower_digital": {
+          "color": "#9b7bff",
+          "radius": 14,
+          "intensity": 0.35,
+          "oy": -6
+        },
+        "fp7_mushroom_digital": {
+          "color": "#4fe0ff",
+          "radius": 16,
+          "intensity": 0.4,
+          "oy": -6
+        },
+        "fp8_data_crystal": {
+          "oy": -16
+        },
+        "fp8_mushroom_bioluminescent": {
+          "oy": -8
+        },
+        "fp8_data_totem": {
+          "oy": -38
+        }
+      },
+      "playerLight": {
+        "color": "#ffd59a",
+        "radius": 64,
+        "intensity": 0.5
+      },
+      "ambient": {
+        "day": {
+          "multiply": "#bcc4d6",
+          "tint": "#20304a",
+          "tintAlpha": 0.1,
+          "vignette": 0.34,
+          "lightScale": 0.55
+        },
+        "night": {
+          "multiply": "#9a9cd0",
+          "tint": "#0a0c28",
+          "tintAlpha": 0.12,
+          "vignette": 0.55,
+          "lightScale": 1.35
+        }
+      },
+      "trees": {
+        "rimLight": {
+          "day": "#a9bd8e",
+          "night": "#8ea4d6",
+          "alpha": 60
+        },
+        "castShadow": {
+          "day": "#05100c",
+          "dayAlpha": 118,
+          "night": "#04061a",
+          "nightAlpha": 150
+        }
+      },
+      "shadows": {
+        "color": "#0a0812",
+        "entityAlpha": 0.42,
+        "propAlpha": 0.36
+      },
+      "fog": {
+        "color": "#a9bcd6",
+        "dayAlpha": 0.08,
+        "nightAlpha": 0.16,
+        "every": 3
+      },
+      "particles": {
+        "fireflies": 1.2,
+        "dust": 1.5,
+        "leaves": 0.35
+      },
+      "mud": {
+        "dark": "#2a2136",
+        "mid": "#463757",
+        "light": "#62527a",
+        "rim": "#1f1a2a"
+      }
+    },
+    "groundSwap": {
+      "from": [
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
+      ],
+      "to": [
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
+      ]
+    }
+  },
+  "depth": {
+    "waterTerrain": "water",
+    "cliff": {
+      "interior": [
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_3"
+      ]
+    },
+    "openTerrain": "clearing",
+    "solidKeys": [
+      "fp8_data_crystal",
+      "fp8_data_totem",
+      "fp8_flowering_bush",
+      "fp8_fallen_trunk",
+      "fp8_edge_cluster_b"
+    ],
+    "ground": {
+      "clearing": {
+        "split": 0.5,
+        "low": [
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_1",
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_1",
+          "fp8_ground_variant_3"
+        ],
+        "high": [
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_2",
+          "fp8_ground_variant_6",
+          "fp8_ground_variant_0",
+          "fp8_ground_variant_6"
+        ],
+        "wet": [
+          "fp8_ground_variant_7",
+          "fp8_ground_variant_1"
+        ],
+        "wetChance": 0.3
+      }
+    },
+    "_plateausDoc": "Mirante da Clareira (POI poi-mirante-clareira, 'pequena elevação' no brief do game-design): platô de 8×3 ao sul da curva do riacho, face na linha 18 e rampa em (26,18) virada para a trilha principal. Colisão: face (menos a rampa) + anel N/L/O fora do topo, na camada collision.",
+    "plateaus": [
+      {
+        "name": "mirante",
+        "x": 21,
+        "y": 15,
+        "w": 8,
+        "h": 3,
+        "ramp": 26,
+        "ringProps": [
+          "fp8_fern",
+          "fp8_flowering_bush",
+          "fp8_tuft",
+          "fp8_fern"
+        ],
+        "onTop": [
+          {
+            "key": "fp8_data_totem",
+            "x": 22,
+            "y": 15
+          },
+          {
+            "key": "fp8_data_crystal",
+            "x": 28,
+            "y": 16
+          }
+        ]
+      }
+    ],
+    "guides": [
+      {
+        "path": "rota_principal",
+        "from": 0.1,
+        "to": 0.96,
+        "every": 4.2,
+        "offset": [
+          1.3,
+          2
+        ],
+        "sets": [
+          [
+            "fp8_mushroom_bioluminescent",
+            "fp8_mushroom_bioluminescent"
+          ],
+          [
+            "fp8_data_crystal",
+            "fp8_mushroom_bioluminescent"
+          ],
+          [
+            "fp8_mushroom_bioluminescent",
+            "fp7_mushroom_digital"
+          ]
+        ]
+      },
+      {
+        "path": "rota_secundaria_pedras",
+        "from": 0.15,
+        "to": 0.95,
+        "every": 5,
+        "offset": [
+          1.3,
+          2
+        ],
+        "sets": [
+          [
+            "fp8_mushroom_bioluminescent",
+            "fp8_mushroom_bioluminescent"
+          ],
+          [
+            "fp8_data_crystal"
+          ]
+        ]
+      },
+      {
+        "path": "rota_secundaria_riacho",
+        "from": 0.2,
+        "to": 0.95,
+        "every": 6.5,
+        "offset": [
+          1.2,
+          1.8
+        ],
+        "sets": [
+          [
+            "fp8_mushroom_bioluminescent"
+          ],
+          [
+            "fp8_mushroom_bioluminescent",
+            "fp8_mushroom_bioluminescent"
+          ]
+        ]
+      }
+    ],
+    "beacons": [
+      {
+        "key": "fp8_data_totem",
+        "at": [
+          [
+            47,
+            18
+          ],
+          [
+            47,
+            23
+          ]
+        ]
+      },
+      {
+        "key": "fp8_data_crystal",
+        "at": [
+          [
+            35,
+            23
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            6,
+            4
+          ]
+        ]
+      },
+      {
+        "key": "fp8_mushroom_bioluminescent",
+        "at": [
+          [
+            34,
+            23
+          ],
+          [
+            22,
+            21
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            11,
+            8
+          ],
+          [
+            49,
+            17
+          ],
+          [
+            53,
+            23
+          ]
+        ]
+      }
+    ],
+    "edgeClutter": {
+      "count": 60,
+      "spacing": 3.2,
+      "maxSatellites": 3,
+      "nucleus": [
+        "fp8_fern",
+        "fp8_flowering_bush",
+        "fp8_fallen_trunk",
+        "fp8_edge_cluster_a",
+        "fp8_edge_cluster_b",
+        "fp8_fern"
+      ],
+      "satellites": [
+        "fp8_tuft",
+        "fp8_fern",
+        "fp8_tuft"
+      ]
+    },
+    "shore": {
+      "every": 0.9,
+      "chance": 0.5,
+      "keys": [
+        [
+          "fp8_reed_cluster",
+          3
+        ],
+        [
+          "fp8_shore_stone_small",
+          2
+        ]
+      ]
+    },
+    "decals": {
+      "max": 3,
+      "floor": 0.3,
+      "gain": 6,
+      "pools": {
+        "wet": [
+          [
+            "fp8_moss_patch",
+            3
+          ],
+          [
+            "fp8_pebble_cluster",
+            2
+          ],
+          [
+            "fp8_puddle_small",
+            1
+          ]
+        ],
+        "edge": [
+          [
+            "fp8_leaf_litter",
+            4
+          ],
+          [
+            "fp8_root_tendril",
+            2
+          ],
+          [
+            "fp8_moss_patch",
+            2
+          ]
+        ],
+        "open": [
+          [
+            "fp8_pebble_cluster",
+            3
+          ],
+          [
+            "fp8_leaf_litter",
+            3
+          ],
+          [
+            "fp8_moss_patch",
+            3
+          ],
+          [
+            "fp8_crack",
+            0.4
+          ]
+        ]
+      }
+    },
+    "pathTufts": {
+      "every": 0.7,
+      "chance": 0.55,
+      "keys": [
+        "fp8_tuft_over_path_a",
+        "fp8_tuft_over_path_b"
+      ]
+    },
+    "mud": {
+      "count": 7,
+      "rx": [
+        2.6,
+        4.2
+      ],
+      "ry": [
+        1.7,
+        2.8
+      ],
+      "spacing": 7,
+      "pathDist": 2,
+      "kind": "mud"
+    }
+  }
+}

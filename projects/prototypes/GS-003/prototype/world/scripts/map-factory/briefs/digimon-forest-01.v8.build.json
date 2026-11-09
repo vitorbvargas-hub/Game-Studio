@@ -1,0 +1,115 @@
+{
+  "_doc": "Look v8 (profundidade e beleza, docs/DRAKANTOS_VISUAL_STUDY.md + pacote art/map-factory/forest-v8-depth) por cima da montagem padrão (extends). Gera o mapa variante em src/data/maps/v8/ com o MESMO id: o jogo carrega esta variante com ?look=v8. A montagem padrão (digimon-forest-01.build.json) não muda; quando o fundador aprovar, basta trocar o out para src/data/maps (ou o padrão do look em main.ts).",
+  "extends": "digimon-forest-01.build.json",
+  "out": "src/data/maps/v8",
+  "look": {
+    "id": "v8",
+    "pack": "forest-v8-depth",
+    "prefix": "fp8_",
+    "_groundSwapDoc": "O chão das clareiras passa a ser as 8 variantes do v8 (com decalque embutido); a mesma lista entra embaixo das curvas e no recorte suave da borda da mata, para não haver costura entre células.",
+    "groundSwap": {
+      "from": ["fp4_clearing_floor_v41_00", "fp4_clearing_floor_v41_01", "fp4_clearing_floor_v41_02", "fp4_clearing_floor_v41_03"],
+      "to": ["fp8_ground_variant_0", "fp8_ground_variant_1", "fp8_ground_variant_2", "fp8_ground_variant_0", "fp8_ground_variant_6"]
+    },
+    "render": {
+      "doc": "grade escuro/frio no chão e nas copas, luzes pontuais aditivas, névoa na borda da mata, partículas, sombra de contato, zoom x1,5",
+      "prefix": "fp8_",
+      "zoomMul": 1.5,
+      "grade": {
+        "rules": [
+          { "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem)$", "skip": true },
+          { "match": "^fp8_ground_variant_", "saturationMul": 0.78, "valueMul": 0.6 },
+          { "match": "^fp8_cliff_", "saturationMul": 0.8, "valueMul": 0.8, "tint": "#6c5a86", "tintMix": 0.3 },
+          { "match": "^fp4_path_", "saturationMul": 0.55, "valueMul": 0.74, "tint": "#5e4a62", "tintMix": 0.28 },
+          { "match": "^fp8_", "saturationMul": 0.85, "valueMul": 0.74 },
+          { "match": "^fp7_(npc_|chest|sign)", "skip": true },
+          { "match": "^fp6_(healing_point|chest|sign)", "skip": true },
+          { "match": "^fp4_flower_cluster|^fp7_flower_digital|^fp7_mushroom_digital", "saturationMul": 0.9, "valueMul": 0.85 },
+          { "match": "^fp7_wg_c16_|^water", "saturationMul": 0.7, "valueMul": 0.78, "hueShift": 8 }
+        ],
+        "coolShift": 0.06
+      },
+      "lights": {
+        "fp6_healing_point": { "color": "#7df0ff", "radius": 46, "intensity": 0.6, "oy": -10 },
+        "fp6_sign_post": { "color": "#ffc35a", "radius": 30, "intensity": 0.5, "oy": -22 },
+        "fp7_sign_post_arrow": { "color": "#ffc35a", "radius": 30, "intensity": 0.5, "oy": -22 },
+        "fp7_flower_digital": { "color": "#9b7bff", "radius": 14, "intensity": 0.35, "oy": -6 },
+        "fp7_mushroom_digital": { "color": "#4fe0ff", "radius": 16, "intensity": 0.4, "oy": -6 },
+        "fp8_data_crystal": { "oy": -16 },
+        "fp8_mushroom_bioluminescent": { "oy": -8 },
+        "fp8_data_totem": { "oy": -38 }
+      },
+      "playerLight": { "color": "#ffd59a", "radius": 64, "intensity": 0.5 },
+      "ambient": {
+        "day": { "multiply": "#bcc4d6", "tint": "#20304a", "tintAlpha": 0.1, "vignette": 0.34, "lightScale": 0.55 },
+        "night": { "multiply": "#9a9cd0", "tint": "#0a0c28", "tintAlpha": 0.12, "vignette": 0.55, "lightScale": 1.35 }
+      },
+      "trees": {
+        "rimLight": { "day": "#a9bd8e", "night": "#8ea4d6", "alpha": 60 },
+        "castShadow": { "day": "#05100c", "dayAlpha": 118, "night": "#04061a", "nightAlpha": 150 }
+      },
+      "shadows": { "color": "#0a0812", "entityAlpha": 0.42, "propAlpha": 0.36 },
+      "fog": { "color": "#a9bcd6", "dayAlpha": 0.08, "nightAlpha": 0.16, "every": 3 },
+      "particles": { "fireflies": 1.2, "dust": 1.5, "leaves": 0.35 },
+      "mud": { "dark": "#2a2136", "mid": "#463757", "light": "#62527a", "rim": "#1f1a2a" }
+    }
+  },
+  "depth": {
+    "waterTerrain": "water",
+    "cliff": { "interior": ["fp8_ground_variant_1", "fp8_ground_variant_0", "fp8_ground_variant_2", "fp8_ground_variant_3"] },
+    "openTerrain": "clearing",
+    "solidKeys": ["fp8_data_crystal", "fp8_data_totem", "fp8_flowering_bush", "fp8_fallen_trunk", "fp8_edge_cluster_b"],
+    "ground": {
+      "clearing": {
+        "split": 0.5,
+        "low": ["fp8_ground_variant_0", "fp8_ground_variant_1", "fp8_ground_variant_0", "fp8_ground_variant_1", "fp8_ground_variant_3"],
+        "high": ["fp8_ground_variant_0", "fp8_ground_variant_2", "fp8_ground_variant_6", "fp8_ground_variant_0", "fp8_ground_variant_6"],
+        "wet": ["fp8_ground_variant_7", "fp8_ground_variant_1"],
+        "wetChance": 0.3
+      }
+    },
+    "_plateausDoc": "Mirante da Clareira (POI poi-mirante-clareira, 'pequena elevação' no brief do game-design): platô de 8×3 ao sul da curva do riacho, face na linha 18 e rampa em (26,18) virada para a trilha principal. Colisão: face (menos a rampa) + anel N/L/O fora do topo, na camada collision.",
+    "plateaus": [
+      {
+        "name": "mirante",
+        "x": 21,
+        "y": 15,
+        "w": 8,
+        "h": 3,
+        "ramp": 26,
+        "ringProps": ["fp8_fern", "fp8_flowering_bush", "fp8_tuft", "fp8_fern"],
+        "onTop": [{ "key": "fp8_data_totem", "x": 22, "y": 15 }, { "key": "fp8_data_crystal", "x": 28, "y": 16 }]
+      }
+    ],
+    "guides": [
+      { "path": "rota_principal", "from": 0.1, "to": 0.96, "every": 4.2, "offset": [1.3, 2.0], "sets": [["fp8_mushroom_bioluminescent", "fp8_mushroom_bioluminescent"], ["fp8_data_crystal", "fp8_mushroom_bioluminescent"], ["fp8_mushroom_bioluminescent", "fp7_mushroom_digital"]] },
+      { "path": "rota_secundaria_pedras", "from": 0.15, "to": 0.95, "every": 5, "offset": [1.3, 2.0], "sets": [["fp8_mushroom_bioluminescent", "fp8_mushroom_bioluminescent"], ["fp8_data_crystal"]] },
+      { "path": "rota_secundaria_riacho", "from": 0.2, "to": 0.95, "every": 6.5, "offset": [1.2, 1.8], "sets": [["fp8_mushroom_bioluminescent"], ["fp8_mushroom_bioluminescent", "fp8_mushroom_bioluminescent"]] }
+    ],
+    "beacons": [
+      { "key": "fp8_data_totem", "at": [[47, 18], [47, 23]] },
+      { "key": "fp8_data_crystal", "at": [[35, 23], [21, 21], [6, 4]] },
+      { "key": "fp8_mushroom_bioluminescent", "at": [[34, 23], [22, 21], [7, 5], [11, 8], [49, 17], [53, 23]] }
+    ],
+    "edgeClutter": {
+      "count": 60,
+      "spacing": 3.2,
+      "maxSatellites": 3,
+      "nucleus": ["fp8_fern", "fp8_flowering_bush", "fp8_fallen_trunk", "fp8_edge_cluster_a", "fp8_edge_cluster_b", "fp8_fern"],
+      "satellites": ["fp8_tuft", "fp8_fern", "fp8_tuft"]
+    },
+    "shore": { "every": 0.9, "chance": 0.5, "keys": [["fp8_reed_cluster", 3], ["fp8_shore_stone_small", 2]] },
+    "decals": {
+      "max": 3,
+      "floor": 0.3,
+      "gain": 6,
+      "pools": {
+        "wet": [["fp8_moss_patch", 3], ["fp8_pebble_cluster", 2], ["fp8_puddle_small", 1]],
+        "edge": [["fp8_leaf_litter", 4], ["fp8_root_tendril", 2], ["fp8_moss_patch", 2]],
+        "open": [["fp8_pebble_cluster", 3], ["fp8_leaf_litter", 3], ["fp8_moss_patch", 3], ["fp8_crack", 0.4]]
+      }
+    },
+    "pathTufts": { "every": 0.7, "chance": 0.55, "keys": ["fp8_tuft_over_path_a", "fp8_tuft_over_path_b"] },
+    "mud": { "count": 7, "rx": [2.6, 4.2], "ry": [1.7, 2.8], "spacing": 7, "pathDist": 2, "kind": "mud" }
+  }
+}

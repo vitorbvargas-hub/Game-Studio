@@ -1,0 +1,470 @@
+{
+  "_doc": "Mapa digimon-forest-01 (gerado de brief por gen-map-from-brief.mjs) → pacote GAME-ASSETS/03-environments/forest-v4/. Chave 'fp4_<nome>' = PNG <nome> do pacote. Demais campos copiados do mapa base. Look v8: grade escuro/frio no chão e nas copas, luzes pontuais aditivas, névoa na borda da mata, partículas, sombra de contato, zoom x1,5.",
+  "pack": "forest-v4",
+  "prefix": "fp4_",
+  "night": "night",
+  "trees": {
+    "overlap": 0.42,
+    "shadowSmall": "canopy_shadow_small",
+    "shadowLarge": "canopy_shadow_large",
+    "largeShadowMinW": 80,
+    "behindAlpha": 0.45,
+    "castShadow": {
+      "day": "#0c2615",
+      "dayAlpha": 92,
+      "night": "#060a1c",
+      "nightAlpha": 130
+    },
+    "rimLight": {
+      "day": "#dff08a",
+      "night": "#a6c0e8",
+      "alpha": 90,
+      "baked": [
+        "fp4_tree_palm_digital",
+        "fp4_tree_data_leaf"
+      ]
+    },
+    "topOffset": {
+      "fp4_tree_palm_digital": [
+        4,
+        0
+      ]
+    }
+  },
+  "smoothAutotile": [
+    {
+      "prefix": "fp4_path_w47_",
+      "full": "fp4_path_w47_255",
+      "keepOwnDirt": true,
+      "outside": "edge",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.62,
+      "noise": 0.1,
+      "noiseScale": 6
+    },
+    {
+      "prefix": "fp4_denseedge_w47_",
+      "full": "fp4_denseedge_w47_255",
+      "outside": "fill",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.64,
+      "noise": 0.1,
+      "noiseScale": 8
+    },
+    {
+      "prefix": "fp7_wg_c16_",
+      "full": "fp7_wg_c16_15",
+      "outside": "edge",
+      "ground": [
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
+      ],
+      "threshold": 0.62,
+      "noise": 0.1,
+      "noiseScale": 6
+    }
+  ],
+  "extraPacks": [
+    {
+      "pack": "forest-v6",
+      "prefix": "fp6_",
+      "root": "map-factory",
+      "crops": {
+        "bridge_h_0": {
+          "from": "bridge_h",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_h_1": {
+          "from": "bridge_h",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_h_2": {
+          "from": "bridge_h",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_v_0": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_v_1": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            32,
+            32,
+            32
+          ]
+        },
+        "bridge_v_2": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            64,
+            32,
+            32
+          ]
+        }
+      }
+    },
+    {
+      "pack": "forest-v7-pixellab",
+      "prefix": "fp7_",
+      "root": "map-factory",
+      "crops": {
+        "wg_c16_2": {
+          "from": "water_grass_tileset",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        "wg_c16_5": {
+          "from": "water_grass_tileset",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        "wg_c16_11": {
+          "from": "water_grass_tileset",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        "wg_c16_3": {
+          "from": "water_grass_tileset",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        "wg_c16_9": {
+          "from": "water_grass_tileset",
+          "rect": [
+            0,
+            32,
+            32,
+            32
+          ]
+        },
+        "wg_c16_7": {
+          "from": "water_grass_tileset",
+          "rect": [
+            32,
+            32,
+            32,
+            32
+          ]
+        },
+        "wg_c16_15": {
+          "from": "water_grass_tileset",
+          "rect": [
+            64,
+            32,
+            32,
+            32
+          ]
+        },
+        "wg_c16_14": {
+          "from": "water_grass_tileset",
+          "rect": [
+            96,
+            32,
+            32,
+            32
+          ]
+        },
+        "wg_c16_4": {
+          "from": "water_grass_tileset",
+          "rect": [
+            0,
+            64,
+            32,
+            32
+          ]
+        },
+        "wg_c16_12": {
+          "from": "water_grass_tileset",
+          "rect": [
+            32,
+            64,
+            32,
+            32
+          ]
+        },
+        "wg_c16_13": {
+          "from": "water_grass_tileset",
+          "rect": [
+            64,
+            64,
+            32,
+            32
+          ]
+        },
+        "wg_c16_10": {
+          "from": "water_grass_tileset",
+          "rect": [
+            96,
+            64,
+            32,
+            32
+          ]
+        },
+        "wg_c16_0": {
+          "from": "water_grass_tileset",
+          "rect": [
+            0,
+            96,
+            32,
+            32
+          ]
+        },
+        "wg_c16_1": {
+          "from": "water_grass_tileset",
+          "rect": [
+            32,
+            96,
+            32,
+            32
+          ]
+        },
+        "wg_c16_6": {
+          "from": "water_grass_tileset",
+          "rect": [
+            64,
+            96,
+            32,
+            32
+          ]
+        },
+        "wg_c16_8": {
+          "from": "water_grass_tileset",
+          "rect": [
+            96,
+            96,
+            32,
+            32
+          ]
+        }
+      }
+    },
+    {
+      "pack": "forest-v8-depth",
+      "prefix": "fp8_",
+      "root": "map-factory"
+    }
+  ],
+  "look": {
+    "id": "v8",
+    "doc": "grade escuro/frio no chão e nas copas, luzes pontuais aditivas, névoa na borda da mata, partículas, sombra de contato, zoom x1,5",
+    "prefix": "fp8_",
+    "zoomMul": 1.5,
+    "grade": {
+      "description": "How a renderer can reproduce this exact shift procedurally on an existing forest-v4/v6/v7 ground or foliage sprite/tile, instead of re-baking every asset: convert each opaque pixel to HSV, multiply saturation and value by the ground/foliage multipliers below (ground/decor/foliage layers ONLY -- never characters, UI, or this pack's own emissive props), convert back to RGB. For a flat (non-ramped) sprite, treat its lightest ~12% of pixels by value as the \"rim highlight\" and use the gentler rimHighlight multipliers on those instead, so sunlit edges keep reading as lit.",
+      "groundFoliageSaturationMul": 0.64,
+      "groundFoliageValueMul": 0.8,
+      "rimHighlightSaturationMul": 0.88,
+      "rimHighlightValueMul": 0.92,
+      "accentSaturationMul": 1,
+      "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
+      "rules": [
+        {
+          "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem)$",
+          "skip": true
+        },
+        {
+          "match": "^fp8_ground_variant_",
+          "saturationMul": 0.78,
+          "valueMul": 0.6
+        },
+        {
+          "match": "^fp8_cliff_",
+          "saturationMul": 0.8,
+          "valueMul": 0.8,
+          "tint": "#6c5a86",
+          "tintMix": 0.3
+        },
+        {
+          "match": "^fp4_path_",
+          "saturationMul": 0.55,
+          "valueMul": 0.74,
+          "tint": "#5e4a62",
+          "tintMix": 0.28
+        },
+        {
+          "match": "^fp8_",
+          "saturationMul": 0.85,
+          "valueMul": 0.74
+        },
+        {
+          "match": "^fp7_(npc_|chest|sign)",
+          "skip": true
+        },
+        {
+          "match": "^fp6_(healing_point|chest|sign)",
+          "skip": true
+        },
+        {
+          "match": "^fp4_flower_cluster|^fp7_flower_digital|^fp7_mushroom_digital",
+          "saturationMul": 0.9,
+          "valueMul": 0.85
+        },
+        {
+          "match": "^fp7_wg_c16_|^water",
+          "saturationMul": 0.7,
+          "valueMul": 0.78,
+          "hueShift": 8
+        }
+      ],
+      "coolShift": 0.06
+    },
+    "lights": {
+      "fp8_data_crystal": {
+        "color": "#2ce8f5",
+        "radius": 48,
+        "intensity": 0.75,
+        "oy": -16
+      },
+      "fp8_mushroom_bioluminescent": {
+        "color": "#ff5fc1",
+        "radius": 28,
+        "intensity": 0.55,
+        "oy": -8
+      },
+      "fp8_data_totem": {
+        "color": "#feae34",
+        "radius": 60,
+        "intensity": 0.9,
+        "oy": -38
+      },
+      "fp6_healing_point": {
+        "color": "#7df0ff",
+        "radius": 46,
+        "intensity": 0.6,
+        "oy": -10
+      },
+      "fp6_sign_post": {
+        "color": "#ffc35a",
+        "radius": 30,
+        "intensity": 0.5,
+        "oy": -22
+      },
+      "fp7_sign_post_arrow": {
+        "color": "#ffc35a",
+        "radius": 30,
+        "intensity": 0.5,
+        "oy": -22
+      },
+      "fp7_flower_digital": {
+        "color": "#9b7bff",
+        "radius": 14,
+        "intensity": 0.35,
+        "oy": -6
+      },
+      "fp7_mushroom_digital": {
+        "color": "#4fe0ff",
+        "radius": 16,
+        "intensity": 0.4,
+        "oy": -6
+      }
+    },
+    "playerLight": {
+      "color": "#ffd59a",
+      "radius": 64,
+      "intensity": 0.5
+    },
+    "ambient": {
+      "day": {
+        "multiply": "#bcc4d6",
+        "tint": "#20304a",
+        "tintAlpha": 0.1,
+        "vignette": 0.34,
+        "lightScale": 0.55
+      },
+      "night": {
+        "multiply": "#9a9cd0",
+        "tint": "#0a0c28",
+        "tintAlpha": 0.12,
+        "vignette": 0.55,
+        "lightScale": 1.35
+      }
+    },
+    "trees": {
+      "rimLight": {
+        "day": "#a9bd8e",
+        "night": "#8ea4d6",
+        "alpha": 60
+      },
+      "castShadow": {
+        "day": "#05100c",
+        "dayAlpha": 118,
+        "night": "#04061a",
+        "nightAlpha": 150
+      }
+    },
+    "shadows": {
+      "color": "#0a0812",
+      "entityAlpha": 0.42,
+      "propAlpha": 0.36
+    },
+    "fog": {
+      "color": "#a9bcd6",
+      "dayAlpha": 0.08,
+      "nightAlpha": 0.16,
+      "every": 3
+    },
+    "particles": {
+      "fireflies": 1.2,
+      "dust": 1.5,
+      "leaves": 0.35
+    },
+    "mud": {
+      "dark": "#2a2136",
+      "mid": "#463757",
+      "light": "#62527a",
+      "rim": "#1f1a2a"
+    }
+  }
+}

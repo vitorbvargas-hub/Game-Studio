@@ -9,6 +9,7 @@
 // brief + nome), então mapas sem esses campos saem idênticos aos de antes.
 
 import { buildTmj } from "./tiled.mjs";
+import { depthGroundKey, depthObjects, depthTerrain } from "./depth.mjs";
 
 /** mulberry32, o mesmo RNG do gen-forest-proof. */
 export function mulberry(seed) {
@@ -437,7 +438,15 @@ export function generateFromBrief(b) {
   }
   // avoidPath: decalque que não vai sobre trilha nem água (ex. o chão da arena, com moldura de grama)
   for (const d of b.details ?? []) if (inside(d.x, d.y) && !(d.avoidPath && ([...pathCells.values()].some((ps) => ps.has(at(d.x, d.y))) || walkable.has(at(d.x, d.y)) || kind[at(d.x, d.y)] !== (d.on ?? kind[at(d.x, d.y)])))) detail[at(d.x, d.y)] = d.key;
+  // passe de profundidade (look v8, opt-in): platôs mudam o terreno antes das chaves de chão
+  const kindBase = b.depth ? kind.slice() : null;
+  const pathAt0 = (x, y) => [...pathCells.values()].some((s) => s.has(at(x, y)));
+  const terr = b.depth ? depthTerrain(b, { W, H, T, kind, detail, walkable, inside, at, pathAt: pathAt0 }) : null;
   const kAt = (x, y) => (inside(x, y) ? kind[at(x, y)] : b.base);
+  const hasNear = (x, y, r, t) => {
+    for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (kAt(x + dx, y + dy) === t) return true;
+    return false;
+  };
   const nearOther = (x, y, r, t) => {
     for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (kAt(x + dx, y + dy) !== t) return true;
     return false;
@@ -455,6 +464,7 @@ export function generateFromBrief(b) {
     return gidOf.get(id);
   };
   const ground = new Array(W * H).fill(0);
+  const groundCtx = { nearKind: hasNear };
   for (let y = 0; y < H; y++)
     for (let x = 0; x < W; x++) {
       const tn = kind[at(x, y)];
@@ -469,9 +479,17 @@ export function generateFromBrief(b) {
           return kind[at(a, c)] === tn;
         };
         key = `${t.prefix}${autotileMask(same, x, y, t.autotile)}`;
+        // interior (look v8): miolo do autotile coberto por outro chão na camada ground_detail (ex. grama no topo do
+        // platô com a borda de pedra); a chave Wang da célula continua a mesma (gate wang)
+        if (t.interior?.length && key === `${t.prefix}${t.autotile === "w47" ? 255 : 15}` && !detail[at(x, y)]) detail[at(x, y)] = t.interior[(x * 7 + y * 13) % t.interior.length];
       } else key = t.variants.length === 1 ? t.variants[0] : pick(t.variants);
+      if (b.depth && !t.autotile) key = depthGroundKey(b, tn, x, y, groundCtx) ?? key;
       ground[at(x, y)] = gid(key, solid);
     }
+
+  // os props do mapa base veem o terreno de antes dos platôs (mesmo sorteio do RNG principal que o mapa sem depth)
+  const kindFinal = terr ? kind.slice() : null;
+  if (terr) for (let i = 0; i < kind.length; i++) kind[i] = kindBase[i];
 
   // ---- objetos de jogo (definidos antes dos props: reservam espaço) ----
   const center = (v) => v * T + T / 2;
@@ -577,6 +595,12 @@ export function generateFromBrief(b) {
       for (let x = f.x; x < f.x + f.w; x++, k++)
         if (inside(x, y) && kind[at(x, y)] === f.over && b.fordStones?.length) addProp(b.fordStones[k % b.fordStones.length], x * T + (k % 2 ? 11 : 21), y * T + (k % 2 ? 14 : 26), false, { force: true });
 
+  let depthOut = null;
+  if (terr) {
+    for (let i = 0; i < kind.length; i++) kind[i] = kindFinal[i];
+    depthOut = depthObjects(b, { W, H, T, kind, detail, inside, at, pathAt, keep, addProp, props, curves, walkable, nextId: () => oid, setNextId: (v) => (oid = v) }, terr);
+  }
+
   // ---- camadas de objetos de jogo ----
   const P = (props2) => Object.entries(props2 ?? {}).map(([name, value]) => ({ name, type: typeof value === "number" ? (Number.isInteger(value) ? "int" : "float") : typeof value === "boolean" ? "bool" : "string", value }));
   const rect = (o, type, extraProps) => ({ id: oid++, name: o.name ?? "", type, x: o.x * T, y: o.y * T, width: (o.w ?? 1) * T, height: (o.h ?? 1) * T, properties: P(extraProps) });
@@ -587,7 +611,7 @@ export function generateFromBrief(b) {
   const triggerObjs = (b.triggers ?? []).map((t) => rect(t, "trigger", t.properties));
   const poiObjs = (b.pois ?? []).map((p) => (p.w || p.h ? rect(p, "poi", { kind: p.kind ?? "poi", ...(p.properties ?? {}) }) : { id: oid++, name: p.name, type: "poi", x: center(p.x), y: center(p.y), point: true, properties: P({ kind: p.kind ?? "poi", ...(p.properties ?? {}) }) }));
   if (b.bossArena) poiObjs.push(rect(b.bossArena, "boss_arena", { boss: b.bossArena.boss ?? "", ...(b.bossArena.properties ?? {}) }));
-  const collisionObjs = (b.collision ?? []).map((c) => rect(c, "collision", {}));
+  const collisionObjs = [...(b.collision ?? []), ...(terr?.collision ?? [])].map((c) => rect(c, "collision", {}));
   // curvas: polilinha em px + o que o renderer precisa (conjunto, textura cheia, chão embaixo, borda, vaus)
   const curveObjs = curves.map((c) => {
     const t = b.terrains[c.terrain];
@@ -615,6 +639,8 @@ export function generateFromBrief(b) {
           { type: "objectgroup", name: "objects_above", objects: [] },
           { type: "objectgroup", name: "collision", objects: collisionObjs },
           ...(curveObjs.length ? [{ type: "objectgroup", name: "curves", objects: curveObjs }] : []),
+          // look v8: decalques de chão (camada própria, sem Y-sort) e manchas de solo (lama)
+          ...(depthOut ? [{ type: "objectgroup", name: "decals", objects: depthOut.decals }, { type: "objectgroup", name: "patches", objects: depthOut.patches }] : []),
           { type: "objectgroup", name: "spawns", objects: [...startsObjs, ...spawnObjs] },
           { type: "objectgroup", name: "npcs", objects: npcObjs },
           { type: "objectgroup", name: "triggers", objects: [...portalObjs, ...triggerObjs] },
@@ -639,6 +665,7 @@ export function generateFromBrief(b) {
       bridges: bridges.map(({ name, x, y, w, h, kind: k }) => ({ name, x, y, w, h, kind: k ?? "bridge" })),
       rivers,
       curves: curves.length,
+      ...(depthOut ? { depth: { ...depthOut.stats, plateaus: terr.plateaus } } : {}),
     },
   };
 }

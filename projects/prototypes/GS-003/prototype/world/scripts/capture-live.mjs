@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|perf|evodemo
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|perf|evodemo
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -140,6 +140,7 @@ async function main() {
     if (process.env.ONLY === "factory") return await factory(cdp);
     if (process.env.ONLY === "factory-full") return await factoryFull(cdp);
     if (process.env.ONLY === "factory-v3") return await factoryV3(cdp);
+    if (process.env.ONLY === "factory-v4") return await factoryV4(cdp);
     if (process.env.ONLY === "perf") return await perf(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
@@ -611,6 +612,84 @@ async function factoryV3(cdp) {
   await shot("factory_v3_11_riacho_noite_v3.png");
 }
 
+/**
+ * Look v8 (?look=v8, profundidade do DRAKANTOS_VISUAL_STUDY.md) no digimon-forest-01, sufixo _v4: clareira com as
+ * luzes (dia e noite), riacho, platô do mirante com a rampa, arena, e o lado a lado v3 × v4 no mesmo enquadramento
+ * (mesma semente, mesmo teleporte, mesmo zoom; o v3 é o mapa padrão sem ?look). Uso:
+ *   OUT=../../evidence/map-factory CHROME_LIBS=… ONLY=factory-v4 npm run shots:live
+ * O mapa inteiro: W=1792 H=1280 SUFFIX=_v4 QUERY=look=v8 ONLY=factory-full.
+ */
+async function factoryV4(cdp) {
+  const ID = "digimon-forest-01";
+  const open = async (time, look, zoom = 0) => {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&map=${ID}${look ? `&look=${look}` : ""}${zoom ? `&zoom=${zoom}` : ""}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar no mapa da Map Factory");
+    await sleep(2500);
+  };
+  const tp = (tx, ty, dx = -1.3) =>
+    cdp.eval(`(() => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1"); p.auto = false;
+      const t = s.state.entities.find((e) => e.id === p.tamerId), pa = s.state.entities.find((e) => e.id === p.partnerId);
+      t.x = ${tx} * SUB + 8; t.y = ${ty} * SUB + 8; t.dest = undefined; t.trail = [{ x: t.x - 20, y: t.y }, { x: t.x, y: t.y }];
+      if (pa) { pa.x = t.x + ${dx} * SUB; pa.y = t.y; pa.targetId = undefined; pa.dest = undefined; }
+      return [t.x, t.y]; })()`);
+  const shot = async (name, wait = 2200) => {
+    await sleep(wait);
+    await cdp.shot(name);
+  };
+  const frames = [
+    ["clareira_luzes", 30, 23],
+    ["riacho", 21, 26],
+    ["plato_mirante", 25, 20],
+    ["arena", 49, 20],
+  ];
+  for (const time of ["day", "night"]) {
+    await open(time, "v8");
+    for (const [name, x, y] of frames) {
+      await tp(x, y);
+      await shot(`factory_v4_${name}_${time === "day" ? "dia" : "noite"}_v4.png`);
+    }
+  }
+  // em cima do platô (a colisão deixou subir pela rampa?): anda do pé da rampa até o topo
+  await open("day", "v8");
+  await tp(26, 19, 1.2);
+  const climbed = await cdp.eval(`(async () => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1");
+    const t = s.state.entities.find((e) => e.id === p.tamerId); const solid = (x, y) => s.map.solid[y * s.map.width + x];
+    return { rampa: solid(26, 18), face: solid(25, 18), topo: solid(26, 16), anelLeste: solid(29, 16), mirante: solid(28, 15) }; })()`);
+  console.log("colisão do platô:", JSON.stringify(climbed));
+  await tp(26, 16, 1.2);
+  await shot("factory_v4_plato_no_topo_dia_v4.png");
+  // lado a lado v3 × v4 (mesmo enquadramento): clareira de dia e de noite
+  for (const time of ["day", "night"]) {
+    for (const look of ["", "v8"]) {
+      await open(time, look, 3);
+      await tp(28, 21);
+      await shot(`_sbs_${time}_${look || "v3"}.png`, 2600);
+    }
+  }
+  const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+  for (const time of ["day", "night"]) {
+    const a = await loadImage(join(OUT, `_sbs_${time}_v3.png`));
+    const b = await loadImage(join(OUT, `_sbs_${time}_v8.png`));
+    const c = createCanvas(a.width + b.width + 8, a.height);
+    const g = c.getContext("2d");
+    g.fillStyle = "#181425";
+    g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(a, 0, 0);
+    g.drawImage(b, a.width + 8, 0);
+    g.font = "bold 28px sans-serif";
+    for (const [txt, x] of [["v3 (padrão)", 16], ["v4 (?look=v8)", a.width + 24]]) {
+      g.fillStyle = "#000";
+      g.fillText(txt, x + 2, a.height - 22);
+      g.fillStyle = "#fee761";
+      g.fillText(txt, x, a.height - 24);
+    }
+    writeFileSync(join(OUT, `factory_v4_lado_a_lado_v3_v4_${time === "day" ? "dia" : "noite"}.png`), c.toBuffer("image/png"));
+    console.log("ok", `factory_v4_lado_a_lado_v3_v4_${time === "day" ? "dia" : "noite"}.png`);
+  }
+  const { unlinkSync } = await import("node:fs");
+  for (const time of ["day", "night"]) for (const l of ["v3", "v8"]) unlinkSync(join(OUT, `_sbs_${time}_${l}.png`));
+}
+
 /** Mapa inteiro no jogo real: janela do tamanho do mapa (W=1792 H=1280), zoom 1, HUD escondido. */
 async function factoryFull(cdp) {
   const ID = "digimon-forest-01";
@@ -711,7 +790,10 @@ async function perf(cdp) {
     environment: { browser: browser.product, userAgent: browser.userAgent, cpu: cpus()[0]?.model, cores: cpus().length, memGB: Math.round(totalmem() / 2 ** 30), kernel: release(), node: process.version },
     runs,
   };
-  writeFileSync(join(OUT, `perf-${ID}.json`), JSON.stringify(res, null, 2) + "\n");
+  // PERF_TAG (ex. _v4 com QUERY=look=v8): outro arquivo, para comparar com a medição anterior
+  const TAG = process.env.PERF_TAG ?? "";
+  res.query = QUERY;
+  writeFileSync(join(OUT, `perf-${ID}${TAG}.json`), JSON.stringify(res, null, 2) + "\n");
   const row = (label, s2) => `| ${label} | ${s2.p50} | ${s2.p95} | ${s2.p99} | ${s2.mean} | ${s2.max} |`;
   const md = [
     `# Performance — ${ID} (frame-time, ambiente headless)`,
@@ -741,8 +823,8 @@ async function perf(cdp) {
     ...runs.map((r) => `| ${r.time} | ${r.fpsAvg} | ${r.fpsPotentialFromWorkP50} | ${r.framesOver16_7ms.loopWork} / ${r.framesOver16_7ms.renderRaster} | ${r.scene.tiles.join("×")} tiles, ${r.scene.props} props, ${r.scene.entidades} entidades (${r.scene.selvagens} selvagens), canvas ${r.scene.canvasPx.join("×")} |`),
     "",
   ].join("\n");
-  writeFileSync(join(OUT, `perf-${ID}.md`), md);
-  console.log("ok", `perf-${ID}.json`, `perf-${ID}.md`);
+  writeFileSync(join(OUT, `perf-${ID}${TAG}.md`), md);
+  console.log("ok", `perf-${ID}${TAG}.json`, `perf-${ID}${TAG}.md`);
 }
 
 async function maps(cdp) {

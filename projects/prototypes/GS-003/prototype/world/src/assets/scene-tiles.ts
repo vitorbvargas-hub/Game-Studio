@@ -4,6 +4,7 @@
 // Só apresentação: a sim usa a colisão do mapa, que não depende disso.
 
 import type { PathSmoothCfg } from "../render/pathsmooth";
+import type { LookCfg } from "../render/look";
 import type { TreesCfg } from "../render/view";
 import { globalTileFilter, loadMapFactoryPack, loadTileSources, type TileSource } from "./tiles";
 
@@ -30,6 +31,8 @@ export interface ScenePack {
   smoothAutotile?: PathSmoothCfg[];
   /** Pacotes suplementares (Map Factory: forest-v6 com prefixo fp6_). */
   extraPacks?: ExtraPack[];
+  /** Look do mapa (ex. v8: grade, luzes, névoa, partículas; render/look.ts). Só nas variantes de look. */
+  look?: LookCfg;
 }
 
 export type Preset = "day" | "night";
@@ -102,12 +105,13 @@ export function loadSceneTiles(
 }
 
 /** Chaves visuais usadas por um mapa (tiles e props). */
-export function usedKeys(map: { tileLayers: { keys: string[] }[]; props: { key: string; openKey?: string }[]; curves?: { fill: string; ground: string[] }[] }): string[] {
+export function usedKeys(map: { tileLayers: { keys: string[] }[]; props: { key: string; openKey?: string }[]; curves?: { fill: string; ground: string[] }[]; decals?: { key: string }[] }): string[] {
   return [
     ...new Set([
       ...map.tileLayers.flatMap((l) => l.keys.filter(Boolean)),
       ...map.props.flatMap((p) => (p.openKey ? [p.key, p.openKey] : [p.key])),
       ...(map.curves ?? []).flatMap((c) => [c.fill, ...c.ground]),
+      ...(map.decals ?? []).map((d) => d.key),
     ]),
   ];
 }

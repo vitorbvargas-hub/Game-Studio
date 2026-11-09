@@ -85,6 +85,25 @@ export interface MapCurve {
   fords: { x: number; y: number; w: number; h: number }[];
 }
 
+/** Decalque de chão (camada `decals`, look v8): sprite pequeno centrado no ponto, só apresentação. */
+export interface MapDecal {
+  key: string;
+  x: number;
+  y: number;
+  flip?: boolean;
+}
+
+/** Mancha de solo (camada `patches`, look v8, ex. lama roxa): elipse em px + células onde pode aparecer. */
+export interface MapPatch {
+  kind: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  seed: number;
+  cells: Set<number>;
+}
+
 export interface SpawnZone {
   species: string[];
   levelMin: number;
@@ -152,6 +171,9 @@ export interface WorldMap {
   arenas?: MapArena[];
   /** Curvas contínuas (trilha/riacho), por z crescente. */
   curves?: MapCurve[];
+  /** Look v8: decalques de chão e manchas de solo (só apresentação; ausentes nos outros mapas). */
+  decals?: MapDecal[];
+  patches?: MapPatch[];
   /**
    * Células (1 = sim) alcançáveis andando (4 vizinhos, colisão) a partir dos inícios do mapa. Calculado no
    * carregamento (parseTiledMap); mapas montados em código ganham o cálculo na primeira consulta (reachableOf).
@@ -184,6 +206,8 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const interactables: MapInteractable[] = [];
   const arenas: MapArena[] = [];
   const curves: MapCurve[] = [];
+  const decals: MapDecal[] = [];
+  const patches: MapPatch[] = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
   for (const layer of m.layers) {
@@ -268,6 +292,18 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
             return { x, y, w, h };
           }),
         });
+      } else if (cls === "decal") {
+        decals.push({ key: String(prop(o.properties, "key")), x: o.x, y: o.y, ...(prop(o.properties, "flip") === true ? { flip: true } : {}) });
+      } else if (cls === "patch") {
+        patches.push({
+          kind: String(prop(o.properties, "kind") ?? "mud"),
+          x: o.x,
+          y: o.y,
+          w: o.width ?? tile,
+          h: o.height ?? tile,
+          seed: Number(prop(o.properties, "seed") ?? 1),
+          cells: new Set(String(prop(o.properties, "cells") ?? "").split(",").filter(Boolean).map(Number)),
+        });
       } else if (cls === "boss_arena") {
         arenas.push({ id: o.name || `arena-${o.id}`, boss: String(prop(o.properties, "boss") ?? ""), x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile });
       } else if (cls === "portal") {
@@ -276,7 +312,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     }
   }
   curves.sort((a, b) => a.z - b.z);
-  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}) };
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}) };
   map.reachable = computeReachable(map);
   return map;
 }
