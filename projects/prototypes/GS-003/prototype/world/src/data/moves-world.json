@@ -1,0 +1,22 @@
+{
+  "_doc": "Golpes e learnsets das espécies que o game-dev adicionou ao mundo (bebês iniciais novos e selvagens importados de DW DS), no mesmo schema de src/data/moves/{moves,learnsets}.json do game-design. São somados a eles em loadMoveContent. Nomes de golpe = nomes oficiais em inglês (ADR-007); poder, recarga, custo e níveis são [H], verified=false, para o game-design revisar e mover para os arquivos dele.",
+  "version": 1,
+  "moves": [
+    { "id": "metal_ball", "displayName": "Metal Ball", "kind": "special", "element": "neutral", "target": { "shape": "projectile", "side": "enemy" }, "power": 92, "cooldownTicks": 28, "costMp": 7, "vfxArchetype": "fireball", "verified": false }
+  ],
+  "speciesElement": {
+    "CREATURE-0014": "neutral"
+  },
+  "species": [
+    {
+      "speciesId": "CREATURE-0014",
+      "name": "Dorimon",
+      "stage": 1,
+      "learnset": [
+        { "level": 1, "moveId": "investida" },
+        { "level": 3, "moveId": "metal_ball" },
+        { "level": 6, "moveId": "tackle" }
+      ]
+    }
+  ]
+}

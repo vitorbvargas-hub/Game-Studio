@@ -1,0 +1,11 @@
+{
+  "_doc": "Bebês da tela 'Escolha seu parceiro' (depois do criador de Tamer). speciesId = CREATURE-NNNN de GAME-ASSETS/01-creatures e world-species.json. 'line' = prévia de 2 estágios (Criança, Adulto); ids ainda sem espécie/arte aparecem com placeholder. Dorumon/Dorugamon: CREATURE-0101/0102 (bloco 01xx do game-dev, importados de DW DS em tools/dwds_import/import_wild_dwds.js). Textos [H].",
+  "level": 1,
+  "starters": [
+    { "speciesId": "CREATURE-0005", "name": "Koromon", "blurb": "Animado e corajoso. Cresce para um dinossauro de fogo.", "line": [{ "id": "CREATURE-0006", "name": "Agumon" }, { "id": "CREATURE-0007", "name": "Greymon" }] },
+    { "speciesId": "CREATURE-0008", "name": "Tsunomon", "blurb": "Tímido, mas leal. Vira um lobo de gelo.", "line": [{ "id": "CREATURE-0009", "name": "Gabumon" }, { "id": "CREATURE-0010", "name": "Garurumon" }] },
+    { "speciesId": "CREATURE-0011", "name": "Tokomon", "blurb": "Alegre e comilão. Vira um guardião do vento e da luz.", "line": [{ "id": "CREATURE-0012", "name": "Patamon" }, { "id": "CREATURE-0013", "name": "Angemon" }] },
+    { "speciesId": "CREATURE-0002", "name": "Gigimon", "blurb": "Travesso e faminto. Vira um dragão de fogo.", "line": [{ "id": "CREATURE-0003", "name": "Guilmon" }, { "id": "CREATURE-0004", "name": "Growlmon" }] },
+    { "speciesId": "CREATURE-0014", "name": "Dorimon", "blurb": "Curioso e teimoso. Vira uma fera de dados metálica.", "line": [{ "id": "CREATURE-0101", "name": "Dorumon" }, { "id": "CREATURE-0102", "name": "Dorugamon" }] }
+  ]
+}

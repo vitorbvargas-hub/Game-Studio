@@ -122,7 +122,7 @@ export function applyOffline(sim: WorldSim, playerId: string, elapsedMs: number,
 // ---------- save ↔ sim ----------
 
 /** Copia o progresso do jogador local da sim (+ dados de apresentação) para o formato do save. */
-export function captureSave(sim: WorldSim, playerId: string, extra: Pick<SaveData, "tamer" | "tamerLevel" | "tamerXp" | "team">): SaveData {
+export function captureSave(sim: WorldSim, playerId: string, extra: Pick<SaveData, "tamer" | "tamerLevel" | "tamerXp" | "team" | "starter">): SaveData {
   const p = getPlayer(sim.state, playerId)!;
   const partner = getEntity(sim.state, p.partnerId)!;
   return {

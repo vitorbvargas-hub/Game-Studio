@@ -3,11 +3,13 @@
 // de atributo (Vacina/Dados/Vírus, via affinityChart) e de elemento, e a escolha do AUTO por lista de prioridade
 // com condição por slot (gambit simples, §2.5). Tudo puro e determinístico (sem RNG aqui); não conhece VFX.
 //
-// Dados: src/data/moves/{moves,learnsets}.json (game-design) + src/data/moves-sim.json (complemento [H] do game-dev).
+// Dados: src/data/moves/{moves,learnsets}.json (game-design) + src/data/moves-sim.json (complemento [H] do game-dev)
+// + src/data/moves-world.json (golpes e learnsets [H] das espécies que o game-dev adicionou ao mundo).
 
 import officialLearnsets from "../data/moves/learnsets.json";
 import officialMoves from "../data/moves/moves.json";
 import simExtras from "../data/moves-sim.json";
+import worldMoves from "../data/moves-world.json";
 import { SUB } from "./params";
 import type { AutoRule, Entity, MoveDef, MoveTarget, MoveType, StatKey } from "./types";
 
@@ -123,7 +125,12 @@ export function buildMoveContent(movesJson: Raw, learnJson: Raw, extras: Raw): M
 }
 
 export function loadMoveContent(): MoveContent {
-  return buildMoveContent(officialMoves as unknown as Raw, officialLearnsets as unknown as Raw, simExtras as unknown as Raw);
+  const w = worldMoves as unknown as { moves: Raw[]; species: Raw[]; speciesElement: Record<string, string> };
+  return buildMoveContent(
+    { ...(officialMoves as unknown as Raw), moves: [...officialMoves.moves, ...w.moves] },
+    { ...(officialLearnsets as unknown as Raw), species: [...officialLearnsets.species, ...w.species] },
+    { ...(simExtras as unknown as Raw), speciesElement: { ...simExtras.speciesElement, ...w.speciesElement } },
+  );
 }
 
 // ---------- regras puras ----------

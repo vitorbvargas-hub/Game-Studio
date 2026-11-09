@@ -56,6 +56,9 @@ export interface SceneOptions {
   botAuto?: boolean;
   /** Nome do Tamer local (criador de Tamer); padrão = o da cena. Só rótulo: não muda a simulação. */
   localName?: string;
+  /** Parceira do Tamer local (Digimon inicial escolhido) e nível; padrão = os da cena. */
+  partnerSpecies?: string;
+  partnerLevel?: number;
 }
 
 export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions = {}): PlayerSetup[] {
@@ -66,8 +69,8 @@ export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions
       id: p.id,
       name: p.id === LOCAL_PLAYER && opts.localName ? opts.localName : p.name,
       start,
-      partnerSpecies: p.partnerSpecies,
-      partnerLevel: p.partnerLevel,
+      partnerSpecies: p.id === LOCAL_PLAYER && opts.partnerSpecies ? opts.partnerSpecies : p.partnerSpecies,
+      partnerLevel: p.id === LOCAL_PLAYER && opts.partnerLevel ? opts.partnerLevel : p.partnerLevel,
       auto: p.bot ? (opts.botAuto ?? true) : (opts.auto ?? false),
       bot: p.bot,
     };

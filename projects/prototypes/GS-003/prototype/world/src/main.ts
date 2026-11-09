@@ -15,7 +15,7 @@ import { countDwdsSources, loadTileSources } from "./assets/tiles";
 import forestProofPack from "./data/maps/forest-proof.aliases.json";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
 import { drawLabels, labelMetrics, layoutLabels, measureWith } from "./render/labels";
-import { makePortraitFn } from "./render/portrait";
+import { makePortraitFn, makeSpriteFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
 import { pxToSub } from "./sim/map";
@@ -25,6 +25,8 @@ import type { Intent } from "./sim/types";
 import { getEntity, getPlayer, snapshot, snapshotOf, stepWorld } from "./sim/world";
 import "./style.css";
 import { Hud, type HudScene } from "./ui/hud";
+import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
+import { loadWorldContent } from "./sim/species";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
 import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
@@ -83,6 +85,14 @@ async function chooseLook(images: ImageStore, partUrls: Record<string, string>, 
   return new Promise((resolve) => new TamerCreator(document.body, { initial, drawPreview: draw, onConfirm: resolve }));
 }
 
+/** Tela "Escolha seu parceiro" (jogo novo, depois do criador): devolve o bebê escolhido. */
+async function chooseStarter(images: ImageStore, creatures: Record<string, CreatureVisual>): Promise<string> {
+  await images.loadAll(Object.values(creatures).flatMap(imageUrlsOf));
+  const content = loadWorldContent();
+  const forced = params.get("inicial");
+  return new Promise((resolve) => new StarterPicker(document.body, { content, initial: forced ?? undefined, drawSprite: makeSpriteFn(creatures, images), onConfirm: resolve }));
+}
+
 async function boot() {
   const images = new ImageStore(browserImageLoader);
   const partUrls = loadPartUrls();
@@ -95,11 +105,15 @@ async function boot() {
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
   const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, partUrls, loaded.ok ? loaded.data.tamer : DEFAULT_LOOK);
+  const creatures = loadCreatureCatalog();
+  // Jogo novo na cena principal: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
+  const starter: string | null = loaded.ok ? loaded.data.starter : forest && CREATOR ? await chooseStarter(images, creatures) : null;
+  const newStarter = !loaded.ok && !!starter;
   const canvas = document.querySelector<HTMLCanvasElement>("#world")!;
   const labelCanvas = document.querySelector<HTMLCanvasElement>("#labels")!;
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
   const auto = params.get("auto") === "1";
-  const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto, localName: look.name }) : createDefaultWorld(SEED, { auto });
+  const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto, localName: look.name, ...(newStarter ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}) }) : createDefaultWorld(SEED, { auto });
   // Restaura o progresso e credita o tempo ausente (?offline=MIN simula MIN minutos fora, para testar/capturar).
   let bootOffline: OfflineReport | null = null;
   let speciesBefore = "";
@@ -111,7 +125,6 @@ async function boot() {
     bootOffline = applyOffline(sim, LOCAL_PLAYER, away, offlineSeed(loaded.savedAt));
     console.info(`save v${loaded.migratedFrom ? `${loaded.migratedFrom}→` : ""}ok · ausente ${Math.round(away / 60_000)} min`, bootOffline ?? "sem crédito offline");
   }
-  const creatures = loadCreatureCatalog();
   // Presets noturnos (pastas night/) repetem os nomes do dia: ficam fora do conjunto global.
   let tiles = loadTileSources(TILES_DWDS, (p) => !/\/night\//.test(p));
   const packCfg = forestProofPack as ScenePack;
@@ -166,7 +179,8 @@ async function boot() {
         tamerName: look.name,
         tamerLevel: me.tamerLevel,
         tamerXp: FOREST_PROOF_SCENE.tamerXp,
-        team: loaded.ok && loaded.data.team.length ? loaded.data.team : FOREST_PROOF_SCENE.team,
+        // Jogo novo com inicial: a equipe é só a parceira; sem criador (capturas), a equipe placeholder da cena.
+        team: loaded.ok ? loaded.data.team : newStarter ? [] : FOREST_PROOF_SCENE.team,
         box: FOREST_PROOF_SCENE.box,
         chat: FOREST_PROOF_SCENE.chat,
       }
@@ -204,7 +218,7 @@ async function boot() {
     if (!storage) return;
     const t = hud.tamerProgress();
     if (tamerLevels) tamerLevels[LOCAL_PLAYER] = t.level;
-    saveToStorage(storage, captureSave(sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [] }), Date.now());
+    saveToStorage(storage, captureSave(sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter }), Date.now());
   };
   const report = (r: OfflineReport, from: string) => {
     const partner = getEntity(sim.state, player.partnerId)!;

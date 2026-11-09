@@ -13,7 +13,8 @@
     { "id": "CREATURE-0010", "pack": "garurumon_ofensivo", "name": "Garurumon" },
     { "id": "CREATURE-0011", "pack": "tokomon" },
     { "id": "CREATURE-0012", "pack": "patamon" },
-    { "id": "CREATURE-0013", "pack": "angemon_ofensivo", "name": "Angemon" }
+    { "id": "CREATURE-0013", "pack": "angemon_ofensivo", "name": "Angemon" },
+    { "id": "CREATURE-0014", "name": "Dorimon", "stage": 1, "affinity": "data", "base": { "hp": 48, "atk": 14, "def": 8, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["investida"] }
   ],
   "skills": [
     { "id": "hot_head", "name": "Hot Head", "kind": "damage", "power": 130, "cooldownTicks": 40 },

@@ -18,7 +18,7 @@ function world(seed = 7) {
   return sim;
 }
 
-const extra = { tamer: { ...DEFAULT_LOOK, name: "Nina", hairCut: "moicano" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }] };
+const extra = { tamer: { ...DEFAULT_LOOK, name: "Nina", hairCut: "moicano" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }], starter: "CREATURE-0014" };
 
 describe("save (localStorage, versionado)", () => {
   it("ida e volta: Tamer, equipe, golpes, nível, XP, bits, AUTO e Auto-evoluir", () => {
@@ -45,18 +45,27 @@ describe("save (localStorage, versionado)", () => {
     expect(nb.hp).toBe(nb.maxHp);
   });
 
-  it("migração v1 → v2 (slots viram aprendidos, prioridade = slots, Auto-evoluir desligado)", () => {
+  it("migração v1 → v2 → v3 (slots viram aprendidos, prioridade = slots, Auto-evoluir desligado, inicial desconhecido)", () => {
     const v1 = JSON.stringify({ v: 1, savedAt: 5, game: "gs003-world", data: { tamer: { name: "Rui", model: "female" }, tamerLevel: 3, bits: 40, partner: { speciesId: "CREATURE-0003", level: 9, xp: 12, moves: ["pyro_sphere", null, "investida"] } } });
     const r = deserialize(v1);
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.migratedFrom).toBe(1);
-    expect(SAVE_VERSION).toBe(2);
+    expect(SAVE_VERSION).toBe(3);
+    expect(r.data.starter).toBeNull();
     expect(r.data.partner.learned).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.partner.moves).toEqual(["pyro_sphere", null, "investida", null]);
     expect(r.data.partner.autoRules.map((x) => x.moveId)).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.autoEvolve).toBe(false);
     expect(r.data.tamer).toMatchObject({ name: "Rui", model: "female", skin: DEFAULT_LOOK.skin });
+  });
+
+  it("migração v2 → v3: mantém a parceira e marca o inicial como desconhecido; o inicial escolhido volta do save", () => {
+    const v2 = JSON.stringify({ v: 2, savedAt: 7, game: "gs003-world", data: { tamer: { name: "Rui" }, tamerLevel: 3, tamerXp: 0, bits: 1, auto: false, autoEvolve: true, partner: { speciesId: "CREATURE-0003", level: 9, xp: 1, learned: ["investida"], moves: ["investida", null, null, null], autoRules: [] }, team: [], scans: {}, captured: [] } });
+    const r = deserialize(v2);
+    expect(r).toMatchObject({ ok: true, migratedFrom: 2, data: { starter: null, autoEvolve: true, partner: { speciesId: "CREATURE-0003", level: 9 } } });
+    const back = deserialize(serialize(captureSave(world(), LOCAL_PLAYER, extra), 1));
+    expect(back.ok && back.data.starter).toBe("CREATURE-0014");
   });
 
   it("save ruim: vazio, corrompido (com cópia .corrupt), versão futura, outro jogo, sem migração", () => {

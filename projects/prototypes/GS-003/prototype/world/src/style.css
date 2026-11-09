@@ -1558,6 +1558,122 @@ body {
   cursor: not-allowed;
 }
 
+/* ---------- escolha do Digimon inicial ---------- */
+.aff-free {
+  background: #5a6988;
+}
+.starter .cr-card {
+  width: min(1060px, 97vw);
+}
+.starter .st-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.starter .st-card {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  padding: 10px 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+  background: var(--ui-bg2);
+}
+.starter .st-card[aria-checked="true"] {
+  border-color: var(--ui-gold);
+  background: #2a2a1e;
+  box-shadow: 0 0 0 2px rgba(232, 184, 74, 0.35), 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+.starter .st-sprite {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  background: radial-gradient(ellipse at 50% 82%, #3e8948 0%, #265c42 40%, #17222a 75%);
+  display: grid;
+  place-items: center;
+  padding: 6px 0 2px;
+}
+.starter .st-sprite canvas {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.starter .ph {
+  position: relative;
+}
+.starter .ph canvas {
+  visibility: hidden;
+}
+.starter .st-sprite.ph::after,
+.starter .st-mini.ph::after,
+.starter .ph .st-mini::after {
+  content: "?";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.35);
+}
+.starter .st-mini.ph::after,
+.starter .ph .st-mini::after {
+  font-size: 16px;
+}
+.starter .st-name {
+  font-size: 16px;
+  color: #ffe9a8;
+}
+.starter .st-line {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+  width: 100%;
+}
+.starter .st-line li {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  text-align: left;
+  color: var(--ui-text);
+}
+.starter .st-line li::before {
+  content: none;
+}
+.starter .st-line em {
+  font-style: normal;
+  color: var(--ui-dim);
+  font-size: 10px;
+}
+.starter .st-mini {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: #11141d;
+}
+.starter .st-mini canvas {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+.starter .st-blurb {
+  color: var(--ui-dim);
+  font-size: 11px;
+  line-height: 1.25;
+}
+@media (max-width: 760px) {
+  .starter .st-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---------- relatório offline (estilo IdleDex) ---------- */
 .offline-wrap {
   position: fixed;

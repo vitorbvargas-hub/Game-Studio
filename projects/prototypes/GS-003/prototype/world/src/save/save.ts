@@ -10,9 +10,9 @@ export const SAVE_KEY = "gs003.world.save";
 export const SAVE_GAME = "gs003-world";
 /**
  * v1: primeiro esquema (Tamer, parceira com espécie/nível/XP/4 slots, bits). v2: lista de golpes aprendidos,
- * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe.
+ * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe. v3: Digimon inicial escolhido.
  */
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 
 export interface TeamMember {
   species: string;
@@ -33,6 +33,8 @@ export interface SaveData {
   team: TeamMember[];
   scans: Record<string, number>;
   captured: string[];
+  /** Bebê escolhido na tela "Escolha seu parceiro" (v3); null = save anterior à escolha. */
+  starter: string | null;
 }
 
 export interface SaveEnvelope {
@@ -77,6 +79,8 @@ export const MIGRATIONS: Migrations = {
       },
     };
   },
+  // v2 → v3: o save é anterior à tela do Digimon inicial (a parceira continua a mesma; inicial desconhecido).
+  2: (env) => ({ ...env, v: 3, data: { ...env.data, starter: null } }),
 };
 
 export function serialize(data: SaveData, now: number): string {
@@ -120,6 +124,7 @@ export function deserialize(raw: string | null, migrations: Migrations = MIGRATI
     team: Array.isArray(d.team) ? d.team : [],
     scans: d.scans ?? {},
     captured: Array.isArray(d.captured) ? d.captured : [],
+    starter: typeof d.starter === "string" ? d.starter : null,
   };
   return from !== current ? { ok: true, data, savedAt: env.savedAt, migratedFrom: from } : { ok: true, data, savedAt: env.savedAt };
 }

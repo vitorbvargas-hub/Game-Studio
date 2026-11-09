@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -240,8 +240,17 @@ async function creator(cdp) {
   writeFileSync(join(OUT, "creator_preview_4dir.png"), strip.toBuffer("image/png"));
   console.log("ok creator_preview_4dir.png", [...seen].join(","));
   await cdp.eval(`document.querySelector('[data-act="confirm"]').click()`);
+  // Jogo novo: depois do criador vem a escolha do Digimon inicial (5 bebês).
+  await cdp.waitFor(`!!document.querySelector(".starter [data-starter]")`, 30000, "a escolha do inicial abrir");
+  await sleep(900);
+  await cdp.shot("starter_tela.png");
+  await cdp.eval(`document.querySelector('[data-starter="${process.env.STARTER ?? "CREATURE-0014"}"]').click()`);
+  await sleep(700);
+  await cdp.shot("starter_escolha.png");
+  await cdp.eval(`document.querySelector('.starter [data-act="confirm"]').click()`);
   await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
   await sleep(3000);
+  console.log("parceira:", await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === "p1:partner"); return p.name + " Nv." + p.level; })()`));
   await cdp.shot("creator_no_mundo.png");
   const at = await cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const p = v.motionPos("p1");
     const s = parseFloat(document.querySelector("#world").style.width) / document.querySelector("#world").width;
