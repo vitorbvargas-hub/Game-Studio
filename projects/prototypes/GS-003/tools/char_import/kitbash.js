@@ -124,18 +124,45 @@ function addGlasses(frame, color) {
 }
 
 function addScarf(frame, color) {
+  // Two-tone triangle (lit half + shaded half, highlight toward upper-left
+  // to match the studio's fixed light rule) plus a dark outline, instead
+  // of one flat fillPolygon -- reads as cloth, not a color patch.
   const f = frame;
   const a = headAnchor(f);
   const y = a.neckY;
-  f.fillPolygon([[a.cx - 5, y], [a.cx + 5, y], [a.cx, y + 5]], color);
-  f.strokePolygon([[a.cx - 5, y], [a.cx + 5, y], [a.cx, y + 5]], [Math.max(0, color[0] - 60), Math.max(0, color[1] - 60), Math.max(0, color[2] - 60), 255], 1);
+  const dk = [Math.max(0, color[0] - 70), Math.max(0, color[1] - 70), Math.max(0, color[2] - 70), 255];
+  const lt = [Math.min(255, color[0] + 45), Math.min(255, color[1] + 35), Math.min(255, color[2] + 20), 255];
+  const tri = [[a.cx - 4, y], [a.cx + 4, y], [a.cx, y + 4]];
+  f.fillPolygon(tri, color);
+  f.fillPolygon([[a.cx - 4, y], [a.cx, y], [a.cx - 1, y + 4], [a.cx, y + 4]], lt);
+  f.fillPolygon([[a.cx, y], [a.cx + 4, y], [a.cx, y + 4], [a.cx + 1, y + 4]], dk);
+  f.strokePolygon(tri, [20, 20, 20, 255], 1);
   return f;
 }
 
 function addCollarBand(frame, color) {
+  // Narrow turtleneck band hugging the neck (not a shoulder-to-shoulder
+  // slab): tapered ends, a highlight row on top, a shadow row on the
+  // bottom, and a dark outline -- reads as a knit collar, not a flat tint.
   const f = frame;
   const a = headAnchor(f);
-  f.fillRect(a.cx - 5, a.neckY - 1, a.cx + 5, a.neckY + 1, color);
+  const y = a.neckY;
+  const dk = [Math.max(0, color[0] - 70), Math.max(0, color[1] - 70), Math.max(0, color[2] - 70), 255];
+  const lt = [Math.min(255, color[0] + 50), Math.min(255, color[1] + 45), Math.min(255, color[2] + 30), 255];
+  const ink = [20, 20, 20, 255];
+  f.fillRect(a.cx - 3, y - 1, a.cx + 3, y + 1, color);
+  f.setPixel(a.cx - 4, y, color);
+  f.setPixel(a.cx + 4, y, color);
+  f.line(a.cx - 4, y - 1, a.cx + 4, y - 1, lt, 1);
+  f.line(a.cx - 4, y + 1, a.cx + 4, y + 1, dk, 1);
+  f.setPixel(a.cx - 4, y - 1, ink);
+  f.setPixel(a.cx + 4, y - 1, ink);
+  f.setPixel(a.cx - 5, y, ink);
+  f.setPixel(a.cx + 5, y, ink);
+  f.setPixel(a.cx - 4, y + 1, ink);
+  f.setPixel(a.cx + 4, y + 1, ink);
+  f.line(a.cx - 3, y - 2, a.cx + 3, y - 2, ink, 1);
+  f.line(a.cx - 3, y + 2, a.cx + 3, y + 2, ink, 1);
   return f;
 }
 

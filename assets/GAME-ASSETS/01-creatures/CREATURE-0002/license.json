@@ -1,54 +1,68 @@
 {
   "creatureId": "CREATURE-0002",
-  "version": "3.0.0",
-  "layer": "official-fan-use",
-  "officialRip": true,
-  "nonCommercial": true,
-  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
-  "baseCharacter": "Pagumon (fallback por Guilmon/Gigimon nao existir no DS)",
-  "source": {
-    "type": "game-rip",
-    "game": "Digimon World DS (Nintendo DS)",
-    "site": "The Spriters Resource",
-    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
-    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Pagumon__48414.png",
-    "retrievedAt": "2026-11-08",
-    "modifications": "componentes conexos contra o verde de fundo da folha; mascara por chave de cor local; pose de batalha reduzida por moda de bloco para escala de mapa (derivado, nao oficial)."
+  "version": "4.0.0",
+  "layer": "mixed",
+  "notes_layer": "Dois layers no mesmo creatureId: o sprite de MAPA (walk S/N/W/E, 9+3 arquivos) e 'original' (desenhado a mao por referencia); o battle_idle (3 arquivos) e 'official-fan-use' (pixels do rip oficial, sem modificacao). Ver assetOrigin.sourceDescription em creature.json.",
+  "map": {
+    "layer": "original",
+    "officialRip": false,
+    "basis": "Forma e paleta redesenhadas a mao a partir do rip oficial listado abaixo (referencia visual, hex amostrados manualmente do PNG do rip) -- nenhum pixel do rip foi copiado/reamostrado automaticamente.",
+    "generator": "art/src/gigimon_map.js (GS-003), matriz de pixel manual, mesma tecnica de pilot_model_sheet.js (ADR-009)",
+    "files": [
+      "sprites/CREATURE-0002_walk_S_00.png", "sprites/CREATURE-0002_walk_S_01.png", "sprites/CREATURE-0002_walk_S_02.png",
+      "sprites/CREATURE-0002_walk_N_00.png", "sprites/CREATURE-0002_walk_N_01.png", "sprites/CREATURE-0002_walk_N_02.png",
+      "sprites/CREATURE-0002_walk_W_00.png", "sprites/CREATURE-0002_walk_W_01.png", "sprites/CREATURE-0002_walk_W_02.png",
+      "sprites/CREATURE-0002_walk_E_00.png", "sprites/CREATURE-0002_walk_E_01.png", "sprites/CREATURE-0002_walk_E_02.png"
+    ],
+    "nonCommercial": true,
+    "restrictions": [
+      "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game (o personagem Gigimon em si continua propriedade da Bandai Namco mesmo em arte redesenhada)."
+    ]
   },
-  "credit": {
-    "ripper": "Mighty Jetters, redblueyellow",
-    "creditTextOnSheet": "Pagumon from Digimon World DS ripped by Mighty Jetters and redblueyellow. Credit is not required.",
-    "creditRequiredBySheet": false,
-    "site": "The Spriters Resource"
-  },
-  "previousVersions": [
-    {
-      "version": "1.0.0",
-      "path": "versions/v1/license.json",
-      "stillShipped": true
+  "battleIdle": {
+    "layer": "official-fan-use",
+    "officialRip": true,
+    "fanException": false,
+    "baseCharacter": "Gigimon",
+    "basis": "ADR-009 §Licenca (fundador, 2026-11-08: sprites oficiais liberados em todo o projeto, inclusive git)",
+    "nonCommercial": true,
+    "noRip": false,
+    "copyright": "Sprites are property of Digimon and Bandai Namco Entertainment Inc/Namco Bandai Games (README do repo de origem)",
+    "restrictions": [
+      "ADR-007: fan game sem monetização de nenhum tipo, sem logo oficial, com aviso de fan game",
+      "Publicação exige aprovação separada do fundador",
+      "Substituir por arte própria (camada 'original') ao longo do projeto (ADR-009) -- feito para o sprite de mapa nesta versao, pendente para o battle_idle"
+    ],
+    "files": [
+      "sprites/CREATURE-0002_battle_idle_SW_00.png",
+      "sprites/CREATURE-0002_battle_idle_SW_01.png",
+      "sprites/CREATURE-0002_battle_idle_SW_02.png"
+    ],
+    "source": {
+      "type": "game-rip",
+      "game": "Digimon World DS / Digimon World Dawn / Digimon World Dusk (Nintendo DS)",
+      "gamePerFile": "não informado pela fonte (o repo agrupa DS/Dawn/Dusk)",
+      "repository": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites",
+      "commit": "4b2273e163f023b9562cc69e4642f97a0684cb87",
+      "path": "in-training/Gigimon.gif",
+      "fileUrl": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites/blob/4b2273e163f023b9562cc69e4642f97a0684cb87/in-training/Gigimon.gif",
+      "gitBlobSha": "4c905536cea0874e79a8e10387f8602b2717afaf",
+      "sha256": "483fbbd093bf6440d5857c7d31a343339508101ea5863bcb2dc63ade58bc9464",
+      "bytes": 2605,
+      "retrievedAt": "2026-11-08",
+      "retrievedVia": "api.github.com /git/blobs/<sha> (base64) pelo web_fetch do OpenClaw; git/curl bloqueados pelo proxy deste host",
+      "localCopy": "source/Gigimon.gif",
+      "modifications": "nenhuma nos pixels dos 3 arquivos battle_idle (identicos aos de versions/v1/sprites); quadros recortados (pivô nos pés), quadros repetidos deduplicados e reempacotados em PNG"
     },
-    {
-      "version": "2.0.0",
-      "path": "versions/v2/license.json",
-      "stillShipped": false
-    },
-    {
-      "version": "3.0.0",
-      "path": "versions/v2/license.json",
-      "stillShipped": false
-    },
-    {
-      "version": "3.0.0",
-      "path": "versions/v2/license.json",
-      "stillShipped": false
-    },
-    {
-      "version": "3.0.0",
-      "path": "versions/v2/license.json",
-      "stillShipped": false
+    "credit": {
+      "ripper": "AngelOfHope",
+      "ripperCommunity": "With the Will",
+      "ripperUrl": "https://withthewill.net/threads/digimon-sprite-animation-thread-read-first-post-fully-working.10472/",
+      "preservedBy": "E-M-B-E-R",
+      "preservedByUrl": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites"
     }
-  ],
-  "verifiedAt": "2026-11-08",
+  },
+  "verifiedAt": "2026-11-09",
   "verifiedBy": "game-art",
-  "notes": "Credito opcional (a folha dispensa): Mighty Jetters, redblueyellow, The Spriters Resource, Digimon World DS. (c) Bandai Namco. Fallback de baby documentado: Pagumon no lugar de Gigimon/Guilmon (DS nao tem)."
+  "notes": "v4: battle_idle restaurado para os 3 quadros corretos do rip oficial (v3 usava por engano o fallback Pagumon tambem aqui). Creditos obrigatorios em qualquer build/tela de creditos para o battle_idle: AngelOfHope (With the Will), preservacao E-M-B-E-R; © Bandai Namco. O sprite de mapa (layer 'original') nao exige credito de rip (nao e rip), mas o personagem Gigimon continua sob o mesmo aviso de fan game do ADR-007."
 }

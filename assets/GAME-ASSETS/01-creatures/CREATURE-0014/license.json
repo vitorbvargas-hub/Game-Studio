@@ -1,7 +1,17 @@
 {
   "creatureId": "CREATURE-0014",
-  "version": "1.0.0",
-  "layer": "official-fan-use",
+  "version": "2.0.0",
+  "layer": "mixed",
+  "notes_layer": "W/E (pixels do rip oficial, so bounce de 1px para o ciclo de 3 quadros) continuam 'official-fan-use'. S/N (novos nesta versao) sao 'original': desenhados a mao por referencia visual do W, nao um rip -- ver assetOrigin em creature.json. Campos abaixo (source/credit) descrevem a parte official-fan-use (W/E/battle_idle).",
+  "mapOfficialFiles": [
+    "sprites/CREATURE-0014_walk_W_00.png", "sprites/CREATURE-0014_walk_W_01.png", "sprites/CREATURE-0014_walk_W_02.png",
+    "sprites/CREATURE-0014_walk_E_00.png", "sprites/CREATURE-0014_walk_E_01.png", "sprites/CREATURE-0014_walk_E_02.png",
+    "sprites/CREATURE-0014_battle_idle_SW_00.png"
+  ],
+  "mapOriginalFiles": [
+    "sprites/CREATURE-0014_walk_S_00.png", "sprites/CREATURE-0014_walk_S_01.png", "sprites/CREATURE-0014_walk_S_02.png",
+    "sprites/CREATURE-0014_walk_N_00.png", "sprites/CREATURE-0014_walk_N_01.png", "sprites/CREATURE-0014_walk_N_02.png"
+  ],
   "officialRip": true,
   "nonCommercial": true,
   "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",

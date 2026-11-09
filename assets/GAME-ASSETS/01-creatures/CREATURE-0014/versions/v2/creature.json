@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/prev/creature.json",
+      "summary": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    },
+    {
+      "version": "1.0.0",
+      "path": "versions/prev/creature.json",
+      "summary": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    },
+    {
+      "version": "1.0.0",
+      "path": "versions/prev/creature.json",
+      "summary": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    }
+  ],
+  "id": "CREATURE-0014",
+  "name": "Dorimon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "baby",
+  "evolutionLine": {
+    "lineId": "dorumon",
+    "previous": null,
+    "next": []
+  },
+  "evolutionRequirements": {},
+  "description": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altura media dos In-Training do DS (~19px). novo baby (linha Dorumon), nao existia no estudio antes da v3",
+  "dimensions": {
+    "frameW": 17,
+    "frameH": 19,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 9,
+    "y": 19
+  },
+  "mapScale": 1,
+  "targetHeightPx": 19,
+  "nativeMapHeightPx": 19,
+  "nativeBattleHeightPx": 18,
+  "sizeNotes": "Reduzido de 18px (pose de batalha) para 19px (fator 1.056), por moda de bloco sem interpolacao.",
+  "hitbox": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 19
+  },
+  "anchors": {
+    "head": {
+      "x": 9,
+      "y": 0
+    },
+    "hit": {
+      "x": 9,
+      "y": 10
+    },
+    "shadow": {
+      "cx": 9,
+      "cy": 19,
+      "rx": 6,
+      "ry": 2
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "battle_idle": {
+      "drawn": [
+        "SW"
+      ],
+      "mirrored": {
+        "SE": "SW"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0014_walk_W_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0014_walk_W_00.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0014_walk_E_00.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0014_walk_W_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "W": [
+          {
+            "durationMs": 250,
+            "atlasKey": "CREATURE-0014_walk_W_00.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 250,
+            "atlasKey": "CREATURE-0014_walk_E_00.png"
+          }
+        ]
+      }
+    },
+    "battle_idle": {
+      "loop": true,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0014_battle_idle_SW_00.png"
+        }
+      ]
+    }
+  },
+  "walkSpeedPxPerSec": 120,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "portrait": "./portrait.png",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Dorimon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por Mighty Jetters, redblueyellow; 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Dorimon__48417.png. Pose de batalha unica (sem walk de mapa na fonte); mapa derivado por reducao, nao e sprite de mapa oficial. Detalhe em license.json."
+  },
+  "approvalStatus": "PENDING_OFFICIAL_MAP_SPRITE",
+  "qaNotes": [
+    "Fonte so tem pose de batalha (sem walk/4 direcoes de mapa); mapa = pose de batalha reduzida por moda de bloco, 1 direcao (W) com E espelhado -- mesma tecnica do CREATURE-0002 v1->v2.",
+    "Baby novo (linha Dorumon), sem precedente no estudio antes desta sessao.",
+    "Revisar com game-dev antes de promover approvalStatus; recomenda-se, quando possivel, substituir por um rip de mapa real de 4 direcoes."
+  ]
+}

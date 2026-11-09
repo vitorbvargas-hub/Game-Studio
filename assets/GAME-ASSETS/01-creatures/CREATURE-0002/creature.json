@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "3.0.0",
+  "version": "4.0.0",
   "previousVersions": [
     {
       "version": "1.0.0",
@@ -10,22 +10,12 @@
     {
       "version": "2.0.0",
       "path": "versions/v2/creature.json",
-      "summary": "Gigimon não aparece em Digimon World DS. Sprite de mapa PROVISÓRIO: idle de batalha do rip E-M-B-E-R reduzido para a altura média dos In-Training do DS. Uma dir"
+      "summary": "Gigimon nao aparece em Digimon World DS. Sprite de mapa PROVISORIO: idle de batalha do rip E-M-B-E-R reduzido para a altura media dos In-Training do DS. Uma dir"
     },
     {
       "version": "3.0.0",
-      "path": "versions/v2/creature.json",
-      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
-    },
-    {
-      "version": "3.0.0",
-      "path": "versions/v2/creature.json",
-      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
-    },
-    {
-      "version": "3.0.0",
-      "path": "versions/v2/creature.json",
-      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+      "path": "versions/v3/creature.json",
+      "summary": "ERRO: sprite de mapa (walk/battle_idle) era na verdade o fallback Pagumon (blob azul), reportado pelo coordenador como inaceitavel -- nome 'Gigimon' em cima de um personagem errado. Mantido aqui so como historico do erro."
     }
   ],
   "id": "CREATURE-0002",
@@ -43,46 +33,48 @@
     ]
   },
   "evolutionRequirements": {},
-  "description": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altura media dos In-Training do DS (~19px). FALLBACK Pagumon (DS nao tem Gigimon/Guilmon baby): hand-draw de 4 direcoes avaliado como alto risco de qualidade nesta sessao (ver docs); usa-se o fallback sancionado pela tarefa, documentado e versionado (v2 E-M-B-E-R fica em versions/v2).",
+  "description": "Gigimon: sprite de mapa DESENHADO A MAO por matriz de pixel (mesma tecnica de pilot_model_sheet.js, ADR-009 -- sem fillEllipse/fillCircle), 4 direcoes (S, N, W desenhadas; E espelhado de W), walk de 3 quadros por direcao. Forma e paleta reduzidas/redesenhadas a partir do rip OFICIAL do Gigimon (E-M-B-E-R, battle idle, source/Gigimon.gif) -- corpo vermelho arredondado, chifres/orelhas cinza-azulado varridos para tras, olhos amarelos, franja de barriga clara -- na densidade de pixel e escala dos sprites de mapa reais do DS (compare CREATURE-0005 Koromon e CREATURE-0003 Guilmon, mesma linha evolutiva). Corrige a v3, que usava por engano o fallback Pagumon (blob azul) sob o nome Gigimon.",
   "dimensions": {
-    "frameW": 29,
-    "frameH": 19,
+    "frameW": 26,
+    "frameH": 22,
     "tile": 32
   },
   "pivot": {
-    "x": 15,
-    "y": 19
+    "x": 13,
+    "y": 21
   },
   "mapScale": 1,
   "targetHeightPx": 19,
   "nativeMapHeightPx": 19,
-  "nativeBattleHeightPx": 14,
-  "sizeNotes": "Reduzido de 14px (pose de batalha) para 19px (fator 1.357), por moda de bloco sem interpolacao.",
+  "nativeBattleHeightPx": 51,
+  "sizeNotes": "Sprite de mapa desenhado a mao nativamente em 26x22 (corpo ocupa ~19px de altura, y3-21), na mesma faixa de altura dos outros babies do estudio (Koromon nativeMapHeightPx 17, Dorimon 19). battle_idle usa os 3 quadros do rip oficial (versions/v1), 76x51, sem redimensionar -- nao e mais o fallback Pagumon reduzido.",
   "hitbox": {
-    "x": 0,
-    "y": 0,
-    "w": 29,
-    "h": 19
+    "x": 4,
+    "y": 3,
+    "w": 18,
+    "h": 18
   },
   "anchors": {
     "head": {
-      "x": 15,
-      "y": 0
+      "x": 13,
+      "y": 1
     },
     "hit": {
-      "x": 15,
-      "y": 10
+      "x": 13,
+      "y": 11
     },
     "shadow": {
-      "cx": 15,
-      "cy": 19,
-      "rx": 11,
-      "ry": 4
+      "cx": 13,
+      "cy": 21,
+      "rx": 10,
+      "ry": 3
     }
   },
   "directions": {
     "walk": {
       "drawn": [
+        "S",
+        "N",
         "W"
       ],
       "mirrored": {
@@ -91,6 +83,8 @@
     },
     "idle": {
       "drawn": [
+        "S",
+        "N",
         "W"
       ],
       "mirrored": {
@@ -113,21 +107,33 @@
       "frames": [
         {
           "durationMs": 600,
-          "atlasKey": "CREATURE-0002_walk_W_00.png"
+          "atlasKey": "CREATURE-0002_walk_S_01.png"
         }
       ],
       "events": [],
       "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0002_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0002_walk_N_01.png"
+          }
+        ],
         "W": [
           {
             "durationMs": 600,
-            "atlasKey": "CREATURE-0002_walk_W_00.png"
+            "atlasKey": "CREATURE-0002_walk_W_01.png"
           }
         ],
         "E": [
           {
             "durationMs": 600,
-            "atlasKey": "CREATURE-0002_walk_E_00.png"
+            "atlasKey": "CREATURE-0002_walk_E_01.png"
           }
         ]
       }
@@ -137,22 +143,94 @@
       "space": "map",
       "frames": [
         {
-          "durationMs": 250,
-          "atlasKey": "CREATURE-0002_walk_W_00.png"
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0002_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0002_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0002_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0002_walk_S_02.png"
         }
       ],
       "events": [],
       "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_N_02.png"
+          }
+        ],
         "W": [
           {
-            "durationMs": 250,
+            "durationMs": 150,
             "atlasKey": "CREATURE-0002_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_W_02.png"
           }
         ],
         "E": [
           {
-            "durationMs": 250,
+            "durationMs": 150,
             "atlasKey": "CREATURE-0002_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_E_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0002_walk_E_02.png"
           }
         ]
       }
@@ -162,13 +240,22 @@
       "space": "battle",
       "frames": [
         {
-          "durationMs": 250,
+          "durationMs": 350,
           "atlasKey": "CREATURE-0002_battle_idle_SW_00.png"
+        },
+        {
+          "durationMs": 350,
+          "atlasKey": "CREATURE-0002_battle_idle_SW_01.png"
+        },
+        {
+          "durationMs": 350,
+          "atlasKey": "CREATURE-0002_battle_idle_SW_02.png"
         }
-      ]
+      ],
+      "events": []
     }
   },
-  "walkSpeedPxPerSec": 120,
+  "walkSpeedPxPerSec": 110,
   "combatStates": {
     "IDLE": "idle",
     "WALK": "walk",
@@ -177,15 +264,19 @@
     "RETURN": "walk"
   },
   "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
   "portrait": "./portrait.png",
   "assetOrigin": {
-    "layer": "official-fan-use",
-    "sourceDescription": "Folha Digimon World DS \"Pagumon (fallback por Guilmon/Gigimon nao existir no DS)\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por Mighty Jetters, redblueyellow; 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Pagumon__48414.png. Pose de batalha unica (sem walk de mapa na fonte); mapa derivado por reducao, nao e sprite de mapa oficial. Detalhe em license.json."
+    "layer": "original",
+    "sourceDescription": "Sprite de MAPA (walk S/N/W + E espelhado, 3 quadros cada) desenhado a mao, pixel a pixel, por matriz de caracteres em art/src/gigimon_map.js (tecnica de pilot_model_sheet.js, sem fillEllipse/fillCircle de forma -- ADR-009). Forma e cores reduzidas/redesenhadas a partir do rip OFICIAL de Gigimon (CREATURE-0002/source/Gigimon.gif, licenca official-fan-use, ver license.json) como referencia de silhueta e paleta -- nenhum pixel do rip foi copiado ou reamostrado automaticamente para o sprite de mapa; os hex foram amostrados a mao do PNG do rip e usados no desenho novo. battle_idle (3 quadros) usa os pixels originais do rip oficial sem modificacao (ja usados na v1), restaurado nesta versao -- a v3 usava por engano o fallback Pagumon tambem no battle_idle."
   },
-  "approvalStatus": "PENDING_OFFICIAL_MAP_SPRITE",
+  "approvalStatus": "UNDER_REVIEW",
+  "score": null,
   "qaNotes": [
-    "Fonte so tem pose de batalha (sem walk/4 direcoes de mapa); mapa = pose de batalha reduzida por moda de bloco, 1 direcao (W) com E espelhado -- mesma tecnica do CREATURE-0002 v1->v2.",
-    "Guilmon/Gigimon nao existe na DS: desenhar a mao um sprite de mapa de 4 direcoes foi avaliado como alto risco de qualidade nesta sessao (o fundador rejeitou geracao procedural de personagens na v2 dos Tamers); usado o fallback Pagumon sancionado pela tarefa.",
-    "Revisar com game-dev antes de promover approvalStatus; recomenda-se, quando possivel, substituir por um rip de mapa real de 4 direcoes."
+    "CORRIGE ERRO GRAVE da v3: o sprite de mapa e o battle_idle estavam usando o fallback Pagumon (blob azul) sob o nome 'Gigimon' -- reportado pelo coordenador como inaceitavel para fas. Confirmado visualmente nesta sessao (sprites/ v3 eram azuis, nao vermelhos) antes da correcao.",
+    "Sprite de mapa agora e autoral (desenhado a mao), nao um rip -- Digimon World DS nao tem Gigimon jogavel/mapa para ripar (mesma limitacao documentada nas v1/v2). Fica em assetOrigin.layer='original' porque e um desenho novo, mesmo usando o rip oficial como referencia de forma/cor (nao e mais 'official-fan-use' para o sprite de mapa; o battle_idle continua 'official-fan-use' via source/Gigimon.gif, ver license.json).",
+    "Revisado com view_image em 8x (acima do minimo de 4x pedido) para as 3 direcoes + E espelhado antes desta entrega, 2 iteracoes (v1 do desenho tinha uma mancha de sombra solida que colidia com a boca e parecia um 'ferimento'; corrigido para sombra em faixa fina na borda).",
+    "Caminho de evolucao fica igual (Gigimon -> Guilmon, CREATURE-0003); nenhum dado de gameplay/elemento foi alterado, so o sprite.",
+    "Recomenda-se revisao do fundador/game-dev antes de promover approvalStatus para APPROVED -- qualidade de desenho a mao e avaliacao propria desta sessao [H], nao validada com jogador real."
   ]
 }

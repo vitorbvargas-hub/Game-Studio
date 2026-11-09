@@ -23,8 +23,17 @@ function loadTiles() {
   const p = (f) => pngToCanvas(path.join(ENV, 'props', f));
   const sand = [g('sand_00.png'), g('sand_01.png'), g('sand_02.png')];
   const waterBlob = {}; for (let m = 0; m < 16; m++) waterBlob[m] = g(`water_blob_${m}.png`);
+  const waterOpen = []; for (let i = 0; i < 16; i++) waterOpen.push(g(`water_open_${String(i).padStart(2, '0')}.png`));
   const pole = p('electric_pole.png');
-  return { sand, waterBlob, pole };
+  return { sand, waterBlob, waterOpen, pole };
+}
+
+// Cheap position hash so adjacent open-water cells pick different glint
+// variants -- avoids the large-scale repeating grid a single reused tile
+// would show (see gen_praia_v5.js water review notes).
+function cellHash(tx, ty) {
+  const h = ((tx * 374761393 + ty * 668265263) ^ (tx * 69069 + ty)) >>> 0;
+  return h;
 }
 
 // water occupies the right ~40% of the map (sea), with a wavy coastline.
@@ -51,7 +60,11 @@ function buildGround(t, rnd) {
       const x = tx * TILE, y = ty * TILE;
       if (waterMask[ty][tx]) {
         const bm = neighborBitmask(waterMask, tx, ty);
-        scene.blit(t.waterBlob[bm], x, y);
+        if (bm === 15) {
+          scene.blit(t.waterOpen[cellHash(tx, ty) % t.waterOpen.length], x, y);
+        } else {
+          scene.blit(t.waterBlob[bm], x, y);
+        }
       } else {
         scene.blit(t.sand[Math.floor(rnd() * 3)], x, y);
       }

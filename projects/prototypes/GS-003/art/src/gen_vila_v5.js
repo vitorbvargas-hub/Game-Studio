@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const { Canvas } = require('./canvas.js');
 const { naSheet, cropTiles2x, recolor } = require('./na_source.js');
+const { cropRect } = require('./dwds_extract.js');
 
 const OUT = path.resolve(__dirname, '../../../../../assets/GAME-ASSETS/03-environments/vila-v5');
 fs.mkdirSync(path.join(OUT, 'tiles'), { recursive: true });
@@ -18,9 +19,78 @@ const CHEER = { hueShift: 0.03, satMul: 1.15, lightAdd: 0.1 };
 
 function cheer(c) { return recolor(c, CHEER); }
 
-cheer(cropTiles2x(village, 11, 0, 3, 3)).save(path.join(OUT, 'props', 'house_small.png'));
-cheer(cropTiles2x(village, 13, 7, 4, 4)).save(path.join(OUT, 'props', 'house_big.png'));
-cheer(cropTiles2x(village, 17, 8, 3, 3)).save(path.join(OUT, 'props', 'house_cottage.png'));
+// Demoss: the licensed sheet is literally named "village_abandoned" -- every
+// building has green ruin-moss baked into its roof pixels, which a global
+// hue/light shift (cheer()) cannot remove (it is a different hue band, not
+// just a tint). Recolor any clearly green/olive pixel (hue roughly
+// yellow-green..green, decent saturation) toward the same warm wood-shingle
+// hue already used by the rest of each roof, keeping each pixel's own
+// lightness so the existing shading/texture reads as shingle variation
+// instead of moss. Run BEFORE cheer() so the brightening pass still applies
+// evenly to the now-wood-colored roof.
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s; const l = (max + min) / 2;
+  if (max === min) { h = s = 0; } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h /= 6;
+  }
+  return [h, s, l];
+}
+function hue2rgb(p, q, t) { if (t < 0) t += 1; if (t > 1) t -= 1; if (t < 1 / 6) return p + (q - p) * 6 * t; if (t < 1 / 2) return q; if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6; return p; }
+function hslToRgb(h, s, l) {
+  if (s === 0) { const v = Math.round(l * 255); return [v, v, v]; }
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q;
+  return [Math.round(hue2rgb(p, q, h + 1 / 3) * 255), Math.round(hue2rgb(p, q, h) * 255), Math.round(hue2rgb(p, q, h - 1 / 3) * 255)];
+}
+function demoss(c, targetHue = 0.08) {
+  const nc = new Canvas(c.w, c.h);
+  for (let y = 0; y < c.h; y++) {
+    for (let x = 0; x < c.w; x++) {
+      const [r, g, b, a] = c.getPixel(x, y);
+      if (a === 0) continue;
+      const [h, s, l] = rgbToHsl(r, g, b);
+      const isMoss = h > 0.17 && h < 0.42 && s > 0.12;
+      if (isMoss) {
+        const [nr, ng, nb] = hslToRgb(targetHue, Math.min(0.75, s * 0.9), l);
+        nc.setPixel(x, y, [nr, ng, nb, a]);
+      } else {
+        nc.setPixel(x, y, [r, g, b, a]);
+      }
+    }
+  }
+  return nc;
+}
+
+// Crop bounds fixed against the real sheet geometry (see review: houses
+// were landing cropped/cut -- wrong tile offsets grabbed only a corner of
+// each building, e.g. house_big used to miss the door and roof apex
+// entirely). house_small is a tight sub-crop of the cottage's porch module
+// (the sheet's only two intact, hole-free buildings are the big cabin and
+// the cottage; the sheet's actual "small hut" has a structural hole in the
+// roof, not just moss, so it is not usable even after demoss).
+const houseBig = demoss(cropTiles2x(village, 12, 6, 4, 6));
+// The sheet's other building-sized regions near the cottage/small-hut tiles
+// turned out to be either structurally holed (a real ruin, not just moss --
+// can't be demossed away) or baked opaque with no transparent background
+// (a border flood-fill to matte it out ate the whole roof too, since its
+// anti-aliased edge blends gradually into the background green). Rather
+// than ship a second broken crop, derive the other two house sizes from
+// house_big itself (the one confirmed clean, alpha-transparent building on
+// this sheet): house_small is its door+window porch module, house_cottage
+// is the same module mirrored, so the plaza still reads as 3 different
+// houses without reusing a flawed source region.
+const houseSmall = cropRect(houseBig, 0, 118, 127, 191);
+const houseCottage = houseSmall.flipX();
+
+cheer(houseSmall).save(path.join(OUT, 'props', 'house_small.png'));
+cheer(houseBig).save(path.join(OUT, 'props', 'house_big.png'));
+cheer(houseCottage).save(path.join(OUT, 'props', 'house_cottage.png'));
 cheer(cropTiles2x(village, 0, 7, 3, 2)).save(path.join(OUT, 'props', 'bush_big.png'));
 cheer(cropTiles2x(village, 4, 10, 2, 2)).save(path.join(OUT, 'props', 'bush_small.png'));
 
@@ -70,19 +140,37 @@ function buildCrib() {
   c.strokeEllipse(16, 17, 10, 4, clothDk, 1);
   // rocking base
   c.strokeEllipse(16, 27, 14, 2, woodDk, 1);
-  c.autoOutline([70, 48, 28, 170]);
+  // Full dark outline (was a faint 170-alpha line, too close to the grass
+  // tone to read at a glance -- review asked for more contrast).
+  c.autoOutline([40, 26, 14, 255]);
   return c;
 }
 buildCrib().save(path.join(OUT, 'props', 'crib.png'));
 
 function buildEggCluster() {
-  const c = new Canvas(32, 24);
+  const c = new Canvas(32, 26);
+  // Straw nest base first -- a dark-brown ring under the eggs so the whole
+  // cluster reads as one object against grass at a glance instead of 3 pale
+  // blobs floating on green (review: low contrast, hard to see).
+  const straw = [150, 108, 58, 255], strawDk = [104, 72, 36, 255];
+  c.fillEllipse(16, 21, 15, 5, [0, 0, 0, 80]);
+  c.fillEllipse(16, 19, 14, 6, strawDk);
+  c.fillEllipse(16, 18, 13, 5, straw);
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2;
+    const sx = 16 + Math.cos(a) * 13, sy = 18 + Math.sin(a) * 5;
+    c.setPixel(Math.round(sx), Math.round(sy), strawDk);
+  }
+  c.strokeEllipse(16, 18, 13, 5, [60, 40, 20, 255], 1);
+  // Eggs: deeper, more saturated shell tones (the pastel versions were
+  // close enough to the grass/sand around them to merge into it) plus a
+  // full dark outline per egg so each shell pops against the nest.
   const eggs = [
-    { x: 10, y: 16, r: 7, c1: [255, 232, 160, 255], c2: [240, 200, 110, 255] },
-    { x: 21, y: 15, r: 8, c1: [190, 230, 255, 255], c2: [150, 200, 240, 255] },
-    { x: 16, y: 9, r: 6, c1: [220, 255, 200, 255], c2: [180, 225, 160, 255] },
+    { x: 10, y: 13, r: 7, c1: [250, 205, 90, 255], c2: [214, 150, 35, 255] },
+    { x: 21, y: 12, r: 8, c1: [120, 185, 235, 255], c2: [60, 120, 195, 255] },
+    { x: 16, y: 6, r: 6, c1: [150, 220, 120, 255], c2: [95, 170, 70, 255] },
   ];
-  for (const e of eggs) c.fillEllipse(e.x, e.y + e.r * 0.3, e.r * 0.8, 2, [0, 0, 0, 70]);
+  for (const e of eggs) c.fillEllipse(e.x, e.y + e.r * 0.3, e.r * 0.8, 2, [0, 0, 0, 90]);
   for (const e of eggs) {
     c.fillEllipse(e.x, e.y, e.r * 0.72, e.r, e.c1);
     for (let i = 0; i < 4; i++) {
@@ -90,8 +178,8 @@ function buildEggCluster() {
       c.fillCircle(Math.round(sx), Math.round(sy), 1, e.c2);
     }
     c.strokeEllipse(e.x, e.y, e.r * 0.72, e.r, e.c2, 1);
+    c.strokeEllipse(e.x, e.y, e.r * 0.72 + 1, e.r + 1, [30, 24, 14, 230], 1);
   }
-  c.autoOutline([60, 60, 60, 120]);
   return c;
 }
 buildEggCluster().save(path.join(OUT, 'props', 'egg_cluster.png'));

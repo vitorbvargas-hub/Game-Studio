@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 2,
+  "version": "3.0.0",
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/v1/creature.json",
+      "summary": "rip E-M-B-E-R, pose de batalha idle SW em escala de batalha"
+    },
+    {
+      "version": "2.0.0",
+      "path": "versions/v2/creature.json",
+      "summary": "Gigimon não aparece em Digimon World DS. Sprite de mapa PROVISÓRIO: idle de batalha do rip E-M-B-E-R reduzido para a altura média dos In-Training do DS. Uma dir"
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/creature.json",
+      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/creature.json",
+      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/creature.json",
+      "summary": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+    }
+  ],
+  "id": "CREATURE-0002",
+  "name": "Gigimon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "none",
+  "attributes": {},
+  "evolutionStage": "baby",
+  "evolutionLine": {
+    "lineId": "guilmon",
+    "previous": null,
+    "next": [
+      "CREATURE-0003"
+    ]
+  },
+  "evolutionRequirements": {},
+  "description": "Gigimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altura media dos In-Training do DS (~19px). FALLBACK Pagumon (DS nao tem Gigimon/Guilmon baby): hand-draw de 4 direcoes avaliado como alto risco de qualidade nesta sessao (ver docs); usa-se o fallback sancionado pela tarefa, documentado e versionado (v2 E-M-B-E-R fica em versions/v2).",
+  "dimensions": {
+    "frameW": 29,
+    "frameH": 19,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 15,
+    "y": 19
+  },
+  "mapScale": 1,
+  "targetHeightPx": 19,
+  "nativeMapHeightPx": 19,
+  "nativeBattleHeightPx": 14,
+  "sizeNotes": "Reduzido de 14px (pose de batalha) para 19px (fator 1.357), por moda de bloco sem interpolacao.",
+  "hitbox": {
+    "x": 0,
+    "y": 0,
+    "w": 29,
+    "h": 19
+  },
+  "anchors": {
+    "head": {
+      "x": 15,
+      "y": 0
+    },
+    "hit": {
+      "x": 15,
+      "y": 10
+    },
+    "shadow": {
+      "cx": 15,
+      "cy": 19,
+      "rx": 11,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "W"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "battle_idle": {
+      "drawn": [
+        "SW"
+      ],
+      "mirrored": {
+        "SE": "SW"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0002_walk_W_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0002_walk_W_00.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0002_walk_E_00.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0002_walk_W_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "W": [
+          {
+            "durationMs": 250,
+            "atlasKey": "CREATURE-0002_walk_W_00.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 250,
+            "atlasKey": "CREATURE-0002_walk_E_00.png"
+          }
+        ]
+      }
+    },
+    "battle_idle": {
+      "loop": true,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0002_battle_idle_SW_00.png"
+        }
+      ]
+    }
+  },
+  "walkSpeedPxPerSec": 120,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "portrait": "./portrait.png",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"Pagumon (fallback por Guilmon/Gigimon nao existir no DS)\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por Mighty Jetters, redblueyellow; 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Pagumon__48414.png. Pose de batalha unica (sem walk de mapa na fonte); mapa derivado por reducao, nao e sprite de mapa oficial. Detalhe em license.json."
+  },
+  "approvalStatus": "PENDING_OFFICIAL_MAP_SPRITE",
+  "qaNotes": [
+    "Fonte so tem pose de batalha (sem walk/4 direcoes de mapa); mapa = pose de batalha reduzida por moda de bloco, 1 direcao (W) com E espelhado -- mesma tecnica do CREATURE-0002 v1->v2.",
+    "Guilmon/Gigimon nao existe na DS: desenhar a mao um sprite de mapa de 4 direcoes foi avaliado como alto risco de qualidade nesta sessao (o fundador rejeitou geracao procedural de personagens na v2 dos Tamers); usado o fallback Pagumon sancionado pela tarefa.",
+    "Revisar com game-dev antes de promover approvalStatus; recomenda-se, quando possivel, substituir por um rip de mapa real de 4 direcoes."
+  ]
+}

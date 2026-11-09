@@ -1,0 +1,54 @@
+{
+  "creatureId": "CREATURE-0002",
+  "version": "3.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "nonCommercial": true,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "baseCharacter": "Pagumon (fallback por Guilmon/Gigimon nao existir no DS)",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Pagumon__48414.png",
+    "retrievedAt": "2026-11-08",
+    "modifications": "componentes conexos contra o verde de fundo da folha; mascara por chave de cor local; pose de batalha reduzida por moda de bloco para escala de mapa (derivado, nao oficial)."
+  },
+  "credit": {
+    "ripper": "Mighty Jetters, redblueyellow",
+    "creditTextOnSheet": "Pagumon from Digimon World DS ripped by Mighty Jetters and redblueyellow. Credit is not required.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "previousVersions": [
+    {
+      "version": "1.0.0",
+      "path": "versions/v1/license.json",
+      "stillShipped": true
+    },
+    {
+      "version": "2.0.0",
+      "path": "versions/v2/license.json",
+      "stillShipped": false
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/license.json",
+      "stillShipped": false
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/license.json",
+      "stillShipped": false
+    },
+    {
+      "version": "3.0.0",
+      "path": "versions/v2/license.json",
+      "stillShipped": false
+    }
+  ],
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art",
+  "notes": "Credito opcional (a folha dispensa): Mighty Jetters, redblueyellow, The Spriters Resource, Digimon World DS. (c) Bandai Namco. Fallback de baby documentado: Pagumon no lugar de Gigimon/Guilmon (DS nao tem)."
+}

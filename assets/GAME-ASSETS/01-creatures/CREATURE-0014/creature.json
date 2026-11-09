@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "previousVersions": [
     {
       "version": "1.0.0",
@@ -9,13 +9,8 @@
     },
     {
       "version": "1.0.0",
-      "path": "versions/prev/creature.json",
-      "summary": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
-    },
-    {
-      "version": "1.0.0",
-      "path": "versions/prev/creature.json",
-      "summary": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altur"
+      "path": "versions/v2/creature.json",
+      "summary": "Mesmo conteudo da v1.0.0 (so W/E, 1 quadro cada) -- snapshot tirado antes da correcao de 2026-11-09 que adicionou S/N e o ciclo de 3 quadros."
     }
   ],
   "id": "CREATURE-0014",
@@ -31,21 +26,21 @@
     "next": []
   },
   "evolutionRequirements": {},
-  "description": "Dorimon: sprite de mapa PROVISORIO (uma direcao W, E espelhado) derivado da pose de batalha oficial de Digimon World DS, reduzida por moda de bloco para a altura media dos In-Training do DS (~19px). novo baby (linha Dorumon), nao existia no estudio antes da v3",
+  "description": "Dorimon: sprite de mapa com as 4 direcoes (S, N desenhadas a mao; W = pixels originais do rip oficial reduzido, ja usado desde a v1; E espelhado de W), 3 quadros de walk por direcao. S/N desenhados a mao por matriz de pixel (art/src/dorimon_map.js, mesma tecnica de gigimon_map.js/pilot_model_sheet.js -- ADR-009), casando a cor/silhueta do W oficial a olho (corpo arredondado azul-roxo, duas orelhas/pontas eretas, patas claras pequenas, sem olho visivel na arte fonte). W/E continuam vindo do rip oficial (ver license.json); S/N sao desenho novo baseado nele, nao um rip.",
   "dimensions": {
     "frameW": 17,
     "frameH": 19,
     "tile": 32
   },
-  "pivot": {
-    "x": 9,
-    "y": 19
-  },
   "mapScale": 1,
   "targetHeightPx": 19,
   "nativeMapHeightPx": 19,
   "nativeBattleHeightPx": 18,
-  "sizeNotes": "Reduzido de 18px (pose de batalha) para 19px (fator 1.056), por moda de bloco sem interpolacao.",
+  "sizeNotes": "W/E: reduzido de 18px (pose de batalha oficial) para 19px (fator 1.056), por moda de bloco sem interpolacao -- inalterado da v1. S/N: desenhados a mao diretamente na grade 17x19 nativa, sem fator de reducao (nao vem de um rip).",
+  "pivot": {
+    "x": 9,
+    "y": 19
+  },
   "hitbox": {
     "x": 0,
     "y": 0,
@@ -71,6 +66,8 @@
   "directions": {
     "walk": {
       "drawn": [
+        "S",
+        "N",
         "W"
       ],
       "mirrored": {
@@ -79,6 +76,8 @@
     },
     "idle": {
       "drawn": [
+        "S",
+        "N",
         "W"
       ],
       "mirrored": {
@@ -101,21 +100,33 @@
       "frames": [
         {
           "durationMs": 600,
-          "atlasKey": "CREATURE-0014_walk_W_00.png"
+          "atlasKey": "CREATURE-0014_walk_S_01.png"
         }
       ],
       "events": [],
       "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0014_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0014_walk_N_01.png"
+          }
+        ],
         "W": [
           {
             "durationMs": 600,
-            "atlasKey": "CREATURE-0014_walk_W_00.png"
+            "atlasKey": "CREATURE-0014_walk_W_01.png"
           }
         ],
         "E": [
           {
             "durationMs": 600,
-            "atlasKey": "CREATURE-0014_walk_E_00.png"
+            "atlasKey": "CREATURE-0014_walk_E_01.png"
           }
         ]
       }
@@ -125,23 +136,47 @@
       "space": "map",
       "frames": [
         {
-          "durationMs": 250,
-          "atlasKey": "CREATURE-0014_walk_W_00.png"
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0014_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0014_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0014_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0014_walk_S_02.png"
         }
       ],
       "events": [],
       "dirFrames": {
+        "S": [
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_S_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_S_01.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_S_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_S_02.png" }
+        ],
+        "N": [
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_N_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_N_01.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_N_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_N_02.png" }
+        ],
         "W": [
-          {
-            "durationMs": 250,
-            "atlasKey": "CREATURE-0014_walk_W_00.png"
-          }
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_W_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_W_01.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_W_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_W_02.png" }
         ],
         "E": [
-          {
-            "durationMs": 250,
-            "atlasKey": "CREATURE-0014_walk_E_00.png"
-          }
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_E_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_E_01.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_E_00.png" },
+          { "durationMs": 150, "atlasKey": "CREATURE-0014_walk_E_02.png" }
         ]
       }
     },
@@ -149,10 +184,7 @@
       "loop": true,
       "space": "battle",
       "frames": [
-        {
-          "durationMs": 250,
-          "atlasKey": "CREATURE-0014_battle_idle_SW_00.png"
-        }
+        { "durationMs": 250, "atlasKey": "CREATURE-0014_battle_idle_SW_00.png" }
       ]
     }
   },
@@ -167,13 +199,16 @@
   "sprites": "./sprites/",
   "portrait": "./portrait.png",
   "assetOrigin": {
-    "layer": "official-fan-use",
-    "sourceDescription": "Folha Digimon World DS \"Dorimon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por Mighty Jetters, redblueyellow; 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Dorimon__48417.png. Pose de batalha unica (sem walk de mapa na fonte); mapa derivado por reducao, nao e sprite de mapa oficial. Detalhe em license.json."
+    "layer": "mixed",
+    "sourceDescription": "W/E: pixels do rip oficial Digimon World DS Dorimon (Spriters Resource, ripado por Mighty Jetters/redblueyellow; 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Dorimon__48417.png), inalterados da v1, so variados em bounce de 1px para o ciclo de 3 quadros. S/N: desenhados a mao, pixel a pixel, por matriz de caracteres em art/src/dorimon_map.js (tecnica de pilot_model_sheet.js/gigimon_map.js, sem fillEllipse/fillCircle -- ADR-009), casando cor e silhueta do W oficial a olho; nao e um rip (o rip so tinha a pose de batalha unica, sem angulos de mapa S/N)."
   },
-  "approvalStatus": "PENDING_OFFICIAL_MAP_SPRITE",
+  "approvalStatus": "UNDER_REVIEW",
   "qaNotes": [
-    "Fonte so tem pose de batalha (sem walk/4 direcoes de mapa); mapa = pose de batalha reduzida por moda de bloco, 1 direcao (W) com E espelhado -- mesma tecnica do CREATURE-0002 v1->v2.",
-    "Baby novo (linha Dorumon), sem precedente no estudio antes desta sessao.",
-    "Revisar com game-dev antes de promover approvalStatus; recomenda-se, quando possivel, substituir por um rip de mapa real de 4 direcoes."
+    "Adiciona S e N (faltavam -- so havia W/E, GS-003 review 2026-11-09) e expande todas as direcoes para 3 quadros de walk (so havia 1 quadro por direcao antes).",
+    "W/E continuam oficiais (official-fan-use); S/N sao layer 'original' (desenho novo por referencia visual da propria W), ver license.json para o detalhamento por arquivo.",
+    "Fonte so tem pose de batalha unica (sem direcoes de mapa), por isso S/N nao podiam ser ripados -- mesma limitacao ja documentada na v1 para W/E.",
+    "Revisado com view_image em 8x (acima do minimo de 4x pedido) antes desta entrega.",
+    "Sem olho visivel desenhado em S/N, de proposito -- a arte fonte (W oficial) tambem nao mostra um olho distinto (silhueta de 'bola de pelo', nao um rosto detalhado); inventar um olho destacado teria divergido da fonte.",
+    "Revisar com game-dev antes de promover approvalStatus."
   ]
 }
