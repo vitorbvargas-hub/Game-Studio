@@ -51,13 +51,20 @@ export function loadForestProofMap(): WorldMap {
   return parseTiledMap("forest-proof", forestProofMap as unknown as TiledMap);
 }
 
-export function scenePlayers(map: WorldMap, scene: SceneData, opts: { auto?: boolean; botAuto?: boolean } = {}): PlayerSetup[] {
+export interface SceneOptions {
+  auto?: boolean;
+  botAuto?: boolean;
+  /** Nome do Tamer local (criador de Tamer); padrão = o da cena. Só rótulo: não muda a simulação. */
+  localName?: string;
+}
+
+export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions = {}): PlayerSetup[] {
   return scene.players.map((p) => {
     const start = map.starts[p.start];
     if (!start) throw new Error(`cena: início '${p.start}' ausente no mapa ${map.id}`);
     return {
       id: p.id,
-      name: p.name,
+      name: p.id === LOCAL_PLAYER && opts.localName ? opts.localName : p.name,
       start,
       partnerSpecies: p.partnerSpecies,
       partnerLevel: p.partnerLevel,
@@ -67,7 +74,7 @@ export function scenePlayers(map: WorldMap, scene: SceneData, opts: { auto?: boo
   });
 }
 
-export function createForestProofWorld(seed: number, opts: { auto?: boolean; botAuto?: boolean } = {}): { sim: WorldSim; events: WorldEvent[] } {
+export function createForestProofWorld(seed: number, opts: SceneOptions = {}): { sim: WorldSim; events: WorldEvent[] } {
   const map = loadForestProofMap();
   return createWorld(map, loadWorldContent(), seed, scenePlayers(map, FOREST_PROOF_SCENE, opts));
 }

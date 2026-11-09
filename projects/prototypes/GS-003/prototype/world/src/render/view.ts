@@ -38,6 +38,8 @@ export interface ViewOptions {
   sizeTable?: Record<string, SizeEntry>;
   /** Sprites do Tamer (GAME-ASSETS/11-characters): local e outro jogador. Ausente → placeholder desenhado em código. */
   tamers?: { local?: CreatureVisual; remote?: CreatureVisual };
+  /** Tamer composto por jogador (criador de Tamer / bots aleatórios); tem prioridade sobre `tamers`. */
+  tamerVisuals?: Record<string, CreatureVisual>;
   /** Suavização visual do movimento (desligar para comparar com a v1). */
   smoothing?: boolean;
   /** Só apresentação (dados de cena): nível exibido no nome de cada Tamer, por id de jogador. */
@@ -508,6 +510,8 @@ export class WorldView {
 
   private drawEntity(v: VisualEntity, pos: Vec, p: Presenter, now: number): void {
     if (v.kind === "player" || v.kind === "remote_player") {
+      const own = this.opts.tamerVisuals?.[v.id];
+      if (own && this.images.get(own.sheetUrl)) return this.drawSprite(own, v, pos, p, now);
       const tv = v.kind === "player" ? this.opts.tamers?.local : this.opts.tamers?.remote;
       if (tv && this.images.get(tv.sheetUrl)) return this.drawSprite(tv, v, pos, p, now, this.opts.tamerTints?.[v.id]);
       return this.drawTamer(v, pos, now);
@@ -770,7 +774,7 @@ export class WorldView {
 
   /** Altura (px) do topo da cabeça acima dos pés, para Tamers com sprite real ou placeholder. */
   private tamerTop(v: VisualEntity): number {
-    const tv = v.kind === "player" ? this.opts.tamers?.local : this.opts.tamers?.remote;
+    const tv = this.opts.tamerVisuals?.[v.id] ?? (v.kind === "player" ? this.opts.tamers?.local : this.opts.tamers?.remote);
     if (!tv) return TAMER_PIVOT.y;
     const m = tv.manifest;
     return m.pivot.y - (m.anchors?.head?.y ?? 0);

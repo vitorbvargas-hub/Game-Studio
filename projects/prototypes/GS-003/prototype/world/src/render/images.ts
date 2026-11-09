@@ -13,6 +13,11 @@ export class ImageStore {
     return this.images.get(url);
   }
 
+  /** Registra uma imagem gerada em código (ex.: folha do Tamer composta) sob um URL sintético. */
+  put(url: string, img: ImageLike): void {
+    this.images.set(url, img);
+  }
+
   async loadAll(urls: string[]): Promise<string[]> {
     const failed: string[] = [];
     await Promise.all(

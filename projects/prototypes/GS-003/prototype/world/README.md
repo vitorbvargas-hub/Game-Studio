@@ -3,6 +3,29 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Criador de Tamer (2026-11-08)
+
+- **Tela antes do mundo** (`src/ui/creator.ts`, pt-BR): "Crie seu Tamer".
+  - Escolhas: nome (1–14 caracteres; vazio bloqueia "Entrar no mundo"), **Modelo** (2), **Tom de pele** (3), **Corte** (7), **Cor do cabelo** (8), **Roupa** (3) e **Cor da roupa** (7 rampas, ou seja, 3 × 7 combinações).
+  - Tem também um botão **Aleatório** e um resumo em texto da combinação.
+  - O preview é animado: o Tamer anda e gira Frente → Direita → Costas → Esquerda a cada 1,4 s, ampliado 6× em pixel-art.
+  - `?criador=0` pula a tela e usa o visual padrão. As capturas do mundo usam esse parâmetro.
+- **Composição em camadas e recolor por paleta** (`src/assets/tamer-parts.ts`, `GAME-ASSETS/11-characters/player/character_parts.json` v2, commit 8bd9143):
+  - A ordem das camadas é corpo → cabelo → roupa (`drawOrder`). Cada camada é carregada **numa só cor-base**: pele `pale`, cabelo `castanho`, roupa casual `vermelho`, aventureiro `marrom` e tamer-clássico `amarelo`.
+  - Assim são carregados 330 PNGs em vez de 1.672, e o resto sai por troca de rampa.
+  - A arte usa 5 tons por rampa: os 3 do JSON e mais 2 derivados que medi nos PNGs prontos. O contorno é o tom escuro levado 65% em direção à tinta `#181425`, e o brilho é o tom claro levado 55% em direção ao branco.
+  - Com isso, o recolor reproduz **pixel a pixel** todas as variantes prontas do pacote: 7 cortes × 8 cores, 2 modelos × 3 peles e todas as cores de roupa prontas.
+  - O azul não serve de base de roupa porque colide com o detalhe tecnológico fixo `#0099db`.
+  - As cores de roupa que não vêm prontas no pacote (roxo, aço etc.) saem do mesmo recolor.
+- **No mundo:**
+  - `composeTamer` monta uma folha (idle 3 e walk 4 quadros em S/E/N, com W espelhando E, e point 1) e devolve um `CreatureVisual` no mesmo contrato dos Tamers do pacote. O `WorldView` usa `tamerVisuals[playerId]` antes do TAMER-0001/0002.
+  - O Tamer escolhido substitui o TAMER-0001, e o nome dele vai para a sim (só rótulo) e para o HUD.
+  - Cada bot ganha uma combinação aleatória estável (`botLook`: semente do mundo + id do jogador).
+- **Capturas:** `creator_tela.png`, `creator_escolhas.png`, `creator_preview_4dir.png` (as 4 direções do preview), `creator_no_mundo.png` e `creator_no_mundo_zoom.png`. Para gerar: `ONLY=creator npm run shots:live`.
+- **Testes:**
+  - `tests/tamer.test.ts`: o recolor é pixel-exato contra os PNGs prontos; a folha composta é idêntica à sobreposição dos 3 PNGs prontos em todos os 22 quadros; também cobre o contrato do renderer, os bots determinísticos e distintos e o `normalizeLook`.
+  - `tests/creator.test.ts`: quantidades por grupo, textos em pt-BR, escolha, Aleatório, nome vazio, confirmação e giro do preview.
+
 ## Ciclo dia/noite (2026-11-08)
 
 - **Relógio do jogo** (`src/render/daynight.ts`, só apresentação; a sim não sabe a hora):

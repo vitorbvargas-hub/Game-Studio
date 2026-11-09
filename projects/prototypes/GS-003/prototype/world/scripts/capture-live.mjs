@@ -132,7 +132,9 @@ async function main() {
     await cdp.send("Runtime.enable");
     await cdp.send("Page.enable");
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: 1, mobile: false });
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1${QUERY}` });
+    if (process.env.ONLY === "creator") return await creator(cdp);
+    // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0${QUERY}` });
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
     await sleep(3500);
     if (process.env.ONLY === "forest") return await forestV4(cdp);
@@ -192,6 +194,60 @@ async function main() {
   }
 }
 
+/**
+ * Criador de Tamer: a tela inicial, uma combinação escolhida pelos botões (com nome), o preview girando nas
+ * 4 direções (recortes ampliados lado a lado) e o Tamer escolhido já no mundo com os bots aleatórios.
+ */
+async function creator(cdp) {
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&time=day${QUERY}` });
+  await cdp.waitFor(`!!document.querySelector(".creator [data-testid=cr-preview]")`, 30000, "o criador abrir");
+  await sleep(800);
+  await cdp.shot("creator_tela.png");
+  await cdp.eval(`(() => { const c = (sel) => document.querySelector(sel).click();
+    c('[data-opt="model"][data-val="female"]'); c('[data-opt="skin"][data-val="deep"]'); c('[data-opt="hairCut"][data-val="marias-chiquinhas"]');
+    c('[data-opt="hairColor"][data-val="rosa"]'); c('[data-opt="outfit"][data-val="aventureiro"]'); c('[data-opt="outfitColor"][data-val="roxo"]');
+    const i = document.querySelector('[data-testid="cr-name"]'); i.value = "Nina"; i.dispatchEvent(new Event("input")); })()`);
+  await sleep(400);
+  await cdp.shot("creator_escolhas.png");
+  // preview: um recorte por direção (o preview troca a cada 1,4 s)
+  const box = await cdp.eval(`(() => { const r = document.querySelector('[data-testid="cr-preview"]').getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; })()`);
+  const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+  const strip = createCanvas(box.w * 4 + 50, box.h + 40);
+  const g = strip.getContext("2d");
+  g.fillStyle = "#141722";
+  g.fillRect(0, 0, strip.width, strip.height);
+  const seen = new Set();
+  for (let k = 0; k < 80 && seen.size < 4; k++) {
+    const dir = await cdp.eval(`document.querySelector('[data-testid="cr-dir"]').textContent`);
+    if (!seen.has(dir)) {
+      await sleep(300);
+      const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: box.x, y: box.y, width: box.w, height: box.h, scale: 1 } });
+      const img = await loadImage(Buffer.from(r.data, "base64"));
+      const x = 10 + seen.size * (box.w + 10);
+      g.drawImage(img, x, 10);
+      g.fillStyle = "#e6e9f2";
+      g.font = "16px sans-serif";
+      g.fillText(dir, x + 6, box.h + 30);
+      seen.add(dir);
+    }
+    await sleep(150);
+  }
+  writeFileSync(join(OUT, "creator_preview_4dir.png"), strip.toBuffer("image/png"));
+  console.log("ok creator_preview_4dir.png", [...seen].join(","));
+  await cdp.eval(`document.querySelector('[data-act="confirm"]').click()`);
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(3000);
+  await cdp.shot("creator_no_mundo.png");
+  const at = await cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const p = v.motionPos("p1");
+    const s = parseFloat(document.querySelector("#world").style.width) / document.querySelector("#world").width;
+    return { x: (p.x - v.camera.x) * s, y: (p.y - v.camera.y) * s, nome: g.sim.state.entities.find((e) => e.id === "p1").name }; })()`);
+  const cw = 640;
+  const ch = 340;
+  const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.55)), width: cw, height: ch, scale: 2 } });
+  writeFileSync(join(OUT, "creator_no_mundo_zoom.png"), Buffer.from(r.data, "base64"));
+  console.log("ok creator_no_mundo_zoom.png", JSON.stringify(at));
+}
+
 /** Ciclo dia/noite: mesma semente em ?time=day, ?time=18:30 (relógio parado no meio do anoitecer) e ?time=night. */
 async function dayNight(cdp) {
   const shots = [
@@ -200,7 +256,7 @@ async function dayNight(cdp) {
     ["daynight_noite.png", "time=night"],
   ];
   for (const [name, q] of shots) {
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&${q}${QUERY}` });
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&${q}${QUERY}` });
     await sleep(500);
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
     await sleep(3500);
