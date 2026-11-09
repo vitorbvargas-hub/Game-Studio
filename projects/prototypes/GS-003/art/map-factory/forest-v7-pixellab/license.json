@@ -1,0 +1,19 @@
+{
+  "biome": "forest-v7-pixellab",
+  "layer": "original",
+  "assets": [
+    {
+      "group": "water/grass 16-tile Wang tileset + flower_digital + mushroom_digital + chest_open + npc_ranger + npc_merchant + rock_crack_secret + bush_dense_secret + boss_arena_floor + sign_post_arrow + rock_small_flat + tall_grass_c + kuwagamon_concept",
+      "origin": "PixelLab, gerado em 2026-11-09, plano trial",
+      "layer": "original",
+      "author": "game-art (via PixelLab MCP, conta trial do estudio)",
+      "technique": "create_topdown_tileset (mode=standard, 1 geracao) para o tileset agua/grama; create_image_pixen (1 geracao cada) para flower_digital, mushroom_digital, npc_ranger, npc_merchant, rock_crack_secret, bush_dense_secret, boss_arena_floor, rock_small_flat, tall_grass_c; create_image_pixflux (1 geracao cada) para kuwagamon_concept (texto) e chest_open / sign_post_arrow (img2img a partir de forest-v6/props/chest_closed.png e sign_post.png, redimensionados localmente com padding transparente via script Python (zlib/struct puros, sem rede) antes do upload -- nenhuma geracao gasta nesse redimensionamento).",
+      "prompts": "ver shared/tools/map-factory/logs/pixellab-usage.csv para o prompt completo e o job_id de cada chamada.",
+      "styleReference": "Textual apenas (ADR-011 Sec.5): hex exatos de forest_v4_palette.js e endesga32.js citados em cada prompt (ex.: #2ce8f5/#0099db acento digital, #63c74d/#3e8948 folhagem, #193c3e/#124e89 agua). Para chest_open e sign_post_arrow, o proprio PNG local (forest-v6) foi usado como init_image (img2img). Para kuwagamon_concept, o nome 'Kuwagamon' foi citado por identidade completa de Digimon oficial (ADR-010), sem reproducao pixel-a-pixel de nenhuma arte de terceiro -- e so um concept art de apoio a decisao, nao um asset final.",
+      "license": "PixelLab AI (plano trial do estudio) -- uso sujeito aos termos de servico do PixelLab (https://pixellab.ai/termsofservice). Nenhuma arte de terceiro foi copiada pixel-a-pixel; referencias de estilo citadas por nome/hex apenas, conforme ADR-011 Sec.5.",
+      "paletteAlignment": "Nao foi rodado reduce_colors (o teto rigido de 14 geracoes desta tarefa ja estava esgotado pelos 14 itens aprovados/tentados). O alinhamento com forest-v4/v6 foi buscado via prompt (hex exatos citados) e via img2img direto (chest_open, sign_post_arrow), nao por snapping de paleta."
+    }
+  ],
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-art"
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "template-desert",
+  "name": "Modelo: Deserto",
+  "biome": "desert",
+  "regionRef": "deserto",
+  "levelRange": [30, 45],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 60, "heightTiles": 36 },
+
+  "zones": [
+    { "id": "spawn_area", "name": "Borda de Entrada (Montanha)", "type": "spawn_area", "shape": "rect", "rect": { "x": 24, "y": 28, "width": 12, "height": 7 }, "notes": "deserto.routesTo inclui apenas montanha/zona_corrompida (regions.json); a entrada real vem da Montanha." },
+    { "id": "duna_aberta", "name": "Dunas Abertas", "type": "dune", "shape": "rect", "rect": { "x": 10, "y": 10, "width": 40, "height": 16 }, "notes": "Área ampla e sem obstáculos — visada longa, pouca cobertura (tema 'Gear Savannah'/deserto mecânico, [H], ver GDD_MMO_V1 Limitações #2)." },
+    { "id": "oasis_secreto", "name": "Oásis Escondido", "type": "secret", "shape": "rect", "rect": { "x": 4, "y": 4, "width": 9, "height": 7 }, "notes": "Pequena mancha de água/vegetação, único ponto de 'secret' do mapa — contraste com a aridez do resto." },
+    { "id": "zona_concentracao", "name": "Zona de Engrenagens", "type": "concentration", "shape": "rect", "rect": { "x": 42, "y": 12, "width": 10, "height": 10 }, "notes": "Maior densidade de selvagens mecânicos antes do chefe." },
+    { "id": "boss_arena", "name": "Arena do Guardromon", "type": "boss_arena", "shape": "rect", "rect": { "x": 52, "y": 13, "width": 6, "height": 9 } }
+  ],
+
+  "routes": [
+    { "id": "rota_principal", "type": "main", "name": "Travessia das Dunas", "waypoints": [[30, 30], [30, 20], [38, 17], [46, 17], [52, 17]], "widthTiles": 3, "connectsZones": ["spawn_area", "duna_aberta", "zona_concentracao", "boss_arena"] },
+    { "id": "rota_secundaria", "type": "secondary", "name": "Desvio pelo Oásis", "waypoints": [[28, 28], [16, 20], [8, 10], [12, 8], [20, 10], [30, 14], [46, 17]], "widthTiles": 2, "connectsZones": ["spawn_area", "oasis_secreto", "zona_concentracao"], "notes": "Rota alternativa até a zona de concentração/chefe, mais longa, passando pelo oásis." }
+  ],
+
+  "pois": [
+    { "id": "poi-entrada-oasis", "name": "Entrada do Oásis", "type": "secret_entrance", "position": [10, 9], "zoneRef": "oasis_secreto", "description": "Só visível seguindo a rota do desvio." }
+  ],
+
+  "spawns": [
+    { "id": "spawn-hagurumon", "speciesId": "CREATURE-0112", "speciesName": "Hagurumon", "levelRange": [30, 34], "zoneRef": "duna_aberta", "radiusTiles": 10, "count": 5, "density": "low", "evidence": "E", "evidenceSource": "regions.json deserto.wildSpecies" },
+    { "id": "spawn-numemon", "speciesId": "CREATURE-0110", "speciesName": "Numemon", "levelRange": [30, 35], "zoneRef": "zona_concentracao", "radiusTiles": 7, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "regions.json deserto.wildSpecies" },
+    { "id": "spawn-garurumon", "speciesId": "CREATURE-0010", "speciesName": "Garurumon", "levelRange": [30, 38], "zoneRef": "zona_concentracao", "radiusTiles": 7, "count": 3, "density": "medium", "evidence": "E", "evidenceSource": "regions.json deserto.wildSpecies" },
+    { "id": "spawn-angemon", "speciesId": "CREATURE-0013", "speciesName": "Angemon", "levelRange": [32, 40], "zoneRef": "oasis_secreto", "radiusTiles": 5, "count": 2, "density": "low", "evidence": "E", "evidenceSource": "regions.json deserto.wildSpecies", "notes": "Recompensa da rota secundária." }
+  ],
+
+  "npcs": [],
+
+  "interactables": [
+    { "id": "interact-placa-entrada", "type": "sign", "position": [30, 29], "zoneRef": "spawn_area", "description": "Placa de aviso na entrada do deserto.", "effect": "Texto pt-BR: aviso de calor/distância, dica da rota do oásis." },
+    { "id": "interact-cura-oasis", "type": "heal_point", "position": [8, 7], "zoneRef": "oasis_secreto", "description": "Ponto de água no oásis.", "effect": "[H] recupera HP/MP, recompensa por explorar a rota secundária." },
+    { "id": "interact-bau-engrenagens", "type": "chest", "position": [46, 15], "zoneRef": "zona_concentracao", "description": "Baú entre as engrenagens, perto da zona de concentração.", "effect": "[H] loot a definir." }
+  ],
+
+  "bossArena": {
+    "id": "arena-guardromon",
+    "bossId": "BOSS-GUARDROMON",
+    "zoneRef": "boss_arena",
+    "position": [55, 17],
+    "radiusTiles": 5,
+    "arenaType": "clareira_aberta",
+    "triggerType": "approach",
+    "notes": "BOSS-GUARDROMON existe em bosses.json (regionBosses) e é o boss de deserto em regions.json."
+  },
+
+  "exits": [
+    { "id": "exit-oeste-montanha", "edge": "w", "rect": { "x": 24, "y": 30, "width": 2, "height": 4 }, "to": "montanha_overworld", "toStart": "from_template-desert", "integrated": false, "notes": "deserto.routesTo = [montanha, zona_corrompida] em regions.json; nenhum dos dois tem mapa .tmj.json ainda, então o destino é um placeholder (sem mapa real para apontar hoje)." }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "low",
+    "byZoneType": { "dune": "low", "oasis_secreto": "high", "concentration": "low", "boss_arena": "low" },
+    "byZoneRef": { "oasis_secreto": "high" },
+    "notes": "Deserto é o oposto da floresta: vegetação mínima em quase todo o mapa, concentrada só no oásis (contraste visual deliberado)."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "Rota principal e desvio pelo oásis convergem antes da zona de concentração/chefe."
+  },
+
+  "evidenceNotes": [
+    "[E] wildSpecies e boss vêm de regions.json (deserto) e bosses.json (BOSS-GUARDROMON).",
+    "[H] officialArea do GDD é 'Gear Savannah' reinterpretado como deserto mecânico (GDD_MMO_V1 Limitações #2) — o tema 'engrenagens' das zonas é consistente com essa nota, não uma invenção isolada deste template.",
+    "[H] Nenhum mapa real existe ainda para deserto/montanha; exit-oeste-montanha é só estrutura, sem destino integrável hoje."
+  ]
+}

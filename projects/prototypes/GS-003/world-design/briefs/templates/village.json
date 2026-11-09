@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "id": "template-village",
+  "name": "Modelo: Vila",
+  "biome": "village",
+  "regionRef": "vila_dos_bebes",
+  "levelRange": [1, 5],
+  "safeZone": true,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 36, "heightTiles": 26 },
+
+  "zones": [
+    { "id": "spawn_area", "name": "Entrada Norte (ligação com a Floresta)", "type": "spawn_area", "shape": "rect", "rect": { "x": 14, "y": 2, "width": 8, "height": 6 }, "notes": "Espelha o portal real norte-floresta de vila.tmj.json." },
+    { "id": "praca_central", "name": "Praça / Casas", "type": "village_hub", "shape": "rect", "rect": { "x": 10, "y": 10, "width": 16, "height": 12 }, "notes": "Casas com colisão de área (solidW×solidH, como em vila.tmj.json), berços e ovos. Trilha em cruz passa pelo meio (ver README do world: 'trilha em cruz')." }
+  ],
+
+  "routes": [
+    { "id": "trilha_cruz_vertical", "type": "main", "name": "Trilha em Cruz (eixo N-S)", "waypoints": [[18, 4], [18, 12], [18, 22]], "widthTiles": 2, "connectsZones": ["spawn_area", "praca_central"], "notes": "Eixo norte-sul da trilha em cruz descrita em prototype/world/README.md (vila dos bebês)." },
+    { "id": "trilha_cruz_horizontal", "type": "secondary", "name": "Trilha em Cruz (eixo L-O)", "waypoints": [[6, 16], [18, 16], [30, 16]], "widthTiles": 2, "connectsZones": ["praca_central"], "notes": "Eixo leste-oeste, cruzando o eixo principal na praça." }
+  ],
+
+  "pois": [
+    { "id": "poi-bercario", "name": "Berços e Ovos", "type": "landmark", "position": [20, 14], "zoneRef": "praca_central", "description": "Área de berços/ovos citada no README do world (pacote vila-v5)." }
+  ],
+
+  "spawns": [],
+
+  "npcs": [
+    { "id": "npc-elecmon", "name": "Elecmon", "kind": "digimon_resident", "catalogRef": "NPC-ELECMON", "aggressive": false, "role": "guardião/morador", "position": [18, 15], "zoneRef": "praca_central", "behavior": "static", "dialogue": "Placeholder: boas-vindas e dica sobre a Floresta Densa.", "evidence": "E", "notes": "Já catalogado em bosses.json (villageOfBeginnings.guardian). Papel de 'guardião' é [H] por lá; aqui só reaproveitado." },
+    { "id": "npc-botamon", "name": "Botamon", "kind": "digimon_resident", "catalogRef": "NPC-BOTAMON", "aggressive": false, "role": "morador (Baby I)", "position": [21, 14], "zoneRef": "praca_central", "behavior": "static", "evidence": "E", "notes": "Já catalogado em bosses.json/regions.json (vila_dos_bebes.npcs)." }
+  ],
+
+  "interactables": [
+    { "id": "interact-placa-boas-vindas", "type": "sign", "position": [18, 6], "zoneRef": "spawn_area", "description": "Placa de boas-vindas na entrada.", "effect": "Texto pt-BR: apresentação da Vila dos Bebês como zona segura." },
+    { "id": "interact-cura", "type": "heal_point", "position": [18, 16], "zoneRef": "praca_central", "description": "Fonte na praça central.", "effect": "[H] cura completa a qualquer momento — coerente com ser zona segura." }
+  ],
+
+  "bossArena": null,
+
+  "exits": [
+    { "id": "exit-norte-floresta", "edge": "n", "rect": { "x": 16, "y": 0, "width": 4, "height": 1 }, "to": "forest-proof", "toStart": "from_vila", "integrated": true, "notes": "Esta ligação já existe no jogo real (vila.tmj.json objeto 'norte-floresta'). Mantida aqui como referência de integração correta." }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "low",
+    "byZoneType": { "village_hub": "low", "spawn_area": "low" },
+    "notes": "Vila é zona segura e aberta: baixa densidade de vegetação em todo o mapa, sem borda de mata fechada (cerca/arbustos decorativos no lugar, por conta do game-art)."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": false,
+    "altRouteToBossExists": false,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "Vila é safeZone, sem chefe — os 2 primeiros gates do ADR-011 §7 não se aplicam (são sobre alcance até o chefe)."
+  },
+
+  "evidenceNotes": [
+    "[E] safeZone, wildSpecies:[] e npcs (NPC-BOTAMON/NPC-PUNIMON/NPC-POYOMON/NPC-YURAMON/NPC-ELECMON) vêm de regions.json (vila_dos_bebes) e bosses.json (villageOfBeginnings).",
+    "[E] Dimensões (36×26) e a ligação norte-floresta replicam vila.tmj.json real.",
+    "[H] Posições internas, trilha em cruz exata e interativos são novos para este template."
+  ]
+}

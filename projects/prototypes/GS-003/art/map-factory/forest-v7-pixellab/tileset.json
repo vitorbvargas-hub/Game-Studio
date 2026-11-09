@@ -1,0 +1,131 @@
+{
+  "biome": "forest-v7-pixellab",
+  "note": "Supplemental pieces pack generated via the PixelLab MCP (plan PIXELLAB_PLAN_40.md, executed 2026-11-09 under a hard 14-generation cap). NOT a full environment replacement and NOT wired into prototype/world -- see README.md \"Integracao\" for what game-dev still has to do (aliases.json / map generator, out of game-art write scope for this task).",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "decor",
+    "npc",
+    "concept-only"
+  ],
+  "presets": {
+    "day": "tiles/ + props/",
+    "night": "not produced in this pack"
+  },
+  "autotile": {
+    "pattern": "16-tile Wang corner autotile (create_topdown_tileset, mode=standard), corners encoded NE/NW/SE/SW as lower (water) or upper (grass)",
+    "sheet": "tiles/water_grass_tileset.png, 128x128px, 4x4 grid of 32x32 tiles",
+    "metadata": "tiles/water_grass_tileset_metadata.json -- per-tile id, corners and bounding_box (x,y,32,32) as returned by PixelLab get_topdown_tileset",
+    "note": "16-tile Wang only (same tier as the forest-v6 water_blob), not the Wang-47 the v4.1 path/denseedge sets use -- two-edge-without-diagonal corners can still show the same seam Wang-47 fixes. Not tested on a real map."
+  },
+  "tiles": [
+    {
+      "file": "tiles/water_grass_tileset.png",
+      "sheet": true,
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- game-dev marks collision per-cell if needed, independent of the art (briefing/12_map_factory_v2.md)."
+    }
+  ],
+  "props": [
+    {
+      "file": "props/flower_digital.png",
+      "size": "32x32",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "note": "Digital/bioluminescent flower cluster, fills FOREST_KIT_GAP.md 'flores digitais' gap."
+    },
+    {
+      "file": "props/mushroom_digital.png",
+      "size": "24x24",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "note": "Digital/bioluminescent mushroom cluster, companion to flower_digital."
+    },
+    {
+      "file": "props/chest_open.png",
+      "size": "32x32",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "interactive": true,
+      "note": "Open/empty 2nd state of forest-v6/props/chest_closed.png (img2img from that PNG, padded to 32x32 locally before upload). Swap sprite on interact; this pack does not define the trigger logic."
+    },
+    {
+      "file": "props/npc_ranger.png",
+      "size": "48x64",
+      "collision": true,
+      "suggestedLayer": "npc",
+      "note": "Standing idle forest ranger NPC, chibi proportions (ART_STYLE_GUIDE.md 2.1). Single frame, no walk animation (out of 1-generation budget)."
+    },
+    {
+      "file": "props/npc_merchant.png",
+      "size": "48x64",
+      "collision": true,
+      "suggestedLayer": "npc",
+      "note": "Standing idle merchant NPC, same proportions as npc_ranger. Single frame, no walk animation."
+    },
+    {
+      "file": "props/rock_crack_secret.png",
+      "size": "40x36",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "note": "Secret-area entrance concept A: boulder with glowing crack. Game-design still needs to confirm this concept before it is placed on a real map (FOREST_KIT_GAP.md Sec.2)."
+    },
+    {
+      "file": "props/bush_dense_secret.png",
+      "size": "32x32",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "note": "Secret-area entrance concept B: dense pushable bush, alternative to rock_crack_secret.png -- game-design picks one (or neither)."
+    },
+    {
+      "file": "props/boss_arena_floor.png",
+      "size": "32x32",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "note": "Boss-arena scarred-ground floor tile (claw marks, churned dirt). Does not include the boss creature itself."
+    },
+    {
+      "file": "props/sign_post_arrow.png",
+      "size": "32x32",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "interactive": true,
+      "note": "Variant of forest-v6/props/sign_post.png with a carved arrow instead of '!' (img2img, padded to 32x32 before upload)."
+    },
+    {
+      "file": "props/rock_small_flat.png",
+      "size": "20x20",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "note": "Flat stepping-stone rock, 2nd small-rock variant to break rock_small.png repetition."
+    },
+    {
+      "file": "props/tall_grass_c.png",
+      "size": "20x20",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "note": "3rd tall-grass variant alongside forest-v4's tall_grass_a/b."
+    }
+  ],
+  "concept": [
+    {
+      "file": "concept/kuwagamon_concept.png",
+      "size": "96x96",
+      "note": "NOT a production sprite. Single static pose, created with create_image_pixflux (1 generation) only so game-design/founder can visualize the boss before approving a full create_character creature build (10-25+ generations, needs explicit new approval per PIXELLAB_PLAN_40.md)."
+    }
+  ],
+  "discarded": [
+    {
+      "attempted": "healing point green variant (recolor of forest-v6/props/healing_point.png from cyan to green)",
+      "tool": "create_image_pixflux (img2img, init_image_strength=150)",
+      "job_id": "32e0663c-8254-48ce-b072-85af93a159fd",
+      "reason": "Inspected with pixelart_workbench inspect: resulting palette was 100% blue/cyan (#096f91/#1d90b1/#38b6d7/#56d6f4/#a0fcff), no green at all -- the recolor instruction was not honoured at that init_image_strength. No budget left (hard 14-generation cap for this task) to retry with a lower strength.",
+      "notInPackage": true
+    }
+  ]
+}

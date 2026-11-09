@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "template-forest",
+  "name": "Modelo: Floresta",
+  "biome": "forest",
+  "regionRef": "floresta_densa",
+  "levelRange": [1, 15],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 48, "heightTiles": 36 },
+
+  "zones": [
+    { "id": "spawn_area", "name": "Área de Entrada", "type": "spawn_area", "shape": "rect", "rect": { "x": 14, "y": 26, "width": 12, "height": 8 }, "notes": "Parametrizável: deslocar para a borda que recebe o portal real (sul, aqui, por padrão)." },
+    { "id": "clareira_central", "name": "Clareira Central", "type": "clearing", "shape": "rect", "rect": { "x": 16, "y": 12, "width": 14, "height": 12 }, "notes": "Mantenha perto do centro geométrico do mapa; é o ponto de convergência das rotas." },
+    { "id": "zona_concentracao", "name": "Zona de Concentração", "type": "concentration", "shape": "rect", "rect": { "x": 32, "y": 14, "width": 9, "height": 9 }, "notes": "Entre a clareira e a arena; densidade de spawn mais alta aqui (ver vegetationDensityRules)." },
+    { "id": "boss_arena", "name": "Arena do Chefe", "type": "boss_arena", "shape": "rect", "rect": { "x": 40, "y": 13, "width": 7, "height": 9 }, "notes": "Na borda do mapa, cercada de mata densa (sem saída real por ali)." }
+  ],
+
+  "routes": [
+    { "id": "rota_principal", "type": "main", "name": "Trilha Principal", "waypoints": [[20, 32], [21, 24], [22, 18], [26, 17], [34, 17], [40, 17]], "widthTiles": 2, "connectsZones": ["spawn_area", "clareira_central", "zona_concentracao", "boss_arena"], "notes": "Spawn → Clareira → Concentração → Chefe. É a rota do gate de alcance (ADR-011 §7)." },
+    { "id": "rota_secundaria", "type": "secondary", "name": "Trilha Alternativa", "waypoints": [[20, 30], [28, 29], [36, 26], [40, 20]], "widthTiles": 2, "connectsZones": ["spawn_area", "boss_arena"], "notes": "Rota alternativa até o chefe. Obrigatória para o gate 'pelo menos 1 rota alternativa'. Pode ser redesenhada para passar por uma feature própria do mapa (água, rochas) em vez de ir direto." }
+  ],
+
+  "pois": [
+    { "id": "poi-mirante", "name": "Mirante da Clareira", "type": "viewpoint", "position": [22, 13], "zoneRef": "clareira_central", "description": "Ponto de composição/câmera; sem mecânica." }
+  ],
+
+  "spawns": [
+    { "id": "spawn-stage1-a", "speciesId": "CREATURE-0002", "speciesName": "Gigimon", "levelRange": [1, 4], "zoneRef": "clareira_central", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "regions.json floresta_densa.wildSpecies", "notes": "Trocar pela espécie stage 1 adequada ao mapa real; manter o padrão 'baby perto do spawn, baixa densidade'." },
+    { "id": "spawn-stage2-a", "speciesId": "CREATURE-0006", "speciesName": "Agumon", "levelRange": [5, 10], "zoneRef": "zona_concentracao", "radiusTiles": 7, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "regions.json floresta_densa.wildSpecies", "notes": "Zona de concentração: densidade média/alta, nível mais próximo do chefe." }
+  ],
+
+  "npcs": [
+    { "id": "npc-guia", "name": "Guia da Floresta", "kind": "digimon_resident", "speciesId": "CREATURE-0002", "aggressive": false, "role": "guia", "position": [18, 27], "zoneRef": "spawn_area", "behavior": "static", "dialogue": "Placeholder: dica sobre a rota alternativa.", "evidence": "H", "notes": "Opcional. Trocar a espécie por qualquer stage 1 não-hostil do roster do mapa." }
+  ],
+
+  "interactables": [
+    { "id": "interact-bau", "type": "chest", "position": [20, 15], "zoneRef": "clareira_central", "description": "Baú na clareira central.", "effect": "[H] loot a definir pelo game-dev." },
+    { "id": "interact-placa", "type": "sign", "position": [16, 28], "zoneRef": "spawn_area", "description": "Placa na entrada.", "effect": "Texto pt-BR apontando as rotas." },
+    { "id": "interact-cura", "type": "heal_point", "position": [24, 16], "zoneRef": "clareira_central", "description": "Fonte/altar de cura na clareira.", "effect": "[H] restaura HP da equipe, 1x por período, padrão de dungeons.json (healPointBeforeBoss)." }
+  ],
+
+  "bossArena": {
+    "id": "arena-chefe",
+    "bossId": "BOSS-KUWAGAMON",
+    "zoneRef": "boss_arena",
+    "position": [43, 17],
+    "radiusTiles": 5,
+    "arenaType": "clareira_aberta",
+    "triggerType": "approach",
+    "notes": "Exemplo usando o chefe real de floresta_densa (bosses.json). Trocar bossId pelo chefe da região real do mapa."
+  },
+
+  "exits": [
+    { "id": "exit-exemplo", "edge": "s", "rect": { "x": 18, "y": 34, "width": 6, "height": 2 }, "to": "vila", "toStart": "from_template-forest", "integrated": false, "notes": "Exemplo; ajustar borda/destino conforme a vizinhança real do mapa." }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "high",
+    "byZoneType": { "spawn_area": "low", "clearing": "low", "concentration": "medium", "boss_arena": "low" },
+    "notes": "Fora das zones listadas, mata fechada sólida (borda intransponível, como forest-proof)."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "Modelo: ao instanciar, reconferir após mover zonas/rotas."
+  },
+
+  "evidenceNotes": [
+    "[E] speciesId e bossId existem em world-species.json/regions.json/bosses.json.",
+    "[H] Dimensões, posições e NPC são parâmetros de exemplo, feitos para ser ajustados por mapa."
+  ]
+}

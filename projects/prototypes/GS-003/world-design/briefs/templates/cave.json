@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "template-cave",
+  "name": "Modelo: Caverna (dungeon linear)",
+  "biome": "cave",
+  "regionRef": null,
+  "levelRange": [10, 18],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 28, "heightTiles": 48 },
+
+  "zones": [
+    { "id": "entrada", "name": "Entrada da Cripta", "type": "spawn_area", "shape": "rect", "rect": { "x": 10, "y": 40, "width": 8, "height": 6 }, "notes": "Base da caverna, de onde se desce/avança para dentro." },
+    { "id": "andar1", "name": "Andar 1", "type": "cave_floor", "shape": "rect", "rect": { "x": 9, "y": 30, "width": 10, "height": 8 }, "notes": "1º encontro, densidade baixa (introdução)." },
+    { "id": "andar2", "name": "Andar 2", "type": "cave_floor", "shape": "rect", "rect": { "x": 9, "y": 20, "width": 10, "height": 8 }, "notes": "2º encontro." },
+    { "id": "bifurcacao_tesouro", "name": "Câmara do Tesouro (ramo A)", "type": "concentration", "shape": "rect", "rect": { "x": 2, "y": 10, "width": 9, "height": 8 }, "notes": "Ramo mais longo e mais difícil (mini-chefe), com bônus de loot — rota_tesouro." },
+    { "id": "bifurcacao_oculta", "name": "Passagem Oculta (ramo B)", "type": "secret", "shape": "rect", "rect": { "x": 17, "y": 10, "width": 9, "height": 8 }, "notes": "Atalho sem combate extra, sem bônus de loot — rota_atalho." },
+    { "id": "sala_final", "name": "Sala do Chefe", "type": "boss_arena", "shape": "rect", "rect": { "x": 9, "y": 2, "width": 10, "height": 7 }, "notes": "Os dois ramos convergem aqui antes do chefe final." }
+  ],
+
+  "routes": [
+    { "id": "rota_atalho", "type": "main", "name": "Passagem Oculta → Sala Final", "waypoints": [[14, 40], [14, 30], [14, 20], [21, 16], [21, 10], [14, 6], [14, 5]], "widthTiles": 2, "connectsZones": ["entrada", "andar1", "andar2", "bifurcacao_oculta", "sala_final"], "notes": "Rota principal do gate de alcance: entrada → andares 1-2 → ramo B (atalho, sem combate extra) → sala final." },
+    { "id": "rota_tesouro", "type": "secondary", "name": "Câmara do Tesouro → Sala Final", "waypoints": [[14, 20], [7, 16], [7, 10], [14, 6]], "widthTiles": 2, "connectsZones": ["andar2", "bifurcacao_tesouro", "sala_final"], "notes": "Rota alternativa até o chefe: mais difícil (mini-chefe no ramo), mais loot. Satisfaz o gate de rota alternativa." }
+  ],
+
+  "pois": [
+    { "id": "poi-bifurcacao", "name": "Bifurcação dos Ramos", "type": "landmark", "position": [14, 20], "zoneRef": "andar2", "description": "Ponto onde o jogador escolhe entre a Câmara do Tesouro e a Passagem Oculta (dungeons.json, floor 3 branch)." }
+  ],
+
+  "spawns": [
+    { "id": "spawn-andar1", "speciesId": "CREATURE-0011", "speciesName": "Tokomon", "levelRange": [10, 13], "zoneRef": "andar1", "radiusTiles": 4, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "dungeons.json cripta_das_raizes.floors[0]", "notes": "Mesmo encontro do andar 1 real da Cripta das Raízes." },
+    { "id": "spawn-andar2", "speciesId": "CREATURE-0003", "speciesName": "Guilmon", "levelRange": [10, 14], "zoneRef": "andar2", "radiusTiles": 4, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "dungeons.json cripta_das_raizes.floors[1]" },
+    { "id": "spawn-tesouro-miniboss", "speciesId": "CREATURE-0003", "speciesName": "Guilmon", "levelRange": [14, 18], "zoneRef": "bifurcacao_tesouro", "radiusTiles": 5, "count": 4, "density": "medium", "evidence": "E", "evidenceSource": "dungeons.json cripta_das_raizes.floors[2].branch.routeA", "notes": "Ramo A, câmara do tesouro." },
+    { "id": "spawn-miniboss-growlmon", "speciesId": "CREATURE-0004", "speciesName": "Growlmon", "levelRange": [16, 18], "zoneRef": "bifurcacao_tesouro", "radiusTiles": 3, "count": 1, "density": "low", "evidence": "E", "evidenceSource": "dungeons.json cripta_das_raizes.floors[3] (onlyIfRoute: routeA, role: mini-boss)", "notes": "Mini-chefe único, só no ramo do tesouro." }
+  ],
+
+  "npcs": [],
+
+  "interactables": [
+    { "id": "interact-cura-pre-chefe", "type": "heal_point", "position": [14, 8], "zoneRef": "sala_final", "description": "Ponto de cura fixo antes do chefe final.", "effect": "healPointBeforeBoss, exatamente como dungeons.json cripta_das_raizes.floors[4] — [E] padrão real já definido." },
+    { "id": "interact-placa-bifurcacao", "type": "sign", "position": [14, 19], "zoneRef": "andar2", "description": "Placa/marcação na bifurcação.", "effect": "Texto pt-BR avisando: ramo do tesouro é mais difícil." }
+  ],
+
+  "bossArena": {
+    "id": "arena-chefe-elite",
+    "bossId": "BOSS-KUWAGAMON-ELITE",
+    "zoneRef": "sala_final",
+    "position": [14, 5],
+    "radiusTiles": 4,
+    "arenaType": "sala_fechada",
+    "triggerType": "approach",
+    "notes": "dungeons.json cripta_das_raizes.floors[4].finalBoss (variante elite de BOSS-KUWAGAMON, nível 18). Dungeon é instância de grupo (maxPlayers:4, dungeons.json groupRules)."
+  },
+
+  "exits": [
+    { "id": "exit-entrada", "edge": "s", "rect": { "x": 12, "y": 46, "width": 4, "height": 2 }, "to": "forest-proof", "toStart": "from_template-cave", "integrated": false, "notes": "Dungeon ligada ao mapa de superfície da região (hoje, forest-proof). Na integração real isso seria um objeto de teleporte de entrada de instancia, não um portal comum de borda — detalhe do game-dev." }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "low",
+    "byZoneType": { "cave_floor": "low", "concentration": "medium", "secret": "low", "boss_arena": "low" },
+    "notes": "Caverna não tem vegetação de superfície; 'densidade' aqui refere-se a formações de rocha/cristal/teias, decisão do game-art."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "O 'ramo oculto' (rota principal aqui) e o 'ramo do tesouro' (secundária) são as 2 rotas até o chefe, como no dungeons.json original."
+  },
+
+  "evidenceNotes": [
+    "[E] Todo o conteúdo de spawns/interactables/bossArena replica dungeons.json → cripta_das_raizes (região floresta_densa, levelRange 10-18, branch de andar 3, healPointBeforeBoss, finalBoss BOSS-KUWAGAMON-ELITE).",
+    "[H] Geometria (zones/routes/dimensões) é nova — dungeons.json não define um mapa jogável, só a estrutura lógica de andares."
+  ]
+}

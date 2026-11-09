@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-11-09",
+  "_comment": "Linhas completas Baby->Mega para as especies da Onda 1 (floresta_densa). Formato ADITIVO: a chave 'paths' usa exatamente o formato de prototype/world/src/data/evolution-paths.json (speciesId -> array de {to, level, source, stats?}), pronta para merge sem quebrar as 2 entradas ja existentes (CREATURE-0006, CREATURE-0101). ids ja existentes no jogo sao citados como tal; ids novos usam prefixo RX- (ver roster_expansion.json). Niveis/stats minimos marcados [H] sao PROPOSTA de balanceamento nossa (extrapolados da curva ja usada em evolution-paths.json e da proporcao real de Cyber Sleuth em evolution_chains.json) — precisam de validacao de game-design antes de qualquer implementacao. Requisitos de atributo/pre-evolucao/evolucao em si sao [E] com fonte citada por aresta.",
+  "level_curve_proposal": {
+    "note": "[H] curva proposta para as 4 transicoes que o jogo ainda nao tinha (In-Training->Rookie ja e implicito pela captura selvagem; Rookie->Champion ja calibrado em evolution-paths.json no Nv.16). Baseada na proporcao observada em Cyber Sleuth (evolution_chains.json): Rookie~9-16, Champion~16-30, Ultimate~30-55, Mega~55+, escalada para a curva mais curta que o jogo ja usa (Nv.16 onde Cyber Sleuth usa Nv.18).",
+    "baby_to_intraining": "nivel 3 (ou instantaneo ao capturar, a definir pelo game-design)",
+    "intraining_to_rookie": "nivel 8",
+    "rookie_to_champion": "nivel 16 (ja usado em evolution-paths.json para CREATURE-0006/0101)",
+    "champion_to_ultimate": "nivel 28",
+    "ultimate_to_mega": "nivel 45"
+  },
+  "lines": [
+    {
+      "line_id": "agumon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-BOTAMON", "name": "Botamon" },
+        { "stage": "In-Training", "id": "CREATURE-0005", "name": "Koromon", "in_game": true },
+        { "stage": "Rookie", "id": "CREATURE-0006", "name": "Agumon", "in_game": true },
+        { "stage": "Champion", "id": "CREATURE-0007", "name": "Greymon", "in_game": true },
+        { "stage": "Ultimate", "id": "RX-METALGREYMON", "name": "MetalGreymon" },
+        { "stage": "Mega", "id": "RX-WARGREYMON", "name": "WarGreymon" }
+      ],
+      "branches_also_available": [
+        { "from": "CREATURE-0006", "to": "SP-GEOGREYMON", "note": "[E] ja registrado em evolution-paths.json (Dawn & Dusk: LV 20, Friendship 60%+, Defense 90+) — mantido, nao duplicado aqui." }
+      ]
+    },
+    {
+      "line_id": "gabumon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-PUNIMON", "name": "Punimon" },
+        { "stage": "In-Training", "id": "CREATURE-0008", "name": "Tsunomon", "in_game": true },
+        { "stage": "Rookie", "id": "CREATURE-0009", "name": "Gabumon", "in_game": true },
+        { "stage": "Champion", "id": "CREATURE-0010", "name": "Garurumon", "in_game": true },
+        { "stage": "Ultimate", "id": "RX-WEREGARURUMON", "name": "WereGarurumon" },
+        { "stage": "Mega", "id": "RX-METALGARURUMON", "name": "MetalGarurumon" }
+      ]
+    },
+    {
+      "line_id": "patamon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-POYOMON", "name": "Poyomon" },
+        { "stage": "In-Training", "id": "CREATURE-0011", "name": "Tokomon", "in_game": true },
+        { "stage": "Rookie", "id": "CREATURE-0012", "name": "Patamon", "in_game": true },
+        { "stage": "Champion", "id": "CREATURE-0013", "name": "Angemon", "in_game": true },
+        { "stage": "Ultimate", "id": "RX-MAGNAANGEMON", "name": "MagnaAngemon" },
+        { "stage": "Mega", "id": "RX-SERAPHIMON", "name": "Seraphimon" }
+      ]
+    },
+    {
+      "line_id": "guilmon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-JYARIMON", "name": "Jyarimon" },
+        { "stage": "In-Training", "id": "CREATURE-0002", "name": "Gigimon", "in_game": true },
+        { "stage": "Rookie", "id": "CREATURE-0003", "name": "Guilmon", "in_game": true },
+        { "stage": "Champion", "id": "CREATURE-0004", "name": "Growlmon", "in_game": true },
+        { "stage": "Ultimate", "id": "RX-WARGROWLMON", "name": "WarGrowlmon" },
+        { "stage": "Mega", "id": "RX-GALLANTMON", "name": "Gallantmon" }
+      ]
+    },
+    {
+      "line_id": "dorumon",
+      "stages": [
+        { "stage": "In-Training", "id": "CREATURE-0014", "name": "Dorimon", "in_game": true, "note": "[H] nao foi localizada forma Baby anterior a Dorimon em nenhuma das fontes consultadas (Wikimon geral + evolution_chains.json) — linha parece comecar oficialmente no In-Training. Nao inventado." },
+        { "stage": "Rookie", "id": "CREATURE-0101", "name": "Dorumon", "in_game": true },
+        { "stage": "Champion", "id": "CREATURE-0102", "name": "Dorugamon", "in_game": true },
+        { "stage": "Ultimate", "id": "CREATURE-0103", "name": "DoruGreymon", "in_game": true },
+        { "stage": "Mega", "id": "RX-DORUGORAMON", "name": "Dorugoramon" }
+      ],
+      "branches_also_available": [
+        { "from": "CREATURE-0101", "to": "SP-DRIMOGEMON", "note": "[E] ja registrado em evolution-paths.json (Dawn & Dusk: LV 19, Attack 90+, Aptitude 25+) — mantido, nao duplicado aqui." }
+      ]
+    },
+    {
+      "line_id": "biyomon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-YURAMON", "name": "Yuramon" },
+        { "stage": "In-Training", "id": "RX-YOKOMON", "name": "Yokomon" },
+        { "stage": "Rookie", "id": "CREATURE-0104", "name": "Biyomon", "in_game": true },
+        { "stage": "Champion", "id": "RX-BIRDRAMON", "name": "Birdramon" },
+        { "stage": "Ultimate", "id": "RX-GARUDAMON", "name": "Garudamon" },
+        { "stage": "Mega", "id": "RX-PHOENIXMON", "name": "Phoenixmon" }
+      ],
+      "note": "Linha nova completa nesta onda — a Rookie (Biyomon) ja existia solta, sem Baby/In-Training/Champion/Ultimate/Mega."
+    },
+    {
+      "line_id": "palmon",
+      "stages": [
+        { "stage": "Baby", "id": "RX-YURAMON", "name": "Yuramon", "shared_with": "biyomon", "note": "[E] Yuramon e baby compartilhado oficial entre Biyomon e Palmon (ver evolution_lines_v2 branches abaixo)." },
+        { "stage": "In-Training", "id": "CREATURE-0116", "name": "Tanemon", "in_game": true },
+        { "stage": "Rookie", "id": "CREATURE-0107", "name": "Palmon", "in_game": true },
+        { "stage": "Champion", "id": "RX-TOGEMON", "name": "Togemon" },
+        { "stage": "Ultimate", "id": "RX-LILLYMON", "name": "Lillymon" },
+        { "stage": "Mega", "id": "RX-ROSEMON", "name": "Rosemon" }
+      ],
+      "branches_also_available": [
+        { "from": "CREATURE-0116", "to": "CREATURE-0111", "to_name": "Floramon", "note": "[E] https://digimon.fandom.com/wiki/Tanemon — infobox 'to' lista Floramon (Digimon World Dusk) como alternativa oficial de Tanemon, alem de Palmon. Floramon ja existe no roster como Rookie isolado (CREATURE-0111) — esta aresta formaliza a ligacao que faltava." },
+        { "from": "CREATURE-0116", "to": "CREATURE-0117", "to_name": "Lalamon", "note": "[E] mesma fonte — Tanemon lista Lalamon (Digimon Adventure:) como terceira alternativa oficial. Lalamon ja existe no roster como Rookie isolado (CREATURE-0117)." }
+      ]
+    },
+    {
+      "line_id": "tentomon",
+      "stages": [
+        { "stage": "In-Training", "id": "RX-MOTIMON", "name": "Motimon", "note": "[H] Baby anterior (Pabumon) nao foi pesquisado nesta sessao — ver roster_expansion.json wave2." },
+        { "stage": "Rookie", "id": "CREATURE-0106", "name": "Tentomon", "in_game": true },
+        { "stage": "Champion", "id": "RX-KABUTERIMON", "name": "Kabuterimon" },
+        { "stage": "Ultimate", "id": "RX-MEGAKABUTERIMON", "name": "MegaKabuterimon (Red)" },
+        { "stage": "Mega", "id": "RX-HERCULESKABUTERIMON", "name": "HerculesKabuterimon" }
+      ],
+      "branches_also_available": [
+        { "from": "RX-MOTIMON", "to": "CREATURE-0109", "to_name": "Gotsumon", "note": "[E] https://digimon.fandom.com/wiki/Motimon — infobox 'to' lista Gotsumon como alternativa oficial (fonte: Digimon Card Game BT23-003). Gotsumon ja existe no roster como Rookie isolado (CREATURE-0109) — esta aresta formaliza a ligacao que faltava." }
+      ]
+    }
+  ],
+  "paths": {
+    "RX-BOTAMON": [
+      { "to": "CREATURE-0005", "level": 3, "source": "[E] https://digimon.fandom.com/wiki/Botamon ; [H] nivel 3 proposto (ver level_curve_proposal)" }
+    ],
+    "CREATURE-0005": [
+      { "to": "CREATURE-0006", "level": 8, "source": "[E] relacao Koromon->Agumon ja confirmada em knowledge/evolution_chains.json (todos os 5 jogos pesquisados); [H] nivel 8 proposto (ver level_curve_proposal) — hoje nao codificado em evolution-paths.json" }
+    ],
+    "CREATURE-0006": [
+      { "to": "CREATURE-0007", "level": 16, "source": "ja existente em evolution-paths.json — Dawn & Dusk: LV 18, Dragon EXP 280+" },
+      { "to": "SP-GEOGREYMON", "level": 16, "stats": { "def": 25 }, "source": "ja existente em evolution-paths.json — Dawn & Dusk: LV 20, Friendship 60%+, Defense 90+" }
+    ],
+    "CREATURE-0007": [
+      { "to": "RX-METALGREYMON", "level": 28, "source": "[E] Greymon->MetalGreymon confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 30, ATK 100, HP 350, CAM 50%); [H] nivel 28 escalado para a curva do nosso jogo (ver level_curve_proposal)", "stats": { "atk": 90, "hp": 300 } }
+    ],
+    "RX-METALGREYMON": [
+      { "to": "RX-WARGREYMON", "level": 45, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 55, ATK 160, DEF 130, HP 1700, ABI 20, CAM 80%); [H] nivel 45 escalado (ver level_curve_proposal)", "stats": { "atk": 150, "def": 120, "hp": 1500 } }
+    ],
+    "RX-PUNIMON": [
+      { "to": "CREATURE-0008", "level": 3, "source": "[E] https://digimon.fandom.com/wiki/Punimon ; [H] nivel 3 proposto" }
+    ],
+    "CREATURE-0008": [
+      { "to": "CREATURE-0009", "level": 8, "source": "[E] Tsunomon->Gabumon confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 7, ATK 20, HP 75, SPD 20); [H] nivel 8 proposto" }
+    ],
+    "CREATURE-0009": [
+      { "to": "CREATURE-0010", "level": 16, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 15, SPD 50, CAM 25%); [H] nivel 16 escalado para alinhar com a curva ja usada em Agumon/Dorumon" }
+    ],
+    "CREATURE-0010": [
+      { "to": "RX-WEREGARURUMON", "level": 28, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 28, ATK 90, SPD 85, CAM 50%); [H] nivel 28 ja proximo do original" }
+    ],
+    "RX-WEREGARURUMON": [
+      { "to": "RX-METALGARURUMON", "level": 45, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 55, ATK 130, DEF 120, SPD 150, ABI 20, CAM 80%); [H] nivel 45 escalado" }
+    ],
+    "RX-POYOMON": [
+      { "to": "CREATURE-0011", "level": 3, "source": "[E] https://digimon.fandom.com/wiki/Poyomon ; confirmado tambem em evolution_chains.json (Next Order); [H] nivel 3 proposto" }
+    ],
+    "CREATURE-0011": [
+      { "to": "CREATURE-0012", "level": 8, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 7, INT 20, SPD 20, CAM 10%); [H] nivel 8 proposto" }
+    ],
+    "CREATURE-0012": [
+      { "to": "CREATURE-0013", "level": 16, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 16, ATK 5, INT 40); [H] nivel 16 ja proximo do original" }
+    ],
+    "CREATURE-0013": [
+      { "to": "RX-MAGNAANGEMON", "level": 28, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 30, INT 80, SP 80, ABI 10); [H] nivel 28" }
+    ],
+    "RX-MAGNAANGEMON": [
+      { "to": "RX-SERAPHIMON", "level": 45, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 55, DEF 130, INT 150, SP 130, ABI 40); [H] nivel 45 escalado" }
+    ],
+    "RX-JYARIMON": [
+      { "to": "CREATURE-0002", "level": 3, "source": "[E] https://digimon.fandom.com/wiki/Jyarimon ; confirmado em evolution_chains.json (Next Order); [H] nivel 3 proposto" }
+    ],
+    "CREATURE-0002": [
+      { "to": "CREATURE-0003", "level": 8, "source": "[H] Guilmon nao existe em Cyber Sleuth (confirmado not_in_game em evolution_chains.json) — sem numero oficial para herdar; nivel 8 proposto so por consistencia com as demais linhas desta entrega." }
+    ],
+    "CREATURE-0003": [
+      { "to": "CREATURE-0004", "level": 16, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 15, ATK 50, SPD 20); [H] nivel 16 ja proximo do original" }
+    ],
+    "CREATURE-0004": [
+      { "to": "RX-WARGROWLMON", "level": 28, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 30, ATK 105, SPD 75); [H] nivel 28" }
+    ],
+    "RX-WARGROWLMON": [
+      { "to": "RX-GALLANTMON", "level": 45, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 60, ATK 140, DEF 140, INT 140, ABI 80, CAM 50%); [H] nivel 45 escalado" }
+    ],
+    "CREATURE-0103": [
+      { "to": "RX-DORUGORAMON", "level": 45, "source": "[E] confirmado em knowledge/evolution_chains.json (Cyber Sleuth: Level 50, ATK 160, HP 1600, ABI 20); [H] nivel 45 escalado" }
+    ],
+    "RX-YURAMON": [
+      { "to": "RX-YOKOMON", "level": 3, "source": "[E] https://digimon.fandom.com/wiki/Yuramon — infobox 'to'", "alternate": true },
+      { "to": "CREATURE-0116", "level": 3, "source": "[E] mesma fonte; Tanemon ja existe no jogo", "alternate": true }
+    ],
+    "RX-YOKOMON": [
+      { "to": "CREATURE-0104", "level": 8, "source": "[E] https://digimon.fandom.com/wiki/Yokomon — infobox 'to'; [H] nivel 8 proposto (sem numero Cyber Sleuth localizado para esta linha)" }
+    ],
+    "CREATURE-0104": [
+      { "to": "RX-BIRDRAMON", "level": 16, "source": "[E] https://digimon.fandom.com/wiki/Birdramon — infobox 'to'; [H] nivel 16 proposto por consistencia (elemento/atributo Cyber Sleuth desta linha nao foi localizado nesta sessao)" }
+    ],
+    "RX-BIRDRAMON": [
+      { "to": "RX-GARUDAMON", "level": 28, "source": "[E] https://digimon.fandom.com/wiki/Garudamon — infobox 'to'; [H] nivel 28 proposto" }
+    ],
+    "RX-GARUDAMON": [
+      { "to": "RX-PHOENIXMON", "level": 45, "source": "[E] https://digimon.fandom.com/wiki/Phoenixmon — infobox 'to' (Digimon Adventure tri. ep.04); [H] nivel 45 proposto" }
+    ],
+    "CREATURE-0116": [
+      { "to": "CREATURE-0107", "level": 8, "source": "[E] https://digimon.fandom.com/wiki/Palmon — infobox 'from'; [H] nivel 8 proposto", "alternate": true },
+      { "to": "CREATURE-0111", "level": 8, "source": "[E] https://digimon.fandom.com/wiki/Tanemon — infobox 'to' (Digimon World Dusk); Floramon ja existe no jogo", "alternate": true },
+      { "to": "CREATURE-0117", "level": 8, "source": "[E] https://digimon.fandom.com/wiki/Tanemon — infobox 'to' (Digimon Adventure:); Lalamon ja existe no jogo", "alternate": true }
+    ],
+    "CREATURE-0107": [
+      { "to": "RX-TOGEMON", "level": 16, "source": "[E] https://digimon.fandom.com/wiki/Palmon — infobox 'to'; [H] nivel 16 proposto" }
+    ],
+    "RX-TOGEMON": [
+      { "to": "RX-LILLYMON", "level": 28, "source": "[E] https://digimon.fandom.com/wiki/Togemon — infobox 'to'; [H] nivel 28 proposto" }
+    ],
+    "RX-LILLYMON": [
+      { "to": "RX-ROSEMON", "level": 45, "source": "[E] https://digimon.fandom.com/wiki/Lillymon — infobox 'to' (Digimon Adventure tri. ep.02); [H] nivel 45 proposto" }
+    ],
+    "RX-MOTIMON": [
+      { "to": "CREATURE-0106", "level": 8, "source": "[E] https://digimon.fandom.com/wiki/Motimon — infobox 'to'; [H] nivel 8 proposto", "alternate": true },
+      { "to": "CREATURE-0109", "level": 8, "source": "[E] mesma fonte, variante por card do TCG; Gotsumon ja existe no jogo", "alternate": true }
+    ],
+    "CREATURE-0106": [
+      { "to": "RX-KABUTERIMON", "level": 16, "source": "[E] https://digimon.fandom.com/wiki/Tentomon — infobox 'to'; [H] nivel 16 proposto" }
+    ],
+    "RX-KABUTERIMON": [
+      { "to": "RX-MEGAKABUTERIMON", "level": 28, "source": "[E] https://digimon.fandom.com/wiki/Kabuterimon — infobox 'to' (variante Red); [H] nivel 28 proposto" }
+    ],
+    "RX-MEGAKABUTERIMON": [
+      { "to": "RX-HERCULESKABUTERIMON", "level": 45, "source": "[E] https://digimon.fandom.com/wiki/MegaKabuterimon_(Red) — infobox 'to'; [H] nivel 45 proposto" }
+    ]
+  }
+}

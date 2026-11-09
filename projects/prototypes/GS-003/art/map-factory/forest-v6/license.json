@@ -1,0 +1,15 @@
+{
+  "biome": "forest-v6-pieces",
+  "layer": "original",
+  "assets": [
+    {
+      "group": "water+shore autotile (16-tile blob) + bridge (h/v) + rock_big + rock_small + chest_closed + sign_post + healing_point",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Canvas.js pixel matrix (fillEllipse/fillRect/line/blendPixel) + the forest-v4 16-tile blob autotile corner-rounding algorithm (reimplemented locally from forest_v4_tiles.js buildBlobTile, which is not exported by that module -- same geometry, no behavior change) + forest_v4_props.js rimDarken() reused as-is. Palette: forest_v4_palette.js ramps (bark, ground.stone, ground.moss, ink) and the raw Endesga-32 water/gold/white aliases from endesga32.js (W.waterDeep/waterMid/waterBright/waterFoam/gold/orange/white) -- no new hex colors invented, same studio palette as forest-v4/v4.1.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- no third-party art referenced pixel-for-pixel. Third-party style references (Drakantos, IdleDex, Digimon) informed composition/lighting direction only, per ADR-010/ADR-011 Secao 5, not these specific pixels."
+    }
+  ],
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-art"
+}

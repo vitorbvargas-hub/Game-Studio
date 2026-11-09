@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "id": "digimon-forest-01",
+  "name": "Digimon Forest — Prototype 01",
+  "biome": "forest",
+  "regionRef": "floresta_densa",
+  "levelRange": [1, 15],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 56, "heightTiles": 40 },
+  "briefVersion": 2,
+  "previousVersion": "world-design/briefs/digimon-forest-01.v1.json",
+
+  "zones": [
+    {
+      "id": "spawn_area",
+      "name": "Entrada Sul (ligação com a Vila)",
+      "type": "spawn_area",
+      "shape": "rect",
+      "rect": { "x": 18, "y": 29, "width": 14, "height": 9 },
+      "notes": "Onde o Tamer chega pelo portal sul vindo da Vila dos Bebês. Grama baixa, pouca vegetação alta, 1-2 árvores só para moldura."
+    },
+    {
+      "id": "clareira_central",
+      "name": "Clareira Central",
+      "type": "clearing",
+      "shape": "rect",
+      "rect": { "x": 20, "y": 14, "width": 16, "height": 14 },
+      "notes": "Centro geométrico do mapa (28,20 aprox). Chão de clareira, baú e fonte de cura ficam aqui. Ponto de encontro das rotas. v2: ponto de parada do NPC comerciante (npc-merchant); flores/cogumelos digitais do forest-v7 como decoração leve nas bordas (ver decorAssets)."
+    },
+    {
+      "id": "agua_riacho",
+      "name": "Riacho Sereno",
+      "type": "water",
+      "shape": "polygon",
+      "polygon": {
+        "points": [[26, 0], [30, 0], [30, 16], [18, 16], [18, 40], [14, 40], [14, 12], [26, 12]]
+      },
+      "rectLegacyV1": { "x": 26, "y": 2, "width": 4, "height": 14 },
+      "notes": "v2 (correção QA P2.1 'riacho excessivamente geométrico' e pedido de riacho maior): o riacho deixou de ser um retângulo reto curto e virou um traçado em 'Z' de borda a borda — nasce na borda norte do mapa (y=0), desce pela coluna x26-29 passando pela ponte existente (27,9), faz uma curva larga a oeste em y12-16 e desce pela coluna x14-18 até a borda sul (y=39/40), cruzando quase toda a altura do mapa (atravessa 2 das 4 bordas). Largura ~4 tiles ao longo de todo o traçado. Mantém a 'Rota do Riacho' e a Clareira Oculta exatamente como antes (o segmento norte é o mesmo do v1, só estendido 2 tiles até tocar y=0). `polygon.points` é a planta lógica (não pixel-perfect); o gerador/adaptador decide a forma final dos tiles de água (ex. meandro 'organic', já suportado desde a correção P2 de bioma do game-dev)."
+    },
+    {
+      "id": "zona_concentracao",
+      "name": "Capinzal dos Selvagens",
+      "type": "concentration",
+      "shape": "rect",
+      "rect": { "x": 38, "y": 16, "width": 10, "height": 10 },
+      "notes": "Zona de maior densidade de Digimon selvagens antes do covil do chefe. Grama alta/arbustos para emboscadas visuais, sem bloquear o BFS. v2: flores e cogumelos digitais do forest-v7 nas bordas (decorAssets)."
+    },
+    {
+      "id": "campo_de_pedras",
+      "name": "Campo de Pedras",
+      "type": "rock_field",
+      "shape": "rect",
+      "rect": { "x": 40, "y": 28, "width": 10, "height": 8 },
+      "notes": "Rochas espalhadas (decorativas + algumas sólidas) ladeando a rota secundária sul. Vegetação baixa. v2: ponto de parada do NPC ranger (npc-ranger); `rock_small_flat.png` do forest-v7 como variante de rocha pequena para quebrar repetição."
+    },
+    {
+      "id": "clareira_oculta",
+      "name": "Clareira Oculta",
+      "type": "secret",
+      "shape": "rect",
+      "rect": { "x": 4, "y": 2, "width": 9, "height": 8 },
+      "notes": "Zona secreta no canto noroeste, só alcançável pela rota do riacho (nenhuma mudança de alcançabilidade no v2 — a travessia nova do riacho fica ao sul, fora desta zona, não abre um caminho seco alternativo até aqui). Entrada escondida por `bush_dense_secret.png` (poi-entrada-secreta). v2: flores e cogumelos digitais do forest-v7 como decoração (decorAssets)."
+    },
+    {
+      "id": "boss_arena",
+      "name": "Covil do Kuwagamon",
+      "type": "boss_arena",
+      "shape": "rect",
+      "rect": { "x": 48, "y": 15, "width": 7, "height": 10 },
+      "notes": "Clareira de combate no limite leste do mapa, cercada de mata densa (sem saída por ali). v2: piso com marcas de garra (`boss_arena_floor.png` do forest-v7) — ver bossArena.groundAssetRef; só visual, sem a criatura."
+    }
+  ],
+
+  "routes": [
+    {
+      "id": "rota_principal",
+      "type": "main",
+      "name": "Trilha Principal",
+      "waypoints": [[25, 36], [26, 27], [27, 20], [31, 18], [36, 22], [41, 19], [44, 21], [48, 20]],
+      "widthTiles": 2,
+      "connectsZones": ["spawn_area", "clareira_central", "zona_concentracao", "boss_arena"],
+      "notes": "Spawn → Clareira Central → Capinzal dos Selvagens → Covil do Kuwagamon. Rota do gate de alcance (ADR-011 §7). v2 (correção QA P2.1 'trilhas 100% ortogonais'): o trecho reto em y=20 entre a clareira e o capinzal (4 waypoints na mesma linha no v1) foi substituído por um leve zigue-zague (±1-2 tiles em y a cada waypoint), sem segmento ortogonal longo, mantendo início/fim e largura idênticos — não deve mudar o resultado do BFS."
+    },
+    {
+      "id": "rota_secundaria_pedras",
+      "type": "secondary",
+      "name": "Rota das Pedras",
+      "waypoints": [[25, 33], [30, 35], [36, 31], [41, 33], [45, 29], [48, 24], [50, 20]],
+      "widthTiles": 2,
+      "connectsZones": ["spawn_area", "campo_de_pedras", "boss_arena"],
+      "notes": "Rota alternativa até o chefe, passando pelo sul (Campo de Pedras), onde o NPC ranger (npc-ranger) fica de guarda. Satisfaz 'pelo menos 1 rota alternativa' do gate. v2: mesma correção de curvatura da rota principal (o trecho (25,33)-(32,32)-(40,32) do v1, reto em y≈32, agora varia em y a cada waypoint)."
+    },
+    {
+      "id": "rota_secundaria_riacho",
+      "type": "secondary",
+      "name": "Rota do Riacho",
+      "waypoints": [[27, 20], [27, 15], [27, 9], [27, 5], [18, 5], [12, 6], [8, 6]],
+      "widthTiles": 1.5,
+      "connectsZones": ["clareira_central", "agua_riacho", "clareira_oculta"],
+      "notes": "Ramal de exploração para a Clareira Oculta, cruzando o riacho pela ponte em (27,9) — 1ª das 2 travessias do v2. Não é necessária para chegar ao chefe (é só a rota 'secreta'). Inalterada no v2 (o segmento do riacho que ela cruza é o mesmo segmento norte do v1, só estendido até a borda)."
+    },
+    {
+      "id": "rota_vau_pedras",
+      "type": "secondary",
+      "name": "Rota do Vau de Pedras",
+      "waypoints": [[20, 34], [17, 30], [15, 25], [14, 20], [15, 16], [20, 17]],
+      "widthTiles": 1.5,
+      "connectsZones": ["spawn_area", "agua_riacho", "clareira_central"],
+      "notes": "v2 — NOVA (pedido 'riacho maior precisa de 2 travessias'). Caminho alternativo mais longo e sinuoso da Entrada Sul até a Clareira Central, passando pela margem oeste e cruzando o braço sul do riacho pelo vau de pedras `poi-vau-pedras` (15,22) — 2ª travessia. Não dá acesso à Clareira Oculta (que continua só alcançável pela Rota do Riacho original), só oferece um caminho panorâmico/alternativo entre a entrada e a clareira, reforçando a identidade de floresta (curvas, não linha reta) sem abrir atalho para a área secreta."
+    }
+  ],
+
+  "pois": [
+    {
+      "id": "poi-ponte-riacho",
+      "name": "Ponte do Riacho",
+      "type": "crossing",
+      "position": [27, 9],
+      "zoneRef": "agua_riacho",
+      "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. 1ª travessia do mapa (inalterada desde o v1)."
+    },
+    {
+      "id": "poi-vau-pedras",
+      "name": "Vau de Pedras",
+      "type": "crossing",
+      "position": [15, 22],
+      "zoneRef": "agua_riacho",
+      "description": "v2 — NOVA. Fileira de pedras planas que permite cruzar a pé o braço sul do riacho, na Rota do Vau de Pedras. 2ª travessia do mapa, pedida pela correção de 'riacho maior precisa de 2 travessias'. Pode usar `rock_small_flat.png` do forest-v7 como as pedras do vau (decorativo/sólido nas margens, a faixa central de travessia precisa ficar sem colisão — decisão de implementação do game-dev)."
+    },
+    {
+      "id": "poi-entrada-secreta",
+      "name": "Entrada da Clareira Oculta",
+      "type": "secret_entrance",
+      "position": [13, 6],
+      "zoneRef": "clareira_oculta",
+      "description": "Passagem estreita escondida por um arbusto denso; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim.",
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/bush_dense_secret.png",
+      "notes": "v2: escolhido `bush_dense_secret.png` (arbusto denso empurrável) em vez da 2ª opção do forest-v7 (`rock_crack_secret.png`, fenda de pedra) — mais coerente com a 'passagem entre rochas e arbustos' já descrita no v1 e permite a leitura de 'empurrar para passar' sem precisar de uma animação de fenda se abrindo."
+    },
+    {
+      "id": "poi-entrada-covil",
+      "name": "Entrada do Covil",
+      "type": "arena_entrance",
+      "position": [47, 20],
+      "zoneRef": "zona_concentracao",
+      "description": "Ponto onde a rota principal e a Rota das Pedras convergem antes da arena do chefe."
+    },
+    {
+      "id": "poi-mirante-clareira",
+      "name": "Mirante da Clareira",
+      "type": "viewpoint",
+      "position": [28, 15],
+      "zoneRef": "clareira_central",
+      "description": "Pequena elevação de onde se vê o braço norte do riacho e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
+    }
+  ],
+
+  "spawns": [
+    { "id": "spawn-gigimon", "speciesId": "CREATURE-0002", "speciesName": "Gigimon", "levelRange": [1, 4], "zoneRef": "clareira_central", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (stage 1, nível 1-5)", "notes": "Mesma espécie do NPC guia (npc-guia-gigimon), mas indivíduos selvagens distintos. Raio já cabia sem recorte na zona 16×14 (zero recorte no v1 e no v2)." },
+    { "id": "spawn-koromon", "speciesId": "CREATURE-0005", "speciesName": "Koromon", "levelRange": [1, 4], "zoneRef": "clareira_central", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "Raio já cabia sem recorte na zona 16×14 (zero recorte no v1 e no v2)." },
+    { "id": "spawn-tsunomon", "speciesId": "CREATURE-0008", "speciesName": "Tsunomon", "levelRange": [1, 4], "zoneRef": "spawn_area", "radiusTiles": 4, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "v2: radiusTiles reduzido de 5 para 4 (QA_DIGIMON_FOREST_01.md §5 P2.2 — zona spawn_area é 14×9, metade da altura é 4,5; raio 5 recortava ~10% da área pedida). Com raio 4 o recorte é zero. Introdução suave perto da entrada." },
+    { "id": "spawn-tanemon", "speciesId": "CREATURE-0116", "speciesName": "Tanemon", "levelRange": [1, 4], "zoneRef": "clareira_oculta", "radiusTiles": 4, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (levelRange 1-4)", "notes": "v2: radiusTiles reduzido de 5 para 4 (zona clareira_oculta é 9×8, metade da altura é 4; raio 5 recortava a área). Com raio 4 o recorte é zero. Recompensa calma da zona secreta." },
+    { "id": "spawn-palmon", "speciesId": "CREATURE-0107", "speciesName": "Palmon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 5, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "v2: radiusTiles reduzido de 8 para 5 (QA_DIGIMON_FOREST_01.md §5 P2.2 — zona zona_concentracao é 10×10, metade é 5; raio 8 era recortado pelo adaptador para ~5 de qualquer forma, sem aviso. 5 é o raio REAL que já estava em uso no mapa v1; esta mudança só torna o brief honesto sobre o comportamento existente e zera o recorte/aviso." },
+    { "id": "spawn-tentomon", "speciesId": "CREATURE-0106", "speciesName": "Tentomon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 5, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "v2: mesma correção de spawn-palmon (raio 8→5, recorte zero)." },
+    { "id": "spawn-floramon", "speciesId": "CREATURE-0111", "speciesName": "Floramon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 5, "count": 4, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "v2: mesma correção de spawn-palmon (raio 8→5, recorte zero)." },
+    { "id": "spawn-dorumon", "speciesId": "CREATURE-0101", "speciesName": "Dorumon", "levelRange": [4, 6], "zoneRef": "campo_de_pedras", "radiusTiles": 4, "count": 3, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (levelRange 4-6)", "notes": "v2: radiusTiles reduzido de 6 para 4 (zona campo_de_pedras é 10×8, metade da altura é 4; raio 6 recortava ~44% da área pedida, o pior caso do QA). Com raio 4 o recorte é zero. Dificuldade um pouco maior na aproximação sul ao chefe." }
+  ],
+
+  "npcs": [
+    {
+      "id": "npc-guia-gigimon",
+      "name": "Gigimon Guia",
+      "kind": "digimon_resident",
+      "speciesId": "CREATURE-0002",
+      "aggressive": false,
+      "role": "guia",
+      "position": [23, 30],
+      "zoneRef": "spawn_area",
+      "dialogue": "Diálogo placeholder: dá uma dica sobre as rotas até o covil (principal pela clareira, alternativa pelas pedras, e o vau de pedras do riacho como caminho panorâmico).",
+      "behavior": "static",
+      "evidence": "H",
+      "notes": "NPC original desta frente, não catalogado em bosses.json ainda. Usa CREATURE-0002 (Gigimon), espécie já existente, aggressive:false, no mesmo padrão dos NPC-* de Vila dos Bebês (bosses.json)."
+    },
+    {
+      "id": "npc-ranger",
+      "name": "Guarda-Florestal",
+      "kind": "tamer",
+      "aggressive": false,
+      "role": "guarda_rota_alternativa",
+      "position": [43, 24],
+      "zoneRef": "campo_de_pedras",
+      "dialogue": "Diálogo placeholder: alerta sobre o Kuwagamon mais adiante e explica que o Campo de Pedras é a rota mais difícil até o covil.",
+      "behavior": "static",
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/npc_ranger.png",
+      "evidence": "H",
+      "notes": "v2 — NOVO (pedido 'peças novas do forest-v7 como interativos', item NPC ranger). Tamer humano, 1 frame só parado (sem animação de andar, limitação documentada no README do forest-v7). Não catalogado em bosses.json/content ainda."
+    },
+    {
+      "id": "npc-merchant",
+      "name": "Comerciante Itinerante",
+      "kind": "tamer",
+      "aggressive": false,
+      "role": "comerciante",
+      "position": [25, 22],
+      "zoneRef": "clareira_central",
+      "dialogue": "Diálogo placeholder: oferece itens básicos (poções/bits) na Clareira Central, ponto de parada natural entre as 3 rotas.",
+      "behavior": "static",
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/npc_merchant.png",
+      "evidence": "H",
+      "notes": "v2 — NOVO (pedido 'peças novas do forest-v7 como interativos', item NPC comerciante). Tamer humano, 1 frame só parado. Loja/inventário em si é escopo de game-dev/economy.json, fora deste brief."
+    }
+  ],
+
+  "interactables": [
+    {
+      "id": "interact-bau",
+      "type": "chest",
+      "position": [31, 18],
+      "zoneRef": "clareira_central",
+      "description": "Baú de madeira simples na Clareira Central.",
+      "effect": "[H] loot não balanceado nesta entrega: bits e/ou 1 item comum de economy.json, a definir pelo game-dev na integração.",
+      "openStateAssetRef": "art/map-factory/forest-v7-pixellab/props/chest_open.png",
+      "notes": "v2: forest-v7 traz `chest_open.png`, o 2º estado (aberto/vazio) do `chest_closed.png` do forest-v6 — game-dev pode trocar o sprite ao interagir em vez de só mostrar o toast '+50 bits'."
+    },
+    {
+      "id": "interact-placa-entrada",
+      "type": "sign",
+      "position": [24, 31],
+      "zoneRef": "spawn_area",
+      "description": "Placa de madeira na entrada sul.",
+      "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura. Rota do Vau, a oeste, é mais longa mas mais calma.'",
+      "altAssetRef": "art/map-factory/forest-v7-pixellab/props/sign_post_arrow.png",
+      "notes": "v2: texto atualizado para citar a nova Rota do Vau de Pedras. `sign_post_arrow.png` do forest-v7 (variante com seta) é uma opção visual alternativa ao `sign_post.png` do forest-v6 — game-dev escolhe."
+    },
+    {
+      "id": "interact-fonte-cura",
+      "type": "heal_point",
+      "position": [33, 21],
+      "zoneRef": "clareira_central",
+      "description": "Pequena fonte/altar na Clareira Central.",
+      "effect": "[H] restaura o HP da equipe ao interagir, seguindo o mesmo padrão de healPointBeforeBoss usado em dungeons.json (cripta_das_raizes, andar 5)."
+    },
+    {
+      "id": "interact-placa-secreta",
+      "type": "sign",
+      "position": [9, 7],
+      "zoneRef": "clareira_oculta",
+      "description": "Placa desgastada na Clareira Oculta.",
+      "effect": "Texto pt-BR placeholder: lore/curiosidade sobre a zona secreta, sem efeito de jogo."
+    }
+  ],
+
+  "bossArena": {
+    "id": "arena-kuwagamon",
+    "bossId": "BOSS-KUWAGAMON",
+    "zoneRef": "boss_arena",
+    "position": [51, 20],
+    "radiusTiles": 6,
+    "arenaType": "clareira_aberta",
+    "triggerType": "approach",
+    "groundAssetRef": "art/map-factory/forest-v7-pixellab/props/boss_arena_floor.png",
+    "notes": "BOSS-KUWAGAMON (bosses.json): Adult, Virus, nível 15, região floresta_densa. Combate ocorre no próprio mapa (ADR-009), sem mecânica de arena específica definida aqui — isso é escopo de game-dev/sim. v2: `boss_arena_floor.png` do forest-v7 (chão com marcas de garra/terra revolvida) como piso decorativo da arena — só visual, não inclui a criatura; `radiusTiles` deste campo é a área de gatilho de aproximação, não uma zona de sorteio de spawn — não está no escopo da correção de recorte do item 2 (que é sobre `spawns`)."
+  },
+
+  "decorAssets": [
+    {
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/flower_digital.png",
+      "zoneRefs": ["clareira_central", "clareira_oculta", "zona_concentracao"],
+      "collision": false,
+      "notes": "v2 — NOVO. Flor digital/bioluminescente (32×32), decorativa, sem colisão. Preenche a lacuna 'flores digitais' do FOREST_KIT_GAP.md."
+    },
+    {
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/mushroom_digital.png",
+      "zoneRefs": ["clareira_oculta", "zona_concentracao"],
+      "collision": false,
+      "notes": "v2 — NOVO. Cogumelo digital/bioluminescente (24×24), decorativo, sem colisão. Concentrado na Clareira Oculta e no Capinzal para reforçar 'bioma digital'."
+    },
+    {
+      "assetRef": "art/map-factory/forest-v7-pixellab/props/rock_small_flat.png",
+      "zoneRefs": ["campo_de_pedras"],
+      "collision": true,
+      "notes": "v2 — NOVO. Variante plana de pedra pequena para quebrar a repetição de `rock_small.png` do forest-v6 no Campo de Pedras; também sugerida como as pedras do `poi-vau-pedras`."
+    }
+  ],
+
+  "exits": [
+    {
+      "id": "exit-sul-vila",
+      "edge": "s",
+      "rect": { "x": 22, "y": 38, "width": 6, "height": 2 },
+      "to": "vila",
+      "toStart": "from_digimon-forest-01",
+      "integrated": true,
+      "notes": "v2: `integrated` atualizado de false para true — QA_DIGIMON_FOREST_01.md §2 confirma que o portal de volta (`sul-digimon-forest`) já existe em `vila.tmj.json` e foi testado nas capturas 12→13→14 (ida e volta andando). Pendência do v1 resolvida pelo game-dev, não mais em aberto."
+    }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "high",
+    "byZoneType": {
+      "dense_border": "high",
+      "clearing": "low",
+      "spawn_area": "low",
+      "concentration": "medium",
+      "rock_field": "low",
+      "secret": "medium",
+      "water": "medium",
+      "boss_arena": "low"
+    },
+    "byZoneRef": {
+      "clareira_oculta": "high",
+      "campo_de_pedras": "low"
+    },
+    "notes": "Fora de qualquer zone listada, o mapa é mata fechada sólida (como em forest-proof: borda intransponível, sem precisar modelar cada árvore). 'high' na clareira_oculta é intencional (entrada precisa ficar escondida). A Rota do Vau de Pedras (v2) atravessa mata 'default: high' sem zone própria entre a Entrada Sul e a Clareira Central — border recua 1-2 tiles ao longo da trilha, mesma regra já usada no bioma orgânico do v2 do gerador."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "[H] Autoavaliação do game-design sobre a planta (zonas e rotas desenhadas como conectadas). Não é o gate automático real do ADR-011 §7 (BFS na grade de colisão do .tmj.json gerado) — isso cabe ao game-qa depois que o game-dev regenerar o mapa a partir deste brief v2."
+  },
+
+  "evidenceNotes": [
+    "[E] Todas as speciesId de spawns/NPC existem em src/data/world-species.json e aparecem em floresta_densa.wildSpecies de src/data/content/regions.json.",
+    "[E] BOSS-KUWAGAMON existe em src/data/content/bosses.json (Adult, Virus, nível 15, região floresta_densa).",
+    "[E] v2: os 4 raios de spawn recortados (tsunomon, tanemon, palmon/tentomon/floramon, dorumon) foram identificados em QA_DIGIMON_FOREST_01.md §5 P2.2 e no código de `scripts/map-factory/adapt-brief.mjs:155-162` (intersect do quadrado do raio com o retângulo da zona); corrigidos reduzindo radiusTiles para o valor que já cabe sem recorte na zona existente (zero recorte, requisito do item 2 desta rodada).",
+    "[E] v2: `exit-sul-vila.integrated` passou para true com base em QA_DIGIMON_FOREST_01.md §2 (portal de volta confirmado em `vila.tmj.json`, testado ida e volta).",
+    "[H] npc-guia-gigimon é um NPC original desta frente (não está em bosses.json/regions.json ainda); usa espécie real (CREATURE-0002) no padrão dos NPCs não-hostis já catalogados.",
+    "[H] npc-ranger e npc-merchant (v2) são NPCs humanos originais desta frente, usando os sprites `npc_ranger.png`/`npc_merchant.png` do forest-v7-pixellab (README confirma: chibi, 1 frame, sem animação de andar); não catalogados em bosses.json/economy.json ainda.",
+    "[H] Dimensões (56×40 tiles) inalteradas do v1; a travessia nova do riacho (vau de pedras) fica dentro dos limites do mapa.",
+    "[H] O polígono do riacho (agua_riacho) é a planta lógica do traçado em 'Z', não a forma final de tiles — cabe ao adaptador/gerador (já com suporte a 'organic') decidir a forma exata da água/margens, como já faz para o segmento norte original."
+  ],
+
+  "changelogV2": [
+    "Riacho: de retângulo reto 4×14 (não tocava nenhuma borda) para traçado em polígono (Z) de borda a borda (norte→sul), mantendo a ponte original (27,9) e adicionando o Vau de Pedras (15,22) como 2ª travessia, com a Rota do Vau de Pedras conectando Entrada Sul ↔ Clareira Central.",
+    "Spawns: radiusTiles reduzido em 6 entradas (tsunomon 5→4, tanemon 5→4, palmon/tentomon/floramon 8→5, dorumon 6→4) para eliminar o recorte silencioso relatado em QA_DIGIMON_FOREST_01.md §5 P2.2 (zero recorte agora, contra até ~61% recortado no v1 sem aviso).",
+    "Peças do forest-v7-pixellab incorporadas: npc-ranger e npc-merchant (NPCs novos), poi-entrada-secreta agora usa bush_dense_secret.png (escolhida sobre rock_crack_secret.png), bossArena.groundAssetRef = boss_arena_floor.png, decorAssets com flower_digital.png/mushroom_digital.png/rock_small_flat.png, interact-bau com openStateAssetRef = chest_open.png, interact-placa-entrada com altAssetRef = sign_post_arrow.png.",
+    "Rotas: waypoints de rota_principal e rota_secundaria_pedras ajustados para variar em y a cada ponto (sem 3-4 waypoints consecutivos na mesma linha), corrigindo o traçado '100% ortogonal' de QA_DIGIMON_FOREST_01.md §5 P2.1, sem mudar início/fim/zonas conectadas.",
+    "exit-sul-vila.integrated: false → true (portal de volta confirmado existente pelo QA)."
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "id": "digimon-forest-01",
+  "name": "Digimon Forest — Prototype 01",
+  "biome": "forest",
+  "regionRef": "floresta_densa",
+  "levelRange": [1, 15],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 56, "heightTiles": 40 },
+
+  "zones": [
+    {
+      "id": "spawn_area",
+      "name": "Entrada Sul (ligação com a Vila)",
+      "type": "spawn_area",
+      "shape": "rect",
+      "rect": { "x": 18, "y": 29, "width": 14, "height": 9 },
+      "notes": "Onde o Tamer chega pelo portal sul vindo da Vila dos Bebês. Grama baixa, pouca vegetação alta, 1-2 árvores só para moldura."
+    },
+    {
+      "id": "clareira_central",
+      "name": "Clareira Central",
+      "type": "clearing",
+      "shape": "rect",
+      "rect": { "x": 20, "y": 14, "width": 16, "height": 14 },
+      "notes": "Centro geométrico do mapa (28,20 aprox). Chão de clareira, baú e fonte de cura ficam aqui. Ponto de encontro das 3 rotas."
+    },
+    {
+      "id": "agua_riacho",
+      "name": "Riacho Sereno",
+      "type": "water",
+      "shape": "rect",
+      "rect": { "x": 26, "y": 2, "width": 4, "height": 14 },
+      "notes": "Riacho vertical que desce do limite norte do mapa até quase tocar a Clareira Central. A rota secundária do riacho cruza por uma ponte em (27,9)."
+    },
+    {
+      "id": "zona_concentracao",
+      "name": "Capinzal dos Selvagens",
+      "type": "concentration",
+      "shape": "rect",
+      "rect": { "x": 38, "y": 16, "width": 10, "height": 10 },
+      "notes": "Zona de maior densidade de Digimon selvagens antes do covil do chefe. Grama alta/arbustos para emboscadas visuais, sem bloquear o BFS."
+    },
+    {
+      "id": "campo_de_pedras",
+      "name": "Campo de Pedras",
+      "type": "rock_field",
+      "shape": "rect",
+      "rect": { "x": 40, "y": 28, "width": 10, "height": 8 },
+      "notes": "Rochas espalhadas (decorativas + algumas sólidas) ladeando a rota secundária sul. Vegetação baixa."
+    },
+    {
+      "id": "clareira_oculta",
+      "name": "Clareira Oculta",
+      "type": "secret",
+      "shape": "rect",
+      "rect": { "x": 4, "y": 2, "width": 9, "height": 8 },
+      "notes": "Zona secreta no canto noroeste, só alcançável pela rota do riacho. Entrada escondida por arbustos/rochas (poi-secret-entrance)."
+    },
+    {
+      "id": "boss_arena",
+      "name": "Covil do Kuwagamon",
+      "type": "boss_arena",
+      "shape": "rect",
+      "rect": { "x": 48, "y": 15, "width": 7, "height": 10 },
+      "notes": "Clareira de combate no limite leste do mapa, cercada de mata densa (sem saída por ali)."
+    }
+  ],
+
+  "routes": [
+    {
+      "id": "rota_principal",
+      "type": "main",
+      "name": "Trilha Principal",
+      "waypoints": [[25, 36], [26, 27], [27, 20], [30, 20], [38, 20], [44, 20], [48, 20]],
+      "widthTiles": 2,
+      "connectsZones": ["spawn_area", "clareira_central", "zona_concentracao", "boss_arena"],
+      "notes": "Spawn → Clareira Central → Capinzal dos Selvagens → Covil do Kuwagamon. Rota do gate de alcance (ADR-011 §7)."
+    },
+    {
+      "id": "rota_secundaria_pedras",
+      "type": "secondary",
+      "name": "Rota das Pedras",
+      "waypoints": [[25, 33], [32, 32], [40, 32], [45, 30], [48, 24], [50, 20]],
+      "widthTiles": 2,
+      "connectsZones": ["spawn_area", "campo_de_pedras", "boss_arena"],
+      "notes": "Rota alternativa até o chefe, passando pelo sul (Campo de Pedras). Satisfaz 'pelo menos 1 rota alternativa' do gate."
+    },
+    {
+      "id": "rota_secundaria_riacho",
+      "type": "secondary",
+      "name": "Rota do Riacho",
+      "waypoints": [[27, 20], [27, 15], [27, 9], [27, 5], [18, 5], [12, 6], [8, 6]],
+      "widthTiles": 1.5,
+      "connectsZones": ["clareira_central", "agua_riacho", "clareira_oculta"],
+      "notes": "Ramal de exploração para a Clareira Oculta, cruzando o riacho pela ponte em (27,9). Não é necessária para chegar ao chefe (é só a rota 'secreta')."
+    }
+  ],
+
+  "pois": [
+    {
+      "id": "poi-ponte-riacho",
+      "name": "Ponte do Riacho",
+      "type": "crossing",
+      "position": [27, 9],
+      "zoneRef": "agua_riacho",
+      "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. Único ponto de travessia do mapa."
+    },
+    {
+      "id": "poi-entrada-secreta",
+      "name": "Entrada da Clareira Oculta",
+      "type": "secret_entrance",
+      "position": [13, 6],
+      "zoneRef": "clareira_oculta",
+      "description": "Passagem estreita entre rochas e arbustos; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim."
+    },
+    {
+      "id": "poi-entrada-covil",
+      "name": "Entrada do Covil",
+      "type": "arena_entrance",
+      "position": [47, 20],
+      "zoneRef": "zona_concentracao",
+      "description": "Ponto onde as 3 rotas (principal e as 2 secundárias) convergem antes da arena do chefe."
+    },
+    {
+      "id": "poi-mirante-clareira",
+      "name": "Mirante da Clareira",
+      "type": "viewpoint",
+      "position": [28, 15],
+      "zoneRef": "clareira_central",
+      "description": "Pequena elevação de onde se vê o riacho ao norte e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
+    }
+  ],
+
+  "spawns": [
+    { "id": "spawn-gigimon", "speciesId": "CREATURE-0002", "speciesName": "Gigimon", "levelRange": [1, 4], "zoneRef": "clareira_central", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (stage 1, nível 1-5)", "notes": "Mesma espécie do NPC guia (npc-guia-gigimon), mas indivíduos selvagens distintos." },
+    { "id": "spawn-koromon", "speciesId": "CREATURE-0005", "speciesName": "Koromon", "levelRange": [1, 4], "zoneRef": "clareira_central", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies" },
+    { "id": "spawn-tsunomon", "speciesId": "CREATURE-0008", "speciesName": "Tsunomon", "levelRange": [1, 4], "zoneRef": "spawn_area", "radiusTiles": 5, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies", "notes": "Introdução suave perto da entrada." },
+    { "id": "spawn-tanemon", "speciesId": "CREATURE-0116", "speciesName": "Tanemon", "levelRange": [1, 4], "zoneRef": "clareira_oculta", "radiusTiles": 5, "count": 3, "density": "low", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (levelRange 1-4)", "notes": "Recompensa calma da zona secreta." },
+    { "id": "spawn-palmon", "speciesId": "CREATURE-0107", "speciesName": "Palmon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 8, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies" },
+    { "id": "spawn-tentomon", "speciesId": "CREATURE-0106", "speciesName": "Tentomon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 8, "count": 5, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies" },
+    { "id": "spawn-floramon", "speciesId": "CREATURE-0111", "speciesName": "Floramon", "levelRange": [3, 6], "zoneRef": "zona_concentracao", "radiusTiles": 8, "count": 4, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies" },
+    { "id": "spawn-dorumon", "speciesId": "CREATURE-0101", "speciesName": "Dorumon", "levelRange": [4, 6], "zoneRef": "campo_de_pedras", "radiusTiles": 6, "count": 3, "density": "medium", "evidence": "E", "evidenceSource": "src/data/content/regions.json floresta_densa.wildSpecies (levelRange 4-6)", "notes": "Dificuldade um pouco maior na aproximação sul ao chefe." }
+  ],
+
+  "npcs": [
+    {
+      "id": "npc-guia-gigimon",
+      "name": "Gigimon Guia",
+      "kind": "digimon_resident",
+      "speciesId": "CREATURE-0002",
+      "aggressive": false,
+      "role": "guia",
+      "position": [23, 30],
+      "zoneRef": "spawn_area",
+      "dialogue": "Diálogo placeholder: dá uma dica sobre as duas rotas até o covil (principal pela clareira, alternativa pelas pedras).",
+      "behavior": "static",
+      "evidence": "H",
+      "notes": "NPC original desta frente, não catalogado em bosses.json ainda. Usa CREATURE-0002 (Gigimon), espécie já existente, aggressive:false, no mesmo padrão dos NPC-* de Vila dos Bebês (bosses.json)."
+    }
+  ],
+
+  "interactables": [
+    {
+      "id": "interact-bau",
+      "type": "chest",
+      "position": [31, 18],
+      "zoneRef": "clareira_central",
+      "description": "Baú de madeira simples na Clareira Central.",
+      "effect": "[H] loot não balanceado nesta entrega: bits e/ou 1 item comum de economy.json, a definir pelo game-dev na integração."
+    },
+    {
+      "id": "interact-placa-entrada",
+      "type": "sign",
+      "position": [24, 31],
+      "zoneRef": "spawn_area",
+      "description": "Placa de madeira na entrada sul.",
+      "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura, mas também chega ao covil.'"
+    },
+    {
+      "id": "interact-fonte-cura",
+      "type": "heal_point",
+      "position": [33, 21],
+      "zoneRef": "clareira_central",
+      "description": "Pequena fonte/altar na Clareira Central.",
+      "effect": "[H] restaura o HP da equipe ao interagir, seguindo o mesmo padrão de healPointBeforeBoss usado em dungeons.json (cripta_das_raizes, andar 5)."
+    },
+    {
+      "id": "interact-placa-secreta",
+      "type": "sign",
+      "position": [9, 7],
+      "zoneRef": "clareira_oculta",
+      "description": "Placa desgastada na Clareira Oculta.",
+      "effect": "Texto pt-BR placeholder: lore/curiosidade sobre a zona secreta, sem efeito de jogo."
+    }
+  ],
+
+  "bossArena": {
+    "id": "arena-kuwagamon",
+    "bossId": "BOSS-KUWAGAMON",
+    "zoneRef": "boss_arena",
+    "position": [51, 20],
+    "radiusTiles": 6,
+    "arenaType": "clareira_aberta",
+    "triggerType": "approach",
+    "notes": "BOSS-KUWAGAMON (bosses.json): Adult, Virus, nível 15, região floresta_densa. Combate ocorre no próprio mapa (ADR-009), sem mecânica de arena específica definida aqui — isso é escopo de game-dev/sim."
+  },
+
+  "exits": [
+    {
+      "id": "exit-sul-vila",
+      "edge": "s",
+      "rect": { "x": 22, "y": 38, "width": 6, "height": 2 },
+      "to": "vila",
+      "toStart": "from_digimon-forest-01",
+      "integrated": false,
+      "notes": "Segue a convenção de portais já usada em forest-proof.tmj.json (sul-vila: to='vila', toStart='from_floresta') e vila.tmj.json (norte-floresta: to='forest-proof', toStart='from_vila'). O portal de volta em vila.tmj.json não existe ainda para este mapa — pendência de integração do game-dev."
+    }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "high",
+    "byZoneType": {
+      "dense_border": "high",
+      "clearing": "low",
+      "spawn_area": "low",
+      "concentration": "medium",
+      "rock_field": "low",
+      "secret": "medium",
+      "water": "medium",
+      "boss_arena": "low"
+    },
+    "byZoneRef": {
+      "clareira_oculta": "high",
+      "campo_de_pedras": "low"
+    },
+    "notes": "Fora de qualquer zone listada, o mapa é mata fechada sólida (como em forest-proof: borda intransponível, sem precisar modelar cada árvore). 'high' na clareira_oculta é intencional (entrada precisa ficar escondida)."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "[H] Autoavaliação do game-design sobre a planta (zonas e rotas desenhadas como conectadas). Não é o gate automático real do ADR-011 §7 (BFS na grade de colisão do .tmj.json gerado) — isso cabe ao game-qa depois que o game-dev montar o mapa."
+  },
+
+  "evidenceNotes": [
+    "[E] Todas as speciesId de spawns/NPC existem em src/data/world-species.json e aparecem em floresta_densa.wildSpecies de src/data/content/regions.json.",
+    "[E] BOSS-KUWAGAMON existe em src/data/content/bosses.json (Adult, Virus, nível 15, região floresta_densa).",
+    "[H] npc-guia-gigimon é um NPC original desta frente (não está em bosses.json/regions.json ainda); usa espécie real (CREATURE-0002) no padrão dos NPCs não-hostis já catalogados.",
+    "[H] Dimensões (56×40 tiles) escolhidas para ficar entre praia.tmj.json (44×28) e forest-proof.tmj.json (64×46), compatíveis com o padrão atual.",
+    "[H] exit-sul-vila segue a convenção de nomes/propriedades de portal já usada no jogo, mas o portal reverso em vila.tmj.json não foi criado (fora do escopo de game-design)."
+  ]
+}

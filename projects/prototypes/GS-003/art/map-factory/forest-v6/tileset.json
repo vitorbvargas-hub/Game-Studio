@@ -1,0 +1,195 @@
+{
+  "biome": "forest-v6-pieces",
+  "note": "Supplemental pieces pack, NOT a full environment replacement. Meant to merge into the forest-v4.1 package already used by the game (forest-proof map, fp4_ prefix) -- see README.md \"Integracao\" for how game-dev should wire this in (new prefix or merged into fp4_* namespace, aliases.json update, both out of game-art write scope).",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "decor",
+    "canopy-top"
+  ],
+  "presets": {
+    "day": "tiles/ + props/",
+    "night": "not produced in this pack -- see README.md Limitacoes"
+  },
+  "autotile": {
+    "pattern": "16-tile blob (same geometry as forest-v4 path_blob/denseedge_blob), bitmask = N*1 + E*2 + S*4 + W*8, 1 = same-type (water) neighbor present",
+    "cornerRule": "Each tile corner independently rounded via a quarter-circle cut (R=0 both neighbors water / R=7 one neighbor / R=12 neither) with 1px seeded dither along the arc, same as forest-v4.",
+    "foamEdge": "Additional pass not present in path_blob/denseedge_blob: boundary pixels within ~2px of the corner arc get a 55% chance of a waterFoam (Endesga-32 c19) fleck, so every shore edge shows foam without a separate foam tile.",
+    "sets": [
+      {
+        "name": "water_blob",
+        "center": "shallow water",
+        "surround": "grass (reuses forest_v4_tiles.js grassVariant as the background, so it matches whatever grass_NN is already on the ground layer)",
+        "files": [
+          "tiles/water_blob_0.png",
+          "tiles/water_blob_1.png",
+          "tiles/water_blob_2.png",
+          "tiles/water_blob_3.png",
+          "tiles/water_blob_4.png",
+          "tiles/water_blob_5.png",
+          "tiles/water_blob_6.png",
+          "tiles/water_blob_7.png",
+          "tiles/water_blob_8.png",
+          "tiles/water_blob_9.png",
+          "tiles/water_blob_10.png",
+          "tiles/water_blob_11.png",
+          "tiles/water_blob_12.png",
+          "tiles/water_blob_13.png",
+          "tiles/water_blob_14.png",
+          "tiles/water_blob_15.png"
+        ]
+      }
+    ]
+  },
+  "tiles": [
+    {
+      "file": "tiles/water_blob_0.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_1.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_2.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_3.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_4.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_5.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_6.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_7.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_8.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_9.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_10.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_11.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_12.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_13.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_14.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    },
+    {
+      "file": "tiles/water_blob_15.png",
+      "collision": false,
+      "suggestedLayer": "ground",
+      "collisionNote": "Water itself has no shape-based collision here -- if the map needs water to block walking, game-dev marks it in the collision layer per-cell (briefing/12_map_factory_v2.md camada collision e independente da arte)."
+    }
+  ],
+  "props": [
+    {
+      "file": "props/bridge_h.png",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "footprintTiles": "3x1",
+      "note": "Walkable deck over up to 3 water tiles in a row. Place centered on the water span."
+    },
+    {
+      "file": "props/bridge_v.png",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "footprintTiles": "1x3",
+      "note": "90deg rotation of bridge_h."
+    },
+    {
+      "file": "props/rock_big.png",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "footprintTiles": "~1.4x1.1"
+    },
+    {
+      "file": "props/rock_small.png",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "footprintTiles": "~0.6x0.4"
+    },
+    {
+      "file": "props/chest_closed.png",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "interactive": true,
+      "note": "Single closed state only -- no open/empty state produced yet (see README.md Limitacoes)."
+    },
+    {
+      "file": "props/sign_post.png",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "interactive": true,
+      "note": "Board is blank except a placeholder \"!\" mark -- per-map sign text is a data/UI concern (a tooltip or popup keyed by map object id), not baked into the pixel art."
+    },
+    {
+      "file": "props/healing_point.png",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "interactive": true,
+      "note": "Non-collision: the player stands on it to trigger the heal. No animation (static glow) -- see README.md Limitacoes."
+    }
+  ]
+}

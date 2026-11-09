@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "template-mountain",
+  "name": "Modelo: Montanha",
+  "biome": "mountain",
+  "regionRef": "montanha",
+  "levelRange": [20, 35],
+  "safeZone": false,
+  "dimensions": { "tileSizePx": 32, "widthTiles": 40, "heightTiles": 56 },
+
+  "zones": [
+    { "id": "spawn_area", "name": "Base da Montanha (ligação com a Floresta)", "type": "spawn_area", "shape": "rect", "rect": { "x": 16, "y": 46, "width": 10, "height": 8 }, "notes": "montanha.routesTo inclui floresta_densa (regions.json): a entrada real vem de lá." },
+    { "id": "encosta_1", "name": "Encosta Baixa", "type": "cliff", "shape": "rect", "rect": { "x": 14, "y": 34, "width": 14, "height": 10 }, "notes": "Trilha em zigue-zague subindo; vegetação ainda presente (transição floresta→rocha)." },
+    { "id": "planalto", "name": "Planalto Intermediário", "type": "clearing", "shape": "rect", "rect": { "x": 10, "y": 22, "width": 20, "height": 10 }, "notes": "Primeiro 'respiro' da subida: área plana, baú e cura ficam aqui." },
+    { "id": "zona_concentracao", "name": "Encosta Alta (ninho de Digimon)", "type": "concentration", "shape": "rect", "rect": { "x": 12, "y": 10, "width": 16, "height": 10 }, "notes": "Densidade mais alta perto do topo." },
+    { "id": "boss_arena", "name": "Pico — Covil do Tyrannomon", "type": "boss_arena", "shape": "rect", "rect": { "x": 14, "y": 2, "width": 12, "height": 7 } }
+  ],
+
+  "routes": [
+    { "id": "rota_principal", "type": "main", "name": "Trilha do Zigue-Zague", "waypoints": [[21, 48], [24, 40], [18, 34], [22, 28], [20, 22], [20, 16], [20, 10], [20, 5]], "widthTiles": 2, "connectsZones": ["spawn_area", "encosta_1", "planalto", "zona_concentracao", "boss_arena"], "notes": "Sobe em zigue-zague (switchback), ritmo de ascensão progressiva." },
+    { "id": "rota_secundaria", "type": "secondary", "name": "Atalho da Encosta Rochosa", "waypoints": [[26, 46], [30, 36], [28, 24], [26, 12], [22, 8]], "widthTiles": 1.5, "connectsZones": ["spawn_area", "zona_concentracao", "boss_arena"], "notes": "Rota mais direta e mais exposta (menos cobertura, selvagens mais fortes) — alternativa até o chefe." }
+  ],
+
+  "pois": [
+    { "id": "poi-mirante-planalto", "name": "Mirante do Planalto", "type": "viewpoint", "position": [20, 24], "zoneRef": "planalto", "description": "Vista da base da montanha; ponto de respiro visual na subida." }
+  ],
+
+  "spawns": [
+    { "id": "spawn-gotsumon", "speciesId": "CREATURE-0109", "speciesName": "Gotsumon", "levelRange": [20, 24], "zoneRef": "encosta_1", "radiusTiles": 6, "count": 4, "density": "low", "evidence": "E", "evidenceSource": "regions.json montanha.wildSpecies" },
+    { "id": "spawn-growlmon", "speciesId": "CREATURE-0004", "speciesName": "Growlmon", "levelRange": [20, 28], "zoneRef": "zona_concentracao", "radiusTiles": 7, "count": 4, "density": "medium", "evidence": "E", "evidenceSource": "regions.json montanha.wildSpecies" },
+    { "id": "spawn-greymon", "speciesId": "CREATURE-0007", "speciesName": "Greymon", "levelRange": [22, 30], "zoneRef": "zona_concentracao", "radiusTiles": 7, "count": 3, "density": "medium", "evidence": "E", "evidenceSource": "regions.json montanha.wildSpecies" },
+    { "id": "spawn-dorugreymon", "speciesId": "CREATURE-0103", "speciesName": "DoruGreymon", "levelRange": [28, 32], "zoneRef": "boss_arena", "radiusTiles": 4, "count": 1, "density": "low", "evidence": "E", "evidenceSource": "regions.json montanha.wildSpecies (stage 4, raro)", "notes": "Encontro raro de stage 4 próximo ao chefe — guarda do pico." }
+  ],
+
+  "npcs": [],
+
+  "interactables": [
+    { "id": "interact-bau-planalto", "type": "chest", "position": [18, 25], "zoneRef": "planalto", "description": "Baú no planalto intermediário.", "effect": "[H] loot a definir." },
+    { "id": "interact-cura-planalto", "type": "heal_point", "position": [24, 26], "zoneRef": "planalto", "description": "Ponto de cura no planalto, antes da subida final.", "effect": "[H] recupera HP/MP antes do trecho mais difícil." },
+    { "id": "interact-placa-zigue-zague", "type": "sign", "position": [20, 35], "zoneRef": "encosta_1", "description": "Placa no início da subida.", "effect": "Texto pt-BR: aviso sobre o atalho mais exposto." }
+  ],
+
+  "bossArena": {
+    "id": "arena-tyrannomon",
+    "bossId": "BOSS-TYRANNOMON",
+    "zoneRef": "boss_arena",
+    "position": [20, 5],
+    "radiusTiles": 5,
+    "arenaType": "pico_aberto",
+    "triggerType": "approach",
+    "notes": "BOSS-TYRANNOMON existe em bosses.json (regionBosses) e é o boss de montanha em regions.json."
+  },
+
+  "exits": [
+    { "id": "exit-sul-floresta", "edge": "s", "rect": { "x": 19, "y": 54, "width": 4, "height": 2 }, "to": "forest-proof", "toStart": "from_template-mountain", "integrated": false, "notes": "montanha.routesTo inclui floresta_densa (regions.json). forest-proof é o mapa real dessa região; o portal reverso não existe nele ainda." }
+  ],
+
+  "vegetationDensityRules": {
+    "default": "medium",
+    "byZoneType": { "spawn_area": "medium", "cliff": "low", "clearing": "low", "concentration": "low", "boss_arena": "low" },
+    "notes": "Vegetação diminui com a altitude: média na base (transição com a floresta), baixa a partir da encosta (predomínio de rocha)."
+  },
+
+  "designGates": {
+    "spawnToBossMainRoute": true,
+    "altRouteToBossExists": true,
+    "allPoisReachableByDesign": true,
+    "verifiedBy": "self",
+    "notes": "Rota principal (zigue-zague, mais segura) e atalho (mais direto, mais exposto) chegam as duas ao chefe."
+  },
+
+  "evidenceNotes": [
+    "[E] wildSpecies e boss vêm de regions.json (montanha) e bosses.json (BOSS-TYRANNOMON).",
+    "[H] Nenhum mapa real de montanha existe ainda; exit-sul-floresta aponta para forest-proof (mapa real da região vizinha), mas o portal reverso não foi criado lá."
+  ]
+}

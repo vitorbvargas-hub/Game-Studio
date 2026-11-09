@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-11-09",
+  "_comment": "Proposta de expansao de roster para o Map Factory (ADR-011 §6). Onda 1 = bioma floresta_densa (piloto 'Digimon Forest - Prototype 01'), 25 especies novas, todas verificadas nesta sessao via API MediaWiki do digimon.fandom.com (contorno de Cloudflare documentado em SOURCE_REGISTRY.md). 'source' em cada especie cita a pagina exata. attribute/element marcados 'pendente' quando a fonte nao deu um valor unico e inequivoco (nunca inventado). ids novos usam prefixo RX- (Roster eXpansion) ate o game-dev atribuir CREATURE-NNNN definitivo. Tudo aqui e [H] PROPOSTA, exceto os campos de licenciamento oficial (atributo/tipo/pre-evolucao/evolucao), que sao [E] com fonte citada.",
+  "wave1_forest": {
+    "biome": "floresta_densa",
+    "biome_label": "Floresta Densa (piloto 'Digimon Forest — Prototype 01', docs/briefing/12_map_factory_v2.md)",
+    "goal": "[H] Completar 8 linhas de evolucao Baby->Mega inteiras para as especies ja presentes como Rookie selvagem na floresta (Agumon, Gabumon, Patamon, Guilmon, Dorumon, Biyomon, Palmon, Tentomon), fechando a lacuna 'zero Mega / zero Baby jogavel' descrita em ROSTER_GAP_REPORT.md.",
+    "species_count": 25,
+    "species": [
+      {
+        "id": "RX-BOTAMON",
+        "official_name": "Botamon",
+        "stage": "Baby",
+        "attribute": "Free",
+        "attribute_note": "[H] fonte lista 3 valores (None/Data(DW)/Free(Cyber Sleuth)); escolhido Free por convenção ja usada em evolution_chains.json para formas Baby/In-Training.",
+        "element": "pendente",
+        "biomes": ["vila_dos_bebes", "floresta_densa"],
+        "pre_evolution": null,
+        "evolutions": [
+          { "to": "Koromon (ja no jogo, CREATURE-0005)", "source": "https://digimon.fandom.com/wiki/Botamon — campo 'to' do infobox, confirmado tambem em Digimon Adventure ep.12" }
+        ],
+        "role_on_map": "NPC parceiro / filhote selvagem raro (hoje existe so como NPC nao-capturavel em vila_dos_bebes, bosses.json)",
+        "sprite": {
+          "exists_in_repo": false,
+          "fan_source_available": "nao verificado nesta sessao em FAN_SPRITE_SOURCES.md (lista cobre so Agumon/Gabumon/Patamon/Koromon/Tsunomon/Tokomon/Greymon/Garurumon/Angemon/Devimon)",
+          "needs_generation": true
+        }
+      },
+      {
+        "id": "RX-METALGREYMON",
+        "official_name": "MetalGreymon",
+        "stage": "Ultimate",
+        "attribute": "Vaccine",
+        "element": "Fire",
+        "element_source": "knowledge/evolution_chains.json — linha agumon, jogo cyber_sleuth (ja pesquisado)",
+        "biomes": ["floresta_densa (so como evolucao do jogador, fora do spawn selvagem — ver nota de nivel)"],
+        "pre_evolution": "Greymon (ja no jogo, CREATURE-0007)",
+        "evolutions": [
+          { "to": "WarGreymon (RX-WARGREYMON)", "source": "https://digimon.fandom.com/wiki/Agumon — infobox, e confirmado em evolution_chains.json (Cyber Sleuth: Level 55, ATK 160, DEF 130, HP 1700, ABI 20, CAM 80%)" }
+        ],
+        "role_on_map": "evolucao_apenas — floresta_densa tem levelRange 1-15 (regions.json); nao ha slot de nivel para spawn selvagem Ultimate nesta regiao. Proposta [H]: disponivel so como evolucao do Digimon do jogador, nao como encontro selvagem no piloto.",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-WARGREYMON",
+        "official_name": "WarGreymon",
+        "stage": "Mega",
+        "attribute": "Vaccine",
+        "element": "Fire",
+        "element_source": "knowledge/evolution_chains.json — linha agumon, cyber_sleuth",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "MetalGreymon (RX-METALGREYMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Agumon; [H] candidato a reforco de World Boss futuro, nao chefe de regiao do piloto",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-PUNIMON",
+        "official_name": "Punimon",
+        "stage": "Baby",
+        "attribute": "Free",
+        "attribute_note": "[H] mesma ressalva de Botamon (fonte: None/Data(DW)/Free(dscs))",
+        "element": "pendente",
+        "biomes": ["vila_dos_bebes", "floresta_densa"],
+        "pre_evolution": null,
+        "evolutions": [
+          { "to": "Tsunomon (ja no jogo, CREATURE-0008)", "source": "https://digimon.fandom.com/wiki/Punimon — campo 'to', confirmado em Digimon Adventure ep.45" }
+        ],
+        "role_on_map": "NPC parceiro / filhote selvagem raro (hoje NPC nao-capturavel em vila_dos_bebes)",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-WEREGARURUMON",
+        "official_name": "WereGarurumon",
+        "stage": "Ultimate",
+        "attribute": "Vaccine",
+        "attribute_note": "[E] campo primario do infobox; attribute2=Data tambem listado",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Garurumon (ja no jogo, CREATURE-0010)",
+        "evolutions": [
+          { "to": "MetalGarurumon (RX-METALGARURUMON)", "source": "https://digimon.fandom.com/wiki/WereGarurumon — infobox 'to', Digimon Adventure ep.38" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-METALGARURUMON",
+        "official_name": "MetalGarurumon",
+        "stage": "Mega",
+        "attribute": "Data",
+        "attribute_note": "[E] campo primario; attribute2=Vaccine (Digimon Masters) tambem listado",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "WereGarurumon (RX-WEREGARURUMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Gabumon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-POYOMON",
+        "official_name": "Poyomon",
+        "stage": "Baby",
+        "attribute": "Free",
+        "attribute_note": "[H] mesma ressalva de Botamon",
+        "element": "pendente",
+        "biomes": ["vila_dos_bebes", "floresta_densa"],
+        "pre_evolution": null,
+        "evolutions": [
+          { "to": "Tokomon (ja no jogo, CREATURE-0011)", "source": "https://digimon.fandom.com/wiki/Poyomon — infobox 'to', Digimon Adventure ep.14; tambem confirmado em evolution_chains.json (Next Order: Tokomon evolves_from Poyomon)" }
+        ],
+        "role_on_map": "NPC parceiro / filhote selvagem raro (hoje NPC nao-capturavel)",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-MAGNAANGEMON",
+        "official_name": "MagnaAngemon",
+        "stage": "Ultimate",
+        "attribute": "Vaccine",
+        "element": "Light",
+        "element_source": "knowledge/evolution_chains.json — linha patamon, cyber_sleuth",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Angemon (ja no jogo, CREATURE-0013)",
+        "evolutions": [
+          { "to": "Seraphimon (RX-SERAPHIMON)", "source": "https://digimon.fandom.com/wiki/MagnaAngemon — infobox; confirmado em evolution_chains.json (Cyber Sleuth: Level 55, DEF 130, INT 150, SP 130, ABI 40)" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-SERAPHIMON",
+        "official_name": "Seraphimon",
+        "stage": "Mega",
+        "attribute": "Vaccine",
+        "element": "Light",
+        "element_source": "knowledge/evolution_chains.json — linha patamon, cyber_sleuth (marcado 'Final form' na fonte)",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "MagnaAngemon (RX-MAGNAANGEMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Patamon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-JYARIMON",
+        "official_name": "Jyarimon",
+        "stage": "Baby",
+        "attribute": "Free",
+        "attribute_note": "[H] fonte lista None/Free(vital bracelet); Jyarimon nao existe em Cyber Sleuth (confirmado 'not_in_game' em evolution_chains.json para Gigimon-CS), entao nao ha convencao CS para herdar — Free por consistencia com as outras formas Baby desta entrega.",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "biomes_note": "[H] Jyarimon NAO esta na lista de moradores de vila_dos_bebes (bosses.json) — unico dos 4 'bebes' novos sem NPC pre-existente; a lore oficial descreve Jyarimon como raro ('populacao pequena'), coerente com papel de selvagem raro na floresta em vez de NPC fixo.",
+        "pre_evolution": null,
+        "evolutions": [
+          { "to": "Gigimon (ja no jogo, CREATURE-0002)", "source": "https://digimon.fandom.com/wiki/Jyarimon — infobox 'to'; tambem confirmado em evolution_chains.json (Next Order: Gigimon evolves_from Jyarimon)" }
+        ],
+        "role_on_map": "selvagem raro (filhote)",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-WARGROWLMON",
+        "official_name": "WarGrowlmon",
+        "stage": "Ultimate",
+        "attribute": "Virus",
+        "element": "Fire",
+        "element_source": "knowledge/evolution_chains.json — linha guilmon, cyber_sleuth",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Growlmon (ja no jogo, CREATURE-0004)",
+        "evolutions": [
+          { "to": "Gallantmon (RX-GALLANTMON)", "source": "https://digimon.fandom.com/wiki/WarGrowlmon — infobox; confirmado em evolution_chains.json (Cyber Sleuth: Level 60, ATK 140, DEF 140, INT 140, ABI 80, CAM 50%)" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-GALLANTMON",
+        "official_name": "Gallantmon",
+        "stage": "Mega",
+        "attribute": "Virus",
+        "element": "Light",
+        "element_source": "knowledge/evolution_chains.json — linha guilmon, cyber_sleuth",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "WarGrowlmon (RX-WARGROWLMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Guilmon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-DORUGORAMON",
+        "official_name": "Dorugoramon",
+        "stage": "Mega",
+        "attribute": "Data",
+        "element": "Dark",
+        "element_source": "knowledge/evolution_chains.json — linha dorumon, cyber_sleuth (marcado 'Final form' na fonte)",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "DoruGreymon (ja no jogo, CREATURE-0103)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — unica adicao da linha Dorumon (Baby/In-Training/Rookie/Champion/Ultimate ja existem no jogo; faltava so o Mega)",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-YURAMON",
+        "official_name": "Yuramon",
+        "stage": "Baby",
+        "attribute": "Free",
+        "attribute_note": "[H] fonte lista None/Data(DW)/Free(Ver.20th); Free por convencao",
+        "element": "pendente",
+        "biomes": ["vila_dos_bebes", "floresta_densa"],
+        "pre_evolution": null,
+        "evolutions": [
+          { "to": "Yokomon (RX-YOKOMON)", "source": "https://digimon.fandom.com/wiki/Yuramon — infobox 'to', Digimon Adventure ep.45", "alternate": true },
+          { "to": "Tanemon (ja no jogo, CREATURE-0116)", "source": "https://digimon.fandom.com/wiki/Yuramon — infobox 'to'; confirmado tambem na pagina de Tanemon ('from=Yuramon')", "alternate": true, "note": "[E] Yuramon e baby COMPARTILHADO oficial entre as linhas Biyomon e Palmon/Lalamon/Floramon — explica por que Tanemon, Floramon e Lalamon ja convivem no roster atual sem conflito de lore." }
+        ],
+        "role_on_map": "NPC parceiro / filhote selvagem raro (hoje NPC nao-capturavel)",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-YOKOMON",
+        "official_name": "Yokomon",
+        "stage": "In-Training",
+        "attribute": "Data",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "pre_evolution": "Yuramon (RX-YURAMON)",
+        "evolutions": [
+          { "to": "Biyomon (ja no jogo, CREATURE-0104)", "source": "https://digimon.fandom.com/wiki/Yokomon — infobox 'to', Digimon Adventure ep.01" }
+        ],
+        "role_on_map": "selvagem comum",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-BIRDRAMON",
+        "official_name": "Birdramon",
+        "stage": "Champion",
+        "attribute": "Vaccine",
+        "attribute_note": "[E] primario; attribute2=Data tambem listado",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "biomes_note": "[H] proposto como selvagem raro de nivel alto na floresta (10-15), seguindo o precedente de Dorugamon/Numemon (levelRange 8-10) ja existentes na mesma regiao.",
+        "pre_evolution": "Biyomon (ja no jogo, CREATURE-0104)",
+        "evolutions": [
+          { "to": "Garudamon (RX-GARUDAMON)", "source": "https://digimon.fandom.com/wiki/Birdramon — infobox 'to', Digimon Adventure ep.26" }
+        ],
+        "role_on_map": "selvagem raro",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-GARUDAMON",
+        "official_name": "Garudamon",
+        "stage": "Ultimate",
+        "attribute": "pendente",
+        "attribute_note": "[H] campo attribute nao apareceu no trecho capturado do infobox desta pagina nesta sessao — nao inventado, registrado como pendente em vez de assumir um valor.",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Birdramon (RX-BIRDRAMON)",
+        "evolutions": [
+          { "to": "Phoenixmon (RX-PHOENIXMON)", "source": "https://digimon.fandom.com/wiki/Garudamon — infobox 'to', Digimon Adventure tri. ep.04 ('Loss')" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-PHOENIXMON",
+        "official_name": "Phoenixmon",
+        "stage": "Mega",
+        "attribute": "Vaccine",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Garudamon (RX-GARUDAMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Biyomon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-TOGEMON",
+        "official_name": "Togemon",
+        "stage": "Champion",
+        "attribute": "Data",
+        "attribute_note": "[E] primario; attribute2=Virus tambem listado",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "biomes_note": "[H] mesmo precedente de levelRange alto (10-15) usado para Birdramon",
+        "pre_evolution": "Palmon (ja no jogo, CREATURE-0107)",
+        "evolutions": [
+          { "to": "Lillymon (RX-LILLYMON)", "source": "https://digimon.fandom.com/wiki/Togemon — infobox 'to', Digimon Adventure ep.35" }
+        ],
+        "role_on_map": "selvagem raro",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-LILLYMON",
+        "official_name": "Lillymon",
+        "stage": "Ultimate",
+        "attribute": "Data",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Togemon (RX-TOGEMON)",
+        "evolutions": [
+          { "to": "Rosemon (RX-ROSEMON)", "source": "https://digimon.fandom.com/wiki/Lillymon — infobox 'to', Digimon Adventure tri. ep.02 ('Determination')" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-ROSEMON",
+        "official_name": "Rosemon",
+        "stage": "Mega",
+        "attribute": "Data",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Lillymon (RX-LILLYMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Palmon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-MOTIMON",
+        "official_name": "Motimon",
+        "stage": "In-Training",
+        "attribute": "Data",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "pre_evolution": "Pabumon (nao incluido nesta onda — baby sem NPC pre-existente; fica como pendencia de pesquisa futura)",
+        "evolutions": [
+          { "to": "Tentomon (ja no jogo, CREATURE-0106)", "source": "https://digimon.fandom.com/wiki/Motimon — infobox 'to', Digimon Adventure ep.01" },
+          { "to": "Gotsumon (ja no jogo, CREATURE-0109)", "source": "https://digimon.fandom.com/wiki/Motimon — infobox 'to' (fonte de card, Digimon Card Game BT23-003)", "alternate": true, "note": "[E] ramo oficial alternativo — explica uma segunda evolucao possivel para o mesmo baby, aproveitando o Gotsumon que ja esta no roster como Rookie isolado." }
+        ],
+        "role_on_map": "selvagem comum",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-KABUTERIMON",
+        "official_name": "Kabuterimon",
+        "stage": "Champion",
+        "attribute": "Vaccine",
+        "element": "pendente",
+        "biomes": ["floresta_densa"],
+        "biomes_note": "[H] mesmo precedente de levelRange alto (10-15)",
+        "pre_evolution": "Tentomon (ja no jogo, CREATURE-0106)",
+        "evolutions": [
+          { "to": "MegaKabuterimon (RX-MEGAKABUTERIMON)", "source": "https://digimon.fandom.com/wiki/Kabuterimon — infobox 'to' (variante Red), Digimon Adventure ep.24" }
+        ],
+        "role_on_map": "selvagem raro",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-MEGAKABUTERIMON",
+        "official_name": "MegaKabuterimon (Red)",
+        "stage": "Ultimate",
+        "attribute": "Vaccine",
+        "stage_note": "[E] campo 'level' oficial da pagina e literalmente 'Ultimate' (o nome 'Mega' no apelido e so o nome proprio do Digimon, nao o estagio)",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "Kabuterimon (RX-KABUTERIMON)",
+        "evolutions": [
+          { "to": "HerculesKabuterimon (RX-HERCULESKABUTERIMON)", "source": "https://digimon.fandom.com/wiki/MegaKabuterimon_(Red) — infobox 'to'" }
+        ],
+        "role_on_map": "evolucao_apenas",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      },
+      {
+        "id": "RX-HERCULESKABUTERIMON",
+        "official_name": "HerculesKabuterimon",
+        "stage": "Mega",
+        "attribute": "Vaccine",
+        "attribute_note": "[E] primario; attribute2=Data tambem listado",
+        "element": "pendente",
+        "biomes": ["evolucao_apenas"],
+        "pre_evolution": "MegaKabuterimon (RX-MEGAKABUTERIMON)",
+        "evolutions": [],
+        "role_on_map": "evolucao_apenas — forma final da linha Tentomon",
+        "sprite": { "exists_in_repo": false, "fan_source_available": false, "needs_generation": true }
+      }
+    ]
+  },
+  "wave2_village_beach": {
+    "biomes": ["vila_dos_bebes", "praia_dos_postes"],
+    "status": "[H] NAO PESQUISADO AINDA — lista de alvos prioritarios, sem evolucoes inventadas.",
+    "priority_targets": [
+      { "existing_rookie": "Gomamon (CREATURE-0105)", "gap": "sem Champion/Ultimate/Mega pesquisado nesta sessao", "note": "[H] conhecimento geral da franquia sugere Ikkakumon como Champion, mas NAO foi verificado com fonte nesta sessao — nao incluido no roster_expansion ate confirmacao" },
+      { "existing_rookie": "Betamon (CREATURE-0108)", "gap": "mesma situacao — Champion nao pesquisado/confirmado nesta sessao" },
+      { "existing_rookie": "Penguinmon (CREATURE-0118)", "gap": "Champion nao pesquisado" },
+      { "existing_rookie": "Crabmon (CREATURE-0113)", "gap": "Champion nao pesquisado" },
+      { "existing_rookie": "Otamamon (CREATURE-0114)", "gap": "Champion nao pesquisado" },
+      { "baby_candidates": ["Punimon", "Botamon", "Poyomon", "Yuramon ja cobertos na Onda 1 — formalizar como NPCs capturaveis em vila_dos_bebes, nao so decorativos"] }
+    ],
+    "recommendation": "[H] Pesquisar essas 5 linhas (mesma tecnica de API MediaWiki) antes de escrever a Onda 2 completa; nao preencher com evolucao adivinhada."
+  },
+  "wave3_cave_desert_mountain": {
+    "biomes": ["montanha", "deserto", "zona_corrompida"],
+    "status": "[H] NAO PESQUISADO AINDA — lista de alvos prioritarios.",
+    "priority_targets": [
+      { "existing_rookie": "Goburimon (CREATURE-0115)", "gap": "sem evolucao pesquisada; bioma atual floresta_densa, mas tematicamente cabe em montanha/deserto" },
+      { "existing_rookie": "Hagurumon (CREATURE-0112)", "gap": "sem evolucao pesquisada; ja presente em floresta_densa e deserto" },
+      { "existing_rookie_champion": "Numemon (CREATURE-0110)", "gap": "sem Ultimate/Mega pesquisado (Numemon tem lore de 'evolucao degenerada' na franquia — ver EVOLUTION_PROPOSAL.md §6, que ja recomenda NAO implementar essa mecanica)" },
+      { "biome_gap": "nenhuma especie unica para montanha/deserto/zona_corrompida alem de reuso dos Champions da floresta — avaliar se o fundador quer linhas novas aqui ou se o reuso e intencional (idle MMO pode preferir reaproveitar linhas conhecidas em vez de multiplicar conteudo)" },
+      { "world_boss_gap": "VenomMyotismon (BOSS-VENOMMYOTISMON) nao tem Myotismon nem nenhuma linha nossa levando a ele — avaliar se cabe numa Onda 4 dedicada a chefes" }
+    ],
+    "recommendation": "[H] Cavernas nao existem ainda como bioma proprio em content/regions.json (o pedido do fundador citava 'vila, caverna, deserto e montanha' — caverna pode ser um bioma novo a criar, nao uma regiao existente a expandir); confirmar com game-design antes de propor especies para um bioma que ainda nao existe no jogo."
+  }
+}

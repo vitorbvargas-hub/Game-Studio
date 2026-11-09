@@ -1,0 +1,323 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gamestudio.local/gs-003/map-factory/map-brief.schema.json",
+  "title": "GS-003 Map Factory — Map Brief",
+  "description": "Planta lógica de um mapa (Etapa 1 do pipeline Map Factory, ADR-011). Ver MAP_BRIEF_SCHEMA.md para a explicação de cada campo.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "biome", "dimensions", "zones", "routes", "spawns", "exits", "designGates"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "description": "Id do mapa, estilo kebab-case (ex.: 'digimon-forest-01'). Vira o id do mapa em src/world/regions.ts na integração."
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "biome": {
+      "type": "string",
+      "enum": ["forest", "village", "cave", "desert", "mountain", "beach", "other"]
+    },
+    "regionRef": {
+      "type": ["string", "null"],
+      "description": "Id em src/data/content/regions.json (ex.: 'floresta_densa'), quando o mapa pertence a uma região do GDD já catalogada. null para mapas sem região definida ainda (ex.: um modelo genérico)."
+    },
+    "levelRange": {
+      "type": ["array", "null"],
+      "items": { "type": "integer", "minimum": 1 },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "[min, max] de nível do Tamer/Digimon recomendado para este mapa."
+    },
+    "safeZone": { "type": "boolean", "default": false },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tileSizePx", "widthTiles", "heightTiles"],
+      "properties": {
+        "tileSizePx": { "const": 32, "description": "Fixo em 32px, ART_STYLE_GUIDE.md §2." },
+        "widthTiles": { "type": "integer", "minimum": 8 },
+        "heightTiles": { "type": "integer", "minimum": 8 }
+      }
+    },
+    "zones": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/zone" }
+    },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/route" }
+    },
+    "pois": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/poi" }
+    },
+    "spawns": {
+      "type": "array",
+      "description": "Pode ser vazio em zonas seguras (safeZone:true), ex.: um template de vila sem selvagens.",
+      "items": { "$ref": "#/$defs/spawn" }
+    },
+    "npcs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/npc" }
+    },
+    "interactables": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interactable" }
+    },
+    "bossArena": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/bossArena" }]
+    },
+    "exits": {
+      "type": "array",
+      "description": "Normalmente >=1 num mapa jogável; um template genérico ainda sem ligação definida pode deixar vazio.",
+      "items": { "$ref": "#/$defs/exit" }
+    },
+    "vegetationDensityRules": { "$ref": "#/$defs/vegetationDensityRules" },
+    "designGates": { "$ref": "#/$defs/designGates" },
+    "evidenceNotes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Lista livre de notas [E]/[H] sobre a origem de dados usados no brief (espécies, chefe, NPCs)."
+    }
+  },
+  "$defs": {
+    "tileCoord": {
+      "type": "array",
+      "items": { "type": "number", "minimum": 0 },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "[x, y] em tiles, ponto flutuante permitido para posições finas dentro de um tile."
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 0 },
+        "y": { "type": "integer", "minimum": 0 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "polygon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["points"],
+      "properties": {
+        "points": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/tileCoord" }
+        }
+      }
+    },
+    "zone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "type", "shape"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "spawn_area", "clearing", "concentration", "secret", "boss_arena",
+            "water", "rock_field", "village_hub", "dense_border", "cave_floor",
+            "dune", "cliff", "other"
+          ]
+        },
+        "shape": { "type": "string", "enum": ["rect", "polygon"] },
+        "rect": { "$ref": "#/$defs/rect" },
+        "polygon": { "$ref": "#/$defs/polygon" },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "shape": { "const": "rect" } } },
+          "then": { "required": ["rect"] }
+        },
+        {
+          "if": { "properties": { "shape": { "const": "polygon" } } },
+          "then": { "required": ["polygon"] }
+        }
+      ]
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "name", "waypoints", "widthTiles"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["main", "secondary"] },
+        "name": { "type": "string" },
+        "waypoints": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/tileCoord" }
+        },
+        "widthTiles": { "type": "number", "minimum": 1, "maximum": 6 },
+        "connectsZones": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ids de zones que esta rota liga, na ordem percorrida."
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "poi": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "type", "position"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["viewpoint", "crossing", "secret_entrance", "arena_entrance", "landmark", "other"] },
+        "position": { "$ref": "#/$defs/tileCoord" },
+        "zoneRef": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "spawn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "speciesId", "levelRange", "zoneRef", "radiusTiles", "count", "density", "evidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "speciesId": {
+          "type": "string",
+          "description": "Id exato em world-species.json ou knowledge/ (ex.: 'CREATURE-0002'). Nunca inventado."
+        },
+        "speciesName": { "type": "string" },
+        "levelRange": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "zoneRef": { "type": "string" },
+        "radiusTiles": { "type": "number", "minimum": 1 },
+        "count": { "type": "integer", "minimum": 1 },
+        "density": { "type": "string", "enum": ["low", "medium", "high"] },
+        "evidence": { "type": "string", "enum": ["E", "H"] },
+        "evidenceSource": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "npc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "kind", "aggressive", "role", "position"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "kind": { "type": "string", "enum": ["digimon_resident", "tamer"] },
+        "speciesId": {
+          "type": "string",
+          "description": "Quando o NPC tem uma espécie jogável associada, deve existir em world-species.json. Omitir quando o NPC só existe como entrada de bosses.json/regions.json (ver catalogRef)."
+        },
+        "catalogRef": {
+          "type": "string",
+          "description": "Id já catalogado em src/data/content/bosses.json ou regions.json (ex.: 'NPC-ELECMON'), quando o NPC reusa um residente que o jogo já define, em vez de uma espécie nova de world-species.json."
+        },
+        "aggressive": { "type": "boolean" },
+        "role": { "type": "string" },
+        "position": { "$ref": "#/$defs/tileCoord" },
+        "zoneRef": { "type": "string" },
+        "dialogue": { "type": "string" },
+        "behavior": { "type": "string", "enum": ["static", "patrol"] },
+        "pathWaypoints": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/tileCoord" }
+        },
+        "evidence": { "type": "string", "enum": ["E", "H"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "interactable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "position", "description"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["chest", "sign", "heal_point", "other"] },
+        "position": { "$ref": "#/$defs/tileCoord" },
+        "zoneRef": { "type": "string" },
+        "description": { "type": "string" },
+        "effect": { "type": "string" }
+      }
+    },
+    "bossArena": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "bossId", "zoneRef", "position", "radiusTiles"],
+      "properties": {
+        "id": { "type": "string" },
+        "bossId": {
+          "type": "string",
+          "description": "Id exato em src/data/content/bosses.json (ex.: 'BOSS-KUWAGAMON')."
+        },
+        "zoneRef": { "type": "string" },
+        "position": { "$ref": "#/$defs/tileCoord" },
+        "radiusTiles": { "type": "number", "minimum": 2 },
+        "arenaType": { "type": "string" },
+        "triggerType": { "type": "string", "enum": ["approach", "interact", "scripted"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "exit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "edge", "rect", "to", "toStart", "integrated"],
+      "properties": {
+        "id": { "type": "string" },
+        "edge": { "type": "string", "enum": ["n", "e", "s", "w"] },
+        "rect": { "$ref": "#/$defs/rect" },
+        "to": {
+          "type": "string",
+          "description": "Id do mapa destino: um id já em src/world/regions.ts (MAPS) ou o id de outro brief desta pasta."
+        },
+        "toStart": {
+          "type": "string",
+          "description": "Tag de chegada no mapa destino, convenção 'from_<idDoMapaOrigem>' (ver forest-proof/praia/vila.tmj.json)."
+        },
+        "integrated": {
+          "type": "boolean",
+          "description": "false quando o portal de volta ainda não existe no mapa destino real (pendência registrada nas limitações)."
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "vegetationDensityRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default", "byZoneType"],
+      "properties": {
+        "default": { "type": "string", "enum": ["low", "medium", "high"] },
+        "byZoneType": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "enum": ["low", "medium", "high"] }
+        },
+        "byZoneRef": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "enum": ["low", "medium", "high"] }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "designGates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spawnToBossMainRoute", "altRouteToBossExists", "allPoisReachableByDesign", "verifiedBy"],
+      "properties": {
+        "spawnToBossMainRoute": { "type": "boolean" },
+        "altRouteToBossExists": { "type": "boolean" },
+        "allPoisReachableByDesign": { "type": "boolean" },
+        "verifiedBy": { "type": "string", "enum": ["self", "game-qa"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}
