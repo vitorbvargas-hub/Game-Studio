@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -138,6 +138,7 @@ async function main() {
     if (process.env.ONLY === "maps") return await maps(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
+    if (process.env.ONLY === "arena") return await arena(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -552,3 +553,92 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
+/**
+ * Arena PvP local (GS-006): entrada pelo atalho do troféu → seleção (Automático, Digimon do save) → batalha 3v3 →
+ * Manual 1v1 (WASD/mouse simulados por eventos reais no canvas: anda até o fantasma, mira nele e usa LMB/RMB/Espaço/
+ * Q/E) → resultado. ARENA_ROUND=SEG encurta a rodada manual (padrão 30 s nas capturas; o jogo usa 90 s).
+ */
+async function arena(cdp) {
+  const round = Number(process.env.ARENA_ROUND ?? 30);
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&criador=0&novo=1&time=day&arenaSeed=${SEED}&arenaRound=${round}${QUERY}` });
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(2500);
+  await cdp.eval(`document.querySelector('.hud-menu [data-short="arena"]').click()`);
+  await sleep(600);
+  await cdp.shot("arena_entrada.png");
+  await cdp.eval(`document.querySelector('[data-mode="auto"]').click()`);
+  await sleep(700);
+  await cdp.eval(`(() => { const r = document.querySelector('[data-ghost="bot:bot2"]'); r.checked = true; r.dispatchEvent(new Event("change", { bubbles: true })); })()`);
+  await sleep(500);
+  await cdp.shot("arena_selecao.png");
+  console.log("seleção:", await cdp.eval(`[...document.querySelectorAll(".ar-slots li b")].map((b) => b.textContent).join(" | ") + " · " + document.querySelector("[data-testid=power]").textContent.replace(/\s+/g, " ")`));
+  await cdp.eval(`document.querySelector('[data-fight]').click()`);
+  await cdp.waitFor(`window.__gs003.arena.state.screen === "battle"`, 10000, "a batalha automática");
+  await sleep(4500);
+  await cdp.waitFor(`(() => { const p = window.__gs003.arena.state.presenter; const now = performance.now(); return p && p.casts.some((c) => now >= c.launchAt && now < c.hitAt + 80); })()`, 15000, "um golpe no ar");
+  await cdp.shot("arena_auto.png");
+  await cdp.eval(`document.querySelector('[data-speed="4"]').click()`);
+  await cdp.waitFor(`window.__gs003.arena.state.screen === "result"`, 120000, "o fim do 3v3");
+  await sleep(500);
+  await cdp.shot("arena_resultado_auto.png");
+  console.log("3v3:", await cdp.eval(`JSON.stringify(window.__gs003.arena.state.auto.result) + " · " + document.querySelector("[data-testid=result-title]").textContent`));
+  await cdp.eval(`document.querySelector('[data-menu]').click()`);
+  await sleep(400);
+  await cdp.eval(`document.querySelector('[data-mode="manual"]').click()`);
+  await sleep(500);
+  await cdp.eval(`document.querySelector('[data-fight]').click()`);
+  await cdp.waitFor(`window.__gs003.arena.state.screen === "pick"`, 5000, "a escolha da rodada");
+  await sleep(300);
+  await cdp.shot("arena_manual_rodada.png");
+  // jogador simulado por eventos reais: WASD (keydown/keyup no window) e mouse (pointermove/pointerdown no canvas)
+  const drive = `(() => {
+    const g = window.__gs003, st = g.arena.state, r = st.match && st.match.current;
+    if (!r || r.result || st.screen !== "battle") return false;
+    const [me, foe] = r.ents, v = st.view, cv = document.querySelector(".ar-canvas");
+    const s = parseFloat(cv.style.width) / cv.width;
+    const fx = (foe.x * 2 - v.camera.x) * s, fy = (foe.y * 2 - v.camera.y) * s;
+    const d = Math.hypot(foe.x - me.x, foe.y - me.y);
+    const key = (k, t) => window.dispatchEvent(new KeyboardEvent(t, { key: k }));
+    for (const k of "wasd") key(k, "keyup");
+    if (d > 26) { if (foe.x > me.x + 4) key("d", "keydown"); if (foe.x < me.x - 4) key("a", "keydown"); if (foe.y > me.y + 4) key("s", "keydown"); if (foe.y < me.y - 4) key("w", "keydown"); }
+    cv.dispatchEvent(new PointerEvent("pointermove", { clientX: fx, clientY: fy, bubbles: true }));
+    const t = Math.floor(performance.now() / 300) % 5;
+    if (t === 0) { cv.dispatchEvent(new PointerEvent("pointerdown", { clientX: fx, clientY: fy, button: 0, bubbles: true })); window.dispatchEvent(new PointerEvent("pointerup", { button: 0 })); }
+    else if (t === 1) { cv.dispatchEvent(new PointerEvent("pointerdown", { clientX: fx, clientY: fy, button: 2, bubbles: true })); window.dispatchEvent(new PointerEvent("pointerup", { button: 2 })); }
+    else if (me.moves[t - 1]) { const k = [" ", "q", "e"][t - 2]; key(k, "keydown"); key(k, "keyup"); }
+    return true;
+  })()`;
+  let shotManual = false;
+  for (let roundN = 1; roundN <= 3; roundN++) {
+    const screen = await cdp.eval(`window.__gs003.arena.state.screen`);
+    if (screen === "result") break;
+    await cdp.waitFor(`window.__gs003.arena.state.screen === "pick"`, 15000, "a escolha da rodada");
+    await cdp.eval(`document.querySelector('[data-round-pick]:not([disabled])').click()`);
+    await cdp.waitFor(`window.__gs003.arena.state.screen === "battle"`, 10000, "a rodada começar");
+    const t0 = Date.now();
+    while (Date.now() - t0 < (round + 5) * 1000) {
+      const on = await cdp.eval(drive);
+      if (!on) break;
+      if (!shotManual && Date.now() - t0 > 1500) {
+        const flying = await cdp.eval(`(() => { const p = window.__gs003.arena.state.presenter; const now = performance.now(); return p.casts.some((c) => c.mine && now >= c.launchAt && now < c.hitAt); })()`);
+        if (flying || Date.now() - t0 > 4000) {
+          await cdp.shot("arena_manual.png");
+          shotManual = true;
+        }
+      }
+      await sleep(120);
+    }
+    await cdp.eval(`(() => { for (const k of "wasd") window.dispatchEvent(new KeyboardEvent("keyup", { key: k })); })()`);
+    console.log(`rodada ${roundN}:`, await cdp.eval(`(() => { const m = window.__gs003.arena.state.match; const r = m.rounds[m.rounds.length - 1]; return r ? JSON.stringify({ placar: m.score, vencedor: r.result.winner, como: r.result.reason, pv: r.result.hpPct.map((x) => Math.round(x * 100)) }) : "?"; })()`));
+    await sleep(2200);
+  }
+  await cdp.waitFor(`window.__gs003.arena.state.screen === "result"`, 20000, "o resultado do manual");
+  await sleep(500);
+  await cdp.shot("arena_resultado.png");
+  console.log("manual:", await cdp.eval(`document.querySelector("[data-testid=result-title]").textContent + " " + (document.querySelector("[data-testid=final-score]")?.textContent ?? "") + " · dano " + document.querySelector("[data-testid=dmg-a]").textContent + "×" + document.querySelector("[data-testid=dmg-b]").textContent + " · acertos " + document.querySelector("[data-testid=hits-a]").textContent + "×" + document.querySelector("[data-testid=hits-b]").textContent`));
+  await cdp.eval(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`);
+  await sleep(400);
+  await cdp.shot("arena_historico.png");
+  console.log("save:", await cdp.eval(`(() => { const d = JSON.parse(localStorage.getItem("gs003.world.save")).data; return JSON.stringify({ v: JSON.parse(localStorage.getItem("gs003.world.save")).v, rating: d.arena.rating, partidas: d.arena.history.map((h) => h.mode + ":" + h.result + (h.score ? " " + h.score : "")), box: d.box.length }); })()`));
+}

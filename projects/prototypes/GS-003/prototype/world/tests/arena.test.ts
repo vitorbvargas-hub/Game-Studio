@@ -1,9 +1,21 @@
-// Arena PvP local (GS-006, Fase 3): determinismo do automático, a animação não decide, posse (só Digimon do save),
-// timer pela %HP, fantasmas, poder, histórico e save v8.
+// Arena PvP local (GS-006): determinismo do automático, a animação não decide, posse (só Digimon do save), melhor de
+// 3 termina em 2 vitórias, timer decide pela %HP, cooldowns/MP do manual, fantasmas, poder, histórico e save v8.
 
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { createAutoArena, runAutoArena, stepAutoArena, type ArenaTeam, type Fighter } from "../src/sim/arena";
+import {
+  aimTargets,
+  availablePicks,
+  createAutoArena,
+  createManualMatch,
+  runAutoArena,
+  startRound,
+  stepAutoArena,
+  stepRound,
+  type ArenaTeam,
+  type Fighter,
+  type ManualMatch,
+} from "../src/sim/arena";
 import { defaultAutoRules, initialLoadout } from "../src/sim/moves";
 import { loadWorldContent } from "../src/sim/species";
 import { Presenter } from "../src/render/presenter";
@@ -125,6 +137,121 @@ describe("Arena automática 3v3", () => {
     const lvl = createAutoArena(content, 1, { name: "a", fighters: [fighter("CREATURE-0006", 20)] }, { name: "b", fighters: [fighter("CREATURE-0009", 4)] }, { normalize: true }).arena;
     expect(lvl.level).toBe(12);
     expect(lvl.roster.flat().map((e) => e.level)).toEqual([12, 12]);
+  });
+});
+
+/** Jogador "bot de teste": anda até o fantasma e aperta LMB (básico) mirando nele. */
+const chaser = (m: ManualMatch) => {
+  const [me, foe] = m.current!.ents;
+  const d = Math.hypot(foe.x - me.x, foe.y - me.y);
+  return { dx: d > 24 ? Math.sign(foe.x - me.x) : 0, dy: d > 24 ? Math.sign(foe.y - me.y) : 0, aim: { x: foe.x, y: foe.y }, press: 0 };
+};
+
+function playRound(m: ManualMatch, pick: number, input: (m: ManualMatch) => Parameters<typeof stepRound>[1] = chaser) {
+  startRound(m, pick);
+  for (let i = 0; i < 5000 && !m.current!.result; i++) stepRound(m, input(m));
+  return m.current!.result!;
+}
+
+describe("Arena manual 1v1 melhor de 3", () => {
+  it("a melhor de 3 termina exatamente em 2 vitórias (2-1), um Digimon por rodada", () => {
+    const strong = fighter("CREATURE-0007", 25, "a:0");
+    const weak = fighter("CREATURE-0005", 1, "a:1");
+    const m = createManualMatch(content, 4, { name: "eu", fighters: [strong, weak, { ...strong, ref: "a:2" }] }, { name: "fantasma", fighters: [fighter("CREATURE-0006", 8), fighter("CREATURE-0009", 8), fighter("CREATURE-0012", 8)] });
+    expect(playRound(m, 0).winner).toBe(0);
+    expect(availablePicks(m, 0)).toEqual([1, 2]);
+    expect(playRound(m, 1).winner).toBe(1);
+    expect(m.over).toBeUndefined();
+    expect(playRound(m, 2).winner).toBe(0);
+    expect(m.score).toEqual([2, 1]);
+    expect(m.over).toEqual({ winner: 0 });
+    expect(m.rounds.map((r) => r.pick[1])).toEqual([0, 1, 2]);
+    expect(() => startRound(m, 0)).toThrow();
+    expect(stepRound(m, chaser(m))).toEqual([]);
+  });
+
+  it("2-0 encerra sem terceira rodada; cada rodada começa com HP cheio", () => {
+    const m = createManualMatch(content, 8, { name: "eu", fighters: [fighter("CREATURE-0005", 1), fighter("CREATURE-0008", 1), fighter("CREATURE-0011", 1)] }, { name: "f", fighters: [fighter("CREATURE-0007", 25), fighter("CREATURE-0010", 25)] });
+    playRound(m, 0, () => ({ dx: 0, dy: 0 }));
+    startRound(m, 1);
+    const [me] = m.current!.ents;
+    expect(me.hp).toBe(me.maxHp);
+    for (let i = 0; i < 5000 && !m.current!.result; i++) stepRound(m, { dx: 0, dy: 0 });
+    expect(m.score).toEqual([0, 2]);
+    expect(m.over).toEqual({ winner: 1 });
+    expect(m.rounds.length).toBe(2);
+  });
+
+  it("o timer encerra a rodada pelo critério de %HP (maior vence; igual empata e não pontua)", () => {
+    const t: ArenaTeam = { name: "a", fighters: [fighter("CREATURE-0006", 10), fighter("CREATURE-0006", 10), fighter("CREATURE-0006", 10)] };
+    const m = createManualMatch(content, 2, t, { ...t, name: "b" }, { limitTicks: 3 });
+    // longe um do outro (ninguém alcança ninguém em 3 ticks); o fantasma começa ferido
+    startRound(m, 0);
+    m.current!.ents[1].hp = Math.round(m.current!.ents[1].maxHp * 0.4);
+    for (let i = 0; i < 3; i++) stepRound(m, { dx: -1, dy: 0 });
+    expect(m.current!.result).toMatchObject({ winner: 0, reason: "timeout" });
+    expect(m.score).toEqual([1, 0]);
+    startRound(m, 1);
+    m.current!.ents[0].hp = Math.round(m.current!.ents[0].maxHp * 0.5);
+    for (let i = 0; i < 3; i++) stepRound(m, { dx: -1, dy: 0 });
+    expect(m.current!.result).toMatchObject({ winner: 1, reason: "timeout" });
+    expect(m.score).toEqual([1, 1]);
+    startRound(m, 2);
+    for (let i = 0; i < 3; i++) stepRound(m, { dx: -1, dy: 0 });
+    expect(m.current!.result).toMatchObject({ winner: null, reason: "timeout" });
+    expect(m.score).toEqual([1, 1]);
+    expect(m.over).toBeUndefined();
+  });
+
+  it("cooldowns do manual: recarga geral, recarga do golpe e MP valem como no campo; liberou, sai", () => {
+    const f = fighter("CREATURE-0006", 12);
+    const slot = f.moves.findIndex((id) => id && content.moves.moves[id].cooldownTicks > 0 && content.moves.moves[id].cost > 0 && content.moves.moves[id].type !== "heal" && content.moves.moves[id].type !== "buff");
+    expect(slot).toBeGreaterThanOrEqual(0);
+    const mv = content.moves.moves[f.moves[slot]!];
+    const m = createManualMatch(content, 1, { name: "a", fighters: [f] }, { name: "b", fighters: [fighter("CREATURE-0009", 12)] });
+    startRound(m, 0);
+    const [me, foe] = m.current!.ents;
+    // o fantasma não atrapalha: fica parado longe (velocidade 0) e com a recarga geral travada
+    foe.speed = 0;
+    foe.attackCd = 1e9;
+    const press = (p: number) => stepRound(m, { dx: 0, dy: 0, aim: { x: foe.x, y: foe.y }, press: p });
+    const used = (evs: ReturnType<typeof press>) => evs.find((e) => e.t === "attack_start");
+    const rejected = (evs: ReturnType<typeof press>) => evs.find((e) => e.t === "intent_rejected") as { reason: string } | undefined;
+    const first = press(slot + 1);
+    expect(used(first)).toMatchObject({ skillId: mv.id });
+    expect(me.moveCd[mv.id]).toBe(mv.cooldownTicks);
+    // durante o golpe (ATTACK) o input é ignorado; depois dele, a recarga geral ainda segura qualquer botão
+    expect(used(press(slot + 1))).toBeUndefined();
+    while ((me.state as string) === "ATTACK") stepRound(m, { dx: 0, dy: 0 });
+    expect(me.attackCd).toBeGreaterThan(0);
+    expect(rejected(press(0))?.reason).toBe("aguarde a recarga geral");
+    // espera a recarga geral (attackCd) mas não a do golpe: o golpe continua recusado, o básico (LMB) sai
+    while (me.attackCd > 0 || (me.state as string) === "ATTACK") stepRound(m, { dx: 0, dy: 0 });
+    expect(me.moveCd[mv.id] ?? 0).toBeGreaterThan(0);
+    expect(rejected(press(slot + 1))?.reason).toBe(`${mv.name} em recarga`);
+    expect(used(press(0))).toMatchObject({ skillId: content.moves.basicMoveId });
+    // sem MP
+    while ((me.moveCd[mv.id] ?? 0) > 0 || me.attackCd > 0 || (me.state as string) === "ATTACK") stepRound(m, { dx: 0, dy: 0 });
+    const mp = me.mp;
+    me.mp = mv.cost - 1;
+    expect(rejected(press(slot + 1))?.reason).toBe("MP insuficiente");
+    me.mp = mp;
+    expect(used(press(slot + 1))).toMatchObject({ skillId: mv.id });
+  });
+
+  it("a mira decide a direção: projétil mirado para longe erra, mirado no alvo acerta", () => {
+    const m = createManualMatch(content, 1, { name: "a", fighters: [fighter("CREATURE-0006", 10)] }, { name: "b", fighters: [fighter("CREATURE-0009", 10)] });
+    startRound(m, 0);
+    const [me, foe] = m.current!.ents;
+    foe.x = me.x + 40;
+    foe.y = me.y;
+    const proj = Object.values(content.moves.moves).find((x) => x.target === "projectile")!;
+    expect(aimTargets(me, foe, proj, { x: foe.x, y: foe.y }).list).toEqual([foe]);
+    expect(aimTargets(me, foe, proj, { x: me.x - 40, y: me.y }).list).toEqual([]);
+    const basic = content.moves.moves[content.moves.basicMoveId];
+    foe.x = me.x + 20;
+    expect(aimTargets(me, foe, basic, { x: foe.x, y: foe.y }).list).toEqual([foe]);
+    expect(aimTargets(me, foe, basic, { x: me.x, y: me.y + 50 }).list).toEqual([]);
   });
 });
 

@@ -3,6 +3,78 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Arena PvP local — GS-006 Fases 3 e 4 (2026-11-09)
+
+Base: `docs/PVP_ARENA_SPEC.md` (§3–§11), ADR-010 (seção 2026-11-09) e os frames de `evidence/pvp-video-nVY9eDfpWtQ/`. Tudo local: o oponente é um **fantasma** simulado no aparelho, sem rede, conta remota ou ranking.
+
+- **Como abrir:** troféu na grade de atalhos do HUD (e no troféu do canto superior direito) ou o botão **Arena** no Mapa-múndi. Enquanto a Arena está aberta, o mundo fica pausado. `Esc` volta uma tela.
+- **Motor único** (`src/sim/arena.ts`):
+  - Cada partida é um `WorldState` comum num mapa de estádio (`arenaMap()`).
+  - O combate passa pelas mesmas funções do mundo: `fight`/`chooseMove`/`AutoRule` (IA do AUTO), `resolveAttack`/`computeDamage` (dano, atributo, elemento, MP, recargas e crítico), `tickCooldowns`/`timedStates` (FSM) e `useMoveError` + `queuedMove` (o golpe pedido pelo jogador). Essas funções foram só exportadas de `world.ts`.
+  - Mudanças mínimas no `world.ts`: `Entity.team` (com lado, só o lado oposto é hostil); `resolveAttack(…, aimed)` aceita os atingidos pela mira e, sem ninguém na mira, o golpe sai no vazio e paga o custo; e a validação do `use_move` virou `useMoveError` (a mesma no campo e na Arena).
+- **Automático 3v3** (Fase 3):
+  - Um ativo por lado; no KO entra o próximo da formação, com o PV que tinha.
+  - A partida dura até 180 s. No fim do tempo, vence quem tiver a maior %PV total; com %PV igual, dá empate.
+  - HUD com os 3 de cada lado (PV), timer, log, velocidade ×1/×2/×4 e o botão Pular.
+- **Manual 1v1, melhor de 3** (Fase 4, formato do vídeo):
+  - Rodadas de 90 s. Cada uma é um 1v1 novo, com PV cheio, e cada Digimon luta uma rodada.
+  - Você escolhe o seu antes de cada rodada; o fantasma entra na ordem da formação dele.
+  - A partida acaba em 2 vitórias. Rodada empatada (KO duplo ou %PV igual no tempo) não pontua; o limite é de 5 rodadas.
+  - **Controles:** WASD move e o mouse mira. LMB é o golpe básico (Investida); RMB, Espaço, Q e E são os 4 slots equipados.
+  - Valem as travas do campo: recarga geral (`attackCd` pela VEL), recarga do golpe e MP. Segurar o botão repete o golpe quando ele fica pronto.
+  - **A mira decide a direção** (`aimTargets`):
+    - Projétil e linha: segmento na direção do cursor.
+    - Área: círculo no ponto mirado, preso ao alcance.
+    - Único: o alvo no alcance, num cone de 120°.
+    - Golpe mirado para longe erra.
+  - O fantasma usa a IA do AUTO (`fight`).
+  - **HUD:** retrato, nome, elemento e atributo, PV numérico, barras de PV e de MP e efeitos ativos, para os dois lados. No topo ficam o timer, "Rodada N" e os marcadores de rodadas vencidas. Embaixo, os 5 botões têm nome, tecla, custo de MP e a recarga escurecendo o botão.
+- **Seleção de equipe** (`src/save/arena-league.ts`):
+  - Só entram os Digimon do save: parceira (kit e prioridade salvos), equipe e Box (kit pelo learnset no nível, como na aba Golpes). Cada um aparece com nível, estágio, atributo, elemento, PV/ATQ/DEF/VEL/MP e os 4 golpes.
+  - Quem está com 0% de PV no save fica indisponível.
+  - `buildPlayerTeam` recusa Digimon fora do save, repetido ou sem PV. Na hora de lutar (inclusive na revanche), `ownershipError` confere de novo espécie e nível contra o save.
+  - **Automático:** formação ▲▼, o **mesmo editor de prioridade do AUTO** da aba Golpes (`autoRulesEditorHtml` + `editRules`, extraídos de `moves-ui.ts`) e **Salvar composição** (até 12, com nome).
+  - **Manual:** escolha dos 3.
+  - Se o save tem menos de 3 Digimon disponíveis, a partida usa os que houver e a tela avisa.
+- **Oponente fantasma:** um time salvo seu (cópia de quando foi salvo) ou um dos 3 Tamers da floresta (Lumi, RafaDGT e Bia_Tamer).
+  - O time de cada Tamer é a parceira dele na cena mais 2 espécies da floresta [H].
+  - O nível é a média do seu time +0/−1/+1. Em cada linha de evolução, entra a forma de estágio mais próximo do seu estágio médio.
+  - A tela mostra o **poder** dos dois lados [H: PV/2 + 2×ATQ + 1,5×DEF + VEL] e avisa quando um lado tem 25% ou mais de poder que o outro.
+  - **Arena Nivelada:** é um toggle visível e vem **desligado**. Ligado, todos lutam no nível médio dos participantes; os golpes continuam os do save, e a tela avisa "Arena Nivelada ativa".
+- **Histórico e rating local** (save **v8**, separados por modo):
+  - Cada partida guarda resultado, placar, os dois times, o nome do oponente, data, dano/acertos e se foi nivelada (até 50).
+  - O rating é um placeholder local: começa em 1000, vitória +20, derrota −15 e empate 0.
+  - O save v8 também passa a guardar o **Box**, que antes era placeholder da cena. Na migração v7→v8, quem escolheu inicial fica com o Box vazio; quem não escolheu fica com o Box da cena.
+- **Estádio:** o gramado usa a grama do pacote `vila-v5`, com listras de corte. A arquibancada é **placeholder em código** (`src/render/stadium.ts`): degraus, torcida em pontos de cor, faixas vermelho/azul e holofotes. Linhas de cal e emblema central são originais. Os VFX dos golpes são os do mundo (mesmo `Presenter`/`WorldView`); o `WorldView` ganhou só o gancho `underlay`.
+- **Testes:**
+  - `tests/arena.test.ts` (16) cobre:
+    - determinismo do 3v3;
+    - "a animação não decide": o Presenter consumindo os eventos não muda o estado, e a Arena não importa nada de render/ui/assets;
+    - troca no KO sem reset;
+    - KO e timer;
+    - a prioridade muda a luta;
+    - Nivelada;
+    - melhor de 3 em 2-1 e 2-0;
+    - timer por %PV, com empate que não pontua;
+    - cooldowns, recarga geral e MP do manual;
+    - mira;
+    - posse;
+    - fantasmas;
+    - poder e aviso;
+    - histórico, rating e save v8.
+  - `tests/arena-ui.test.ts` (6) cobre as telas.
+- **Capturas** (`ONLY=arena npm run shots:live`, Chromium headless + `CHROME_LIBS`; `ARENA_ROUND=SEG` encurta a rodada, padrão 30 s nas capturas): `docs/screens/arena_entrada.png`, `arena_selecao.png`, `arena_auto.png`, `arena_resultado_auto.png`, `arena_manual_rodada.png`, `arena_manual.png`, `arena_resultado.png` e `arena_historico.png`.
+  - O jogador do manual é simulado por eventos reais de teclado e mouse no canvas: anda até o fantasma, mira nele e aperta os botões.
+  - URL de depuração: `?arenaSeed=N` fixa a semente e `?arenaRound=SEG` muda a duração da rodada.
+- **Limitações:**
+  - Sem servidor, sem anti-trapaça e sem PvP real (Fases 5–6, exigem aprovação).
+  - Os números de balanceamento são [H]: poder, nivelamento, rating, 180/90 s, cone de 120° e times dos bots.
+  - `targetPriority` (§3.2) não foi feito: com um ativo por lado, não há alvo a escolher.
+  - A 2ª barra sem rótulo do vídeo (§4.3, possível "Sincronia") não foi feita.
+  - Os membros da equipe e do Box não têm kit próprio no save (usam o learnset).
+  - O projétil acerta no tick do golpe (o VFX só mostra o voo), como no campo.
+  - A sensação de controle do manual foi checada só por input simulado no Chromium headless, não por playtest humano.
+
 ## Tamers v3 no criador, escolha de evolução e cache do dev (2026-11-09)
 
 Pedido do fundador: o criador ainda mostrava os Tamers modulares v2, que ele reprovou. Um commit por item.

@@ -1,23 +1,29 @@
-// Arena PvP local (GS-006, docs/PVP_ARENA_SPEC.md §3, §6 e §10): partida 3v3 automática (um ativo por lado, o
-// próximo da formação entra no KO, HP não reseta).
+// Arena PvP local (GS-006, docs/PVP_ARENA_SPEC.md §3, §4, §6 e §10): partida 3v3 automática (um ativo por lado, o
+// próximo da formação entra no KO, HP não reseta) e melhor de 3 manual (cada rodada é um 1v1 novo, HP cheio).
 // NÃO tem motor próprio: cada partida é um WorldState comum num mapa de estádio, e o combate passa pelas mesmas
 // funções do mundo — fight/chooseMove (IA do AUTO), resolveAttack/computeDamage (dano, atributo, elemento, MP,
 // recargas), tickCooldowns/timedStates (FSM) e useMoveError/queuedMove (golpe pedido pelo jogador).
 // Puro e determinístico (RNG serializado no estado); não conhece DOM, Canvas nem a apresentação.
 
 import { isSolidAt, type WorldMap } from "./map";
+import { castReach, chooseMove, segmentDistance } from "./moves";
 import { SUB, WORLD } from "./params";
 import { setState } from "./fsm";
 import type { WorldContent } from "./species";
-import type { AutoRule, Entity, Vec, WorldEvent, WorldState } from "./types";
+import type { AutoRule, Entity, MoveDef, Vec, WorldEvent, WorldState } from "./types";
 import {
   alive,
   applyStats,
+  attackRange,
+  dirFromVector,
   fight,
   makeCreature,
+  resolveAttack,
   snapshotOf,
   tickCooldowns,
   timedStates,
+  tryMove,
+  useMoveError,
   type Ctx,
   type WorldSim,
 } from "./world";
@@ -56,11 +62,15 @@ export interface SideStats {
 export interface ArenaOptions {
   /** Arena Nivelada (§7.2): todos lutam no mesmo nível (média dos participantes). Desligada por padrão. */
   normalize?: boolean;
-  /** Duração máxima (ticks). Automático: 180 s. */
+  /** Duração máxima (ticks). Automático: 180 s; rodada manual: 90 s. */
   limitTicks?: number;
 }
 
 export const AUTO_LIMIT_TICKS = 1800;
+export const ROUND_LIMIT_TICKS = 900;
+export const ROUNDS_TO_WIN = 2;
+/** Segurança contra empates em série na melhor de 3 (rodada empatada não pontua). */
+export const MAX_ROUNDS = 5;
 export const TEAM_MAX = 3;
 
 // ---------- estádio ----------
@@ -302,6 +312,200 @@ export function runAutoArena(arena: AutoArena, maxTicks = 100_000): WorldEvent[]
   const all: WorldEvent[] = [];
   for (let i = 0; i < maxTicks && !arena.result; i++) all.push(...stepAutoArena(arena));
   return all;
+}
+
+// ---------- Manual: melhor de 3 ----------
+
+/** Entrada do jogador num tick: direção WASD, ponto da mira (sub-tiles) e botão apertado (0 = básico/LMB, 1–4 = slots). */
+export interface ManualInput {
+  dx: number;
+  dy: number;
+  aim?: Vec;
+  press?: number;
+}
+
+export interface RoundResult {
+  winner: Side | null;
+  reason: "ko" | "timeout";
+  hpPct: [number, number];
+  tick: number;
+}
+
+export interface Round {
+  n: number;
+  sim: WorldSim;
+  /** Índice escolhido no time de cada lado. */
+  pick: [number, number];
+  ents: [Entity, Entity];
+  limitTicks: number;
+  stats: [SideStats, SideStats];
+  result?: RoundResult;
+}
+
+export interface ManualMatch {
+  content: WorldContent;
+  seed: number;
+  teams: [ArenaTeam, ArenaTeam];
+  level?: number;
+  score: [number, number];
+  rounds: Round[];
+  current?: Round;
+  /** Fim da partida: vencedor (null = empate depois do limite de rodadas). */
+  over?: { winner: Side | null };
+  stats: [SideStats, SideStats];
+  limitTicks: number;
+}
+
+export function createManualMatch(content: WorldContent, seed: number, a: ArenaTeam, b: ArenaTeam, opts: ArenaOptions = {}): ManualMatch {
+  for (const t of [a, b]) {
+    const err = teamError(content, t);
+    if (err) throw new Error(`time ${t.name}: ${err}`);
+  }
+  return { content, seed, teams: [a, b], level: opts.normalize ? normalizedLevel([a, b]) : undefined, score: [0, 0], rounds: [], stats: emptyStats(), limitTicks: opts.limitTicks ?? ROUND_LIMIT_TICKS };
+}
+
+/** Quem ainda pode entrar: cada Digimon luta uma rodada; se o time acabou (time menor que 3 ou empates), todos voltam. */
+export function availablePicks(match: ManualMatch, side: Side): number[] {
+  const used = new Set(match.rounds.map((r) => r.pick[side]));
+  const all = match.teams[side].fighters.map((_, i) => i);
+  const free = all.filter((i) => !used.has(i));
+  return free.length ? free : all;
+}
+
+/** Escolha do fantasma: o próximo livre na ordem da formação dele (determinística). */
+export function aiPick(match: ManualMatch): number {
+  return availablePicks(match, 1)[0];
+}
+
+/** Começa a próxima rodada com o Digimon `pickA` do jogador (precisa estar livre). */
+export function startRound(match: ManualMatch, pickA: number): { round: Round; events: WorldEvent[] } {
+  if (match.over) throw new Error("partida encerrada");
+  if (match.current && !match.current.result) throw new Error("rodada em andamento");
+  if (!availablePicks(match, 0).includes(pickA)) throw new Error("Digimon indisponível nesta rodada");
+  const n = match.rounds.length + 1;
+  const sim: WorldSim = { state: newState((match.seed + n * 7919) >>> 0), map: arenaMap(), content: match.content };
+  const ctx = ctxOf(sim);
+  const pick: [number, number] = [pickA, aiPick(match)];
+  const ents = [0, 1].map((s) => fighterEntity(ctx, s as Side, pick[s], match.teams[s].fighters[pick[s]], s ? sim.map.starts.B : sim.map.starts.A, match.level)) as [Entity, Entity];
+  enter(ctx, ents[0], sim.map.starts.A);
+  enter(ctx, ents[1], sim.map.starts.B);
+  const round: Round = { n, sim, pick, ents, limitTicks: match.limitTicks, stats: emptyStats() };
+  match.current = round;
+  return { round, events: ctx.ev };
+}
+
+/**
+ * Pontos atingidos por um golpe mirado (§4.3: a mira muda a direção de lançamento, não a regra de acerto). Alcance =
+ * corpo a corpo + alcance do golpe (o mesmo do AUTO). Único: o adversário no alcance e num cone de 120° da mira.
+ * Projétil/linha: o segmento da mira, com a largura do golpe. Área: o círculo no ponto mirado (preso ao alcance).
+ */
+export function aimTargets(me: Entity, foe: Entity | undefined, m: MoveDef, aim: Vec): { list: Entity[]; at: Vec } {
+  if (m.type === "buff" || m.type === "heal" || m.target === "self") return { list: [me], at: { x: me.x, y: me.y } };
+  const dx = aim.x - me.x;
+  const dy = aim.y - me.y;
+  const d = Math.hypot(dx, dy);
+  const ux = d > 0 ? dx / d : me.facing.includes("W") ? -1 : 1;
+  const uy = d > 0 ? dy / d : 0;
+  const reach = (foe ? attackRange(me, foe) : me.radius * 2 + WORLD.attackReach) + castReach(m);
+  const point = (len: number): Vec => ({ x: Math.round(me.x + ux * len), y: Math.round(me.y + uy * len) });
+  const ok = alive(foe);
+  if (m.target === "area") {
+    const at = point(Math.min(d, reach));
+    const hit = ok && Math.hypot(foe.x - at.x, foe.y - at.y) <= m.radius + foe.radius;
+    return { list: hit ? [foe] : [], at };
+  }
+  if (m.target === "projectile" || m.target === "line") {
+    const end = point(reach);
+    const s = ok ? segmentDistance(me.x, me.y, end.x, end.y, foe.x, foe.y) : undefined;
+    const hit = !!s && s.d <= foe!.radius + Math.max(m.radius, 4);
+    return { list: hit ? [foe!] : [], at: hit && m.target === "projectile" ? { x: foe!.x, y: foe!.y } : end };
+  }
+  // único (corpo a corpo ou especial de curto alcance)
+  if (ok) {
+    const fx = foe.x - me.x;
+    const fy = foe.y - me.y;
+    const fd = Math.hypot(fx, fy);
+    const facingOk = fd <= me.radius || (fx * ux + fy * uy) / fd >= 0.5;
+    if (fd <= reach && facingOk) return { list: [foe], at: { x: foe.x, y: foe.y } };
+  }
+  return { list: [], at: point(reach) };
+}
+
+/** Golpe do jogador: mesmas travas do campo (recarga geral, recarga do golpe, MP) e o golpe passa pela fila do AUTO. */
+function playerCast(ctx: Ctx, me: Entity, foe: Entity, press: number, aim: Vec): void {
+  const mc = ctx.c.moves;
+  const reject = (reason: string) => ctx.ev.push({ t: "intent_rejected", tick: ctx.w.tick, playerId: ARENA_OWNER[0], reason });
+  if (me.attackCd > 0) return void reject("aguarde a recarga geral");
+  let id = mc.basicMoveId;
+  if (press > 0) {
+    const slot = me.moves[press - 1];
+    if (!slot) return void reject("slot vazio");
+    const err = useMoveError(mc.moves[slot], me);
+    if (err) return void reject(err);
+    // use_move: o golpe vai para a fila e chooseMove (o mesmo do AUTO) o devolve se estiver pronto e fizer sentido.
+    me.queuedMove = slot;
+    id = chooseMove(mc, me, foe);
+    if (id !== slot) {
+      me.queuedMove = undefined;
+      return void reject(mc.moves[slot].type === "heal" ? "PV cheio" : "efeito já ativo");
+    }
+  }
+  const m = mc.moves[id];
+  const aimed = aimTargets(me, foe, m, aim);
+  me.facing = dirFromVector(aim.x - me.x, aim.y - me.y, me.facing);
+  if (me.state !== "ENGAGE") {
+    if (me.state === "WALK") setState(me, "IDLE", ctx.w.tick, ctx.ev);
+    setState(me, "ENGAGE", ctx.w.tick, ctx.ev);
+  }
+  resolveAttack(ctx, me, aimed.list.includes(foe) ? foe : undefined, m, aimed);
+}
+
+/** Andar com WASD (velocidade de parceira, deslize na colisão) e virar para a mira. */
+function playerMove(ctx: Ctx, me: Entity, input: ManualInput): void {
+  const dx = Math.sign(input.dx);
+  const dy = Math.sign(input.dy);
+  const moving = dx !== 0 || dy !== 0;
+  if (moving) {
+    const s = dx && dy ? Math.round(me.speed * Math.SQRT1_2) : me.speed;
+    tryMove(ctx, me, dx * s, dy * s);
+  }
+  if (input.aim) me.facing = dirFromVector(input.aim.x - me.x, input.aim.y - me.y, me.facing);
+  else if (moving) me.facing = dirFromVector(dx, dy, me.facing);
+  if (me.state === "ENGAGE") setState(me, "IDLE", ctx.w.tick, ctx.ev);
+  setState(me, moving ? "WALK" : "IDLE", ctx.w.tick, ctx.ev);
+}
+
+/** Um tick da rodada atual: o jogador (lado A) pelo input, o fantasma (lado B) pela IA do AUTO. */
+export function stepRound(match: ManualMatch, input: ManualInput): WorldEvent[] {
+  const r = match.current;
+  if (!r || r.result || match.over) return [];
+  const ctx = ctxOf(r.sim);
+  const w = ctx.w;
+  w.tick++;
+  const [me, foe] = r.ents;
+  tickCooldowns(ctx, me);
+  if (me.state !== "DEFEAT" && !timedStates(ctx, me)) {
+    me.targetId = alive(foe) ? foe.id : undefined;
+    if (input.press !== undefined && alive(foe)) playerCast(ctx, me, foe, input.press, input.aim ?? { x: foe.x, y: foe.y });
+    if (me.state !== "ATTACK") playerMove(ctx, me, input);
+  }
+  tickCooldowns(ctx, foe);
+  if (foe.state !== "DEFEAT") aiStep(ctx, foe, me);
+  tallyEvents(r.stats, ctx.ev);
+  tallyEvents(match.stats, ctx.ev);
+  const hp: [number, number] = [me.hp / me.maxHp, foe.hp / foe.maxHp];
+  if (me.hp === 0 || foe.hp === 0) r.result = { winner: me.hp === 0 && foe.hp === 0 ? null : me.hp === 0 ? 1 : 0, reason: "ko", hpPct: hp, tick: w.tick };
+  else if (w.tick >= r.limitTicks) r.result = { winner: timeoutWinner(hp), reason: "timeout", hpPct: hp, tick: w.tick };
+  if (r.result) finishRound(match, r);
+  return ctx.ev;
+}
+
+function finishRound(match: ManualMatch, r: Round): void {
+  match.rounds.push(r);
+  if (r.result!.winner !== null) match.score[r.result!.winner]++;
+  if (match.score[0] >= ROUNDS_TO_WIN) match.over = { winner: 0 };
+  else if (match.score[1] >= ROUNDS_TO_WIN) match.over = { winner: 1 };
+  else if (match.rounds.length >= MAX_ROUNDS) match.over = { winner: match.score[0] === match.score[1] ? null : match.score[0] > match.score[1] ? 0 : 1 };
 }
 
 /** O ponto (sub) está dentro do campo jogável? (apresentação: mira/cursor). */

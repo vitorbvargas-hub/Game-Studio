@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { arenaRoster, emptyArena, ghostSources, recordMatch, type OwnedDigimon } from "../src/save/arena-league";
 import { defaultAutoRules, initialLoadout } from "../src/sim/moves";
 import { loadWorldContent } from "../src/sim/species";
-import { arenaEntryHtml, arenaSelectHtml, resultHtml, type SelectView } from "../src/ui/arena-html";
+import { arenaEntryHtml, arenaSelectHtml, MANUAL_KEYS, manualHudHtml, resultHtml, roundPickHtml, type SelectView } from "../src/ui/arena-html";
 import { Hud, SHORTCUTS } from "../src/ui/hud";
 import { editRules } from "../src/ui/moves-ui";
 import { worldMapHtml } from "../src/ui/worldmap";
@@ -67,8 +67,7 @@ describe("Arena — telas", () => {
     let a = emptyArena();
     a = recordMatch(a, { mode: "manual", result: "win", score: "2-1", mine: [{ speciesId: "CREATURE-0006", level: 12 }], foe: [], foeName: "Lumi", date: 0, damage: [1, 1], hits: [1, 1], normalized: false });
     const el = div(arenaEntryHtml(content, a));
-    expect([...el.querySelectorAll("[data-mode]")].map((b) => b.getAttribute("data-mode"))).toEqual(["auto"]);
-    expect(el.querySelector<HTMLButtonElement>('[data-testid="mode-manual"]')!.disabled).toBe(true);
+    expect([...el.querySelectorAll("[data-mode]")].map((b) => b.getAttribute("data-mode"))).toEqual(["auto", "manual"]);
     expect(el.querySelector('[data-testid="rating-auto"]')!.textContent).toBe("1000");
     expect(el.querySelector('[data-testid="rating-manual"]')!.textContent).toBe("1020");
     expect(el.querySelectorAll(".ar-hist li").length).toBe(1);
@@ -111,6 +110,21 @@ describe("Arena — telas", () => {
     const sel = el.querySelector<HTMLSelectElement>("[data-cond='0']")!;
     sel.value = "self_hp_below_pct";
     expect(editRules(rules, lo.moves, { type: "change", target: sel })![0]).toMatchObject({ cond: "self_hp_below_pct", pct: 40 });
+  });
+
+  it("manual: escolha da rodada e HUD com 5 botões (nome + tecla), placar com marcadores e timer", () => {
+    const team = [save.partner, { ...save.partner, ref: "x" }].map((p, i) => ({ ref: `r${i}`, speciesId: p.speciesId, level: p.level, learned: p.learned, moves: p.moves, autoRules: p.autoRules }));
+    const pick = div(roundPickHtml(content, 2, [1, 0], team, [1], "Lumi"));
+    expect(pick.querySelector("h3")!.textContent).toBe("Rodada 2");
+    expect(pick.querySelector<HTMLButtonElement>('[data-round-pick="0"]')!.disabled).toBe(true);
+    expect(pick.querySelector<HTMLButtonElement>('[data-round-pick="1"]')!.disabled).toBe(false);
+    expect(pick.querySelectorAll('[data-testid="score-a"] .dot.on').length).toBe(1);
+    const hud = div(manualHudHtml());
+    expect([...hud.querySelectorAll(".ar-sk kbd")].map((k) => k.textContent)).toEqual(["LMB", "RMB", "Spc", "Q", "E"]);
+    expect(MANUAL_KEYS.length).toBe(5);
+    expect(hud.querySelector('[data-testid="timer"]')!.textContent).toBe("1:30");
+    expect(hud.querySelectorAll(".ar-plate").length).toBe(2);
+    expect(hud.querySelectorAll(".ar-plate .bar.hp, .ar-plate .bar.mp").length).toBe(4);
   });
 
   it("resultado: Vitória/Derrota, dano e acertos por lado, Revanche [R] e Menu [Esc]", () => {

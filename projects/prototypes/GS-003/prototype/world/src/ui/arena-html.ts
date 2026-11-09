@@ -1,10 +1,10 @@
 // Telas da Arena (pt-BR), só HTML a partir de dados prontos: entrada (Automático/Manual + rating local + histórico),
-// seleção de equipe com os Digimon do save, oponente fantasma com poder/aviso e Arena Nivelada, HUD de batalha
-// do 3v3 automático e resultado. Sem estado de jogo.
+// seleção de equipe com os Digimon do save, oponente fantasma com poder/aviso e Arena Nivelada, escolha da rodada,
+// HUDs de batalha (3v3 automático e 1v1 manual no formato do vídeo de referência) e resultado. Sem estado de jogo.
 
 import type { ArenaComp, ArenaMode, ArenaRecord, ArenaSave, GhostSource, RosterEntry } from "../save/arena-league";
 import { historyOf } from "../save/arena-league";
-import type { ArenaTeam, SideStats } from "../sim/arena";
+import type { ArenaTeam, Fighter, SideStats } from "../sim/arena";
 import type { WorldContent } from "../sim/species";
 import type { AutoRule } from "../sim/types";
 import { icon } from "./icons";
@@ -13,6 +13,8 @@ import { autoRulesEditorHtml, ELEMENT_PT, moveSummary } from "./moves-ui";
 export const STAGE_PT: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito", 5: "Supremo" };
 export const AFFINITY_PT: Record<string, string> = { vaccine: "Vacina", data: "Dados", virus: "Vírus", free: "Livre" };
 export const MODE_PT: Record<ArenaMode, string> = { auto: "Automático 3v3", manual: "Manual 1v1 · melhor de 3" };
+/** Teclas dos 5 botões do manual (vídeo de referência): básico + os 4 slots equipados. */
+export const MANUAL_KEYS = ["LMB", "RMB", "Spc", "Q", "E"] as const;
 
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 const RESULT_PT: Record<ArenaRecord["result"], string> = { win: "Vitória", loss: "Derrota", draw: "Empate" };
@@ -43,7 +45,7 @@ export function arenaEntryHtml(content: WorldContent, a: ArenaSave): string {
   return `<div class="ar-entry" data-testid="arena-entry">
     <div class="ar-modes">
       ${card("auto", "Automático", "3 contra 3. Você monta a formação e a prioridade de golpes; a luta é toda do AUTO.", "Formação · editor de prioridade · composições salvas")}
-      <button class="ar-mode" disabled data-testid="mode-manual"><b>${icon("arena", 18)} Manual</b><span>1 contra 1, melhor de 3 (formato do vídeo de referência).</span><small>Em breve (Fase 4)</small></button>
+      ${card("manual", "Manual", "1 contra 1, melhor de 3 rodadas de 90 s. Um Digimon por rodada, escolhido antes de cada uma.", "WASD move · mouse mira · LMB/RMB/Espaço/Q/E golpes")}
     </div>
     <div class="ar-cols">
       ${(["auto", "manual"] as ArenaMode[])
@@ -165,6 +167,28 @@ export function arenaSelectHtml(v: SelectView): string {
   </div>`;
 }
 
+// ---------- rodada (manual) ----------
+
+export function roundPickHtml(content: WorldContent, n: number, score: [number, number], team: Fighter[], free: number[], foeName: string, last?: string): string {
+  return `<div class="ar-pick" data-testid="round-pick">
+    <h3>Rodada ${n}</h3>
+    <div class="ar-score">${scoreDots(score)}</div>
+    ${last ? `<p class="note gold">${esc(last)}</p>` : ""}
+    <p>Escolha quem entra contra o próximo Digimon de <b>${esc(foeName)}</b>:</p>
+    <div class="ar-pickrow">${team
+      .map((f, i) => {
+        const ok = free.includes(i);
+        return `<button class="ar-card${ok ? "" : " off"}" data-round-pick="${i}" ${ok ? "" : "disabled"}><canvas width="40" height="40" data-sp="${f.speciesId}"></canvas><div class="ar-card-b"><b>${esc(sp(content, f.speciesId))} <span>Nv.${f.level}</span></b><ul class="mv4">${f.moves.map((id, k) => `<li><kbd>${MANUAL_KEYS[k + 1]}</kbd>${id ? esc(content.moves.moves[id]?.name ?? id) : "—"}</li>`).join("")}</ul>${ok ? "" : "<small>já lutou</small>"}</div></button>`;
+      })
+      .join("")}</div>
+  </div>`;
+}
+
+export function scoreDots(score: [number, number]): string {
+  const dots = (n: number, cls: string) => [0, 1].map((i) => `<i class="dot ${cls}${i < n ? " on" : ""}"></i>`).join("");
+  return `<span class="dots a" data-testid="score-a">${dots(score[0], "a")}</span><b data-testid="score">${score[0]}-${score[1]}</b><span class="dots b" data-testid="score-b">${dots(score[1], "b")}</span>`;
+}
+
 // ---------- HUD automático ----------
 
 export function autoHudHtml(): string {
@@ -194,6 +218,25 @@ export function sideHtml(title: string, list: FighterHud[]): string {
       (f) => `<div class="ar-f${f.active ? " active" : ""}${f.ko ? " ko" : ""}"><canvas width="28" height="28" data-sp="${f.speciesId}"></canvas><div><b>${esc(f.name)} <span>Nv.${f.level}</span></b><div class="bar hp"><i style="width:${Math.round((f.hp / Math.max(1, f.maxHp)) * 100)}%"></i></div><small>${f.ko ? "KO" : `${Math.ceil(f.hp)}/${f.maxHp}`}</small></div></div>`,
     )
     .join("")}`;
+}
+
+// ---------- HUD manual ----------
+
+export function manualHudHtml(): string {
+  const plate = (side: "a" | "b") => `<div class="ar-plate ${side}" data-plate="${side}">
+      <canvas width="40" height="40" class="pt"></canvas>
+      <div><b class="nm"></b><span class="chips"></span>
+        <div class="hpn"><b class="hpv"></b></div>
+        <div class="bar hp"><i></i></div><div class="bar mp"><i></i></div><div class="st"></div>
+      </div></div>`;
+  return `<div class="ar-hud manual" data-testid="hud-manual">
+    ${plate("a")}
+    <div class="ar-top"><span class="dots-wrap" data-testid="round-score"></span><b class="timer" data-testid="timer">1:30</b><small class="rnd" data-testid="round">Rodada 1</small></div>
+    ${plate("b")}
+    <div class="ar-banner" data-testid="banner"></div>
+    <div class="ar-msg"></div>
+    <div class="ar-buttons" data-testid="skill-bar">${MANUAL_KEYS.map((k, i) => `<button class="ar-sk" data-sk="${i}"><canvas width="24" height="24"></canvas><b class="nm"></b><kbd>${k}</kbd><i class="cd"></i><span class="cdt"></span><span class="mp"></span></button>`).join("")}</div>
+  </div>`;
 }
 
 // ---------- resultado ----------

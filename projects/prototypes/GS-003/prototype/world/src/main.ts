@@ -615,6 +615,7 @@ async function boot() {
     },
     newPresenter: () => new Presenter((id) => (id ? creatures[id]?.manifest : undefined), ARENA_OWNER[0]),
     seed: () => (params.has("arenaSeed") ? Number(params.get("arenaSeed")) : Date.now() % 1_000_000),
+    roundTicks: params.has("arenaRound") ? Math.max(5, Number(params.get("arenaRound"))) * (1000 / TICK_MS) : undefined,
     onClose: () => {
       keys.clear();
       last = performance.now();
