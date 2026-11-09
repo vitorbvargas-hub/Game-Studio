@@ -7,6 +7,9 @@ import { loadSceneTiles, packSummary, usedKeys, type ScenePack } from "./assets/
 import { clockFromParams, formatClock, GameClock } from "./render/daynight";
 import { botLook, composeTamer, DEFAULT_LOOK, frameList, loadPartUrls, lookKey, PARTS, type TamerLook } from "./assets/tamer-parts";
 import { TamerCreator, type PreviewDir } from "./ui/creator";
+import { applyOffline, applySave, captureSave, offlineBalance, offlineSeed, type OfflineReport } from "./save/offline";
+import { browserStorage, loadFromStorage, saveToStorage, type LoadResult } from "./save/save";
+import { showOfflineReport } from "./ui/offline-report";
 import type { CreatureVisual } from "./assets/creatures";
 import { countDwdsSources, loadTileSources } from "./assets/tiles";
 import forestProofPack from "./data/maps/forest-proof.aliases.json";
@@ -53,8 +56,8 @@ const CREATOR = params.get("criador") !== "0";
  * Tela do criador de Tamer (antes do mundo). Carrega só os PNGs-base das camadas (o resto sai por recolor) e
  * compõe o preview sob demanda, com cache por combinação.
  */
-async function chooseLook(images: ImageStore, partUrls: Record<string, string>): Promise<TamerLook> {
-  if (!CREATOR) return DEFAULT_LOOK;
+async function chooseLook(images: ImageStore, partUrls: Record<string, string>, initial: TamerLook = DEFAULT_LOOK): Promise<TamerLook> {
+  if (!CREATOR) return initial;
   const cache = new Map<string, CreatureVisual>();
   const visualOf = (l: TamerLook) => {
     const k = lookKey(l);
@@ -77,7 +80,7 @@ async function chooseLook(images: ImageStore, partUrls: Record<string, string>):
     g.drawImage(images.get(v.sheetUrl) as CanvasImageSource, fr.x, fr.y, fr.w, fr.h, 0, 0, fr.w, fr.h);
     g.restore();
   };
-  return new Promise((resolve) => new TamerCreator(document.body, { initial: DEFAULT_LOOK, drawPreview: draw, onConfirm: resolve }));
+  return new Promise((resolve) => new TamerCreator(document.body, { initial, drawPreview: draw, onConfirm: resolve }));
 }
 
 async function boot() {
@@ -85,13 +88,29 @@ async function boot() {
   const partUrls = loadPartUrls();
   const partsFailed = await images.loadAll(Object.values(partUrls));
   if (partsFailed.length) console.warn("partes do Tamer não carregadas:", partsFailed.length);
-  const look = await chooseLook(images, partUrls);
+  const forest = MAP === "forest-proof";
+  // Save (só na cena principal). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
+  const storage = forest ? browserStorage() : undefined;
+  const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
+  if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
+  // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
+  const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, partUrls, loaded.ok ? loaded.data.tamer : DEFAULT_LOOK);
   const canvas = document.querySelector<HTMLCanvasElement>("#world")!;
   const labelCanvas = document.querySelector<HTMLCanvasElement>("#labels")!;
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
-  const forest = MAP === "forest-proof";
   const auto = params.get("auto") === "1";
   const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto, localName: look.name }) : createDefaultWorld(SEED, { auto });
+  // Restaura o progresso e credita o tempo ausente (?offline=MIN simula MIN minutos fora, para testar/capturar).
+  let bootOffline: OfflineReport | null = null;
+  let speciesBefore = "";
+  if (loaded.ok) {
+    applySave(sim, LOCAL_PLAYER, loaded.data);
+    if (auto) getPlayer(sim.state, LOCAL_PLAYER)!.auto = true;
+    speciesBefore = loaded.data.partner.speciesId;
+    const away = params.has("offline") ? Number(params.get("offline")) * 60_000 : Date.now() - loaded.savedAt;
+    bootOffline = applyOffline(sim, LOCAL_PLAYER, away, offlineSeed(loaded.savedAt));
+    console.info(`save v${loaded.migratedFrom ? `${loaded.migratedFrom}→` : ""}ok · ausente ${Math.round(away / 60_000)} min`, bootOffline ?? "sem crédito offline");
+  }
   const creatures = loadCreatureCatalog();
   // Presets noturnos (pastas night/) repetem os nomes do dia: ficam fora do conjunto global.
   let tiles = loadTileSources(TILES_DWDS, (p) => !/\/night\//.test(p));
@@ -141,7 +160,15 @@ async function boot() {
   const player = getPlayer(sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
   const hudScene: HudScene | undefined = forest
-    ? { region: FOREST_PROOF_SCENE.region, tamerName: look.name, tamerLevel: me.tamerLevel, tamerXp: FOREST_PROOF_SCENE.tamerXp, team: FOREST_PROOF_SCENE.team, box: FOREST_PROOF_SCENE.box, chat: FOREST_PROOF_SCENE.chat }
+    ? {
+        region: FOREST_PROOF_SCENE.region,
+        tamerName: look.name,
+        tamerLevel: me.tamerLevel,
+        tamerXp: FOREST_PROOF_SCENE.tamerXp,
+        team: loaded.ok && loaded.data.team.length ? loaded.data.team : FOREST_PROOF_SCENE.team,
+        box: FOREST_PROOF_SCENE.box,
+        chat: FOREST_PROOF_SCENE.chat,
+      }
     : undefined;
   const hud = new Hud(
     hudRoot,
@@ -154,12 +181,65 @@ async function boot() {
       onSetMoves: (slots) => intents.push({ t: "set_moves", playerId: LOCAL_PLAYER, slots }),
       onSetAutoRules: (rules) => intents.push({ t: "set_auto_priority", playerId: LOCAL_PLAYER, rules }),
       onEvolve: () => intents.push({ t: "evolve", playerId: LOCAL_PLAYER }),
+      onAutoEvolve: (on) => intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on }),
     },
     player.auto,
     { scene: hudScene, portrait: makePortraitFn(creatures, images), minimap: new Minimap(sim.map, browserCanvasFactory), moveIcon: drawMoveIcon },
   );
+  // Os spawns saíram antes do save/offline: atualiza a foto de quem mudou (parceira restaurada/evoluída).
+  for (const ev of spawnEvents) {
+    const e = ev.t === "spawn" ? getEntity(sim.state, ev.entity.id) : undefined;
+    if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
+  }
   hud.onEvents(spawnEvents);
   presenter.onTick(snapshot(sim), spawnEvents, performance.now());
+  hud.setAutoEvolve(!!player.autoEvolve);
+  if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
+
+  // ---- save (a cada 5 s, ao esconder a aba e ao sair) e relatório offline ----
+  const tamerLevels = view.opts.tamerLevels;
+  const portrait = makePortraitFn(creatures, images);
+  const persist = () => {
+    if (!storage) return;
+    const t = hud.tamerProgress();
+    if (tamerLevels) tamerLevels[LOCAL_PLAYER] = t.level;
+    saveToStorage(storage, captureSave(sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [] }), Date.now());
+  };
+  const report = (r: OfflineReport, from: string) => {
+    const partner = getEntity(sim.state, player.partnerId)!;
+    const tamerUp = hud.addTamerXp(r.xp);
+    if (tamerLevels) tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
+    showOfflineReport(hudRoot, sim.content, { report: r, partnerName: partner.name, speciesFrom: from, tamerLevels: tamerUp, autoEvolve: !!player.autoEvolve }, {
+      portrait: (c, sp) => portrait(sp, c),
+    });
+    persist();
+  };
+  if (bootOffline) report(bootOffline, speciesBefore);
+  if (tamerLevels) tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
+  persist();
+  if (storage) {
+    setInterval(persist, 5000);
+    let hiddenAt = 0;
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        hiddenAt = Date.now();
+        persist();
+        return;
+      }
+      // Aba de volta: o rAF ficou parado; credita o tempo fora pelo mesmo caminho offline (com teto).
+      const away = hiddenAt ? Date.now() - hiddenAt : 0;
+      hiddenAt = 0;
+      if (away < offlineBalance(sim).minSeconds * 1000) return;
+      const from = getEntity(sim.state, player.partnerId)?.speciesId ?? "";
+      const r = applyOffline(sim, LOCAL_PLAYER, away, offlineSeed(Date.now()));
+      if (!r) return;
+      const evo = r.events.filter((e) => e.t === "evolve");
+      presenter.onTick(snapshot(sim), evo, performance.now());
+      hud.onEvents(evo);
+      report(r, from);
+    });
+    window.addEventListener("pagehide", persist);
+  }
 
   // ---- escala inteira pixel-perfect ----
   let scale = 1;
@@ -286,7 +366,7 @@ async function boot() {
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  Object.assign(window, { __gs003: { sim, presenter, view, hud, clock } });
+  Object.assign(window, { __gs003: { sim, presenter, view, hud, clock, persist } });
 }
 
 /** Visual composto de cada Tamer: o local vem do criador; os bots, de combinações aleatórias (semente do mundo + id). */

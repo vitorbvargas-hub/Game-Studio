@@ -162,7 +162,9 @@ export type Intent =
   /** Usa o golpe do slot no próximo ataque possível (fura a fila do AUTO). */
   | { t: "use_move"; playerId: string; slot: number }
   /** Evolui a parceira; `keep` = golpes da forma anterior a manter (até inheritSlotsOnEvolve; padrão: os de maior poder). */
-  | { t: "evolve"; playerId: string; keep?: string[] };
+  | { t: "evolve"; playerId: string; keep?: string[] }
+  /** Liga/desliga a evolução automática (opção do AUTO): ao atingir o nível, evolui sozinha fora de combate. */
+  | { t: "set_auto_evolve"; playerId: string; on: boolean };
 
 export interface Entity {
   id: string;
@@ -226,6 +228,8 @@ export interface PlayerState {
   /** Direção do WASD neste tick (consumida no mesmo tick). */
   dir?: Vec;
   bot: boolean;
+  /** Evolução automática (opção do AUTO). Ausente = desligada. */
+  autoEvolve?: boolean;
 }
 
 export interface Encounter {

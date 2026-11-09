@@ -133,6 +133,7 @@ async function main() {
     await cdp.send("Page.enable");
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: 1, mobile: false });
     if (process.env.ONLY === "creator") return await creator(cdp);
+    if (process.env.ONLY === "offline") return await offline(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0${QUERY}` });
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
@@ -246,6 +247,44 @@ async function creator(cdp) {
   const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.55)), width: cw, height: ch, scale: 2 } });
   writeFileSync(join(OUT, "creator_no_mundo_zoom.png"), Buffer.from(r.data, "base64"));
   console.log("ok creator_no_mundo_zoom.png", JSON.stringify(at));
+}
+
+/**
+ * Save + progresso offline: entra no jogo (o save é gravado no boot), liga Auto-evoluir, e reescreve o save no
+ * localStorage como o de quem saiu há 5 h com o Guilmon no Nv.15 (perto do Nv.16 da evolução). Recarrega: o boot
+ * real lê o save, credita 4 h (teto) pela sim e mostra o Relatório offline. Depois, "Coletar" e o mundo.
+ */
+async function offline(cdp) {
+  const url = `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&time=day${QUERY}`;
+  // (o save do mundo é por origem: este perfil temporário do Chromium começa sem save)
+  await cdp.send("Page.navigate", { url });
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(1500);
+  await cdp.eval(`document.querySelector('[data-act="autoevo"]').click()`);
+  await sleep(300);
+  // sai do jogo (o pagehide grava o save) para uma página estática da mesma origem, e só então edita o save
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/package.json` });
+  await sleep(800);
+  const staged = await cdp.eval(`(() => { const k = "gs003.world.save"; const env = JSON.parse(localStorage.getItem(k));
+    env.data.partner.level = 15; env.data.partner.xp = 0; env.savedAt = Date.now() - 5 * 3600 * 1000;
+    localStorage.setItem(k, JSON.stringify(env)); return { v: env.v, autoEvolve: env.data.autoEvolve, partner: env.data.partner.speciesId + " Nv." + env.data.partner.level }; })()`);
+  console.log("save preparado:", JSON.stringify(staged));
+  await cdp.send("Page.navigate", { url });
+  await cdp.waitFor(`!!document.querySelector('[data-testid="offline-report"]')`, 40000, "o relatório offline");
+  await sleep(600);
+  await cdp.shot("offline_relatorio.png");
+  const rep = await cdp.eval(`(() => { const q = (s) => document.querySelector(s)?.textContent.trim(); return { tempo: q('[data-testid="off-time"]'), xp: q('[data-testid="off-xp"]'), vitorias: q('[data-testid="off-wins"]'), bits: q('[data-testid="off-bits"]'), nivel: q('[data-testid="off-level"]'), golpes: q('[data-testid="off-moves"]'), evolucoes: q('[data-testid="off-evos"]') }; })()`);
+  console.log("relatório:", JSON.stringify(rep));
+  const box = await cdp.eval(`(() => { const r = document.querySelector('[data-testid="offline-report"]').getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; })()`);
+  const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: box.x - 10, y: box.y - 10, width: box.w + 20, height: box.h + 20, scale: 2 } });
+  writeFileSync(join(OUT, "offline_relatorio_zoom.png"), Buffer.from(r.data, "base64"));
+  console.log("ok offline_relatorio_zoom.png");
+  await cdp.eval(`document.querySelector('[data-testid="off-collect"]').click()`);
+  await sleep(2500);
+  await cdp.shot("offline_depois.png");
+  const st = await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === "p1:partner");
+    const s = JSON.parse(localStorage.getItem("gs003.world.save")); return { parceira: p.name + " Nv." + p.level, golpes: p.moves, autoEvo: document.querySelector('[data-testid="autoevo-state"]').textContent, saveV: s.v, saveParceira: s.data.partner.speciesId + " Nv." + s.data.partner.level }; })()`);
+  console.log("depois:", JSON.stringify(st));
 }
 
 /** Ciclo dia/noite: mesma semente em ?time=day, ?time=18:30 (relógio parado no meio do anoitecer) e ?time=night. */

@@ -107,4 +107,13 @@ describe("cena forest-proof (prova visual GS-004 §4)", () => {
     for (let i = 0; i < 400; i++) expect(stepWorld(a.sim, [])).toEqual(stepWorld(b.sim, []));
     expect(snapshot(a.sim)).toEqual(snapshot(b.sim));
   });
+
+  it("execução longa (base do progresso offline): 5 sementes × 20 000 ticks sem transição ilegal da FSM", () => {
+    for (const seed of [1, 2, 3, 7, 42]) {
+      const { sim } = createForestProofWorld(seed, { auto: true });
+      expect(() => {
+        for (let i = 0; i < 20_000; i++) stepWorld(sim, []);
+      }, `semente ${seed}`).not.toThrow();
+    }
+  }, 30_000);
 });

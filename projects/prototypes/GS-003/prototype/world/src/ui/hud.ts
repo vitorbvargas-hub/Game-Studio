@@ -21,6 +21,8 @@ export interface HudCallbacks {
   onSetMoves?(slots: (string | null)[]): void;
   onSetAutoRules?(rules: AutoRule[]): void;
   onEvolve?(): void;
+  /** Opção "Auto-evoluir" do AUTO. */
+  onAutoEvolve?(on: boolean): void;
 }
 
 export interface HudScene {
@@ -85,6 +87,7 @@ const fmt = (n: number) => n.toLocaleString("pt-BR");
 
 export class Hud {
   private auto = false;
+  private autoEvolve = false;
   private autoBtn: HTMLButtonElement;
   private autoState: HTMLElement;
   private fleeBtn: HTMLButtonElement;
@@ -137,7 +140,10 @@ export class Hud {
       </div>
       <div class="hud-auto">
         <button class="auto-btn" data-act="auto" aria-pressed="false" title="Caça automática"><span>AUTO</span><i data-testid="auto-state">DESL.</i></button>
-        <button class="flee-btn" data-act="flee" title="Fugir do combate (F)">Fugir</button>
+        <div class="auto-row">
+          <button class="flee-btn" data-act="flee" title="Fugir do combate (F)">Fugir</button>
+          <button class="autoevo-btn" data-act="autoevo" aria-pressed="false" title="Auto-evoluir: ao atingir o nível, a parceira evolui sozinha fora de combate (herda até 2 golpes)">${icon("evo", 12)}Auto-evoluir <i data-testid="autoevo-state">DESL.</i></button>
+        </div>
       </div>
       <div class="hud-tr">
         <div class="coins">${icon("coin", 16)}<b data-testid="coins">0</b><span>bits</span><button class="plus" data-soon="Loja" title="Em breve">+</button></div>
@@ -214,6 +220,11 @@ export class Hud {
       e.stopPropagation();
       cb.onFlee();
     });
+    q<HTMLButtonElement>('[data-act="autoevo"]').addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.setAutoEvolve(!this.autoEvolve);
+      cb.onAutoEvolve?.(this.autoEvolve);
+    });
     root.addEventListener("click", (e) => {
       const t = e.target as HTMLElement;
       const short = t.closest<HTMLElement>("[data-short]");
@@ -230,6 +241,37 @@ export class Hud {
     });
     this.setAuto(initialAuto);
     this.renderTamerXp();
+  }
+
+  setAutoEvolve(on: boolean): void {
+    this.autoEvolve = on;
+    const b = this.root.querySelector<HTMLButtonElement>('[data-act="autoevo"]')!;
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", String(on));
+    b.querySelector("i")!.textContent = on ? "LIG." : "DESL.";
+  }
+
+  /** Nível e XP do Tamer (para o save). */
+  tamerProgress(): { level: number; xp: number } {
+    return { level: this.tamerLevel, xp: this.tamerXp };
+  }
+
+  setTamerProgress(level: number, xp: number): void {
+    this.tamerLevel = Math.max(1, Math.floor(level));
+    this.tamerXp = Math.max(0, Math.floor(xp));
+    this.renderTamerXp();
+  }
+
+  /** XP do Tamer ganha fora do log de combate (relatório offline). Devolve quantos níveis subiu. */
+  addTamerXp(xp: number): number {
+    const from = this.tamerLevel;
+    this.tamerXp += Math.max(0, Math.floor(xp));
+    while (this.tamerXp >= this.tamerNext()) {
+      this.tamerXp -= this.tamerNext();
+      this.tamerLevel++;
+    }
+    this.renderTamerXp();
+    return this.tamerLevel - from;
   }
 
   setAuto(on: boolean): void {

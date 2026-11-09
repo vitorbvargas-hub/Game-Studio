@@ -274,6 +274,7 @@ export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
   }
   for (const enc of [...w.encounters])
     if (w.tick - enc.startTick > WORLD.encounterTimeoutTicks) endEncounter(ctx, enc, "timeout");
+  for (const p of w.players) if (p.autoEvolve) tryAutoEvolve(ctx, getEntity(w, p.partnerId));
   for (const p of w.players) p.dir = undefined;
   const due = w.pendingSpawns.filter((s) => s.atTick <= w.tick);
   w.pendingSpawns = w.pendingSpawns.filter((s) => s.atTick > w.tick);
@@ -301,6 +302,9 @@ function applyIntent(ctx: Ctx, it: Intent): void {
       return;
     case "set_auto":
       p.auto = it.on;
+      return;
+    case "set_auto_evolve":
+      p.autoEvolve = it.on;
       return;
     case "set_moves": {
       const partner = getEntity(w, p.partnerId);
@@ -511,6 +515,8 @@ function thinkPartner(ctx: Ctx, e: Entity): void {
     return;
   }
   // Fora de combate: regenera, procura alvo (AUTO) ou segue o Tamer.
+  // ENGAGE sem alvo (ex.: alvo largado pelo leash sem encontro aberto) volta a IDLE antes de seguir (ENGAGE → FOLLOW é ilegal).
+  if (e.state === "ENGAGE") setState(e, "IDLE", w.tick, ctx.ev);
   e.hp = Math.min(e.maxHp, e.hp + Math.max(1, Math.round(e.maxHp * WORLD.partnerRegenPct)));
   if (player.auto && e.hp >= e.maxHp * WORLD.autoMinHpPct) {
     const t = findAutoTarget(ctx, e, owner);
@@ -813,6 +819,19 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
   const bits = sp.stage * 2 + t.level;
   p.bits += bits;
   ctx.ev.push({ t: "reward", tick: w.tick, ownerId: p.id, partnerId: partner.id, xp, bits, drops: [], at: { x: t.x, y: t.y } });
+  addXp(ctx, partner, xp);
+  // Captura: placeholder por varredura (como o "scan" do protótipo idle). 100% registra a espécie.
+  if (!p.captured.includes(sp.id)) {
+    const pct = Math.min(100, (p.scans[sp.id] ?? 0) + WORLD.scanPerDefeat);
+    p.scans[sp.id] = pct;
+    if (pct >= 100) p.captured.push(sp.id);
+    ctx.ev.push({ t: "capture", tick: w.tick, ownerId: p.id, speciesId: sp.id, pct, done: pct >= 100 });
+  }
+}
+
+/** XP com as regras de nível do jogo: sobe quantos níveis couberem e libera os golpes do learnset a cada um. */
+function addXp(ctx: Ctx, partner: Entity, xp: number): void {
+  const { w, c } = ctx;
   partner.xp += xp;
   while (partner.level < c.balance.maxLevel && partner.xp >= xpToNext(c.balance, partner.level)) {
     partner.xp -= xpToNext(c.balance, partner.level);
@@ -821,13 +840,82 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
     ctx.ev.push({ t: "level_up", tick: w.tick, id: partner.id, level: partner.level });
     learnAndAnnounce(ctx, partner);
   }
-  // Captura: placeholder por varredura (como o "scan" do protótipo idle). 100% registra a espécie.
-  if (!p.captured.includes(sp.id)) {
-    const pct = Math.min(100, (p.scans[sp.id] ?? 0) + WORLD.scanPerDefeat);
-    p.scans[sp.id] = pct;
-    if (pct >= 100) p.captured.push(sp.id);
-    ctx.ev.push({ t: "capture", tick: w.tick, ownerId: p.id, speciesId: sp.id, pct, done: pct >= 100 });
+}
+
+/**
+ * Evolução automática (opção "Auto-evoluir" do AUTO): com o nível de evolução atingido e a parceira fora de
+ * combate, evolui pela mesma regra do intent `evolve` (herança padrão = golpes de maior poder). Devolve true se evoluiu.
+ */
+function tryAutoEvolve(ctx: Ctx, partner: Entity | undefined): boolean {
+  if (!alive(partner) || partner.encounterId || partner.targetId || partner.state === "ATTACK" || partner.state === "HURT") return false;
+  const evo = ctx.c.moves.evolutions[partner.speciesId!];
+  if (!evo || !ctx.c.species[evo.to] || partner.level < evo.level) return false;
+  evolve(ctx, partner, evo.to);
+  return true;
+}
+
+/**
+ * XP concedida fora do combate (progresso offline): mesmas regras de nível e learnset da vitória online e, se
+ * `autoEvolve`, evolui ao atingir o nível (em cadeia, se a XP der para mais de uma forma). Devolve os eventos.
+ */
+export function grantXp(sim: WorldSim, partnerId: string, xp: number, autoEvolve: boolean): WorldEvent[] {
+  const ctx: Ctx = { w: sim.state, map: sim.map, c: sim.content, ev: [] };
+  const e = getEntity(sim.state, partnerId);
+  if (!e) return [];
+  // XP aos poucos (um nível por vez) para a evolução acontecer no nível certo e a nova forma seguir subindo.
+  let left = Math.max(0, Math.floor(xp));
+  while (left > 0) {
+    const need = e.level >= sim.content.balance.maxLevel ? left : Math.max(1, xpToNext(sim.content.balance, e.level) - e.xp);
+    const give = Math.min(left, need);
+    addXp(ctx, e, give);
+    left -= give;
+    if (autoEvolve) while (tryAutoEvolve(ctx, e));
+    if (e.level >= sim.content.balance.maxLevel) break;
   }
+  if (autoEvolve) while (tryAutoEvolve(ctx, e));
+  return ctx.ev;
+}
+
+/** Dados persistidos de uma parceira (save). */
+export interface PartnerSave {
+  speciesId: string;
+  level: number;
+  xp: number;
+  learned: string[];
+  moves: (string | null)[];
+  autoRules: Entity["autoRules"];
+}
+
+export function partnerSaveOf(e: Entity): PartnerSave {
+  return { speciesId: e.speciesId!, level: e.level, xp: e.xp, learned: [...e.learned], moves: [...e.moves], autoRules: e.autoRules.map((r) => ({ ...r })) };
+}
+
+/**
+ * Restaura a parceira de um jogador a partir do save (espécie, nível, XP, golpes e prioridade do AUTO), com stats
+ * recalculados pela espécie e vida/MP cheios. Golpes que a espécie não conhece mais são descartados.
+ */
+export function restorePartner(sim: WorldSim, playerId: string, s: PartnerSave): void {
+  const ctx: Ctx = { w: sim.state, map: sim.map, c: sim.content, ev: [] };
+  const p = getPlayer(sim.state, playerId);
+  const e = p && getEntity(sim.state, p.partnerId);
+  const sp = sim.content.species[s.speciesId];
+  if (!e || !sp) return;
+  e.speciesId = s.speciesId;
+  e.name = sp.name;
+  e.affinity = sp.affinity;
+  e.element = sim.content.moves.speciesElement[s.speciesId] ?? "neutral";
+  e.radius = sp.radius;
+  e.level = Math.max(1, Math.min(sim.content.balance.maxLevel, Math.floor(s.level)));
+  e.xp = Math.max(0, Math.floor(s.xp));
+  const known = new Set(s.learned.filter((id) => sim.content.moves.moves[id]));
+  e.learned = [...known];
+  e.moves = [0, 1, 2, 3].map((i) => (s.moves[i] && known.has(s.moves[i]!) ? s.moves[i]! : null));
+  e.autoRules = s.autoRules.filter((r) => known.has(r.moveId)).map((r) => ({ ...r }));
+  e.moveCd = {};
+  e.statuses = [];
+  applyStats(ctx, e, 1);
+  e.hp = e.maxHp;
+  e.mp = e.maxMp;
 }
 
 /** Aprende o que o learnset liberou e emite um `move_learned` por golpe (slot = onde equipou, ou null). */

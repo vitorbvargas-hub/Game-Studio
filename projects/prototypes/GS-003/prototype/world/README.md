@@ -3,6 +3,38 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Save, progresso offline e Auto-evoluir (2026-11-08)
+
+- **Save** (`src/save/save.ts`, `localStorage["gs003.world.save"]`, só na cena `forest-proof`):
+  - Guarda o Tamer (visual, nome, nível e XP do Tamer), a equipe (a parceira ativa completa e os demais membros), os golpes (aprendidos, 4 slots e prioridade do AUTO), o nível e a XP, os bits, o Digidex (varredura), o AUTO e o Auto-evoluir.
+  - O envelope é `{ v, savedAt, game, data }`, com **versão e migrações encadeadas**, como no `prototype/game`. A versão atual é a v2.
+  - O v1 é o primeiro esquema (só os 4 slots). A migração v1 → v2 transforma os slots em lista de aprendidos e prioridade do AUTO e deixa o Auto-evoluir desligado. Nenhum save v1 chegou a existir em uso: a migração está testada com um envelope v1 sintético.
+  - Um save corrompido ou de versão futura é ignorado, e uma cópia vai para `….corrupt`.
+  - O jogo salva a cada 5 s, ao esconder a aba e no `pagehide`.
+  - Com save, o criador de Tamer não abre: `?criador=1` reabre o criador e mantém o progresso, e `?novo=1` começa do zero.
+- **Progresso offline** (`src/save/offline.ts`): usa "amostra + extrapolação", como `prototype/game/src/sim/offline.ts`, com o balance `offline` do pacote digimon-fan.
+  - Teto de 4 h, mínimo de 60 s e rendimento de 50%.
+  - Roda a **sim determinística real** numa cópia do mundo, com o AUTO ligado, por até 6.000 ticks (10 min de jogo), com uma semente derivada do horário do save. Mede XP, bits e vitórias da parceira e escala esses valores para o tempo creditado.
+  - Aplica o resultado pelas regras online (`grantXp`: níveis, learnset e evolução). Mesmo estado + mesmo tempo + mesma semente geram o mesmo relatório.
+  - Vale ao abrir o jogo com save e também **ao voltar para a aba** (o rAF para quando a aba fica oculta). No segundo caso, a parceira foge do combate em curso pela própria sim antes de creditar.
+  - `?offline=MIN` simula MIN minutos fora, para testes.
+- **"Relatório offline"** (`src/ui/offline-report.ts`, modal no estilo IdleDex):
+  - Tempo fora, com o aviso de "Crédito máximo"; XP, vitórias, bits e nível (de → para); "Tamer subiu N níveis".
+  - Golpes aprendidos em chips; evoluções com retratos e os golpes mantidos.
+  - Fecha com **Coletar**, Esc ou clique fora.
+- **Auto-evoluir** (botão ao lado de Fugir, no AUTO): `PlayerState.autoEvolve` e intent `set_auto_evolve`.
+  - Ao atingir o nível, a parceira evolui sozinha **fora de combate**; em combate, espera o encontro acabar.
+  - Usa a mesma função do intent `evolve`, que emite os eventos confirmados `evolve` e `move_learned` e herda até `inheritSlotsOnEvolve` (2) golpes, os de maior poder.
+  - Offline, a evolução acontece no nível certo, no meio da XP creditada, e pode encadear formas.
+- **Correção na sim:** uma parceira em `ENGAGE` sem alvo (alvo largado pelo leash sem encontro aberto) tentava `ENGAGE → FOLLOW`, uma transição ilegal. Isso derrubava a sim depois de alguns milhares de ticks (com a semente 42, no tick 33). Agora ela volta a `IDLE` antes de seguir. Há um teste de regressão: 5 sementes × 20.000 ticks.
+- **Capturas:**
+  - `offline_relatorio.png` e `offline_relatorio_zoom.png`: o save foi reescrito no localStorage como o de quem saiu há 5 h com o Guilmon no Nv.15 e o Auto-evoluir ligado. O boot real credita 4 h (o teto): +11.100 XP, 1.044 vitórias, +5.304 bits, Guilmon → Growlmon mantendo Pyro Sphere e Sharp Claws.
+  - `offline_depois.png`: o Growlmon Nv.16 no mundo, com o Auto-evoluir LIG.
+  - Para gerar: `ONLY=offline npm run shots:live`.
+- **Testes:**
+  - `tests/save.test.ts`: ida e volta do save num mundo novo, migração v1 → v2, saves ruins, crédito offline com teto e determinismo, Auto-evoluir offline com herança e Auto-evoluir online (ligado, desligado e em combate).
+  - `tests/hud.test.ts`: o toggle, o progresso do Tamer e o modal do relatório.
+
 ## Criador de Tamer (2026-11-08)
 
 - **Tela antes do mundo** (`src/ui/creator.ts`, pt-BR): "Crie seu Tamer".
@@ -139,11 +171,13 @@ Versão jogável da prova visual pedida pelo fundador, na estrutura da referênc
 cd projects/prototypes/GS-003/prototype/world
 npm install --offline     # o registry está bloqueado neste host; tudo vem do cache npm
 npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale=1)
+                          #   ?time=night|day|HH:MM · ?timescale=N · ?criador=0|1 · ?novo=1 · ?offline=MIN
 npm test                  # vitest: FSM, sim, presenter, assets, HUD
 npm run build             # tsc --noEmit + vite build → dist/
 npm run shots             # capturas em docs/screens/ (@napi-rs/canvas, sem navegador)
 npm run shots:vfx         # tiras de VFX por golpe → docs/screens/vfx_*.png (renderer real, sem navegador)
 npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png e moves_*.png
+                          #   ONLY=forest | daynight | creator | offline → forest_v4_*, daynight_*, creator_*, offline_*
                           #   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu npm run shots:live
 npm run map               # regenera src/data/maps/test-meadow.tmj.json
 npm run map:forest        # regenera src/data/maps/forest-proof.tmj.json

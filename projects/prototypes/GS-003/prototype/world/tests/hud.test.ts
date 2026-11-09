@@ -271,3 +271,61 @@ describe("HUD — golpes (barra, aviso, aba Golpes, prioridade do AUTO)", () => 
     expect(tab.querySelectorAll(".mslot:not(.empty)").length).toBeGreaterThan(0);
   });
 });
+
+describe("save/offline no HUD", () => {
+  it("Auto-evoluir (opção do AUTO): alterna, emite callback e reflete o estado salvo", async () => {
+    const root = document.createElement("div");
+    document.body.appendChild(root);
+    const onAutoEvolve = vi.fn();
+    const hud = new Hud(root, loadWorldContent(), "p1", { onAuto: vi.fn(), onFlee: vi.fn(), onAutoEvolve }, false, { scene });
+    const b = root.querySelector<HTMLButtonElement>('[data-act="autoevo"]')!;
+    expect(b.textContent).toContain("Auto-evoluir");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    b.click();
+    expect(onAutoEvolve).toHaveBeenLastCalledWith(true);
+    expect(root.querySelector('[data-testid="autoevo-state"]')!.textContent).toBe("LIG.");
+    hud.setAutoEvolve(false);
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    hud.setTamerProgress(7, 20);
+    expect(hud.tamerProgress()).toEqual({ level: 7, xp: 20 });
+    expect(hud.addTamerXp(0)).toBe(0);
+    expect(hud.addTamerXp(1000)).toBeGreaterThan(0);
+  });
+
+  it("Relatório offline: tempo (com teto), XP, vitórias, bits, níveis, golpes e evoluções em pt-BR; Coletar fecha", async () => {
+    vi.useFakeTimers();
+    const { showOfflineReport } = await import("../src/ui/offline-report");
+    const content = loadWorldContent();
+    const root = document.createElement("div");
+    document.body.appendChild(root);
+    const onClose = vi.fn();
+    showOfflineReport(
+      root,
+      content,
+      {
+        report: { elapsedMs: 5 * 3600_000, creditedMs: 4 * 3600_000, capped: true, capHours: 4, efficiency: 0.5, ticks: 144000, sampleTicks: 6000, xp: 11100, bits: 5304, wins: 1044, level: { from: 15, to: 16 }, learned: ["sharp_claws", "exhaust_flame"], evolutions: [{ from: "CREATURE-0003", to: "CREATURE-0004", kept: ["pyro_sphere"] }], events: [] },
+        partnerName: "Growlmon",
+        speciesFrom: "CREATURE-0003",
+        tamerLevels: 2,
+        autoEvolve: true,
+      },
+      { onClose },
+    );
+    const t = (id: string) => root.querySelector(`[data-testid="${id}"]`)!.textContent!.replace(/\s+/g, " ").trim();
+    expect(root.querySelector("h2")!.textContent).toContain("Relatório offline");
+    expect(t("off-time")).toContain("5 h");
+    expect(t("off-time")).toContain("Crédito máximo: 4 h");
+    expect(t("off-xp")).toBe("+11.100");
+    expect(t("off-wins")).toBe("1.044");
+    expect(t("off-bits")).toBe("+5.304");
+    expect(t("off-level")).toBe("Nv.15 → Nv.16");
+    expect(t("off-moves")).toContain(content.moves.moves.sharp_claws.name);
+    expect(t("off-evos")).toMatch(/Guilmon\s*→\s*Growlmon/);
+    expect(t("off-evos")).toContain("Manteve");
+    expect(root.textContent).toContain("Tamer subiu 2 níveis!");
+    root.querySelector<HTMLButtonElement>('[data-testid="off-collect"]')!.click();
+    expect(onClose).toHaveBeenCalledOnce();
+    vi.advanceTimersByTime(300);
+    expect(root.querySelector(".offline-wrap")).toBeNull();
+  });
+});
