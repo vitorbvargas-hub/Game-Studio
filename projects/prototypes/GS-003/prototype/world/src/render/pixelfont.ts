@@ -27,6 +27,20 @@ const GLYPHS: Record<string, string> = {
   U: "101101101101111",
   V: "101101101101010",
   X: "101101010101101",
+  // golpes: ATQ/DEF/VEL ↑↓, EVOLUIU, NOVO GOLPE
+  C: "011100100100011",
+  D: "110101101101110",
+  E: "111100110100111",
+  F: "111100110100100",
+  G: "011100101101011",
+  H: "101101111101101",
+  N: "110101101101101",
+  O: "010101101101010",
+  Q: "010101101110011",
+  R: "110101110101101",
+  T: "111010010010010",
+  "↑": "010111010010010",
+  "↓": "010010010111010",
 };
 
 export function drawPixelText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, color: string, scale = 1): void {

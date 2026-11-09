@@ -7,7 +7,6 @@ import { ANIMATED_TILES, animatedTileKey, drawPlaceholderTile, propPlaceholder, 
 import type { MapProp, WorldMap } from "../sim/map";
 import type { Dir8, LogicState, Vec } from "../sim/types";
 import {
-  ANTICIPATION_FRAC,
   attackLunge,
   DEFEAT_FADE_MS,
   ease,
@@ -19,12 +18,14 @@ import {
   resolveFacing,
   type Dir4,
 } from "./anim";
-import { drawCharge, drawImpact, drawProjectile, projectilePos, shakeOffset } from "./fx";
+import { drawImpact, shakeOffset } from "./fx";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
 import { drawOutlinedText, pixelTextWidth } from "./pixelfont";
 import { EXCLAIM_MS, type Presenter, type VisualEntity } from "./presenter";
+import type { VfxFrame } from "./vfx/archetypes";
+import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
 
 export const CHUNK_TILES = 16;
@@ -42,6 +43,8 @@ export interface ViewOptions {
   tamerLevels?: Record<string, number>;
   /** Só apresentação: matiz (graus) do sprite de cada outro jogador, para diferenciar quem usa o mesmo sprite. */
   tamerTints?: Record<string, number>;
+  /** Folhas de efeito do game-art (04-effects), desenhadas por cima do VFX em código. */
+  fxSheets?: SheetDrawer;
 }
 
 const LOCOMOTION: LogicState[] = ["IDLE", "WALK", "FOLLOW", "ENGAGE", "RETURN"];
@@ -177,6 +180,8 @@ export class WorldView {
     }
     // sombras (sempre sob a entidade, inclusive em ATTACK/HURT)
     for (const { v, pos } of visible) this.drawShadow(v, pos, now, p);
+    // VFX: camada do chão (círculos de área, marcas, rachaduras) fica sob as entidades
+    for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "ground");
     // anel do alvo atual da parceira local
     const partner = p.entities.get(p.localPartnerId);
     const target = partner?.targetId ? p.entities.get(partner.targetId) : undefined;
@@ -194,11 +199,11 @@ export class WorldView {
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
 
-    this.drawCharges(p, alpha, now);
-    this.drawProjectiles(p, alpha, now);
+    for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "over");
+    // Impacto genérico da v2 só para golpes sem Cast (eventos sintéticos/legado).
     for (const fx of p.hitFx) {
       const v = p.entities.get(fx.targetId);
-      if (!v) continue;
+      if (!v || p.casts.some((c) => c.seq === fx.seq)) continue;
       const pos = this.posOf(p, v, alpha);
       const h = this.headOffset(v);
       drawImpact(ctx, fx, Math.round(pos.x - cam.x + h.hit.x), Math.round(pos.y - cam.y + h.hit.y), now - fx.start);
@@ -393,37 +398,57 @@ export class WorldView {
     ctx.globalAlpha = 1;
   }
 
-  /** Brilho de carga do golpe especial, entre a antecipação e o lançamento. */
-  private drawCharges(p: Presenter, alpha: number, now: number): void {
-    for (const pr of p.projectiles) {
-      const a = p.entities.get(pr.attackerId);
-      if (!a?.attack || a.attack.seq !== pr.seq) continue;
-      const t = p.localTime(a, now) - a.attack.start;
-      const launch = a.attack.launchAtMs ?? a.attack.hitAtMs;
-      const from = launch * ANTICIPATION_FRAC * 0.5;
-      const k = (t - from) / Math.max(1, launch - from);
-      const pos = this.posOf(p, a, alpha);
-      const h = this.headOffset(a);
-      const off = this.combatOffset(a, p, now);
-      drawCharge(this.ctx, pr.element, Math.round(pos.x - this.camera.x + off.x + h.hit.x + a.attack.dir.x * 6), Math.round(pos.y - this.camera.y + off.y + h.hit.y), k, now);
-    }
+  /** Monta o quadro de VFX de um golpe (posições de tela vivas) e desenha a camada pedida. */
+  private drawCastLayer(p: Presenter, c: Cast, alpha: number, now: number, layer: "ground" | "over"): void {
+    const cam = this.camera;
+    const a = p.entities.get(c.attackerId);
+    const t = p.entities.get(c.targetId);
+    const scr = (v: Vec): Vec => ({ x: Math.round(v.x - cam.x), y: Math.round(v.y - cam.y) });
+    const anchor = (v: VisualEntity | undefined, fallback: Vec): { hit: Vec; feet: Vec } => {
+      if (!v) return { hit: scr({ x: fallback.x, y: fallback.y - 10 }), feet: scr(fallback) };
+      const pos = this.posOf(p, v, alpha);
+      const off = this.combatOffset(v, p, now);
+      const h = this.headOffset(v);
+      return { hit: scr({ x: pos.x + off.x + h.hit.x, y: pos.y + off.y + h.hit.y }), feet: scr({ x: pos.x + off.x, y: pos.y + off.y }) };
+    };
+    const A = anchor(a, c.from);
+    const T = c.self ? A : anchor(t, c.to);
+    const targets = c.targetIds.map((id) => (id === c.attackerId ? A : id === c.targetId ? T : anchor(p.entities.get(id), c.at)));
+    // Área: centro no alvo vivo (lançada) ou nos pés do atacante (ao redor de si); linha: ponta relativa ao atacante.
+    const aPos = a ? this.posOf(p, a, alpha) : c.from;
+    const aroundSelf = Math.hypot(c.at.x - c.from.x, c.at.y - c.from.y) < 2;
+    const center = c.self || aroundSelf ? A.feet : t ? T.feet : scr(c.at);
+    const endWorld = { x: aPos.x + (c.at.x - c.from.x), y: aPos.y + (c.at.y - c.from.y) };
+    const end = { x: Math.round(endWorld.x - cam.x) + (A.hit.x - A.feet.x), y: Math.round(endWorld.y - cam.y) + (A.hit.y - A.feet.y) };
+    const line = this.moveTarget(p, c) === "line";
+    const tip = line ? end : T.hit;
+    const dx = tip.x - A.hit.x;
+    const dy = tip.y - A.hit.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const f: VfxFrame = {
+      g: this.ctx,
+      seq: Math.abs(c.seq),
+      P: c.params.palette,
+      S: c.params.scale,
+      count: c.params.count,
+      now,
+      o: A.hit,
+      of: A.feet,
+      d: T.hit,
+      df: T.feet,
+      targets,
+      c: center,
+      end: tip,
+      radius: c.radius,
+      dir: c.self ? { x: 1, y: 0 } : { x: dx / len, y: dy / len },
+      self: c.self,
+      glow: c.params.glow,
+    };
+    drawCast(f, c, now, layer, layer === "over" ? this.opts.fxSheets : undefined);
   }
 
-  private drawProjectiles(p: Presenter, alpha: number, now: number): void {
-    for (const pr of p.projectiles) {
-      const a = p.entities.get(pr.attackerId);
-      const t = p.entities.get(pr.targetId);
-      const ha = a ? this.headOffset(a) : undefined;
-      const ht = t ? this.headOffset(t) : undefined;
-      const from = a ? this.posOf(p, a, alpha) : pr.from;
-      const to = t ? this.posOf(p, t, alpha) : pr.to;
-      const f = { x: from.x + (ha?.hit.x ?? 0), y: from.y + (ha?.hit.y ?? -10) };
-      const d = { x: to.x + (ht?.hit.x ?? 0), y: to.y + (ht?.hit.y ?? -10) };
-      const at = projectilePos(pr, f, d, now);
-      if (!at) continue;
-      const len = Math.hypot(d.x - f.x, d.y - f.y) || 1;
-      drawProjectile(this.ctx, pr, Math.round(at.pos.x - this.camera.x), Math.round(at.pos.y - this.camera.y), { x: (d.x - f.x) / len, y: (d.y - f.y) / len }, now);
-    }
+  private moveTarget(p: Presenter, c: Cast): string | undefined {
+    return p.moves.moves[c.moveId]?.target;
   }
 
   private blit(img: CanvasImageSource, fr: { x: number; y: number; w: number; h: number }, dx: number, dy: number, S: number, mirror: boolean): void {

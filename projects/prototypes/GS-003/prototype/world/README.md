@@ -3,6 +3,38 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Sistema de golpes (4 slots) + VFX por arquétipo (2026-11-08)
+
+Pedido do fundador: "Todos os Digimon só têm 1 ataque? Tem que ter 4, e ir aprendendo mais, e a pessoa mudando. Cada ataque com um efeito visual bonito." Os dados e as regras são do game-design (`GS-003/docs/MOVE_SYSTEM.md` e `src/data/moves/{moves,learnsets,vfx_archetypes}.json`: 70 golpes, learnsets das 12 espécies, 15 arquétipos). O que o schema deles ainda não define e a sim precisa ficou em `src/data/moves-sim.json`, um complemento [H] do game-dev: efeito numérico de buff e debuff, alcance e raio por forma, elemento de cada espécie, tabela elemental e regen de MP.
+
+- **Sim** (`src/sim/moves.ts` + `world.ts`, autoritativa e determinística):
+  - Cada Digimon tem `learned` (golpes conhecidos), `moves` (4 slots, `null` = vazio), `moveCd`, `mp`/`maxMp` (20 + 2 × nível), `statuses` (buffs e debuffs com prazo) e `autoRules`.
+  - **Learnset por nível e estágio:** ao subir de nível, sai o evento confirmado `move_learned`. O golpe novo só entra sozinho num slot **vazio** (§2.2). Se os slots estiverem cheios, ele fica só na lista de conhecidos.
+  - Uma forma abaixo da janela do learnset dela (ex.: Guilmon Nv.5, janela 8–15) conhece os golpes de entrada.
+  - **Evolução:** intent `evolve`, recusado abaixo do nível. Ela troca espécie, stats e elemento, mantém até `inheritSlotsOnEvolve` (2) golpes da forma anterior (o jogador escolhe com `keep`; o padrão são os de maior poder) e libera os golpes de entrada. Emite `evolve` e depois `move_learned`.
+  - **Troca:** `set_moves` aceita só golpes aprendidos, sem repetir e **apenas fora de combate** (§2.4). `use_move` (clique ou teclas 1–4) usa o golpe do slot no próximo ataque possível.
+  - **Tipos:** físico e especial causam dano pela fórmula atual; buff e debuff aplicam `status` (±atributo por N ticks, emitido como evento); cura emite `damage` com `kind: "heal"`.
+  - **Alvos:** `single`, `projectile` (alcance maior), `area` (o alvo e os hostis num raio em volta dele) e `line` (todos na reta a partir do atacante). O `attack_start` leva `targetIds` e `at`. Golpes de área e linha põem mais de um selvagem no encontro, que só acaba quando um dos lados fica vazio.
+  - **Multiplicadores:** atributo Vacina/Dados/Vírus (affinityChart, sem mudança) × elemento (×1,15/×0,85, §2.9) × crítico × variância.
+  - **AUTO** (gambit simples, §2.5): percorre a lista de prioridade e usa o primeiro golpe fora de recarga, com MP e cuja condição vale. As condições são `always`, `target_hp_below_pct`, `self_hp_below_pct` e `buff_not_active`, e cada golpe pode ser desligado. Se nenhum servir, usa `investida`. O padrão é a ordem dos slots.
+- **VFX** (`src/render/vfx/`):
+  - Os 15 arquétipos do game-design são desenhados em código (originais) e mapeados em `IMPL_OF`: fireball, breath_flame, ice_shard, beam, claw_slash, energy_blade, holy_burst, bubble_spit, wind_blade, tackle_impact, tornado_field, guard_aura, fear_howl, freeze_bind e multi_hit_flurry. Há ainda três extras: relâmpago, maldição e cura.
+  - Cada um tem as fases carga → lançamento → viagem → impacto → resíduo, com tempos de `keyframes`.
+  - Os efeitos usam partículas em forma fechada (mesmo golpe e mesmo instante dão o mesmo quadro), glow aditivo (`lighter`) em discos com alpha em degraus, rastro, clarão **local** no alvo (cor e alpha do arquétipo) e tremida só onde o arquétipo define (≤ 2 px, só no golpe do jogador local).
+  - Tudo é desenhado em px inteiros na resolução lógica (escala de tela inteira).
+  - A paleta de 3–4 cores vira uma rampa de 7 tons. Arquétipos genéricos (garra, impacto, aura, feixe) tingem pelo elemento do golpe, a cura usa a rampa verde e o poder ≥ 180 aumenta a escala.
+  - O Presenter cria um `Cast` no `attack_start` confirmado, e o `damage` aparece no impacto do arquétipo. O ícone de cada golpe é um quadro do próprio efeito (`icon.ts`).
+  - **Folhas do game-art:** um `GAME-ASSETS/04-effects/**/<nome>.vfx.json` (`archetype`, `phase`, `image`, `frameW/H`, `frames`, `frameMs`, `pivot`, `blend`) com o PNG ao lado é desenhado por cima da fase correspondente. Hoje a pasta está vazia.
+- **UI (pt-BR):**
+  - HUD: barra dos 4 golpes do Digimon ativo com ícone, **recarga radial** (`conic-gradient`, segundos restantes), custo em MP, tecla 1–4 e barra de MP.
+  - Aviso grande "Guilmon aprendeu Sharp Claws!", com o slot ou "Abra Equipe & Box → Golpes", e o mesmo texto no log.
+  - Modal Equipe & Box com a aba **Golpes**: 4 slots, "Esvaziar", aprendidos, próximos golpes bloqueados com o nível, **Trocar** (escolhe o golpe e depois o slot), aviso de combate e o **editor de prioridade do AUTO** (▲▼, condição com %, "usar" e "Restaurar padrão").
+  - **Evoluir** fica habilitado no nível de evolução. Os Digimon da equipe e do Box mostram o kit pelo learnset, só para leitura.
+- **Capturas:**
+  - `npm run shots:vfx` (`scripts/capture-vfx.ts`, renderer real, sem navegador) gera `docs/screens/vfx_<golpe>.png`: 16 tiras de 6 quadros, uma por arquétipo mais a cura. Gera também `vfx_overview.png`.
+  - `ONLY=golpes npm run shots:live` gera `moves_hud_combate.png`, `moves_aprendeu.png`, `moves_modal.png` e `moves_modal_trocar.png`.
+- **Testes:** `tests/moves.test.ts` (dados, loadout, learnset por evento, troca, recarga e MP, prioridade do AUTO, evolução e herança, área e linha, elemento, save JSON, renascimento, determinismo com intents de golpe), `tests/vfx.test.ts` (cobertura dos arquétipos, fases em ordem, pixels idênticos por golpe e instante, folha de efeito, dano no impacto, tremida só local) e `tests/hud.test.ts` (barra, aviso, aba Golpes, Trocar, editor do AUTO, Evoluir).
+
 ## Prova visual ao vivo (2026-11-08, GS-004 §4 / ADR-010)
 
 Versão jogável da prova visual pedida pelo fundador, na estrutura da referência canônica do IdleDex (`GS-003/evidence/idledex-canonical/`). **A arquitetura não mudou:** sim, presenter e contrato de eventos são os mesmos da v2. Mexi só em apresentação, HUD e dados de cena.
@@ -40,13 +72,14 @@ npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale
 npm test                  # vitest: FSM, sim, presenter, assets, HUD
 npm run build             # tsc --noEmit + vite build → dist/
 npm run shots             # capturas em docs/screens/ (@napi-rs/canvas, sem navegador)
-npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png
+npm run shots:vfx         # tiras de VFX por golpe → docs/screens/vfx_*.png (renderer real, sem navegador)
+npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png e moves_*.png
                           #   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu npm run shots:live
 npm run map               # regenera src/data/maps/test-meadow.tmj.json
 npm run map:forest        # regenera src/data/maps/forest-proof.tmj.json
 ```
 
-Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F) · **E** abre ou fecha "Equipe & Box" · Esc fecha.
+Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F) · **1–4** ou clique na barra usa o golpe do slot · **E** abre ou fecha "Equipe & Box" (aba Golpes: trocar golpes e prioridade do AUTO) · Esc fecha.
 
 ## Arquitetura
 

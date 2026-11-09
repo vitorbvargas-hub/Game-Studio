@@ -6,14 +6,21 @@
 
 import { statsAtLevel } from "@game/src/sim/formulas";
 import type { PortraitFn } from "../render/portrait";
+import { defaultAutoRules } from "../sim/moves";
 import type { WorldContent } from "../sim/species";
-import type { EntitySnapshot, WorldEvent } from "../sim/types";
+import type { AutoCond, AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types";
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
+import { moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
 
 export interface HudCallbacks {
   onAuto(on: boolean): void;
   onFlee(): void;
+  /** Golpes (intents): usar o golpe do slot, trocar os 4 slots, lista de prioridade do AUTO, evoluir. */
+  onUseMove?(slot: number): void;
+  onSetMoves?(slots: (string | null)[]): void;
+  onSetAutoRules?(rules: AutoRule[]): void;
+  onEvolve?(): void;
 }
 
 export interface HudScene {
@@ -29,6 +36,8 @@ export interface HudScene {
 export interface HudOptions {
   scene?: HudScene;
   portrait?: PortraitFn;
+  /** Desenha o ícone de um golpe (render/vfx/icon.ts); ausente = sem ícone (ex.: testes em jsdom). */
+  moveIcon?: (c: HTMLCanvasElement, m: MoveDef | undefined) => void;
   minimap?: Minimap;
 }
 
@@ -98,6 +107,14 @@ export class Hud {
   private tamerXp = 0;
   private selected = "active";
   private toastTimer?: ReturnType<typeof setTimeout>;
+  private learnEl: HTMLElement;
+  private learnQueue: { title: string; sub: string; move?: string }[] = [];
+  private learnTimer?: ReturnType<typeof setTimeout>;
+  private moveBar: HTMLElement;
+  private movesView?: MovesView;
+  private movesKey = "";
+  private tab: "digimon" | "moves" = "digimon";
+  private swapping?: string;
   private closeTimer?: ReturnType<typeof setTimeout>;
   private readonly scene: HudScene;
 
@@ -138,6 +155,8 @@ export class Hud {
         <ul class="chat-lines">${sc.chat.map((m) => `<li><b>${esc(m.from)}:</b> ${esc(m.text)}</li>`).join("")}<li class="dim">(mensagens simuladas)</li></ul>
       </div>
       <div class="hud-toast" role="status"></div>
+      <div class="hud-learn" role="status" aria-live="polite"><canvas width="24" height="24"></canvas><div><b></b><small></small></div></div>
+      ${moveBarHtml()}
       <div class="hud-tamerxp" title="Experiência do Tamer"><span>NÍVEL <b data-testid="tamer-level">${this.tamerLevel}</b></span><div class="bar"><i></i></div></div>
       <div class="hud-bottom">
         <div class="mm">
@@ -171,6 +190,15 @@ export class Hud {
     this.chatEl = q(".hud-chat");
     this.modal = q(".modal-wrap");
     this.minimapCanvas = q('[data-testid="minimap"]');
+    this.learnEl = q(".hud-learn");
+    this.moveBar = q(".hud-moves");
+    this.moveBar.addEventListener("click", (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLElement>("[data-mv]");
+      if (!b || b.classList.contains("empty")) return;
+      e.stopPropagation();
+      cb.onUseMove?.(Number(b.dataset.mv));
+    });
+    this.bindMovesTab(cb);
     q('[data-testid="chat-last"]').textContent = sc.chat.length ? `${sc.chat[sc.chat.length - 1].from}: ${sc.chat[sc.chat.length - 1].text}` : "Sem mensagens";
 
     // Cliques no HUD não chegam ao canvas (não viram "andar até aqui").
@@ -196,6 +224,9 @@ export class Hud {
       else if (soon) this.toast(`${soon.dataset.soon}: em breve`);
       else if (act === "chat") this.chatEl.classList.toggle("collapsed");
       else if (act === "close") this.closeTeam();
+      else if (act === "tab-digimon" || act === "tab-moves") this.setTab(act === "tab-moves" ? "moves" : "digimon");
+      else if (act === "goto-moves") this.setTab("moves");
+      else if (act === "evolve") cb.onEvolve?.();
     });
     this.setAuto(initialAuto);
     this.renderTamerXp();
@@ -263,6 +294,26 @@ export class Hud {
         case "level_up":
           if (this.mine(ev.id)) this.push(`${this.name(ev.id)} subiu para o nível ${ev.level}!`, "gold");
           break;
+        case "move_learned":
+          if (this.mine(ev.id)) {
+            const m = this.content.moves.moves[ev.moveId];
+            const text = `${this.name(ev.id)} aprendeu ${m?.name ?? ev.moveId}!`;
+            this.push(text, "gold");
+            this.announce(text, ev.slot !== null ? `Equipado no slot ${ev.slot + 1}.` : "Abra Equipe & Box → Golpes para equipar.", ev.moveId);
+          }
+          break;
+        case "evolve":
+          if (this.mine(ev.id)) {
+            const to = this.content.species[ev.to]?.name ?? ev.to;
+            const text = `${this.name(ev.id)} evoluiu para ${to}!`;
+            this.names.set(ev.id, to);
+            this.push(text, "gold");
+            this.announce(text, ev.kept.length ? `Manteve ${ev.kept.map((id) => this.content.moves.moves[id]?.name ?? id).join(" e ")}.` : "Golpes novos liberados.");
+          }
+          break;
+        case "moves_changed":
+          if (this.mine(ev.id)) this.push("Golpes ativos atualizados.", "dim");
+          break;
         case "capture":
           if (ev.ownerId === this.playerId)
             this.push(ev.done ? `${this.content.species[ev.speciesId]?.name} registrado no Digidex! (captura placeholder)` : `Escaneando ${this.content.species[ev.speciesId]?.name}: ${ev.pct}%`, ev.done ? "gold" : "");
@@ -277,6 +328,116 @@ export class Hud {
           break;
       }
     }
+  }
+
+  /** Aviso grande de golpe aprendido / evolução, em fila (um por vez). */
+  private announce(title: string, sub: string, move?: string): void {
+    this.learnQueue.push({ title, sub, move });
+    if (!this.learnTimer) this.nextAnnounce();
+  }
+
+  private nextAnnounce(): void {
+    const n = this.learnQueue.shift();
+    if (!n) {
+      this.learnEl.classList.remove("show");
+      this.learnTimer = undefined;
+      return;
+    }
+    this.learnEl.querySelector("b")!.textContent = n.title;
+    this.learnEl.querySelector("small")!.textContent = n.sub;
+    const cnv = this.learnEl.querySelector("canvas")!;
+    cnv.hidden = !n.move;
+    if (n.move) this.icon(cnv, this.content.moves.moves[n.move]);
+    this.learnEl.classList.remove("show");
+    void this.learnEl.offsetWidth;
+    this.learnEl.classList.add("show");
+    this.learnTimer = setTimeout(() => this.nextAnnounce(), 2800);
+  }
+
+  private icon(c: HTMLCanvasElement, m: MoveDef | undefined): void {
+    try {
+      this.opts.moveIcon?.(c, m);
+    } catch {
+      /* sem canvas (ex.: jsdom) */
+    }
+  }
+
+  /** Golpes da parceira ativa (somente leitura da sim): barra do HUD e, se aberta, a aba Golpes. */
+  updateMoves(v: MovesView): void {
+    this.movesView = v;
+    updateMoveBar(this.moveBar, this.content.moves, v, (c, m) => this.icon(c, m));
+    const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready]);
+    if (key === this.movesKey) return;
+    this.movesKey = key;
+    if (this.teamOpen && (this.tab === "moves" || this.selected === "active")) this.renderRight();
+  }
+
+  setTab(tab: "digimon" | "moves"): void {
+    this.tab = tab;
+    this.swapping = undefined;
+    if (this.teamOpen) this.renderModal();
+  }
+
+  get movesTab(): boolean {
+    return this.tab === "moves";
+  }
+
+  private activeView(): MovesView | undefined {
+    return this.selected === "active" ? this.movesView : undefined;
+  }
+
+  /** Interações da aba Golpes (delegadas: o conteúdo é refeito a cada atualização). */
+  private bindMovesTab(cb: HudCallbacks): void {
+    const rules = (): AutoRule[] => (this.movesView ? rulesFor(this.movesView).map((r) => ({ ...r })) : []);
+    this.modal.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      const v = this.activeView();
+      if (!v || !this.movesTab) return;
+      const swap = t.closest<HTMLElement>("[data-swap]")?.dataset.swap;
+      const slot = t.closest<HTMLElement>(".mslot.pick")?.dataset.slot;
+      const clear = t.closest<HTMLElement>("[data-clear]")?.dataset.clear;
+      const up = t.closest<HTMLElement>("[data-up]")?.dataset.up;
+      const down = t.closest<HTMLElement>("[data-down]")?.dataset.down;
+      if (swap !== undefined) {
+        this.swapping = this.swapping === swap ? undefined : swap;
+        this.renderRight();
+      } else if (slot !== undefined && this.swapping) {
+        const slots = [...v.moves];
+        const from = slots.indexOf(this.swapping);
+        const i = Number(slot);
+        if (from >= 0) slots[from] = slots[i];
+        slots[i] = this.swapping;
+        this.swapping = undefined;
+        cb.onSetMoves?.(slots);
+        this.renderRight();
+      } else if (clear !== undefined) {
+        const slots = [...v.moves];
+        slots[Number(clear)] = null;
+        cb.onSetMoves?.(slots);
+      } else if (up !== undefined || down !== undefined) {
+        const r = rules();
+        const i = Number(up ?? down);
+        const j = up !== undefined ? i - 1 : i + 1;
+        if (j < 0 || j >= r.length) return;
+        [r[i], r[j]] = [r[j], r[i]];
+        cb.onSetAutoRules?.(r);
+      } else if (t.closest("[data-reset-rules]")) cb.onSetAutoRules?.(defaultAutoRules(v.moves));
+    });
+    this.modal.addEventListener("change", (e) => {
+      const t = e.target as HTMLInputElement | HTMLSelectElement;
+      if (!this.activeView() || !this.movesTab) return;
+      const r = rules();
+      const d = t.dataset;
+      const i = Number(d.cond ?? d.pct ?? d.on);
+      if (!r[i]) return;
+      if (d.cond !== undefined) {
+        r[i].cond = t.value as AutoCond;
+        if (r[i].cond.endsWith("_pct") && r[i].pct === undefined) r[i].pct = r[i].cond === "target_hp_below_pct" ? 30 : 40;
+      } else if (d.pct !== undefined) r[i].pct = Number(t.value);
+      else if (d.on !== undefined) r[i].off = !(t as HTMLInputElement).checked;
+      cb.onSetAutoRules?.(r);
+    });
+    this.modal.addEventListener("keydown", (e) => e.stopPropagation());
   }
 
   private tamerNext(): number {
@@ -441,16 +602,41 @@ export class Hud {
         </div>
       </div>
       <table class="stats">${row("PV", st.hp, max * 1.2)}${row("Ataque", st.atk, 60)}${row("Defesa", st.def, 60)}${row("Velocidade", st.spd, 60)}</table>
-      <h4>Golpes</h4>
-      <ul class="moves">${sp.skills.map((id) => {
-        const sk = this.content.skills[id];
-        return `<li><span>${esc(sk?.name ?? id)}</span><em>${sk ? `Poder ${sk.power}` : ""}</em></li>`;
+      <h4>Golpes ativos</h4>
+      <ul class="moves">${this.viewFor(t).moves.map((id) => {
+        const m = id ? this.content.moves.moves[id] : undefined;
+        return m ? `<li><span>${esc(m.name)}</span><em>${m.type === "buff" || m.type === "debuff" ? (m.type === "buff" ? "Buff" : "Debuff") : `Poder ${m.power}`} · ${m.cost} MP</em></li>` : `<li class="dim"><span>— vazio —</span></li>`;
       }).join("")}</ul>
       <div class="actions">
-        ${[["evo", "Evoluir"], ["moves", "Golpes"], ["item", "Item"], ["release", "Soltar"]].map(([n, l]) => `<button class="act ${n}" disabled title="Bloqueado nesta prova visual">${icon(n === "evo" ? "evo" : n === "moves" ? "arena" : n === "item" ? "bag" : "gift", 14)}${l}</button>`).join("")}
+        <button class="act evo" data-act="evolve" ${t.active && this.movesView?.evolve?.ready ? "" : "disabled"} title="${t.active && this.movesView?.evolve ? (this.movesView.evolve.ready ? `Evoluir para ${esc(this.movesView.evolve.toName)}` : `Evolui no nível ${this.movesView.evolve.level}`) : "Sem evolução disponível"}">${icon("evo", 14)}Evoluir</button>
+        <button class="act moves" data-act="goto-moves" title="Ver e trocar golpes">${icon("arena", 14)}Golpes</button>
+        ${[["item", "Item"], ["release", "Soltar"]].map(([n, l]) => `<button class="act ${n}" disabled title="Bloqueado nesta prova visual">${icon(n === "item" ? "bag" : "gift", 14)}${l}</button>`).join("")}
       </div>
-      <p class="note">Ações desabilitadas até a validação da prova visual.</p>
+      <p class="note">Item e Soltar ficam desabilitados nesta prova.</p>
     </div>`;
+  }
+
+  /** Golpes de um membro: o ativo vem da sim; os outros, do learnset pelo nível (só leitura). */
+  private viewFor(t: TeamMember): MovesView {
+    if (t.active && this.movesView) return this.movesView;
+    return readOnlyView(this.content.moves, t.species, t.name, t.level);
+  }
+
+  private members(): TeamMember[] {
+    return [...this.teamMembers(), ...this.boxMembers()];
+  }
+
+  /** Redesenha só o painel da direita (ficha ou aba Golpes), mantendo a grade da esquerda. */
+  private renderRight(): void {
+    const el = this.modal.querySelector<HTMLElement>(".modal .right");
+    if (!el) return;
+    const t = this.members().find((m) => m.slot === this.selected);
+    if (this.tab === "moves" && t) {
+      const v = this.viewFor(t);
+      el.innerHTML = movesTabHtml(this.content.moves, v, t.active && !!this.movesView, this.swapping);
+    } else el.innerHTML = this.sheet(t);
+    el.querySelectorAll<HTMLCanvasElement>("canvas[data-icon]").forEach((c) => this.icon(c, this.content.moves.moves[c.dataset.icon!]));
+    el.querySelectorAll<HTMLCanvasElement>("canvas[data-species]").forEach((c) => this.paint(c));
   }
 
   private renderModal(): void {
@@ -459,9 +645,10 @@ export class Hud {
     const all = [...team, ...box];
     if (!all.some((t) => t.slot === this.selected)) this.selected = team[0]?.slot ?? box[0]?.slot ?? "";
     const el = this.modal.querySelector<HTMLElement>(".modal")!;
+    el.classList.toggle("wide", this.tab === "moves");
     el.innerHTML = `
       <header><h2>EQUIPE &amp; BOX</h2>
-        <div class="tabs"><button class="tab on">${icon("team", 14)}Digimon</button><button class="tab" data-soon="Times salvos">${icon("quest", 14)}Times salvos</button></div>
+        <div class="tabs"><button class="tab${this.tab === "digimon" ? " on" : ""}" data-act="tab-digimon">${icon("team", 14)}Digimon</button><button class="tab${this.tab === "moves" ? " on" : ""}" data-act="tab-moves" data-testid="tab-moves">${icon("arena", 14)}Golpes</button><button class="tab" data-soon="Times salvos">${icon("quest", 14)}Times salvos</button></div>
         <button class="x" data-act="close" title="Fechar (Esc)">×</button></header>
       <div class="modal-body">
         <div class="left">
@@ -472,17 +659,17 @@ export class Hud {
           <div class="cards box">${box.map((t) => this.card(t)).join("")}</div>
           <div class="pager"><button disabled>‹</button><span>1/1</span><button disabled>›</button></div>
         </div>
-        <div class="right">${this.sheet(all.find((t) => t.slot === this.selected))}</div>
+        <div class="right"></div>
       </div>`;
-    el.querySelectorAll("canvas").forEach((c) => this.paint(c));
+    el.querySelectorAll<HTMLCanvasElement>(".left canvas").forEach((c) => this.paint(c));
+    this.renderRight();
     el.querySelectorAll<HTMLElement>("[data-pick]").forEach((b) =>
       b.addEventListener("click", () => {
         this.selected = b.dataset.pick!;
+        this.swapping = undefined;
         el.querySelectorAll(".card.sel").forEach((c) => c.classList.remove("sel"));
         b.classList.add("sel");
-        const right = el.querySelector<HTMLElement>(".right")!;
-        right.innerHTML = this.sheet(all.find((t) => t.slot === this.selected));
-        right.querySelectorAll("canvas").forEach((c) => this.paint(c));
+        this.renderRight();
       }),
     );
     const search = el.querySelector<HTMLInputElement>(".search")!;

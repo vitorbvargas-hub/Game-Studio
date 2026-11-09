@@ -26,6 +26,55 @@ export interface SkillDef {
   cooldownTicks: number;
 }
 
+export type MoveType = "physical" | "special" | "buff" | "debuff" | "heal";
+export type MoveTarget = "single" | "area" | "line" | "projectile" | "self";
+export type StatKey = "atk" | "def" | "spd";
+
+/** Golpe (docs/MOVE_SYSTEM.md). Unidades da sim: ticks e sub-tiles; o loader converte tiles → sub. */
+export interface MoveDef {
+  id: string;
+  name: string;
+  type: MoveType;
+  element: string;
+  power: number;
+  /** Custo em MP (energia). */
+  cost: number;
+  cooldownTicks: number;
+  target: MoveTarget;
+  /** Forma original do dado (single/area/line/projectile), para a apresentação. */
+  shape: string;
+  /** Alcance extra além do corpo a corpo, em sub-tiles (0 = encostado). */
+  range: number;
+  /** Área: raio em sub-tiles. Linha: meia largura em sub-tiles. */
+  radius: number;
+  /** Multiplicadores de atributo do atacante que compõem o "ataque" do golpe. */
+  scaling: Partial<Record<StatKey | "hp", number>>;
+  effect?: { stat: StatKey; mult: number; ticks: number };
+  /** Só apresentação (a sim ignora): id do arquétipo de VFX. */
+  vfx: string;
+  desc?: string;
+  /** Técnica oficial com citação (true) ou filler genérico (false). */
+  verified?: boolean;
+}
+
+export type AutoCond = "always" | "target_hp_below_pct" | "self_hp_below_pct" | "ally_hp_below_pct" | "buff_not_active";
+
+/** Um item da lista de prioridade do AUTO (§2.5): golpe, condição opcional e se está desligado. */
+export interface AutoRule {
+  moveId: string;
+  cond: AutoCond;
+  pct?: number;
+  off?: boolean;
+}
+
+export interface StatusEffect {
+  moveId: string;
+  stat: StatKey;
+  mult: number;
+  ticks: number;
+  sourceId: string;
+}
+
 /** Espécie para a sim: só números. O id coincide com o id da criatura em GAME-ASSETS (CREATURE-NNNN). */
 export interface SpeciesDef {
   id: string;
@@ -52,6 +101,8 @@ export interface EntitySnapshot {
   hp: number;
   maxHp: number;
   level: number;
+  mp?: number;
+  maxMp?: number;
   targetId?: string;
   encounterId?: string;
 }
@@ -62,7 +113,23 @@ export type WorldEvent =
   | { t: "state"; tick: number; id: string; from: LogicState; to: LogicState }
   | { t: "engage"; tick: number; encounterId: string; attackerId: string; targetId: string }
   | { t: "encounter_start"; tick: number; encounterId: string; members: string[] }
-  | { t: "attack_start"; tick: number; attackerId: string; targetId: string; skillId: string; seq: number }
+  | {
+      t: "attack_start";
+      tick: number;
+      attackerId: string;
+      targetId: string;
+      /** Golpe usado (id em moves.json). */
+      skillId: string;
+      seq: number;
+      /** Todos os afetados (área/linha atingem mais de um; buff/cura = o próprio atacante). */
+      targetIds?: string[];
+      /** Centro do efeito em sub-tiles (área: o ponto do impacto; linha: a ponta). */
+      at?: Vec;
+    }
+  | { t: "status"; tick: number; seq: number; id: string; moveId: string; stat: StatKey; mult: number; ticks: number; sourceId: string }
+  | { t: "move_learned"; tick: number; id: string; moveId: string; slot: number | null }
+  | { t: "moves_changed"; tick: number; id: string; slots: (string | null)[] }
+  | { t: "evolve"; tick: number; id: string; from: string; to: string; kept: string[] }
   | {
       t: "damage";
       tick: number;
@@ -87,7 +154,15 @@ export type Intent =
   | { t: "move_dir"; playerId: string; dx: number; dy: number }
   | { t: "engage"; playerId: string; targetId: string }
   | { t: "flee"; playerId: string }
-  | { t: "set_auto"; playerId: string; on: boolean };
+  | { t: "set_auto"; playerId: string; on: boolean }
+  /** Troca os 4 golpes ativos da parceira (só golpes aprendidos; null = slot vazio). */
+  | { t: "set_moves"; playerId: string; slots: (string | null)[] }
+  /** Lista de prioridade do AUTO (ordem + condição por golpe). */
+  | { t: "set_auto_priority"; playerId: string; rules: AutoRule[] }
+  /** Usa o golpe do slot no próximo ataque possível (fura a fila do AUTO). */
+  | { t: "use_move"; playerId: string; slot: number }
+  /** Evolui a parceira; `keep` = golpes da forma anterior a manter (até inheritSlotsOnEvolve; padrão: os de maior poder). */
+  | { t: "evolve"; playerId: string; keep?: string[] };
 
 export interface Entity {
   id: string;
@@ -109,8 +184,20 @@ export interface Entity {
   xp: number;
   stats: StatBlock;
   affinity: string;
-  skills: string[];
-  skillCd: Record<string, number>;
+  element: string;
+  /** Golpes aprendidos (ordem de aprendizado). */
+  learned: string[];
+  /** Os 4 slots ativos. */
+  moves: (string | null)[];
+  /** Recarga por golpe, em ticks. */
+  moveCd: Record<string, number>;
+  mp: number;
+  maxMp: number;
+  /** Prioridade do AUTO (gambit simples): ordem de tentativa + condição por slot. */
+  autoRules: AutoRule[];
+  /** Golpe pedido pelo jogador (use_move), usado no próximo ataque em que estiver pronto. */
+  queuedMove?: string;
+  statuses: StatusEffect[];
   attackCd: number;
   radius: number;
   speed: number;

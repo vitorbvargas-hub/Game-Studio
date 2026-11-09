@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "_comment": "Learnset por espécie para o sistema de 4 slots — ver docs/MOVE_SYSTEM.md §1.2/§2. speciesId usa o mesmo CREATURE-NNNN de world-species.json. Níveis de evolução (8 e 16) seguem os já usados em creatures.json/world-species.json. inheritSlotsOnEvolve é [H].",
+  "inheritSlotsOnEvolve": 2,
+  "species": [
+    {
+      "speciesId": "CREATURE-0002",
+      "name": "Gigimon",
+      "stage": 1,
+      "evolvesTo": ["CREATURE-0003"],
+      "learnset": [
+        { "level": 1, "moveId": "investida" },
+        { "level": 3, "moveId": "hot_bite" },
+        { "level": 6, "moveId": "acid_bubbles" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0003",
+      "name": "Guilmon",
+      "stage": 2,
+      "evolvesFrom": "CREATURE-0002",
+      "evolvesTo": ["CREATURE-0004"],
+      "learnset": [
+        { "level": 8, "moveId": "rock_breaker" },
+        { "level": 8, "moveId": "pyro_sphere" },
+        { "level": 10, "moveId": "sharp_claws" },
+        { "level": 11, "moveId": "wild_scratch" },
+        { "level": 13, "moveId": "air_fireball" },
+        { "level": 14, "moveId": "kiai_tame" },
+        { "level": 15, "moveId": "fire_rock_breaker" },
+        { "level": 15, "moveId": "guil_shot" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0004",
+      "name": "Growlmon",
+      "stage": 3,
+      "evolvesFrom": "CREATURE-0003",
+      "learnset": [
+        { "level": 16, "moveId": "plasma_blade" },
+        { "level": 16, "moveId": "exhaust_flame" },
+        { "level": 17, "moveId": "dino_kick" },
+        { "level": 18, "moveId": "grow_claw" },
+        { "level": 18, "moveId": "dragon_spine" },
+        { "level": 19, "moveId": "howling" },
+        { "level": 20, "moveId": "raiden_blade" },
+        { "level": 20, "moveId": "fire_blaster" }
+      ]
+    },
+
+    {
+      "speciesId": "CREATURE-0005",
+      "name": "Koromon",
+      "stage": 1,
+      "evolvesTo": ["CREATURE-0006"],
+      "learnset": [
+        { "level": 1, "moveId": "investida" },
+        { "level": 3, "moveId": "bubble_blow" },
+        { "level": 6, "moveId": "soft_tackle" },
+        { "level": 7, "moveId": "acid_bubbles" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0006",
+      "name": "Agumon",
+      "stage": 2,
+      "evolvesFrom": "CREATURE-0005",
+      "evolvesTo": ["CREATURE-0007"],
+      "learnset": [
+        { "level": 8, "moveId": "pepper_breath" },
+        { "level": 8, "moveId": "claw_attack" },
+        { "level": 10, "moveId": "sharp_claws" },
+        { "level": 11, "moveId": "spitfire" },
+        { "level": 13, "moveId": "mach_jab" },
+        { "level": 14, "moveId": "uppercut" },
+        { "level": 15, "moveId": "baby_burner" },
+        { "level": 15, "moveId": "triple_baby_flame" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0007",
+      "name": "Greymon",
+      "stage": 3,
+      "evolvesFrom": "CREATURE-0006",
+      "learnset": [
+        { "level": 16, "moveId": "mega_flame" },
+        { "level": 16, "moveId": "great_antler" },
+        { "level": 17, "moveId": "tail_whip" },
+        { "level": 18, "moveId": "great_horn_attack" },
+        { "level": 18, "moveId": "fire_wall" },
+        { "level": 19, "moveId": "bit_fire" },
+        { "level": 20, "moveId": "fire_horn" },
+        { "level": 20, "moveId": "horn_impulse" }
+      ]
+    },
+
+    {
+      "speciesId": "CREATURE-0008",
+      "name": "Tsunomon",
+      "stage": 1,
+      "evolvesTo": ["CREATURE-0009"],
+      "learnset": [
+        { "level": 1, "moveId": "investida" },
+        { "level": 3, "moveId": "tackle" },
+        { "level": 5, "moveId": "vigilia_timida" },
+        { "level": 6, "moveId": "bubble_blow" },
+        { "level": 7, "moveId": "acid_bubbles" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0009",
+      "name": "Gabumon",
+      "stage": 2,
+      "evolvesFrom": "CREATURE-0008",
+      "evolvesTo": ["CREATURE-0010"],
+      "learnset": [
+        { "level": 8, "moveId": "petit_fire" },
+        { "level": 8, "moveId": "little_horn" },
+        { "level": 10, "moveId": "hidden_knock" },
+        { "level": 11, "moveId": "horn_attack" },
+        { "level": 13, "moveId": "machine_gun_jab" },
+        { "level": 14, "moveId": "drill_horn" },
+        { "level": 15, "moveId": "crush_nail" },
+        { "level": 15, "moveId": "blue_cyclone" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0010",
+      "name": "Garurumon",
+      "stage": 3,
+      "evolvesFrom": "CREATURE-0009",
+      "learnset": [
+        { "level": 16, "moveId": "howling_blaster" },
+        { "level": 16, "moveId": "tai_atari" },
+        { "level": 17, "moveId": "garuru_thrust" },
+        { "level": 18, "moveId": "ice_wall" },
+        { "level": 18, "moveId": "freeze_fang" },
+        { "level": 19, "moveId": "wolf_cry" },
+        { "level": 20, "moveId": "ice_cannon" },
+        { "level": 20, "moveId": "ice_statue" }
+      ]
+    },
+
+    {
+      "speciesId": "CREATURE-0011",
+      "name": "Tokomon",
+      "stage": 1,
+      "evolvesTo": ["CREATURE-0012"],
+      "learnset": [
+        { "level": 1, "moveId": "investida" },
+        { "level": 3, "moveId": "bite_kamitsuki" },
+        { "level": 5, "moveId": "mordida_inocente" },
+        { "level": 6, "moveId": "bubble_blow" },
+        { "level": 7, "moveId": "acid_bubbles" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0012",
+      "name": "Patamon",
+      "stage": 2,
+      "evolvesFrom": "CREATURE-0011",
+      "evolvesTo": ["CREATURE-0013"],
+      "learnset": [
+        { "level": 8, "moveId": "boom_bubble" },
+        { "level": 8, "moveId": "hane_binta" },
+        { "level": 10, "moveId": "tai_atari" },
+        { "level": 11, "moveId": "aerial_air_shot" },
+        { "level": 13, "moveId": "air_slam" },
+        { "level": 14, "moveId": "thousand_wing" },
+        { "level": 15, "moveId": "sparking_air_shot" },
+        { "level": 15, "moveId": "aero_slash" }
+      ]
+    },
+    {
+      "speciesId": "CREATURE-0013",
+      "name": "Angemon",
+      "stage": 3,
+      "evolvesFrom": "CREATURE-0012",
+      "learnset": [
+        { "level": 16, "moveId": "hand_of_fate" },
+        { "level": 16, "moveId": "holy_rod" },
+        { "level": 17, "moveId": "god_typhoon" },
+        { "level": 18, "moveId": "angel_slam" },
+        { "level": 19, "moveId": "staff_sweep" },
+        { "level": 20, "moveId": "halo_attack" },
+        { "level": 20, "moveId": "holy_shot" }
+      ]
+    }
+  ]
+}

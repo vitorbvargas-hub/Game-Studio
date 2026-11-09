@@ -5,10 +5,12 @@
 // Números, mudança de HP, HURT e DEFEAT só aparecem a partir do evento confirmado.
 
 import type { CreatureManifest } from "../assets/creatures";
+import { loadMoveContent, type MoveContent } from "../sim/moves";
 import { PX_PER_SUB } from "../sim/params";
 import type { Dir8, EntityKind, EntitySnapshot, LogicState, Vec, WorldEvent } from "../sim/types";
 import vfxTable from "../data/world-vfx.json";
-import { attackTiming, DAMAGE_GRACE_MS, DEFEAT_FADE_MS, HIT_STOP_MS, HURT_FLASH_MS, HURT_VIS_MS, KNOCKBACK_CRIT_PX, KNOCKBACK_PX } from "./anim";
+import { archetypeParams, castEnd, castTiming, moveVfx, type Cast } from "./vfx/engine";
+import { DAMAGE_GRACE_MS, DEFEAT_FADE_MS, HIT_STOP_MS, HURT_FLASH_MS, HURT_VIS_MS, KNOCKBACK_CRIT_PX, KNOCKBACK_PX } from "./anim";
 
 export const HP_ANIM_MS = 150;
 export const HP_GHOST_MS = 400;
@@ -33,6 +35,11 @@ export function elementOf(speciesId: string | undefined): VfxElement {
 
 export function isSpecialSkill(skillId: string): boolean {
   return skillId !== VFX.basicSkillId;
+}
+
+let cachedMoves: MoveContent | undefined;
+function defaultMoves(): MoveContent {
+  return (cachedMoves ??= loadMoveContent());
 }
 
 export interface VisualEntity {
@@ -110,7 +117,7 @@ export interface HitFx {
   dir: Vec;
 }
 
-/** Projétil do golpe especial: só apresentação, sai em launchAt e chega no impacto exibido. */
+/** Projétil genérico (legado da v2; os golpes usam Cast + arquétipo). Mantido para fx.ts. */
 export interface Projectile {
   seq: number;
   attackerId: string;
@@ -118,7 +125,6 @@ export interface Projectile {
   element: VfxElement;
   launchAt: number;
   arriveAt: number;
-  /** Ponto de saída (px do mundo) e alvo no lançamento; o alvo é re-lido a cada quadro se ainda existir. */
   from: Vec;
   to: Vec;
 }
@@ -126,7 +132,10 @@ export interface Projectile {
 export interface Shake {
   start: number;
   seq: number;
+  /** Amplitude (px); padrão SHAKE_PX. */
+  amp?: number;
 }
+
 
 export interface ShownDamage {
   seq: number;
@@ -142,7 +151,8 @@ type Pending =
   | { at: number; kind: "defeat"; ev: Extract<WorldEvent, { t: "defeat" }> }
   | { at: number; kind: "reward"; ev: Extract<WorldEvent, { t: "reward" }> }
   | { at: number; kind: "level_up"; ev: Extract<WorldEvent, { t: "level_up" }> }
-  | { at: number; kind: "capture"; ev: Extract<WorldEvent, { t: "capture" }> };
+  | { at: number; kind: "capture"; ev: Extract<WorldEvent, { t: "capture" }> }
+  | { at: number; kind: "status"; ev: Extract<WorldEvent, { t: "status" }> };
 
 export type ManifestLookup = (speciesId: string | undefined) => CreatureManifest | undefined;
 
@@ -157,8 +167,10 @@ export class Presenter {
   readonly entities = new Map<string, VisualEntity>();
   floaters: Floater[] = [];
   hitFx: HitFx[] = [];
-  projectiles: Projectile[] = [];
+  /** Golpes em andamento (VFX por arquétipo), criados no attack_start confirmado. */
+  casts: Cast[] = [];
   shakes: Shake[] = [];
+  private fired = new Set<number>();
   /** Histórico do que foi exibido como dano (para testes e QA). */
   readonly shown: ShownDamage[] = [];
   private pending: Pending[] = [];
@@ -171,6 +183,7 @@ export class Presenter {
   constructor(
     private readonly manifestOf: ManifestLookup,
     readonly localPlayerId: string,
+    readonly moves: MoveContent = defaultMoves(),
   ) {}
 
   get localPartnerId(): string {
@@ -189,6 +202,10 @@ export class Presenter {
       v.cur = toPx(s);
       v.facing = s.facing;
       v.logicState = s.state;
+      if (s.speciesId !== v.speciesId) {
+        v.speciesId = s.speciesId;
+        v.name = s.name;
+      }
       if (s.state !== "HURT" && s.state !== "DEFEAT" && s.state !== "ATTACK") v.baseState = s.state;
       v.encounterId = s.encounterId;
       v.targetId = s.targetId;
@@ -208,8 +225,12 @@ export class Presenter {
         case "attack_start": {
           const a = this.entities.get(ev.attackerId);
           const t = this.entities.get(ev.targetId);
-          const special = isSpecialSkill(ev.skillId);
-          const timing = attackTiming(this.manifestOf(a?.speciesId), special);
+          const move = this.moves.moves[ev.skillId];
+          const p = moveVfx(move);
+          const archetype = move?.vfx ?? "tackle_impact";
+          const self = !!move && (move.target === "self" || move.type === "buff" || move.type === "heal");
+          const timing = castTiming(this.manifestOf(a?.speciesId), p);
+          const special = timing.launchAtMs !== undefined;
           this.hitTimeBySeq.set(ev.seq, now + timing.hitAtMs);
           if (a) {
             const gap = t ? Math.hypot(t.cur.x - a.cur.x, t.cur.y - a.cur.y) : 0;
@@ -220,19 +241,45 @@ export class Presenter {
               gap,
               targetId: ev.targetId,
               seq: ev.seq,
-              dir: t ? unit(t.cur.x - a.cur.x, t.cur.y - a.cur.y) : { x: 0, y: 0 },
+              dir: t && !self ? unit(t.cur.x - a.cur.x, t.cur.y - a.cur.y) : { x: 0, y: 0 },
             };
-            if (special && t && timing.launchAtMs !== undefined)
-              this.projectiles.push({
-                seq: ev.seq,
-                attackerId: a.id,
-                targetId: t.id,
-                element: elementOf(a.speciesId),
-                launchAt: now + timing.launchAtMs,
-                arriveAt: now + timing.hitAtMs,
-                from: { ...a.cur },
-                to: { ...t.cur },
-              });
+            const at = ev.at ? toPx(ev.at) : self ? { ...a.cur } : t ? { ...t.cur } : { ...a.cur };
+            const cast: Cast = {
+              seq: ev.seq,
+              moveId: ev.skillId,
+              archetype,
+              params: p,
+              attackerId: a.id,
+              targetId: ev.targetId,
+              targetIds: ev.targetIds ?? [self ? a.id : ev.targetId],
+              at,
+              from: { ...a.cur },
+              to: t ? { ...t.cur } : { ...at },
+              self,
+              radius: Math.max(6, (move?.radius ?? 8) * PX_PER_SUB),
+              start: now,
+              launchAt: now + (timing.launchAtMs ?? timing.hitAtMs),
+              hitAt: now + timing.hitAtMs,
+              end: 0,
+              mine: this.isMine(a.id),
+            };
+            cast.end = castEnd(cast);
+            this.casts.push(cast);
+          }
+          break;
+        }
+        case "status":
+          this.pending.push({ at: Math.max(now, this.hitTimeBySeq.get(ev.seq) ?? now), kind: "status", ev });
+          break;
+        case "evolve": {
+          const v = this.entities.get(ev.id);
+          if (v) {
+            const p = archetypeParams("holy_burst", 220, "light");
+            const seq = -(++this.phaseSeed);
+            const c: Cast = { seq, moveId: "evolve", archetype: "holy_burst", params: p, attackerId: v.id, targetId: v.id, targetIds: [v.id], at: { ...v.cur }, from: { ...v.cur }, to: { ...v.cur }, self: true, radius: 18, start: now, launchAt: now + p.charge, hitAt: now + p.charge + p.travel, end: 0, mine: this.isMine(v.id) };
+            c.end = castEnd(c);
+            this.casts.push(c);
+            this.floaters.push({ text: "EVOLUIU!", x: v.cur.x, y: v.cur.y - 16, start: c.hitAt, durationMs: REWARD_FLOATER_MS * 1.5, color: "#fee761", big: true, thirdParty: !c.mine, drift: 0 });
           }
           break;
         }
@@ -310,9 +357,19 @@ export class Presenter {
     }
     this.floaters = this.floaters.filter((f) => now < f.start + f.durationMs);
     this.hitFx = this.hitFx.filter((f) => now < f.start + HIT_FX_MS);
-    this.projectiles = this.projectiles.filter((pr) => now < pr.arriveAt);
+    // Tremida e clarão do arquétipo: uma vez por golpe, no impacto exibido, só nos golpes do jogador local.
+    for (const c of this.casts) {
+      if (now < c.hitAt || this.fired.has(c.seq)) continue;
+      this.fired.add(c.seq);
+      if (!c.mine) continue;
+      // Tremida só onde o arquétipo define (≤ 2 px, §4); o clarão é local ao alvo e fica no motor de VFX.
+      if (c.params.shake) this.shakes.push({ start: c.hitAt, seq: c.seq, amp: c.params.shake.amp });
+    }
+    this.casts = this.casts.filter((c) => now < c.end);
+    if (this.fired.size > 256) for (const s of [...this.fired]) if (!this.casts.some((c) => c.seq === s)) this.fired.delete(s);
     this.shakes = this.shakes.filter((s) => now < s.start + SHAKE_MS);
   }
+
 
   /** Tempo de animação da entidade descontando o hit-stop (o relógio dela para durante o congelamento). */
   localTime(v: VisualEntity, now: number): number {
@@ -336,8 +393,6 @@ export class Presenter {
       const third = !this.isMine(ev.targetId) && !this.isMine(ev.attackerId);
       const a = this.entities.get(ev.attackerId);
       if (a?.attack?.seq === ev.seq) a.attackFlashAt = at;
-      // projétil já chegou: remove (o impacto assume)
-      this.projectiles = this.projectiles.filter((pr) => pr.seq !== ev.seq);
       if (ev.kind === "miss") {
         this.floaters.push({ text: "MISS", x: t.cur.x, y: t.cur.y, start: at, durationMs: FLOATER_MS, color: "#c0cbdc", big: false, thirdParty: third, drift: 0 });
         return;
@@ -374,6 +429,26 @@ export class Presenter {
         if (ev.hpAfter > 0) t.hurt = { start: at, dir, px: ev.crit ? KNOCKBACK_CRIT_PX : KNOCKBACK_PX };
         if (ev.crit && !third) this.shakes.push({ start: at, seq: ev.seq });
       }
+      return;
+    }
+    if (p.kind === "status") {
+      const ev = p.ev;
+      const t = this.entities.get(ev.id);
+      if (!t) return;
+      const label = { atk: "ATQ", def: "DEF", spd: "VEL" }[ev.stat];
+      const up = ev.mult >= 1;
+      this.floaters.push({
+        text: `${label}${up ? "↑" : "↓"}`,
+        x: t.cur.x,
+        y: t.cur.y,
+        start: at,
+        durationMs: REWARD_FLOATER_MS,
+        color: up ? "#fee761" : "#c87ae0",
+        big: false,
+        thirdParty: !this.isMine(ev.id) && !this.isMine(ev.sourceId),
+        targetId: t.id,
+        drift: 0,
+      });
       return;
     }
     if (p.kind === "defeat") {

@@ -186,7 +186,7 @@ async function main() {
       taken.add("impact");
     }
     // golpe especial em voo (projétil) da parceira local
-    const myProj = presenter.projectiles.find((pr) => pr.attackerId === partnerId && now >= pr.launchAt + (pr.arriveAt - pr.launchAt) * 0.5);
+    const myProj = presenter.casts.find((c) => c.attackerId === partnerId && c.hitAt > c.launchAt && now >= c.launchAt + (c.hitAt - c.launchAt) * 0.5 && now < c.hitAt);
     if (!taken.has("special") && myProj && follow === LOCAL_PLAYER) {
       const a = view.motionPos(partnerId)!;
       const cx = Math.round(a.x - view.camera.x);

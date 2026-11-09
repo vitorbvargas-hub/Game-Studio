@@ -7,11 +7,15 @@ import packSkills from "@game/packs/digimon-fan/skills.json";
 import packTheme from "@game/packs/digimon-fan/theme.json";
 import type { BalanceDef } from "@game/src/sim/types";
 import worldSpecies from "../data/world-species.json";
+import { loadMoveContent, type MoveContent } from "./moves";
 import type { SkillDef, SpeciesDef, StatBlock } from "./types";
 
 export interface WorldContent {
   species: Record<string, SpeciesDef>;
+  /** Skills antigas do pacote (1 golpe por espécie); o combate usa `moves`. */
   skills: Record<string, SkillDef>;
+  /** Sistema de golpes (4 slots, learnsets, elementos, MP). */
+  moves: MoveContent;
   balance: BalanceDef;
   affinityChart: Record<string, Record<string, number>>;
 }
@@ -63,6 +67,7 @@ export function loadWorldContent(): WorldContent {
   return {
     species,
     skills,
+    moves: loadMoveContent(),
     balance: packBalance as BalanceDef,
     affinityChart: (packTheme as { affinityChart: Record<string, Record<string, number>> }).affinityChart,
   };

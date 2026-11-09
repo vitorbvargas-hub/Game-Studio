@@ -2,13 +2,27 @@
 // reaproveitado do protótipo idle, fórmulas de dano/XP do mesmo motor. Emite WorldEvent[] confirmados.
 // Não importa nada de render/, assets/ ou ui/: a apresentação não tem como influenciar o resultado.
 
-import { computeDamage, enemyXp, statsAtLevel, xpToNext } from "@game/src/sim/formulas";
+import { computeDamage, computeHeal, enemyXp, statsAtLevel, xpToNext } from "@game/src/sim/formulas";
 import { nextFloat, nextInt } from "@game/src/sim/rng";
 import { isTamer, setState } from "./fsm";
 import { isSolidAt, type SpawnZone, type WorldMap } from "./map";
+import {
+  castReach,
+  chooseMove,
+  defaultAutoRules,
+  defaultInherit,
+  effectiveStat,
+  elementMult,
+  initialLoadout,
+  learnNew,
+  maxMpOf,
+  moveAttack,
+  segmentDistance,
+  validateSlots,
+} from "./moves";
 import { attackCooldownTicks, SUB, WORLD } from "./params";
 import type { WorldContent } from "./species";
-import type { Dir8, Encounter, LogicState, Entity, EntitySnapshot, Intent, PlayerState, Vec, WorldEvent, WorldState } from "./types";
+import type { Dir8, Encounter, LogicState, Entity, EntitySnapshot, Intent, MoveDef, PlayerState, Vec, WorldEvent, WorldState } from "./types";
 
 export interface PlayerSetup {
   id: string;
@@ -85,8 +99,14 @@ function baseEntity(id: string, kind: Entity["kind"], name: string, pos: Vec): E
     xp: 0,
     stats: { hp: 1, atk: 0, def: 0, spd: 0 },
     affinity: "free",
-    skills: [],
-    skillCd: {},
+    element: "neutral",
+    learned: [],
+    moves: [null, null, null, null],
+    moveCd: {},
+    mp: 0,
+    maxMp: 0,
+    autoRules: [],
+    statuses: [],
     attackCd: 0,
     radius: 8,
     speed: 0,
@@ -104,10 +124,15 @@ function makeCreature(ctx: Ctx, id: string, kind: Entity["kind"], speciesId: str
   const e = baseEntity(id, kind, sp.name, pos);
   e.speciesId = speciesId;
   e.affinity = sp.affinity;
-  e.skills = sp.skills;
+  e.element = ctx.c.moves.speciesElement[speciesId] ?? "neutral";
   e.radius = sp.radius;
   e.level = level;
+  const lo = initialLoadout(ctx.c.moves, speciesId, level);
+  e.learned = lo.learned;
+  e.moves = lo.moves;
+  e.autoRules = defaultAutoRules(e.moves);
   applyStats(ctx, e, 1);
+  e.mp = e.maxMp;
   return e;
 }
 
@@ -118,6 +143,8 @@ function applyStats(ctx: Ctx, e: Entity, hpRatio: number): void {
   e.stats = { hp: Math.round(s.hp * mult), atk: Math.round(s.atk * mult), def: s.def, spd: s.spd };
   e.maxHp = e.stats.hp;
   e.hp = Math.max(1, Math.round(e.maxHp * hpRatio));
+  e.maxMp = maxMpOf(ctx.c.moves.mp, e.level);
+  e.mp = Math.min(e.mp, e.maxMp);
 }
 
 function addEntity(ctx: Ctx, e: Entity): void {
@@ -160,6 +187,8 @@ export function snapshotOf(e: Entity): EntitySnapshot {
     hp: e.hp,
     maxHp: e.maxHp,
     level: e.level,
+    mp: e.mp,
+    maxMp: e.maxMp,
     targetId: e.targetId,
     encounterId: e.encounterId,
   };
@@ -273,6 +302,47 @@ function applyIntent(ctx: Ctx, it: Intent): void {
     case "set_auto":
       p.auto = it.on;
       return;
+    case "set_moves": {
+      const partner = getEntity(w, p.partnerId);
+      if (!partner) return reject("parceira indisponível");
+      // §2.4: troca só fora de combate (a lógica autoritativa não troca o kit no meio de um golpe).
+      if (partner.encounterId || partner.targetId || !["IDLE", "FOLLOW", "WALK", "RETURN"].includes(partner.state)) return reject("troque os golpes fora de combate");
+      const err = validateSlots(partner, it.slots);
+      if (err) return reject(err);
+      partner.moves = it.slots.map((s) => s ?? null);
+      if (partner.queuedMove && !partner.moves.includes(partner.queuedMove)) partner.queuedMove = undefined;
+      ctx.ev.push({ t: "moves_changed", tick: w.tick, id: partner.id, slots: [...partner.moves] });
+      return;
+    }
+    case "set_auto_priority": {
+      const partner = getEntity(w, p.partnerId);
+      if (!partner) return reject("parceira indisponível");
+      const seen = new Set<string>();
+      partner.autoRules = it.rules
+        .filter((r) => partner.learned.includes(r.moveId) && !seen.has(r.moveId) && seen.add(r.moveId))
+        .map((r) => ({ moveId: r.moveId, cond: r.cond ?? "always", ...(r.pct !== undefined ? { pct: Math.max(1, Math.min(99, Math.round(r.pct))) } : {}), ...(r.off ? { off: true } : {}) }));
+      return;
+    }
+    case "use_move": {
+      const partner = getEntity(w, p.partnerId);
+      const id = partner?.moves[it.slot];
+      if (!partner || !id) return reject("slot vazio");
+      const m = ctx.c.moves.moves[id];
+      if ((partner.moveCd[id] ?? 0) > 0) return reject(`${m.name} em recarga`);
+      if (partner.mp < m.cost) return reject("MP insuficiente");
+      partner.queuedMove = id;
+      return;
+    }
+    case "evolve": {
+      const partner = getEntity(w, p.partnerId);
+      if (!alive(partner)) return reject("parceira fora de combate");
+      const evo = ctx.c.moves.evolutions[partner.speciesId!];
+      if (!evo || !ctx.c.species[evo.to]) return reject("não evolui");
+      if (partner.level < evo.level) return reject(`evolui no nível ${evo.level}`);
+      if (partner.encounterId || partner.state === "ATTACK" || partner.state === "HURT") return reject("em combate");
+      evolve(ctx, partner, evo.to, it.keep);
+      return;
+    }
     case "engage": {
       const partner = getEntity(w, p.partnerId);
       const t = getEntity(w, it.targetId);
@@ -398,14 +468,24 @@ function timedStates(ctx: Ctx, e: Entity): boolean {
   return false;
 }
 
-function tickCooldowns(e: Entity): void {
+function tickCooldowns(ctx: Ctx, e: Entity): void {
   if (e.attackCd > 0) e.attackCd--;
-  for (const k of Object.keys(e.skillCd)) if (e.skillCd[k] > 0) e.skillCd[k]--;
+  for (const k of Object.keys(e.moveCd)) {
+    if (e.moveCd[k] > 0) e.moveCd[k]--;
+    if (e.moveCd[k] <= 0) delete e.moveCd[k];
+  }
+  if (e.statuses.length) {
+    for (const s of e.statuses) s.ticks--;
+    e.statuses = e.statuses.filter((s) => s.ticks > 0);
+  }
+  // MP (§2.6): regen por tick em % do máximo; guardado com 2 casas para o estado continuar JSON estável.
+  const r = ctx.c.moves.mp;
+  if (e.mp < e.maxMp) e.mp = Math.min(e.maxMp, Math.round((e.mp + e.maxMp * (e.encounterId ? r.regenPctInCombat : r.regenPctOutOfCombat)) * 100) / 100);
 }
 
 function thinkPartner(ctx: Ctx, e: Entity): void {
   const { w } = ctx;
-  tickCooldowns(e);
+  tickCooldowns(ctx, e);
   if (timedStates(ctx, e)) return;
   const owner = getEntity(w, e.ownerId)!;
   const player = getPlayer(w, e.ownerId!)!;
@@ -481,7 +561,7 @@ function findAutoTarget(ctx: Ctx, e: Entity, owner: Entity): Entity | undefined 
 
 function thinkWild(ctx: Ctx, e: Entity): void {
   const { w, map } = ctx;
-  tickCooldowns(e);
+  tickCooldowns(ctx, e);
   if (timedStates(ctx, e)) return;
   if (e.state === "RETURN") {
     e.hp = Math.min(e.maxHp, e.hp + Math.max(1, Math.round(e.maxHp * WORLD.wildRegenPct)));
@@ -564,16 +644,21 @@ function engage(ctx: Ctx, a: Entity, t: Entity): void {
   a.encounterId = enc.id;
   a.dest = undefined;
   a.facing = dirFromVector(t.x - a.x, t.y - a.y, a.facing);
+  if (!enc.members.includes(a.id)) enc.members.push(a.id);
   ctx.ev.push({ t: "engage", tick: w.tick, encounterId: enc.id, attackerId: a.id, targetId: t.id });
   if (a.state === "HURT") a.resumeState = "ENGAGE";
   else setState(a, "ENGAGE", w.tick, ctx.ev);
 }
 
-/** ENGAGE: aproxima até o alcance; no alcance e com recarga pronta, resolve o golpe NESTE tick. */
+/**
+ * ENGAGE: escolhe o golpe (puro, sem RNG) e aproxima até o alcance DELE (golpes à distância lançam de mais longe);
+ * no alcance e com a recarga geral pronta, resolve o golpe NESTE tick.
+ */
 function fight(ctx: Ctx, a: Entity, t: Entity): void {
   const { w } = ctx;
   if (a.state !== "ENGAGE") setState(a, "ENGAGE", w.tick, ctx.ev);
-  const range = attackRange(a, t);
+  const move = ctx.c.moves.moves[chooseMove(ctx.c.moves, a, t)];
+  const range = attackRange(a, t) + castReach(move);
   if (dist(a, t) > range) {
     moveToward(ctx, a, t, a.kind === "wild" ? WORLD.wildReturnSpeed : a.speed, range - 2);
     return;
@@ -584,54 +669,110 @@ function fight(ctx: Ctx, a: Entity, t: Entity): void {
     enc.started = true;
     ctx.ev.push({ t: "encounter_start", tick: w.tick, encounterId: enc.id, members: [...enc.members] });
   }
-  if (a.attackCd <= 0) resolveAttack(ctx, a, t);
+  if (a.attackCd <= 0) resolveAttack(ctx, a, t, move);
 }
 
-function pickSkill(ctx: Ctx, a: Entity): string {
-  const basic = ctx.c.balance.basicSkillId;
-  for (const id of a.skills) {
-    const s = ctx.c.skills[id];
-    if (id !== basic && s.kind === "damage" && (a.skillCd[id] ?? 0) <= 0) return id;
+/** Pode ser atingido por golpe de área/linha de `a`? Parceira: selvagens livres ou do mesmo encontro. Selvagem: inimigos do encontro. */
+function hostileTo(a: Entity, x: Entity): boolean {
+  if (!alive(x) || x.id === a.id) return false;
+  if (a.kind === "wild") return (x.kind === "partner" || x.kind === "remote_partner") && !!a.encounterId && x.encounterId === a.encounterId;
+  return x.kind === "wild" && (!x.encounterId || x.encounterId === a.encounterId) && x.state !== "RETURN";
+}
+
+/** Afetados e ponto do efeito (sub). Ordem: o alvo principal primeiro, depois a ordem das entidades (determinística). */
+function affected(ctx: Ctx, a: Entity, t: Entity, m: MoveDef): { list: Entity[]; at: Vec } {
+  if (m.type === "buff" || m.type === "heal" || m.target === "self") return { list: [a], at: { x: a.x, y: a.y } };
+  if (m.target === "single" || m.target === "projectile") return { list: [t], at: { x: t.x, y: t.y } };
+  const list = [t];
+  if (m.target === "area") {
+    // §2.8: área = o alvo e os hostis próximos DELE.
+    const at = { x: t.x, y: t.y };
+    for (const x of ctx.w.entities) if (x !== t && hostileTo(a, x) && dist(at, x) <= m.radius + x.radius) list.push(x);
+    return { list, at };
   }
-  return basic;
+  // linha: do atacante na direção do alvo, até alcance corpo a corpo + range (no mínimo até o alvo)
+  const d = Math.max(1, dist(a, t));
+  const len = Math.max(d, attackRange(a, t) + m.range);
+  const at = { x: Math.round(a.x + ((t.x - a.x) / d) * len), y: Math.round(a.y + ((t.y - a.y) / d) * len) };
+  for (const x of ctx.w.entities) {
+    if (x === t || !hostileTo(a, x)) continue;
+    const s = segmentDistance(a.x, a.y, at.x, at.y, x.x, x.y);
+    if (s.u > 0 && s.d <= m.radius + x.radius) list.push(x);
+  }
+  return { list, at };
 }
 
-function resolveAttack(ctx: Ctx, a: Entity, t: Entity): void {
+function resolveAttack(ctx: Ctx, a: Entity, t: Entity, m: MoveDef): void {
   const { w, c } = ctx;
-  const skillId = pickSkill(ctx, a);
-  const skill = c.skills[skillId];
+  const mc = c.moves;
   const seq = ++w.seq;
-  if (skill.cooldownTicks > 0) a.skillCd[skillId] = skill.cooldownTicks;
-  a.attackCd = attackCooldownTicks(a.stats.spd);
-  ctx.ev.push({ t: "attack_start", tick: w.tick, attackerId: a.id, targetId: t.id, skillId, seq });
+  if (a.queuedMove === m.id) a.queuedMove = undefined;
+  if (m.cooldownTicks > 0) a.moveCd[m.id] = m.cooldownTicks;
+  a.mp = Math.max(0, a.mp - m.cost);
+  a.attackCd = attackCooldownTicks(Math.round(effectiveStat(a, "spd")));
+  const { list, at } = affected(ctx, a, t, m);
+  ctx.ev.push({ t: "attack_start", tick: w.tick, attackerId: a.id, targetId: t.id, skillId: m.id, seq, targetIds: list.map((x) => x.id), at });
   setState(a, "ATTACK", w.tick, ctx.ev);
   a.stateTicks = WORLD.attackTicks;
-  // Ordem fixa de sorteios: erro → variância → crítico.
-  const miss = nextFloat(w.rng) < WORLD.missChance;
-  if (miss) {
-    ctx.ev.push({ t: "damage", tick: w.tick, seq, attackerId: a.id, targetId: t.id, amount: 0, kind: "miss", crit: false, hpAfter: t.hp });
+  const b = c.balance;
+  const power = moveAttack(a, m);
+  if (m.type === "heal") {
+    for (const x of list) {
+      const amount = Math.min(x.maxHp - x.hp, computeHeal(m.power, power));
+      x.hp += amount;
+      ctx.ev.push({ t: "damage", tick: w.tick, seq, attackerId: a.id, targetId: x.id, amount, kind: "heal", crit: false, hpAfter: x.hp });
+    }
     return;
   }
-  const b = c.balance;
-  const variance = 1 + (nextFloat(w.rng) * 2 - 1) * b.damageVariance;
-  const crit = nextFloat(w.rng) < (b.critChance ?? 0);
-  const aff = c.affinityChart[a.affinity]?.[t.affinity] ?? 1;
-  const amount = computeDamage(b, skill.power, a.stats.atk, t.stats.def, aff * (crit ? b.critMult ?? 1.5 : 1), variance);
-  t.hp = Math.max(0, t.hp - amount);
-  ctx.ev.push({ t: "damage", tick: w.tick, seq, attackerId: a.id, targetId: t.id, amount, kind: "damage", crit, hpAfter: t.hp });
-  if (t.hp === 0) defeat(ctx, t, a);
-  else hurt(ctx, t, a);
+  if (m.type === "buff" || m.type === "debuff") {
+    for (const x of list) {
+      if (!m.effect) continue;
+      x.statuses = x.statuses.filter((s) => s.moveId !== m.id);
+      x.statuses.push({ moveId: m.id, stat: m.effect.stat, mult: m.effect.mult, ticks: m.effect.ticks, sourceId: a.id });
+      ctx.ev.push({ t: "status", tick: w.tick, seq, id: x.id, moveId: m.id, stat: m.effect.stat, mult: m.effect.mult, ticks: m.effect.ticks, sourceId: a.id });
+      if (m.type === "debuff") provoke(ctx, x, a);
+    }
+    return;
+  }
+  for (const x of list) {
+    if (!alive(x)) continue;
+    // Ordem fixa de sorteios por alvo: erro → variância → crítico.
+    const miss = nextFloat(w.rng) < WORLD.missChance;
+    if (miss) {
+      ctx.ev.push({ t: "damage", tick: w.tick, seq, attackerId: a.id, targetId: x.id, amount: 0, kind: "miss", crit: false, hpAfter: x.hp });
+      provoke(ctx, x, a);
+      continue;
+    }
+    const variance = 1 + (nextFloat(w.rng) * 2 - 1) * b.damageVariance;
+    const crit = nextFloat(w.rng) < (b.critChance ?? 0);
+    const aff = c.affinityChart[a.affinity]?.[x.affinity] ?? 1;
+    const elem = elementMult(mc, m.element, x.element);
+    // Físico usa a defesa inteira; especial atravessa parte dela.
+    const def = effectiveStat(x, "def") * (m.type === "special" ? 0.7 : 1);
+    const amount = computeDamage(b, m.power, power, def, aff * elem * (crit ? b.critMult ?? 1.5 : 1), variance);
+    x.hp = Math.max(0, x.hp - amount);
+    ctx.ev.push({ t: "damage", tick: w.tick, seq, attackerId: a.id, targetId: x.id, amount, kind: "damage", crit, hpAfter: x.hp });
+    if (x.hp === 0) defeat(ctx, x, a);
+    else hurt(ctx, x, a);
+  }
+}
+
+/** Quem é atingido (ou amaldiçoado) sem alvo passa a responder ao atacante e entra no encontro dele. */
+function provoke(ctx: Ctx, t: Entity, by: Entity): void {
+  const { w } = ctx;
+  if (t.targetId || t.state === "RETURN" || !alive(t)) return;
+  t.targetId = by.id;
+  t.encounterId = by.encounterId;
+  const enc = encounterOf(w, by);
+  if (enc && !enc.members.includes(t.id)) enc.members.push(t.id);
+  ctx.ev.push({ t: "engage", tick: w.tick, encounterId: by.encounterId!, attackerId: t.id, targetId: by.id });
+  t.resumeState = "ENGAGE";
 }
 
 function hurt(ctx: Ctx, t: Entity, by: Entity): void {
   const { w } = ctx;
   // Quem apanha sem alvo passa a responder ao atacante (passo 8 do fluxo).
-  if (!t.targetId && t.state !== "RETURN") {
-    t.targetId = by.id;
-    t.encounterId = by.encounterId;
-    ctx.ev.push({ t: "engage", tick: w.tick, encounterId: by.encounterId!, attackerId: t.id, targetId: by.id });
-    t.resumeState = "ENGAGE";
-  }
+  provoke(ctx, t, by);
   if (t.state === "ATTACK") return; // HURT não cancela um golpe confirmado
   if (t.state !== "HURT") t.resumeState = t.targetId ? "ENGAGE" : t.state;
   setState(t, "HURT", w.tick, ctx.ev);
@@ -645,8 +786,23 @@ function defeat(ctx: Ctx, t: Entity, by: Entity): void {
   ctx.ev.push({ t: "defeat", tick: w.tick, id: t.id, by: by.id });
   if (t.kind === "wild" && by.ownerId) reward(ctx, t, by);
   const enc = encounterOf(w, t);
-  if (enc) endEncounter(ctx, enc, "defeat");
+  if (enc) {
+    // Golpes de área/linha põem mais de um selvagem no encontro: ele só acaba quando um dos lados fica vazio.
+    enc.members = enc.members.filter((id) => id !== t.id);
+    const left = enc.members.map((id) => getEntity(w, id)).filter(alive);
+    const wilds = left.filter((x) => x.kind === "wild");
+    const others = left.filter((x) => x.kind !== "wild");
+    if (!wilds.length || !others.length) endEncounter(ctx, enc, "defeat");
+    else
+      for (const x of left)
+        if (x.targetId === t.id) {
+          const next = (x.kind === "wild" ? others : wilds)[0];
+          x.targetId = next.id;
+          ctx.ev.push({ t: "engage", tick: w.tick, encounterId: enc.id, attackerId: x.id, targetId: next.id });
+        }
+  }
   t.targetId = undefined;
+  t.encounterId = undefined;
 }
 
 function reward(ctx: Ctx, t: Entity, partner: Entity): void {
@@ -663,6 +819,7 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
     partner.level++;
     applyStats(ctx, partner, partner.hp / partner.maxHp);
     ctx.ev.push({ t: "level_up", tick: w.tick, id: partner.id, level: partner.level });
+    learnAndAnnounce(ctx, partner);
   }
   // Captura: placeholder por varredura (como o "scan" do protótipo idle). 100% registra a espécie.
   if (!p.captured.includes(sp.id)) {
@@ -670,6 +827,50 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
     p.scans[sp.id] = pct;
     if (pct >= 100) p.captured.push(sp.id);
     ctx.ev.push({ t: "capture", tick: w.tick, ownerId: p.id, speciesId: sp.id, pct, done: pct >= 100 });
+  }
+}
+
+/** Aprende o que o learnset liberou e emite um `move_learned` por golpe (slot = onde equipou, ou null). */
+function learnAndAnnounce(ctx: Ctx, e: Entity): void {
+  const mc = ctx.c.moves;
+  for (const l of learnNew(mc, e)) {
+    // golpe que entrou num slot vazio vai para o fim da lista de prioridade (condição `always`)
+    if (l.slot !== null && !e.autoRules.some((r) => r.moveId === l.moveId)) e.autoRules = [...e.autoRules, { moveId: l.moveId, cond: "always" }];
+    ctx.ev.push({ t: "move_learned", tick: ctx.w.tick, id: e.id, moveId: l.moveId, slot: l.slot });
+  }
+}
+
+/**
+ * Evolução confirmada (§2.3): troca a espécie (stats, raio, elemento) mantendo nível e XP. Dos golpes da forma
+ * anterior ficam só os escolhidos (até inheritSlotsOnEvolve; padrão = os de maior poder); a nova forma libera os
+ * golpes de entrada, que vão para os slots ao lado dos herdados.
+ */
+function evolve(ctx: Ctx, e: Entity, to: string, keep?: string[]): void {
+  const { w, c } = ctx;
+  const mc = c.moves;
+  const from = e.speciesId!;
+  const kept = (keep ?? defaultInherit(mc, e)).filter((id, i, arr) => e.learned.includes(id) && arr.indexOf(id) === i).slice(0, mc.inheritSlotsOnEvolve);
+  e.learned = [...kept];
+  e.moves = [null, null, null, null];
+  e.autoRules = [];
+  e.moveCd = {};
+  e.queuedMove = undefined;
+  const sp = c.species[to];
+  e.speciesId = to;
+  e.name = sp.name;
+  e.affinity = sp.affinity;
+  e.element = c.moves.speciesElement[to] ?? e.element;
+  e.radius = sp.radius;
+  applyStats(ctx, e, e.hp / e.maxHp);
+  e.mp = e.maxMp;
+  ctx.ev.push({ t: "evolve", tick: w.tick, id: e.id, from, to, kept });
+  learnAndAnnounce(ctx, e);
+  // herdados ocupam os slots que sobraram
+  for (const id of kept) {
+    const free = e.moves.indexOf(null);
+    if (free < 0) break;
+    e.moves[free] = id;
+    e.autoRules.push({ moveId: id, cond: "always" });
   }
 }
 
@@ -702,6 +903,9 @@ function onDefeatTimeout(ctx: Ctx, e: Entity): void {
   const revived = makeCreature(ctx, e.id, e.kind, e.speciesId!, e.level, { x: owner.x, y: owner.y });
   revived.ownerId = e.ownerId;
   revived.xp = e.xp;
+  revived.learned = e.learned;
+  revived.moves = e.moves;
+  revived.autoRules = e.autoRules;
   revived.speed = e.speed;
   revived.hp = Math.max(1, Math.round(revived.maxHp * WORLD.reviveHpPct));
   addEntity(ctx, revived);

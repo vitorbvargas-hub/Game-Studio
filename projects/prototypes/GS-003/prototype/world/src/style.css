@@ -318,7 +318,7 @@ body {
 .hud-toast {
   position: absolute;
   left: 50%;
-  bottom: calc(var(--bottom-h) + 46px);
+  bottom: calc(var(--bottom-h) + 96px);
   transform: translate(-50%, 6px);
   opacity: 0;
   transition: opacity 0.18s, transform 0.18s;
@@ -928,3 +928,409 @@ body {
   text-shadow: 0 1px 0 #000;
   pointer-events: none;
 }
+
+/* ---------- golpes: barra do HUD ---------- */
+.hud-moves {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bottom-h) + 28px);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, 52px);
+  gap: 6px;
+  padding: 6px 8px 14px;
+  background: var(--ui-panel);
+  border: 2px solid var(--ui-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 0 #0b0d13;
+}
+.mv {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  background: #0d0f16;
+  border: 2px solid #4a5175;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.mv canvas {
+  display: block;
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+.mv:hover {
+  border-color: var(--ui-gold);
+}
+.mv.empty {
+  border-style: dashed;
+  border-color: #343a55;
+  cursor: default;
+}
+.mv.empty canvas {
+  visibility: hidden;
+}
+/* recarga radial: setor escuro que encolhe no sentido horário (--cd = fração restante) */
+.mv .cd {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(rgba(8, 10, 16, 0.78) calc(var(--cd, 0) * 1turn), transparent 0);
+  pointer-events: none;
+}
+.mv .cdt {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 0 #000, 0 0 3px #000;
+  pointer-events: none;
+}
+.mv .key {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+}
+.mv .mp {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: #7ac7ff;
+  text-shadow: 0 1px 0 #000;
+}
+.mv.nomp canvas {
+  filter: grayscale(0.7) brightness(0.7);
+}
+.mv.nomp .mp {
+  color: var(--ui-red);
+}
+.mv.queued {
+  border-color: var(--ui-gold);
+  box-shadow: 0 0 0 2px rgba(232, 184, 74, 0.45), inset 0 0 8px rgba(232, 184, 74, 0.5);
+}
+.mv:not(.cooling):not(.nomp):not(.empty) {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.mpbar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  height: 6px;
+  background: #1c2240;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.mpbar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(#9ad4ff, #3a78c4);
+  transition: width 0.2s;
+}
+.mpbar span {
+  position: absolute;
+  right: 0;
+  top: -15px;
+  font-size: 10px;
+  color: #9ad4ff;
+  text-shadow: 0 1px 0 #000;
+}
+
+/* ---------- aviso "aprendeu um golpe" ---------- */
+.hud-learn {
+  position: absolute;
+  left: 50%;
+  top: 84px;
+  transform: translate(-50%, -8px) scale(0.96);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 8px 10px;
+  background: linear-gradient(#2b2440, #1a1628);
+  border: 2px solid var(--ui-gold);
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px #0b0d13, 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 18px rgba(232, 184, 74, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.hud-learn.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+.hud-learn canvas {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+  border: 2px solid #4a5175;
+  border-radius: 6px;
+}
+.hud-learn b {
+  display: block;
+  font-size: 17px;
+  color: #ffe9a8;
+  text-shadow: 0 1px 0 #000;
+}
+.hud-learn small {
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+
+/* ---------- aba Golpes ---------- */
+.modal.wide {
+  width: min(1060px, 96vw);
+}
+.modal.wide .right {
+  flex: 0 0 640px;
+}
+.moves-tab .mt-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.moves-tab h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+.moves-tab h3 span {
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.moves-tab .mt-head .row {
+  flex: 1;
+}
+.hud-bar.mpb i {
+  background: linear-gradient(#9ad4ff, #3a78c4);
+}
+.mi {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  image-rendering: pixelated;
+  border: 1px solid #3b4261;
+  border-radius: 4px;
+  background: #0d0f16;
+}
+.mslots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.mslot {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  min-height: 62px;
+  padding: 6px 6px 6px 18px;
+  background: #171a26;
+  border: 2px solid #3b4261;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.mslot b {
+  display: block;
+  font-size: 12px;
+  line-height: 1.2;
+}
+.mslot small {
+  color: var(--ui-dim);
+  font-size: 10px;
+}
+.mslot .n {
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  font-weight: 700;
+  color: var(--ui-gold);
+}
+.mslot.empty {
+  border-style: dashed;
+  align-items: center;
+  justify-content: center;
+  color: var(--ui-dim);
+}
+.mslot.pick {
+  cursor: pointer;
+  border-color: var(--ui-gold);
+  box-shadow: 0 0 0 1px rgba(232, 184, 74, 0.4);
+}
+.mslot.pick:hover {
+  background: #2a2540;
+}
+.mslot .here {
+  position: absolute;
+  right: 6px;
+  bottom: 3px;
+  color: var(--ui-gold);
+}
+.mslot .chips {
+  margin: 2px 0;
+}
+.mslot .chip,
+.moves-tab .chip {
+  font-size: 9px;
+  padding: 0 4px;
+}
+.mini {
+  position: relative;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  font-size: 11px !important;
+  background: #23283b;
+  border: 1px solid #3b4261;
+  border-radius: 4px;
+}
+.mslot .mini {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}
+.mini:disabled {
+  opacity: 0.35;
+}
+.moves-tab .cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mlist,
+.rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow: auto;
+}
+.mlist li,
+.rules li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+  background: #171a26;
+  border: 1px solid #2b3047;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.mlist li > div {
+  flex: 1;
+  min-width: 0;
+}
+.mlist li b {
+  display: block;
+}
+.mlist li small {
+  display: block;
+  color: var(--ui-dim);
+  font-size: 10px;
+  line-height: 1.25;
+}
+.mlist li.eq {
+  border-color: #4a5175;
+}
+.mlist li.sel {
+  border-color: var(--ui-gold);
+  background: #2a2540;
+}
+.mlist li.locked {
+  opacity: 0.45;
+}
+.mlist li.locked .mi {
+  filter: grayscale(1);
+}
+.mlist .tag,
+.moves-tab .tag {
+  flex: none;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: #23283b;
+  color: var(--ui-dim);
+}
+.act.swap {
+  flex: none;
+  padding: 3px 10px;
+}
+.act.swap.on {
+  border-color: var(--ui-gold);
+  color: var(--ui-gold);
+}
+.rules li {
+  gap: 5px;
+}
+.rules li .n {
+  width: 14px;
+  color: var(--ui-gold);
+  font-weight: 700;
+}
+.rules li b {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rules li.off {
+  opacity: 0.5;
+}
+.rules select,
+.rules input[type="number"] {
+  background: #0d0f16;
+  color: var(--ui-text);
+  border: 1px solid #3b4261;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 1px 2px;
+}
+.rules select {
+  max-width: 132px;
+}
+.rules input[type="number"] {
+  width: 38px;
+}
+.rules .pad {
+  width: 0;
+}
+.rules .use {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  color: var(--ui-dim);
+}
+.rules .mi {
+  width: 24px;
+  height: 24px;
+}
+.note.warn {
+  color: #ffb4a2;
+}
+.note.gold {
+  color: var(--ui-gold);
+}
+.chip.k-physical { background: #4a2f2a; }
+.chip.k-special { background: #2a3550; }
+.chip.k-buff { background: #4a3f1f; }
+.chip.k-debuff { background: #3e2153; }
+.chip.k-heal { background: #1f4a2f; }
+.chip.e-fire { color: #feae34; }
+.chip.e-ice { color: #a8f0ff; }
+.chip.e-water { color: #9ee8ff; }
+.chip.e-wind { color: #c9f7d0; }
+.chip.e-light { color: #fff3a8; }
+.chip.e-thunder { color: #c8e3ff; }
+.chip.e-dark { color: #f2c9ff; }

@@ -222,7 +222,7 @@ export function shakeOffset(shakes: Shake[], now: number): Vec {
   for (const s of shakes) {
     const t = now - s.start;
     if (t < 0 || t >= SHAKE_MS) continue;
-    const amp = SHAKE_PX * (1 - t / SHAKE_MS);
+    const amp = (s.amp ?? SHAKE_PX) * (1 - t / SHAKE_MS);
     const r = fxRand(s.seq * 977 + Math.floor(t / 30));
     x += (r() * 2 - 1) * amp;
     y += (r() * 2 - 1) * amp;

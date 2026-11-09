@@ -137,6 +137,7 @@ async function main() {
     await sleep(3500);
     await cdp.shot("proof_live_geral.png");
     if (process.env.ONLY === "geral") return;
+    if (process.env.ONLY === "golpes") return await golpes(cdp);
 
     // Combate: o instante do impacto de um golpe da parceira local (flash, faíscas/anel, número de dano).
     await cdp.waitFor(
@@ -175,6 +176,9 @@ async function main() {
     await cdp.shot("proof_live_modal_transicao.png");
     await sleep(400);
     await cdp.shot("proof_live_modal.png");
+    await cdp.eval(`document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })) || window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`);
+    await sleep(300);
+    await golpes(cdp);
     const report = await cdp.eval(`(() => { const g = window.__gs003; const ents = [...g.presenter.entities.values()];
       return { jogadores: ents.filter((v) => v.kind === "remote_player").length, selvagens: ents.filter((v) => v.kind === "wild").length,
                props: g.sim.map.props.length, tick: g.sim.state.tick }; })()`);
@@ -184,6 +188,42 @@ async function main() {
     await server.close();
     if (process.env.DEBUG_CHROME) console.error(stderr.slice(-2000));
   }
+}
+
+/**
+ * Golpes (sistema de 4 slots + VFX): golpe da parceira em voo/impacto com a barra de recarga, aviso de golpe
+ * aprendido (XP da parceira posta a 1 ponto do Nv.13 pela própria sim: a próxima vitória sobe o nível e o learnset
+ * dispara o move_learned) e o modal Equipe & Box na aba Golpes (slots, aprendidos, prioridade do AUTO, Trocar).
+ */
+async function golpes(cdp) {
+  await cdp.waitFor(
+    `(() => { const g = window.__gs003; const now = performance.now();
+      return g.presenter.casts.some((c) => c.attackerId === g.presenter.localPartnerId && c.archetype !== "tackle_impact" && now >= c.hitAt && now < c.hitAt + 70); })()`,
+    40000,
+    "um golpe da parceira",
+  );
+  await cdp.shot("moves_hud_combate.png");
+  await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === g.presenter.localPartnerId);
+    const b = g.sim.content.balance; let need = -p.xp; for (let l = p.level; l < 13; l++) need += Math.round(b.xpCurve.base * Math.pow(l, b.xpCurve.exponent));
+    p.xp += Math.max(0, need - 1); return need; })()`);
+  await cdp.waitFor(`!!document.querySelector(".hud-learn.show")`, 60000, "o aviso de golpe aprendido");
+  await sleep(250);
+  await cdp.shot("moves_aprendeu.png");
+  // AUTO desligado e espera a parceira sair do combate (troca só fora de combate, §2.4)
+  await cdp.eval(`(() => { const b = document.querySelector('[data-act="auto"]'); if (b.getAttribute("aria-pressed") === "true") b.click(); })()`);
+  await cdp.waitFor(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === g.presenter.localPartnerId); return !p.encounterId && !p.targetId && p.state !== "ATTACK" && p.state !== "HURT"; })()`, 20000, "a parceira sair do combate");
+  await sleep(600);
+  await cdp.eval(`document.querySelector('[data-short="team"]').click()`);
+  await sleep(300);
+  await cdp.eval(`document.querySelector('[data-testid="tab-moves"]').click()`);
+  await sleep(400);
+  await cdp.shot("moves_modal.png");
+  await cdp.eval(`(() => { const b = document.querySelector("[data-swap]"); if (b) b.click(); return !!b; })()`);
+  await sleep(250);
+  await cdp.shot("moves_modal_trocar.png");
+  const state = await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === g.presenter.localPartnerId);
+    return { nome: p.name, nivel: p.level, mp: p.mp + "/" + p.maxMp, slots: p.moves, aprendidos: p.learned }; })()`);
+  console.log("golpes:", JSON.stringify(state));
 }
 
 main().catch((e) => {

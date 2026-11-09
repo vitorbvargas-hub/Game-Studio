@@ -239,8 +239,13 @@ describe("combate animado (só apresentação)", () => {
     p.onTick(snapshot(sim), events, 0);
     const wild = snapshot(sim).find((s) => s.kind === "wild")!;
     p.onTick(snapshot(sim), [{ t: "attack_start", tick: 1, attackerId: "p1:partner", targetId: wild.id, skillId: "pyro_sphere", seq: 5 }], 1000);
-    expect(p.projectiles).toHaveLength(1);
-    expect(p.projectiles[0]).toMatchObject({ element: "fire", launchAt: 1000 + PROCEDURAL_HIT_AT_MS, arriveAt: 1000 + PROCEDURAL_HIT_AT_MS + SPECIAL_EXTRA_MS });
+    // Golpes viraram Cast por arquétipo (MOVE_SYSTEM §4): Pyro Sphere = fireball → carga ≤ hitFrame, lança no
+    // hitFrame e acerta depois de keyframes.travelMs.
+    expect(p.casts).toHaveLength(1);
+    const c = p.casts[0];
+    expect(c).toMatchObject({ archetype: "fireball", launchAt: 1000 + PROCEDURAL_HIT_AT_MS });
+    expect(c.params.impl).toBe("fire_bolt");
+    expect(c.hitAt).toBe(c.launchAt + c.params.travel);
   });
 
   it("impacto: hit-stop congela o relógio do alvo e do atacante; crítico local treme a câmera", () => {

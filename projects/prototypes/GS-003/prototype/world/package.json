@@ -13,7 +13,8 @@
     "map": "node scripts/gen-test-map.mjs",
     "map:forest": "node scripts/gen-forest-proof.mjs",
     "shots:live": "node scripts/capture-live.mjs",
-    "shots": "vite-node scripts/capture-screens.ts"
+    "shots": "vite-node scripts/capture-screens.ts",
+    "shots:vfx": "vite-node scripts/capture-vfx.ts"
   },
   "devDependencies": {
     "@napi-rs/canvas": "0.1.100",

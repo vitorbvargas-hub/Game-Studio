@@ -19,6 +19,11 @@ import { getEntity, getPlayer, snapshot, snapshotOf, stepWorld } from "./sim/wor
 import "./style.css";
 import { Hud, type HudScene } from "./ui/hud";
 import { Minimap, type MinimapDot } from "./ui/minimap";
+import type { MovesView } from "./ui/moves-ui";
+import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
+import { drawMoveIcon } from "./render/vfx/icon";
+import type { Entity } from "./sim/types";
+import type { WorldSim } from "./sim/world";
 
 const params = new URLSearchParams(location.search);
 const SEED = Number(params.get("seed") ?? Date.now() % 100000);
@@ -54,13 +59,16 @@ async function boot() {
     console.info(`forest-proof · tiles ${aliasSummary(aliases, scene.report)}`, scene.report);
   }
   const tamers = pickTamers(loadCharacterCatalog());
+  const fxSheets = loadSheetCatalog();
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
   const images = new ImageStore(browserImageLoader);
   const failed = await images.loadAll([
     ...Object.values(creatures).map((c) => c.sheetUrl),
     ...Object.values(tiles).map((t) => t.url),
     ...[tamers.local, tamers.remote].flatMap((t) => (t ? imageUrlsOf(t) : [])),
+    ...fxSheets.map((s) => s.url),
   ]);
+  if (fxSheets.length) console.info(`04-effects: ${fxSheets.length} folha(s) de VFX do game-art`, fxSheets.map((s) => `${s.archetype}/${s.phase}`));
   if (failed.length) console.warn("assets não carregados:", failed);
   console.info(
     `GS-003 world v2 · mapa ${MAP} · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
@@ -75,6 +83,7 @@ async function boot() {
     smoothing: SMOOTH,
     tamerLevels: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel])) : undefined,
     tamerTints: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint])) : undefined,
+    fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
   });
   const intents: Intent[] = [];
   const player = getPlayer(sim.state, LOCAL_PLAYER)!;
@@ -89,9 +98,13 @@ async function boot() {
     {
       onAuto: (on) => intents.push({ t: "set_auto", playerId: LOCAL_PLAYER, on }),
       onFlee: () => intents.push({ t: "flee", playerId: LOCAL_PLAYER }),
+      onUseMove: (slot) => intents.push({ t: "use_move", playerId: LOCAL_PLAYER, slot }),
+      onSetMoves: (slots) => intents.push({ t: "set_moves", playerId: LOCAL_PLAYER, slots }),
+      onSetAutoRules: (rules) => intents.push({ t: "set_auto_priority", playerId: LOCAL_PLAYER, rules }),
+      onEvolve: () => intents.push({ t: "evolve", playerId: LOCAL_PLAYER }),
     },
     player.auto,
-    { scene: hudScene, portrait: makePortraitFn(creatures, images), minimap: new Minimap(sim.map, browserCanvasFactory) },
+    { scene: hudScene, portrait: makePortraitFn(creatures, images), minimap: new Minimap(sim.map, browserCanvasFactory), moveIcon: drawMoveIcon },
   );
   hud.onEvents(spawnEvents);
   presenter.onTick(snapshot(sim), spawnEvents, performance.now());
@@ -131,6 +144,7 @@ async function boot() {
     if (k === "f") intents.push({ t: "flee", playerId: LOCAL_PLAYER });
     if (k === "e" && !e.repeat) hud.toggleTeam();
     if (k === "escape") hud.closeTeam();
+    if (k >= "1" && k <= "4" && k.length === 1 && !e.repeat) intents.push({ t: "use_move", playerId: LOCAL_PLAYER, slot: Number(k) - 1 });
   });
   window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
   window.addEventListener("blur", () => keys.clear());
@@ -209,11 +223,34 @@ async function boot() {
     drawNameplates(alpha, now);
     updateHudWorld(now);
     const partner = getEntity(sim.state, player.partnerId);
-    if (partner) hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(sim.content.balance, partner.level), player.bits);
+    if (partner) {
+      hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(sim.content.balance, partner.level), player.bits);
+      hud.updateMoves(movesView(sim, partner));
+    }
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
   Object.assign(window, { __gs003: { sim, presenter, view, hud } });
+}
+
+/** Estado de golpes da parceira para o HUD (cópia somente leitura). */
+function movesView(sim: WorldSim, e: Entity): MovesView {
+  const evo = sim.content.moves.evolutions[e.speciesId!];
+  return {
+    id: e.id,
+    speciesId: e.speciesId!,
+    name: e.name,
+    level: e.level,
+    mp: e.mp,
+    maxMp: e.maxMp,
+    learned: [...e.learned],
+    moves: [...e.moves],
+    autoRules: e.autoRules.map((r) => ({ ...r })),
+    cd: { ...e.moveCd },
+    queued: e.queuedMove,
+    inCombat: !!e.encounterId || !!e.targetId || !["IDLE", "FOLLOW", "WALK", "RETURN"].includes(e.state),
+    evolve: evo ? { toName: sim.content.species[evo.to]?.name ?? evo.to, level: evo.level, ready: e.level >= evo.level } : undefined,
+  };
 }
 
 boot();
