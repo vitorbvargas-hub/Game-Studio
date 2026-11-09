@@ -23,6 +23,16 @@ O detalhe de cada arquivo (caminho, blob sha, sha256, modificações) está em `
 
 Nota de processo: `ASSET_DISCOVERY_CATALOG.md` recomenda tentar primeiro fontes CC0/CC-BY (Kenney Roguelike/RPG pack, Pipoya, ansimuz Explosion Pack) antes de arte propria. Nesta tarefa, download binario via `exec`/`curl` retornou bloqueio de proxy ("403 CONNECT tunnel failed") e `web_search` ficou indisponivel -- o mesmo bloqueio ja documentado em sessoes anteriores (`TECH_AUDIT.md`, `ART_STYLE_GUIDE.md`). Sem poder baixar nem verificar hash dos pacotes do catalogo, os 3 biomas e o efeito de impacto do mockup usam a 2a prioridade do briefing (tiles proprios por matriz de pixel), evitando qualquer risco de licenca nao verificada. Detalhe por biome em `03-environments/<bioma>/license.json`.
 
+## professional-licensed: tilesets de terceiros, CC0 (game-art, 2026-11-09)
+
+| Asset | Fonte | Autor | Licença | Uso em GS-003 |
+|---|---|---|---|---|
+| Tilesets de chão/vila (`tileset_floor.png`, `tileset_village_abandoned.png`, `tileset_wall_simple.png`, `tileset_interior_floor.png`, `tileset_animated.png`, `destroyable/grass.png`, `destroyable/crate.png`, `destroyable/pot.png`) | [Ninja Adventure Asset Pack](https://github.com/pixel-boy/NinjaAdventure) (repositório GitHub do projeto-demo Godot) | pixel-boy | **CC0** (confirmado no itch.io: "use in commercial games, attribution not required", verificado antes desta tarefa) | `03-environments/forest-v5/`, `praia-v5/`, `vila-v5/`: tiles de grama/terra/água recortados e tingidos (hue/sat/light shift) via `art/src/na_source.js` + `art/src/na_blob.js`; casas/arbustos da vila recortados e clareados de `tileset_village_abandoned.png`. Arquivos-fonte originais preservados em `10-source-files/ninja-adventure/`. |
+
+Baixado via GitHub API (`git/trees` + `git/blobs`, conteúdo base64) com `web_fetch`, já que `curl`/`git`/`raw.githubusercontent.com` retornam 403 no proxy do ambiente (mesmo bloqueio documentado em `TECH_AUDIT.md`). Esta é a primeira entrega do estúdio que usa um tileset de terceiro de verdade (ADR-010, decisão do fundador de trocar geração por código por tileset profissional pronto) — ver `03-environments/forest-v5/README.md` para o detalhe completo e a autocrítica.
+
+Postes elétricos (`praia-v5/props/electric_pole.png`), cerca, berço e cluster de ovos (`vila-v5/props/fence.png`, `crib.png`, `egg_cluster.png`) são pixel art própria do estúdio (`original`), sem fonte licenciada equivalente no pacote.
+
 ## Restrições
 
 - Nenhuma monetização, nenhum logo oficial, aviso de fan game visível (ADR-007).

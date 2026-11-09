@@ -1,0 +1,18 @@
+{
+  "biome": "praia-v5",
+  "sources": [
+    {
+      "name": "Ninja Adventure Asset Pack",
+      "author": "pixel-boy",
+      "license": "CC0",
+      "repo": "https://github.com/pixel-boy/NinjaAdventure",
+      "file": "content/map/tileset_floor.png",
+      "accessed": "2026-11-09",
+      "usage": "water tile/stamp used as-is (recolor-neutral); sand tiles are the licensed dirt-block texture recolored (hue/light shift only, same artist shading)."
+    }
+  ],
+  "ownAssets": [
+    { "file": "props/electric_pole.png", "note": "Hand-painted pixel art, no licensed source. Mood-referenced from Digimon Adventure ep.1 beach scenery (public broadcast imagery), not copied pixel-for-pixel from any asset." }
+  ],
+  "noThirdPartyIp": "No Pokemon. Electric pole is original pixel art, not a copy of any Toei/Bandai official asset."
+}

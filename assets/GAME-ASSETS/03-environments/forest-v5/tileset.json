@@ -1,0 +1,45 @@
+{
+  "biome": "forest-v5",
+  "method": "professional-tileset (ADR-010 method switch: licensed pixel art, not procedural code-drawn tiles as in forest-v3/v4/v4.1)",
+  "source": "Ninja Adventure Asset Pack (pixel-boy, CC0), github.com/pixel-boy/NinjaAdventure, content/map/tileset_floor.png",
+  "tile": 32,
+  "grid": { "tileWidth": 32, "tileHeight": 32 },
+  "resolutionDecision": {
+    "chosen": "16px source art, nearest-neighbor 2x -> 32px engine tile (no 32px-native redraw)",
+    "reason": "NinjaAdventure ships 16px tiles. Doubling to 32px keeps every pixel a crisp 2x2 block (no blur, no interpolation) and matches the engine's existing tileSize=32 grid and the DS creature/tamer sprite scale already locked by DIGIMON_SIZE_TABLE.md (tamer=26px reference) -- same conclusion as forest-v4's 'no architecture change before the visual proof' constraint (ADR-010), but now the 32px cell is reached by clean integer upscale of real licensed art instead of hand-drawing natively at 32px. Checked against evidence/idledex-canonical/canonical_founder_screenshot_night_forest.png: that reference's tile/character scale (treetop clusters relative to tamer height) sits in the same order of magnitude as 32px tiles with 2x-scaled 16px props, so no further rescale was needed."
+  },
+  "layers": ["ground", "decor"],
+  "canopySimplification": "v5 canopy clumps are a single decor+collision tile (no base/top split like forest-v4). The licensed blob art has no separate trunk sprite, and the canonical IdleDex reference itself reads as massed canopy without individually readable trunks at this zoom -- see README self-critique #1.",
+  "autotile": {
+    "pattern": "16-tile blob (same N/E/S/W bitmask + quarter-circle rounded-corner geometry as forest-v4's buildBlobTile, reused verbatim from art/src/forest_v4_tiles.js via art/src/na_blob.js), but the foreground/background fills are tiled crops of real licensed pixel art (art/src/na_source.js tiledFill) instead of procedurally painted textures.",
+    "sets": [
+      {
+        "name": "path_blob",
+        "center": "dirt path (NinjaAdventure floor sheet, tile (1,8))",
+        "surround": "grass (NinjaAdventure floor sheet, tile (6,7))",
+        "files": ["tiles/path_blob_0.png", "tiles/path_blob_1.png", "tiles/path_blob_2.png", "tiles/path_blob_3.png", "tiles/path_blob_4.png", "tiles/path_blob_5.png", "tiles/path_blob_6.png", "tiles/path_blob_7.png", "tiles/path_blob_8.png", "tiles/path_blob_9.png", "tiles/path_blob_10.png", "tiles/path_blob_11.png", "tiles/path_blob_12.png", "tiles/path_blob_13.png", "tiles/path_blob_14.png", "tiles/path_blob_15.png"]
+      }
+    ]
+  },
+  "groundStamps": {
+    "note": "Multi-tile decals cropped verbatim from the artist's own pre-composed blob shapes (not reconstructed tile-by-tile), so the hand-painted transition shading is reused exactly as drawn -- place as a single large decal on the ground layer, not tiled.",
+    "items": [
+      { "file": "tiles/clearing_stamp_5x4.png", "sizeTiles": [5, 4], "use": "forest clearing (dirt patch in grass)" },
+      { "file": "tiles/path_strip_2x4.png", "sizeTiles": [2, 4], "use": "straight worn path segment" }
+    ]
+  },
+  "tiles": [
+    { "file": "tiles/grass_00.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/grass_01.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/grass_02.png", "collision": false, "suggestedLayer": "ground" }
+  ],
+  "props": [
+    { "file": "props/canopy_clump_big.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [5, 4], "note": "hue-shifted from the licensed blossom-canopy blob (orange->green, +0.25 turn), satMul 0.9" },
+    { "file": "props/canopy_clump_dark.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [5, 4], "note": "hue-shifted from the licensed pink blossom blob (+0.22 turn, satMul 0.8, darker) for canopy color variety" },
+    { "file": "props/canopy_clump_strip.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [2, 4] },
+    { "file": "props/fallen_log.png", "collision": true, "suggestedLayer": "decor", "note": "reused unmodified from forest-v4 (own procedural prop, kept for continuity -- not part of the method switch)" },
+    { "file": "props/rock_cluster.png", "collision": true, "suggestedLayer": "decor", "note": "reused unmodified from forest-v4" },
+    { "file": "props/mushroom_cluster.png", "collision": false, "suggestedLayer": "decor", "note": "reused unmodified from forest-v4" },
+    { "file": "props/fallen_leaves_cluster.png", "collision": false, "suggestedLayer": "decor", "note": "reused unmodified from forest-v4" }
+  ]
+}

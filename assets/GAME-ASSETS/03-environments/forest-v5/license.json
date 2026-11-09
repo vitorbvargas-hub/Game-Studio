@@ -1,0 +1,22 @@
+{
+  "biome": "forest-v5",
+  "sources": [
+    {
+      "name": "Ninja Adventure Asset Pack",
+      "author": "pixel-boy",
+      "license": "CC0",
+      "licenseNote": "itch.io listing: \"use in commercial games, attribution not required\" (verified before this task, per ADR-010/task brief).",
+      "repo": "https://github.com/pixel-boy/NinjaAdventure",
+      "file": "content/map/tileset_floor.png",
+      "accessed": "2026-11-09",
+      "usage": "grass/dirt crops recolored and tiled via art/src/na_blob.js into the path_blob_0..15 autotile set, grass_00..02 variants, clearing/path ground stamps, and canopy_clump_* props (hue-shifted orange/pink blossom blob -> green)."
+    }
+  ],
+  "ownAssets": [
+    { "file": "props/fallen_log.png", "note": "forest-v4 procedural prop, reused unmodified." },
+    { "file": "props/rock_cluster.png", "note": "forest-v4 procedural prop, reused unmodified." },
+    { "file": "props/mushroom_cluster.png", "note": "forest-v4 procedural prop, reused unmodified." },
+    { "file": "props/fallen_leaves_cluster.png", "note": "forest-v4 procedural prop, reused unmodified." }
+  ],
+  "noThirdPartyIp": "No Pokemon, no other studio's branded assets. No Digimon official sprites used in this biome's tiles (Digimon official assets are used only in praia-v5/vila-v5 reference per task brief, as scenery reference and in 09-previews casts via GAME-ASSETS/11-characters, not copied into tile files)."
+}

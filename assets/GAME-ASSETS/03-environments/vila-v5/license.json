@@ -1,0 +1,27 @@
+{
+  "biome": "vila-v5",
+  "sources": [
+    {
+      "name": "Ninja Adventure Asset Pack",
+      "author": "pixel-boy",
+      "license": "CC0",
+      "repo": "https://github.com/pixel-boy/NinjaAdventure",
+      "file": "content/map/tileset_village_abandoned.png",
+      "accessed": "2026-11-09",
+      "usage": "house_small/house_big/house_cottage/bush_big/bush_small cropped and recolor-brightened (hue/saturation/light lift) from the source 'abandoned village' sheet."
+    },
+    {
+      "name": "Ninja Adventure Asset Pack (floor sheet, via forest-v5)",
+      "author": "pixel-boy",
+      "license": "CC0",
+      "file": "content/map/tileset_floor.png",
+      "usage": "grass_00..02 and path_blob_0..15 copied from forest-v5/tiles for ground continuity."
+    }
+  ],
+  "ownAssets": [
+    { "file": "props/fence.png", "note": "Hand-painted wood picket fence, original." },
+    { "file": "props/crib.png", "note": "Hand-painted baby crib/basket with blanket, original." },
+    { "file": "props/egg_cluster.png", "note": "Hand-painted generic pastel egg cluster, original shapes -- not a copy of any official Digimon egg sprite." }
+  ],
+  "noThirdPartyIp": "No Pokemon. Houses are recolored from CC0 source art, not copies of any other studio's building assets."
+}

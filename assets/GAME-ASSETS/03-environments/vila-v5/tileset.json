@@ -1,0 +1,29 @@
+{
+  "biome": "vila-v5",
+  "displayName": "Vila dos Bebes",
+  "method": "professional-tileset (ADR-010 method switch)",
+  "source": "Ninja Adventure Asset Pack (pixel-boy, CC0), content/map/tileset_village_abandoned.png (houses/bushes) + forest-v5 ground (grass/path, copied for self-containment)",
+  "tile": 32,
+  "grid": { "tileWidth": 32, "tileHeight": 32 },
+  "resolutionDecision": "Same as forest-v5: 16px source, nearest-neighbor 2x -> 32px engine tile.",
+  "layers": ["ground", "decor"],
+  "autotile": {
+    "note": "path_blob_0..15 copied byte-for-byte from forest-v5/tiles (same art, same geometry) so the village plaza paths match the forest paths exactly.",
+    "sets": [{ "name": "path_blob", "files": ["tiles/path_blob_0.png", "...", "tiles/path_blob_15.png"] }]
+  },
+  "tiles": [
+    { "file": "tiles/grass_00.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/grass_01.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/grass_02.png", "collision": false, "suggestedLayer": "ground" }
+  ],
+  "props": [
+    { "file": "props/house_small.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [3, 3], "note": "cropped from village_abandoned.png tiles (11,0)-(13,2), recolor: hueShift +0.03, satMul 1.15, lightAdd +0.1 (brighten away from the source 'abandoned ruin' mossy palette)" },
+    { "file": "props/house_big.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [4, 4], "note": "cropped from village_abandoned.png tiles (13,7)-(16,10), same recolor" },
+    { "file": "props/house_cottage.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [3, 3], "note": "cropped from village_abandoned.png tiles (17,8)-(19,10), same recolor; most symmetric/cheerful of the three, best fit for the baby-village hub" },
+    { "file": "props/bush_big.png", "collision": true, "suggestedLayer": "decor", "sizeTiles": [3, 2], "note": "cropped from village_abandoned.png tiles (0,7)-(2,8)" },
+    { "file": "props/bush_small.png", "collision": false, "suggestedLayer": "decor", "sizeTiles": [2, 2], "note": "cropped from village_abandoned.png tiles (4,10)-(5,11)" },
+    { "file": "props/fence.png", "collision": true, "suggestedLayer": "decor", "note": "hand-painted, no licensed fence tile found in the pack" },
+    { "file": "props/crib.png", "collision": true, "suggestedLayer": "decor", "note": "hand-painted baby crib/basket -- no licensed pack has a crib prop" },
+    { "file": "props/egg_cluster.png", "collision": false, "suggestedLayer": "decor", "note": "hand-painted cluster of 3 pastel Digimon eggs (generic ellipse shapes, no copied Digimon egg sprite/pattern)" }
+  ]
+}

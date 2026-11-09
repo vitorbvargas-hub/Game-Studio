@@ -1,0 +1,40 @@
+{
+  "biome": "praia-v5",
+  "displayName": "Praia dos Postes",
+  "method": "professional-tileset (ADR-010 method switch)",
+  "source": "Ninja Adventure Asset Pack (pixel-boy, CC0), content/map/tileset_floor.png (water block) + recolored dirt block (sand)",
+  "tile": 32,
+  "grid": { "tileWidth": 32, "tileHeight": 32 },
+  "resolutionDecision": "Same as forest-v5: 16px source, nearest-neighbor 2x -> 32px engine tile. See forest-v5/tileset.json for the full rationale.",
+  "layers": ["ground", "decor"],
+  "autotile": {
+    "pattern": "16-tile blob, same geometry as forest-v5 (art/src/na_blob.js)",
+    "sets": [
+      {
+        "name": "water_blob",
+        "center": "water (NinjaAdventure floor sheet, tile (2,22))",
+        "surround": "sand (dirt tile (12,15) recolored: hueShift +0.06, satMul 0.6, lightAdd +0.3)",
+        "files": ["tiles/water_blob_0.png", "tiles/water_blob_1.png", "tiles/water_blob_2.png", "tiles/water_blob_3.png", "tiles/water_blob_4.png", "tiles/water_blob_5.png", "tiles/water_blob_6.png", "tiles/water_blob_7.png", "tiles/water_blob_8.png", "tiles/water_blob_9.png", "tiles/water_blob_10.png", "tiles/water_blob_11.png", "tiles/water_blob_12.png", "tiles/water_blob_13.png", "tiles/water_blob_14.png", "tiles/water_blob_15.png"]
+      }
+    ]
+  },
+  "groundStamps": {
+    "items": [
+      { "file": "tiles/water_stamp_5x3.png", "sizeTiles": [5, 3], "use": "shoreline water patch, real artist shading reused verbatim" }
+    ]
+  },
+  "tiles": [
+    { "file": "tiles/sand_00.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/sand_01.png", "collision": false, "suggestedLayer": "ground" },
+    { "file": "tiles/sand_02.png", "collision": false, "suggestedLayer": "ground" }
+  ],
+  "props": [
+    {
+      "file": "props/electric_pole.png",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "sizeTiles": [1, 3.5],
+      "note": "Hand-painted, 32x112px. No licensed pack covers this prop; explicitly allowed by the task brief (\"o poste pode ser pixel art propria\"). References the Digimon Adventure ep.1 beach power-line silhouette (wooden pole, 2 crossbars, ceramic insulators, sagging cables) as mood reference only -- not a copy of any official asset."
+    }
+  ]
+}
