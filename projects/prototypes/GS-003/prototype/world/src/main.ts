@@ -5,7 +5,7 @@ import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
 import { loadSceneTiles, packSummary, usedKeys } from "./assets/scene-tiles";
 import { clockFromParams, formatClock, GameClock } from "./render/daynight";
-import { botLook, defaultLook, loadPresets, lookKey, presetVisual, urlsForLook, type TamerLook } from "./assets/tamer-presets";
+import { botLook, defaultLook, distinctHairs, loadPresets, lookKey, presetVisual, urlsForLook, type TamerLook } from "./assets/tamer-presets";
 import { TamerCreator, type PreviewDir } from "./ui/creator";
 import { applyOffline, applySave, captureSave, offlineBalance, offlineSeed, type OfflineReport } from "./save/offline";
 import { browserStorage, loadFromStorage, SAVE_KEY, saveToStorage, STARTING_INVENTORY, type LoadResult, type SaveData, type SettingsData } from "./save/save";
@@ -70,8 +70,22 @@ const CREATOR = params.get("criador") !== "0";
  */
 async function chooseLook(images: ImageStore, initial: TamerLook = defaultLook()): Promise<TamerLook> {
   if (!CREATOR) return initial;
-  const presets = loadPresets();
-  await images.loadAll([...presets.flatMap((p) => urlsForLook({ name: "", preset: p.id, hair: p.defaultHair })), ...urlsForLook(initial)]);
+  await images.loadAll([...loadPresets().flatMap((p) => [...urlsForLook({ name: "", preset: p.id, hair: p.defaultHair }), ...p.hairs.map((h) => h.frames.S![0])]), ...urlsForLook(initial)]);
+  // Cores de cabelo que não mudam nada (variantes idênticas no disco) ficam fora do criador.
+  const sig = (url: string) => {
+    const img = images.get(url);
+    if (!img) return undefined;
+    const c = browserCanvasFactory(img.width, img.height);
+    const g = c.getContext("2d", { willReadFrequently: true })!;
+    g.drawImage(img as CanvasImageSource, 0, 0);
+    const d = g.getImageData(0, 0, img.width, img.height).data;
+    let h = 2166136261;
+    for (let i = 0; i < d.length; i++) h = Math.imul(h ^ d[i], 16777619);
+    return `${img.width}x${img.height}:${h >>> 0}`;
+  };
+  const presets = loadPresets().map((p) => distinctHairs(p, sig));
+  const dup = presets.filter((p) => p.hairs.length < 8).map((p) => `${p.id}:${p.hairs.length}`);
+  if (dup.length) console.warn("Tamers v3: cores de cabelo idênticas no disco (só as distintas aparecem no criador):", dup.join(" "));
   const cache = new Map<string, CreatureVisual | undefined>();
   const visualOf = (l: TamerLook) => {
     const k = lookKey(l);

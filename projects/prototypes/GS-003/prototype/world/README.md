@@ -52,6 +52,15 @@ Pedido do fundador: o criador ainda mostrava os Tamers modulares v2, que ele rep
     - O build não muda.
   - **Se aparecer versão antiga, Ctrl+Shift+R** (recarregar sem cache). Se ainda assim estiver velha, feche o `npm run dev` antigo (a 5174 precisa estar livre) e rode de novo.
 
+- **Capturas finais e correções nos presets v3** (item 4):
+  - `docs/screens/creator_v3.png` (Xeno, cabelo verde, `ONLY=creator`), mais `creator_tela.png`, `creator_preview_4dir.png` e `creator_no_mundo*.png`.
+  - `docs/screens/evolucao_escolha.png` (`ONLY=evolve`), mais `evolucao_escolha_requisito.png`, `evolucao_preferencia.png` e `evolucao_depois.png`.
+  - **Defeitos nos assets dos presets, achados nas capturas** [E, conferido no disco em 2026-11-09; os arquivos não foram alterados, são do game-art]:
+    1. **Direções:** os rips de NPC do DS só têm as 4 diagonais. Os arquivos `_S_`/`_N_` são as duas de frente (esquerda/direita) e `_W_`/`_E_` as duas de costas. O jogo mapeia isso em `FILE_DIR` (`tamer-presets.ts`): baixo → frente-esquerda, direita → frente-direita, cima → costas-direita, esquerda → costas-esquerda [H]. Se o game-art renomear os arquivos, basta voltar ao mapa identidade.
+    2. **Cor do cabelo:** em **8 dos 12 presets** (0003, 0004, 0005, 0006, 0008, 0009, 0011, 0012), as 8 variantes `recolor_<cor>` são **byte a byte iguais**. O criador compara os pixels do quadro de frente e só mostra as cores que mudam algo; com uma cor só, aparece "Este personagem ainda só tem a cor original de cabelo".
+       - Em 0007, 0010 e 0014, o recolor muda a **roupa** em vez do cabelo.
+       - Só o **0013 (Xeno)** troca o cabelo de fato.
+
 ## Inicial, Digimon selvagens, troca de mapa e telas secundárias (2026-11-09)
 
 Pedido do fundador: "ir criando as telas secundárias e outros Digimon para testar, e algo para trocar de mapa". Um commit por item: `8a02f1a` (QA R1), `b1b17ba` (inicial), `fdba15f` (selvagens), `b29fe28` (troca de mapa), `36198a5` (telas).

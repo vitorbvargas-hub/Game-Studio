@@ -213,7 +213,7 @@ async function creator(cdp) {
   await cdp.shot("creator_tela.png");
   // Criador v3: um preset da grade, uma cor de cabelo e o nome
   await cdp.eval(`(() => { const c = (sel) => document.querySelector(sel).click();
-    c('[data-preset="${process.env.PRESET ?? "TAMER-0004"}"]'); c('[data-hair="${process.env.HAIR ?? "verde"}"]');
+    c('[data-preset="${process.env.PRESET ?? "TAMER-0013"}"]'); c('[data-hair="${process.env.HAIR ?? "verde"}"]');
     const i = document.querySelector('[data-testid="cr-name"]'); i.value = "Nina"; i.dispatchEvent(new Event("input")); })()`);
   await sleep(600);
   await cdp.shot("creator_v3.png");

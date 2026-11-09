@@ -281,8 +281,17 @@ export function migrateLegacyLook(l: LegacyLook | Record<string, unknown>, prese
 // ---------- visual ----------
 
 /**
- * Visual do Tamer no contrato dos sprites do mundo (idle/walk desenhados em S/N/W/E, sem espelho), uma PNG por
- * quadro da cor de cabelo escolhida. A chave do atlas é `<dir>_<nn>`.
+ * Os rips de NPC do DW DS só têm as 4 diagonais. Nos presets v3, os arquivos `_S_` e `_N_` são as duas de frente
+ * (olhando para a esquerda e para a direita) e `_W_`/`_E_` as duas de costas (esquerda/direita) — conferido no olho
+ * nos 12 presets em 2026-11-09 [E]. O jogo anda em 4 direções: cada direção usa a diagonal mais próxima, girando
+ * (baixo → frente-esquerda, direita → frente-direita, cima → costas-direita, esquerda → costas-esquerda) [H].
+ * Se o game-art renomear os arquivos para as direções reais, basta trocar para o mapa identidade.
+ */
+export const FILE_DIR: Record<Dir4, Dir4> = { S: "S", E: "N", N: "E", W: "W" };
+
+/**
+ * Visual do Tamer no contrato dos sprites do mundo (idle/walk em S/N/W/E, sem espelho), uma PNG por quadro da cor
+ * de cabelo escolhida, com as diagonais do rip mapeadas por FILE_DIR. A chave do atlas é `<dir do mundo>_<nn>`.
  */
 export function presetVisual(look: TamerLook, presets: TamerPreset[] = loadPresets()): CreatureVisual | undefined {
   const p = presets.find((x) => x.id === look.preset);
@@ -292,16 +301,16 @@ export function presetVisual(look: TamerLook, presets: TamerPreset[] = loadPrese
   const frameUrls: Record<string, string> = {};
   const atlas: AtlasJson = { frames: {} };
   for (const d of DIRS4)
-    hair.frames[d]!.forEach((url, i) => {
+    hair.frames[FILE_DIR[d]]!.forEach((url, i) => {
       frameUrls[key(d, i)] = url;
       atlas.frames[key(d, i)] = { frame: { x: 0, y: 0, w: p.frame.w, h: p.frame.h } };
     });
-  const pick = (d: Dir4, i: number) => key(d, Math.min(i, hair.frames[d]!.length - 1));
+  const pick = (d: Dir4, i: number) => key(d, Math.min(i, hair.frames[FILE_DIR[d]]!.length - 1));
   const walk: Record<string, AnimFrame[]> = {};
   const idle: Record<string, AnimFrame[]> = {};
   for (const d of DIRS4) {
-    walk[d] = p.walk[d].map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
-    idle[d] = [{ atlasKey: pick(d, p.idle[d].i), durationMs: p.idle[d].ms }];
+    walk[d] = p.walk[FILE_DIR[d]].map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
+    idle[d] = [{ atlasKey: pick(d, p.idle[FILE_DIR[d]].i), durationMs: p.idle[FILE_DIR[d]].ms }];
   }
   const manifest: CreatureManifest = {
     id: `tamer:${lookKey(look)}`,
@@ -316,6 +325,28 @@ export function presetVisual(look: TamerLook, presets: TamerPreset[] = loadPrese
     walkSpeedPxPerSec: p.walkSpeedPxPerSec,
   };
   return { manifest, atlas, sheetUrl: frameUrls[key("S", 0)], frameUrls };
+}
+
+/**
+ * Só as cores que mudam alguma coisa: uma cor cujo quadro de frente é idêntico ao de outra já listada (a canônica
+ * primeiro) sai da lista. Em 2026-11-09, 8 dos 12 presets vinham com as 8 variantes byte a byte iguais [E] (recolor
+ * do game-art não pegou o cabelo); o criador não mostra botão que não faz nada. `sig` = assinatura dos pixels.
+ */
+export function distinctHairs(p: TamerPreset, sig: (url: string) => string | undefined): TamerPreset {
+  const order = [...p.hairs].sort((a, b) => Number(b.id === p.defaultHair) - Number(a.id === p.defaultHair));
+  const seen = new Set<string>();
+  const keep = new Set<string>();
+  for (const h of order) {
+    const k = sig(h.frames.S![0]);
+    if (k === undefined) {
+      keep.add(h.id); // sem imagem para comparar: mantém
+      continue;
+    }
+    if (seen.has(k)) continue;
+    seen.add(k);
+    keep.add(h.id);
+  }
+  return { ...p, hairs: p.hairs.filter((h) => keep.has(h.id)) };
 }
 
 /** Todas as URLs de um look (para pré-carregar). */

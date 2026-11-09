@@ -95,6 +95,7 @@ export class TamerCreator {
             <fieldset class="cr-group swatches" data-group="hair">
               <legend>Cor do cabelo <i data-testid="cr-hair-n"></i></legend>
               <div class="cr-opts" data-testid="cr-hairs"></div>
+              <em class="cr-note" data-testid="cr-hair-note" hidden>Este personagem ainda só tem a cor original de cabelo.</em>
             </fieldset>
           </div>
         </div>
@@ -162,6 +163,7 @@ export class TamerCreator {
         .map((h) => `<button type="button" data-hair="${esc(h.id)}" title="${esc(HAIR_PT[h.id] ?? h.id)}${h.id === p!.defaultHair ? " (original)" : ""}" aria-pressed="false"><b style="background:${esc(h.hex)}"></b><span class="sr">${esc(HAIR_PT[h.id] ?? h.id)}</span></button>`)
         .join("");
       this.el.querySelector('[data-testid="cr-hair-n"]')!.textContent = String(p?.hairs.length ?? 0);
+      this.el.querySelector<HTMLElement>('[data-testid="cr-hair-note"]')!.hidden = (p?.hairs.length ?? 0) > 1;
     }
     for (const b of hairs.querySelectorAll<HTMLButtonElement>("[data-hair]")) b.setAttribute("aria-pressed", String(b.dataset.hair === this.look.hair));
     const err = this.el.querySelector<HTMLElement>('[data-testid="cr-err"]')!;

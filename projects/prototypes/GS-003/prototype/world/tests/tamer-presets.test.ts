@@ -3,7 +3,7 @@
 
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { botLook, buildPresets, defaultLook, DIRS4, loadPresets, lookKey, migrateLegacyLook, normalizeLook, presetVisual, randomLook } from "../src/assets/tamer-presets";
+import { botLook, buildPresets, distinctHairs, defaultLook, DIRS4, loadPresets, lookKey, migrateLegacyLook, normalizeLook, presetVisual, randomLook } from "../src/assets/tamer-presets";
 import { deserialize, SAVE_VERSION } from "../src/save/save";
 
 const urlToPath = (url: string) => {
@@ -33,6 +33,10 @@ describe("Tamers v3 (presets TAMER-0003..0014)", () => {
     expect(v.manifest.dimensions).toMatchObject({ frameW: 42, frameH: 33 });
     expect(v.manifest.name).toBe("Ana");
     expect(v.frameUrls!.W_02).toContain("recolor_verde/TAMER-0007_verde_W_02.png");
+    // os rips do DS são diagonais: direita = frente-direita (arquivo _N_), cima = costas-direita (arquivo _E_)
+    expect(v.frameUrls!.E_00).toContain("recolor_verde/TAMER-0007_verde_N_00.png");
+    expect(v.frameUrls!.N_01).toContain("recolor_verde/TAMER-0007_verde_E_01.png");
+    expect(v.frameUrls!.S_00).toContain("recolor_verde/TAMER-0007_verde_S_00.png");
     expect(v.atlas.frames.E_01.frame).toEqual({ x: 0, y: 0, w: 42, h: 33 });
   });
 
@@ -86,5 +90,17 @@ describe("Tamers v3 (presets TAMER-0003..0014)", () => {
     expect(ps).toHaveLength(1);
     expect(ps[0]).toMatchObject({ id: "TAMER-0050", label: "Novo", defaultHair: "verde" });
     expect(ps[0].hairs.map((h) => h.id)).toEqual(["verde"]);
+  });
+
+  it("distinctHairs: tira as cores com o quadro idêntico a outra (a canônica fica); sem imagem, mantém", () => {
+    const p = loadPresets().find((x) => x.id === "TAMER-0003")!;
+    const same = distinctHairs(p, () => "igual");
+    expect(same.hairs.map((h) => h.id)).toEqual(["ruivo"]);
+    const all = distinctHairs(p, (u) => u);
+    expect(all.hairs).toHaveLength(8);
+    const two = distinctHairs(p, (u) => (u.includes("recolor_azul") ? "b" : u.includes("recolor_ruivo") ? "a" : undefined));
+    expect(two.hairs.map((h) => h.id).sort()).toEqual(["azul", "castanho", "loiro", "prateado", "preto", "roxo", "ruivo", "verde"]);
+    const dedup = distinctHairs(p, (u) => (u.includes("recolor_azul") || u.includes("recolor_verde") ? "x" : u));
+    expect(dedup.hairs.map((h) => h.id)).toEqual(["preto", "castanho", "loiro", "ruivo", "azul", "roxo", "prateado"]);
   });
 });

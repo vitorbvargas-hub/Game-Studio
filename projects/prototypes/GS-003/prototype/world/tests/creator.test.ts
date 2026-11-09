@@ -47,6 +47,17 @@ describe("criador de Tamer v3 (pt-BR)", () => {
     expect(c.look).toMatchObject({ preset: "TAMER-0013", hair: "prateado" });
   });
 
+  it("preset com uma cor só (variantes idênticas no disco): sem swatches extras e com aviso", async () => {
+    const { distinctHairs, loadPresets } = await import("../src/assets/tamer-presets");
+    const presets = loadPresets().map((p) => (p.id === "TAMER-0003" ? distinctHairs(p, () => "igual") : p));
+    const c = new TamerCreator(document.body, { onConfirm: vi.fn(), presets });
+    expect(c.el.querySelectorAll("[data-hair]")).toHaveLength(1);
+    expect(c.el.querySelector<HTMLElement>('[data-testid="cr-hair-note"]')!.hidden).toBe(false);
+    c.setPreset("TAMER-0013");
+    expect(c.el.querySelectorAll("[data-hair]")).toHaveLength(8);
+    expect(c.el.querySelector<HTMLElement>('[data-testid="cr-hair-note"]')!.hidden).toBe(true);
+  });
+
   it("Aleatório troca preset/cor e mantém o nome", () => {
     const { c, el } = mount();
     const seen = new Set<string>();

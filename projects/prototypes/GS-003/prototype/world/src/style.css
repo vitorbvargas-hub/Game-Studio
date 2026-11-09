@@ -2314,6 +2314,16 @@ body {
   color: var(--ui-dim);
   line-height: 1.1;
 }
+.creator .cr-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-style: normal;
+  color: var(--ui-dim);
+}
+.creator .cr-note[hidden] {
+  display: none;
+}
 .creator .cr-preset[aria-pressed="true"] small {
   color: #e8d9a0;
 }
