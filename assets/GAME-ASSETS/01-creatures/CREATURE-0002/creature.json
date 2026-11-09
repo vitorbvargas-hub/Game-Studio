@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "4.0.0",
+  "version": "5.0.0",
   "previousVersions": [
     {
       "version": "1.0.0",
@@ -16,6 +16,11 @@
       "version": "3.0.0",
       "path": "versions/v3/creature.json",
       "summary": "ERRO: sprite de mapa (walk/battle_idle) era na verdade o fallback Pagumon (blob azul), reportado pelo coordenador como inaceitavel -- nome 'Gigimon' em cima de um personagem errado. Mantido aqui so como historico do erro."
+    },
+    {
+      "version": "4.0.0",
+      "path": "versions/v4/creature.json",
+      "summary": "Sprite de mapa DESENHADO A MAO (layer original) por matriz de pixel, referenciando o rip oficial apenas como guia de forma/paleta -- nao usava nenhum pixel oficial. Substituido nesta versao por um sprite de mapa com base OFICIAL (Brave Tamer, ripper Airshuffler) apos revisao do coordenador apontar que ainda lia como bola generica sem cara, nao o Gigimon."
     }
   ],
   "id": "CREATURE-0002",
@@ -33,40 +38,40 @@
     ]
   },
   "evolutionRequirements": {},
-  "description": "Gigimon: sprite de mapa DESENHADO A MAO por matriz de pixel (mesma tecnica de pilot_model_sheet.js, ADR-009 -- sem fillEllipse/fillCircle), 4 direcoes (S, N, W desenhadas; E espelhado de W), walk de 3 quadros por direcao. Forma e paleta reduzidas/redesenhadas a partir do rip OFICIAL do Gigimon (E-M-B-E-R, battle idle, source/Gigimon.gif) -- corpo vermelho arredondado, chifres/orelhas cinza-azulado varridos para tras, olhos amarelos, franja de barriga clara -- na densidade de pixel e escala dos sprites de mapa reais do DS (compare CREATURE-0005 Koromon e CREATURE-0003 Guilmon, mesma linha evolutiva). Corrige a v3, que usava por engano o fallback Pagumon (blob azul) sob o nome Gigimon.",
+  "description": "Gigimon: sprite de mapa com base OFICIAL -- pose unica (roar 3/4, chifres para cima-esquerda, boca aberta) extraida da folha oficial Digimon Tamers: Brave Tamer \"Baby I / Baby II\" (The Spriters Resource, ripper Airshuffler, linha 3 coluna 3 da grade), reduzida por nearest-neighbor de 44x39 nativos para ~21x19 (faixa de altura dos babies de mapa do DS no estudio, 17-21px: Koromon 17, Tsunomon 19, Tokomon 21) e limpa pixel a pixel (despeckle + conferencia visual em 8x/14x). Usada como S; W = mesma pose espelhada (pose e 3/4, per GS-003); E = mirror de W (== pixels de S). N = silhueta de costas simples, desenhada a mao por matriz de pixel (tecnica de pilot_model_sheet.js, ADR-009 -- sem fillEllipse/fillCircle), reaproveitando a MESMA paleta e envelope de tamanho da base oficial (corpo vermelho redondo/bulboso, dois chifres cinza-escuro no topo, costura de espinha) porque nao existe vista de costas oficial para esta pose. Walk = pulinho/bounce de 3 quadros (squash/stretch leve + deslocamento vertical) coerente com um Digimon bebe, derivado da mesma base por direcao (sem redesenho por quadro). Corrige a v4, que era desenho autoral por referencia visual (nenhum pixel oficial), avaliada pelo coordenador como ainda proxima de uma bola generica.",
   "dimensions": {
-    "frameW": 26,
-    "frameH": 22,
+    "frameW": 24,
+    "frameH": 24,
     "tile": 32
   },
   "pivot": {
-    "x": 13,
-    "y": 21
+    "x": 12,
+    "y": 23
   },
   "mapScale": 1,
   "targetHeightPx": 19,
   "nativeMapHeightPx": 19,
   "nativeBattleHeightPx": 51,
-  "sizeNotes": "Sprite de mapa desenhado a mao nativamente em 26x22 (corpo ocupa ~19px de altura, y3-21), na mesma faixa de altura dos outros babies do estudio (Koromon nativeMapHeightPx 17, Dorimon 19). battle_idle usa os 3 quadros do rip oficial (versions/v1), 76x51, sem redimensionar -- nao e mais o fallback Pagumon reduzido.",
+  "sizeNotes": "Conteudo (S/W/E) nativamente 21x19 dentro de um frame de 24x24 (margem para o hop); N (hand-built) no mesmo envelope geral. Faixa de altura comparavel a Koromon (17), Tsunomon (19) e Tokomon (21) do DS -- conferido lado a lado em 8x nesta sessao (previews/map_walk_x4.png + revisao externa). battle_idle inalterado (continua os 3 quadros do rip oficial E-M-B-E-R, 76x51, ver versions/v1 e license.json).",
   "hitbox": {
-    "x": 4,
-    "y": 3,
+    "x": 3,
+    "y": 4,
     "w": 18,
     "h": 18
   },
   "anchors": {
     "head": {
-      "x": 13,
-      "y": 1
+      "x": 12,
+      "y": 0
     },
     "hit": {
-      "x": 13,
-      "y": 11
+      "x": 12,
+      "y": 12
     },
     "shadow": {
-      "cx": 13,
-      "cy": 21,
-      "rx": 10,
+      "cx": 12,
+      "cy": 23,
+      "rx": 9,
       "ry": 3
     }
   },
@@ -267,16 +272,20 @@
   "spritesheets": "./spritesheets/",
   "portrait": "./portrait.png",
   "assetOrigin": {
-    "layer": "original",
-    "sourceDescription": "Sprite de MAPA (walk S/N/W + E espelhado, 3 quadros cada) desenhado a mao, pixel a pixel, por matriz de caracteres em art/src/gigimon_map.js (tecnica de pilot_model_sheet.js, sem fillEllipse/fillCircle de forma -- ADR-009). Forma e cores reduzidas/redesenhadas a partir do rip OFICIAL de Gigimon (CREATURE-0002/source/Gigimon.gif, licenca official-fan-use, ver license.json) como referencia de silhueta e paleta -- nenhum pixel do rip foi copiado ou reamostrado automaticamente para o sprite de mapa; os hex foram amostrados a mao do PNG do rip e usados no desenho novo. battle_idle (3 quadros) usa os pixels originais do rip oficial sem modificacao (ja usados na v1), restaurado nesta versao -- a v3 usava por engano o fallback Pagumon tambem no battle_idle."
+    "layer": "official-fan-use",
+    "sourceDescription": "Sprite de MAPA (S/W oficiais reduzidos por nearest-neighbor; E = mirror de W; N desenhado a mao com a mesma paleta/envelope, sem vista de costas oficial disponivel) derivado de pixels reais da folha oficial Digimon Tamers: Brave Tamer \"Baby I / Baby II\" (The Spriters Resource, 10-source-files/spriters-resource/digimontamersbravetamer__arrow-drop-down__Baby-I-Baby-II__142452.png, ripper Airshuffler, celula linha3/coluna3). Identidade confirmada nesta sessao por comparacao visual (view_image) com o battle_idle oficial ja existente (CREATURE-0002/source/Gigimon.gif, rip E-M-B-E-R) e com a folha de portraits Digimon Tamers Battle Spirit ver1.5 antes do uso -- mesma silhueta redonda vermelha, chifres cinza-escuro varridos, olho amarelo de pupila fina, boca aberta com dentes. battle_idle (3 quadros) continua inalterado, pixels do rip E-M-B-E-R sem modificacao (ja estava correto desde a v1/v4)."
   },
   "approvalStatus": "UNDER_REVIEW",
   "score": null,
   "qaNotes": [
-    "CORRIGE ERRO GRAVE da v3: o sprite de mapa e o battle_idle estavam usando o fallback Pagumon (blob azul) sob o nome 'Gigimon' -- reportado pelo coordenador como inaceitavel para fas. Confirmado visualmente nesta sessao (sprites/ v3 eram azuis, nao vermelhos) antes da correcao.",
-    "Sprite de mapa agora e autoral (desenhado a mao), nao um rip -- Digimon World DS nao tem Gigimon jogavel/mapa para ripar (mesma limitacao documentada nas v1/v2). Fica em assetOrigin.layer='original' porque e um desenho novo, mesmo usando o rip oficial como referencia de forma/cor (nao e mais 'official-fan-use' para o sprite de mapa; o battle_idle continua 'official-fan-use' via source/Gigimon.gif, ver license.json).",
-    "Revisado com view_image em 8x (acima do minimo de 4x pedido) para as 3 direcoes + E espelhado antes desta entrega, 2 iteracoes (v1 do desenho tinha uma mancha de sombra solida que colidia com a boca e parecia um 'ferimento'; corrigido para sombra em faixa fina na borda).",
-    "Caminho de evolucao fica igual (Gigimon -> Guilmon, CREATURE-0003); nenhum dado de gameplay/elemento foi alterado, so o sprite.",
-    "Recomenda-se revisao do fundador/game-dev antes de promover approvalStatus para APPROVED -- qualidade de desenho a mao e avaliacao propria desta sessao [H], nao validada com jogador real."
+    "CORRIGE v4: sprite de mapa deixa de ser desenho autoral (layer original, apenas referenciando o rip) e passa a usar pixels reais da folha oficial Brave Tamer (layer official-fan-use) para S/W/E -- pedido explicito do coordenador apos v4 ainda ler como \"bola com cara\" generica.",
+    "Unica pose oficial disponivel para este estagio e um roar 3/4 assimetrico (chifres para cima-esquerda, boca para baixo-direita): usada como S sem alteracao de orientacao; W = a mesma pose espelhada horizontalmente (convencao combinada com o coordenador para poses 3/4 sem vista lateral oficial); E = mirror de W (resulta nos mesmos pixels de S, efeito colateral aceito dessa convencao).",
+    "N nao tem equivalente oficial (nenhuma vista de costas na folha): construido a mao, silhueta redonda/bulbosa simples (sem rosto), mesma paleta de 12 cores amostrada diretamente da celula oficial (ink/hi/mid/sh vermelhos + earMid/earDk cinzas dos chifres), largura/altura no mesmo envelope geral do S.",
+    "Reducao por nearest-neighbor (44x39 nativo -> 21x19) seguida de despeckle automatico (remove pixels opacos isolados sem vizinho 8-conectado) e inspecao manual em 10x/14x/16x (view_image, varias iteracoes) -- paleta final e identica aos 12 tons ja presentes na celula oficial (confirmado por histograma), sem mistura/blur introduzido pela reducao.",
+    "Walk: 3 quadros por direcao via squash/stretch (deform() ancorado na linha de solo + centro horizontal, nao redesenhado por quadro) + deslocamento vertical -- quadro 00 = apice (esticado, no ar), 01 = neutro/parado (tambem usado como idle), 02 = pouso (achatado). Mesma logica aplicada a S, N e W.",
+    "Revisado em 8x lado a lado com Koromon (CREATURE-0005), Tsunomon (CREATURE-0008) e Tokomon (CREATURE-0011) -- altura comparavel, ver previews/ nesta sessao [H] avaliacao propria, nao validada por jogador real.",
+    "battle_idle NAO foi alterado nesta versao (fora do escopo desta tarefa); continua official-fan-use via rip E-M-B-E-R.",
+    "v4 (desenho autoral) preservada em versions/v4/ para historico.",
+    "Recomenda-se revisao do fundador/game-dev antes de promover approvalStatus para APPROVED."
   ]
 }

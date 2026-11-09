@@ -1,22 +1,65 @@
 {
   "creatureId": "CREATURE-0002",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "layer": "mixed",
-  "notes_layer": "Dois layers no mesmo creatureId: o sprite de MAPA (walk S/N/W/E, 9+3 arquivos) e 'original' (desenhado a mao por referencia); o battle_idle (3 arquivos) e 'official-fan-use' (pixels do rip oficial, sem modificacao). Ver assetOrigin.sourceDescription em creature.json.",
+  "notes_layer": "Dois layers no mesmo creatureId: MAPA (S/W oficiais + E mirror de W, layer official-fan-use, fonte Brave Tamer/Airshuffler) e MAPA-N (hand-built, layer original, mesma paleta/envelope -- sem vista de costas oficial). battle_idle (3 arquivos) continua official-fan-use via rip E-M-B-E-R, inalterado desde a v1/v4.",
   "map": {
+    "layer": "official-fan-use",
+    "officialRip": true,
+    "basis": "Pixels reais da celula oficial (linha3/coluna3) da folha Brave Tamer Baby I/Baby II, reduzidos por nearest-neighbor (sem blend/interpolacao) + despeckle automatico de pixels isolados. Nenhum pixel foi redesenhado a mao para S/W/E -- apenas reduzido e limpo.",
+    "generator": "art/src/gigimon_official_map.js (GS-003)",
+    "files": [
+      "sprites/CREATURE-0002_walk_S_00.png",
+      "sprites/CREATURE-0002_walk_S_01.png",
+      "sprites/CREATURE-0002_walk_S_02.png",
+      "sprites/CREATURE-0002_walk_W_00.png",
+      "sprites/CREATURE-0002_walk_W_01.png",
+      "sprites/CREATURE-0002_walk_W_02.png",
+      "sprites/CREATURE-0002_walk_E_00.png",
+      "sprites/CREATURE-0002_walk_E_01.png",
+      "sprites/CREATURE-0002_walk_E_02.png"
+    ],
+    "nonCommercial": true,
+    "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation",
+    "baseCharacter": "Gigimon",
+    "source": {
+      "type": "game-rip",
+      "game": "Digimon Tamers: Brave Tamer (PlayStation)",
+      "site": "The Spriters Resource",
+      "sheetTitle": "Baby I / Baby II",
+      "sheetId": "142452",
+      "sheetFile": "10-source-files/spriters-resource/digimontamersbravetamer__arrow-drop-down__Baby-I-Baby-II__142452.png",
+      "cellLocation": "grade da folha, linha 3 (contando a partir do topo, apos as duas fileiras compactas de icones pequenos), coluna 3 -- caixa de pixels origem [194,162]-[287,255] dentro do arquivo decodificado",
+      "retrievedAt": "2026-11-08",
+      "localCopy": "10-source-files/spriters-resource/digimontamersbravetamer__arrow-drop-down__Baby-I-Baby-II__142452.png",
+      "sha256": "9c5f5a40f89c0c5fecebcfe0c0830b0f98520c3f8195ce1a7464a6c288931dbd",
+      "bytes": 37847,
+      "modifications": "Crop da celula; matte por flood-fill a partir da borda (a celula ja trazia alpha real, sem fundo branco opaco -- esta etapa so remove residuo de antialiasing, se houver) + trim; reducao nearest-neighbor 44x39 -> 21x19; despeckle (remove pixel opaco isolado sem vizinho 8-conectado); nenhuma cor foi alterada (paleta final identica aos 12 tons da celula original, conferido por histograma). W = S espelhado horizontalmente (pose 3/4 sem vista lateral oficial separada). E = W espelhado (== pixels de S)."
+    },
+    "credit": {
+      "ripper": "Airshuffler",
+      "site": "The Spriters Resource",
+      "creditRequiredBySheet": null,
+      "verificationNote": "[H] Nome do ripper (Airshuffler) e titulo/ID da folha informados pelo coordenador da tarefa; esta sessao nao teve acesso a web_search/fetch da pagina publica do spriters-resource.com para confirmar a URL exata ou o texto de credito exigido na folha -- so os bytes locais do arquivo (sha256 abaixo) e os pixels da celula foram verificados diretamente."
+    },
+    "restrictions": [
+      "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game (o personagem Gigimon em si continua propriedade da Bandai Namco mesmo em sprite reduzido/limpo a partir do rip oficial).",
+      "Publicacao exige aprovacao separada do fundador (mesma regra ja aplicada ao battle_idle)."
+    ]
+  },
+  "mapBack": {
     "layer": "original",
     "officialRip": false,
-    "basis": "Forma e paleta redesenhadas a mao a partir do rip oficial listado abaixo (referencia visual, hex amostrados manualmente do PNG do rip) -- nenhum pixel do rip foi copiado/reamostrado automaticamente.",
-    "generator": "art/src/gigimon_map.js (GS-003), matriz de pixel manual, mesma tecnica de pilot_model_sheet.js (ADR-009)",
+    "basis": "N (silhueta de costas) nao tem equivalente na folha oficial (sem vista de costas). Desenhado a mao por matriz de pixel (mesma tecnica de pilot_model_sheet.js, ADR-009), reaproveitando a paleta de 12 cores amostrada diretamente da celula oficial do mapa (ver map.source acima) e o envelope geral de largura/altura do S -- nenhum pixel do rip foi copiado para o N.",
+    "generator": "art/src/gigimon_official_map.js (GS-003), funcao buildBackBase/fillSymmetric",
     "files": [
-      "sprites/CREATURE-0002_walk_S_00.png", "sprites/CREATURE-0002_walk_S_01.png", "sprites/CREATURE-0002_walk_S_02.png",
-      "sprites/CREATURE-0002_walk_N_00.png", "sprites/CREATURE-0002_walk_N_01.png", "sprites/CREATURE-0002_walk_N_02.png",
-      "sprites/CREATURE-0002_walk_W_00.png", "sprites/CREATURE-0002_walk_W_01.png", "sprites/CREATURE-0002_walk_W_02.png",
-      "sprites/CREATURE-0002_walk_E_00.png", "sprites/CREATURE-0002_walk_E_01.png", "sprites/CREATURE-0002_walk_E_02.png"
+      "sprites/CREATURE-0002_walk_N_00.png",
+      "sprites/CREATURE-0002_walk_N_01.png",
+      "sprites/CREATURE-0002_walk_N_02.png"
     ],
     "nonCommercial": true,
     "restrictions": [
-      "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game (o personagem Gigimon em si continua propriedade da Bandai Namco mesmo em arte redesenhada)."
+      "ADR-007: fan game sem monetizacao de nenhum tipo, sem logo oficial, com aviso de fan game."
     ]
   },
   "battleIdle": {
@@ -64,5 +107,13 @@
   },
   "verifiedAt": "2026-11-09",
   "verifiedBy": "game-art",
-  "notes": "v4: battle_idle restaurado para os 3 quadros corretos do rip oficial (v3 usava por engano o fallback Pagumon tambem aqui). Creditos obrigatorios em qualquer build/tela de creditos para o battle_idle: AngelOfHope (With the Will), preservacao E-M-B-E-R; © Bandai Namco. O sprite de mapa (layer 'original') nao exige credito de rip (nao e rip), mas o personagem Gigimon continua sob o mesmo aviso de fan game do ADR-007."
+  "previousVersions": [
+    {
+      "version": "4.0.0",
+      "path": "versions/v4/license.json",
+      "stillShipped": false,
+      "summary": "v4: mapa inteiro (S/N/W) layer original (desenho autoral por referencia), sem pixels oficiais."
+    }
+  ],
+  "notes": "v5: sprite de mapa (S/W/E) passa a usar pixels reais do rip oficial Brave Tamer (ripper Airshuffler, The Spriters Resource) em vez de desenho autoral -- pedido do coordenador apos a v4 ainda ler como forma generica. N continua desenho autoral (sem vista de costas oficial disponivel), mesma paleta/escala. battle_idle inalterado (continua rip E-M-B-E-R, AngelOfHope/With the Will, creditos obrigatorios conforme battleIdle.credit abaixo). Sheet local sha256 registrado em map.source para auditoria."
 }
