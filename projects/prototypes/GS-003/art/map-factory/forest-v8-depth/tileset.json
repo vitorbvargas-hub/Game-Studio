@@ -1,0 +1,269 @@
+{
+  "biome": "forest-v8-depth",
+  "note": "Supplemental \"depth and beauty\" pack answering docs/DRAKANTOS_VISUAL_STUDY.md (table + priority list). NOT a full environment replacement and NOT wired into prototype/world -- integration (aliases.json / map generator / collision layer / the dynamic light pass itself) is game-dev work, out of game-art's write scope for this task. 0 PixelLab generations spent -- fully local Canvas.js pipeline.",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "ground-decal",
+    "cliff-face",
+    "decor",
+    "decor-light"
+  ],
+  "palette": "See palette.json in this same folder: depth-revised ground/foliage ramps, the new cliff ramp, reserved saturated accents, and a renderPreset object with the exact HSV multipliers a renderer can apply to existing forest-v4/v6/v7 ground art (DRAKANTOS_VISUAL_STUDY.md item #6).",
+  "groundVariants": {
+    "note": "NOT autotiled -- scatter at random/by noise per ground cell, same convention as forest_v4_tiles.js grassVariant()'s 6 variants, just on the darker depth ramp and with heavier per-tile decal baking (study item #1: \"chao nunca e liso\").",
+    "files": [
+      {
+        "file": "tiles/ground_variant_0.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "plain"
+      },
+      {
+        "file": "tiles/ground_variant_1.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "moss"
+      },
+      {
+        "file": "tiles/ground_variant_2.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "pebbles"
+      },
+      {
+        "file": "tiles/ground_variant_3.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "crackle"
+      },
+      {
+        "file": "tiles/ground_variant_4.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "roots (dirt)"
+      },
+      {
+        "file": "tiles/ground_variant_5.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "pebbles+crack (dirt)"
+      },
+      {
+        "file": "tiles/ground_variant_6.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "leaf litter"
+      },
+      {
+        "file": "tiles/ground_variant_7.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "decal": "small puddle"
+      }
+    ]
+  },
+  "decals": {
+    "note": "Transparent-background overlays, NOT full tiles -- stamp these over ANY existing ground tile (forest-v4/v6/v7 included, not just ground_variant_*) at noise-picked positions and random rotation/flip for the \"chao nunca e liso\" effect. All collision: false.",
+    "ground": [
+      {
+        "file": "decals/leaf_litter.png",
+        "size": "14x10",
+        "note": "scatter under canopy / clearing edges"
+      },
+      {
+        "file": "decals/root_tendril.png",
+        "size": "18x10",
+        "note": "scatter near tree bases"
+      },
+      {
+        "file": "decals/pebble_cluster.png",
+        "size": "14x10",
+        "note": "scatter anywhere, denser on dirt/path"
+      },
+      {
+        "file": "decals/crack.png",
+        "size": "20x14",
+        "note": "scatter on dirt/dry patches, sparse"
+      },
+      {
+        "file": "decals/moss_patch.png",
+        "size": "14x10",
+        "note": "scatter in shaded/damp areas (near water, under dense canopy)"
+      },
+      {
+        "file": "decals/puddle_small.png",
+        "size": "16x10",
+        "note": "scatter sparsely after rain or near water; carries the reserved cyan sparkle accent"
+      }
+    ],
+    "transitions": [
+      {
+        "file": "decals/tuft_over_path_a.png",
+        "size": "16x12",
+        "note": "thin variant -- study item #8, grass invading a path/dirt tile edge"
+      },
+      {
+        "file": "decals/tuft_over_path_b.png",
+        "size": "16x12",
+        "note": "denser variant of the same"
+      },
+      {
+        "file": "decals/reed_cluster.png",
+        "size": "14x26",
+        "note": "junco -- place on grass/shore cells directly bordering water"
+      },
+      {
+        "file": "decals/shore_stone_small.png",
+        "size": "20x12",
+        "note": "water-margin stone, flatter + wet sheen, distinct from forest-v6 props/rock_small.png (dry, no sheen)"
+      }
+    ]
+  },
+  "cliff": {
+    "note": "Top surface uses the studio's existing 16-tile blob autotile convention (bitmask N*1+E*2+S*4+W*8, quarter-circle rounded corners -- same geometry as forest_v4_tiles.js path_blob/denseedge_blob and forest-v6's water_blob, extracted once into art/src/blob_autotile16.js). The vertical FACE below a south-facing top edge, its two outer corners, one inner corner and the ramp are NOT autotiled -- 5 discrete hand-placed pieces (same Wang-16-not-Wang-47-style tradeoff forest-v6/v7 documented for their own autotile). Placement rule: wherever a cliff_top_blob tile's S bit (bit 2) is 0, put the matching face/corner piece one cell below it on a separate \"cliff-face\" layer; put cliff_ramp.png at any single gap in that face row to let the player walk up.",
+    "topAutotile": {
+      "pattern": "16-tile blob, see blob_autotile16.js",
+      "files": [
+        "tiles/cliff_top_blob_0.png",
+        "tiles/cliff_top_blob_1.png",
+        "tiles/cliff_top_blob_2.png",
+        "tiles/cliff_top_blob_3.png",
+        "tiles/cliff_top_blob_4.png",
+        "tiles/cliff_top_blob_5.png",
+        "tiles/cliff_top_blob_6.png",
+        "tiles/cliff_top_blob_7.png",
+        "tiles/cliff_top_blob_8.png",
+        "tiles/cliff_top_blob_9.png",
+        "tiles/cliff_top_blob_10.png",
+        "tiles/cliff_top_blob_11.png",
+        "tiles/cliff_top_blob_12.png",
+        "tiles/cliff_top_blob_13.png",
+        "tiles/cliff_top_blob_14.png",
+        "tiles/cliff_top_blob_15.png"
+      ]
+    },
+    "facePieces": [
+      {
+        "file": "tiles/cliff_face_straight.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "default face, use wherever the S bit of the top tile above is 0 and neither corner piece applies"
+      },
+      {
+        "file": "tiles/cliff_face_corner_outer_left.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "convex corner, top plateau turns away to the left"
+      },
+      {
+        "file": "tiles/cliff_face_corner_outer_right.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "convex corner, mirror of the left piece"
+      },
+      {
+        "file": "tiles/cliff_face_corner_inner.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "concave corner where two face runs meet"
+      },
+      {
+        "file": "tiles/cliff_ramp.png",
+        "collision": false,
+        "suggestedLayer": "cliff-face",
+        "interactive": false,
+        "note": "walkable staircase -- place at any single gap in a face row to let the player climb the 1-level height"
+      }
+    ]
+  },
+  "emissiveProps": [
+    {
+      "file": "props/data_crystal.png",
+      "size": "26x34",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "light": {
+        "color": "#2ce8f5",
+        "radius": 48,
+        "intensity": 0.75
+      },
+      "note": "tallest-impact single prop for study item #3; cluster 1-2 per clearing, not a carpet"
+    },
+    {
+      "file": "props/mushroom_bioluminescent.png",
+      "size": "20x18",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "light": {
+        "color": "#ff5fc1",
+        "radius": 28,
+        "intensity": 0.55
+      },
+      "note": "small accent light, good near fern/tuft clutter clusters"
+    },
+    {
+      "file": "props/data_totem.png",
+      "size": "18x46",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "light": {
+        "color": "#feae34",
+        "radius": 60,
+        "intensity": 0.9
+      },
+      "note": "landmark-scale beacon (path markers, arena entrances) -- widest radius of the three"
+    }
+  ],
+  "clutter": [
+    {
+      "file": "props/fern.png",
+      "size": "20x22",
+      "collision": false,
+      "suggestedLayer": "decor"
+    },
+    {
+      "file": "props/tuft.png",
+      "size": "14x10",
+      "collision": false,
+      "suggestedLayer": "decor",
+      "note": "shorter/rounder than forest-v4 props tallGrassClump -- a satellite piece, not a replacement"
+    },
+    {
+      "file": "props/fallen_trunk.png",
+      "size": "46x16",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "note": "bigger and mossier than forest-v4 fallenLog -- distinct asset, both can coexist"
+    },
+    {
+      "file": "props/flowering_bush.png",
+      "size": "28x22",
+      "collision": true,
+      "suggestedLayer": "decor"
+    }
+  ],
+  "clusterExamples": {
+    "note": "Pre-built \"nucleo + satelites\" compositions (DRAKANTOS_VISUAL_STUDY.md item #5) showing how the clutter pieces above combine -- reference only, not mandatory; placement tooling can still place fern/tuft/etc. individually.",
+    "files": [
+      {
+        "file": "props/edge_cluster_a.png",
+        "size": "48x26",
+        "collision": false,
+        "suggestedLayer": "decor",
+        "note": "fern + 2 tuft + pebble + moss"
+      },
+      {
+        "file": "props/edge_cluster_b.png",
+        "size": "50x24",
+        "collision": true,
+        "suggestedLayer": "decor",
+        "note": "flowering_bush + tuft + leaf litter"
+      }
+    ]
+  }
+}

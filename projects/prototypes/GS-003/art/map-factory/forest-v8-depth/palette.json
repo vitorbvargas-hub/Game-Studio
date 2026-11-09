@@ -1,0 +1,81 @@
+{
+  "biome": "forest-v8-depth",
+  "note": "Revised ground+foliage palette only (DRAKANTOS_VISUAL_STUDY.md item #6) -- darker and less saturated than the forest-v4 day ramps, with saturation reserved for emissive props and small focal highlights. Derived as a documented HSV shift of forest_v4_palette.js (see renderPreset below for the exact multipliers), not new hand-picked hex, so any already-painted forest-v4/v6/v7 ground/foliage sprite or tile can be approximated with the same math without re-baking art. This file does NOT touch ambient lighting/day-night (study items #3/#7) -- that is game-dev renderer work, out of this package.",
+  "ramps": {
+    "foliageDepth": [
+      "#111e16",
+      "#1b2e20",
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d",
+      "#cfdd8a"
+    ],
+    "groundDepth": {
+      "grass": [
+        "#273f2b",
+        "#38583a",
+        "#51754b",
+        "#72935b",
+        "#95ad6d"
+      ],
+      "dirt": [
+        "#3f3025",
+        "#584531",
+        "#715b41",
+        "#8c7656"
+      ],
+      "leafLitter": [
+        "#684d32",
+        "#84663e",
+        "#a1844c"
+      ],
+      "moss": "#445838",
+      "stone": [
+        "#474b54",
+        "#656b75",
+        "#8c9199"
+      ]
+    },
+    "barkDepth": {
+      "hi": "#ab8d68",
+      "lt": "#86684b",
+      "mid": "#5e4734",
+      "dk": "#3a2d22",
+      "core": "#1e1713"
+    },
+    "cliff": {
+      "top": [
+        "#36383f",
+        "#5a5d67",
+        "#91949c",
+        "#aeb0b6"
+      ],
+      "face": {
+        "hi": "#6b6d73",
+        "lt": "#3c3e45",
+        "mid": "#1d1e23",
+        "dk": "#131316",
+        "core": "#0a0a10"
+      },
+      "mossEdge": "#49643c"
+    }
+  },
+  "accentSaturated": {
+    "digitalCyan": "#2ce8f5",
+    "digitalMagenta": "#ff5fc1",
+    "dataAmber": "#feae34",
+    "puddleSparkle": "#2ce8f5",
+    "note": "Reserved for emissive props (data_crystal / mushroom_bioluminescent / data_totem), their point-light color (see tileset.json \"light\" field on each), and tiny focal sparkle pixels (puddle reflection, wet shore-stone sheen). Never applied to base ground/foliage fills -- that contrast is the point of DRAKANTOS_VISUAL_STUDY.md item #6."
+  },
+  "renderPreset": {
+    "description": "How a renderer can reproduce this exact shift procedurally on an existing forest-v4/v6/v7 ground or foliage sprite/tile, instead of re-baking every asset: convert each opaque pixel to HSV, multiply saturation and value by the ground/foliage multipliers below (ground/decor/foliage layers ONLY -- never characters, UI, or this pack's own emissive props), convert back to RGB. For a flat (non-ramped) sprite, treat its lightest ~12% of pixels by value as the \"rim highlight\" and use the gentler rimHighlight multipliers on those instead, so sunlit edges keep reading as lit.",
+    "groundFoliageSaturationMul": 0.64,
+    "groundFoliageValueMul": 0.8,
+    "rimHighlightSaturationMul": 0.88,
+    "rimHighlightValueMul": 0.92,
+    "accentSaturationMul": 1,
+    "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for."
+  }
+}
