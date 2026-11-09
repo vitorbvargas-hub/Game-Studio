@@ -57,6 +57,12 @@ export interface LookCfg {
   fog?: { color: string; dayAlpha: number; nightAlpha: number; every?: number };
   particles?: { fireflies?: number; dust?: number; leaves?: number };
   mud?: { dark: string; mid: string; light: string; rim: string };
+  /** Props que são corpo de NPC humano no frame do Tamer (26×33): desenhados pelo caminho do Tamer, não pelo de prop. */
+  npcKeys?: string[];
+  /** Props cuja luz é fogo (lanterna, fogueira): flicker quente. */
+  fireKeys?: string[];
+  /** Opacidade da máscara das copas sobre as luzes (0 = luz por cima das copas, 1 = a copa apaga a luz sob ela). */
+  canopyMask?: number;
 }
 
 // ---------- cor ----------
@@ -314,6 +320,8 @@ export interface LightSource extends LightCfg {
   y: number;
   phase: number;
   kind: string;
+  /** Fogo (lanterna/fogueira): flicker quente. */
+  fire?: boolean;
 }
 
 /** Luzes do mapa: props com `light` no look (pacote + extras), em px do mundo. */
@@ -322,7 +330,8 @@ export function mapLights(map: WorldMap, look: LookCfg): LightSource[] {
   for (const p of map.props) {
     const l = look.lights[p.key];
     if (!l?.color || !l.radius) continue;
-    out.push({ color: l.color, radius: l.radius, intensity: l.intensity ?? 0.6, ox: l.ox ?? 0, oy: l.oy ?? 0, x: p.x, y: p.y, phase: hash2(Math.round(p.x), Math.round(p.y), 5) * 6.283, kind: p.key });
+    const fire = look.fireKeys?.includes(p.key);
+    out.push({ color: l.color, radius: l.radius, intensity: l.intensity ?? 0.6, ox: l.ox ?? 0, oy: l.oy ?? 0, x: p.x, y: p.y, phase: hash2(Math.round(p.x), Math.round(p.y), 5) * 6.283, kind: p.key, ...(fire ? { fire } : {}) });
   }
   return out;
 }
@@ -364,6 +373,12 @@ export function lightSprite(color: string, radius: number, make: CanvasFactory, 
 /** Fator de flicker de uma luz no instante `now` (cristal pulsa devagar, totem tremula, cogumelo respira). */
 export function flicker(l: LightSource, now: number): { k: number; r: number } {
   const t = now / 1000;
+  if (l.fire) {
+    // fogo: tremor rápido + oscilação lenta + um "engasgo" curto de vez em quando (degrau, não seno puro)
+    const gust = Math.sin(t * 0.9 + l.phase) > 0.93 ? -0.12 : 0;
+    const jitter = Math.floor(t * 12 + l.phase * 3) % 3 === 0 ? 0.04 : 0;
+    return { k: 1 + 0.09 * Math.sin(t * 9.7 + l.phase) + 0.06 * Math.sin(t * 23.3 + l.phase * 1.7) + 0.05 * Math.sin(t * 2.1 + l.phase) + gust + jitter, r: 1 + 0.035 * Math.sin(t * 8.3 + l.phase) + 0.02 * Math.sin(t * 2.1 + l.phase) };
+  }
   if (/totem|sign/.test(l.kind)) return { k: 1 + 0.07 * Math.sin(t * 7.3 + l.phase) + 0.05 * Math.sin(t * 17.1 + l.phase * 2), r: 1 + 0.02 * Math.sin(t * 5.1 + l.phase) };
   if (/crystal|healing/.test(l.kind)) return { k: 1 + 0.12 * Math.sin(t * 1.6 + l.phase), r: 1 + 0.04 * Math.sin(t * 1.6 + l.phase) };
   return { k: 1 + 0.1 * Math.sin(t * 2.4 + l.phase) + 0.04 * Math.sin(t * 6.7 + l.phase), r: 1 };

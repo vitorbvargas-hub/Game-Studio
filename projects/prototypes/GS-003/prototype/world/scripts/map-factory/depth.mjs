@@ -91,6 +91,12 @@ export function depthObjects(b, g, terr) {
     return false;
   };
 
+  // troca de peça do mapa base (ex. NPCs do forest-v7 → os do forest-v8-depth na escala do Tamer): mesma posição e colisão
+  for (const p of props) {
+    const kp = p.properties.find((q) => q.name === "key");
+    const to = d.propSwap?.[kp.value];
+    if (to) p.name = kp.value = to;
+  }
   // props do base em cima do platô somem (o topo é rocha; o anel ganha os próprios)
   for (let i = props.length - 1; i >= 0; i--) {
     const [x, y] = cellOf(props[i].x, props[i].y);

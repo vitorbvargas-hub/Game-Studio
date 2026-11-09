@@ -1752,7 +1752,11 @@
       "grade": {
         "rules": [
           {
-            "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem)$",
+            "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem|lantern_post|campfire_small)$",
+            "skip": true
+          },
+          {
+            "match": "^fp8_npc_",
             "skip": true
           },
           {
@@ -1840,8 +1844,26 @@
         },
         "fp8_data_totem": {
           "oy": -38
+        },
+        "fp8_lantern_post": {
+          "oy": -35
+        },
+        "fp8_campfire_small": {
+          "oy": -7
         }
       },
+      "_npcKeysDoc": "Props que são corpo de NPC humano (26×33, mesmo pipeline dos Tamers v3): o renderer desenha pelo caminho do Tamer (pivô do preset, escala, tratamento noturno, respiração parada), não pelo de prop.",
+      "npcKeys": [
+        "fp8_npc_ranger",
+        "fp8_npc_merchant"
+      ],
+      "_fireDoc": "Luzes de fogo (flicker quente: tremor rápido + oscilação lenta + engasgo raro).",
+      "fireKeys": [
+        "fp8_lantern_post",
+        "fp8_campfire_small"
+      ],
+      "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores.",
+      "canopyMask": 0.92,
       "playerLight": {
         "color": "#ffd59a",
         "radius": 64,
@@ -1932,8 +1954,15 @@
       "fp8_data_totem",
       "fp8_flowering_bush",
       "fp8_fallen_trunk",
-      "fp8_edge_cluster_b"
+      "fp8_edge_cluster_b",
+      "fp8_lantern_post",
+      "fp8_campfire_small"
     ],
+    "_propSwapDoc": "NPCs humanos do forest-v7 (48×64, ~2× o Tamer) trocados pelos do forest-v8-depth (26×33, escala do Tamer): mesma célula, mesmo corpo sólido.",
+    "propSwap": {
+      "fp7_npc_ranger": "fp8_npc_ranger",
+      "fp7_npc_merchant": "fp8_npc_merchant"
+    },
     "ground": {
       "clearing": {
         "split": 0.5,
@@ -2108,6 +2137,54 @@
           [
             53,
             23
+          ]
+        ]
+      },
+      {
+        "_doc": "lanternas de poste (sólidas, 1 célula, fora da trilha): entrada sul, placa da entrada, placa secreta, as 2 cabeceiras da ponte e a entrada da arena",
+        "key": "fp8_lantern_post",
+        "at": [
+          [
+            23,
+            36
+          ],
+          [
+            27,
+            35
+          ],
+          [
+            22,
+            31
+          ],
+          [
+            10,
+            8
+          ],
+          [
+            24,
+            8
+          ],
+          [
+            32,
+            10
+          ],
+          [
+            45,
+            19
+          ],
+          [
+            45,
+            22
+          ]
+        ]
+      },
+      {
+        "_doc": "fogueira pequena no acampamento do guarda-florestal (sólida)",
+        "key": "fp8_campfire_small",
+        "at": [
+          [
+            41,
+            25
           ]
         ]
       }

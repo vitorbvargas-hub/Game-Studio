@@ -198,3 +198,42 @@ O trabalho do quadro (JS: luzes, névoa, partículas) sobe cerca de +0,7 a +0,9 
 - **Não há fogueira nem lanterna real no mapa.** As placas ganharam uma luz quente pequena sem a arte de uma lanterna. Uma lanterna de verdade é pedido para o game-art.
 - O NPC do PixelLab continua ≈2× o Tamer (limitação da v3). Com zoom ×1,5 isso aparece mais.
 - Performance só em headless (`--disable-gpu`). O ganho de render vem do cache do véu, que poderia ir também para o v3.
+
+## Look v8 / capturas `_v5`: NPCs na escala do Tamer, lanternas e fogueira
+
+- **Autor:** game-dev · **Data:** 2026-11-09 · **Base:** commit 78f19c5 (look v8) + entrega do game-art em `art/map-factory/forest-v8-depth/` (11485e1: `npc_ranger`, `npc_merchant`, `lantern_post`, `campfire_small`)
+- **Só no look v8** (`?map=digimon-forest-01&look=v8`). O padrão (v3) não muda: o `.tmj` padrão não foi regenerado, e o teste confere que ele ainda tem os NPCs do v7 e nenhuma lanterna. Por decisão do fundador, o v8 continua atrás da flag.
+
+**O que entrou**
+
+| Pedido | Onde | O quê |
+|---|---|---|
+| 1. NPCs novos | `depth.mjs` (`depth.propSwap`), `view.ts` `drawNpcProp` | `fp7_npc_ranger/merchant` (48×64) viram `fp8_npc_ranger/merchant` (26×33) na mesma célula: ranger (43,24), comerciante (25,22). O corpo continua sólido (prop `solid` + `npc`). O renderer desenha as chaves de `look.npcKeys` pelo caminho do Tamer, e não pelo de prop: pivô do preset v3 (13,32, lido do Tamer carregado), escala do Tamer (`scaleOf`), grade noturna de entidade (`blitEntity`), respiração parada (`idleBob`) e sombra de entidade (`drawShadow`, fora do chunk). Os dois ficam fora do grade de cor, como os Tamers. |
+| 2. Lanternas e fogueira | `.v8.build.json` (`depth.beacons`, `solidKeys`, `look.render.lights/fireKeys`), `look.ts` `flicker` | **8 lanternas de poste** (sólidas, 1 célula, fora da trilha, na célula livre mais perto do alvo): entrada sul (23,36) e (27,35), placa da entrada (22,32), placa secreta (11,7), as 2 cabeceiras da ponte (24,7) e (31,11), entrada da arena (45,19) e (45,23). **1 fogueira** no acampamento do guarda-florestal, em (41,25). A luz vem do campo `light` do `tileset.json` (lanterna `#ffb347` r50 i0,85, fogueira `#ff7a33` r36 i0,8). O centro da luz fica no vidro da lanterna (oy −35) e na chama (oy −7). O flicker de fogo junta tremor rápido, oscilação lenta, degrau de 4% e um "engasgo" curto de −12%; o raio varia ±5%. A colisão é a célula do pé, a mesma regra dos outros props sólidos. |
+| 3. Luz não vaza sobre as copas | `view.ts` `drawLook` (`look.canopyMask` 0,92) | As luzes do look, incluindo a lanterna do Tamer, são desenhadas num buffer de tela. A silhueta das copas visíveis apaga a luz nesse buffer com `destination-out`, multiplicada pelo alfa atual da copa (a copa translúcida sobre o Tamer deixa passar parte). Só depois o buffer é somado com `lighter`. Compare `factory_v5_fogueira_acampamento_noite_v5.png` com `factory_v5_fogueira_noite_sem_mascara_das_copas_v5.png`, em que o laranja da fogueira sobe pela copa à esquerda. |
+
+**Gates (variante v8):** os 8 gates passam, com reach 24/24: `validation-digimon-forest-01_v5.md`. São 780 props (9 a mais) e 49,7% de células sólidas. Os outros 6 mapas também passam. `npm test`: 33 arquivos, 291 testes, 2 deles novos em `tests/look-v8.test.ts` (NPCs 26×33 na mesma célula e sólidos, o padrão intacto; lanternas e fogueira sólidas, fora da trilha, perto de cada alvo, com luz de fogo e flicker limitado). `npm run build`: ok.
+
+```
+npm run map:brief -- ../../world-design/briefs/digimon-forest-01.json --build scripts/map-factory/briefs/digimon-forest-01.v8.build.json
+OUT=../../evidence/map-factory CHROME_LIBS=… ONLY=factory-v5 npm run shots:live   # porta 5190
+```
+
+**Capturas `_v5`** (1600×900)
+
+| Arquivo | O que mostra |
+|---|---|
+| `factory_v5_clareira_{dia,noite}_v5.png` | Clareira Central (mesmo enquadramento do `_v4`). O comerciante novo aparece na borda esquerda |
+| `factory_v5_npc_ranger_ao_lado_do_tamer_dia_v5.png` | Guarda-florestal (chapéu) ao lado do Tamer, zoom 3: mesma altura. Ao fundo, a fogueira e as lanternas da arena |
+| `factory_v5_npc_comerciante_ao_lado_do_tamer_dia_v5.png` | Comerciante (mochila) ao lado do Tamer, zoom 3 |
+| `factory_v5_ponte_lanterna_noite_v5.png` | As 2 lanternas das cabeceiras da ponte à noite |
+| `factory_v5_fogueira_acampamento_noite_v5.png` | A fogueira do acampamento à noite, com a luz cortada pela copa |
+| `factory_v5_fogueira_noite_sem_mascara_das_copas_v5.png` | O mesmo quadro com `canopyMask: 0`, para comparação (só evidência) |
+
+**Limitações**
+
+- NPC: 1 quadro (SW, de frente), sem andar e sem virar para o jogador. É o que o game-art entregou. Os acessórios são kitbash vetorial (ver o README do pacote).
+- A máscara usa a copa inteira: a luz de um poste **na frente** de uma árvore (pé mais ao sul) também é cortada onde a copa da árvore de trás cobre o halo. Isso é aceitável porque as copas ficam sempre por cima das entidades neste renderer. O custo é 1 buffer de tela e 1 `drawImage` por copa visível por quadro, só com o look v8. Não medi o perf de novo nesta rodada.
+- Duas lanternas ficaram a ~2,2 tiles do alvo (placa da entrada e cabeceira oeste da ponte): as células coladas são trilha, ponte ou reservadas.
+- À noite, o recorte reto da borda da mata densa (retângulos escuros na `fogueira`, à esquerda) **já existia** antes desta rodada (aparece igual sem a máscara). Não é desta mudança.
+- O look v8 continua atrás de `?look=v8`. Para virar o padrão, troque o `out` da montagem para `src/data/maps` e regenere.

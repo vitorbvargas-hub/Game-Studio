@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|perf|evodemo
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|factory-v5|perf|evodemo
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -141,6 +141,7 @@ async function main() {
     if (process.env.ONLY === "factory-full") return await factoryFull(cdp);
     if (process.env.ONLY === "factory-v3") return await factoryV3(cdp);
     if (process.env.ONLY === "factory-v4") return await factoryV4(cdp);
+    if (process.env.ONLY === "factory-v5") return await factoryV5(cdp);
     if (process.env.ONLY === "perf") return await perf(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
@@ -688,6 +689,51 @@ async function factoryV4(cdp) {
   }
   const { unlinkSync } = await import("node:fs");
   for (const time of ["day", "night"]) for (const l of ["v3", "v8"]) unlinkSync(join(OUT, `_sbs_${time}_${l}.png`));
+}
+
+/**
+ * Look v8 com os NPCs do forest-v8-depth (26×33, escala do Tamer), lanternas de poste e fogueira (luz de fogo com
+ * flicker, mascarada pelas copas), sufixo _v5: clareira de dia e de noite, cada NPC ao lado do Tamer (zoom 3),
+ * lanterna na ponte à noite e fogueira do acampamento à noite. Uso:
+ *   OUT=../../evidence/map-factory CHROME_LIBS=… ONLY=factory-v5 npm run shots:live
+ */
+async function factoryV5(cdp) {
+  const ID = "digimon-forest-01";
+  const open = async (time, zoom = 0) => {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&map=${ID}&look=v8${zoom ? `&zoom=${zoom}` : ""}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar no mapa da Map Factory");
+    await sleep(2500);
+  };
+  const tp = (tx, ty, dx = -1.3) =>
+    cdp.eval(`(() => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1"); p.auto = false;
+      const t = s.state.entities.find((e) => e.id === p.tamerId), pa = s.state.entities.find((e) => e.id === p.partnerId);
+      t.x = ${tx} * SUB + 8; t.y = ${ty} * SUB + 8; t.dest = undefined; t.trail = [{ x: t.x - 20, y: t.y }, { x: t.x, y: t.y }];
+      if (pa) { pa.x = t.x + ${dx} * SUB; pa.y = t.y; pa.targetId = undefined; pa.dest = undefined; }
+      return [t.x, t.y]; })()`);
+  const shot = async (name, wait = 2200) => {
+    await sleep(wait);
+    await cdp.shot(name);
+  };
+  const report = () =>
+    cdp.eval(`(() => { const g = window.__gs003, m = g.sim.map; const ks = ["fp8_npc_ranger", "fp8_npc_merchant", "fp8_lantern_post", "fp8_campfire_small"];
+      return ks.map((k) => { const ps = m.props.filter((p) => p.key === k); const img = g.view.images?.get?.(g.view.tiles?.[k]?.url);
+        return k + ": " + ps.length + " × " + (img ? img.width + "×" + img.height : "sem imagem") + " sólido=" + ps.every((p) => m.solid[Math.floor((p.y - 1) / 32) * m.width + Math.floor(p.x / 32)] === 1); }); })()`);
+  for (const time of ["day", "night"]) {
+    await open(time);
+    if (time === "day") console.log("props v8:", JSON.stringify(await report()));
+    await tp(30, 23);
+    await shot(`factory_v5_clareira_${time === "day" ? "dia" : "noite"}_v5.png`);
+  }
+  await open("day", 3);
+  await tp(44, 24, 1.3);
+  await shot("factory_v5_npc_ranger_ao_lado_do_tamer_dia_v5.png");
+  await tp(26, 22, 1.3);
+  await shot("factory_v5_npc_comerciante_ao_lado_do_tamer_dia_v5.png");
+  await open("night");
+  await tp(28, 9, 1.3);
+  await shot("factory_v5_ponte_lanterna_noite_v5.png");
+  await tp(43, 26, 1.3);
+  await shot("factory_v5_fogueira_acampamento_noite_v5.png");
 }
 
 /** Mapa inteiro no jogo real: janela do tamanho do mapa (W=1792 H=1280), zoom 1, HUD escondido. */

@@ -311,7 +311,11 @@
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
         {
-          "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem)$",
+          "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem|lantern_post|campfire_small)$",
+          "skip": true
+        },
+        {
+          "match": "^fp8_npc_",
           "skip": true
         },
         {
@@ -379,6 +383,18 @@
         "intensity": 0.9,
         "oy": -38
       },
+      "fp8_lantern_post": {
+        "color": "#ffb347",
+        "radius": 50,
+        "intensity": 0.85,
+        "oy": -35
+      },
+      "fp8_campfire_small": {
+        "color": "#ff7a33",
+        "radius": 36,
+        "intensity": 0.8,
+        "oy": -7
+      },
       "fp6_healing_point": {
         "color": "#7df0ff",
         "radius": 46,
@@ -410,6 +426,18 @@
         "oy": -6
       }
     },
+    "_npcKeysDoc": "Props que são corpo de NPC humano (26×33, mesmo pipeline dos Tamers v3): o renderer desenha pelo caminho do Tamer (pivô do preset, escala, tratamento noturno, respiração parada), não pelo de prop.",
+    "npcKeys": [
+      "fp8_npc_ranger",
+      "fp8_npc_merchant"
+    ],
+    "_fireDoc": "Luzes de fogo (flicker quente: tremor rápido + oscilação lenta + engasgo raro).",
+    "fireKeys": [
+      "fp8_lantern_post",
+      "fp8_campfire_small"
+    ],
+    "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores.",
+    "canopyMask": 0.92,
     "playerLight": {
       "color": "#ffd59a",
       "radius": 64,

@@ -1,5 +1,7 @@
 // Look v8 (profundidade, DRAKANTOS_VISUAL_STUDY.md): passe de profundidade do gerador (platô com rampa e colisão,
 // decalques fora da trilha, lama, emissores), a variante do digimon-forest-01 (?look=v8) e o grade/luzes do renderer.
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { generateFromBrief } from "../scripts/map-factory/generate.mjs";
 import v8Pack from "../src/data/maps/v8/digimon-forest-01.aliases.json";
@@ -9,6 +11,7 @@ import { parseTiledMap, type TiledMap } from "../src/sim/map";
 import { MAPS, withLook } from "../src/world/regions";
 
 const T = 32;
+const ART = join(__dirname, "../../../art/map-factory/forest-v8-depth");
 const clr = ["c0", "c1"];
 const terrains = {
   forest: { variants: ["forest"], solid: true },
@@ -102,6 +105,65 @@ describe("digimon-forest-01 ?look=v8", () => {
         expect(f.k).toBeGreaterThan(0.8);
         expect(f.k).toBeLessThan(1.2);
       }
+  });
+
+  it("NPCs do forest-v8-depth (26×33, escala do Tamer) no lugar dos do v7, mesma célula e corpo sólido; o padrão não muda", () => {
+    const cellOf = (p: { x: number; y: number }) => [Math.floor(p.x / T), Math.floor((p.y - 1) / T)];
+    expect(map.props.some((p) => p.key.startsWith("fp7_npc_"))).toBe(false);
+    const ranger = map.props.find((p) => p.key === "fp8_npc_ranger")!;
+    const merchant = map.props.find((p) => p.key === "fp8_npc_merchant")!;
+    expect(cellOf(ranger)).toEqual([43, 24]);
+    expect(cellOf(merchant)).toEqual([25, 22]);
+    for (const p of [ranger, merchant]) {
+      expect(p.solid).toBe(true);
+      const [x, y] = cellOf(p);
+      expect(map.solid[y * map.width + x]).toBe(1);
+    }
+    expect(look.npcKeys).toEqual(["fp8_npc_ranger", "fp8_npc_merchant"]);
+    for (const k of look.npcKeys!) expect(gradeRuleFor(k, look)?.skip).toBe(true);
+    for (const f of ["npc_ranger", "npc_merchant"]) {
+      const png = readFileSync(join(ART, "props", `${f}.png`));
+      expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([26, 33]);
+    }
+    const base = parseTiledMap("digimon-forest-01", MAPS["digimon-forest-01"].tmj);
+    expect(base.props.some((p) => p.key === "fp7_npc_ranger")).toBe(true);
+    expect(base.props.some((p) => /lantern|campfire|fp8_npc/.test(p.key))).toBe(false);
+  });
+
+  it("lanternas nas trilhas (entrada, placas, ponte, arena) e fogueira no acampamento: sólidas, fora da trilha, luz quente com flicker de fogo", () => {
+    const cellOf = (p: { x: number; y: number }) => [Math.floor(p.x / T), Math.floor((p.y - 1) / T)];
+    const near = (k: string, x: number, y: number, r: number) => map.props.some((p) => p.key === k && Math.hypot(cellOf(p)[0] - x, cellOf(p)[1] - y) <= r);
+    const lamps = map.props.filter((p) => p.key === "fp8_lantern_post");
+    const fires = map.props.filter((p) => p.key === "fp8_campfire_small");
+    expect(lamps.length).toBe(8);
+    expect(fires.length).toBe(1);
+    expect(near("fp8_lantern_post", 25, 37, 3)).toBe(true); // entrada sul
+    expect(near("fp8_lantern_post", 24, 31, 2.5)).toBe(true); // placa da entrada (a placa fica entre a trilha e o guia: a célula livre mais perto)
+    expect(near("fp8_lantern_post", 9, 7, 2)).toBe(true); // placa secreta
+    expect(near("fp8_lantern_post", 25, 9, 2.5) && near("fp8_lantern_post", 31, 9, 2.5)).toBe(true); // cabeceiras da ponte
+    expect(near("fp8_lantern_post", 47, 20, 3)).toBe(true); // entrada da arena
+    expect(near("fp8_campfire_small", 43, 24, 3)).toBe(true); // acampamento do guarda
+    const g = map.tileLayers[0].keys;
+    for (const p of [...lamps, ...fires]) {
+      const [x, y] = cellOf(p);
+      expect(p.solid).toBe(true);
+      expect(map.solid[y * map.width + x]).toBe(1);
+      expect(g[y * map.width + x]).not.toMatch(/path/);
+    }
+    const ls = mapLights(map, look);
+    const lamp = ls.find((l) => l.kind === "fp8_lantern_post")!;
+    const fire = ls.find((l) => l.kind === "fp8_campfire_small")!;
+    expect([lamp.color, lamp.fire, fire.color, fire.fire]).toEqual(["#ffb347", true, "#ff7a33", true]);
+    expect(look.canopyMask).toBeGreaterThan(0.5);
+    const ks: number[] = [];
+    for (let t = 0; t < 8000; t += 53) {
+      const f = flicker(fire, t);
+      ks.push(f.k);
+      expect(f.k).toBeGreaterThan(0.6);
+      expect(f.k).toBeLessThan(1.3);
+      expect(Math.abs(f.r - 1)).toBeLessThan(0.07);
+    }
+    expect(Math.max(...ks) - Math.min(...ks)).toBeGreaterThan(0.2); // tremula de verdade
   });
 
   it("grade: verde-limão vira verde-escuro acinzentado; emissores ficam fora", () => {

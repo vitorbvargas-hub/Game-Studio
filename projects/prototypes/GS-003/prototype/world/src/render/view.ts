@@ -94,6 +94,9 @@ export interface TreeGeom {
   shadow?: { url?: string; x: number; y: number; w: number; h: number; rx?: number; ry?: number };
 }
 
+/** Pivô do frame 26×33 dos Tamers v3 (character.json), quando não há Tamer carregado para copiar. */
+const NPC_PIVOT = { x: 13, y: 32 };
+
 const LOCOMOTION: LogicState[] = ["IDLE", "WALK", "FOLLOW", "ENGAGE", "RETURN"];
 const DIR4_TO_8: Record<Dir4, Dir8> = { S: "S", N: "N", E: "E", W: "W" };
 const sideOf = (f: Dir4): Dir4 => (f === "E" ? "E" : "W");
@@ -149,6 +152,8 @@ export class WorldView {
   private fog?: { anchors: Vec[]; img: HTMLCanvasElement };
   private glow?: HTMLCanvasElement;
   private veil?: { id: string; c: HTMLCanvasElement };
+  /** Buffer das luzes do look (máscara das copas). */
+  private lightBuf?: HTMLCanvasElement;
   /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
   nightMix = 0;
   /** Estatística do último quadro (culling). */
@@ -355,10 +360,17 @@ export class WorldView {
     let props = 0;
     const trees = this.treeGeoms();
     const treeAt = new Map(trees.map((t) => [t.index, t]));
+    const npcKeys = this.opts.look?.npcKeys;
     this.map.props.forEach((pr, i) => {
       if (!inView(pr.x, pr.y)) return;
       props++;
       const tree = treeAt.get(i);
+      if (npcKeys?.includes(pr.key)) {
+        // NPC humano no frame do Tamer: sombra e quadro pelo caminho do Tamer
+        this.drawShadow({ id: `npc:${pr.key}` } as VisualEntity, pr, now);
+        list.push({ y: pr.y, order: `p${pr.x}`, draw: () => this.drawNpcProp(pr, now) });
+        return;
+      }
       list.push({ y: pr.y, order: `p${pr.x}`, draw: tree ? () => this.blitWorld(tree.base) : () => this.drawProp(pr) });
     });
     for (const { v, pos } of visible) list.push({ y: pos.y, order: v.id, draw: () => this.drawEntity(v, pos, p, now) });
@@ -475,14 +487,26 @@ export class WorldView {
       }
       ctx.globalAlpha = 1;
     }
-    // luzes
+    // luzes: num buffer de tela, mascarado pelas copas (a luz não vaza por cima das árvores), somado com 'lighter'
     this.lookLights ??= mapLights(this.map, look);
-    ctx.globalCompositeOperation = "lighter";
+    const mask = look.canopyMask ?? 0;
+    let lg: CanvasRenderingContext2D = ctx;
+    if (mask > 0) {
+      if (this.lightBuf?.width !== w || this.lightBuf.height !== h) this.lightBuf = this.makeCanvas(w, h);
+      lg = this.lightBuf.getContext("2d")!;
+      lg.imageSmoothingEnabled = false;
+      lg.globalCompositeOperation = "source-over";
+      lg.globalAlpha = 1;
+      lg.clearRect(0, 0, w, h);
+    }
+    lg.globalCompositeOperation = "lighter";
+    let lit = 0;
     const drawLight = (l: { color: string; radius: number }, x: number, y: number, a: number) => {
       const rad = Math.max(4, Math.round(l.radius));
       if (x + rad < 0 || y + rad < 0 || x - rad > w || y - rad > h || a <= 0.01) return;
-      ctx.globalAlpha = Math.min(1, a);
-      ctx.drawImage(lightSprite(l.color, rad, this.makeCanvas, this.lightSprites), Math.round(x - rad), Math.round(y - rad));
+      lg.globalAlpha = Math.min(1, a);
+      lg.drawImage(lightSprite(l.color, rad, this.makeCanvas, this.lightSprites), Math.round(x - rad), Math.round(y - rad));
+      lit++;
     };
     for (const l of this.lookLights) {
       const f = flicker(l, now);
@@ -492,6 +516,26 @@ export class WorldView {
     if (look.playerLight && me && night > 0.05) {
       const pos = this.posOf(p, me, alpha);
       drawLight(look.playerLight, pos.x - cam.x, pos.y - 10 - cam.y, look.playerLight.intensity * night);
+    }
+    if (mask > 0 && this.lightBuf) {
+      if (lit) {
+        // máscara: a silhueta de cada copa visível apaga a luz sob ela (× o alpha atual da copa, que fica translúcida
+        // quando cobre o Tamer)
+        lg.globalCompositeOperation = "destination-out";
+        for (const t of this.treeGeoms()) {
+          const r = t.top;
+          if (r.x > cam.x + cam.w || r.x + r.w < cam.x || r.y > cam.y + cam.h || r.y + r.h < cam.y) continue;
+          const img = this.presetImage(r.url, false);
+          if (!img) continue;
+          lg.globalAlpha = mask * this.canopyAlphaOf(t.index);
+          lg.drawImage(img, Math.round(r.x - cam.x), Math.round(r.y - cam.y));
+        }
+        lg.globalCompositeOperation = "source-over";
+        lg.globalAlpha = 1;
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = 1;
+        ctx.drawImage(this.lightBuf, 0, 0);
+      }
     }
     ctx.globalCompositeOperation = "source-over";
     ctx.globalAlpha = 1;
@@ -681,6 +725,7 @@ export class WorldView {
       const treeKeys = new Set(this.treeGeoms().map((t) => t.key));
       drawPropShadows(g, this.map.props, x0, y0, size, look, (pr) => {
         if (treeKeys.has(pr.key)) return { w: 18, tree: true };
+        if (look.npcKeys?.includes(pr.key)) return undefined; // sombra de entidade, por quadro (drawShadow)
         const src = this.tiles[pr.key];
         const img = src && this.images.get(src.url);
         return img ? { w: src.rect?.[2] ?? img.width, tree: false } : undefined;
@@ -806,6 +851,24 @@ export class WorldView {
     if (!img) return drawPlaceholderTile(g, key, x, y, ts);
     const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
     g.drawImage(img, sx, sy, sw, sh, x, y, ts, ts);
+  }
+
+  /**
+   * NPC humano parado (peça 26×33 do mesmo pipeline dos Tamers v3): pivô e escala do Tamer, grade noturna de
+   * entidade (blitEntity) e a mesma respiração parada. Sem a imagem, cai no caminho de prop.
+   */
+  private drawNpcProp(pr: MapProp, now: number): void {
+    const src = this.tiles[pr.key];
+    const img = src && this.images.get(src.url);
+    if (!img) return this.drawProp(pr);
+    const tv = Object.values(this.opts.tamerVisuals ?? {})[0] ?? this.opts.tamers?.local;
+    const pv = tv?.manifest.pivot ?? NPC_PIVOT;
+    const S = this.scaleOf(tv);
+    const fr = { x: src.rect?.[0] ?? 0, y: src.rect?.[1] ?? 0, w: src.rect?.[2] ?? img.width, h: src.rect?.[3] ?? img.height };
+    const bob = idleBob(now, (pr.x * 37 + pr.y * 11) % 900);
+    const dx = Math.round(pr.x - this.camera.x - pv.x * S);
+    const dy = Math.round(pr.y - this.camera.y - pv.y * S + bob);
+    this.blitEntity(`npc|${src.url}`, img, fr, dx, dy, S, false);
   }
 
   private drawProp(pr: MapProp): void {
