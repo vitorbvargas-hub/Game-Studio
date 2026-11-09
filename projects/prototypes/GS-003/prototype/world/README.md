@@ -1,7 +1,58 @@
 # GS-003 — mundo (vertical slice, Fase 5): combate no próprio mapa
 
-- **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
+- **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
+
+## Inicial, Digimon selvagens, troca de mapa e telas secundárias (2026-11-09)
+
+Pedido do fundador: "ir criando as telas secundárias e outros Digimon para testar, e algo para trocar de mapa". Um commit por item: `8a02f1a` (QA R1), `b1b17ba` (inicial), `fdba15f` (selvagens), `b29fe28` (troca de mapa), `36198a5` (telas).
+
+- **QA R1 (`qa/QA_WORLD_R1.md`):**
+  - **#1:** o aviso do HUD diz, em destaque e com fundo, "Fan game não oficial e sem fins comerciais. Sem afiliação com Bandai ou Toei Animation."
+  - **#2:** o nome do Tamer é validado em JS (`checkTamerName`: vazio, mais de 14 caracteres ou caracteres fora de letras/números/espaço/`_-.`), não só pelo `maxlength`; um valor colado ou setado por script é cortado.
+- **Escolha do Digimon inicial** (`src/ui/starter.ts`, `src/data/starters.json`): depois do criador, num jogo novo, a tela "Escolha seu parceiro" mostra 5 bebês.
+  - Os 5: Koromon, Tsunomon, Tokomon, Gigimon (CREATURE-0002) e Dorimon (CREATURE-0014, do game-art).
+  - Cada cartão tem o sprite animado (o walk de `makeSpriteFn`), nome, estágio, atributo em pt-BR e a prévia da linha em 2 estágios com o nível de evolução. Uma espécie ainda sem arte aparece com placeholder "?".
+  - O escolhido vira a parceira no **Nv.1** e vai para o save (`starter`, v3). A equipe placeholder da cena não entra num jogo novo.
+  - Atalhos: setas e Enter. `?inicial=CREATURE-NNNN` pré-seleciona um bebê; `?criador=0` pula o criador e esta tela.
+- **18 Digimon selvagens de DW DS** (`tools/dwds_import/import_wild_dwds.js` → `GAME-ASSETS/01-creatures/CREATURE-0101..0118`, folha de contato `docs/screens/selvagens_dwds.png`):
+  - As espécies: Dorumon, Dorugamon, DoruGreymon, Biyomon, Gomamon, Tentomon, Palmon, Betamon, Gotsumon, Numemon, Floramon, Hagurumon, Crabmon, Otamamon, Goburimon, Tanemon, Lalamon e Penguinmon.
+  - O recorte é automático. As cores-chave são as que formam um bloco liso de 12×12. Os quadros de mapa são o maior grupo de componentes pequenos de altura parecida, em ordem de grade. A tabela do script só diz quais índices são S/N/W (conferidos no olho com `--index` [H]).
+  - Folhas PNG entrelaçadas são decodificadas pelo `@napi-rs/canvas`. Saída no contrato do creature.json v2 (walk/idle por direção, E espelhado de W, pivô nos pés, folha + atlas).
+  - Espécies em `world-species.json` com stats por estágio [H] e atributo oficial. Golpes (nomes oficiais) e learnsets mínimos em `src/data/moves-world.json` [H], somados aos do game-design.
+  - Linha **Dorimon → Dorumon (Nv.8) → Dorugamon (Nv.16) → DoruGreymon (Nv.24)**.
+  - Selvagens: 12 na floresta (`gen-forest-proof.mjs`) e 5 só na praia. Todos aparecem em `regions.json` por região.
+- **Troca de mapa** (`src/world/regions.ts`, `scripts/gen-region-maps.mjs`, `npm run map:regions`):
+  - **Floresta Densa** (`forest-proof`, forest-v4.1, com os 3 bots).
+  - **Praia dos Postes** (`praia`, 44×28, pacote `praia-v5` do game-art): areia, mar com autotile de 16 peças (sólido), a linha de postes e selvagens de praia Nv.4–9.
+  - **Vila dos Bebês** (`vila`, 36×26, `vila-v5`): trilha em cruz, casas com colisão de área (`solidW`×`solidH`), berços, ovos, cerca e arbustos. É zona segura, sem selvagens.
+  - **Saídas na borda:** objeto Tiled `portal` com `to`/`toStart`. Floresta leste ↔ praia oeste e floresta sul ↔ vila norte. Pisar na saída faz fade (≈0,3 s), monta o mapa novo e leva parceira, golpes, bits, Digidex e AUTO pelo mesmo `captureSave`/`applySave` do save.
+  - Um portal só arma de novo depois que o Tamer sai de cima dele. Destino bloqueado mostra um toast com o motivo.
+  - **Mapa-múndi** (botão "Mapa-múndi" no minimapa, atalho na grade ou **M**): as 6 regiões do GDD num esquema de nós e rotas, com faixa de nível, nº de espécies e estado: você está aqui, liberada, bloqueada com o motivo da regra `unlock`, ou sem mapa. "Viajar" só aparece nas liberadas com mapa.
+  - O desbloqueio usa o **nível do Tamer** e os chefes derrotados. Como chefes ainda não existem, a praia abre no Tamer Nv.10, e Montanha, Deserto e Zona Corrompida ficam fechadas. `?desbloquear=1` libera tudo para teste.
+  - O HUD (pílula da região e etiqueta do minimapa) e o minimapa (com cor de areia) trocam junto. O save v4 guarda o mapa e o jogo volta nele.
+  - `?map=praia|vila|forest-proof` força o mapa inicial; `?map=meadow` continua sendo o mapa de teste antigo, sem save.
+  - Os pacotes `*-v5/` repetem nomes de arquivo (`grass_00`, `path_blob_*`): ficam fora do conjunto global de tiles e só entram pelo pacote da cena, com prefixo (`pr5_`, `vl5_`). Sem preset noturno, a noite usa os tiles do dia sob o overlay.
+- **Telas secundárias** (`src/ui/panel.ts` + `src/ui/screens.ts`, modais no visual do "Equipe & Box", pt-BR, fecham por ×, clique fora ou Esc):
+  - **Digivice (V):** grade de todas as espécies, com a varredura de cada uma e silhueta "???" para quem ainda não foi visto. No topo, Vistos, Escaneados (100%) e a % de varredura total. O detalhe mostra sprite, estágio, atributo, elemento, evolução, golpes e onde aparece. "Visto" = apareceu num mapa visitado, como selvagem, parceira ou evolução.
+  - **Inventário (I** ou o baú**):** todos os itens de `economy.json` por categoria, com efeito, fonte e quantidade, mais os bits e a regra do mercado. Começa com 1 Digivice Padrão [H]; usar itens fica para depois.
+  - **Missões (Q):** `quests.json` com **progresso real** (`src/save/questlog.ts`, a partir dos eventos confirmados da sim).
+    - "Derrote N selvagens em <região>" conta as vitórias da sua parceira na região atual.
+    - "Capture N" e os marcos "Escaneie 5/12 espécies" contam as espécies que chegam a 100% de varredura. O capítulo 0 da história (parceiro) também é rastreado.
+    - N vem do `nRange` e fica fixo por dia; as diárias viram à meia-noite.
+    - "Coletar" credita os bits pela sim (intent `add_bits`) e os itens que existem no `economy.json`. Arena, dungeon e chefe aparecem como "Em breve".
+  - **Configurações (O):** AUTO, Auto-evoluir (sincronizados com os botões do HUD), Tempo do dia (Automático / Sempre dia / Sempre noite, salvo; `?time=` da URL tem prioridade) e **Resetar save** com confirmação ("Tem certeza?" → "Apagar e recomeçar"). O reset para o autosave, apaga a chave e recarrega.
+  - O save v5 guarda vistos, inventário, missões e configurações. Migrações v2→v3→v4→v5 encadeadas e testadas.
+- **Capturas** (`docs/screens/`):
+  - `starter_tela.png` e `starter_escolha.png` (com `creator_*`): `ONLY=creator`, e o log mostra a parceira (`Dorimon Nv.1`).
+  - `mapa_mundi.png`, `mapa_mundi_praia.png`, `mapa_fade_*.png`, `mapa_praia.png`, `mapa_vila.png`, `mapa_*_hud.png` e `mapa_borda_floresta.png` (sai da vila andando pela borda norte e chega na floresta): `ONLY=maps`.
+  - `tela_digivice*.png`, `tela_inventario.png`, `tela_missoes*.png` e `tela_configuracoes*.png`: `ONLY=screens`. Joga 40 s no AUTO para ter vitórias e varreduras reais, coleta uma missão, força a noite e confirma o reset.
+  - `proof_live_geral.png` refeita, agora com os selvagens novos.
+- **Testes** (192 no total):
+  - `tests/starter.test.ts`: 5 bebês, cartões, placeholder, seleção e Nv.1 no save.
+  - `tests/wild.test.ts`: 18 espécies com folha e atlas, learnsets, linha Dorimon e spawns.
+  - `tests/regions.test.ts`: saídas válidas de ida e volta, pacotes sem placeholder, colisão da água e das casas, mundos sem bots, regras de desbloqueio, Mapa-múndi, Panel e migração v4.
+  - `tests/screens.test.ts`: contagem das missões, virada do dia, Coletar, `add_bits`, Digivice, Inventário, Configurações, atalhos do HUD e migração v5.
 
 ## forest-v4.1: Wang-47, árvores novas, luz e noite nas entidades (2026-11-08)
 
@@ -203,18 +254,22 @@ cd projects/prototypes/GS-003/prototype/world
 npm install --offline     # o registry está bloqueado neste host; tudo vem do cache npm
 npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale=1)
                           #   ?time=night|day|HH:MM · ?timescale=N · ?criador=0|1 · ?novo=1 · ?offline=MIN
+                          #   ?map=praia|vila|forest-proof|meadow · ?desbloquear=1 · ?inicial=CREATURE-NNNN
 npm test                  # vitest: FSM, sim, presenter, assets, HUD
 npm run build             # tsc --noEmit + vite build → dist/
 npm run shots             # capturas em docs/screens/ (@napi-rs/canvas, sem navegador)
 npm run shots:vfx         # tiras de VFX por golpe → docs/screens/vfx_*.png (renderer real, sem navegador)
 npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png e moves_*.png
-                          #   ONLY=forest | daynight | creator | offline → forest_v4_*, daynight_*, creator_*, offline_*
+                          #   ONLY=forest | daynight | creator | offline | maps | screens → forest_v4_*, daynight_*,
+                          #   creator_* + starter_*, offline_*, mapa_*, tela_*
                           #   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu npm run shots:live
 npm run map               # regenera src/data/maps/test-meadow.tmj.json
 npm run map:forest        # regenera src/data/maps/forest-proof.tmj.json
+npm run map:regions       # regenera src/data/maps/praia.tmj.json e vila.tmj.json
+node ../../tools/dwds_import/import_wild_dwds.js [--index]   # selvagens de DW DS → GAME-ASSETS/01-creatures/CREATURE-01NN
 ```
 
-Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F) · **1–4** ou clique na barra usa o golpe do slot · **E** abre ou fecha "Equipe & Box" (aba Golpes: trocar golpes e prioridade do AUTO) · Esc fecha.
+Controles: clique ou toque no chão para andar · WASD · clique num Digimon selvagem para a parceira lutar com ele · botão AUTO · botão Fugir (ou tecla F) · **1–4** ou clique na barra usa o golpe do slot · **E** abre ou fecha "Equipe & Box" (aba Golpes: trocar golpes e prioridade do AUTO) · **M** Mapa-múndi · **V** Digivice · **I** Inventário · **Q** Missões · **O** Configurações · andar até a borda (onde a trilha sai) troca de mapa · Esc fecha.
 
 ## Arquitetura
 
@@ -254,3 +309,23 @@ src/render/labels.ts  nomes e níveis sem sobreposição (camada #labels na reso
 ## Limitações
 
 Ver o relatório de entrega. Resumo: sem medição de FPS em navegador real (não há Chromium neste host); Tamer placeholder; efeito de golpe procedural (o slot `04-effects/combat/` está vazio); captura = placeholder por varredura (4 vitórias = registrado); pathfinding é reta com deslize na colisão (A* fora do escopo, spec §10); números de balanceamento [H].
+
+Desta entrega (2026-11-09):
+- **Arte:**
+  - Gigimon (CREATURE-0002, agora o fallback Pagumon) e Dorimon (CREATURE-0014) são do game-art (commit `937b9c0`, feito durante esta tarefa) e só têm W/E. O jogo os carrega por PNG avulso.
+  - Os pacotes `forest-v5`, `praia-v5` e `vila-v5` são do game-art (commit `f2d836f`, feito durante esta tarefa). Os mapas só referenciam os nomes de arquivo; se o pacote mudar, `npm run map:regions` e o teste de chaves (`tests/regions.test.ts`) mostram o que falta.
+  - `forest-v5` não foi usado: a floresta continua `forest-proof`/forest-v4.1, como pedido.
+  - As casas do `vila-v5` aparecem recortadas e o `water_blob_15` parece listrado. Isso vem do PNG do pacote, não do renderer.
+- **Selvagens:**
+  - As direções S/N/W foram atribuídas no olho [H].
+  - 5 espécies só têm 2 direções na folha: Dorumon, Gotsumon, Otamamon e Goburimon têm S e W; Tanemon tem S e N. Nenhuma tem pose de batalha nem ataque de mapa: o avanço é procedural.
+  - O crédito de 14 das 18 folhas ficou genérico ("conferir na folha"); falta transcrever da imagem.
+  - Elecmon e Kunemon não têm folha de DW DS no acervo, então ficaram de fora.
+- **Troca de mapa:**
+  - A parceira chega com PV/MP cheios (mesmo `applySave` do save).
+  - Os bots só existem na floresta, e a vila não tem NPCs.
+  - O desbloqueio é pelo nível do Tamer, que é placeholder de cena (Nv.12).
+- **Missões e itens:**
+  - Missões de arena, dungeon e chefe não são rastreáveis.
+  - Itens não têm uso.
+  - A tela de inicial só aparece num jogo novo, com o criador ligado.
