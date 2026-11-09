@@ -73,3 +73,74 @@ por esta entrega.
 - **0 geracoes do PixelLab usadas** -- o pipeline local (ja usado em `forest-v4`/`v6`) se mostrou suficiente
   para todos os 6 pedidos da tarefa; o orcamento de 26 geracoes restantes continua intocado para rodadas
   futuras.
+
+
+## Adicao 2026-11-09 — NPCs na escala do Tamer + lanterna/fogueira (GS-003, pedido do game-studio)
+
+Corrige o bug reportado contra `forest-v7-pixellab` (NPCs do PixelLab ~2x maiores que os Tamers --
+`evidence/map-factory/factory_v4_clareira_luzes_dia_v4.png`) e adiciona 2 props de luz. **0 geracoes do
+PixelLab gastas** -- `get_balance` antes e depois: 26 restantes, 14 usadas, sem mudanca (mesmo pipeline
+local desta pasta).
+
+### NPCs reconstruidos na escala do Tamer
+
+- `props/npc_ranger.png` e `props/npc_merchant.png` (26x33 cada, antes 48x64 no `forest-v7-pixellab`) --
+  reconstruidos pelo MESMO pipeline que gerou `GAME-ASSETS/11-characters/TAMER-0003..0014`
+  (`tools/char_import/build_tamer_presets.js`): recolor de cabelo + kitbash de acessorio vetorial sobre
+  um sprite-base oficial (`official-fan-use`) de `GAME-ASSETS/11-characters/official-npcs/`, nao usado
+  por nenhum preset de Tamer (NPC-0016 para o ranger, NPC-0005 para o comerciante). Mesmo canvas 26x33,
+  mesmo pivo, mesmo outline/estilo chibi DW DS -- a causa raiz do bug (dois pipelines de arte diferentes
+  no mesmo mapa) deixa de existir porque agora e o MESMO pipeline.
+  - **Ranger**: cabelo recolorido para castanho-terra + kitbash de chapeu de aba larga (verde-oliva) +
+    friso de colete verde-musgo (`addRangerHat`/`addCollarBand` reaproveitado de `kitbash.js`).
+  - **Comerciante**: base "Anciao Grisalho" (cabelo grisalho mantido -- arquetipo de mercador viajante) +
+    kitbash de mochila/bolsa de couro (alca + bolsa, `addSatchel`) + friso de colete mostarda.
+  - **Um frame so** (SW, de frente), mesma convencao do que foi substituido ("Standing idle... Single
+    frame, no walk animation" no README do `forest-v7-pixellab`).
+  - `forest-v7-pixellab/props/npc_ranger.png`/`npc_merchant.png` **nao foram tocados** -- ficam no pacote
+    v7 como estavam; o kit v8 e quem o game-dev deve apontar para os novos.
+- `npc_scale_comparison.png` (raiz deste pacote) -- prancha 4x comparando os 2 NPCs novos lado a lado com
+  2 Tamers (`TAMER-0003` ruivo, `TAMER-0004` loiro) na MESMA escala, confirmando visualmente que a
+  proporcao bate (26x33 todos, mesmo fator 4x de preview).
+
+### 2 novos props de luz (`light` em `tileset.json`, mesma convencao dos 3 `emissiveProps` ja existentes)
+
+- `props/lantern_post.png` (16x42) -- poste de madeira com lanterna/caixa de vidro no topo, luz quente
+  (`#ffb347`, raio 50, intensidade 0.85). Cor deliberadamente diferente do acento "digital" (`dataAmber`)
+  usado por `data_totem.png` -- isto e uma lanterna comum, nao um farol digital.
+- `props/campfire_small.png` (20x16) -- fogueira pequena (2 toras cruzadas + chama em 3 camadas), luz
+  quente laranja-avermelhada (`#ff7a33`, raio 36, intensidade 0.8), raio menor que a lanterna (prop de
+  acampamento/ponto de descanso, nao de trilha).
+- Ambos entraram em `tileset.json.emissiveProps` (array estendido, os 3 props existentes **nao** foram
+  alterados) e a layer `"npc"` foi adicionada a `tileset.json.layers` (as 5 layers existentes continuam
+  as mesmas).
+
+### O que o game-dev precisa trocar no kit
+
+1. **Qualquer referencia a `forest-v7-pixellab/props/npc_ranger.png`/`npc_merchant.png`** (aliases.json,
+   gerador de mapa, ou a propria clareira em `evidence/map-factory/factory_v4_clareira_luzes_dia_v4.png`
+   se ela for regerada) deve apontar para `forest-v8-depth/props/npc_ranger.png`/`npc_merchant.png`.
+2. **Escala de desenho**: como os novos NPCs sao 26x33 (identico ao frame do Tamer), eles devem ser
+   desenhados pelo MESMO caminho de renderizacao/pivo usado para os Tamers (pivot pes-centro-x), nao pelo
+   caminho de prop generico 48x64 do v7 -- caso o renderer escale props para um tamanho fixo, essa escala
+   fixa deve sair da lista para estes 2 arquivos.
+3. **Luz dos props novos**: mesmo trabalho pendente ja documentado para `data_crystal`/`mushroom_bioluminescent`/
+   `data_totem` -- ler o campo `light` e desenhar o gradiente aditivo; nada disso esta implementado aqui,
+   so os dados (ver Limitacoes do README original acima).
+4. **Colisao**: `npc_ranger.png`/`npc_merchant.png`/`lantern_post.png`/`campfire_small.png` tem
+   `collision: true` em `tileset.json` -- hitbox e trabalho do game-dev, como sempre neste pipeline.
+
+### Limitacoes (autocritica)
+
+- **Kitbash vetorial, nao arte final** -- mesma ressalva que `TAMERS_V3_PRESETS.md` ja faz para os 12
+  presets de Tamer: `addRangerHat`/`addSatchel` sao formas geometricas simples (elipse/linha/retangulo)
+  sobre o sprite oficial, nao um passe de pixel art manual. Um passe manual deixaria os acessorios mais
+  nitidos em 26x33 (canvas pequeno, poucos pixels de folga).
+  **Nao foi testado num mapa real nem com o pivo/colisao real do motor.**
+- **Satchel/vest sao simetricos em todas as direcoes** (nao ha 4 variantes direcionais do acessorio) --
+  so a direcao SW (frente) foi gerada; se o game-dev quiser os NPCs andando ou vistos de costas, falta
+  gerar SE/NW/NE com o mesmo kitbash (o pipeline suporta, so nao foi rodado nas 4 direcoes aqui porque o
+  piece que ele substitui tambem era 1 frame so).
+- **Lanterna/fogueira sao so a arte + o dado `light`** -- igual aos 3 emissiveProps que ja existiam neste
+  pacote, nao ha renderizacao de luz implementada.
+- **0 geracoes do PixelLab usadas** -- pipeline 100% local, mesmo padrao do resto de `forest-v8-depth`.

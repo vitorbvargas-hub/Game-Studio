@@ -10,6 +10,46 @@
       "technique": "Canvas.js pixel matrix (fillEllipse/fillRect/fillPolygon/line/blendPixel) + the studio's 16-tile blob autotile corner-rounding algorithm (blob_autotile16.js, extracted from forest_v4_tiles.js/gen_forest_v6_pieces.js's inline copies) + forest_v4_props.js rimDarken() reused as-is. Palette: a documented HSV darken/desaturate of forest_v4_palette.js day ramps (forest_v8_depth_palette.js) plus a new cliff ramp built from the same source, and a small set of reserved fully-saturated accents (2 reused from endesga32.js, 2 new) for the emissive props only. No PixelLab generation and no third-party art referenced pixel-for-pixel.",
       "styleReference": "docs/DRAKANTOS_VISUAL_STUDY.md (ADR-011 Sec.5: style/composition reference only, citing the study's own table items by number in code comments and in this tileset.json -- no pixels copied from any Drakantos screenshot or frame).",
       "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- no third-party art referenced pixel-for-pixel. Third-party style references (Drakantos) informed the palette/depth/cluster direction only, per ADR-010/ADR-011 Secao 5, not these specific pixels."
+    },
+    {
+      "group": "props/npc_ranger.png + props/npc_merchant.png",
+      "origin": "game-art, local kitbash pipeline (recolor + vector accessory over an official-fan-use base sprite), 2026-11-09",
+      "layer": "official-fan-use-derived",
+      "author": "game-art",
+      "technique": "Same pipeline as GAME-ASSETS/11-characters/TAMER-0003..0014 (tools/char_import/build_tamer_presets.js): kitbash.js hair recolor (hue-shift preserving shading) + a vector accessory (ellipse/line/polygon primitives, this file's addRangerHat/addSatchel) drawn over the official NPC base sprite. 0 PixelLab generations.",
+      "derivedFrom": [
+        {
+          "characterId": "NPC-0016",
+          "path": "11-characters/official-npcs/NPC-0016/ (GAME-ASSETS, not copied into this pack)",
+          "usedFor": "props/npc_ranger.png"
+        },
+        {
+          "characterId": "NPC-0005",
+          "path": "11-characters/official-npcs/NPC-0005/ (GAME-ASSETS, not copied into this pack)",
+          "usedFor": "props/npc_merchant.png"
+        }
+      ],
+      "officialRip": true,
+      "nonCommercial": true,
+      "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+      "credit": {
+        "ripper": "redblueyellow",
+        "site": "The Spriters Resource",
+        "creditRequiredBySheet": false
+      },
+      "license": "Same official-fan-use-derived terms as TAMER-0003..0014 (see GAME-ASSETS/11-characters/TAMER-0016? n/a -- see any TAMER-00NN/license.json for the identical clause). Studio modifications (recolor + accessory) are original; the base rip follows the sheet's own no-credit-required terms.",
+      "verifiedAt": "2026-11-09",
+      "verifiedBy": "game-art"
+    },
+    {
+      "group": "props/lantern_post.png + props/campfire_small.png",
+      "origin": "game-art, 100% local pipeline (Canvas.js), 2026-11-09",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Canvas.js primitives (fillRect/fillEllipse/fillPolygon/line) + the same glowHalo()/rimDarken() technique as this pack's 3 existing emissiveProps. Bark tones reused from forest_v8_depth_palette.js buildDepthRamps(); fire colors are new, reserved to these 2 light props only.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- no third-party art referenced pixel-for-pixel.",
+      "verifiedAt": "2026-11-09",
+      "verifiedBy": "game-art"
     }
   ],
   "verifiedAt": "2026-11-09",

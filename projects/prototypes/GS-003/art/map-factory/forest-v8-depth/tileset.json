@@ -11,7 +11,8 @@
     "ground-decal",
     "cliff-face",
     "decor",
-    "decor-light"
+    "decor-light",
+    "npc"
   ],
   "palette": "See palette.json in this same folder: depth-revised ground/foliage ramps, the new cliff ramp, reserved saturated accents, and a renderPreset object with the exact HSV multipliers a renderer can apply to existing forest-v4/v6/v7 ground art (DRAKANTOS_VISUAL_STUDY.md item #6).",
   "groundVariants": {
@@ -217,6 +218,30 @@
         "intensity": 0.9
       },
       "note": "landmark-scale beacon (path markers, arena entrances) -- widest radius of the three"
+    },
+    {
+      "file": "props/lantern_post.png",
+      "size": "16x42",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "light": {
+        "color": "#ffb347",
+        "radius": 50,
+        "intensity": 0.85
+      },
+      "note": "Forest-path lamp post (wooden post, caged glass top) -- warm firelight, not the digital-theme accent used by data_crystal/data_totem. Place along paths/clearing edges for the night look."
+    },
+    {
+      "file": "props/campfire_small.png",
+      "size": "20x16",
+      "collision": true,
+      "suggestedLayer": "decor",
+      "light": {
+        "color": "#ff7a33",
+        "radius": 36,
+        "intensity": 0.8
+      },
+      "note": "Small crossed-log campfire, warm orange-red light, smaller radius than lantern_post -- camp/rest-point prop."
     }
   ],
   "clutter": [
@@ -265,5 +290,21 @@
         "note": "flowering_bush + tuft + leaf litter"
       }
     ]
-  }
+  },
+  "npcs": [
+    {
+      "file": "props/npc_ranger.png",
+      "size": "26x33",
+      "collision": true,
+      "suggestedLayer": "npc",
+      "note": "Replaces forest-v7-pixellab/props/npc_ranger.png (48x64, ~2x the Tamer scale -- see evidence/map-factory/factory_v4_clareira_luzes_dia_v4.png). Rebuilt from GAME-ASSETS/11-characters/official-npcs/NPC-0016 (unused by any TAMER-00NN preset) with a hair recolor + kitbash ranger hat (olive brim/crown) + a moss-green vest-trim accent, same technique and exact 26x33 canvas as the Tamer presets (build_tamer_presets.js). Single standing frame (SW, front-facing), same convention as the piece it replaces."
+    },
+    {
+      "file": "props/npc_merchant.png",
+      "size": "26x33",
+      "collision": true,
+      "suggestedLayer": "npc",
+      "note": "Replaces forest-v7-pixellab/props/npc_merchant.png (48x64). Rebuilt from GAME-ASSETS/11-characters/official-npcs/NPC-0005 (unused by any TAMER-00NN preset) with a kitbash leather satchel/backpack (strap + bag) + a tan vest-trim accent, same 26x33 canvas as the Tamer presets. Single standing frame (SW, front-facing)."
+    }
+  ]
 }
