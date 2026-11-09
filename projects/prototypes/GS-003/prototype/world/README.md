@@ -41,6 +41,17 @@ Pedido do fundador: o criador ainda mostrava os Tamers modulares v2, que ele rep
     - `evolucao_preferencia.png`.
     - `evolucao_depois.png`: Drimogemon escolhido.
 
+- **Dev server sem versão velha** (`vite.config.ts`, plugin `devNoStore`, `tests/devserver.test.ts`):
+  - **Conferido** (2026-11-09):
+    - O `npm run dev` que estava aberto na 5174 já servia o código novo. O Vite manda `Cache-Control: no-cache` com ETag, e o navegador revalida.
+    - Achei uma causa real de "versão velha": um **arquivo novo** no GAME-ASSETS (fora da raiz do projeto) **não entrava no glob** até reiniciar o servidor. Reproduzi num projeto Vite mínimo em /tmp: sem vigia, o glob continua só com o arquivo antigo; com vigia, entra o novo.
+  - **Correção:**
+    - No dev, toda resposta sai com **`Cache-Control: no-store`**: HTML, módulos, CSS e os PNG/JSON do `/@fs` (conferido com `curl -I`).
+    - As pastas `01-creatures`, `03-environments`, `04-effects` e `11-characters` do GAME-ASSETS são vigiadas.
+    - **`strictPort`:** se a 5174 estiver ocupada por um dev antigo, o novo falha com erro, em vez de subir na 5175 e deixar a aba velha no servidor antigo.
+    - O build não muda.
+  - **Se aparecer versão antiga, Ctrl+Shift+R** (recarregar sem cache). Se ainda assim estiver velha, feche o `npm run dev` antigo (a 5174 precisa estar livre) e rode de novo.
+
 ## Inicial, Digimon selvagens, troca de mapa e telas secundárias (2026-11-09)
 
 Pedido do fundador: "ir criando as telas secundárias e outros Digimon para testar, e algo para trocar de mapa". Um commit por item: `8a02f1a` (QA R1), `b1b17ba` (inicial), `fdba15f` (selvagens), `b29fe28` (troca de mapa), `36198a5` (telas).
@@ -290,7 +301,8 @@ Versão jogável da prova visual pedida pelo fundador, na estrutura da referênc
 ```bash
 cd projects/prototypes/GS-003/prototype/world
 npm install --offline     # o registry está bloqueado neste host; tudo vem do cache npm
-npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale=1)
+npm run dev               # http://127.0.0.1:5174  (?seed=7&auto=1&creatureScale=1) — sem cache (no-store);
+                          #   se aparecer versão antiga, Ctrl+Shift+R
                           #   ?time=night|day|HH:MM · ?timescale=N · ?criador=0|1 · ?novo=1 · ?offline=MIN
                           #   ?map=praia|vila|forest-proof|meadow · ?desbloquear=1 · ?inicial=CREATURE-NNNN
 npm test                  # vitest: FSM, sim, presenter, assets, HUD
@@ -298,8 +310,8 @@ npm run build             # tsc --noEmit + vite build → dist/
 npm run shots             # capturas em docs/screens/ (@napi-rs/canvas, sem navegador)
 npm run shots:vfx         # tiras de VFX por golpe → docs/screens/vfx_*.png (renderer real, sem navegador)
 npm run shots:live        # prova ao vivo: Chromium headless + HUD em DOM → docs/screens/proof_live_*.png e moves_*.png
-                          #   ONLY=forest | daynight | creator | offline | maps | screens → forest_v4_*, daynight_*,
-                          #   creator_* + starter_*, offline_*, mapa_*, tela_*
+                          #   ONLY=forest | daynight | creator | offline | maps | screens | evolve → forest_v4_*, daynight_*,
+                          #   creator_* + starter_*, offline_*, mapa_*, tela_*, evolucao_*
                           #   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu npm run shots:live
 npm run map               # regenera src/data/maps/test-meadow.tmj.json
 npm run map:forest        # regenera src/data/maps/forest-proof.tmj.json
