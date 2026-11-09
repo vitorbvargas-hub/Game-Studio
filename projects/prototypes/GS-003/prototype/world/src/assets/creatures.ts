@@ -118,7 +118,9 @@ export function loadCreatureCatalog(): Record<string, CreatureVisual> {
     query: "?url",
     import: "default",
   });
-  return buildCreatureCatalog(manifests, atlases, sheets);
+  // Criatura ainda em produção (game-art) pode vir só com PNGs por quadro em sprites/: entra assim mesmo.
+  const frames = import.meta.glob<string>("@game-assets/01-creatures/CREATURE-*/sprites/*.png", { eager: true, query: "?url", import: "default" });
+  return buildCreatureCatalog(manifests, atlases, sheets, frames);
 }
 
 /**

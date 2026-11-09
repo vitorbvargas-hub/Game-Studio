@@ -66,3 +66,42 @@ describe("criador de Tamer (pt-BR)", () => {
     expect(previewPose(-5)).toEqual({ dir: "S", frame: 0 });
   });
 });
+
+describe("nome do Tamer: validação em JS (QA R1 #2)", () => {
+  it("checkTamerName: vazio, longo e caracteres inválidos; aparar e juntar espaços", async () => {
+    const { checkTamerName, safeTamerName, normalizeLook } = await import("../src/assets/tamer-parts");
+    expect(checkTamerName("  Nina   Sol ")).toEqual({ ok: true, name: "Nina Sol" });
+    expect(checkTamerName("   ")).toMatchObject({ ok: false, error: "empty" });
+    expect(checkTamerName("NomeMuitoLongoDemaisQA")).toMatchObject({ ok: false, error: "long" });
+    expect(checkTamerName("<b>x</b>")).toMatchObject({ ok: false, error: "chars" });
+    expect(checkTamerName("Joãozinho_2")).toEqual({ ok: true, name: "Joãozinho_2" });
+    expect(safeTamerName("NomeMuitoLongoDemaisQA")).toBe("NomeMuitoLongo");
+    expect(safeTamerName("<<>>")).toBe("Kaio");
+    expect(normalizeLook({ name: "NomeMuitoLongoDemaisQA" }).name).toHaveLength(14);
+  });
+
+  it("valor setado por script além do maxlength é cortado no input e no look; caractere inválido bloqueia", () => {
+    const { c, el, onConfirm } = mount();
+    const input = el.querySelector<HTMLInputElement>('[data-testid="cr-name"]')!;
+    input.value = "NomeMuitoLongoDemaisQA";
+    input.dispatchEvent(new Event("input"));
+    expect(input.value).toBe("NomeMuitoLongo");
+    expect(c.look.name).toBe("NomeMuitoLongo");
+    input.value = "Ana<script>";
+    input.dispatchEvent(new Event("input"));
+    expect(el.querySelector<HTMLButtonElement>('[data-act="confirm"]')!.disabled).toBe(true);
+    expect(el.querySelector('[data-testid="cr-err"]')!.textContent).toContain("letras");
+    c.confirm();
+    expect(onConfirm).not.toHaveBeenCalled();
+    input.value = "Ana";
+    input.dispatchEvent(new Event("input"));
+    c.confirm();
+    expect(onConfirm).toHaveBeenCalledWith(expect.objectContaining({ name: "Ana" }));
+  });
+
+  it("aviso de fan game do index.html tem o texto do ADR-007 (Bandai/Toei Animation)", async () => {
+    const { readFileSync } = await import("node:fs");
+    const html = readFileSync(`${process.cwd()}/index.html`, "utf8");
+    expect(html).toContain("Fan game não oficial, sem afiliação com Bandai/Toei Animation.");
+  });
+});

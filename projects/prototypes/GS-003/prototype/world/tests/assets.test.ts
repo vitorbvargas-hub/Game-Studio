@@ -7,7 +7,7 @@ import { loadTestMap } from "../src/sim/setup";
 describe("criaturas (GAME-ASSETS/01-creatures)", () => {
   const cat = loadCreatureCatalog();
 
-  it("carrega CREATURE-0002..0013 com atlas e folha", () => {
+  it("carrega CREATURE-0002..0013 com atlas e folha (ou PNGs por quadro, criatura em produção)", () => {
     for (let i = 2; i <= 13; i++) {
       const id = `CREATURE-${String(i).padStart(4, "0")}`;
       expect(cat[id], id).toBeDefined();

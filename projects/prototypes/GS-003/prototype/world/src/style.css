@@ -954,16 +954,27 @@ body {
   font-size: 10px;
   color: var(--ui-dim);
 }
+/* Aviso de fan game (ADR-007 §3): caixa com fundo escuro, legível de dia e de noite. */
 .fan-note {
   position: fixed;
   left: 8px;
   top: 94px;
-  max-width: 230px;
+  max-width: 280px;
   margin: 0;
-  font-size: 9px;
-  color: #8b93b0;
+  padding: 5px 8px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: #e8ecf8;
+  background: rgba(14, 16, 28, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
   text-shadow: 0 1px 0 #000;
   pointer-events: none;
+  z-index: 40;
+}
+.fan-note strong {
+  color: #ffd66b;
+  font-weight: 700;
 }
 
 /* ---------- golpes: barra do HUD ---------- */

@@ -94,11 +94,38 @@ export function lookOptions(p: PartsData = PARTS) {
 
 export const DEFAULT_LOOK: TamerLook = { name: "Kaio", model: "male", skin: "tan", hairCut: "espetado-tai", hairColor: "castanho", outfit: "tamer-classico", outfitColor: "azul" };
 
-/** Look válido (campos desconhecidos caem no padrão); nome aparado, 1–14 caracteres. */
+/** Tamanho máximo do nome do Tamer (o mesmo do `maxlength` do criador). */
+export const NAME_MAX = 14;
+/** Letras (com acento), números, espaço, `_`, `-` e `.`. */
+const NAME_OK = /^[\p{L}\p{N} _.\-]+$/u;
+
+export type NameCheck = { ok: true; name: string } | { ok: false; name: string; error: "empty" | "long" | "chars" };
+
+/**
+ * Validação do nome do Tamer em JS (não depende do `maxlength` do input): apara, junta espaços, recusa vazio,
+ * mais de NAME_MAX caracteres (por code point) e caracteres fora de letras/números/espaço/`_-.`.
+ */
+export function checkTamerName(raw: unknown): NameCheck {
+  const name = String(raw ?? "").replace(/[\u0000-\u001f\u007f]/g, "").replace(/\s+/g, " ").trim();
+  if (!name) return { ok: false, name, error: "empty" };
+  if ([...name].length > NAME_MAX) return { ok: false, name, error: "long" };
+  if (!NAME_OK.test(name)) return { ok: false, name, error: "chars" };
+  return { ok: true, name };
+}
+
+/** Nome seguro para o dado: o válido, ou o saneado (só caracteres aceitos, cortado em NAME_MAX), ou o padrão. */
+export function safeTamerName(raw: unknown): string {
+  const c = checkTamerName(raw);
+  if (c.ok) return c.name;
+  const cleaned = [...c.name.replace(/[^\p{L}\p{N} _.\-]/gu, "")].slice(0, NAME_MAX).join("").trim();
+  return cleaned || DEFAULT_LOOK.name;
+}
+
+/** Look válido (campos desconhecidos caem no padrão); nome saneado, 1–14 caracteres. */
 export function normalizeLook(l: Partial<TamerLook>, p: PartsData = PARTS): TamerLook {
   const o = lookOptions(p);
   const pick = <T extends string>(v: unknown, list: T[], d: T): T => (list.includes(v as T) ? (v as T) : d);
-  const name = String(l.name ?? "").replace(/\s+/g, " ").trim().slice(0, 14) || DEFAULT_LOOK.name;
+  const name = safeTamerName(l.name);
   return {
     name,
     model: pick(l.model, o.model, DEFAULT_LOOK.model),

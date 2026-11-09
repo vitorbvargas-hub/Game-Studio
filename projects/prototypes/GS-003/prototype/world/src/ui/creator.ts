@@ -2,7 +2,7 @@
 // Preview animado (andando) girando nas 4 direções. A composição das camadas fica fora daqui (drawPreview), para a
 // tela não depender de canvas no teste (jsdom).
 
-import { LABELS, lookOptions, normalizeLook, PARTS, randomLook, type TamerLook } from "../assets/tamer-parts";
+import { checkTamerName, LABELS, lookOptions, NAME_MAX, normalizeLook, PARTS, randomLook, type NameCheck, type TamerLook } from "../assets/tamer-parts";
 
 export type PreviewDir = "S" | "E" | "N" | "W";
 
@@ -29,6 +29,13 @@ const GROUPS: { key: keyof Omit<TamerLook, "name">; title: string; swatch?: (v: 
   { key: "outfit", title: "Roupa" },
   { key: "outfitColor", title: "Cor da roupa", swatch: (v) => PARTS.layers.clothing.colorRamps[v].base },
 ];
+
+/** Mensagens de erro do nome (pt-BR). */
+export const NAME_ERRORS: Record<Exclude<NameCheck, { ok: true }>["error"], string> = {
+  empty: "Digite um nome para o seu Tamer.",
+  long: `Use no máximo ${NAME_MAX} caracteres.`,
+  chars: "Use só letras, números, espaço, _ - ou .",
+};
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
@@ -68,8 +75,8 @@ export class TamerCreator {
           </div>
           <div class="cr-form">
             <label class="cr-field"><span>Nome</span>
-              <input data-testid="cr-name" maxlength="14" autocomplete="off" spellcheck="false" value="${esc(this.look.name)}" />
-              <em class="cr-err" data-testid="cr-err" hidden>Digite um nome para o seu Tamer.</em>
+              <input data-testid="cr-name" maxlength="${NAME_MAX}" autocomplete="off" spellcheck="false" value="${esc(this.look.name)}" />
+              <em class="cr-err" data-testid="cr-err" hidden>${NAME_ERRORS.empty}</em>
             </label>
             ${GROUPS.map(
               (g) => `
@@ -102,7 +109,12 @@ export class TamerCreator {
       else if (b.dataset.act === "random") this.set(null, "", randomLook((opts.seed ?? Date.now()) + this.rolls++ * 7919, this.nameInput.value));
       else if (b.dataset.act === "confirm") this.confirm();
     });
-    this.nameInput.addEventListener("input", () => this.set("name", this.nameInput.value));
+    this.nameInput.addEventListener("input", () => {
+      // O maxlength só vale para a digitação: um valor colado/setado por script é cortado aqui também.
+      const v = this.nameInput.value;
+      if ([...v].length > NAME_MAX) this.nameInput.value = [...v].slice(0, NAME_MAX).join("");
+      this.set("name", this.nameInput.value);
+    });
     this.nameInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") this.confirm();
     });
@@ -118,16 +130,18 @@ export class TamerCreator {
   set(key: keyof TamerLook | null, value: string, whole?: TamerLook): void {
     const raw = whole ?? { ...this.look, [key!]: value };
     const name = key === "name" ? value : this.nameInput.value;
-    this.look = { ...normalizeLook(raw), name: name.slice(0, 14) };
+    this.look = { ...normalizeLook(raw), name: [...name].slice(0, NAME_MAX).join("") };
     this.sync();
   }
 
   private sync(): void {
     for (const b of this.el.querySelectorAll<HTMLButtonElement>("[data-opt]")) b.setAttribute("aria-pressed", String(this.look[b.dataset.opt as keyof TamerLook] === b.dataset.val));
-    const name = this.look.name.trim();
-    this.el.querySelector<HTMLElement>('[data-testid="cr-err"]')!.hidden = !!name;
-    this.el.querySelector<HTMLButtonElement>('[data-act="confirm"]')!.disabled = !name;
-    this.el.querySelector('[data-testid="cr-nameplate"]')!.textContent = name || "—";
+    const check = checkTamerName(this.nameInput.value);
+    const err = this.el.querySelector<HTMLElement>('[data-testid="cr-err"]')!;
+    err.hidden = check.ok;
+    if (!check.ok) err.textContent = NAME_ERRORS[check.error];
+    this.el.querySelector<HTMLButtonElement>('[data-act="confirm"]')!.disabled = !check.ok;
+    this.el.querySelector('[data-testid="cr-nameplate"]')!.textContent = check.name || "—";
     const l = this.look;
     this.el.querySelector('[data-testid="cr-summary"]')!.textContent = `${LABELS[l.model]} · pele ${LABELS[l.skin].toLowerCase()} · ${LABELS[l.hairCut]} ${LABELS[l.hairColor].toLowerCase()} · ${LABELS[l.outfit]} ${LABELS[l.outfitColor].toLowerCase()}`;
     this.paint(this.t0 ? performance.now() - this.t0 : 0);
@@ -150,8 +164,9 @@ export class TamerCreator {
   }
 
   confirm(): void {
-    const look = normalizeLook({ ...this.look, name: this.nameInput.value });
-    if (!this.nameInput.value.trim()) return this.sync();
+    const check = checkTamerName(this.nameInput.value);
+    if (!check.ok) return this.sync();
+    const look = normalizeLook({ ...this.look, name: check.name });
     this.close();
     this.opts.onConfirm(look);
   }
