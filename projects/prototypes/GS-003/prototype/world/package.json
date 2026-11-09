@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "map": "node scripts/gen-test-map.mjs",
     "map:forest": "node scripts/gen-forest-proof.mjs",
+    "map:regions": "node scripts/gen-region-maps.mjs",
     "shots:live": "node scripts/capture-live.mjs",
     "shots": "vite-node scripts/capture-screens.ts",
     "shots:vfx": "vite-node scripts/capture-vfx.ts"

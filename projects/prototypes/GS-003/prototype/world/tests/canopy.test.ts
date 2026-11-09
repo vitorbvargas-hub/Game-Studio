@@ -14,7 +14,7 @@ import { PX_PER_SUB } from "../src/sim/params";
 import { createForestProofWorld, LOCAL_PLAYER } from "../src/sim/setup";
 import { snapshot } from "../src/sim/world";
 
-const packCfg = packJson as ScenePack;
+const packCfg = packJson as ScenePack & { trees: NonNullable<ScenePack["trees"]> };
 const makeCanvas: CanvasFactory = (w, h) => createCanvas(w, h) as unknown as HTMLCanvasElement;
 const urlToPath = (url: string) => {
   const u = decodeURIComponent(url.split("?")[0]);

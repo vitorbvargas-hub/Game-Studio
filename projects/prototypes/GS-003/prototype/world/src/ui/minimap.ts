@@ -15,6 +15,7 @@ const COLORS = {
   clear: "#3b6a35",
   path: "#c9a86a",
   water: "#1f6fae",
+  sand: "#d6c08a",
   tree: "#0b1a12",
 };
 
@@ -31,6 +32,7 @@ export class Minimap {
   static tileKind(key: string, solid: boolean): keyof typeof COLORS {
     if (/path/.test(key)) return "path";
     if (/water|shore/.test(key)) return "water";
+    if (/sand/.test(key)) return "sand";
     if (/edge/.test(key)) return "edge";
     if (solid || /forest/.test(key)) return "forest";
     return "clear";

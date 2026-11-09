@@ -3,30 +3,32 @@
 
 import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
-import { loadSceneTiles, packSummary, usedKeys, type ScenePack } from "./assets/scene-tiles";
+import { loadSceneTiles, packSummary, usedKeys } from "./assets/scene-tiles";
 import { clockFromParams, formatClock, GameClock } from "./render/daynight";
 import { botLook, composeTamer, DEFAULT_LOOK, frameList, loadPartUrls, lookKey, PARTS, type TamerLook } from "./assets/tamer-parts";
 import { TamerCreator, type PreviewDir } from "./ui/creator";
 import { applyOffline, applySave, captureSave, offlineBalance, offlineSeed, type OfflineReport } from "./save/offline";
-import { browserStorage, loadFromStorage, saveToStorage, type LoadResult } from "./save/save";
+import { browserStorage, loadFromStorage, saveToStorage, type LoadResult, type SaveData } from "./save/save";
 import { showOfflineReport } from "./ui/offline-report";
 import type { CreatureVisual } from "./assets/creatures";
-import { countDwdsSources, loadTileSources } from "./assets/tiles";
-import forestProofPack from "./data/maps/forest-proof.aliases.json";
+import { countDwdsSources, globalTileFilter, loadTileSources } from "./assets/tiles";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
 import { drawLabels, labelMetrics, layoutLabels, measureWith } from "./render/labels";
 import { makePortraitFn, makeSpriteFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
-import { pxToSub } from "./sim/map";
+import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
 import { TICK_MS } from "./sim/params";
-import { createDefaultWorld, createForestProofWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
-import type { Intent } from "./sim/types";
+import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
+import type { Intent, WorldEvent } from "./sim/types";
 import { getEntity, getPlayer, snapshot, snapshotOf, stepWorld } from "./sim/world";
 import "./style.css";
 import { Hud, type HudScene } from "./ui/hud";
 import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
 import { loadWorldContent } from "./sim/species";
+import { Panel } from "./ui/panel";
+import { worldMapHtml } from "./ui/worldmap";
+import { canTravel, DEFAULT_MAP, MAPS, mapOfRegion, regionById, type MapDef, type Progress } from "./world/regions";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
 import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
@@ -42,8 +44,11 @@ const SIZE_MODE = params.get("size") ?? "native";
 /** ?smooth=0 desliga a suavização visual (comparação com a v1). ?tiles=original ignora os biomas DS. */
 const SMOOTH = params.get("smooth") !== "0";
 const TILES_DWDS = params.get("tiles") !== "original";
-/** ?map=meadow volta ao mapa de teste da v2; padrão = cena da prova visual (floresta densa + 3 jogadores bot). */
-const MAP = params.get("map") === "meadow" ? "meadow" : "forest-proof";
+/**
+ * ?map=meadow volta ao mapa de teste da v2 (sem save nem troca de mapa); ?map=praia|vila|forest-proof começa nesse
+ * mapa. Padrão = o mapa do save, ou a floresta da prova visual (cena com 3 jogadores bot).
+ */
+const MAP = params.get("map") === "meadow" ? "meadow" : params.get("map") ?? "";
 /** Altura da barra inferior do HUD (CSS px): a câmera centra o Tamer na área visível acima dela. */
 const HUD_BOTTOM_PX = 96;
 const ZOOM = Math.max(0, Math.floor(Number(params.get("zoom") ?? 0)));
@@ -93,49 +98,37 @@ async function chooseStarter(images: ImageStore, creatures: Record<string, Creat
   return new Promise((resolve) => new StarterPicker(document.body, { content, initial: forced ?? undefined, drawSprite: makeSpriteFn(creatures, images), onConfirm: resolve }));
 }
 
+/** Um mapa carregado: sim, visual e apresentação (trocados juntos na troca de mapa). */
+interface Live {
+  mapId: string;
+  /** Mapa jogável das regiões (src/world/regions.ts); ausente = mapa de teste ?map=meadow. */
+  def?: MapDef;
+  sim: WorldSim;
+  view: WorldView;
+  presenter: Presenter;
+  spawnEvents: WorldEvent[];
+}
+
 async function boot() {
   const images = new ImageStore(browserImageLoader);
   const partUrls = loadPartUrls();
   const partsFailed = await images.loadAll(Object.values(partUrls));
   if (partsFailed.length) console.warn("partes do Tamer não carregadas:", partsFailed.length);
-  const forest = MAP === "forest-proof";
-  // Save (só na cena principal). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
-  const storage = forest ? browserStorage() : undefined;
+  const regionMode = MAP !== "meadow";
+  // Save (só nos mapas das regiões). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
+  const storage = regionMode ? browserStorage() : undefined;
   const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
   const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, partUrls, loaded.ok ? loaded.data.tamer : DEFAULT_LOOK);
   const creatures = loadCreatureCatalog();
-  // Jogo novo na cena principal: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
-  const starter: string | null = loaded.ok ? loaded.data.starter : forest && CREATOR ? await chooseStarter(images, creatures) : null;
+  // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
+  const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
   const newStarter = !loaded.ok && !!starter;
   const canvas = document.querySelector<HTMLCanvasElement>("#world")!;
   const labelCanvas = document.querySelector<HTMLCanvasElement>("#labels")!;
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
   const auto = params.get("auto") === "1";
-  const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto, localName: look.name, ...(newStarter ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}) }) : createDefaultWorld(SEED, { auto });
-  // Restaura o progresso e credita o tempo ausente (?offline=MIN simula MIN minutos fora, para testar/capturar).
-  let bootOffline: OfflineReport | null = null;
-  let speciesBefore = "";
-  if (loaded.ok) {
-    applySave(sim, LOCAL_PLAYER, loaded.data);
-    if (auto) getPlayer(sim.state, LOCAL_PLAYER)!.auto = true;
-    speciesBefore = loaded.data.partner.speciesId;
-    const away = params.has("offline") ? Number(params.get("offline")) * 60_000 : Date.now() - loaded.savedAt;
-    bootOffline = applyOffline(sim, LOCAL_PLAYER, away, offlineSeed(loaded.savedAt));
-    console.info(`save v${loaded.migratedFrom ? `${loaded.migratedFrom}→` : ""}ok · ausente ${Math.round(away / 60_000)} min`, bootOffline ?? "sem crédito offline");
-  }
-  // Presets noturnos (pastas night/) repetem os nomes do dia: ficam fora do conjunto global.
-  let tiles = loadTileSources(TILES_DWDS, (p) => !/\/night\//.test(p));
-  const packCfg = forestProofPack as ScenePack;
-  let nightTiles: typeof tiles | undefined;
-  if (forest) {
-    const scene = loadSceneTiles(packCfg, "day", usedKeys(sim.map), TILES_DWDS);
-    const night = loadSceneTiles(packCfg, "night", usedKeys(sim.map), TILES_DWDS);
-    tiles = scene.tiles;
-    nightTiles = night.tiles;
-    console.info(`forest-proof · ${packSummary(packCfg, "day", scene)} · ${packSummary(packCfg, "night", night)}`, scene.missing, night.missing);
-  }
   // Relógio do jogo (?time=night|day|HH:MM força; ?timescale=N minutos de jogo por segundo real).
   const clock = new GameClock(clockFromParams(params, new Date()));
   const tamers = pickTamers(loadCharacterCatalog());
@@ -143,39 +136,95 @@ async function boot() {
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
   const failed = await images.loadAll([
     ...Object.values(creatures).map((c) => c.sheetUrl),
-    ...Object.values(tiles).map((t) => t.url),
-    ...Object.values(nightTiles ?? {}).map((t) => t.url),
     ...[tamers.local, tamers.remote].flatMap((t) => (t ? imageUrlsOf(t) : [])),
     ...fxSheets.map((s) => s.url),
   ]);
   if (fxSheets.length) console.info(`04-effects: ${fxSheets.length} folha(s) de VFX do game-art`, fxSheets.map((s) => `${s.archetype}/${s.phase}`));
   if (failed.length) console.warn("assets não carregados:", failed);
-  console.info(
-    `GS-003 world v2 · mapa ${MAP} · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
-      `Tamer ${tamers.local?.manifest.id ?? "placeholder"}/${tamers.remote?.manifest.id ?? "placeholder"} · tamanho ${sizeTable ? `tabela (${Object.keys(sizeTable).length})` : "nativo DS"}`,
-  );
+  const tamerLevels: Record<string, number> = Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel]));
+  const tamerTints = Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint]));
+  /** Desbloqueio de regiões (?desbloquear=1 libera todas, para testes). */
+  const progress = (): Progress => ({ tamerLevel: hud.tamerProgress().level, defeatedBosses: [], all: params.get("desbloquear") === "1" });
 
-  const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
-  const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, {
-    creatureScale: CREATURE_SCALE,
-    sizeTable,
-    tamers,
-    smoothing: SMOOTH,
-    tamerVisuals: tamerVisuals(sim.state.players.map((p) => p.id), look, SEED, (id) => sim.state.entities.find((e) => e.id === getPlayer(sim.state, id)?.tamerId)?.name ?? id, images),
-    tamerLevels: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel])) : undefined,
-    tamerTints: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint])) : undefined,
-    trees: forest ? packCfg.trees : undefined,
-    smoothAutotile: forest ? packCfg.smoothAutotile : undefined,
-    fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
-  });
-  if (nightTiles) view.setNightTiles(nightTiles);
+  /**
+   * Monta um mapa: sim (cena com bots só na floresta), tiles do pacote da região (dia/noite), visual e apresentação.
+   * `carry` = save do estado atual (parceira, golpes, bits, Digidex, AUTO), aplicado por cima da sim nova.
+   */
+  async function buildMap(mapId: string, start: string | undefined, carry?: SaveData): Promise<Live> {
+    const def = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
+    const opts = { auto, localName: look.name, start, ...(newStarter && !carry ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}) };
+    const { sim, events } = def ? createMapWorld(parseTiledMap(def.id, def.tmj), def.scene, SEED, opts) : createDefaultWorld(SEED, { auto });
+    if (carry) {
+      applySave(sim, LOCAL_PLAYER, carry);
+      if (auto) getPlayer(sim.state, LOCAL_PLAYER)!.auto = true;
+    }
+    let tiles = loadTileSources(TILES_DWDS, globalTileFilter);
+    let nightTiles: typeof tiles | undefined;
+    if (def) {
+      const day = loadSceneTiles(def.pack, "day", usedKeys(sim.map), TILES_DWDS);
+      const night = loadSceneTiles(def.pack, "night", usedKeys(sim.map), TILES_DWDS);
+      tiles = day.tiles;
+      nightTiles = night.tiles;
+      console.info(`${def.id} · ${packSummary(def.pack, "day", day)} · ${packSummary(def.pack, "night", night)}`, day.missing, night.missing);
+    }
+    const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].map((t) => t.url));
+    if (tFailed.length) console.warn("tiles não carregados:", tFailed);
+    const ids = sim.state.players.map((p) => p.id);
+    const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, {
+      creatureScale: CREATURE_SCALE,
+      sizeTable,
+      tamers,
+      smoothing: SMOOTH,
+      tamerVisuals: tamerVisuals(ids, look, SEED, (id) => sim.state.entities.find((e) => e.id === getPlayer(sim.state, id)?.tamerId)?.name ?? id, images),
+      tamerLevels: def ? tamerLevels : undefined,
+      tamerTints: def?.scene ? tamerTints : undefined,
+      trees: def?.pack.trees,
+      smoothAutotile: def?.pack.smoothAutotile,
+      fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
+    });
+    if (nightTiles) view.setNightTiles(nightTiles);
+    const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    // Os spawns saíram antes do save: atualiza a foto de quem mudou (parceira restaurada/evoluída).
+    for (const ev of events) {
+      const e = ev.t === "spawn" ? getEntity(sim.state, ev.entity.id) : undefined;
+      if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
+    }
+    presenter.onTick(snapshot(sim), events, performance.now());
+    console.info(
+      `GS-003 world · mapa ${sim.map.id} · criaturas ${Object.keys(creatures).length} · tiles ${Object.keys(tiles).length} (DS: ${countDwdsSources(tiles)}) · ` +
+        `Tamer ${tamers.local?.manifest.id ?? "placeholder"}/${tamers.remote?.manifest.id ?? "placeholder"} · tamanho ${sizeTable ? `tabela (${Object.keys(sizeTable).length})` : "nativo DS"}`,
+    );
+    return { mapId: def?.id ?? "meadow", def, sim, view, presenter, spawnEvents: events };
+  }
+
+  // Mapa inicial: o do save, ?map=praia|vila, ou a floresta da prova.
+  const firstMap = regionMode ? (MAPS[params.get("map") ?? ""] ? params.get("map")! : loaded.ok && MAPS[loaded.data.map] ? loaded.data.map : DEFAULT_MAP) : "meadow";
+  let cur = await buildMap(firstMap, undefined);
+  // Restaura o progresso e credita o tempo ausente (?offline=MIN simula MIN minutos fora, para testar/capturar).
+  let bootOffline: OfflineReport | null = null;
+  let speciesBefore = "";
+  if (loaded.ok) {
+    applySave(cur.sim, LOCAL_PLAYER, loaded.data);
+    if (auto) getPlayer(cur.sim.state, LOCAL_PLAYER)!.auto = true;
+    speciesBefore = loaded.data.partner.speciesId;
+    const away = params.has("offline") ? Number(params.get("offline")) * 60_000 : Date.now() - loaded.savedAt;
+    bootOffline = applyOffline(cur.sim, LOCAL_PLAYER, away, offlineSeed(loaded.savedAt));
+    console.info(`save v${loaded.migratedFrom ? `${loaded.migratedFrom}→` : ""}ok · ausente ${Math.round(away / 60_000)} min`, bootOffline ?? "sem crédito offline");
+    for (const ev of cur.spawnEvents) {
+      const e = ev.t === "spawn" ? getEntity(cur.sim.state, ev.entity.id) : undefined;
+      if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
+    }
+    cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
+  }
   console.info(`Tamer ${look.name}: ${lookKey(look)} · ${frameList().length} linhas × ${PARTS.frame.w}×${PARTS.frame.h}`);
   const intents: Intent[] = [];
-  const player = getPlayer(sim.state, LOCAL_PLAYER)!;
+  const player = () => getPlayer(cur.sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
-  const hudScene: HudScene | undefined = forest
+  const regionName = (d?: MapDef) => (d ? regionById(d.region)?.name ?? d.id : "Prado");
+  const hudScene: HudScene | undefined = regionMode
     ? {
-        region: FOREST_PROOF_SCENE.region,
+        region: { name: regionName(cur.def), route: cur.def!.route },
         tamerName: look.name,
         tamerLevel: me.tamerLevel,
         tamerXp: FOREST_PROOF_SCENE.tamerXp,
@@ -187,7 +236,7 @@ async function boot() {
     : undefined;
   const hud = new Hud(
     hudRoot,
-    sim.content,
+    cur.sim.content,
     LOCAL_PLAYER,
     {
       onAuto: (on) => intents.push({ t: "set_auto", playerId: LOCAL_PLAYER, on }),
@@ -197,40 +246,41 @@ async function boot() {
       onSetAutoRules: (rules) => intents.push({ t: "set_auto_priority", playerId: LOCAL_PLAYER, rules }),
       onEvolve: () => intents.push({ t: "evolve", playerId: LOCAL_PLAYER }),
       onAutoEvolve: (on) => intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on }),
+      onShortcut: (id) => openScreen(id),
     },
-    player.auto,
-    { scene: hudScene, portrait: makePortraitFn(creatures, images), minimap: new Minimap(sim.map, browserCanvasFactory), moveIcon: drawMoveIcon },
+    player().auto,
+    {
+      scene: hudScene,
+      portrait: makePortraitFn(creatures, images),
+      minimap: new Minimap(cur.sim.map, browserCanvasFactory),
+      moveIcon: drawMoveIcon,
+      shortcuts: regionMode ? ["map"] : [],
+    },
   );
-  // Os spawns saíram antes do save/offline: atualiza a foto de quem mudou (parceira restaurada/evoluída).
-  for (const ev of spawnEvents) {
-    const e = ev.t === "spawn" ? getEntity(sim.state, ev.entity.id) : undefined;
-    if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
-  }
-  hud.onEvents(spawnEvents);
-  presenter.onTick(snapshot(sim), spawnEvents, performance.now());
-  hud.setAutoEvolve(!!player.autoEvolve);
+  hud.onEvents(cur.spawnEvents);
+  hud.setAutoEvolve(!!player().autoEvolve);
   if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
 
   // ---- save (a cada 5 s, ao esconder a aba e ao sair) e relatório offline ----
-  const tamerLevels = view.opts.tamerLevels;
   const portrait = makePortraitFn(creatures, images);
-  const persist = () => {
-    if (!storage) return;
+  const capture = (): SaveData => {
     const t = hud.tamerProgress();
-    if (tamerLevels) tamerLevels[LOCAL_PLAYER] = t.level;
-    saveToStorage(storage, captureSave(sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter }), Date.now());
+    return captureSave(cur.sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter, map: cur.mapId });
+  };
+  const persist = () => {
+    tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
+    if (storage) saveToStorage(storage, capture(), Date.now());
   };
   const report = (r: OfflineReport, from: string) => {
-    const partner = getEntity(sim.state, player.partnerId)!;
+    const partner = getEntity(cur.sim.state, player().partnerId)!;
     const tamerUp = hud.addTamerXp(r.xp);
-    if (tamerLevels) tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
-    showOfflineReport(hudRoot, sim.content, { report: r, partnerName: partner.name, speciesFrom: from, tamerLevels: tamerUp, autoEvolve: !!player.autoEvolve }, {
+    tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
+    showOfflineReport(hudRoot, cur.sim.content, { report: r, partnerName: partner.name, speciesFrom: from, tamerLevels: tamerUp, autoEvolve: !!player().autoEvolve }, {
       portrait: (c, sp) => portrait(sp, c),
     });
     persist();
   };
   if (bootOffline) report(bootOffline, speciesBefore);
-  if (tamerLevels) tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
   persist();
   if (storage) {
     setInterval(persist, 5000);
@@ -244,26 +294,88 @@ async function boot() {
       // Aba de volta: o rAF ficou parado; credita o tempo fora pelo mesmo caminho offline (com teto).
       const away = hiddenAt ? Date.now() - hiddenAt : 0;
       hiddenAt = 0;
-      if (away < offlineBalance(sim).minSeconds * 1000) return;
-      const from = getEntity(sim.state, player.partnerId)?.speciesId ?? "";
-      const r = applyOffline(sim, LOCAL_PLAYER, away, offlineSeed(Date.now()));
+      if (away < offlineBalance(cur.sim).minSeconds * 1000) return;
+      const from = getEntity(cur.sim.state, player().partnerId)?.speciesId ?? "";
+      const r = applyOffline(cur.sim, LOCAL_PLAYER, away, offlineSeed(Date.now()));
       if (!r) return;
       const evo = r.events.filter((e) => e.t === "evolve");
-      presenter.onTick(snapshot(sim), evo, performance.now());
+      cur.presenter.onTick(snapshot(cur.sim), evo, performance.now());
       hud.onEvents(evo);
       report(r, from);
     });
     window.addEventListener("pagehide", persist);
   }
 
+  // ---- troca de mapa: saídas na borda (portais do mapa) e Mapa-múndi, com fade ----
+  const fade = document.createElement("div");
+  fade.className = "map-fade";
+  fade.setAttribute("aria-hidden", "true");
+  document.body.appendChild(fade);
+  let traveling = false;
+  /** Depois de chegar (ou de um aviso de bloqueio), o portal só arma de novo quando o Tamer sai de cima dele. */
+  let portalArmed = false;
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  async function travel(mapId: string, start: string | undefined): Promise<void> {
+    if (traveling || !regionMode) return;
+    traveling = true;
+    panels.map.close();
+    fade.classList.add("on");
+    await sleep(320);
+    const carry = capture();
+    const next = await buildMap(mapId, start, carry);
+    cur = next;
+    hud.setRegion(regionName(cur.def), cur.def?.route ?? "");
+    hud.setMinimap(new Minimap(cur.sim.map, browserCanvasFactory));
+    hud.onEvents(cur.spawnEvents);
+    const pos = view().motionPos(LOCAL_PLAYER);
+    if (pos) view().follow({ x: pos.x, y: pos.y + HUD_BOTTOM_PX / 2 / scale }, 10_000, { x: 0, y: 0 });
+    portalArmed = false;
+    persist();
+    hud.toast(`${regionName(cur.def)}`);
+    fade.classList.remove("on");
+    await sleep(320);
+    traveling = false;
+  }
+  const checkPortal = () => {
+    if (!cur.def || traveling) return;
+    const e = getEntity(cur.sim.state, LOCAL_PLAYER);
+    if (!e) return;
+    const p = portalAt(cur.sim.map, subToPx(e.x), subToPx(e.y));
+    if (!p) {
+      portalArmed = true;
+      return;
+    }
+    if (!portalArmed) return;
+    portalArmed = false;
+    const dest = MAPS[p.to];
+    const t = dest ? canTravel(dest.region, progress()) : { ok: false, reason: "Destino sem mapa" };
+    if (!t.ok) hud.toast(`${dest ? regionName(dest) : p.to}: ${t.reason}`);
+    else void travel(p.to, p.toStart);
+  };
+
+  // ---- telas secundárias (modais) ----
+  const panels = { map: new Panel(hudRoot, "map", "Mapa-múndi", "map") };
+  function openScreen(id: string): void {
+    for (const p of Object.values(panels)) if (p.id !== id) p.close();
+    hud.closeTeam();
+    if (id === "map") panels.map.open(worldMapHtml(cur.def?.region ?? "", progress()));
+  }
+  panels.map.body.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-travel]");
+    if (!b || b.disabled) return;
+    const dest = mapOfRegion(b.dataset.travel!);
+    if (dest) void travel(dest.id, undefined);
+  });
+
   // ---- escala inteira pixel-perfect ----
   let scale = 1;
+  const view = () => cur.view;
   const resize = () => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     // Prova visual: enquadramento da referência (~25 × 14 tiles visíveis) → escala arredondada sobre 640 × 400.
     // ?zoom=N força a escala; o mapa de teste mantém a regra antiga (maior inteiro que caiba em 400 × 240).
-    scale = ZOOM > 0 ? ZOOM : forest ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
+    scale = ZOOM > 0 ? ZOOM : regionMode ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
     canvas.width = Math.ceil(vw / scale);
     canvas.height = Math.ceil(vh / scale);
     canvas.style.width = `${canvas.width * scale}px`;
@@ -278,19 +390,30 @@ async function boot() {
 
   // ---- input: clique/toque e WASD ----
   canvas.addEventListener("pointerdown", (e) => {
+    if (traveling) return;
     const r = canvas.getBoundingClientRect();
-    const wpt = view.screenToWorld(Math.floor((e.clientX - r.left) / scale), Math.floor((e.clientY - r.top) / scale));
+    const wpt = view().screenToWorld(Math.floor((e.clientX - r.left) / scale), Math.floor((e.clientY - r.top) / scale));
     const hit = pickWild(wpt.x, wpt.y);
     if (hit) intents.push({ t: "engage", playerId: LOCAL_PLAYER, targetId: hit });
     else intents.push({ t: "move_to", playerId: LOCAL_PLAYER, x: pxToSub(wpt.x), y: pxToSub(wpt.y) });
   });
   const keys = new Set<string>();
+  const SCREEN_KEYS: Record<string, string> = { m: "map", v: "dex", i: "inv", q: "quest", o: "gear" };
   window.addEventListener("keydown", (e) => {
     const k = e.key.toLowerCase();
+    if ((e.target as HTMLElement).closest?.("input, select, textarea")) return;
     if ("wasd".includes(k) && k.length === 1) keys.add(k);
     if (k === "f") intents.push({ t: "flee", playerId: LOCAL_PLAYER });
     if (k === "e" && !e.repeat) hud.toggleTeam();
-    if (k === "escape") hud.closeTeam();
+    if (SCREEN_KEYS[k] && !e.repeat && regionMode && (panels as Record<string, Panel>)[SCREEN_KEYS[k]]) {
+      const p = (panels as Record<string, Panel>)[SCREEN_KEYS[k]];
+      if (p.isOpen) p.close();
+      else openScreen(SCREEN_KEYS[k]);
+    }
+    if (k === "escape") {
+      hud.closeTeam();
+      for (const p of Object.values(panels)) p.close();
+    }
     if (k >= "1" && k <= "4" && k.length === 1 && !e.repeat) intents.push({ t: "use_move", playerId: LOCAL_PLAYER, slot: Number(k) - 1 });
   });
   window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
@@ -300,7 +423,7 @@ async function boot() {
   function pickWild(x: number, y: number): string | undefined {
     let best: string | undefined;
     let bestY = -Infinity;
-    for (const v of presenter.entities.values()) {
+    for (const v of cur.presenter.entities.values()) {
       if (v.kind !== "wild" || v.defeatedAt !== undefined) continue;
       const m = v.speciesId ? creatures[v.speciesId]?.manifest : undefined;
       if (!m) continue;
@@ -321,7 +444,7 @@ async function boot() {
   const drawNameplates = (alpha: number, now: number) => {
     lctx.clearRect(0, 0, labelCanvas.width, labelCanvas.height);
     const m = labelMetrics(scale);
-    drawLabels(lctx, layoutLabels(view.labels(presenter, alpha, now), measureWith(lctx, m), scale, m), m);
+    drawLabels(lctx, layoutLabels(view().labels(cur.presenter, alpha, now), measureWith(lctx, m), scale, m), m);
   };
 
   // ---- minimapa / coordenadas / qps (4 Hz) ----
@@ -331,13 +454,13 @@ async function boot() {
     frames++;
     if (now - lastHudWorld < 250) return;
     const dots: MinimapDot[] = [];
-    for (const v of presenter.entities.values()) {
+    for (const v of cur.presenter.entities.values()) {
       if (v.defeatedAt !== undefined) continue;
-      const kind = v.id === LOCAL_PLAYER ? "me" : v.id === presenter.localPartnerId ? "partner" : v.kind === "remote_player" ? "player" : v.kind === "wild" ? "wild" : undefined;
+      const kind = v.id === LOCAL_PLAYER ? "me" : v.id === cur.presenter.localPartnerId ? "partner" : v.kind === "remote_player" ? "player" : v.kind === "wild" ? "wild" : undefined;
       if (kind) dots.push({ x: v.cur.x, y: v.cur.y, kind });
     }
-    hud.updateWorld(view.motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
-    if (forest) hud.setClock(clock.phase(now - bootAt), formatClock(clock.minutes(now - bootAt)));
+    hud.updateWorld(view().motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
+    if (regionMode) hud.setClock(clock.phase(now - bootAt), formatClock(clock.minutes(now - bootAt)));
     lastHudWorld = now;
     frames = 0;
   };
@@ -354,34 +477,57 @@ async function boot() {
     while (acc >= TICK_MS && steps < 10) {
       const dx = (keys.has("d") ? 1 : 0) - (keys.has("a") ? 1 : 0);
       const dy = (keys.has("s") ? 1 : 0) - (keys.has("w") ? 1 : 0);
-      if (dx || dy) intents.push({ t: "move_dir", playerId: LOCAL_PLAYER, dx, dy });
-      const evs = stepWorld(sim, intents.splice(0));
-      presenter.onTick(snapshot(sim), evs, now);
+      if ((dx || dy) && !traveling) intents.push({ t: "move_dir", playerId: LOCAL_PLAYER, dx, dy });
+      const evs = stepWorld(cur.sim, intents.splice(0));
+      cur.presenter.onTick(snapshot(cur.sim), evs, now);
       hud.onEvents(evs);
       acc -= TICK_MS;
       steps++;
     }
     if (steps === 10) acc = 0;
-    presenter.update(now);
+    if (steps) checkPortal();
+    cur.presenter.update(now);
     const alpha = acc / TICK_MS;
-    view.update(presenter, alpha, now);
-    const mePos = view.motionPos(LOCAL_PLAYER);
-    if (mePos) view.follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / scale }, now - lastFrame, view.shakeFor(presenter, now));
+    view().update(cur.presenter, alpha, now);
+    const mePos = view().motionPos(LOCAL_PLAYER);
+    if (mePos) view().follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / scale }, now - lastFrame, view().shakeFor(cur.presenter, now));
     lastFrame = now;
     const elapsed = now - bootAt;
-    view.nightMix = forest ? clock.nightMix(elapsed) : 0;
-    view.render(presenter, alpha, now);
+    view().nightMix = regionMode ? clock.nightMix(elapsed) : 0;
+    view().render(cur.presenter, alpha, now);
     drawNameplates(alpha, now);
     updateHudWorld(now);
-    const partner = getEntity(sim.state, player.partnerId);
+    const partner = getEntity(cur.sim.state, player().partnerId);
     if (partner) {
-      hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(sim.content.balance, partner.level), player.bits);
-      hud.updateMoves(movesView(sim, partner));
+      hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(cur.sim.content.balance, partner.level), player().bits);
+      hud.updateMoves(movesView(cur.sim, partner));
     }
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  Object.assign(window, { __gs003: { sim, presenter, view, hud, clock, persist } });
+  // Depuração/capturas: o estado atual (cur muda na troca de mapa; os getters sempre leem o atual).
+  Object.assign(window, {
+    __gs003: {
+      get sim() {
+        return cur.sim;
+      },
+      get presenter() {
+        return cur.presenter;
+      },
+      get view() {
+        return cur.view;
+      },
+      get mapId() {
+        return cur.mapId;
+      },
+      hud,
+      clock,
+      persist,
+      travel,
+      panels,
+      openScreen,
+    },
+  });
 }
 
 /** Visual composto de cada Tamer: o local vem do criador; os bots, de combinações aleatórias (semente do mundo + id). */

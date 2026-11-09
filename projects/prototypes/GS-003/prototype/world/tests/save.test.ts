@@ -18,7 +18,7 @@ function world(seed = 7) {
   return sim;
 }
 
-const extra = { tamer: { ...DEFAULT_LOOK, name: "Nina", hairCut: "moicano" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }], starter: "CREATURE-0014" };
+const extra = { tamer: { ...DEFAULT_LOOK, name: "Nina", hairCut: "moicano" }, tamerLevel: 12, tamerXp: 30, team: [{ species: "CREATURE-0011", level: 4, hpPct: 100 }], starter: "CREATURE-0014", map: "forest-proof" };
 
 describe("save (localStorage, versionado)", () => {
   it("ida e volta: Tamer, equipe, golpes, nível, XP, bits, AUTO e Auto-evoluir", () => {
@@ -51,7 +51,7 @@ describe("save (localStorage, versionado)", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.migratedFrom).toBe(1);
-    expect(SAVE_VERSION).toBe(3);
+    expect(SAVE_VERSION).toBe(4);
     expect(r.data.starter).toBeNull();
     expect(r.data.partner.learned).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.partner.moves).toEqual(["pyro_sphere", null, "investida", null]);

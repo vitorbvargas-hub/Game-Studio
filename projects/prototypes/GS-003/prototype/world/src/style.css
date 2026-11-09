@@ -1674,6 +1674,148 @@ body {
   }
 }
 
+/* ---------- troca de mapa e telas secundárias ---------- */
+.map-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #05060a;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.map-fade.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mm .mm-coord {
+  left: 3px;
+  transform: none;
+}
+.mm-world {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 5px !important;
+  font-size: 9.5px !important;
+  font-weight: 700;
+  background: rgba(10, 12, 18, 0.85) !important;
+  border: 1px solid var(--ui-gold) !important;
+  border-radius: 4px;
+  color: var(--ui-gold) !important;
+}
+.panel-wrap {
+  z-index: 6;
+}
+.modal.panel {
+  width: min(900px, 95vw);
+}
+.modal.panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.modal.panel .x {
+  margin-left: auto;
+}
+.panel-body {
+  display: block;
+}
+.panel-body .note {
+  color: var(--ui-dim);
+  font-size: 11.5px;
+  margin: 8px 2px 0;
+}
+.worldmap .wm-canvas {
+  position: relative;
+  height: min(430px, 52vh);
+  border-radius: 8px;
+  border: 2px solid var(--ui-border);
+  background:
+    radial-gradient(ellipse at 15% 75%, rgba(99, 199, 77, 0.25), transparent 40%),
+    radial-gradient(ellipse at 33% 48%, rgba(38, 92, 66, 0.55), transparent 35%),
+    radial-gradient(ellipse at 60% 85%, rgba(232, 200, 120, 0.28), transparent 35%),
+    radial-gradient(ellipse at 80% 95%, rgba(31, 111, 174, 0.45), transparent 40%),
+    radial-gradient(ellipse at 45% 15%, rgba(140, 120, 110, 0.35), transparent 32%),
+    radial-gradient(ellipse at 74% 28%, rgba(210, 160, 80, 0.3), transparent 30%),
+    radial-gradient(ellipse at 90% 60%, rgba(120, 40, 140, 0.4), transparent 30%),
+    #10141e;
+  overflow: hidden;
+}
+.worldmap svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.worldmap line {
+  stroke: rgba(232, 184, 74, 0.55);
+  stroke-width: 0.6;
+  stroke-dasharray: 1.6 1.2;
+  vector-effect: non-scaling-stroke;
+}
+.wm-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 128px;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  text-align: center;
+  background: rgba(16, 19, 28, 0.92);
+  border: 2px solid var(--ui-border-hi);
+  border-radius: 7px;
+}
+.wm-node b {
+  font-size: 12.5px;
+}
+.wm-node small {
+  color: var(--ui-dim);
+  font-size: 10px;
+}
+.wm-node em {
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ui-green);
+}
+.wm-node.here {
+  border-color: var(--ui-gold);
+  box-shadow: 0 0 0 3px rgba(232, 184, 74, 0.25);
+}
+.wm-node.here em {
+  color: var(--ui-gold);
+}
+.wm-node.locked,
+.wm-node.nomap {
+  opacity: 0.8;
+}
+.wm-node.locked em {
+  color: #f08a8f;
+}
+.wm-node.nomap em {
+  color: var(--ui-dim);
+}
+.wm-node button {
+  margin-top: 2px;
+  padding: 2px 12px !important;
+  font-size: 11px !important;
+  font-weight: 700;
+  background: #3e8948 !important;
+  border: 1px solid #63c74d !important;
+  border-radius: 4px;
+}
+.wm-node button:disabled {
+  background: #2a2f40 !important;
+  border-color: #3b4261 !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* ---------- relatório offline (estilo IdleDex) ---------- */
 .offline-wrap {
   position: fixed;

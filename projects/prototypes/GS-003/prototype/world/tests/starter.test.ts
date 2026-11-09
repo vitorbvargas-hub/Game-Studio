@@ -72,7 +72,7 @@ describe("escolha do Digimon inicial", () => {
     const partner = getEntity(sim.state, getPlayer(sim.state, LOCAL_PLAYER)!.partnerId)!;
     expect([partner.speciesId, partner.name, partner.level]).toEqual(["CREATURE-0014", "Dorimon", 1]);
     expect(partner.moves[0]).toBe("investida");
-    const data = captureSave(sim, LOCAL_PLAYER, { tamer: DEFAULT_LOOK, tamerLevel: 1, tamerXp: 0, team: [], starter: "CREATURE-0014" });
+    const data = captureSave(sim, LOCAL_PLAYER, { tamer: DEFAULT_LOOK, tamerLevel: 1, tamerXp: 0, team: [], starter: "CREATURE-0014", map: "forest-proof" });
     const back = deserialize(serialize(data, 1));
     expect(back.ok && [back.data.starter, back.data.partner.speciesId, back.data.partner.level]).toEqual(["CREATURE-0014", "CREATURE-0014", 1]);
     // os bots continuam com as parceiras da cena

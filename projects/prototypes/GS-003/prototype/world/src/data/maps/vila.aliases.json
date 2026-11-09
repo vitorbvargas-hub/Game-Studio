@@ -1,0 +1,5 @@
+{
+  "_doc": "Mapa vila (Vila dos Bebês) → pacote GAME-ASSETS/03-environments/vila-v5/ (game-art; Ninja Adventure CC0). Chave 'vl5_<nome>' = PNG <nome> do pacote. Sem preset noturno: a noite usa os tiles do dia sob o overlay.",
+  "pack": "vila-v5",
+  "prefix": "vl5_"
+}

@@ -5,14 +5,14 @@
 
 import type { PathSmoothCfg } from "../render/pathsmooth";
 import type { TreesCfg } from "../render/view";
-import { loadTileSources, type TileSource } from "./tiles";
+import { globalTileFilter, loadTileSources, type TileSource } from "./tiles";
 
 export interface ScenePack {
   pack: string;
   prefix: string;
-  /** Subpasta do preset noturno dentro do pacote (mesmos nomes de arquivo). */
+  /** Subpasta do preset noturno dentro do pacote (mesmos nomes de arquivo). Ausente → a noite usa os tiles do dia. */
   night?: string;
-  trees: TreesCfg;
+  trees?: TreesCfg;
   /** Recorte suave do autotile Wang-47 (forest-v4.1). */
   smoothAutotile?: PathSmoothCfg[];
 }
@@ -65,8 +65,8 @@ export function loadSceneTiles(
   used: Iterable<string>,
   includeDwds = true,
 ): { tiles: Record<string, TileSource>; missing: string[]; fromPack: number } {
-  const base = loadTileSources(includeDwds, (p) => !/\/night\//.test(p));
-  return resolvePackTiles(base, loadTileSources(true, presetFilter(cfg, preset)), cfg, used);
+  const base = loadTileSources(includeDwds, globalTileFilter);
+  return resolvePackTiles(base, loadTileSources(true, presetFilter(cfg, cfg.night ? preset : "day")), cfg, used);
 }
 
 /** Chaves visuais usadas por um mapa (tiles e props). */

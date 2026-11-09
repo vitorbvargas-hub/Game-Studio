@@ -23,6 +23,8 @@ export interface HudCallbacks {
   onEvolve?(): void;
   /** Opção "Auto-evoluir" do AUTO. */
   onAutoEvolve?(on: boolean): void;
+  /** Atalho de uma tela secundária ligada (map, dex, inv, quest, gear); o resto avisa "em breve". */
+  onShortcut?(id: string): void;
 }
 
 export interface HudScene {
@@ -41,14 +43,16 @@ export interface HudOptions {
   /** Desenha o ícone de um golpe (render/vfx/icon.ts); ausente = sem ícone (ex.: testes em jsdom). */
   moveIcon?: (c: HTMLCanvasElement, m: MoveDef | undefined) => void;
   minimap?: Minimap;
+  /** Atalhos com tela própria (onShortcut); "team" é sempre do HUD. */
+  shortcuts?: string[];
 }
 
 /** Atalhos da grade (2 × 6). Só "Equipe" abre algo nesta prova; o resto avisa "Em breve". */
 export const SHORTCUTS: { id: string; label: string; icon: string; key?: string }[] = [
   { id: "team", label: "Equipe & Box", icon: "team", key: "E" },
-  { id: "dex", label: "Digidex", icon: "dex" },
-  { id: "quest", label: "Missões", icon: "quest" },
-  { id: "map", label: "Mapa", icon: "map" },
+  { id: "dex", label: "Digivice", icon: "dex", key: "V" },
+  { id: "quest", label: "Missões", icon: "quest", key: "Q" },
+  { id: "map", label: "Mapa-múndi", icon: "map", key: "M" },
   { id: "shop", label: "Loja", icon: "shop" },
   { id: "evo", label: "Evolução", icon: "evo" },
   { id: "arena", label: "Arena", icon: "arena" },
@@ -56,7 +60,7 @@ export const SHORTCUTS: { id: string; label: string; icon: string; key?: string 
   { id: "guild", label: "Guilda", icon: "guild" },
   { id: "trophy", label: "Conquistas", icon: "trophy" },
   { id: "mail", label: "Correio", icon: "mail" },
-  { id: "gear", label: "Configurações", icon: "gear" },
+  { id: "gear", label: "Configurações", icon: "gear", key: "O" },
 ];
 
 const STAGES: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito" };
@@ -166,14 +170,15 @@ export class Hud {
       <div class="hud-tamerxp" title="Experiência do Tamer"><span>NÍVEL <b data-testid="tamer-level">${this.tamerLevel}</b></span><div class="bar"><i></i></div></div>
       <div class="hud-bottom">
         <div class="mm">
-          <div class="mm-tag">${esc(sc.region.name)}</div>
+          <div class="mm-tag" data-testid="mm-region">${esc(sc.region.name)}</div>
           <canvas width="128" height="80" data-testid="minimap"></canvas>
           <div class="mm-coord" data-testid="coords">—</div>
+          ${this.enabled("map") ? `<button class="mm-world" data-short="map" title="Mapa-múndi (M)">${icon("map", 12)}Mapa-múndi</button>` : ""}
         </div>
-        <button class="inv" data-soon="Inventário" title="Inventário (em breve)">${icon("chest", 34)}<span>Inventário</span></button>
+        ${this.enabled("inv") ? `<button class="inv" data-short="inv" title="Inventário (I)">` : `<button class="inv" data-soon="Inventário" title="Inventário (em breve)">`}${icon("chest", 34)}<span>Inventário</span></button>
         <nav class="hud-menu">
           <button class="bag" data-soon="Bolsa" title="Bolsa">${icon("bag", 30)}</button>
-          <div class="grid">${SHORTCUTS.map((s) => `<button data-short="${s.id}" ${s.id === "team" ? "" : 'aria-disabled="true"'} title="${s.label}${s.key ? ` (${s.key})` : " — em breve"}">${icon(s.icon, 20)}</button>`).join("")}</div>
+          <div class="grid">${SHORTCUTS.map((s) => { const on = s.id === "team" || this.enabled(s.id); return `<button data-short="${s.id}" ${on ? "" : 'aria-disabled="true"'} title="${s.label}${on && s.key ? ` (${s.key})` : on ? "" : " — em breve"}">${icon(s.icon, 20)}</button>`; }).join("")}</div>
         </nav>
         <div class="hud-partner" data-testid="partner"></div>
         <div class="hud-team" data-testid="team"></div>
@@ -231,6 +236,7 @@ export class Hud {
       const soon = t.closest<HTMLElement>("[data-soon]");
       const act = t.closest<HTMLElement>("[data-act]")?.dataset.act;
       if (short?.dataset.short === "team") this.openTeam();
+      else if (short && this.enabled(short.dataset.short!)) cb.onShortcut?.(short.dataset.short!);
       else if (short) this.toast(`${short.title.replace(/ — em breve$/, "")}: em breve`);
       else if (soon) this.toast(`${soon.dataset.soon}: em breve`);
       else if (act === "chat") this.chatEl.classList.toggle("collapsed");
@@ -573,6 +579,22 @@ export class Hud {
 
   /** Minimapa, coordenadas e quadros por segundo (chamar algumas vezes por segundo, não por quadro). */
   /** Relógio do jogo no canto superior esquerdo: fase ("Dia", "Anoitecer", "Noite", "Amanhecer") e hora. */
+  private enabled(id: string): boolean {
+    return !!this.opts.shortcuts?.includes(id);
+  }
+
+  /** Região atual (troca de mapa): pílula do topo e etiqueta do minimapa. */
+  setRegion(name: string, route: string): void {
+    this.root.querySelector(".pill.region b")!.textContent = name;
+    this.root.querySelector(".pill.region span")!.textContent = route;
+    this.root.querySelector('[data-testid="mm-region"]')!.textContent = name;
+  }
+
+  /** Minimapa do mapa novo (troca de mapa). */
+  setMinimap(m: Minimap): void {
+    this.opts.minimap = m;
+  }
+
   setClock(phase: string, hhmm: string): void {
     const ph = this.root.querySelector('[data-testid="phase"]')!;
     if (ph.textContent !== phase) {

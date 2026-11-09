@@ -1,0 +1,5 @@
+{
+  "_doc": "Mapa praia (Praia dos Postes) → pacote GAME-ASSETS/03-environments/praia-v5/ (game-art; Ninja Adventure CC0 + poste próprio). Chave 'pr5_<nome>' = PNG <nome> do pacote. Sem preset noturno: a noite usa os tiles do dia sob o overlay.",
+  "pack": "praia-v5",
+  "prefix": "pr5_"
+}

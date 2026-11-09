@@ -69,6 +69,17 @@ export interface SpawnZone {
   radius: number;
 }
 
+/** Saída do mapa (borda ou portal): pisar no retângulo leva a `to` (id do mapa), no início `toStart`. Em px. */
+export interface MapPortal {
+  name: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  to: string;
+  toStart: string;
+}
+
 export interface WorldMap {
   id: string;
   width: number;
@@ -80,6 +91,7 @@ export interface WorldMap {
   props: MapProp[];
   spawns: SpawnZone[];
   starts: Record<string, Vec>;
+  portals: MapPortal[];
 }
 
 function prop(props: TiledProperty[] | undefined, name: string): TiledProperty["value"] | undefined {
@@ -100,6 +112,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const props: MapProp[] = [];
   const spawns: SpawnZone[] = [];
   const starts: Record<string, Vec> = {};
+  const portals: MapPortal[] = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
   for (const layer of m.layers) {
@@ -120,7 +133,15 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
       if (cls === "prop") {
         const p: MapProp = { key: String(prop(o.properties, "key")), x: o.x, y: o.y, solid: prop(o.properties, "solid") === true };
         props.push(p);
-        if (p.solid) solid[Math.floor((o.y - 1) / tile) * m.width + Math.floor(o.x / tile)] = 1;
+        if (p.solid) {
+          // Área de colisão opcional (casas, postes): solidW × solidH tiles, centrada no pé e subindo a partir dele.
+          const sw = Number(prop(o.properties, "solidW") ?? 1);
+          const sh = Number(prop(o.properties, "solidH") ?? 1);
+          const tx0 = Math.floor(o.x / tile) - Math.floor((sw - 1) / 2);
+          const ty1 = Math.floor((o.y - 1) / tile);
+          for (let ty = ty1 - sh + 1; ty <= ty1; ty++)
+            for (let tx = tx0; tx < tx0 + sw; tx++) if (tx >= 0 && ty >= 0 && tx < m.width && ty < m.height) solid[ty * m.width + tx] = 1;
+        }
       } else if (cls === "spawn") {
         const w = o.width ?? 0;
         const h = o.height ?? 0;
@@ -134,13 +155,20 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
         });
       } else if (cls === "start") {
         starts[o.name ?? "player"] = { x: toSub(o.x), y: toSub(o.y) };
+      } else if (cls === "portal") {
+        portals.push({ name: o.name ?? "", x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile, to: String(prop(o.properties, "to")), toStart: String(prop(o.properties, "toStart") ?? "player") });
       }
     }
   }
-  return { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts };
+  return { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals };
 }
 
 /** Sólido no ponto (sub-tiles). Fora do mapa conta como sólido. */
+/** Portal cujo retângulo contém o ponto (px). */
+export function portalAt(map: WorldMap, x: number, y: number): MapPortal | undefined {
+  return map.portals.find((p) => x >= p.x && x < p.x + p.w && y >= p.y && y < p.y + p.h);
+}
+
 export function isSolidAt(map: WorldMap, x: number, y: number): boolean {
   const tx = Math.floor(x / SUB);
   const ty = Math.floor(y / SUB);

@@ -272,6 +272,15 @@ spawn("clareira-leste", 46, 10, 10, 7, ["CREATURE-0012", "CREATURE-0104", "CREAT
 spawn("clareira-sul", 42, 33, 10, 6, ["CREATURE-0007", "CREATURE-0010", "CREATURE-0102", "CREATURE-0110", "CREATURE-0004"], 8, 10, 3);
 spawn("clareira-sudoeste", 8, 32, 8, 6, ["CREATURE-0005", "CREATURE-0002", "CREATURE-0117", "CREATURE-0116"], 1, 3, 3);
 
+// Saídas onde a trilha sai do mapa (gen-region-maps.mjs tem as de volta): leste → Praia dos Postes, sul → Vila dos
+// Bebês. Os inícios de quem chega ficam 2 tiles para dentro, sobre a trilha. (Depois dos props: não mexe no sorteio.)
+const portal = (name, tx, ty, tw, th, to, toStart) =>
+  objects.push({ id: oid++, name, type: "portal", x: tx * T, y: ty * T, width: tw * T, height: th * T, properties: [{ name: "to", type: "string", value: to }, { name: "toStart", type: "string", value: toStart }] });
+portal("leste-praia", W - 1, 10, 1, 4, "praia", "from_floresta");
+portal("sul-vila", 29, H - 1, 4, 1, "vila", "from_floresta");
+objects.push({ id: oid++, name: "from_praia", type: "start", x: (W - 3) * T + T / 2, y: 12 * T, point: true });
+objects.push({ id: oid++, name: "from_vila", type: "start", x: 31 * T, y: (H - 3) * T + T / 2, point: true });
+
 const map = {
   type: "map",
   version: "1.10",

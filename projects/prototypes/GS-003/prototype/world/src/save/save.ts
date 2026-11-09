@@ -11,8 +11,9 @@ export const SAVE_GAME = "gs003-world";
 /**
  * v1: primeiro esquema (Tamer, parceira com espécie/nível/XP/4 slots, bits). v2: lista de golpes aprendidos,
  * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe. v3: Digimon inicial escolhido.
+ * v4: mapa atual (troca de mapa / Mapa-múndi).
  */
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 
 export interface TeamMember {
   species: string;
@@ -35,6 +36,8 @@ export interface SaveData {
   captured: string[];
   /** Bebê escolhido na tela "Escolha seu parceiro" (v3); null = save anterior à escolha. */
   starter: string | null;
+  /** Mapa onde o Tamer estava (v4): o jogo volta nele, no início padrão do mapa. */
+  map: string;
 }
 
 export interface SaveEnvelope {
@@ -81,6 +84,8 @@ export const MIGRATIONS: Migrations = {
   },
   // v2 → v3: o save é anterior à tela do Digimon inicial (a parceira continua a mesma; inicial desconhecido).
   2: (env) => ({ ...env, v: 3, data: { ...env.data, starter: null } }),
+  // v3 → v4: antes da troca de mapa só existia a floresta da prova.
+  3: (env) => ({ ...env, v: 4, data: { ...env.data, map: "forest-proof" } }),
 };
 
 export function serialize(data: SaveData, now: number): string {
@@ -125,6 +130,7 @@ export function deserialize(raw: string | null, migrations: Migrations = MIGRATI
     scans: d.scans ?? {},
     captured: Array.isArray(d.captured) ? d.captured : [],
     starter: typeof d.starter === "string" ? d.starter : null,
+    map: typeof d.map === "string" && d.map ? d.map : "forest-proof",
   };
   return from !== current ? { ok: true, data, savedAt: env.savedAt, migratedFrom: from } : { ok: true, data, savedAt: env.savedAt };
 }

@@ -55,8 +55,17 @@ export function buildTileSources(pngs: Record<string, string>, tilesets: Record<
   return out;
 }
 
+/**
+ * Pacotes de região (`*-v5/`: forest-v5, praia-v5, vila-v5) repetem nomes de arquivo entre si (grass_00, path_blob_*):
+ * só entram pelo pacote da cena, com prefixo (scene-tiles.ts), nunca no conjunto global.
+ */
+export const isScenePackPath = (p: string): boolean => /\/[a-z]+-v5\//.test(p.replace(/\\/g, "/"));
+
+/** Filtro do conjunto global: sem as pastas noturnas e sem os pacotes de região. */
+export const globalTileFilter = (p: string): boolean => !/\/night\//.test(p) && !isScenePackPath(p);
+
 /** `includeDwds=false` ignora os biomas DS (`03-environments/*-dwds/`), para comparar com os originais (?tiles=original). */
-export function loadTileSources(includeDwds = true, filter: (path: string) => boolean = () => true): Record<string, TileSource> {
+export function loadTileSources(includeDwds = true, filter: (path: string) => boolean = (p) => !isScenePackPath(p)): Record<string, TileSource> {
   const keep = <T,>(o: Record<string, T>) => Object.fromEntries(Object.entries(o).filter(([p]) => filter(p) && (includeDwds || !/-dwds\//.test(p))));
   const pngs = import.meta.glob<string>("@game-assets/03-environments/**/*.png", { eager: true, query: "?url", import: "default" });
   const tilesets = import.meta.glob("@game-assets/03-environments/**/tileset.json", { eager: true, import: "default" });

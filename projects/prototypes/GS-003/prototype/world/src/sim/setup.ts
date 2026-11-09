@@ -59,11 +59,13 @@ export interface SceneOptions {
   /** Parceira do Tamer local (Digimon inicial escolhido) e nível; padrão = os da cena. */
   partnerSpecies?: string;
   partnerLevel?: number;
+  /** Ponto de início do Tamer local (start do mapa: "from_praia" ao chegar pela borda); padrão = o da cena. */
+  start?: string;
 }
 
 export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions = {}): PlayerSetup[] {
   return scene.players.map((p) => {
-    const start = map.starts[p.start];
+    const start = map.starts[p.id === LOCAL_PLAYER && opts.start && map.starts[opts.start] ? opts.start : p.start];
     if (!start) throw new Error(`cena: início '${p.start}' ausente no mapa ${map.id}`);
     return {
       id: p.id,
@@ -80,4 +82,28 @@ export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions
 export function createForestProofWorld(seed: number, opts: SceneOptions = {}): { sim: WorldSim; events: WorldEvent[] } {
   const map = loadForestProofMap();
   return createWorld(map, loadWorldContent(), seed, scenePlayers(map, FOREST_PROOF_SCENE, opts));
+}
+
+// ---------- mapas das regiões (troca de mapa) ----------
+
+/**
+ * Mundo de um mapa jogável (src/world/regions.ts): a floresta da prova visual leva a cena com os 3 bots; os outros
+ * mapas, só o Tamer local. A parceira sai da cena (ou de opts) e depois é sobrescrita pelo save (applySave).
+ */
+export function createMapWorld(map: WorldMap, scene: boolean, seed: number, opts: SceneOptions = {}): { sim: WorldSim; events: WorldEvent[] } {
+  if (scene) return createWorld(map, loadWorldContent(), seed, scenePlayers(map, FOREST_PROOF_SCENE, opts));
+  const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
+  const start = map.starts[opts.start ?? "player"] ?? map.starts.player;
+  if (!start) throw new Error(`mapa ${map.id}: sem início`);
+  return createWorld(map, loadWorldContent(), seed, [
+    {
+      id: LOCAL_PLAYER,
+      name: opts.localName ?? me.name,
+      start,
+      partnerSpecies: opts.partnerSpecies ?? me.partnerSpecies,
+      partnerLevel: opts.partnerLevel ?? me.partnerLevel,
+      auto: opts.auto ?? false,
+      bot: false,
+    },
+  ]);
 }

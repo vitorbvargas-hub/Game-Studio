@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -135,6 +135,7 @@ async function main() {
     if (process.env.ONLY === "creator") return await creator(cdp);
     if (process.env.ONLY === "v41") return await forestV41(cdp);
     if (process.env.ONLY === "offline") return await offline(cdp);
+    if (process.env.ONLY === "maps") return await maps(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -260,6 +261,46 @@ async function creator(cdp) {
   const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.55)), width: cw, height: ch, scale: 2 } });
   writeFileSync(join(OUT, "creator_no_mundo_zoom.png"), Buffer.from(r.data, "base64"));
   console.log("ok creator_no_mundo_zoom.png", JSON.stringify(at));
+}
+
+/**
+ * Troca de mapa: Mapa-múndi na floresta → viaja para a Praia dos Postes e para a Vila dos Bebês (fade) → sai da vila
+ * pela borda norte andando (W) e chega na floresta pela saída sul. Recortes ampliados do HUD (região + minimapa).
+ */
+async function maps(cdp) {
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=day${QUERY}` });
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(2500);
+  const key = (k, type) => cdp.eval(`window.dispatchEvent(new KeyboardEvent("${type}", { key: "${k}" }))`);
+  await key("m", "keydown");
+  await key("m", "keyup");
+  await sleep(500);
+  await cdp.shot("mapa_mundi.png");
+  const travel = async (region, name) => {
+    await cdp.eval(`document.querySelector('[data-travel="${region}"]').click()`);
+    await sleep(150);
+    await cdp.shot(`mapa_fade_${name}.png`);
+    await cdp.waitFor(`window.__gs003.mapId === "${name}" && !document.querySelector(".map-fade.on")`, 20000, `chegar em ${name}`);
+    await sleep(2500);
+    await cdp.shot(`mapa_${name}.png`);
+    const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: 0, y: H - 110, width: 560, height: 110, scale: 2 } });
+    writeFileSync(join(OUT, `mapa_${name}_hud.png`), Buffer.from(r.data, "base64"));
+    console.log("ok", `mapa_${name}_hud.png`, await cdp.eval(`document.querySelector(".pill.region").textContent.trim()`));
+  };
+  await travel("praia_dos_postes", "praia");
+  await key("m", "keydown");
+  await key("m", "keyup");
+  await sleep(500);
+  await cdp.shot("mapa_mundi_praia.png");
+  await travel("vila_dos_bebes", "vila");
+  // sai pela borda norte da vila andando
+  await key("w", "keydown");
+  await cdp.waitFor(`window.__gs003.mapId === "forest-proof"`, 15000, "voltar à floresta pela borda");
+  await key("w", "keyup");
+  await cdp.waitFor(`!document.querySelector(".map-fade.on")`, 5000, "o fade acabar");
+  await sleep(2000);
+  await cdp.shot("mapa_borda_floresta.png");
+  console.log("save:", await cdp.eval(`JSON.parse(localStorage.getItem("gs003.world.save")).data.map`));
 }
 
 /**
