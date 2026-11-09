@@ -1,0 +1,31 @@
+{
+  "characterId": "TAMER-0008",
+  "version": "1.0.0",
+  "layer": "official-fan-use-derived",
+  "derivedFrom": {
+    "characterId": "NPC-0010",
+    "path": "11-characters/official-npcs/NPC-0010/"
+  },
+  "officialRip": true,
+  "modificationsByStudio": "recolor de cabelo (hue-shift para paleta propria) + kitbash de acessorio (goggles/viseira/oculos/lenco/gola/bone, desenho vetorial proprio sobre o sprite oficial)",
+  "nonCommercial": true,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__NPC-Characters__48318.png",
+    "retrievedAt": "2026-11-08",
+    "modifications": "componentes conexos contra o teal de fundo; colunas por terco de largura; quadros recortados, mascarados por chave de cor local e realinhados pelo pivo nos pes."
+  },
+  "credit": {
+    "ripper": "redblueyellow",
+    "creditTextOnSheet": "Ripped by redblueyellow. No credit needed.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art",
+  "notes": "Preset \"Vinculo (goggles, jaqueta)\": nome e combinacao de acessorio/cor sao criacao do estudio; a base de sprite segue a licenca do NPC oficial (NPC-0010)."
+}

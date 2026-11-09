@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "NPC-0011",
+  "name": "NPC-0011 (provisorio)",
+  "category": "npc-human",
+  "role": "npc",
+  "description": "NPC humano de Digimon World DS (folha \"NPC-Characters\", Spriters Resource). No mapa: idle e walk nas 4 direcoes desenhadas (S/N/W/E), sem espelhamento.",
+  "dimensions": {
+    "frameW": 26,
+    "frameH": 33,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 13,
+    "y": 32
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "NPC-0011_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "NPC-0011_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "NPC-0011_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "NPC-0011_walk_W_01.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "NPC-0011_walk_E_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "NPC-0011_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "NPC-0011_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "NPC-0011_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "NPC-0011_walk_S_02.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_W_02.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_E_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "NPC-0011_walk_E_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 140,
+  "sprites": "./sprites/",
+  "portrait": "./portrait.png",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"NPC-Characters\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), ripada por redblueyellow (\"No credit needed\"); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__NPC-Characters__48318.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Bloco detectado por componentes conexos contra o teal de fundo da folha (merge <= 3px); colunas = terco igual da largura do bloco (grade RPG-Maker-like, sem suposicao de tamanho de celula fixo).",
+    "Sem quadro extra alem dos 12 (4 direcoes x 3 passos).",
+    "Pivo = centroide em x das 12-13 celulas, alinhado pelos pes (ultima linha opaca). Nome provisorio: preencher apos a revisao da folha de contato (09-previews/)."
+  ]
+}

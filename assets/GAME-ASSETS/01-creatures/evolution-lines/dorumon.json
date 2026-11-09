@@ -1,0 +1,11 @@
+{
+  "lineId": "dorumon",
+  "label": "Dorimon -> (Dorumon ainda nao importado)",
+  "sequence": [
+    "CREATURE-0014"
+  ],
+  "names": [
+    "Dorimon"
+  ],
+  "notes": "Baby novo da v3 (bebes iniciais). Dorumon (estagio rookie) ainda nao foi importado/recortado; adicionar quando houver folha de mapa do DS para ele."
+}

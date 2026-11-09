@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "id": "TAMER-0014",
+  "name": "Furia (goggles verdes)",
+  "category": "tamer",
+  "role": "player",
+  "description": "Tamer jogavel \"Furia (goggles verdes)\", inspirado no arquetipo visual descrito (nao e copia 1:1 de personagem da franquia). Base de sprite: DW DS NPC-0032 (official-fan-use), com recolor de cabelo + kitbash leve (goggles). Goggles verdes + silhueta despojada: lembra o arquetipo \"novato caotico de goggles\" (Tagiru).",
+  "dimensions": {
+    "frameW": 26,
+    "frameH": 33,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 14,
+    "y": 32
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "N",
+        "W",
+        "E"
+      ],
+      "mirrored": {}
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "TAMER-0014_walk_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0014_walk_S_01.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0014_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0014_walk_W_01.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 600,
+            "atlasKey": "TAMER-0014_walk_E_01.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0014_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0014_walk_S_01.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0014_walk_S_00.png"
+        },
+        {
+          "durationMs": 150,
+          "atlasKey": "TAMER-0014_walk_S_02.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_S_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_S_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_S_02.png"
+          }
+        ],
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_W_02.png"
+          }
+        ],
+        "E": [
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_E_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_E_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "TAMER-0014_walk_E_02.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 140,
+  "sprites": "./sprites/",
+  "hairRecolors": {
+    "active": "castanho",
+    "options": [
+      {
+        "id": "preto",
+        "hex": "#2B2B2B",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_preto/TAMER-0014_preto_S_00.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_S_01.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_preto/TAMER-0014_preto_N_00.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_N_01.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_preto/TAMER-0014_preto_W_00.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_W_01.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_preto/TAMER-0014_preto_E_00.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_E_01.png",
+            "./sprites/recolor_preto/TAMER-0014_preto_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "castanho",
+        "hex": "#6B3A1F",
+        "default": true,
+        "frames": {
+          "S": [
+            "./sprites/recolor_castanho/TAMER-0014_castanho_S_00.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_S_01.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_castanho/TAMER-0014_castanho_N_00.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_N_01.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_castanho/TAMER-0014_castanho_W_00.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_W_01.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_castanho/TAMER-0014_castanho_E_00.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_E_01.png",
+            "./sprites/recolor_castanho/TAMER-0014_castanho_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "loiro",
+        "hex": "#D9A441",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_loiro/TAMER-0014_loiro_S_00.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_S_01.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_loiro/TAMER-0014_loiro_N_00.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_N_01.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_loiro/TAMER-0014_loiro_W_00.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_W_01.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_loiro/TAMER-0014_loiro_E_00.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_E_01.png",
+            "./sprites/recolor_loiro/TAMER-0014_loiro_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "ruivo",
+        "hex": "#B03A2E",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_S_00.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_S_01.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_N_00.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_N_01.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_W_00.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_W_01.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_E_00.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_E_01.png",
+            "./sprites/recolor_ruivo/TAMER-0014_ruivo_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "azul",
+        "hex": "#1F6FB0",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_azul/TAMER-0014_azul_S_00.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_S_01.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_azul/TAMER-0014_azul_N_00.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_N_01.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_azul/TAMER-0014_azul_W_00.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_W_01.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_azul/TAMER-0014_azul_E_00.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_E_01.png",
+            "./sprites/recolor_azul/TAMER-0014_azul_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "verde",
+        "hex": "#3E8E41",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_verde/TAMER-0014_verde_S_00.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_S_01.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_verde/TAMER-0014_verde_N_00.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_N_01.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_verde/TAMER-0014_verde_W_00.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_W_01.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_verde/TAMER-0014_verde_E_00.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_E_01.png",
+            "./sprites/recolor_verde/TAMER-0014_verde_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "roxo",
+        "hex": "#7B4BA6",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_roxo/TAMER-0014_roxo_S_00.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_S_01.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_roxo/TAMER-0014_roxo_N_00.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_N_01.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_roxo/TAMER-0014_roxo_W_00.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_W_01.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_roxo/TAMER-0014_roxo_E_00.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_E_01.png",
+            "./sprites/recolor_roxo/TAMER-0014_roxo_E_02.png"
+          ]
+        }
+      },
+      {
+        "id": "prateado",
+        "hex": "#C9CCCF",
+        "default": false,
+        "frames": {
+          "S": [
+            "./sprites/recolor_prateado/TAMER-0014_prateado_S_00.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_S_01.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_S_02.png"
+          ],
+          "N": [
+            "./sprites/recolor_prateado/TAMER-0014_prateado_N_00.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_N_01.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_N_02.png"
+          ],
+          "W": [
+            "./sprites/recolor_prateado/TAMER-0014_prateado_W_00.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_W_01.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_W_02.png"
+          ],
+          "E": [
+            "./sprites/recolor_prateado/TAMER-0014_prateado_E_00.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_E_01.png",
+            "./sprites/recolor_prateado/TAMER-0014_prateado_E_02.png"
+          ]
+        }
+      }
+    ]
+  },
+  "kitbash": {
+    "accessory": "goggles",
+    "color": [
+      60,
+      180,
+      90,
+      255
+    ],
+    "appliedDirs": [
+      "S",
+      "W",
+      "E"
+    ],
+    "baseCharacter": "NPC-0032"
+  },
+  "assetOrigin": {
+    "layer": "official-fan-use-derived",
+    "sourceDescription": "Derivado de NPC-0032 (sprite oficial Digimon World DS, Spriters Resource, ripper redblueyellow, \"No credit needed\"), com recolor de cabelo (paleta propria) e kitbash de acessorio (desenho proprio, primitivo vetorial) sobre o rip. Ver license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Kitbash e recolor sao proceduais (desenho vetorial simples sobre o sprite oficial); recomenda-se passe manual de arte antes de considerar \"final\" -- ver AGENTS do game-art.",
+    "Nome e arquetipo propositalmente neutros (nao usar nomes de personagens da franquia em UI/texto de jogo).",
+    "Pivo = centro-x (14) e pes (32) do quadro parado S, herdado do recorte do NPC base."
+  ]
+}
