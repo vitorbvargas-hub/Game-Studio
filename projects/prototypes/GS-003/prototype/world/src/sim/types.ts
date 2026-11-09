@@ -164,7 +164,9 @@ export type Intent =
   /** Evolui a parceira; `keep` = golpes da forma anterior a manter (até inheritSlotsOnEvolve; padrão: os de maior poder). */
   | { t: "evolve"; playerId: string; keep?: string[] }
   /** Liga/desliga a evolução automática (opção do AUTO): ao atingir o nível, evolui sozinha fora de combate. */
-  | { t: "set_auto_evolve"; playerId: string; on: boolean };
+  | { t: "set_auto_evolve"; playerId: string; on: boolean }
+  /** Recompensa em bits coletada numa tela (Missões); só valores positivos. */
+  | { t: "add_bits"; playerId: string; bits: number };
 
 export interface Entity {
   id: string;

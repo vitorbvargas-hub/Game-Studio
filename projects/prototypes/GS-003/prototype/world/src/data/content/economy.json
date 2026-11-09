@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "_comment": "GDD_MMO_V1 §7. Bits é a única moeda (ADR-007 condição 1 — sem monetização, sem moeda premium). Tudo [H], sem implementação de referência além de 'bits' já existir como contador na sim.",
+  "currency": { "soft": "bits", "premium": null, "premiumNote": "não existe moeda premium neste jogo — diferente do 'gold' do IdleDex" },
+  "items": {
+    "heal": [
+      { "id": "potinho_de_energia", "effect": "cura % do HP", "source": ["loot", "loja"] }
+    ],
+    "capture": [
+      { "id": "digivice_padrao", "effect": "chance base de captura (modItem x1.0)", "source": ["loja"] },
+      { "id": "digivice_avancado", "effect": "+25% chance de captura (modItem x1.25)", "source": ["quest main_02_praia", "loot de dungeon"] }
+    ],
+    "evolution": [
+      { "id": "nucleo_estavel", "effect": "evolução normal (caminho padrão)", "rarity": "comum", "source": ["loot de chefe", "quest"] },
+      { "id": "nucleo_instavel", "effect": "evolução forçada (caminho alternativo, ex. SkullGreymon) — ver GDD §6.3", "rarity": "raro", "source": ["loot de chefe"] }
+    ],
+    "cosmetic": [
+      { "id": "skin_tamer", "source": ["arena", "world_boss", "quests"] },
+      { "id": "moldura_retrato", "source": ["arena", "world_boss"] },
+      { "id": "title_guardiao_do_pulso", "source": ["quest main_05_zona_corrompida"] },
+      { "id": "digivice_dourado", "source": ["collect_12_species"] }
+    ]
+  },
+  "market": {
+    "currencyOnly": "bits",
+    "itemForItemTrade": false,
+    "activeListingLimitBase": 5,
+    "activeListingLimitScaling": "aumenta com o nível do Tamer, nunca com pagamento (ADR-007)",
+    "listingFeePct": 5,
+    "listingFeeChargedOn": "anunciar (não ao vender)"
+  },
+  "sinks": [
+    { "id": "market_listing_fee", "description": "5% do valor anunciado, cobrado ao listar no mercado" },
+    { "id": "arena_classica_extra_challenge", "description": "50 bits por desafio além dos 5 grátis/dia" },
+    { "id": "dungeon_reentry_early", "description": "custo em bits para repetir uma dungeon antes do cooldown diário padrão" },
+    { "id": "nucleo_instavel_purchase", "description": "preço alto, uso opcional, evolução forçada" },
+    { "id": "tamer_reroll_appearance", "description": "1ª aleatorização do visual do Tamer é grátis; as seguintes custam bits" }
+  ]
+}

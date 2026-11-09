@@ -306,6 +306,9 @@ function applyIntent(ctx: Ctx, it: Intent): void {
     case "set_auto_evolve":
       p.autoEvolve = it.on;
       return;
+    case "add_bits":
+      p.bits += Math.max(0, Math.floor(it.bits));
+      return;
     case "set_moves": {
       const partner = getEntity(w, p.partnerId);
       if (!partner) return reject("parceira indisponível");

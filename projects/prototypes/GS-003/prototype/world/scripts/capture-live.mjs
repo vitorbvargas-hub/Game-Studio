@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -136,6 +136,7 @@ async function main() {
     if (process.env.ONLY === "v41") return await forestV41(cdp);
     if (process.env.ONLY === "offline") return await offline(cdp);
     if (process.env.ONLY === "maps") return await maps(cdp);
+    if (process.env.ONLY === "screens") return await screens(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -261,6 +262,49 @@ async function creator(cdp) {
   const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.55)), width: cw, height: ch, scale: 2 } });
   writeFileSync(join(OUT, "creator_no_mundo_zoom.png"), Buffer.from(r.data, "base64"));
   console.log("ok creator_no_mundo_zoom.png", JSON.stringify(at));
+}
+
+/**
+ * Telas secundárias (atalhos V, I, Q, O): joga ~40 s no AUTO para ter vitórias e varreduras reais, abre o Digivice
+ * (e um detalhe), o Inventário, as Missões (coleta uma, se houver) e as Configurações (com a confirmação do reset).
+ */
+async function screens(cdp) {
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=day${QUERY}` });
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(Number(process.env.PLAY_MS ?? 40000));
+  const key = async (k) => {
+    await cdp.eval(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "${k}" }))`);
+    await cdp.eval(`window.dispatchEvent(new KeyboardEvent("keyup", { key: "${k}" }))`);
+    await sleep(500);
+  };
+  await key("v");
+  await cdp.shot("tela_digivice.png");
+  await cdp.eval(`(() => { const c = [...document.querySelectorAll(".dx-card")].find((b) => !b.classList.contains("unseen") && !b.classList.contains("sel")); c && c.click(); })()`);
+  await sleep(300);
+  await cdp.shot("tela_digivice_detalhe.png");
+  console.log("digivice:", await cdp.eval(`[...document.querySelectorAll(".dx-stat b")].map((b) => b.textContent).join(" · ")`));
+  await key("i");
+  await cdp.shot("tela_inventario.png");
+  await key("q");
+  await cdp.shot("tela_missoes.png");
+  console.log("missões:", await cdp.eval(`[...document.querySelectorAll(".qs-item")].map((q) => q.dataset.quest + "=" + q.querySelector("[data-testid=qs-progress]").textContent).join(" ")`));
+  const claimed = await cdp.eval(`(() => { const b = document.querySelector("[data-claim]"); if (!b) return ""; b.click(); return b.dataset.claim; })()`);
+  await sleep(1300);
+  if (claimed) await cdp.shot("tela_missoes_coletada.png");
+  console.log("coletada:", claimed || "(nenhuma completa)");
+  await key("o");
+  await cdp.shot("tela_configuracoes.png");
+  await cdp.eval(`document.querySelector('[data-time="night"]').click()`);
+  await sleep(600);
+  await cdp.eval(`document.querySelector('[data-reset="ask"]').click()`);
+  await sleep(300);
+  await cdp.shot("tela_configuracoes_reset.png");
+  console.log("noite forçada:", await cdp.eval(`window.__gs003.clock.opts.forced`));
+  await cdp.eval(`document.querySelector('[data-reset="confirm"]').click()`);
+  await sleep(1500);
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo reiniciar");
+  await sleep(1500);
+  console.log("depois do reset:", await cdp.eval(`(() => { const d = JSON.parse(localStorage.getItem("gs003.world.save")).data; return JSON.stringify({ bits: d.bits, seen: d.seen.length, claimed: d.quests.claimed, time: d.settings.time }); })()`));
 }
 
 /**

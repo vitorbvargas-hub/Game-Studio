@@ -4,6 +4,7 @@
 // golpes (aprendidos, 4 slots, prioridade do AUTO), nível e XP, bits, Digidex (varredura), AUTO e Auto-evoluir.
 
 import { normalizeLook, type TamerLook } from "../assets/tamer-parts";
+import { dayKey, emptyQuestLog, type QuestLogData } from "./questlog";
 import type { PartnerSave } from "../sim/world";
 
 export const SAVE_KEY = "gs003.world.save";
@@ -11,9 +12,17 @@ export const SAVE_GAME = "gs003-world";
 /**
  * v1: primeiro esquema (Tamer, parceira com espécie/nível/XP/4 slots, bits). v2: lista de golpes aprendidos,
  * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe. v3: Digimon inicial escolhido.
- * v4: mapa atual (troca de mapa / Mapa-múndi).
+ * v4: mapa atual (troca de mapa / Mapa-múndi). v5: telas secundárias — espécies vistas (Digivice), inventário,
+ * progresso das missões e configurações (tempo do dia).
  */
-export const SAVE_VERSION = 4;
+export const SAVE_VERSION = 5;
+
+/** Inventário inicial [H]: o Digivice padrão (economy.json, captura x1.0). */
+export const STARTING_INVENTORY: Record<string, number> = { digivice_padrao: 1 };
+
+export interface SettingsData {
+  time: "auto" | "day" | "night";
+}
 
 export interface TeamMember {
   species: string;
@@ -38,6 +47,13 @@ export interface SaveData {
   starter: string | null;
   /** Mapa onde o Tamer estava (v4): o jogo volta nele, no início padrão do mapa. */
   map: string;
+  /** Espécies já vistas (Digivice, v5). */
+  seen: string[];
+  /** Itens de economy.json por id (v5). */
+  inventory: Record<string, number>;
+  /** Missões: contagens do dia e recompensas coletadas (v5). */
+  quests: QuestLogData;
+  settings: SettingsData;
 }
 
 export interface SaveEnvelope {
@@ -86,6 +102,12 @@ export const MIGRATIONS: Migrations = {
   2: (env) => ({ ...env, v: 3, data: { ...env.data, starter: null } }),
   // v3 → v4: antes da troca de mapa só existia a floresta da prova.
   3: (env) => ({ ...env, v: 4, data: { ...env.data, map: "forest-proof" } }),
+  // v4 → v5: vistos = o que já tem varredura + a parceira; inventário inicial; missões do zero; tempo automático.
+  4: (env) => {
+    const d = env.data ?? {};
+    const seen = [...new Set([...Object.keys(d.scans ?? {}), ...(d.partner?.speciesId ? [d.partner.speciesId] : [])])];
+    return { ...env, v: 5, data: { ...d, seen, inventory: { ...STARTING_INVENTORY }, quests: emptyQuestLog(dayKey(new Date(env.savedAt ?? 0))), settings: { time: "auto" } } };
+  },
 };
 
 export function serialize(data: SaveData, now: number): string {
@@ -131,6 +153,10 @@ export function deserialize(raw: string | null, migrations: Migrations = MIGRATI
     captured: Array.isArray(d.captured) ? d.captured : [],
     starter: typeof d.starter === "string" ? d.starter : null,
     map: typeof d.map === "string" && d.map ? d.map : "forest-proof",
+    seen: Array.isArray(d.seen) ? d.seen : [],
+    inventory: d.inventory && typeof d.inventory === "object" ? d.inventory : { ...STARTING_INVENTORY },
+    quests: d.quests && typeof d.quests.day === "string" ? { ...emptyQuestLog(d.quests.day), ...d.quests } : emptyQuestLog(dayKey(new Date(env.savedAt))),
+    settings: { time: d.settings?.time === "day" || d.settings?.time === "night" ? d.settings.time : "auto" },
   };
   return from !== current ? { ok: true, data, savedAt: env.savedAt, migratedFrom: from } : { ok: true, data, savedAt: env.savedAt };
 }

@@ -8,7 +8,10 @@ import { clockFromParams, formatClock, GameClock } from "./render/daynight";
 import { botLook, composeTamer, DEFAULT_LOOK, frameList, loadPartUrls, lookKey, PARTS, type TamerLook } from "./assets/tamer-parts";
 import { TamerCreator, type PreviewDir } from "./ui/creator";
 import { applyOffline, applySave, captureSave, offlineBalance, offlineSeed, type OfflineReport } from "./save/offline";
-import { browserStorage, loadFromStorage, saveToStorage, type LoadResult, type SaveData } from "./save/save";
+import { browserStorage, loadFromStorage, SAVE_KEY, saveToStorage, STARTING_INVENTORY, type LoadResult, type SaveData, type SettingsData } from "./save/save";
+import { dayKey, emptyQuestLog, questViews, QUESTS, rollDay, trackEvents } from "./save/questlog";
+import { digiviceHtml, inventoryHtml, questsHtml, settingsHtml } from "./ui/screens";
+import economyJson from "./data/content/economy.json";
 import { showOfflineReport } from "./ui/offline-report";
 import type { CreatureVisual } from "./assets/creatures";
 import { countDwdsSources, globalTileFilter, loadTileSources } from "./assets/tiles";
@@ -125,12 +128,19 @@ async function boot() {
   // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
   const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
   const newStarter = !loaded.ok && !!starter;
+  // Telas secundárias: espécies vistas (Digivice), inventário, missões do dia e configurações (save v5).
+  const seen = new Set<string>(loaded.ok ? loaded.data.seen : []);
+  const inventory: Record<string, number> = loaded.ok ? { ...loaded.data.inventory } : { ...STARTING_INVENTORY };
+  let quests = loaded.ok ? rollDay(loaded.data.quests, dayKey(new Date())) : emptyQuestLog(dayKey(new Date()));
+  const settings: SettingsData = loaded.ok ? { ...loaded.data.settings } : { time: "auto" };
   const canvas = document.querySelector<HTMLCanvasElement>("#world")!;
   const labelCanvas = document.querySelector<HTMLCanvasElement>("#labels")!;
   const hudRoot = document.querySelector<HTMLElement>("#hud")!;
   const auto = params.get("auto") === "1";
   // Relógio do jogo (?time=night|day|HH:MM força; ?timescale=N minutos de jogo por segundo real).
   const clock = new GameClock(clockFromParams(params, new Date()));
+  // ?time= da URL manda; sem ele, vale a configuração salva (Configurações → Tempo do dia).
+  if (!params.has("time") && settings.time !== "auto") clock.opts.forced = settings.time;
   const tamers = pickTamers(loadCharacterCatalog());
   const fxSheets = loadSheetCatalog();
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
@@ -254,7 +264,7 @@ async function boot() {
       portrait: makePortraitFn(creatures, images),
       minimap: new Minimap(cur.sim.map, browserCanvasFactory),
       moveIcon: drawMoveIcon,
-      shortcuts: regionMode ? ["map"] : [],
+      shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear"] : [],
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -265,12 +275,25 @@ async function boot() {
   const portrait = makePortraitFn(creatures, images);
   const capture = (): SaveData => {
     const t = hud.tamerProgress();
-    return captureSave(cur.sim, LOCAL_PLAYER, { tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter, map: cur.mapId });
+    return captureSave(cur.sim, LOCAL_PLAYER, {
+      tamer: look, tamerLevel: t.level, tamerXp: t.xp, team: hudScene?.team ?? [], starter, map: cur.mapId,
+      seen: [...seen], inventory: { ...inventory }, quests: { ...quests, kills: { ...quests.kills }, claimed: [...quests.claimed] }, settings: { ...settings },
+    });
   };
+  let resetting = false;
   const persist = () => {
     tamerLevels[LOCAL_PLAYER] = hud.tamerProgress().level;
-    if (storage) saveToStorage(storage, capture(), Date.now());
+    quests = rollDay(quests, dayKey(new Date()));
+    if (storage && !resetting) saveToStorage(storage, capture(), Date.now());
   };
+  /** Digivice: toda espécie que aparece (selvagem, parceira, evolução) conta como vista. */
+  const trackSeen = (evs: WorldEvent[]) => {
+    for (const ev of evs) {
+      if (ev.t === "spawn" && ev.entity.speciesId && ev.entity.kind !== "remote_partner") seen.add(ev.entity.speciesId);
+      else if (ev.t === "evolve") seen.add(ev.to);
+    }
+  };
+  trackSeen(cur.spawnEvents);
   const report = (r: OfflineReport, from: string) => {
     const partner = getEntity(cur.sim.state, player().partnerId)!;
     const tamerUp = hud.addTamerXp(r.xp);
@@ -327,6 +350,7 @@ async function boot() {
     hud.setRegion(regionName(cur.def), cur.def?.route ?? "");
     hud.setMinimap(new Minimap(cur.sim.map, browserCanvasFactory));
     hud.onEvents(cur.spawnEvents);
+    trackSeen(cur.spawnEvents);
     const pos = view().motionPos(LOCAL_PLAYER);
     if (pos) view().follow({ x: pos.x, y: pos.y + HUD_BOTTOM_PX / 2 / scale }, 10_000, { x: 0, y: 0 });
     portalArmed = false;
@@ -354,12 +378,104 @@ async function boot() {
   };
 
   // ---- telas secundárias (modais) ----
-  const panels = { map: new Panel(hudRoot, "map", "Mapa-múndi", "map") };
+  const panels = {
+    map: new Panel(hudRoot, "map", "Mapa-múndi", "map"),
+    dex: new Panel(hudRoot, "dex", "Digivice", "dex"),
+    inv: new Panel(hudRoot, "inv", "Inventário", "chest"),
+    quest: new Panel(hudRoot, "quest", "Missões", "quest"),
+    gear: new Panel(hudRoot, "gear", "Configurações", "gear"),
+  };
+  let dexSel: string | undefined;
+  let confirmReset = false;
+  const dexState = () => ({ seen: [...seen], scans: player().scans, captured: player().captured });
+  const questList = () =>
+    questViews(quests, { regionId: cur.def?.region ?? "", regionName: regionName(cur.def), scans: player().scans, captured: player().captured, hasPartner: !!getEntity(cur.sim.state, player().partnerId) });
+  /** Retratos dos cards ([data-sp]); quem não foi visto vira silhueta. */
+  const paintSprites = (root: HTMLElement) => {
+    for (const c of root.querySelectorAll<HTMLCanvasElement>("canvas[data-sp]")) {
+      portrait(c.dataset.sp!, c);
+      if (!c.dataset.silhouette) continue;
+      const g = c.getContext("2d");
+      if (!g) continue;
+      g.globalCompositeOperation = "source-in";
+      g.fillStyle = "#0b0d14";
+      g.fillRect(0, 0, c.width, c.height);
+      g.globalCompositeOperation = "source-over";
+    }
+  };
+  const screenHtml = (id: string): string => {
+    if (id === "map") return worldMapHtml(cur.def?.region ?? "", progress());
+    if (id === "dex") return digiviceHtml(cur.sim.content, dexState(), dexSel);
+    if (id === "inv") return inventoryHtml(inventory, player().bits);
+    if (id === "quest") return questsHtml(questList());
+    return settingsHtml({ auto: player().auto, autoEvolve: !!player().autoEvolve, time: settings.time, confirmReset });
+  };
   function openScreen(id: string): void {
-    for (const p of Object.values(panels)) if (p.id !== id) p.close();
+    const p = (panels as Record<string, Panel>)[id];
+    if (!p) return;
+    for (const o of Object.values(panels)) if (o !== p) o.close();
     hud.closeTeam();
-    if (id === "map") panels.map.open(worldMapHtml(cur.def?.region ?? "", progress()));
+    confirmReset = false;
+    p.open(screenHtml(id));
+    paintSprites(p.body);
   }
+  /** Telas abertas acompanham o jogo (bits, progresso das missões); o Digivice só muda ao clicar. */
+  const refreshScreens = () => {
+    for (const id of ["inv", "quest"] as const) if (panels[id].isOpen) panels[id].update(screenHtml(id));
+  };
+  panels.dex.body.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLElement>("[data-dex]");
+    if (!b) return;
+    dexSel = b.dataset.dex;
+    panels.dex.update(screenHtml("dex"));
+    paintSprites(panels.dex.body);
+  });
+  panels.quest.body.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-claim]");
+    if (!b || b.disabled) return;
+    const q = questList().find((x) => x.claimKey === b.dataset.claim);
+    if (!q || q.claimed || q.progress < q.goal || !q.trackable) return;
+    quests.claimed.push(q.claimKey);
+    if (q.rewardBits) intents.push({ t: "add_bits", playerId: LOCAL_PLAYER, bits: q.rewardBits });
+    // itens da recompensa que existem no economy.json entram no inventário
+    const known = new Set(Object.values(economyJson.items).flat().map((i) => i.id));
+    const src = [...QUESTS.mainQuestLine.chapters, ...QUESTS.dailyQuestPool, ...QUESTS.collectionMilestones].find((x) => x.id === q.id);
+    for (const it of (src?.reward as { items?: string[] } | null)?.items ?? []) if (known.has(it)) inventory[it] = (inventory[it] ?? 0) + 1;
+    hud.toast(`Missão concluída: +${q.rewardText}`);
+    setTimeout(() => {
+      refreshScreens();
+      persist();
+    }, 150);
+  });
+  panels.gear.body.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const set = t.closest<HTMLElement>("[data-set]")?.dataset.set;
+    const time = t.closest<HTMLElement>("[data-time]")?.dataset.time as SettingsData["time"] | undefined;
+    const reset = t.closest<HTMLElement>("[data-reset]")?.dataset.reset;
+    if (set === "auto") {
+      const on = !player().auto;
+      player().auto = on;
+      hud.setAuto(on);
+      intents.push({ t: "set_auto", playerId: LOCAL_PLAYER, on });
+    } else if (set === "autoEvolve") {
+      const on = !player().autoEvolve;
+      player().autoEvolve = on;
+      hud.setAutoEvolve(on);
+      intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on });
+    } else if (time) {
+      settings.time = time;
+      clock.opts.forced = time === "auto" ? undefined : time;
+    } else if (reset === "ask" || reset === "cancel") confirmReset = reset === "ask";
+    else if (reset === "confirm") {
+      // apaga o save e recomeça (o autosave para antes, para não regravar)
+      resetting = true;
+      storage?.removeItem(SAVE_KEY);
+      location.reload();
+      return;
+    } else return;
+    panels.gear.update(screenHtml("gear"));
+    persist();
+  });
   panels.map.body.addEventListener("click", (e) => {
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-travel]");
     if (!b || b.disabled) return;
@@ -449,6 +565,7 @@ async function boot() {
 
   // ---- minimapa / coordenadas / qps (4 Hz) ----
   let lastHudWorld = 0;
+  let lastScreens = 0;
   let frames = 0;
   const updateHudWorld = (now: number) => {
     frames++;
@@ -461,6 +578,10 @@ async function boot() {
     }
     hud.updateWorld(view().motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
     if (regionMode) hud.setClock(clock.phase(now - bootAt), formatClock(clock.minutes(now - bootAt)));
+    if (now - lastScreens > 1000) {
+      lastScreens = now;
+      refreshScreens();
+    }
     lastHudWorld = now;
     frames = 0;
   };
@@ -481,6 +602,8 @@ async function boot() {
       const evs = stepWorld(cur.sim, intents.splice(0));
       cur.presenter.onTick(snapshot(cur.sim), evs, now);
       hud.onEvents(evs);
+      trackSeen(evs);
+      if (cur.def) trackEvents(quests, evs, LOCAL_PLAYER, cur.def.region);
       acc -= TICK_MS;
       steps++;
     }

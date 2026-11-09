@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "_comment": "GDD_MMO_V1 §2. Enredo principal 100% original (nenhuma linha de diálogo ou trama copiada de Digimon Adventure); Digimon/locais citados são oficiais (ADR-007). Recompensas [H].",
+  "mainQuestLine": {
+    "id": "main_pulso_corrompido",
+    "title": "O Pulso Corrompido",
+    "original": true,
+    "chapters": [
+      {
+        "id": "main_00_tutorial",
+        "region": "vila_dos_bebes",
+        "giver": "NPC-ELECMON",
+        "hook": "Digitamas estão chocando fora de hora; Elecmon pede ajuda para investigar.",
+        "objective": "Escanear/recrutar o primeiro parceiro",
+        "reward": { "bits": 100, "items": ["starter_partner"] }
+      },
+      {
+        "id": "main_01_floresta",
+        "region": "floresta_densa",
+        "hook": "Selvagens anormalmente agressivos na Floresta Densa.",
+        "objective": "Derrotar BOSS-KUWAGAMON",
+        "reward": { "bits": 500, "items": ["item_evolucao_comum"] },
+        "alsoCompletesRouteQuest": "route_floresta_to_praia_e_montanha"
+      },
+      {
+        "id": "main_02_praia",
+        "region": "praia_dos_postes",
+        "hook": "A maré traz um Fragmento de Código (item original).",
+        "objective": "Recuperar o fragmento; afastar BOSS-SHELLMON",
+        "reward": { "bits": 800, "items": ["digivice_avancado"] },
+        "alsoCompletesRouteQuest": null
+      },
+      {
+        "id": "main_03_montanha",
+        "region": "montanha",
+        "hook": "Os fragmentos emitem um sinal rumo a Infinity Mountain.",
+        "objective": "Derrotar BOSS-TYRANNOMON, que reage ao sinal",
+        "reward": { "bits": 1200, "items": ["team_slot_extra"] },
+        "alsoCompletesRouteQuest": "route_montanha_to_deserto"
+      },
+      {
+        "id": "main_04_deserto",
+        "region": "deserto",
+        "hook": "O sinal leva à Savana das Engrenagens, guardada por sentinelas.",
+        "objective": "Derrotar BOSS-GUARDROMON, comandante das sentinelas",
+        "reward": { "bits": 1600, "items": ["item_evolucao_raro"] },
+        "alsoCompletesRouteQuest": "route_deserto_to_zona_corrompida"
+      },
+      {
+        "id": "main_05_zona_corrompida",
+        "region": "zona_corrompida",
+        "hook": "O Pulso Corrompido está sendo amplificado por BOSS-DEVIMON.",
+        "objective": "Confrontar e derrotar BOSS-DEVIMON",
+        "reward": { "bits": 2500, "items": ["title_guardiao_do_pulso"] }
+      },
+      {
+        "id": "main_06_epilogo",
+        "region": "zona_corrompida",
+        "hook": "O Pulso atinge escala crítica.",
+        "objective": "(sem objetivo imediato — gancho narrativo)",
+        "unlocksSystem": "BOSS-VENOMMYOTISMON world boss",
+        "reward": null
+      }
+    ]
+  },
+  "dailyQuestPool": [
+    { "id": "daily_kill_wilds", "template": "Derrote {n} selvagens em {region}", "nRange": [10, 20], "reward": { "bits": 150, "xp": 50 } },
+    { "id": "daily_capture", "template": "Capture {n} Digimon", "nRange": [2, 4], "reward": { "bits": 200, "items": ["item_comum"] } },
+    { "id": "daily_arena_classica", "template": "Vença 1 desafio na Arena Clássica", "nRange": [1, 1], "reward": { "bits": 100, "seasonPoints": 5 } },
+    { "id": "daily_dungeon_floor", "template": "Complete 1 andar de dungeon", "nRange": [1, 1], "reward": { "bits": 120 } },
+    { "id": "daily_world_boss_damage", "template": "Cause dano no World Boss (se a janela estiver ativa)", "nRange": [1, 1], "reward": { "bits": 150 }, "requiresActiveWindow": true }
+  ],
+  "dailyQuestRules": { "countPerDay": 3, "resetHour": "00:00 (relógio do jogo / horário do servidor)" },
+  "routeQuests": [
+    { "id": "route_floresta_to_praia_e_montanha", "from": "floresta_densa", "to": ["praia_dos_postes", "montanha"], "condition": "defeat BOSS-KUWAGAMON or reach level 10/20" },
+    { "id": "route_montanha_to_deserto", "from": "montanha", "to": ["deserto"], "condition": "defeat BOSS-TYRANNOMON and reach level 30" },
+    { "id": "route_deserto_to_zona_corrompida", "from": "deserto", "to": ["zona_corrompida"], "condition": "defeat BOSS-SHELLMON and BOSS-GUARDROMON, reach level 40" }
+  ],
+  "collectionMilestones": [
+    { "id": "collect_first_scan", "condition": "primeiro escaneamento de qualquer espécie", "reward": { "bits": 50 }, "perSpecies": true },
+    { "id": "collect_5_species", "condition": "5 espécies escaneadas", "reward": { "captureRateBonusPct": 0.5 } },
+    { "id": "collect_12_species", "condition": "12/12 espécies do roster atual escaneadas", "reward": { "captureRateBonusPct": 6, "items": ["digivice_dourado"] } }
+  ]
+}
