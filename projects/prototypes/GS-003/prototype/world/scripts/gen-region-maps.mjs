@@ -88,9 +88,10 @@ const px = (t) => t * T + T / 2;
     for (let x = 0; x < W; x++) {
       if (water(x, y)) ground.push(`pr5_water_blob_${blobMask(water, x, y, W, H, true)}`);
       else {
-        const q = r();
-        // sand_00 é o chão liso; sand_02 (pedrinhas) só salpicada; sand_01 (degrau) não ladrilha
-        ground.push(`pr5_sand_0${q < 0.985 ? 0 : 2}`);
+        r(); // mantém a sequência do rng (postes e o resto do mapa não mudam)
+        // Só sand_00 (chão liso). sand_02 (pedrinhas) tem fundo de outra cor: salpicada na areia, cada célula virava
+        // um quadrado claro com borda (lido como "textura ausente", UI_WORLD_AUDIT §3). sand_01 (degrau) não ladrilha.
+        ground.push("pr5_sand_00");
       }
     }
   // os postes da praia: uma linha na areia, paralela à costa
