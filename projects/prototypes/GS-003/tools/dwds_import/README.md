@@ -1,5 +1,19 @@
 # dwds_import: sprites oficiais de DW DS/Dawn/Dusk → GAME-ASSETS
 
+## Mega: WarGreymon (`import_mega_dwds.js`, 2026-11-09)
+
+```bash
+node import_mega_dwds.js          # grava 01-creatures/CREATURE-0016 (WarGreymon)
+node import_mega_dwds.js --index  # folha numerada dos quadros de mapa, para conferir as direções
+```
+
+- Usa o recorte automático do `import_wild_dwds.js`, que agora exporta os helpers dele. Grava na faixa 00NN (parceiros/evoluções).
+- **Quadros de mapa:** 9 na folha, conferidos no olho [H]. N = #1-3, W = #4-6, S = #7 (só 1 quadro, sem passada de frente), dano = #8 (agachado), ataque = #9 (braço erguido). Ataque e dano só existem de frente e valem para todas as direções.
+- **Batalha:** 5 poses (3 idle, ataque, dano) em escala nativa (119 px), em `battle_*`.
+- **Redução descartada:** reduzir as poses de batalha para a altura do mapa, a fim de ter ataque/dano de lado, ficou ilegível no fator 0,30 com 2x no mundo. Prévia em `09-previews/wargreymon_reduzido_descartado.png`.
+- **Escala:** `mapScale 2` (porte Mega acima do Champion) [H].
+- **Licença:** crédito obrigatório pela folha, "Ripped by A.J. Nitro & Dazz. Give credit if used."
+
 ## v2: folhas DS do Spriters Resource (`import_dwds_sheets.py`, 2026-11-08)
 
 ```bash

@@ -17,7 +17,7 @@ export const STARTERS: StarterDef[] = startersJson.starters;
 export const STARTER_LEVEL: number = startersJson.level;
 
 export const AFFINITY_PT: Record<string, string> = { vaccine: "Vacina", data: "Dados", virus: "Vírus", free: "Livre" };
-export const STAGE_PT: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito" };
+export const STAGE_PT: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito", 5: "Supremo" };
 
 export interface StarterOptions {
   content: WorldContent;

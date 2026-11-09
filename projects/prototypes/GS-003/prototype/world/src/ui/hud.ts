@@ -65,7 +65,7 @@ export const SHORTCUTS: { id: string; label: string; icon: string; key?: string 
   { id: "gear", label: "Configurações", icon: "gear", key: "O" },
 ];
 
-const STAGES: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito" };
+const STAGES: Record<number, string> = { 1: "Bebê", 2: "Criança", 3: "Adulto", 4: "Perfeito", 5: "Supremo" };
 const AFFINITY: Record<string, string> = { vaccine: "Vacina", data: "Dados", virus: "Vírus", free: "Livre" };
 const MAX_LOG = 7;
 const DEFAULT_SCENE: HudScene = {

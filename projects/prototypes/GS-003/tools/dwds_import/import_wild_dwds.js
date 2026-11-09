@@ -416,7 +416,7 @@ function contactSheet(results) {
   console.log('wrote', p);
 }
 
-module.exports = { SPECIES, keyColors, mapFrames, components, loadSheetCanvas, sheetPath, predecode, importOne, STAGE_NAME };
+module.exports = { SPECIES, keyColors, mapFrames, components, loadSheetCanvas, sheetPath, predecode, importOne, STAGE_NAME, sheetKeys, cut, bbox, normalize, packSheet, walkCycle, standKey, CRE, PREVIEWS, SRC, SR_PAGE, COPYRIGHT, TODAY, WALK_FRAME_MS };
 
 if (require.main === module) {
   predecode(SPECIES.map(sheetPath)).then(() => {

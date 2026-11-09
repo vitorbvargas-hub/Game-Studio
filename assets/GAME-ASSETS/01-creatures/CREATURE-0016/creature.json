@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "id": "CREATURE-0016",
+  "name": "WarGreymon",
+  "category": "digital-creature",
+  "rarity": "legendary",
+  "element": "vaccine",
+  "attributes": {},
+  "evolutionStage": "mega",
+  "evolutionLine": {
+    "lineId": "agumon",
+    "previous": null,
+    "next": [],
+    "note": "Agumon → Greymon → MetalGreymon → WarGreymon; MetalGreymon ainda sem criatura (ver qaNotes)."
+  },
+  "evolutionRequirements": {},
+  "description": "WarGreymon: sprites oficiais de Digimon World DS. No mapa: walk em N e W (3 quadros) e S (1 quadro de pé; a folha não desenha passada de frente); E espelhado de W. Ataque e dano de mapa: os quadros de mapa da própria folha (braço erguido / agachado), de frente, em todas as direções. Poses de batalha em escala nativa em battle_*. Porte Mega: mapScale 2.",
+  "dimensions": {
+    "frameW": 36,
+    "frameH": 46,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 18,
+    "y": 45
+  },
+  "mapScale": 2,
+  "targetHeightPx": 72,
+  "nativeMapHeightPx": 36,
+  "nativeBattleHeightPx": 119,
+  "sizeNotes": "Sprite de mapa do DS com 36 px de pé (mesma altura nativa de um Champion: Greymon 38 px). O ART_STYLE_GUIDE §3 vai até o Champion; porte Mega = um degrau acima dele [H]: mapScale 2 (inteiro, pixel-perfect) -> ~72 px no mapa, contra ~38 px do Champion (1x). O fator 2 é decisão de apresentação, não medida do jogo.",
+  "hitbox": {
+    "x": 3,
+    "y": 9,
+    "w": 29,
+    "h": 36
+  },
+  "anchors": {
+    "head": {
+      "x": 18,
+      "y": 9
+    },
+    "hit": {
+      "x": 18,
+      "y": 27
+    },
+    "shadow": {
+      "cx": 18,
+      "cy": 45,
+      "rx": 11,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "N",
+        "W",
+        "S"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "idle": {
+      "drawn": [
+        "N",
+        "W",
+        "S"
+      ],
+      "mirrored": {
+        "E": "W"
+      }
+    },
+    "attack": {
+      "drawn": [
+        "S"
+      ],
+      "mirrored": {}
+    },
+    "hurt": {
+      "drawn": [
+        "S"
+      ],
+      "mirrored": {}
+    },
+    "battle_idle": {
+      "drawn": [
+        "SW"
+      ],
+      "mirrored": {
+        "SE": "SW"
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0016_walk_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "N": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0016_walk_N_01.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0016_walk_W_01.png"
+          }
+        ],
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0016_walk_S_00.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 150,
+          "atlasKey": "CREATURE-0016_walk_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "N": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_N_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_N_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_N_02.png"
+          }
+        ],
+        "W": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_W_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_W_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_W_02.png"
+          }
+        ],
+        "S": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0016_walk_S_00.png"
+          }
+        ]
+      }
+    },
+    "attack": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 180,
+          "atlasKey": "CREATURE-0016_walk_S_00.png"
+        },
+        {
+          "durationMs": 220,
+          "atlasKey": "CREATURE-0016_attack_S_00.png"
+        },
+        {
+          "durationMs": 80,
+          "atlasKey": "CREATURE-0016_walk_S_00.png"
+        }
+      ],
+      "events": [
+        {
+          "frame": 1,
+          "name": "hitFrame"
+        }
+      ],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 180,
+            "atlasKey": "CREATURE-0016_walk_S_00.png"
+          },
+          {
+            "durationMs": 220,
+            "atlasKey": "CREATURE-0016_attack_S_00.png"
+          },
+          {
+            "durationMs": 80,
+            "atlasKey": "CREATURE-0016_walk_S_00.png"
+          }
+        ]
+      }
+    },
+    "hurt": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0016_hurt_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0016_hurt_S_00.png"
+          }
+        ]
+      }
+    },
+    "battle_idle": {
+      "loop": true,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0016_battle_idle_SW_00.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0016_battle_idle_SW_01.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0016_battle_idle_SW_02.png"
+        },
+        {
+          "durationMs": 250,
+          "atlasKey": "CREATURE-0016_battle_idle_SW_01.png"
+        }
+      ],
+      "events": []
+    },
+    "battle_attack": {
+      "loop": false,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0016_battle_attack_SW_00.png"
+        }
+      ],
+      "events": [
+        {
+          "frame": 0,
+          "name": "hitFrame"
+        }
+      ]
+    },
+    "battle_hurt": {
+      "loop": false,
+      "space": "battle",
+      "frames": [
+        {
+          "durationMs": 300,
+          "atlasKey": "CREATURE-0016_battle_hurt_SW_00.png"
+        }
+      ],
+      "events": []
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk",
+    "ATTACK": "attack",
+    "HURT": "hurt",
+    "DEFEAT": "hurt"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS \"WarGreymon\" do Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/); 10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__WarGreymon__48613.png. Detalhe em license.json."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "Quadros de mapa achados automaticamente (9); direções conferidas no olho [H]: walk {\"N\":[1,2,3],\"W\":[4,5,6],\"S\":[7]}, dano S #8, ataque S #9.",
+    "A folha só tem 1 quadro de frente (S): andando para o sul o sprite não troca de perna (desliza na pose de pé).",
+    "Ataque/dano só existem de frente (quadros 9 e 8): virado para N/W/E o golpe e o dano usam a pose de frente. As poses de batalha (de lado) ficam em battle_* na escala nativa; reduzidas para o mapa ficaram ilegíveis e foram descartadas.",
+    "Linha: MetalGreymon não tem criatura importada (a folha 48322 existe no acervo, mas a grade de mapa mistura duas paletas e não dá para separar direções com segurança). Sem caminho Greymon → WarGreymon no jogo normal.",
+    "rarity/element/evolutionStage provisórios [H]."
+  ]
+}

@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|factory-v5|perf|evodemo
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|factory-v5|perf|evodemo|wargreymon
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -147,6 +147,7 @@ async function main() {
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
     if (process.env.ONLY === "arena") return await arena(cdp);
     if (process.env.ONLY === "evodemo") return await evoDemo(cdp);
+    if (process.env.ONLY === "wargreymon") return await warGreymon(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -372,6 +373,174 @@ async function evoDemo(cdp) {
     writeFileSync(join(out, "evo_digivolucao.gif"), encodeGif(frames));
     console.log("ok evo_digivolucao.gif", frames.length, "quadros");
   }
+  await cdp.eval(`localStorage.clear()`);
+}
+
+/**
+ * ?partner=wargreymon&look=v8 (save/partner.ts): o WarGreymon importado de DW DS como parceira ativa. Fotografa
+ * andando nas 4 direções (tecla WASD do Tamer, a parceira segue), o golpe forte (Gaia Force) e o dano em combate
+ * contra selvagens da floresta, e grava GIFs curtos (andando e combate) em evidence/wargreymon/.
+ */
+async function warGreymon(cdp) {
+  const out = process.env.OUT ?? join(ROOT, "../../evidence/wargreymon");
+  mkdirSync(out, { recursive: true });
+  const shot = async (name, clip) => {
+    const r = await cdp.send("Page.captureScreenshot", clip ? { format: "png", clip } : { format: "png" });
+    writeFileSync(join(out, name), Buffer.from(r.data, "base64"));
+    console.log("ok", name);
+  };
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&map=digimon-forest-01&look=v8&partner=wargreymon&criador=0&novo=1&time=${process.env.TIME ?? "day"}` });
+  await cdp.waitFor("!!window.__gs003", 60000, "o jogo iniciar");
+  await sleep(1500);
+  const P = `window.__gs003.sim.state.entities.find((e) => e.id === "p1:partner")`;
+  console.log("parceira:", JSON.stringify(await cdp.eval(`(() => { const p = ${P}; return { sp: p.speciesId, nome: p.name, nv: p.level, hp: p.maxHp, atk: p.stats.atk, golpes: p.moves, badge: document.querySelector('[data-testid="partner-badge"]')?.textContent }; })()`)));
+  const zoomAt = async (cw = 440, ch = 360) => {
+    const at = await cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const p = v.motionPos(g.presenter.localPartnerId);
+      const s = parseFloat(document.querySelector("#world").style.width) / document.querySelector("#world").width;
+      return { x: (p.x - v.camera.x) * s, y: (p.y - v.camera.y) * s }; })()`);
+    return { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.78)), width: cw, height: ch, scale: 1 };
+  };
+  const key = (k, type) => cdp.send("Input.dispatchKeyEvent", { type, key: k, text: type === "keyDown" ? k : undefined, code: /\d/.test(k) ? `Digit${k}` : `Key${k.toUpperCase()}` });
+  const look = () => cdp.eval(`(() => { const g = window.__gs003; const id = g.presenter.localPartnerId; const v = g.presenter.entities.get(id); const cv = g.view.creatures?.[v?.speciesId]; const f = cv ? g.view.frameFor(cv, v, g.presenter, performance.now()) : null; return f ? f.key + (f.mirror ? " (espelho)" : "") + " " + f.anim : "?"; })()`);
+  // sem AUTO para andar sem puxar briga
+  await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.players.find((x) => x.id === "p1"); p.auto = false; })()`);
+  await shot("wg_00_inicio.png");
+  // combate: AUTO ligado, prioridade com o Gaia Force primeiro
+  await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.players.find((x) => x.id === "p1"); p.auto = true; })()`);
+  const atkAge = `(() => { const g = window.__gs003; const v = g.presenter.entities.get(g.presenter.localPartnerId); return v?.attack ? performance.now() - v.attack.start : -1; })()`;
+  const fightFrames = [];
+  const tc0 = Date.now();
+  const taken = new Set();
+  const log = [];
+  // vai até o selvagem mais perto: clique nele (engage) se está na tela, senão clique na borda na direção dele
+  const approach = () => cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const cv = document.querySelector("#world");
+    const s = parseFloat(cv.style.width) / cv.width; const me = v.motionPos(g.presenter.localPartnerId);
+    const ws = g.sim.state.entities.filter((e) => e.kind === "wild" && e.hp > 0);
+    let best = null, bd = 1e9;
+    for (const e of ws) { const p = v.motionPos(e.id) ?? { x: e.x * 2, y: e.y * 2 }; const d = Math.hypot(p.x - me.x, p.y - me.y); if (d < bd) { bd = d; best = { id: e.id, p }; } }
+    if (!best) return null;
+    let x = (best.p.x - v.camera.x) * s, y = (best.p.y - v.camera.y) * s - 8;
+    const r = cv.getBoundingClientRect(); const pad = 60;
+    const inside = x > pad && y > pad && x < r.width - pad && y < r.height - pad;
+    if (!inside) { const cx = (me.x - v.camera.x) * s, cy = (me.y - v.camera.y) * s; const k = Math.min(1, 220 / Math.hypot(x - cx, y - cy)); x = cx + (x - cx) * k; y = cy + (y - cy) * k; }
+    return { x: Math.round(x + r.left), y: Math.round(y + r.top), inside, d: Math.round(bd) }; })()`);
+  const click = async (x, y) => {
+    await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
+    await cdp.send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 });
+    await cdp.send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
+  };
+  let lastApproach = 0;
+  while (Date.now() - tc0 < 150000 && taken.size < 4) {
+    if (Date.now() - lastApproach > 1200 && !(await cdp.eval(`!!${P}.encounterId`))) {
+      const a = await approach();
+      if (a) await click(a.x, a.y);
+      if (process.env.DEBUG_WG) console.log("aproxima:", JSON.stringify(a), await cdp.eval(`window.__gs003.mapId`));
+      lastApproach = Date.now();
+    }
+    const st = await cdp.eval(`(() => { const g = window.__gs003; const v = g.presenter.entities.get(g.presenter.localPartnerId); const now = performance.now(); const p = ${P};
+      return { enc: !!p.encounterId, atk: v?.attack ? now - v.attack.start : -1, sp: v?.attack?.special, flash: (v?.flashUntil ?? 0) > now, gaia: p.moveCd?.gaia_force ?? 0, cds: JSON.stringify(p.moveCd), hurt: v?.hurt ? now - v.hurt.start : -1, hp: p.hp, max: p.maxHp }; })()`);
+    if (st.enc) {
+      const clip = await zoomAt(560, 420);
+      const r = await cdp.send("Page.captureScreenshot", { format: "png", clip });
+      if (fightFrames.length < 160) fightFrames.push({ t: Date.now(), png: Buffer.from(r.data, "base64") });
+      const k = st.atk >= 0 || st.hurt >= 0 ? await look() : "";
+      // tecla 1 = slot do Gaia Force (o mesmo atalho do jogador); a foto sai logo depois que ele é usado
+      if (st.gaia === 0 && !taken.has("golpe")) await key("1", "keyDown").then(() => key("1", "keyUp"));
+      const noFlash = `(() => { const g = window.__gs003; const v = g.presenter.entities.get(g.presenter.localPartnerId); const now = performance.now(); return now >= (v?.flashUntil ?? 0) && !(v?.lvUpAt !== undefined && now - v.lvUpAt < 900); })()`;
+      if (/_attack_/.test(k) && st.sp && st.gaia >= 50 && st.atk > 150 && !taken.has("golpe") && (await cdp.eval(noFlash))) {
+        const r2 = await cdp.send("Page.captureScreenshot", { format: "png", clip });
+        if (!(await cdp.eval(noFlash)) || !/_attack_/.test(await look())) continue;
+        writeFileSync(join(out, "wg_03_golpe_forte.png"), Buffer.from(r2.data, "base64"));
+        await shot("wg_03_golpe_forte_tela.png");
+        console.log("ok wg_03_golpe_forte.png", k, "recargas (ticks restantes):", st.cds);
+        taken.add("golpe");
+      }
+      if (/_hurt_/.test(k) && !taken.has("dano")) {
+        const r2 = await cdp.send("Page.captureScreenshot", { format: "png", clip });
+        writeFileSync(join(out, "wg_04_levando_dano.png"), Buffer.from(r2.data, "base64"));
+        console.log("ok wg_04_levando_dano.png", k, `PV ${st.hp}/${st.max}`);
+        taken.add("dano");
+      }
+      if (!taken.has("combate") && fightFrames.length > 20) {
+        await shot("wg_05_combate_tela.png");
+        taken.add("combate");
+      }
+    } else if (fightFrames.length > 100 && taken.has("golpe") && taken.has("dano")) taken.add("fim");
+    await sleep(30);
+  }
+  // golpes que a parceira usou e vitórias (do log da sim não guardamos eventos: lê do HUD)
+  await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.players.find((x) => x.id === "p1"); p.auto = false; })()`);
+  await sleep(1500);
+  const walkFrames = [];
+  // anda clicando no chão (move_to com pathfinding) a ~260 px em cada direção; guarda a 1ª foto em que a parceira
+  // está de fato no quadro de walk daquela direção (a parceira segue o Tamer com atraso)
+  const clickAt = async (x, y) => {
+    await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
+    await cdp.send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 });
+    await cdp.send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
+  };
+  const partnerScreen = () => cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const cv = document.querySelector("#world"); const r = cv.getBoundingClientRect();
+      const s = parseFloat(cv.style.width) / cv.width; const p = v.motionPos(g.presenter.localPartnerId); return { x: (p.x - v.camera.x) * s + r.left, y: (p.y - v.camera.y) * s + r.top, w: r.width, h: r.height }; })()`);
+  const want = [
+    ["norte", "w", /walk_N_\d+\.png walk/],
+    ["oeste", "a", /walk_W_\d+\.png walk/],
+    ["leste", "d", /walk_W_\d+\.png \(espelho\) walk/],
+    ["sul", "s", /walk_S_\d+\.png walk/],
+  ];
+  const got = new Set();
+  const map0 = await cdp.eval(`window.__gs003.mapId`);
+  for (let round = 0; round < 3 && got.size < want.length; round++)
+    for (const [nome, k0, re] of want) {
+      if (got.has(nome)) continue;
+      await key(k0, "keyDown");
+      const t1 = Date.now();
+      while (Date.now() - t1 < 2600) {
+        const clip = await zoomAt();
+        const r = await cdp.send("Page.captureScreenshot", { format: "png", clip });
+        const k = await look();
+        walkFrames.push({ t: Date.now(), png: Buffer.from(r.data, "base64") });
+        if (process.env.DEBUG_WG && walkFrames.length % 15 === 0) console.log("walk:", nome, k);
+        if (re.test(k) && Date.now() - t1 > 400) {
+          writeFileSync(join(out, `wg_01_andando_${nome}.png`), Buffer.from(r.data, "base64"));
+          console.log("ok", `wg_01_andando_${nome}.png`, k);
+          got.add(nome);
+          if (Date.now() - t1 > 1200) break;
+        }
+        await sleep(30);
+      }
+      await key(k0, "keyUp");
+      await sleep(250);
+      if ((await cdp.eval(`window.__gs003.mapId`)) !== map0) console.warn("trocou de mapa andando para", nome);
+    }
+  if (got.size < want.length) console.warn("direções sem foto:", want.map((w) => w[0]).filter((n) => !got.has(n)));
+  await shot("wg_02_andando_tela.png");
+  // sem AUTO de novo para os GIFs não misturarem combate
+
+  console.log("mapa depois de andar:", await cdp.eval(`window.__gs003.mapId`));
+  console.log("combate:", [...taken].join(","), "· quadros", fightFrames.length);
+  console.log("log HUD:", await cdp.eval(`(document.querySelector("#hud")?.innerText ?? "").split("\\n").filter((l) => /Gaia|Dramon|Tornado|Shield|venceu|derrot|XP|dano/i.test(l)).slice(-10).join(" | ")`));
+  const { loadImage, createCanvas } = await import("@napi-rs/canvas");
+  const { encodeGif } = await import("./gif.mjs");
+  const gif = async (list, name, scale = 0.75) => {
+    const frames = [];
+    for (let i = 0; i < list.length; i++) {
+      const img = await loadImage(list[i].png);
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const c = createCanvas(w, h);
+      const g = c.getContext("2d");
+      g.imageSmoothingEnabled = false;
+      g.drawImage(img, 0, 0, w, h);
+      const next = list[i + 1]?.t ?? list[i].t + 100;
+      frames.push({ data: g.getImageData(0, 0, w, h).data, width: w, height: h, delayMs: i === list.length - 1 ? 800 : Math.max(20, Math.min(200, next - list[i].t)) });
+    }
+    if (frames.length) {
+      writeFileSync(join(out, name), encodeGif(frames));
+      console.log("ok", name, frames.length, "quadros");
+    }
+  };
+  await gif(walkFrames.filter((_, i) => i % 2 === 0), "wg_andando.gif", 0.6);
+  await gif(fightFrames, "wg_combate.gif", 0.6);
   await cdp.eval(`localStorage.clear()`);
 }
 

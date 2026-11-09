@@ -3,6 +3,22 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Parceira de teste — `?partner=<espécie>` (WarGreymon, 2026-11-09)
+
+Pedido do fundador: "me coloca um WarGreymon para testar as animações de um Digimon mais evoluído e mais forte".
+
+- **Link:** `http://localhost:5174/?map=digimon-forest-01&look=v8&partner=wargreymon`. Depois de criar os arquivos novos, recarregue a página. Funciona com e sem `look=v8`.
+- **`?partner=`** (`src/save/partner.ts`) aceita o id (`CREATURE-0016`) ou o nome (`wargreymon`, `greymon`, `War-Greymon`…) de qualquer espécie da sim. A espécie vira a parceira ativa no nível de entrada do estágio (Criança 8, Adulto 16; Perfeito e Mega no teto do pacote, Nv.20). O learnset vai para os 4 slots e para a prioridade do AUTO. O selo "TESTE · WarGreymon Nv.20" aparece no canto.
+- **Save separado**, como no `?demo=evo`: slot `gs003.world.save.partner-test`. A 1ª carga copia o save normal (só leitura) e depois o teste continua no próprio slot. O save normal nunca é escrito nem apagado. Jogo novo com `?partner=` pula a escolha do bebê. Se `partner` e `demo=evo` vierem juntos, vale o `partner`.
+- **WarGreymon** (`CREATURE-0016`, `tools/dwds_import/import_mega_dwds.js`):
+  - Arte: folha DW DS do Spriters Resource (rip A.J. Nitro & Dazz, crédito obrigatório). Walk N/W com 3 quadros, S com 1 quadro e E espelhado. Ataque (braço erguido) e dano (agachado) usam os quadros de mapa da própria folha. As 5 poses de batalha ficam em `battle_*`.
+  - Porte Mega: `mapScale 2` (~72 px no mapa, contra ~38 px do Greymon) [H].
+  - Estágio 5 ("Supremo"), Vacina. Stats [H] no Nv.20: PV 292 / Atq 109, contra ~180 / ~70 do Greymon ofensivo.
+  - Golpes [H] com arquétipos de VFX existentes: **Gaia Force** (área, fogo, `fireball`), **Dramon Killer** (corpo a corpo, `claw_slash`), **Great Tornado** (linha, `tornado_field`) e **Brave Shield** (buff de defesa, `guard_aura`). Tecla `1` = Gaia Force.
+- **Linha Agumon → Greymon → MetalGreymon → WarGreymon:** não foi ligada. Falta o MetalGreymon como espécie/criatura. A folha 48322 está no acervo, mas a grade de mapa mistura duas paletas, então precisa do game-art. Ligar Greymon direto ao WarGreymon pularia um estágio e mudaria o jogo normal (registrado em `evolution-paths.json`).
+- **Evidência:** `../../evidence/wargreymon/` (andando nas 4 direções, Gaia Force, dano, combate e 2 GIFs). Para refazer: `ONLY=wargreymon npm run shots:live`.
+- **Testes:** `tests/partner.test.ts` cobre o visual (anims e escala > Champion), a força (> Greymon/DoruGreymon/Angemon no Nv.20), o fato de nenhum caminho do jogo normal levar ao WarGreymon, a resolução de id/nome, o nível, a troca da parceira com combate em AUTO vencendo selvagens e o save separado.
+
 ## Ver o Digimon ganhar XP e digievoluir — `?demo=evo` (2026-11-09)
 
 Pedido do fundador: "Faça o Digi ganhar XP e evoluir para eu ver". XP, level up e evolução já existiam, mas não dava para **ver** isso numa sessão curta.

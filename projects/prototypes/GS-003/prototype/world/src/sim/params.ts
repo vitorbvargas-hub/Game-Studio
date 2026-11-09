@@ -48,7 +48,7 @@ export const WORLD = {
   wildRegenPct: 0.03,
   partnerRegenPct: 0.01,
   wildStatMult: 0.8,
-  baseXpByStage: { 1: 8, 2: 14, 3: 30, 4: 48 } as Record<number, number>,
+  baseXpByStage: { 1: 8, 2: 14, 3: 30, 4: 48, 5: 70 } as Record<number, number>,
   scanPerDefeat: 25,
   /** Ticks parada depois de evoluir (animação de digivolução no mapa: espera do level up + EVO_TOTAL_MS do presenter). */
   evolveLockTicks: 34,

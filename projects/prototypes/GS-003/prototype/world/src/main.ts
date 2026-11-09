@@ -47,6 +47,7 @@ import { ARENA_OWNER } from "./sim/arena";
 import { emptyArena, type ArenaSave } from "./save/arena-league";
 import vilaPack from "./data/maps/vila.aliases.json";
 import { DEMO_XP_MULT, demoModeOf, demoStorage, prepareDemo } from "./save/demo";
+import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, resolvePartnerSpecies } from "./save/partner";
 import type { ScenePack } from "./assets/scene-tiles";
 
 const params = new URLSearchParams(location.search);
@@ -79,6 +80,9 @@ const MIN_H = 240;
 
 /** ?demo=evo: modo de teste da evolução (XP ×25, parceira a poucas vitórias da evolução, save separado; save/demo.ts). */
 const DEMO = demoModeOf(params);
+
+/** ?partner=<espécie>: parceira de teste (ex. wargreymon) num nível do estágio, save separado; save/partner.ts. */
+const PARTNER_RAW = partnerParamOf(params);
 
 /** ?criador=0 pula o criador de Tamer (capturas/testes) e usa o visual padrão. */
 const CREATOR = params.get("criador") !== "0";
@@ -171,14 +175,18 @@ async function boot() {
   // Save (só nos mapas das regiões). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
   // ?demo=evo lê o save normal só na 1ª carga e grava num slot próprio (o save normal nunca é escrito).
   const baseStorage = regionMode ? browserStorage() : undefined;
-  const storage = baseStorage && DEMO ? demoStorage(baseStorage) : baseStorage;
+  // ?partner= também usa um slot próprio (PARTNER_SAVE_KEY) e tem prioridade sobre o do demo.
+  const partnerSpecies = PARTNER_RAW ? resolvePartnerSpecies(loadWorldContent(), PARTNER_RAW) : null;
+  if (PARTNER_RAW && !partnerSpecies) console.warn(`?partner=${PARTNER_RAW}: espécie desconhecida (use o id CREATURE-NNNN ou o nome)`);
+  const storage = baseStorage && partnerSpecies ? partnerStorage(baseStorage) : baseStorage && DEMO ? demoStorage(baseStorage) : baseStorage;
   const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
   const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, loaded.ok ? loaded.data.tamer : defaultLook());
   const creatures = loadCreatureCatalog();
   // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
-  const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
+  // Com ?partner=, jogo novo pula a escolha do bebê: a parceira de teste entra no lugar (preparePartnerTest).
+  const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && partnerSpecies ? partnerSpecies : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
   const newStarter = !loaded.ok && !!starter;
   // Telas secundárias: espécies vistas (Digivice), inventário, missões do dia e configurações (save v5).
   const seen = new Set<string>(loaded.ok ? loaded.data.seen : []);
@@ -298,15 +306,18 @@ async function boot() {
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
   }
   // Demo: a parceira (do save ou a inicial nova) fica um nível antes da evolução, com a barra a ~2 vitórias de encher.
-  const demoPrep = DEMO ? prepareDemo(cur.sim, LOCAL_PLAYER) : null;
-  if (demoPrep) {
+  const demoPrep = DEMO && !partnerSpecies ? prepareDemo(cur.sim, LOCAL_PLAYER) : null;
+  // Parceira de teste (?partner=): troca a espécie e o nível depois do save (que já vem do slot de teste).
+  const partnerPrep = partnerSpecies ? preparePartnerTest(cur.sim, LOCAL_PLAYER, partnerSpecies) : null;
+  if (partnerPrep) console.info("partner", partnerPrep);
+  if (demoPrep || partnerPrep) {
     for (const ev of cur.spawnEvents) {
       const e = ev.t === "spawn" ? getEntity(cur.sim.state, ev.entity.id) : undefined;
       if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
     }
     cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
-    console.info("demo=evo", demoPrep);
+    if (demoPrep) console.info("demo=evo", demoPrep);
   }
   console.info(`Tamer ${look.name}: ${lookKey(look)} (preset v3)`);
   const intents: Intent[] = [];
@@ -362,6 +373,16 @@ async function boot() {
     hudRoot.appendChild(badge);
     const sp = cur.sim.content.species;
     hud.push(`Modo demo: XP ×${DEMO_XP_MULT}. ${sp[demoPrep.speciesId]?.name} evolui no Nv.${demoPrep.evoLevel} — vença ~2 selvagens.`, "gold");
+  }
+  if (partnerPrep) {
+    const badge = document.createElement("div");
+    badge.className = "demo-badge";
+    badge.dataset.testid = "partner-badge";
+    const name = cur.sim.content.species[partnerPrep.speciesId]?.name ?? partnerPrep.speciesId;
+    badge.title = `Parceira de teste (${partnerPrep.speciesId}) com save separado (${PARTNER_SAVE_KEY}); o save normal não é alterado. Tire ?partner= da URL para voltar.`;
+    badge.textContent = `TESTE · ${name} Nv.${partnerPrep.level}`;
+    hudRoot.appendChild(badge);
+    hud.push(`Parceira de teste: ${name} Nv.${partnerPrep.level} (save separado). Teclas 1–4 usam os golpes.`, "gold");
   }
   if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
 

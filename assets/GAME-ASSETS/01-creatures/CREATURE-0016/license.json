@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0016",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "WarGreymon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__WarGreymon__48613.png",
+    "sha256": "851b7c43086285b62df483b6486f41e40278c66b1e17b6982d9e20229e0434b2",
+    "bytes": 32394,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa e poses de batalha recortados por componentes conexos e realinhados pelo pivô nos pés (sem redimensionar)"
+  },
+  "credit": {
+    "ripper": "A.J. Nitro, Dazz",
+    "creditTextOnSheet": "Ripped by A.J. Nitro & Dazz. Give credit if used.",
+    "creditRequiredBySheet": true,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-dev",
+  "notes": "Crédito obrigatório pela folha: A.J. Nitro, Dazz (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

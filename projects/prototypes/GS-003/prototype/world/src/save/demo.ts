@@ -30,9 +30,14 @@ export function demoModeOf(params: URLSearchParams): DemoMode | null {
  * leitura). Toda escrita/remoção de SAVE_KEY vai para o slot do demo; as demais chaves passam direto.
  */
 export function demoStorage(base: StorageLike): StorageLike {
-  const map = (k: string) => (k === SAVE_KEY ? DEMO_SAVE_KEY : k.startsWith(`${SAVE_KEY}.`) && !k.startsWith(DEMO_SAVE_KEY) ? `${DEMO_SAVE_KEY}${k.slice(SAVE_KEY.length)}` : k);
+  return slotStorage(base, DEMO_SAVE_KEY);
+}
+
+/** Mesmo mapeamento do demo para outro slot de teste (ex. ?partner=, save/partner.ts). */
+export function slotStorage(base: StorageLike, slotKey: string): StorageLike {
+  const map = (k: string) => (k === SAVE_KEY ? slotKey : k.startsWith(`${SAVE_KEY}.`) && !k.startsWith(slotKey) ? `${slotKey}${k.slice(SAVE_KEY.length)}` : k);
   return {
-    getItem: (k) => (k === SAVE_KEY ? base.getItem(DEMO_SAVE_KEY) ?? base.getItem(SAVE_KEY) : base.getItem(map(k))),
+    getItem: (k) => (k === SAVE_KEY ? base.getItem(slotKey) ?? base.getItem(SAVE_KEY) : base.getItem(map(k))),
     setItem: (k, v) => base.setItem(map(k), v),
     removeItem: (k) => base.removeItem(map(k)),
   };
