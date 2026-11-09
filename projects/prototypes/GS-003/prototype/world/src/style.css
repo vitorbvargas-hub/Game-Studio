@@ -94,6 +94,15 @@ body {
 .pill span {
   color: var(--ui-dim);
 }
+.pill i {
+  display: contents;
+}
+.pill.night {
+  border-color: #3b3a7a;
+}
+.pill.night b {
+  color: #b9b4ff;
+}
 .pill.dim {
   font-size: 11px;
   padding: 1px 8px;

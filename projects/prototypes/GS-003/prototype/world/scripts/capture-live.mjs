@@ -136,6 +136,7 @@ async function main() {
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
     await sleep(3500);
     if (process.env.ONLY === "forest") return await forestV4(cdp);
+    if (process.env.ONLY === "daynight") return await dayNight(cdp);
     await cdp.shot("proof_live_geral.png");
     if (process.env.ONLY === "geral") return;
     if (process.env.ONLY === "golpes") return await golpes(cdp);
@@ -188,6 +189,24 @@ async function main() {
     proc.kill("SIGKILL");
     await server.close();
     if (process.env.DEBUG_CHROME) console.error(stderr.slice(-2000));
+  }
+}
+
+/** Ciclo dia/noite: mesma semente em ?time=day, ?time=18:30 (relógio parado no meio do anoitecer) e ?time=night. */
+async function dayNight(cdp) {
+  const shots = [
+    ["daynight_dia.png", "time=day"],
+    ["daynight_anoitecer.png", "time=18:30&timescale=0"],
+    ["daynight_noite.png", "time=night"],
+  ];
+  for (const [name, q] of shots) {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&${q}${QUERY}` });
+    await sleep(500);
+    await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+    await sleep(3500);
+    const st = await cdp.eval(`(() => { const g = window.__gs003; return { mix: g.view.nightMix, hud: document.querySelector('[data-testid="daytime"]').textContent }; })()`);
+    console.log(name, JSON.stringify(st));
+    await cdp.shot(name);
   }
 }
 

@@ -40,6 +40,7 @@ const ICONS: Record<string, string[]> = {
   chat: ["kkkkkkkkk.", "kwwwwwwwk.", "kwkkwkkwk.", "kwwwwwwwk.", "kwkkkkwwk.", "kwwwwwwwk.", "kkkwkkkkk.", "..kwk.....", "..kk......", ".........."],
   boss: ["k..kkk..k.", "kk.krk.kk.", "kkkkkkkkk.", "kpwkpkwpk.", "kprkpkrpk.", "kpppppppk.", ".kpkkkpk..", ".kpwpwpk..", "..kkkkk...", ".........."],
   star: ["....k.....", "...kyk....", "kkkkykkkk.", "kyyyyyyyk.", ".kyyyyyk..", "..kyyyk...", ".kyykyyk..", "kyk...kyk.", "kk.....kk.", ".........."],
+  sun: ["....y.....", ".y..y..y..", "...kkk....", "..kyyyk...", "yykyoyykyy", "..kyyyk...", "...kkk....", ".y..y..y..", "....y.....", ".........."],
   moon: ["..kkkk....", ".kyyyk....", "kyyyk.....", "kyyk......", "kyyk......", "kyyyk...k.", ".kyyykkkk.", "..kkkkkk..", "..........", ".........."],
 };
 

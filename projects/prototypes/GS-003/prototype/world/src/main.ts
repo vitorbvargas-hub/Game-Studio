@@ -4,6 +4,7 @@
 import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
 import { loadSceneTiles, packSummary, usedKeys, type ScenePack } from "./assets/scene-tiles";
+import { clockFromParams, formatClock, GameClock } from "./render/daynight";
 import { countDwdsSources, loadTileSources } from "./assets/tiles";
 import forestProofPack from "./data/maps/forest-proof.aliases.json";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
@@ -53,11 +54,16 @@ async function boot() {
   // Presets noturnos (pastas night/) repetem os nomes do dia: ficam fora do conjunto global.
   let tiles = loadTileSources(TILES_DWDS, (p) => !/\/night\//.test(p));
   const packCfg = forestProofPack as ScenePack;
+  let nightTiles: typeof tiles | undefined;
   if (forest) {
     const scene = loadSceneTiles(packCfg, "day", usedKeys(sim.map), TILES_DWDS);
+    const night = loadSceneTiles(packCfg, "night", usedKeys(sim.map), TILES_DWDS);
     tiles = scene.tiles;
-    console.info(`forest-proof · ${packSummary(packCfg, "day", scene)}`, scene.missing);
+    nightTiles = night.tiles;
+    console.info(`forest-proof · ${packSummary(packCfg, "day", scene)} · ${packSummary(packCfg, "night", night)}`, scene.missing, night.missing);
   }
+  // Relógio do jogo (?time=night|day|HH:MM força; ?timescale=N minutos de jogo por segundo real).
+  const clock = new GameClock(clockFromParams(params, new Date()));
   const tamers = pickTamers(loadCharacterCatalog());
   const fxSheets = loadSheetCatalog();
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
@@ -65,6 +71,7 @@ async function boot() {
   const failed = await images.loadAll([
     ...Object.values(creatures).map((c) => c.sheetUrl),
     ...Object.values(tiles).map((t) => t.url),
+    ...Object.values(nightTiles ?? {}).map((t) => t.url),
     ...[tamers.local, tamers.remote].flatMap((t) => (t ? imageUrlsOf(t) : [])),
     ...fxSheets.map((s) => s.url),
   ]);
@@ -86,6 +93,7 @@ async function boot() {
     trees: forest ? packCfg.trees : undefined,
     fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
   });
+  if (nightTiles) view.setNightTiles(nightTiles);
   const intents: Intent[] = [];
   const player = getPlayer(sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
@@ -191,11 +199,13 @@ async function boot() {
       if (kind) dots.push({ x: v.cur.x, y: v.cur.y, kind });
     }
     hud.updateWorld(view.motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
+    if (forest) hud.setClock(clock.phase(now - bootAt), formatClock(clock.minutes(now - bootAt)));
     lastHudWorld = now;
     frames = 0;
   };
 
   // ---- loop ----
+  const bootAt = performance.now();
   let acc = 0;
   let last = performance.now();
   let lastFrame = last;
@@ -220,6 +230,8 @@ async function boot() {
     const mePos = view.motionPos(LOCAL_PLAYER);
     if (mePos) view.follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / scale }, now - lastFrame, view.shakeFor(presenter, now));
     lastFrame = now;
+    const elapsed = now - bootAt;
+    view.nightMix = forest ? clock.nightMix(elapsed) : 0;
     view.render(presenter, alpha, now);
     drawNameplates(alpha, now);
     updateHudWorld(now);
@@ -231,7 +243,7 @@ async function boot() {
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  Object.assign(window, { __gs003: { sim, presenter, view, hud } });
+  Object.assign(window, { __gs003: { sim, presenter, view, hud, clock } });
 }
 
 /** Estado de golpes da parceira para o HUD (cópia somente leitura). */

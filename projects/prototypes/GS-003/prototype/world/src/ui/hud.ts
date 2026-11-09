@@ -131,7 +131,7 @@ export class Hud {
     const sc = this.scene;
     root.innerHTML = `
       <div class="hud-tl">
-        <div class="pill">${icon("moon", 14)}<b>Dia</b><span data-testid="clock">14:20</span></div>
+        <div class="pill" data-testid="daytime"><i data-testid="clock-icon">${icon("sun", 14)}</i><b data-testid="phase">Dia</b><span data-testid="clock">14:20</span></div>
         <div class="pill region">${icon("map", 14)}<b>${esc(sc.region.name)}</b><span>${esc(sc.region.route)}</span></div>
         <div class="pill dim"><span data-testid="fps">-- qps</span></div>
       </div>
@@ -530,6 +530,17 @@ export class Hud {
   }
 
   /** Minimapa, coordenadas e quadros por segundo (chamar algumas vezes por segundo, não por quadro). */
+  /** Relógio do jogo no canto superior esquerdo: fase ("Dia", "Anoitecer", "Noite", "Amanhecer") e hora. */
+  setClock(phase: string, hhmm: string): void {
+    const ph = this.root.querySelector('[data-testid="phase"]')!;
+    if (ph.textContent !== phase) {
+      ph.textContent = phase;
+      this.root.querySelector('[data-testid="clock-icon"]')!.innerHTML = icon(phase === "Dia" || phase === "Amanhecer" ? "sun" : "moon", 14);
+      this.root.querySelector('[data-testid="daytime"]')!.classList.toggle("night", phase === "Noite" || phase === "Anoitecer");
+    }
+    this.root.querySelector('[data-testid="clock"]')!.textContent = hhmm;
+  }
+
   updateWorld(me: { x: number; y: number } | undefined, dots: MinimapDot[], fps?: number): void {
     if (me) {
       this.coordEl.textContent = `${Math.floor(me.x / 32)}, ${Math.floor(me.y / 32)}`;

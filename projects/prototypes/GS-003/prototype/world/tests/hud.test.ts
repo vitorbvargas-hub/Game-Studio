@@ -33,6 +33,19 @@ afterEach(() => {
 });
 
 describe("HUD (DOM, padrão IdleDex)", () => {
+  it("relógio do jogo: fase e hora; ícone de lua e borda noturna à noite", () => {
+    const { root, hud } = mount();
+    hud.setClock("Dia", "14:20");
+    expect(root.querySelector('[data-testid="daytime"]')!.textContent).toContain("Dia14:20");
+    expect(root.querySelector('[data-testid="daytime"]')!.classList.contains("night")).toBe(false);
+    const sun = root.querySelector('[data-testid="clock-icon"]')!.innerHTML;
+    hud.setClock("Noite", "22:10");
+    expect(root.querySelector('[data-testid="phase"]')!.textContent).toBe("Noite");
+    expect(root.querySelector('[data-testid="clock"]')!.textContent).toBe("22:10");
+    expect(root.querySelector('[data-testid="daytime"]')!.classList.contains("night")).toBe(true);
+    expect(root.querySelector('[data-testid="clock-icon"]')!.innerHTML).not.toBe(sun);
+  });
+
   it("AUTO alterna (LIG./DESL.) e emite callback; Fugir emite callback", () => {
     const { root, onAuto, onFlee } = mount();
     const auto = root.querySelector<HTMLButtonElement>('[data-act="auto"]')!;

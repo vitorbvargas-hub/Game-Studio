@@ -105,4 +105,38 @@ describe("forest-v4 no jogo: árvore em 2 sprites, sombra decal, copa translúci
     // o Tamer (placeholder em canvas, "other") é desenhado entre o chão e as copas
     expect(calls.slice(1, firstTop).includes("other")).toBe(true);
   });
+
+  it("noite: com nightMix = 1 os troncos e copas vêm de night/props; no meio da transição, os dois presets", async () => {
+    const { sim, view, presenter, images } = await setup();
+    const night = loadSceneTiles(packCfg, "night", usedKeys(sim.map)).tiles;
+    expect(await images.loadAll(Object.entries(night).filter(([k]) => k.startsWith(packCfg.prefix)).map(([, t]) => t.url))).toEqual([]);
+    view.setNightTiles(night);
+    const me = sim.state.entities.find((e) => e.id === LOCAL_PLAYER)!;
+    view.follow({ x: me.x * PX_PER_SUB, y: me.y * PX_PER_SUB });
+    view.update(presenter, 1, 0);
+    const nightImgs = new Set(Object.values(night).filter((t) => /forest-v4\/night\/props\/tree_/.test(t.url)).map((t) => images.get(t.url)));
+    const dayImgs = new Set(view.treeGeoms().flatMap((t) => [images.get(t.base.url), images.get(t.top.url)]));
+    const count = (mix: number) => {
+      view.nightMix = mix;
+      let n = 0;
+      let d = 0;
+      const ctx = view.ctx;
+      const orig = ctx.drawImage;
+      ctx.drawImage = ((img: CanvasImageSource, ...rest: number[]) => {
+        if (nightImgs.has(img as never)) n++;
+        if (dayImgs.has(img as never)) d++;
+        return (orig as (...a: unknown[]) => void).call(ctx, img, ...rest);
+      }) as typeof ctx.drawImage;
+      view.render(presenter, 1, 0);
+      ctx.drawImage = orig;
+      return { n, d };
+    };
+    expect(count(0)).toMatchObject({ n: 0 });
+    const full = count(1);
+    expect(full.n).toBeGreaterThan(10);
+    expect(full.d).toBe(0);
+    const half = count(0.5);
+    expect(half.n).toBe(full.n);
+    expect(half.d).toBe(full.n);
+  });
 });

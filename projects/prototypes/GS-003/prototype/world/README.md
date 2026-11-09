@@ -3,6 +3,29 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Ciclo dia/noite (2026-11-08)
+
+- **Relógio do jogo** (`src/render/daynight.ts`, só apresentação; a sim não sabe a hora):
+  - Começa na hora local real e anda 1 minuto de jogo por segundo real, então um dia de jogo dura 24 min.
+  - O HUD mostra a fase e a hora ("Dia 14:23", "Anoitecer 18:30", "Noite 22:13"), com ícone de sol ou lua e borda roxa à noite.
+- **Preset escolhido pelo relógio:**
+  - Dia das 06:00 às 17:59 e noite das 19:00 às 04:59.
+  - O anoitecer (18:00–19:00) e o amanhecer (05:00–06:00) fazem uma transição suave (smoothstep) de cerca de 60 s reais.
+- **Parâmetros de URL:**
+  - `?time=night` (ou `noite`) força a noite; `?time=day` (ou `dia`) força o dia.
+  - `?time=HH:MM` define a hora inicial.
+  - `?timescale=N` define quantos minutos de jogo passam por segundo real; `0` congela o relógio.
+- **Render** (`render/view.ts`):
+  - A noite usa `forest-v4/night/` com os mesmos nomes de arquivo. Na transição, chão, troncos, copas, decor e sombras fazem crossfade entre o dia e a noite.
+  - O chão tem chunks pré-renderizados por preset, e cada prop é desenhado nos dois presets com alpha.
+  - Por cima vai o overlay ambiente do game-art: dia `#fff3c2` com α 26/255 e vinheta 28; noite `#2a1f5c` com α 70/255 e vinheta 70; os valores são interpolados.
+  - O VFX dos golpes fica **acima** do overlay, então os golpes brilham à noite.
+- **Capturas:** `docs/screens/daynight_dia.png`, `daynight_anoitecer.png` (mistura 0,5) e `daynight_noite.png`. Para gerar: `ONLY=daynight npm run shots:live`.
+- **Testes:**
+  - `tests/daynight.test.ts`: faixas, transição monotônica sem salto, `?time=`, `timescale` e interpolação do overlay.
+  - `tests/canopy.test.ts`: com noite 1, só as imagens `night/` aparecem; com 0,5, os dois presets.
+  - `tests/hud.test.ts`: relógio com fase e ícone.
+
 ## forest-v4 no jogo (2026-11-08)
 
 O mapa `forest-proof` agora usa o pacote `GAME-ASSETS/03-environments/forest-v4/` (commit dac3d4d), seguindo o `tileset.json` e o README dele.

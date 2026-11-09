@@ -26,6 +26,7 @@ import { drawOutlinedText, pixelTextWidth } from "./pixelfont";
 import { EXCLAIM_MS, type Presenter, type VisualEntity } from "./presenter";
 import type { VfxFrame } from "./vfx/archetypes";
 import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
+import { ambientAt } from "./daynight";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
 
 export const CHUNK_TILES = 16;
@@ -95,6 +96,11 @@ export class WorldView {
   private canopyAlpha = new Map<number, number>();
   private trees?: TreeGeom[];
   private lastRender?: number;
+  /** Preset noturno do pacote (mesmas chaves): URL do dia → URL da noite. */
+  private nightUrls = new Map<string, string>();
+  private nightTiles?: Record<string, TileSource>;
+  /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
+  nightMix = 0;
   /** Estatística do último quadro (culling). */
   stats = { entitiesDrawn: 0, propsDrawn: 0, chunksDrawn: 0 };
 
@@ -126,10 +132,41 @@ export class WorldView {
     this.trees = undefined;
   }
 
-  /** Troca o conjunto de tiles/props (ex.: preset noturno do pacote, mesmos nomes) e refaz o chão. */
+  /** Troca o conjunto de tiles/props e refaz o chão. */
   setTiles(tiles: Record<string, TileSource>): void {
     this.tiles = tiles;
     this.invalidateGround();
+  }
+
+  /** Preset noturno (mesmas chaves do dia, outra paleta). As imagens precisam estar no ImageStore. */
+  setNightTiles(tiles: Record<string, TileSource>): void {
+    this.nightTiles = tiles;
+    this.nightUrls.clear();
+    for (const [k, t] of Object.entries(this.tiles)) if (tiles[k] && tiles[k].url !== t.url) this.nightUrls.set(t.url, tiles[k].url);
+    this.chunks.clear();
+  }
+
+  /** Imagem de um URL do dia no preset pedido (cai no dia se não houver versão noturna carregada). */
+  private presetImage(url: string, night: boolean): ImageLike | undefined {
+    const n = night ? this.nightUrls.get(url) : undefined;
+    return (n && this.images.get(n)) || this.images.get(url);
+  }
+
+  /** drawImage com crossfade dia → noite (respeita o globalAlpha corrente). */
+  private drawPreset(url: string, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw = sw, dh = sh): void {
+    const ctx = this.ctx;
+    const mix = this.nightUrls.size ? this.nightMix : 0;
+    const a = ctx.globalAlpha;
+    if (mix < 1) {
+      const img = this.presetImage(url, false);
+      if (img) ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+    }
+    if (mix > 0) {
+      const img = this.presetImage(url, true);
+      ctx.globalAlpha = a * (mix < 1 ? mix : 1);
+      if (img) ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+      ctx.globalAlpha = a;
+    }
   }
 
   /**
@@ -256,6 +293,7 @@ export class WorldView {
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
     this.drawCanopies(p, trees, visible, now);
+    this.drawAmbient();
 
     for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "over");
     // Impacto genérico da v2 só para golpes sem Cast (eventos sintéticos/legado).
@@ -286,9 +324,29 @@ export class WorldView {
     this.stats = { ...this.stats, entitiesDrawn: visible.length, propsDrawn: props };
   }
 
-  private blitWorld(part: { url: string; x: number; y: number }): void {
-    const img = this.images.get(part.url);
-    if (img) this.ctx.drawImage(img, part.x - this.camera.x, part.y - this.camera.y);
+  private blitWorld(part: { url: string; x: number; y: number; w: number; h: number }): void {
+    this.drawPreset(part.url, 0, 0, part.w, part.h, part.x - this.camera.x, part.y - this.camera.y);
+  }
+
+  /**
+   * Luz ambiente do preset (forest-v4): véu de cor em tela cheia + vinheta, interpolados pela mistura noite.
+   * Fica acima do mundo e das copas e abaixo do VFX, para os golpes continuarem brilhando à noite.
+   */
+  private drawAmbient(): void {
+    if (!this.opts.trees) return;
+    const ctx = this.ctx;
+    const w = this.canvas.width;
+    const h = this.canvas.height;
+    const amb = ambientAt(this.nightMix);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = `rgba(${amb.rgb.join(",")},${amb.alpha.toFixed(3)})`;
+    ctx.fillRect(0, 0, w, h);
+    const r = Math.hypot(w, h) / 2;
+    const g = ctx.createRadialGradient(w / 2, h / 2, r * 0.72, w / 2, h / 2, r);
+    g.addColorStop(0, "rgba(24,20,37,0)");
+    g.addColorStop(1, `rgba(24,20,37,${amb.vignette.toFixed(3)})`);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
   }
 
   /**
@@ -341,16 +399,23 @@ export class WorldView {
     for (let cy = Math.floor(cam.y / size); cy * size < cam.y + cam.h; cy++)
       for (let cx = Math.floor(cam.x / size); cx * size < cam.x + cam.w; cx++) {
         if (cx < 0 || cy < 0 || cx * CHUNK_TILES >= this.map.width || cy * CHUNK_TILES >= this.map.height) continue;
-        this.ctx.drawImage(this.chunk(cx, cy, now), cx * size - cam.x, cy * size - cam.y);
+        const mix = this.nightTiles ? this.nightMix : 0;
+        if (mix < 1) this.ctx.drawImage(this.chunk(cx, cy, now, false), cx * size - cam.x, cy * size - cam.y);
+        if (mix > 0) {
+          this.ctx.globalAlpha = mix < 1 ? mix : 1;
+          this.ctx.drawImage(this.chunk(cx, cy, now, true), cx * size - cam.x, cy * size - cam.y);
+          this.ctx.globalAlpha = 1;
+        }
         n++;
       }
     this.stats.chunksDrawn = n;
   }
 
   /** Chunk de 16×16 tiles pré-renderizado. Tiles animados (água) geram uma versão por quadro. */
-  private chunk(cx: number, cy: number, now: number): HTMLCanvasElement {
+  private chunk(cx: number, cy: number, now: number, night = false): HTMLCanvasElement {
     const animFrame = Object.values(ANIMATED_TILES).reduce((s, a) => s + (Math.floor(now / a.frameMs) % a.frames.length), 0);
-    const key = `${cx},${cy},${animFrame}`;
+    const key = `${cx},${cy},${animFrame}${night ? ",n" : ""}`;
+    const set = night && this.nightTiles ? { ...this.tiles, ...this.nightTiles } : this.tiles;
     let c = this.chunks.get(key);
     if (c) return c;
     const ts = this.map.tileSize;
@@ -364,7 +429,7 @@ export class WorldView {
         if (mx >= this.map.width || my >= this.map.height) continue;
         for (const layer of this.map.tileLayers) {
           const key = layer.keys[my * this.map.width + mx];
-          if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts);
+          if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
         }
       }
     // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
@@ -374,16 +439,16 @@ export class WorldView {
     for (const t of this.treeGeoms()) {
       const s = t.shadow;
       if (!s || s.x > x0 + size || s.x + s.w < x0 || s.y > y0 + size || s.y + s.h < y0) continue;
-      const img = this.images.get(s.url);
+      const img = this.presetImage(s.url, night);
       if (img) g.drawImage(img, s.x - x0, s.y - y0);
     }
     this.chunks.set(key, c);
     return c;
   }
 
-  private drawTile(g: CanvasRenderingContext2D, key: string, x: number, y: number): void {
+  private drawTile(g: CanvasRenderingContext2D, key: string, x: number, y: number, set = this.tiles): void {
     const ts = this.map.tileSize;
-    const src = this.tiles[key];
+    const src = set[key];
     const img = src && this.images.get(src.url);
     if (!img) return drawPlaceholderTile(g, key, x, y, ts);
     const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
@@ -397,7 +462,7 @@ export class WorldView {
     if (img) {
       const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
       const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
-      this.ctx.drawImage(img, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), sw, sh);
+      this.drawPreset(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y));
       return;
     }
     const ph = propPlaceholder(pr.key);
