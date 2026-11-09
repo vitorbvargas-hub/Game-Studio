@@ -10,6 +10,7 @@ import officialLearnsets from "../data/moves/learnsets.json";
 import officialMoves from "../data/moves/moves.json";
 import simExtras from "../data/moves-sim.json";
 import worldMoves from "../data/moves-world.json";
+import evolutionPaths from "../data/evolution-paths.json";
 import { SUB } from "./params";
 import type { AutoRule, Entity, MoveDef, MoveTarget, MoveType, StatKey } from "./types";
 
@@ -27,13 +28,24 @@ export interface MoveContent {
   basicMoveId: string;
   /** Learnset por espécie, ordenado por nível (ordem do arquivo como desempate). */
   learnsets: Record<string, { level: number; move: string }[]>;
-  /** Próxima forma e o nível mínimo (= primeiro nível do learnset dela). */
+  /** Próxima forma e o nível mínimo (= primeiro nível do learnset dela). Primeiro caminho de `paths`. */
   evolutions: Record<string, { to: string; level: number }>;
+  /** Todos os caminhos de evolução de cada espécie, com os requisitos (EVOLUTION_PROPOSAL.md §3). */
+  paths: Record<string, EvoPath[]>;
   inheritSlotsOnEvolve: number;
   elementChart: Record<string, Record<string, number>>;
   speciesElement: Record<string, string>;
   mp: MpRules;
   healSelfBelowPct: number;
+}
+
+/** Um caminho de evolução: nível mínimo e, opcionalmente, atributos mínimos (sempre visíveis ao jogador). */
+export interface EvoPath {
+  to: string;
+  level: number;
+  stats?: Partial<Record<"hp" | StatKey, number>>;
+  /** De onde veio o ramo (fonte da pesquisa), para a UI. */
+  source?: string;
 }
 
 const TYPES: MoveType[] = ["physical", "special", "buff", "debuff", "heal"];
@@ -88,7 +100,7 @@ export function normalizeMove(r: Raw, x: Extras): MoveDef {
 }
 
 /** Monta o conteúdo a partir dos JSON (exportado para testes com dados próprios). */
-export function buildMoveContent(movesJson: Raw, learnJson: Raw, extras: Raw): MoveContent {
+export function buildMoveContent(movesJson: Raw, learnJson: Raw, extras: Raw, pathsJson: Raw = {}): MoveContent {
   const x = extras as unknown as Extras;
   const moves: Record<string, MoveDef> = {};
   for (const r of (movesJson.moves ?? []) as Raw[]) {
@@ -98,7 +110,7 @@ export function buildMoveContent(movesJson: Raw, learnJson: Raw, extras: Raw): M
   const basicMoveId = str(movesJson.basicMoveId, "investida");
   if (!moves[basicMoveId]) throw new Error(`golpe básico '${basicMoveId}' ausente`);
   const learnsets: MoveContent["learnsets"] = {};
-  const evoTo: Record<string, string> = {};
+  const evoTo: Record<string, string[]> = {};
   for (const s of (learnJson.species ?? []) as Raw[]) {
     const sp = str(s.speciesId, "");
     learnsets[sp] = ((s.learnset ?? []) as Raw[])
@@ -106,16 +118,27 @@ export function buildMoveContent(movesJson: Raw, learnJson: Raw, extras: Raw): M
       .sort((a, b) => a.level - b.level || a.i - b.i)
       .map(({ level, move }) => ({ level, move }));
     for (const e of learnsets[sp]) if (!moves[e.move]) throw new Error(`learnset ${sp}: golpe '${e.move}' não existe`);
-    const to = (s.evolvesTo as string[] | undefined)?.[0];
-    if (to) evoTo[sp] = to;
+    const to = (s.evolvesTo as string[] | undefined) ?? [];
+    if (to.length) evoTo[sp] = to;
   }
+  // Caminhos: os de evolvesTo (nível = entrada do learnset do alvo) e, por cima, os do evolution-paths.json.
+  const paths: MoveContent["paths"] = {};
+  for (const [from, tos] of Object.entries(evoTo)) paths[from] = tos.map((to) => ({ to, level: learnsets[to]?.[0]?.level ?? 99 }));
+  for (const [from, list] of Object.entries((pathsJson.paths ?? {}) as Record<string, Raw[]>))
+    paths[from] = list.map((r) => ({
+      to: str(r.to, ""),
+      level: num(r.level, learnsets[str(r.to, "")]?.[0]?.level ?? 99),
+      ...(r.stats ? { stats: r.stats as EvoPath["stats"] } : {}),
+      ...(typeof r.source === "string" ? { source: r.source } : {}),
+    }));
   const evolutions: MoveContent["evolutions"] = {};
-  for (const [from, to] of Object.entries(evoTo)) evolutions[from] = { to, level: learnsets[to]?.[0]?.level ?? 99 };
+  for (const [from, list] of Object.entries(paths)) if (list[0]) evolutions[from] = { to: list[0].to, level: list[0].level };
   return {
     moves,
     basicMoveId,
     learnsets,
     evolutions,
+    paths,
     inheritSlotsOnEvolve: num(learnJson.inheritSlotsOnEvolve, 2),
     elementChart: x.elementChart ?? {},
     speciesElement: x.speciesElement ?? {},
@@ -130,6 +153,7 @@ export function loadMoveContent(): MoveContent {
     { ...(officialMoves as unknown as Raw), moves: [...officialMoves.moves, ...w.moves] },
     { ...(officialLearnsets as unknown as Raw), species: [...officialLearnsets.species, ...w.species] },
     { ...(simExtras as unknown as Raw), speciesElement: { ...simExtras.speciesElement, ...w.speciesElement } },
+    evolutionPaths as unknown as Raw,
   );
 }
 

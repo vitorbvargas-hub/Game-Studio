@@ -4,7 +4,7 @@
 
 import { initialLoadout, MOVE_SLOTS, type MoveContent } from "../sim/moves";
 import { TICK_MS } from "../sim/params";
-import type { AutoCond, AutoRule, MoveDef } from "../sim/types";
+import type { AutoCond, AutoRule, MoveDef, StatBlock } from "../sim/types";
 
 /** Estado de golpes da parceira ativa, montado a partir da sim (somente leitura). */
 export interface MovesView {
@@ -20,7 +20,11 @@ export interface MovesView {
   cd: Record<string, number>;
   queued?: string;
   inCombat: boolean;
-  evolve?: { toName: string; level: number; ready: boolean };
+  evolve?: { toName: string; level: number; ready: boolean; branching?: boolean };
+  /** Stats atuais (requisitos de evolução). */
+  stats?: StatBlock;
+  /** Preferências do Auto-evoluir por espécie (só do jogador local). */
+  evoPrefs?: Record<string, string>;
 }
 
 export const KIND_PT: Record<string, string> = { physical: "Físico", special: "Especial", buff: "Buff", debuff: "Debuff", heal: "Cura" };
@@ -107,7 +111,7 @@ export function rulesFor(v: MovesView): AutoRule[] {
   return [...v.autoRules.filter((r) => eq.includes(r.moveId)), ...eq.filter((id) => !v.autoRules.some((r) => r.moveId === id)).map((moveId) => ({ moveId, cond: "always" as AutoCond }))];
 }
 
-export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, swapping?: string): string {
+export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, swapping?: string, extra = ""): string {
   const ls = mc.learnsets[v.speciesId] ?? [];
   const locked = ls.filter((e) => !v.learned.includes(e.move));
   const canSwap = editable && !v.inCombat;
@@ -159,5 +163,6 @@ export function movesTabHtml(mc: MoveContent, v: MovesView, editable: boolean, s
         ${editable ? `<button class="act" data-reset-rules>Restaurar padrão</button>` : ""}
       </div>
     </div>
+    ${extra}
   </div>`;
 }

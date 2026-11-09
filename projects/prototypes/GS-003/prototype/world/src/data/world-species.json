@@ -1,5 +1,5 @@
 {
-  "_comment": "Espécies do vertical slice. O id é o id da criatura em GAME-ASSETS/01-creatures. 'pack' reaproveita stats/skills do pacote digimon-fan do protótipo idle (prototype/game/packs/digimon-fan). A linha Guilmon não existe no pacote: stats e skills locais abaixo são [H], modelados na linha Agumon. CREATURE-0014 (Dorimon) e CREATURE-0101..0118 (selvagens de DW DS, tools/dwds_import/import_wild_dwds.js): stats por estágio com pequenas variações, todos [H]; afinidade = atributo oficial (Tanemon sem atributo → free).",
+  "_comment": "Espécies do vertical slice. O id é o id da criatura em GAME-ASSETS/01-creatures. 'pack' reaproveita stats/skills do pacote digimon-fan do protótipo idle (prototype/game/packs/digimon-fan). A linha Guilmon não existe no pacote: stats e skills locais abaixo são [H], modelados na linha Agumon. CREATURE-0014 (Dorimon) e CREATURE-0101..0118 (selvagens de DW DS, tools/dwds_import/import_wild_dwds.js): stats por estágio com pequenas variações, todos [H]; afinidade = atributo oficial (Tanemon sem atributo → free). SP-GEOGREYMON e SP-DRIMOGEMON: ramos alternativos de knowledge/evolution_chains.json (Dawn & Dusk), sem arte ainda; stats [H] (GeoGreymon defensivo, Drimogemon ofensivo), atributo oficial.",
   "radiusByStage": { "1": 12, "2": 16, "3": 22, "4": 26 },
   "species": [
     { "id": "CREATURE-0002", "name": "Gigimon", "stage": 1, "affinity": "virus", "base": { "hp": 47, "atk": 14, "def": 7, "spd": 12 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["hot_head", "investida"] },
@@ -32,7 +32,9 @@
     { "id": "CREATURE-0115", "name": "Goburimon", "stage": 2, "affinity": "virus", "base": { "hp": 63, "atk": 21, "def": 10, "spd": 16 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
     { "id": "CREATURE-0116", "name": "Tanemon", "stage": 1, "affinity": "free", "base": { "hp": 47, "atk": 13, "def": 8, "spd": 11 }, "growth": { "hp": 3.5, "atk": 1.4, "def": 0.8, "spd": 0.6 }, "skills": ["investida"] },
     { "id": "CREATURE-0117", "name": "Lalamon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 18, "def": 11, "spd": 17 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
-    { "id": "CREATURE-0118", "name": "Penguinmon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 19, "def": 11, "spd": 18 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] }
+    { "id": "CREATURE-0118", "name": "Penguinmon", "stage": 2, "affinity": "data", "base": { "hp": 63, "atk": 19, "def": 11, "spd": 18 }, "growth": { "hp": 4.6, "atk": 1.9, "def": 1.0, "spd": 0.8 }, "skills": ["investida"] },
+    { "id": "SP-GEOGREYMON", "name": "GeoGreymon", "stage": 3, "affinity": "vaccine", "base": { "hp": 88, "atk": 24, "def": 20, "spd": 19 }, "growth": { "hp": 5.4, "atk": 2.1, "def": 1.8, "spd": 1.4 }, "skills": ["investida"] },
+    { "id": "SP-DRIMOGEMON", "name": "Drimogemon", "stage": 3, "affinity": "data", "base": { "hp": 84, "atk": 28, "def": 16, "spd": 15 }, "growth": { "hp": 5.2, "atk": 2.4, "def": 1.2, "spd": 0.7 }, "skills": ["investida"] }
   ],
   "skills": [
     { "id": "hot_head", "name": "Hot Head", "kind": "damage", "power": 130, "cooldownTicks": 40 },

@@ -5,6 +5,7 @@
 import { computeDamage, computeHeal, enemyXp, statsAtLevel, xpToNext } from "@game/src/sim/formulas";
 import { nextFloat, nextInt } from "@game/src/sim/rng";
 import { isTamer, setState } from "./fsm";
+import { autoEvolveTarget, manualEvolveTarget, statusesOf } from "./evolution";
 import { isSolidAt, type SpawnZone, type WorldMap } from "./map";
 import {
   castReach,
@@ -274,7 +275,7 @@ export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
   }
   for (const enc of [...w.encounters])
     if (w.tick - enc.startTick > WORLD.encounterTimeoutTicks) endEncounter(ctx, enc, "timeout");
-  for (const p of w.players) if (p.autoEvolve) tryAutoEvolve(ctx, getEntity(w, p.partnerId));
+  for (const p of w.players) if (p.autoEvolve) tryAutoEvolve(ctx, getEntity(w, p.partnerId), p.evoPrefs);
   for (const p of w.players) p.dir = undefined;
   const due = w.pendingSpawns.filter((s) => s.atTick <= w.tick);
   w.pendingSpawns = w.pendingSpawns.filter((s) => s.atTick > w.tick);
@@ -343,11 +344,20 @@ function applyIntent(ctx: Ctx, it: Intent): void {
     case "evolve": {
       const partner = getEntity(w, p.partnerId);
       if (!alive(partner)) return reject("parceira fora de combate");
-      const evo = ctx.c.moves.evolutions[partner.speciesId!];
-      if (!evo || !ctx.c.species[evo.to]) return reject("não evolui");
-      if (partner.level < evo.level) return reject(`evolui no nível ${evo.level}`);
+      // Com 2+ caminhos elegíveis o pedido precisa dizer qual (`to`): a sim nunca escolhe sozinha.
+      const pick = manualEvolveTarget(statusesOf(ctx.c.moves, partner, (id) => !!ctx.c.species[id]), it.to);
+      if ("reason" in pick) return reject(pick.reason);
       if (partner.encounterId || partner.state === "ATTACK" || partner.state === "HURT") return reject("em combate");
-      evolve(ctx, partner, evo.to, it.keep);
+      evolve(ctx, partner, pick.to, it.keep);
+      return;
+    }
+    case "set_evo_pref": {
+      const paths = ctx.c.moves.paths[it.from] ?? [];
+      if (it.to !== null && !paths.some((x) => x.to === it.to)) return reject("caminho inválido");
+      const prefs = { ...(p.evoPrefs ?? {}) };
+      if (it.to === null) delete prefs[it.from];
+      else prefs[it.from] = it.to;
+      p.evoPrefs = prefs;
       return;
     }
     case "engage": {
@@ -845,15 +855,21 @@ function addXp(ctx: Ctx, partner: Entity, xp: number): void {
   }
 }
 
+/** Parceira livre para evoluir: viva e fora de combate (mesma condição do Auto-evoluir e do modal de escolha). */
+export function canEvolveNow(partner: Entity | undefined): partner is Entity {
+  return alive(partner) && !partner.encounterId && !partner.targetId && partner.state !== "ATTACK" && partner.state !== "HURT";
+}
+
 /**
- * Evolução automática (opção "Auto-evoluir" do AUTO): com o nível de evolução atingido e a parceira fora de
- * combate, evolui pela mesma regra do intent `evolve` (herança padrão = golpes de maior poder). Devolve true se evoluiu.
+ * Evolução automática (opção "Auto-evoluir" do AUTO), fora de combate, com a regra restrita da proposta (§5): evolui
+ * só se houver UM caminho elegível, ou para o caminho preferido do jogador quando ele estiver elegível. Com 2+
+ * elegíveis e sem preferência, espera o jogador. Herança padrão = golpes de maior poder. Devolve true se evoluiu.
  */
-function tryAutoEvolve(ctx: Ctx, partner: Entity | undefined): boolean {
-  if (!alive(partner) || partner.encounterId || partner.targetId || partner.state === "ATTACK" || partner.state === "HURT") return false;
-  const evo = ctx.c.moves.evolutions[partner.speciesId!];
-  if (!evo || !ctx.c.species[evo.to] || partner.level < evo.level) return false;
-  evolve(ctx, partner, evo.to);
+function tryAutoEvolve(ctx: Ctx, partner: Entity | undefined, prefs?: Record<string, string>): boolean {
+  if (!canEvolveNow(partner)) return false;
+  const to = autoEvolveTarget(statusesOf(ctx.c.moves, partner, (id) => !!ctx.c.species[id]), prefs?.[partner.speciesId!]);
+  if (!to) return false;
+  evolve(ctx, partner, to);
   return true;
 }
 
@@ -865,6 +881,7 @@ export function grantXp(sim: WorldSim, partnerId: string, xp: number, autoEvolve
   const ctx: Ctx = { w: sim.state, map: sim.map, c: sim.content, ev: [] };
   const e = getEntity(sim.state, partnerId);
   if (!e) return [];
+  const prefs = sim.state.players.find((p) => p.partnerId === partnerId)?.evoPrefs;
   // XP aos poucos (um nível por vez) para a evolução acontecer no nível certo e a nova forma seguir subindo.
   let left = Math.max(0, Math.floor(xp));
   while (left > 0) {
@@ -872,10 +889,10 @@ export function grantXp(sim: WorldSim, partnerId: string, xp: number, autoEvolve
     const give = Math.min(left, need);
     addXp(ctx, e, give);
     left -= give;
-    if (autoEvolve) while (tryAutoEvolve(ctx, e));
+    if (autoEvolve) while (tryAutoEvolve(ctx, e, prefs));
     if (e.level >= sim.content.balance.maxLevel) break;
   }
-  if (autoEvolve) while (tryAutoEvolve(ctx, e));
+  if (autoEvolve) while (tryAutoEvolve(ctx, e, prefs));
   return ctx.ev;
 }
 

@@ -1,0 +1,13 @@
+{
+  "_comment": "Caminhos de evolução com mais de um ramo (GS-003/knowledge/EVOLUTION_PROPOSAL.md §3–5). Os ramos vêm de knowledge/evolution_chains.json, Digimon Dawn & Dusk (única fonte com evoluções alternativas explícitas): Agumon → Greymon (LV 18, Dragon EXP 280+) OU GeoGreymon (LV 20, Friendship 60%+, Defense 90+); Dorumon → Dorugamon (LV 24, Attack 125+, Beast EXP 800+) OU Drimogemon (LV 19, Attack 90+, Aptitude 25+). Os NÚMEROS abaixo são [H]: a nossa curva vai até o Nv.16 para o Campeão, e o tipo de requisito (nível + atributo) segue a fonte. Friendship, EXP de espécie e Aptitude ainda não existem na sim e ficaram de fora. Os limiares de atributo são calibrados nos stats das nossas espécies: Agumon tem Defesa 23 no Nv.16 e 25 no Nv.18 (GeoGreymon só no Nv.18); Dorumon tem Ataque 49 no Nv.16 (os dois ramos abertos no Nv.16, o jogador escolhe). GeoGreymon e Drimogemon ainda não têm arte em GAME-ASSETS (prévia '?').",
+  "paths": {
+    "CREATURE-0006": [
+      { "to": "CREATURE-0007", "level": 16, "source": "Dawn & Dusk: LV 18, Dragon EXP 280+" },
+      { "to": "SP-GEOGREYMON", "level": 16, "stats": { "def": 25 }, "source": "Dawn & Dusk: LV 20, Friendship 60%+, Defense 90+" }
+    ],
+    "CREATURE-0101": [
+      { "to": "CREATURE-0102", "level": 16, "source": "Dawn & Dusk: LV 24, Attack 125+, Beast EXP 800+" },
+      { "to": "SP-DRIMOGEMON", "level": 16, "stats": { "atk": 45 }, "source": "Dawn & Dusk: LV 19, Attack 90+, Aptitude 25+" }
+    ]
+  }
+}

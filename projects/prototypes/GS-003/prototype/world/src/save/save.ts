@@ -14,9 +14,10 @@ export const SAVE_GAME = "gs003-world";
  * prioridade do AUTO, Auto-evoluir, XP do Tamer e demais membros da equipe. v3: Digimon inicial escolhido.
  * v4: mapa atual (troca de mapa / Mapa-múndi). v5: telas secundárias — espécies vistas (Digivice), inventário,
  * progresso das missões e configurações (tempo do dia). v6: Tamer v3 (preset oficial-base DS + cor do cabelo); o
- * Tamer modular v2 vira o preset mais parecido (ou o preset 1).
+ * Tamer modular v2 vira o preset mais parecido (ou o preset 1). v7: preferência de caminho de evolução por espécie
+ * (Auto-evoluir com ramificação).
  */
-export const SAVE_VERSION = 6;
+export const SAVE_VERSION = 7;
 
 /** Inventário inicial [H]: o Digivice padrão (economy.json, captura x1.0). */
 export const STARTING_INVENTORY: Record<string, number> = { digivice_padrao: 1 };
@@ -38,6 +39,8 @@ export interface SaveData {
   bits: number;
   auto: boolean;
   autoEvolve: boolean;
+  /** Preferência do Auto-evoluir por espécie de origem com ramificação (v7): espécie → caminho escolhido. */
+  evoPrefs: Record<string, string>;
   /** Parceira ativa (estado completo da sim). */
   partner: PartnerSave;
   /** Demais membros da equipe (slots 2–5). */
@@ -111,6 +114,8 @@ export const MIGRATIONS: Migrations = {
   },
   // v5 → v6: Tamer modular v2 → preset v3 mais parecido (normalizeLook reconhece o look v2).
   5: (env) => ({ ...env, v: 6, data: { ...env.data, tamer: normalizeLook(env.data?.tamer ?? {}) } }),
+  // v6 → v7: sem preferência de evolução (o Auto-evoluir espera o jogador nas ramificações).
+  6: (env) => ({ ...env, v: 7, data: { ...env.data, evoPrefs: {} } }),
 };
 
 export function serialize(data: SaveData, now: number): string {
@@ -152,6 +157,7 @@ export function deserialize(raw: string | null, migrations: Migrations = MIGRATI
     tamerXp: Math.max(0, Math.floor(d.tamerXp ?? 0)),
     bits: Math.max(0, Math.floor(d.bits ?? 0)),
     team: Array.isArray(d.team) ? d.team : [],
+    evoPrefs: Object.fromEntries(Object.entries(d.evoPrefs && typeof d.evoPrefs === "object" ? d.evoPrefs : {}).filter(([, v]) => typeof v === "string")) as Record<string, string>,
     scans: d.scans ?? {},
     captured: Array.isArray(d.captured) ? d.captured : [],
     starter: typeof d.starter === "string" ? d.starter : null,

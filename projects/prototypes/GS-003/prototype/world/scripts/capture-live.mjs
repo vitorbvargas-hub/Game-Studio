@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -66,7 +66,7 @@ class Cdp {
         else res(msg.result);
       } else if (msg.method === "Runtime.consoleAPICalled") {
         const text = msg.params.args.map((a) => a.value ?? a.description ?? "").join(" ");
-        if (msg.params.type === "error" || msg.params.type === "warning") console.log(`[página:${msg.params.type}]`, text.slice(0, 300));
+        if (msg.params.type === "error" || msg.params.type === "warning" || process.env.DEBUG_CONSOLE) console.log(`[página:${msg.params.type}]`, text.slice(0, 300));
       } else if (msg.method === "Runtime.exceptionThrown") {
         console.log("[página:exceção]", msg.params.exceptionDetails.exception?.description ?? msg.params.exceptionDetails.text);
       }
@@ -137,6 +137,7 @@ async function main() {
     if (process.env.ONLY === "offline") return await offline(cdp);
     if (process.env.ONLY === "maps") return await maps(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
+    if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -262,6 +263,45 @@ async function creator(cdp) {
   const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.55)), width: cw, height: ch, scale: 2 } });
   writeFileSync(join(OUT, "creator_no_mundo_zoom.png"), Buffer.from(r.data, "base64"));
   console.log("ok creator_no_mundo_zoom.png", JSON.stringify(at));
+}
+
+/**
+ * Escolha de evolução, na Vila (zona segura: sem selvagens, o modal abre fora de combate). A parceira é trocada por
+ * `__gs003.setPartner` (espécie + nível, stats recalculados): Dorumon Nv.16 (Dorugamon e Drimogemon elegíveis → o
+ * modal abre sozinho), Agumon Nv.16 (GeoGreymon com Defesa pendente) e a aba Golpes / Evolução com a preferência.
+ */
+async function evolveChoice(cdp) {
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&time=day&map=vila&novo=1&criador=0` });
+  await cdp.waitFor("!!window.__gs003", 60000, "o jogo iniciar");
+  await sleep(1500);
+  const open = async (speciesId, level) => {
+    await cdp.eval(`(() => { const g = window.__gs003; for (const p of Object.values(g.panels)) p.close(); g.hud.closeTeam(); g.setPartner("${speciesId}", ${level}); })()`);
+    await cdp.waitFor(`!!document.querySelector('[data-panel="evolve"].open [data-evo-path="${speciesId === "CREATURE-0101" ? "SP-DRIMOGEMON" : "SP-GEOGREYMON"}"]')`, 20000, "a escolha de evolução abrir");
+    await sleep(800);
+  };
+  await open("CREATURE-0101", 16);
+  await cdp.shot("evolucao_escolha.png");
+  await open("CREATURE-0006", 16);
+  await cdp.shot("evolucao_escolha_requisito.png");
+  // aba Golpes / Evolução: "Agora não", abre Equipe & Box → Golpes / Evolução e marca a preferência
+  await cdp.eval(`document.querySelector('[data-evo-later]').click()`);
+  await sleep(400);
+  await cdp.eval(`(() => { window.__gs003.hud.openTeam(); document.querySelector('[data-testid="tab-moves"]').click(); })()`);
+  await sleep(300);
+  await cdp.eval(`(() => { const s = document.querySelector('select[data-evo-pref="CREATURE-0006"]'); s.value = "SP-GEOGREYMON"; s.dispatchEvent(new Event("change", { bubbles: true })); })()`);
+  await sleep(500);
+  await cdp.eval(`document.querySelector('[data-testid="evo-sec"]').scrollIntoView({ block: "center" })`);
+  await sleep(300);
+  await cdp.shot("evolucao_preferencia.png");
+  console.log("preferências:", JSON.stringify(await cdp.eval(`window.__gs003.sim.state.players.find((p) => p.id === "p1").evoPrefs`)));
+  // confirma pelo modal: Dorumon → Drimogemon (ramo sem arte: marcador "?" no mapa)
+  await open("CREATURE-0101", 16);
+  await cdp.eval(`document.querySelector('[data-evolve-to="SP-DRIMOGEMON"]').click()`);
+  await sleep(1500);
+  console.log("parceira depois da escolha:", await cdp.eval(`(() => { const p = window.__gs003.sim.state.entities.find((e) => e.id === "p1:partner"); return p.name + " Nv." + p.level; })()`));
+  await cdp.shot("evolucao_depois.png");
+  // o jogo novo (?novo=1) salvou por cima: limpa para não deixar save de captura no perfil temporário
+  await cdp.eval(`localStorage.removeItem("gs003.world.save")`);
 }
 
 /**

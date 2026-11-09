@@ -11,6 +11,7 @@ import type { WorldContent } from "../sim/species";
 import type { AutoCond, AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types";
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
+import { evolutionSectionHtml } from "./evolve-ui";
 import { moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
 
 export interface HudCallbacks {
@@ -21,6 +22,8 @@ export interface HudCallbacks {
   onSetMoves?(slots: (string | null)[]): void;
   onSetAutoRules?(rules: AutoRule[]): void;
   onEvolve?(): void;
+  /** Preferência do Auto-evoluir numa ramificação (null = perguntar sempre). */
+  onSetEvoPref?(from: string, to: string | null): void;
   /** Opção "Auto-evoluir" do AUTO. */
   onAutoEvolve?(on: boolean): void;
   /** Atalho de uma tela secundária ligada (map, dex, inv, quest, gear); o resto avisa "em breve". */
@@ -414,7 +417,7 @@ export class Hud {
   updateMoves(v: MovesView): void {
     this.movesView = v;
     updateMoveBar(this.moveBar, this.content.moves, v, (c, m) => this.icon(c, m));
-    const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready]);
+    const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready, v.stats, v.evoPrefs]);
     if (key === this.movesKey) return;
     this.movesKey = key;
     if (this.teamOpen && (this.tab === "moves" || this.selected === "active")) this.renderRight();
@@ -474,6 +477,7 @@ export class Hud {
     this.modal.addEventListener("change", (e) => {
       const t = e.target as HTMLInputElement | HTMLSelectElement;
       if (!this.activeView() || !this.movesTab) return;
+      if (t.dataset.evoPref !== undefined) return cb.onSetEvoPref?.(t.dataset.evoPref, t.value || null);
       const r = rules();
       const d = t.dataset;
       const i = Number(d.cond ?? d.pct ?? d.on);
@@ -683,7 +687,7 @@ export class Hud {
         return m ? `<li><span>${esc(m.name)}</span><em>${m.type === "buff" || m.type === "debuff" ? (m.type === "buff" ? "Buff" : "Debuff") : `Poder ${m.power}`} · ${m.cost} MP</em></li>` : `<li class="dim"><span>— vazio —</span></li>`;
       }).join("")}</ul>
       <div class="actions">
-        <button class="act evo" data-act="evolve" ${t.active && this.movesView?.evolve?.ready ? "" : "disabled"} title="${t.active && this.movesView?.evolve ? (this.movesView.evolve.ready ? `Evoluir para ${esc(this.movesView.evolve.toName)}` : `Evolui no nível ${this.movesView.evolve.level}`) : "Sem evolução disponível"}">${icon("evo", 14)}Evoluir</button>
+        <button class="act evo" data-act="evolve" ${t.active && this.movesView?.evolve?.ready ? "" : "disabled"} title="${t.active && this.movesView?.evolve ? (this.movesView.evolve.ready ? `${this.movesView.evolve.branching ? "Escolher a evolução" : "Evoluir para"} ${esc(this.movesView.evolve.toName)}` : `Evolui no nível ${this.movesView.evolve.level}`) : "Sem evolução disponível"}">${icon("evo", 14)}Evoluir</button>
         <button class="act moves" data-act="goto-moves" title="Ver e trocar golpes">${icon("arena", 14)}Golpes</button>
         ${[["item", "Item"], ["release", "Soltar"]].map(([n, l]) => `<button class="act ${n}" disabled title="Bloqueado nesta prova visual">${icon(n === "item" ? "bag" : "gift", 14)}${l}</button>`).join("")}
       </div>
@@ -708,7 +712,11 @@ export class Hud {
     const t = this.members().find((m) => m.slot === this.selected);
     if (this.tab === "moves" && t) {
       const v = this.viewFor(t);
-      el.innerHTML = movesTabHtml(this.content.moves, v, t.active && !!this.movesView, this.swapping);
+      const editable = t.active && !!this.movesView;
+      const sp = this.content.species[v.speciesId];
+      const stats = v.stats ?? (sp ? statsAtLevel(sp.base, sp.growth, v.level) : { hp: 0, atk: 0, def: 0, spd: 0 });
+      const evo = evolutionSectionHtml(this.content, { speciesId: v.speciesId, name: v.name, level: v.level, stats }, this.movesView?.evoPrefs ?? {}, editable);
+      el.innerHTML = movesTabHtml(this.content.moves, v, editable, this.swapping, evo);
     } else el.innerHTML = this.sheet(t);
     el.querySelectorAll<HTMLCanvasElement>("canvas[data-icon]").forEach((c) => this.icon(c, this.content.moves.moves[c.dataset.icon!]));
     el.querySelectorAll<HTMLCanvasElement>("canvas[data-species]").forEach((c) => this.paint(c));
@@ -723,7 +731,7 @@ export class Hud {
     el.classList.toggle("wide", this.tab === "moves");
     el.innerHTML = `
       <header><h2>EQUIPE &amp; BOX</h2>
-        <div class="tabs"><button class="tab${this.tab === "digimon" ? " on" : ""}" data-act="tab-digimon">${icon("team", 14)}Digimon</button><button class="tab${this.tab === "moves" ? " on" : ""}" data-act="tab-moves" data-testid="tab-moves">${icon("arena", 14)}Golpes</button><button class="tab" data-soon="Times salvos">${icon("quest", 14)}Times salvos</button></div>
+        <div class="tabs"><button class="tab${this.tab === "digimon" ? " on" : ""}" data-act="tab-digimon">${icon("team", 14)}Digimon</button><button class="tab${this.tab === "moves" ? " on" : ""}" data-act="tab-moves" data-testid="tab-moves">${icon("arena", 14)}Golpes / Evolução</button><button class="tab" data-soon="Times salvos">${icon("quest", 14)}Times salvos</button></div>
         <button class="x" data-act="close" title="Fechar (Esc)">×</button></header>
       <div class="modal-body">
         <div class="left">

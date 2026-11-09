@@ -51,7 +51,7 @@ describe("save (localStorage, versionado)", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.migratedFrom).toBe(1);
-    expect(SAVE_VERSION).toBe(6);
+    expect(SAVE_VERSION).toBe(7);
     expect(r.data.starter).toBeNull();
     expect(r.data.partner.learned).toEqual(["pyro_sphere", "investida"]);
     expect(r.data.partner.moves).toEqual(["pyro_sphere", null, "investida", null]);

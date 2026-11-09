@@ -130,6 +130,7 @@ export function captureSave(sim: WorldSim, playerId: string, extra: Pick<SaveDat
     bits: p.bits,
     auto: p.auto,
     autoEvolve: !!p.autoEvolve,
+    evoPrefs: { ...(p.evoPrefs ?? {}) },
     partner: partnerSaveOf(partner),
     scans: { ...p.scans },
     captured: [...p.captured],
@@ -144,6 +145,7 @@ export function applySave(sim: WorldSim, playerId: string, d: SaveData): void {
   p.bits = d.bits;
   p.auto = d.auto;
   p.autoEvolve = d.autoEvolve;
+  p.evoPrefs = { ...d.evoPrefs };
   p.scans = { ...d.scans };
   p.captured = [...d.captured];
 }

@@ -17,6 +17,30 @@ Pedido do fundador: o criador ainda mostrava os Tamers modulares v2, que ele rep
   - **Save v6:** o Tamer é `{ name, preset, hair }`. Um save com o Tamer modular recebe o **preset mais parecido**: modelo 3 pts, corte 2, cor canônica do cabelo igual 2, roupa 1, e o empate vai para o menor id. A cor do cabelo é mantida (rosa → ruivo, branco → prateado). Sem dado, o save recebe o **preset 1** (TAMER-0003). A leitura de "feminino" e de corte por preset é [H].
   - Captura: `docs/screens/creator_v3.png` (`ONLY=creator`, `PRESET=`/`HAIR=` opcionais).
 
+- **Escolha de evolução** (`src/sim/evolution.ts`, `src/data/evolution-paths.json`, `src/ui/evolve-ui.ts`; base: `knowledge/EVOLUTION_PROPOSAL.md` §2–5):
+  - **Ramos reais do `knowledge/evolution_chains.json`** (Dawn & Dusk, a única fonte com alternativas explícitas):
+    - Koromon → Agumon → **Greymon | GeoGreymon**.
+    - Dorimon → Dorumon → **Dorugamon | Drimogemon**.
+  - Os **números são [H]**, no nosso balanceamento. O Campeão entra no Nv.16, e o tipo de requisito segue a fonte. Friendship, EXP de espécie e Aptitude ainda não existem na sim e ficaram de fora.
+    - GeoGreymon pede Nv.16 + Defesa 25+. O Agumon tem Defesa 23 no Nv.16 e 25 no Nv.18.
+    - Drimogemon pede Nv.16 + Ataque 45+. O Dorumon já tem 49 no Nv.16, então os dois ramos abrem juntos.
+  - GeoGreymon e Drimogemon (`SP-*`) ainda **não têm arte**. A prévia mostra "?" e, no mapa, aparece um marcador "?", com stats e golpes [H] reaproveitando golpes que já existem.
+  - **Modal "Digivolução disponível":** abre sozinho quando a parceira está fora de combate, a espécie tem 2+ caminhos e algum caminho é elegível. O botão Evoluir também abre o modal nesse caso.
+    - O modal lista **todos** os caminhos com prévia do sprite, estágio, atributo, cada requisito ✓/✗ com o valor atual ("Defesa 25+ (você: 23)") e a fonte do ramo. Só os elegíveis têm botão.
+    - "Agora não" dispensa o modal até mudar a espécie ou o conjunto de elegíveis.
+  - **A sim nunca escolhe:** o intent `evolve` sem `to`, com 2+ elegíveis, é recusado ("escolha o caminho da evolução").
+  - **Auto-evoluir restrito:**
+    - Sem preferência, evolui só com **um** caminho elegível; com 2+, espera.
+    - Com preferência marcada, evolui só para ela, e só quando ela estiver elegível.
+    - Vale também para o progresso offline (`grantXp`).
+  - **Preferência:** fica em Equipe & Box → aba **Golpes / Evolução**, na seção "Evolução". Para cada ramificação da linha (a atual e as próximas) há um select "Auto-evoluir prefere": Perguntar sempre / caminho. Usa o intent `set_evo_pref` e é salva no **save v7** (`evoPrefs`).
+  - Testes: `tests/evolution.test.ts` (dados, regra pura, sim, offline, save, modal e aba).
+  - Capturas (`ONLY=evolve`, na Vila; `__gs003.setPartner(espécie, nível)` só para captura):
+    - `evolucao_escolha.png`: Dorumon com os dois ramos.
+    - `evolucao_escolha_requisito.png`: Agumon com Defesa pendente.
+    - `evolucao_preferencia.png`.
+    - `evolucao_depois.png`: Drimogemon escolhido.
+
 ## Inicial, Digimon selvagens, troca de mapa e telas secundárias (2026-11-09)
 
 Pedido do fundador: "ir criando as telas secundárias e outros Digimon para testar, e algo para trocar de mapa". Um commit por item: `8a02f1a` (QA R1), `b1b17ba` (inicial), `fdba15f` (selvagens), `b29fe28` (troca de mapa), `36198a5` (telas).

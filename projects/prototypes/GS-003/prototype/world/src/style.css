@@ -2317,3 +2317,142 @@ body {
 .creator .cr-preset[aria-pressed="true"] small {
   color: #e8d9a0;
 }
+
+/* ---------- escolha de evolução ---------- */
+.evo-choice .lead {
+  margin: 2px 2px 10px;
+  font-size: 13px;
+}
+.evo-paths {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.evo-path {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--ui-border);
+  background: var(--ui-bg2);
+}
+.evo-path.ok {
+  border-color: #63c74d;
+}
+.evo-path.locked {
+  opacity: 0.85;
+}
+.evo-path.pref {
+  box-shadow: 0 0 0 2px var(--ui-gold) inset;
+}
+.evo-path h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.evo-prev {
+  position: relative;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: radial-gradient(ellipse at 50% 80%, #3e8948 0%, #265c42 45%, #17222a 80%);
+}
+.evo-prev canvas {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.evo-prev .q {
+  display: none;
+  position: absolute;
+  font: 700 40px/1 monospace;
+  color: #c0cbdc;
+  text-shadow: 0 2px 0 #000;
+}
+.evo-prev.noart .q {
+  display: block;
+}
+.evo-prev.noart canvas {
+  visibility: hidden;
+}
+.evo-reqs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  font-size: 12.5px;
+}
+.evo-reqs li i {
+  display: inline-block;
+  width: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+.evo-reqs li.ok i,
+.evo-reqs.inline li.ok {
+  color: #8fe388;
+}
+.evo-reqs li.no,
+.evo-reqs.inline li.no {
+  color: #ff9a8a;
+}
+.evo-reqs li small {
+  color: var(--ui-dim);
+}
+.evo-path .src {
+  margin: 0;
+  font-size: 10.5px;
+  color: var(--ui-dim);
+}
+.evo-path .act.go {
+  background: #3e8948;
+  border-color: #63c74d;
+  font-weight: 700;
+}
+.evo-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.evo-foot .act {
+  padding: 6px 14px;
+}
+.chip.gold {
+  color: var(--ui-gold);
+  border-color: var(--ui-gold);
+}
+.evo-sec {
+  margin-top: 12px;
+}
+.evo-fork {
+  display: grid;
+  gap: 4px;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--ui-border);
+  background: rgba(10, 12, 18, 0.35);
+  font-size: 12.5px;
+}
+.evo-fork .tag {
+  font-size: 10px;
+  color: var(--ui-dim);
+}
+.evo-pref {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ui-dim);
+}
+.evo-pref select {
+  font: inherit;
+  color: var(--ui-text);
+  background: #0f121a;
+  border: 1px solid var(--ui-border);
+  border-radius: 4px;
+  padding: 3px 6px;
+}

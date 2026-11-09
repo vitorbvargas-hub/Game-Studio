@@ -24,7 +24,9 @@ import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
 import { TICK_MS } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
-import { getEntity, getPlayer, snapshot, snapshotOf, stepWorld } from "./sim/world";
+import { canEvolveNow, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld } from "./sim/world";
+import { autoEvolveTarget, isBranching, statusesOf } from "./sim/evolution";
+import { evolveChoiceHtml } from "./ui/evolve-ui";
 import "./style.css";
 import { Hud, type HudScene } from "./ui/hud";
 import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
@@ -272,7 +274,9 @@ async function boot() {
       onUseMove: (slot) => intents.push({ t: "use_move", playerId: LOCAL_PLAYER, slot }),
       onSetMoves: (slots) => intents.push({ t: "set_moves", playerId: LOCAL_PLAYER, slots }),
       onSetAutoRules: (rules) => intents.push({ t: "set_auto_priority", playerId: LOCAL_PLAYER, rules }),
-      onEvolve: () => intents.push({ t: "evolve", playerId: LOCAL_PLAYER }),
+      // Com ramificação, "Evoluir" abre a escolha; com um caminho só, evolui direto (como antes).
+      onEvolve: () => (isBranching(cur.sim.content.moves, getEntity(cur.sim.state, player().partnerId)?.speciesId ?? "") ? openEvolve(true) : intents.push({ t: "evolve", playerId: LOCAL_PLAYER })),
+      onSetEvoPref: (from, to) => intents.push({ t: "set_evo_pref", playerId: LOCAL_PLAYER, from, to }),
       onAutoEvolve: (on) => intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on }),
       onShortcut: (id) => openScreen(id),
     },
@@ -402,6 +406,7 @@ async function boot() {
     inv: new Panel(hudRoot, "inv", "Inventário", "chest"),
     quest: new Panel(hudRoot, "quest", "Missões", "quest"),
     gear: new Panel(hudRoot, "gear", "Configurações", "gear"),
+    evolve: new Panel(hudRoot, "evolve", "Digivolução disponível", "evo"),
   };
   let dexSel: string | undefined;
   let confirmReset = false;
@@ -440,6 +445,67 @@ async function boot() {
   /** Telas abertas acompanham o jogo (bits, progresso das missões); o Digivice só muda ao clicar. */
   const refreshScreens = () => {
     for (const id of ["inv", "quest"] as const) if (panels[id].isOpen) panels[id].update(screenHtml(id));
+  };
+  // ---- escolha de evolução (EVOLUTION_PROPOSAL.md §4–5) ----
+  /** Chave do que o jogador já viu e dispensou ("Agora não"): reabre só se mudar a espécie ou os elegíveis. */
+  let evoDismissed = "";
+  const evoSprite = makeSpriteFn(creatures, images);
+  const evoKey = (e: Entity) => `${e.speciesId}|${statusesOf(cur.sim.content.moves, e).filter((x) => x.eligible).map((x) => x.path.to).join(",")}`;
+  const evoHtml = (e: Entity) => {
+    const inCombat = !canEvolveNow(e);
+    return evolveChoiceHtml(cur.sim.content, { speciesId: e.speciesId!, name: e.name, level: e.level, stats: e.stats }, { pref: player().evoPrefs?.[e.speciesId!], inCombat, autoEvolve: !!player().autoEvolve });
+  };
+  const paintEvo = () => {
+    for (const c of panels.evolve.body.querySelectorAll<HTMLCanvasElement>("canvas[data-evo-sp]")) {
+      const ok = evoSprite(c.dataset.evoSp!, c, performance.now());
+      c.parentElement!.classList.toggle("noart", !ok);
+    }
+  };
+  /** Abre a escolha (manual = pelo botão Evoluir; automático = ao atingir o requisito com 2+ caminhos). */
+  function openEvolve(manual = false): void {
+    const e = getEntity(cur.sim.state, player().partnerId);
+    if (!e || !isBranching(cur.sim.content.moves, e.speciesId!)) return;
+    for (const o of Object.values(panels)) if (o !== panels.evolve) o.close();
+    hud.closeTeam();
+    const key = evoKey(e);
+    panels.evolve.open(evoHtml(e), () => {
+      if (!manual) evoDismissed = key;
+    });
+    panels.evolve.wrap.dataset.key = key;
+    paintEvo();
+  }
+  panels.evolve.body.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-evolve-to]");
+    if (b && !b.disabled) {
+      intents.push({ t: "evolve", playerId: LOCAL_PLAYER, to: b.dataset.evolveTo! });
+      panels.evolve.close();
+    }
+  });
+  /**
+   * Depois de cada passo: com ramificação, algum caminho elegível e a parceira fora de combate, abre a escolha —
+   * a não ser que o Auto-evoluir vá resolver sozinho (um elegível ou preferência elegível) ou o jogador já tenha
+   * dispensado este mesmo estado. Aberta, acompanha os requisitos ao vivo.
+   */
+  const checkEvolve = () => {
+    const e = getEntity(cur.sim.state, player().partnerId);
+    if (!e) return;
+    const branching = isBranching(cur.sim.content.moves, e.speciesId!);
+    if (panels.evolve.isOpen) {
+      if (!branching) return panels.evolve.close();
+      const key = evoKey(e);
+      if (panels.evolve.wrap.dataset.key !== key) {
+        panels.evolve.wrap.dataset.key = key;
+        panels.evolve.update(evoHtml(e));
+        paintEvo();
+      }
+      return;
+    }
+    if (!branching || !canEvolveNow(e) || traveling) return;
+    const st = statusesOf(cur.sim.content.moves, e, (id) => !!cur.sim.content.species[id]);
+    if (!st.some((x) => x.eligible)) return;
+    if (player().autoEvolve && autoEvolveTarget(st, player().evoPrefs?.[e.speciesId!])) return;
+    if (evoDismissed === evoKey(e) || Object.values(panels).some((p) => p.isOpen) || hud.teamOpen) return;
+    openEvolve();
   };
   panels.dex.body.addEventListener("click", (e) => {
     const b = (e.target as HTMLElement).closest<HTMLElement>("[data-dex]");
@@ -627,6 +693,7 @@ async function boot() {
     }
     if (steps === 10) acc = 0;
     if (steps) checkPortal();
+    if (steps && regionMode) checkEvolve();
     cur.presenter.update(now);
     const alpha = acc / TICK_MS;
     view().update(cur.presenter, alpha, now);
@@ -641,7 +708,7 @@ async function boot() {
     const partner = getEntity(cur.sim.state, player().partnerId);
     if (partner) {
       hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(cur.sim.content.balance, partner.level), player().bits);
-      hud.updateMoves(movesView(cur.sim, partner));
+      hud.updateMoves(movesView(cur.sim, partner, player().evoPrefs));
     }
     requestAnimationFrame(frame);
   };
@@ -667,6 +734,14 @@ async function boot() {
       travel,
       panels,
       openScreen,
+      openEvolve,
+      /** Capturas/testes: troca a parceira (espécie + nível, stats recalculados) sem passar pelo save. */
+      setPartner(speciesId: string, level: number) {
+        const e = getEntity(cur.sim.state, player().partnerId)!;
+        restorePartner(cur.sim, LOCAL_PLAYER, { speciesId, level, xp: 0, learned: [...e.learned], moves: [...e.moves], autoRules: e.autoRules });
+        hud.onEvents([{ t: "spawn", tick: cur.sim.state.tick, entity: snapshotOf(e) }]);
+        evoDismissed = "";
+      },
     },
   });
 }
@@ -682,8 +757,9 @@ function tamerVisuals(ids: string[], look: TamerLook, seed: number, nameOf: (id:
 }
 
 /** Estado de golpes da parceira para o HUD (cópia somente leitura). */
-function movesView(sim: WorldSim, e: Entity): MovesView {
-  const evo = sim.content.moves.evolutions[e.speciesId!];
+function movesView(sim: WorldSim, e: Entity, evoPrefs?: Record<string, string>): MovesView {
+  const st = statusesOf(sim.content.moves, e, (id) => !!sim.content.species[id]);
+  const name = (id: string) => sim.content.species[id]?.name ?? id;
   return {
     id: e.id,
     speciesId: e.speciesId!,
@@ -697,7 +773,11 @@ function movesView(sim: WorldSim, e: Entity): MovesView {
     cd: { ...e.moveCd },
     queued: e.queuedMove,
     inCombat: !!e.encounterId || !!e.targetId || !["IDLE", "FOLLOW", "WALK", "RETURN"].includes(e.state),
-    evolve: evo ? { toName: sim.content.species[evo.to]?.name ?? evo.to, level: evo.level, ready: e.level >= evo.level } : undefined,
+    evolve: st.length
+      ? { toName: st.map((x) => name(x.path.to)).join(" ou "), level: Math.min(...st.map((x) => x.path.level)), ready: st.some((x) => x.eligible), branching: st.length > 1 }
+      : undefined,
+    stats: { ...e.stats },
+    evoPrefs: { ...(evoPrefs ?? {}) },
   };
 }
 

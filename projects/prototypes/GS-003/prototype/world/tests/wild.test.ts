@@ -41,6 +41,8 @@ describe("selvagens de DW DS (CREATURE-0101..0118, tools/dwds_import/import_wild
     expect(content.moves.evolutions["CREATURE-0102"]).toEqual({ to: "CREATURE-0103", level: 24 });
     const { sim } = createForestProofWorld(3, { partnerSpecies: "CREATURE-0014", partnerLevel: 1 });
     const pid = getPlayer(sim.state, LOCAL_PLAYER)!.partnerId;
+    // Dorumon tem dois ramos (Dorugamon | Drimogemon): o Auto-evoluir só segue sozinho com a preferência marcada
+    getPlayer(sim.state, LOCAL_PLAYER)!.evoPrefs = { "CREATURE-0101": "CREATURE-0102" };
     const evs = grantXp(sim, pid, 400_000, true);
     expect(evs.filter((e) => e.t === "evolve").length).toBeGreaterThanOrEqual(2);
     expect(["CREATURE-0102", "CREATURE-0103"]).toContain(getEntity(sim.state, pid)!.speciesId);

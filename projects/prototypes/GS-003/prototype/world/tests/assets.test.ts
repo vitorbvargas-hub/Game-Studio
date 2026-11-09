@@ -25,9 +25,15 @@ describe("criaturas (GAME-ASSETS/01-creatures)", () => {
     }
   });
 
-  it("toda espécie da sim tem visual, e vice-versa (ids coincidem por convenção)", () => {
+  it("toda espécie da sim tem visual, e vice-versa (ids coincidem por convenção); SP-* = ramo ainda sem arte", () => {
     const content = loadWorldContent();
-    for (const id of Object.keys(content.species)) expect(cat[id], id).toBeDefined();
+    for (const id of Object.keys(content.species)) if (!id.startsWith("SP-")) expect(cat[id], id).toBeDefined();
+    // espécies sem arte só existem como ramo alternativo de evolução (placeholder no mapa e "?" na prévia)
+    const branchTargets = new Set(Object.values(content.moves.paths).flat().map((p) => p.to));
+    for (const id of Object.keys(content.species).filter((x) => x.startsWith("SP-"))) {
+      expect(cat[id], id).toBeUndefined();
+      expect(branchTargets.has(id), id).toBe(true);
+    }
   });
 
   it("buildCreatureCatalog ignora criaturas sem folha (ex. piloto sem spritesheet)", () => {

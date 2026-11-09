@@ -672,6 +672,30 @@ export class WorldView {
     }
     const cv = this.visualOf(v);
     if (cv) this.drawSprite(cv, v, pos, p, now);
+    else if (v.speciesId) this.drawMissing(v, pos, p, now);
+  }
+
+  /** Espécie ainda sem arte (ramo de evolução SP-*): marcador "?" no lugar do sprite, para não sumir do mapa. */
+  private drawMissing(v: VisualEntity, pos: Vec, p: Presenter, now: number): void {
+    const off = this.combatOffset(v, p, now);
+    const x = Math.round(pos.x - this.camera.x + off.x);
+    const y = Math.round(pos.y - this.camera.y + off.y);
+    const r = 11;
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.fillStyle = "#3a4466";
+    ctx.strokeStyle = "#c0cbdc";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(x, y - r - 1, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 13px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("?", x, y - r);
+    ctx.restore();
   }
 
   /** Quadro atual (chave do atlas + espelho) de uma entidade com manifest. Exportado para testes via view. */
