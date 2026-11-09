@@ -18,19 +18,19 @@
   "directions": {
     "walk": {
       "drawn": [
-        "S",
-        "N",
-        "W",
-        "E"
+        "SW",
+        "SE",
+        "NW",
+        "NE"
       ],
       "mirrored": {}
     },
     "idle": {
       "drawn": [
-        "S",
-        "N",
-        "W",
-        "E"
+        "SW",
+        "SE",
+        "NW",
+        "NE"
       ],
       "mirrored": {}
     }
@@ -42,33 +42,33 @@
       "frames": [
         {
           "durationMs": 600,
-          "atlasKey": "TAMER-0005_walk_S_01.png"
+          "atlasKey": "TAMER-0005_walk_SW_01.png"
         }
       ],
       "events": [],
       "dirFrames": {
-        "S": [
+        "SW": [
           {
             "durationMs": 600,
-            "atlasKey": "TAMER-0005_walk_S_01.png"
+            "atlasKey": "TAMER-0005_walk_SW_01.png"
           }
         ],
-        "N": [
+        "SE": [
           {
             "durationMs": 600,
-            "atlasKey": "TAMER-0005_walk_N_01.png"
+            "atlasKey": "TAMER-0005_walk_SE_01.png"
           }
         ],
-        "W": [
+        "NW": [
           {
             "durationMs": 600,
-            "atlasKey": "TAMER-0005_walk_W_01.png"
+            "atlasKey": "TAMER-0005_walk_NW_01.png"
           }
         ],
-        "E": [
+        "NE": [
           {
             "durationMs": 600,
-            "atlasKey": "TAMER-0005_walk_E_01.png"
+            "atlasKey": "TAMER-0005_walk_NE_01.png"
           }
         ]
       }
@@ -79,93 +79,93 @@
       "frames": [
         {
           "durationMs": 150,
-          "atlasKey": "TAMER-0005_walk_S_00.png"
+          "atlasKey": "TAMER-0005_walk_SW_00.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "TAMER-0005_walk_S_01.png"
+          "atlasKey": "TAMER-0005_walk_SW_01.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "TAMER-0005_walk_S_00.png"
+          "atlasKey": "TAMER-0005_walk_SW_00.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "TAMER-0005_walk_S_02.png"
+          "atlasKey": "TAMER-0005_walk_SW_02.png"
         }
       ],
       "events": [],
       "dirFrames": {
-        "S": [
+        "SW": [
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_S_00.png"
+            "atlasKey": "TAMER-0005_walk_SW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_S_01.png"
+            "atlasKey": "TAMER-0005_walk_SW_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_S_00.png"
+            "atlasKey": "TAMER-0005_walk_SW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_S_02.png"
+            "atlasKey": "TAMER-0005_walk_SW_02.png"
           }
         ],
-        "N": [
+        "SE": [
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_N_00.png"
+            "atlasKey": "TAMER-0005_walk_SE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_N_01.png"
+            "atlasKey": "TAMER-0005_walk_SE_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_N_00.png"
+            "atlasKey": "TAMER-0005_walk_SE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_N_02.png"
+            "atlasKey": "TAMER-0005_walk_SE_02.png"
           }
         ],
-        "W": [
+        "NW": [
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_W_00.png"
+            "atlasKey": "TAMER-0005_walk_NW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_W_01.png"
+            "atlasKey": "TAMER-0005_walk_NW_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_W_00.png"
+            "atlasKey": "TAMER-0005_walk_NW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_W_02.png"
+            "atlasKey": "TAMER-0005_walk_NW_02.png"
           }
         ],
-        "E": [
+        "NE": [
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_E_00.png"
+            "atlasKey": "TAMER-0005_walk_NE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_E_01.png"
+            "atlasKey": "TAMER-0005_walk_NE_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_E_00.png"
+            "atlasKey": "TAMER-0005_walk_NE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "TAMER-0005_walk_E_02.png"
+            "atlasKey": "TAMER-0005_walk_NE_02.png"
           }
         ]
       }
@@ -181,25 +181,25 @@
         "hex": "#2B2B2B",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_preto/TAMER-0005_preto_S_00.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_S_01.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_S_02.png"
+          "SW": [
+            "./sprites/recolor_preto/TAMER-0005_preto_SW_00.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_SW_01.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_preto/TAMER-0005_preto_N_00.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_N_01.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_N_02.png"
+          "SE": [
+            "./sprites/recolor_preto/TAMER-0005_preto_SE_00.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_SE_01.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_preto/TAMER-0005_preto_W_00.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_W_01.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_W_02.png"
+          "NW": [
+            "./sprites/recolor_preto/TAMER-0005_preto_NW_00.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_NW_01.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_preto/TAMER-0005_preto_E_00.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_E_01.png",
-            "./sprites/recolor_preto/TAMER-0005_preto_E_02.png"
+          "NE": [
+            "./sprites/recolor_preto/TAMER-0005_preto_NE_00.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_NE_01.png",
+            "./sprites/recolor_preto/TAMER-0005_preto_NE_02.png"
           ]
         }
       },
@@ -208,25 +208,25 @@
         "hex": "#6B3A1F",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_castanho/TAMER-0005_castanho_S_00.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_S_01.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_S_02.png"
+          "SW": [
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SW_00.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SW_01.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_castanho/TAMER-0005_castanho_N_00.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_N_01.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_N_02.png"
+          "SE": [
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SE_00.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SE_01.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_castanho/TAMER-0005_castanho_W_00.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_W_01.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_W_02.png"
+          "NW": [
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NW_00.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NW_01.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_castanho/TAMER-0005_castanho_E_00.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_E_01.png",
-            "./sprites/recolor_castanho/TAMER-0005_castanho_E_02.png"
+          "NE": [
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NE_00.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NE_01.png",
+            "./sprites/recolor_castanho/TAMER-0005_castanho_NE_02.png"
           ]
         }
       },
@@ -235,25 +235,25 @@
         "hex": "#D9A441",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_loiro/TAMER-0005_loiro_S_00.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_S_01.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_S_02.png"
+          "SW": [
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SW_00.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SW_01.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_loiro/TAMER-0005_loiro_N_00.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_N_01.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_N_02.png"
+          "SE": [
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SE_00.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SE_01.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_loiro/TAMER-0005_loiro_W_00.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_W_01.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_W_02.png"
+          "NW": [
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NW_00.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NW_01.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_loiro/TAMER-0005_loiro_E_00.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_E_01.png",
-            "./sprites/recolor_loiro/TAMER-0005_loiro_E_02.png"
+          "NE": [
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NE_00.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NE_01.png",
+            "./sprites/recolor_loiro/TAMER-0005_loiro_NE_02.png"
           ]
         }
       },
@@ -262,25 +262,25 @@
         "hex": "#B03A2E",
         "default": true,
         "frames": {
-          "S": [
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_S_00.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_S_01.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_S_02.png"
+          "SW": [
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SW_00.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SW_01.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_N_00.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_N_01.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_N_02.png"
+          "SE": [
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SE_00.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SE_01.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_W_00.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_W_01.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_W_02.png"
+          "NW": [
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NW_00.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NW_01.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_E_00.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_E_01.png",
-            "./sprites/recolor_ruivo/TAMER-0005_ruivo_E_02.png"
+          "NE": [
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NE_00.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NE_01.png",
+            "./sprites/recolor_ruivo/TAMER-0005_ruivo_NE_02.png"
           ]
         }
       },
@@ -289,25 +289,25 @@
         "hex": "#1F6FB0",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_azul/TAMER-0005_azul_S_00.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_S_01.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_S_02.png"
+          "SW": [
+            "./sprites/recolor_azul/TAMER-0005_azul_SW_00.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_SW_01.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_azul/TAMER-0005_azul_N_00.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_N_01.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_N_02.png"
+          "SE": [
+            "./sprites/recolor_azul/TAMER-0005_azul_SE_00.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_SE_01.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_azul/TAMER-0005_azul_W_00.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_W_01.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_W_02.png"
+          "NW": [
+            "./sprites/recolor_azul/TAMER-0005_azul_NW_00.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_NW_01.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_azul/TAMER-0005_azul_E_00.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_E_01.png",
-            "./sprites/recolor_azul/TAMER-0005_azul_E_02.png"
+          "NE": [
+            "./sprites/recolor_azul/TAMER-0005_azul_NE_00.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_NE_01.png",
+            "./sprites/recolor_azul/TAMER-0005_azul_NE_02.png"
           ]
         }
       },
@@ -316,25 +316,25 @@
         "hex": "#3E8E41",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_verde/TAMER-0005_verde_S_00.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_S_01.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_S_02.png"
+          "SW": [
+            "./sprites/recolor_verde/TAMER-0005_verde_SW_00.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_SW_01.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_verde/TAMER-0005_verde_N_00.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_N_01.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_N_02.png"
+          "SE": [
+            "./sprites/recolor_verde/TAMER-0005_verde_SE_00.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_SE_01.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_verde/TAMER-0005_verde_W_00.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_W_01.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_W_02.png"
+          "NW": [
+            "./sprites/recolor_verde/TAMER-0005_verde_NW_00.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_NW_01.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_verde/TAMER-0005_verde_E_00.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_E_01.png",
-            "./sprites/recolor_verde/TAMER-0005_verde_E_02.png"
+          "NE": [
+            "./sprites/recolor_verde/TAMER-0005_verde_NE_00.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_NE_01.png",
+            "./sprites/recolor_verde/TAMER-0005_verde_NE_02.png"
           ]
         }
       },
@@ -343,25 +343,25 @@
         "hex": "#7B4BA6",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_roxo/TAMER-0005_roxo_S_00.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_S_01.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_S_02.png"
+          "SW": [
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SW_00.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SW_01.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_roxo/TAMER-0005_roxo_N_00.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_N_01.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_N_02.png"
+          "SE": [
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SE_00.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SE_01.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_roxo/TAMER-0005_roxo_W_00.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_W_01.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_W_02.png"
+          "NW": [
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NW_00.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NW_01.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_roxo/TAMER-0005_roxo_E_00.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_E_01.png",
-            "./sprites/recolor_roxo/TAMER-0005_roxo_E_02.png"
+          "NE": [
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NE_00.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NE_01.png",
+            "./sprites/recolor_roxo/TAMER-0005_roxo_NE_02.png"
           ]
         }
       },
@@ -370,25 +370,25 @@
         "hex": "#C9CCCF",
         "default": false,
         "frames": {
-          "S": [
-            "./sprites/recolor_prateado/TAMER-0005_prateado_S_00.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_S_01.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_S_02.png"
+          "SW": [
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SW_00.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SW_01.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SW_02.png"
           ],
-          "N": [
-            "./sprites/recolor_prateado/TAMER-0005_prateado_N_00.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_N_01.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_N_02.png"
+          "SE": [
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SE_00.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SE_01.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_SE_02.png"
           ],
-          "W": [
-            "./sprites/recolor_prateado/TAMER-0005_prateado_W_00.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_W_01.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_W_02.png"
+          "NW": [
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NW_00.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NW_01.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NW_02.png"
           ],
-          "E": [
-            "./sprites/recolor_prateado/TAMER-0005_prateado_E_00.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_E_01.png",
-            "./sprites/recolor_prateado/TAMER-0005_prateado_E_02.png"
+          "NE": [
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NE_00.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NE_01.png",
+            "./sprites/recolor_prateado/TAMER-0005_prateado_NE_02.png"
           ]
         }
       }
@@ -403,10 +403,10 @@
       255
     ],
     "appliedDirs": [
-      "S",
-      "N",
-      "W",
-      "E"
+      "SW",
+      "SE",
+      "NW",
+      "NE"
     ],
     "baseCharacter": "NPC-0013"
   },

@@ -42,7 +42,16 @@ Campos extras não quebram o schema: `hairRecolors` (opções de cor) e `kitbash
 
 - Kitbash é vetor primitivo (círculo/linha/elipse/polígono), não arte final — recomenda-se passe manual de
   pixel art antes de considerar qualquer preset "pronto para produção".
-- O recolor de cabelo usa detecção por cor dominante na banda superior do sprite; cabelos muito claros/escuros
-  ou com pouco contraste do fundo podem pegar poucos pixels — revisar visualmente cada preset antes de aprovar.
 - Nenhum preset foi validado em jogo (só sprites estáticos + preview); falta QA de legibilidade em movimento e
   em tile real (32px) a 100% (as prévias usam 4x).
+
+## Correção 2026-11-09 (ver `README.md` desta pasta para o detalhe completo)
+
+- **Direções:** a folha de origem só tem 2 vistas de frente e 2 de costas, não 4 cardeais; os
+  `dirFrames` de cada preset agora usam `SW/SE/NW/NE` honestos em vez de `S/N/W/E` errados.
+- **Cor do cabelo:** a detecção de seed caía no contorno cel-shade (quase sem saturação) em 8 dos 12
+  presets, então o recolor não tinha efeito visível; 3 outros recoloriam a roupa por engano. Corrigido
+  com um filtro de saturação mínima no seed — as 8 cores agora são visivelmente distintas nos 12
+  presets (conferido numa grade 12×8).
+- **Acessório:** goggles/viseira/óculos agora só vão nas 2 vistas de frente (antes vazavam para as
+  costas em 7 presets e faltavam numa das vistas de frente).

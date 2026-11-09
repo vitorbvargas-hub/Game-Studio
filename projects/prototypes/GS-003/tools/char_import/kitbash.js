@@ -36,25 +36,38 @@ function hsvToRgb(h, s, v) {
 
 // Find the dominant opaque color in the upper `frac` of the frame (hair
 // region) excluding near-black outline pixels -- used as the recolor seed.
+// `minSat` also excludes near-gray pixels: the shared cel-shade outline
+// color (e.g. ~#242424) is the single most frequent color in that band on
+// almost every base sprite and was winning the vote over the actual (more
+// saturated, but split across highlight/mid/shadow buckets) hair fill --
+// recoloring a near-gray seed stays near-gray for any target hue, which is
+// why 8 of 12 v3 presets showed zero visible change across all 8 swatches.
+// Retries with a lower threshold, then none, before giving up.
 function sampleHairSeed(frame, frac = 0.45) {
   const bb = bboxOf(frame);
   const limitY = bb.minY + Math.round((bb.maxY - bb.minY) * frac);
-  const counts = new Map();
-  for (let y = bb.minY; y <= limitY; y++) {
-    for (let x = 0; x < frame.w; x++) {
-      const p = frame.getPixel(x, y);
-      if (p[3] === 0) continue;
-      const lum = (p[0] + p[1] + p[2]) / 3;
-      if (lum < 28) continue; // outline/shadow
-      const key = `${p[0] >> 3},${p[1] >> 3},${p[2] >> 3}`;
-      counts.set(key, (counts.get(key) || 0) + 1);
+  for (const minSat of [0.18, 0.08, 0]) {
+    const counts = new Map();
+    for (let y = bb.minY; y <= limitY; y++) {
+      for (let x = 0; x < frame.w; x++) {
+        const p = frame.getPixel(x, y);
+        if (p[3] === 0) continue;
+        const lum = (p[0] + p[1] + p[2]) / 3;
+        if (lum < 28) continue; // outline/shadow
+        const [, s] = rgbToHsv(p[0], p[1], p[2]);
+        if (s < minSat) continue;
+        const key = `${p[0] >> 3},${p[1] >> 3},${p[2] >> 3}`;
+        counts.set(key, (counts.get(key) || 0) + 1);
+      }
+    }
+    let best = null, bestN = -1;
+    for (const [k, n] of counts) { if (n > bestN) { bestN = n; best = k; } }
+    if (best) {
+      const [r, g, b] = best.split(',').map((v) => Number(v) * 8 + 4);
+      return [r, g, b, 255];
     }
   }
-  let best = null, bestN = -1;
-  for (const [k, n] of counts) { if (n > bestN) { bestN = n; best = k; } }
-  if (!best) return [120, 90, 60, 255];
-  const [r, g, b] = best.split(',').map((v) => Number(v) * 8 + 4);
-  return [r, g, b, 255];
+  return [120, 90, 60, 255];
 }
 
 // Recolor every pixel close to `seed` (hair palette, incl. shaded tones) to

@@ -2,8 +2,14 @@
 // GS-003 -- v3 Tamers: extract ALL human characters from the DW DS
 // "NPC-Characters" sheet (Spriters Resource, ripped by redblueyellow, "No
 // credit needed") into GAME-ASSETS/11-characters/official-npcs/NPC-00NN.
-// Layout: one colored "block" per character (portrait + 4 direction rows x
-// 3 walk-step columns; a few blocks add a 13th "extra" frame, e.g. sleep).
+// Layout: one colored "block" per character (portrait + 4 rows x 3
+// walk-step columns; a few blocks add a 13th "extra" frame, e.g. sleep).
+// The 4 rows were first read as cardinal S/N/W/E, but they are only 2
+// front 3/4-views (first 2 rows) and 2 back 3/4-views (last 2 rows) --
+// confirmed visually 2026-11-09 (pixel-diff rules out a simple mirror
+// pair too). Labeled honestly as SW/SE (front) and NW/NE (back); which
+// exact row is "-west" vs "-east" is a visual call [H], consistent for
+// every block since they share this sheet's fixed row layout.
 // Pure Node (art/src/png_decode + canvas.js pipeline), no PIL/ImageMagick.
 const fs = require('fs');
 const path = require('path');
@@ -18,8 +24,8 @@ const TODAY = '2026-11-08';
 const SR_PAGE = 'https://www.spriters-resource.com/ds_dsi/dgmnworldds/';
 const COPYRIGHT = 'Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games';
 
-const ROWS_TOP = { S: [38, 69], N: [72, 103], W: [106, 137], E: [140, 171] };
-const ROWS_BOT = { S: [250, 281], N: [284, 315], W: [318, 349], E: [352, 383] };
+const ROWS_TOP = { SW: [38, 69], SE: [72, 103], NW: [106, 137], NE: [140, 171] };
+const ROWS_BOT = { SW: [250, 281], SE: [284, 315], NW: [318, 349], NE: [352, 383] };
 const PORTRAIT_TOP = [2, 35];
 const PORTRAIT_BOT = [214, 247];
 
@@ -63,12 +69,12 @@ function buildCharacter(id, sheet, block) {
   const top = by0 < 210;
   const ROWS = top ? ROWS_TOP : ROWS_BOT;
   const [py0, py1] = top ? PORTRAIT_TOP : PORTRAIT_BOT;
-  const dirs = ['S', 'N', 'W', 'E'];
+  const dirs = ['SW', 'SE', 'NW', 'NE'];
   const raw = {};
   for (const d of dirs) raw[d] = extractRow(sheet, bx0, bx1, ROWS[d][0], ROWS[d][1]);
   const portrait = extractPortrait(sheet, bx0, bx1, py0, py1);
 
-  const eBottom = ROWS.E[1];
+  const eBottom = ROWS.NE[1];
   let extra = null;
   if (by1 > eBottom + 4) extra = extractExtra(sheet, bx0, bx1, eBottom + 3, by1);
 
@@ -85,6 +91,7 @@ function buildCharacter(id, sheet, block) {
   const dir = path.join(OUT, id);
   const spritesDir = path.join(dir, 'sprites');
   fs.mkdirSync(spritesDir, { recursive: true });
+  for (const f of fs.readdirSync(spritesDir)) fs.unlinkSync(path.join(spritesDir, f)); // drop stale S/N/W/E files from before the SW/SE/NW/NE rename
   const keys = {};
   for (const d of dirs) {
     keys[d] = frames[d].map((c, i) => {
@@ -105,15 +112,15 @@ function buildCharacter(id, sheet, block) {
   const animations = {
     idle: {
       loop: true, space: 'map',
-      frames: [{ durationMs: 600, atlasKey: keys.S[1] }],
+      frames: [{ durationMs: 600, atlasKey: keys.SW[1] }],
       events: [],
       dirFrames: Object.fromEntries(DIRS.map((d) => [d, [{ durationMs: 600, atlasKey: keys[d][1] }]])),
     },
     walk: {
       loop: true, space: 'map',
       frames: [
-        { durationMs: 150, atlasKey: keys.S[0] }, { durationMs: 150, atlasKey: keys.S[1] },
-        { durationMs: 150, atlasKey: keys.S[0] }, { durationMs: 150, atlasKey: keys.S[2] },
+        { durationMs: 150, atlasKey: keys.SW[0] }, { durationMs: 150, atlasKey: keys.SW[1] },
+        { durationMs: 150, atlasKey: keys.SW[0] }, { durationMs: 150, atlasKey: keys.SW[2] },
       ],
       events: [],
       dirFrames: Object.fromEntries(DIRS.map((d) => {
@@ -126,7 +133,7 @@ function buildCharacter(id, sheet, block) {
     animations.sleep = { loop: true, space: 'map', frames: [{ durationMs: 800, atlasKey: extraKey }], events: [] };
   }
 
-  const stand = frames.S[1];
+  const stand = frames.SW[1];
   const standBB = bboxOf(stand);
 
   const characterJson = {
@@ -136,7 +143,7 @@ function buildCharacter(id, sheet, block) {
     name: `${id} (provisorio)`,
     category: 'npc-human',
     role: 'npc',
-    description: 'NPC humano de Digimon World DS (folha "NPC-Characters", Spriters Resource). No mapa: idle e walk nas 4 direcoes desenhadas (S/N/W/E), sem espelhamento.',
+    description: 'NPC humano de Digimon World DS (folha "NPC-Characters", Spriters Resource). No mapa: idle e walk nas 4 vistas desenhadas na folha -- 2 de frente (SW/SE) e 2 de costas (NW/NE), sem cardeal S/N/W/E real e sem espelhamento. Ver qaNotes.',
     dimensions: { frameW: stand.w, frameH: stand.h, tile: 32 },
     pivot,
     directions: { walk: { drawn: DIRS, mirrored: {} }, idle: { drawn: DIRS, mirrored: {} } },
@@ -151,7 +158,8 @@ function buildCharacter(id, sheet, block) {
     approvalStatus: 'UNDER_REVIEW',
     qaNotes: [
       'Bloco detectado por componentes conexos contra o teal de fundo da folha (merge <= 3px); colunas = terco igual da largura do bloco (grade RPG-Maker-like, sem suposicao de tamanho de celula fixo).',
-      extra ? 'Tem um 13o quadro extra abaixo da linha E (provavelmente dormir/desmaiar); exportado em sprites/..._extra_sleep.png e animations.sleep, nao usado no walk/idle.' : 'Sem quadro extra alem dos 12 (4 direcoes x 3 passos).',
+      extra ? 'Tem um 13o quadro extra abaixo da linha NE (provavelmente dormir/desmaiar); exportado em sprites/..._extra_sleep.png e animations.sleep, nao usado no walk/idle.' : 'Sem quadro extra alem dos 12 (4 vistas x 3 passos).',
+      'CORRECAO 2026-11-09 [E, conferido visualmente]: a folha so tem 2 vistas de frente e 2 de costas (nao 4 cardeais). As 4 linhas da grade (antes rotuladas S/N/W/E) agora sao SW/SE (frente) e NW/NE (costas); qual e "-west" vs "-east" dentro de cada par e leitura visual [H], mas consistente em todo o bloco (mesma grade fixa da folha). Ver 11-characters/README.md para o mapeamento usado pelos presets de Tamer.',
       'Pivo = centroide em x das 12-13 celulas, alinhado pelos pes (ultima linha opaca). Nome provisorio: preencher apos a revisao da folha de contato (09-previews/).',
     ],
   };

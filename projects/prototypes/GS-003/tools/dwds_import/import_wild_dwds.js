@@ -391,7 +391,7 @@ function importOne(s) {
     },
     credit: { ripper: cr.ripper, creditTextOnSheet: cr.text, creditRequiredBySheet: cr.required, site: 'The Spriters Resource' },
     verifiedAt: TODAY,
-    verifiedBy: 'game-dev',
+    verifiedBy: s.verifiedBy ?? 'game-dev',
     notes: `Créditos em qualquer build/tela de créditos: ${cr.ripper} (rip DW DS, The Spriters Resource); (c) Bandai Namco.`,
   };
   fs.writeFileSync(path.join(d, 'license.json'), JSON.stringify(license, null, 2) + '\n');
@@ -416,7 +416,7 @@ function contactSheet(results) {
   console.log('wrote', p);
 }
 
-module.exports = { SPECIES, keyColors, mapFrames, components, loadSheetCanvas, sheetPath, predecode };
+module.exports = { SPECIES, keyColors, mapFrames, components, loadSheetCanvas, sheetPath, predecode, importOne, STAGE_NAME };
 
 if (require.main === module) {
   predecode(SPECIES.map(sheetPath)).then(() => {

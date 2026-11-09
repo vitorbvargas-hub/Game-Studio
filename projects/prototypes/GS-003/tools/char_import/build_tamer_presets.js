@@ -26,7 +26,11 @@ const SWATCHES = [
   { id: 'prateado', hex: '#C9CCCF' },
 ];
 
-const DIRS = ['S', 'N', 'W', 'E'];
+// GAME-ASSETS/11-characters/README.md tem o mapeamento completo para o dev trocar o FILE_DIR
+// do mundo por este contrato direto. SW/SE = as 2 vistas de frente da folha; NW/NE = as 2 de
+// costas (nao ha cardeal S/N/W/E real na folha de origem -- ver extract_npc_characters.js).
+const DIRS = ['SW', 'SE', 'NW', 'NE'];
+const FRONT_DIRS = ['SW', 'SE'];
 
 // Each preset: base = NPC-XXXX source id, hair = canonical swatch id,
 // accessory = {type, color, strapColor?, dirs?}, outfit = optional collar/
@@ -34,7 +38,7 @@ const DIRS = ['S', 'N', 'W', 'E'];
 const PRESETS = [
   {
     id: 'TAMER-0003', name: 'Coragem (goggles)', base: 'NPC-0003', hair: 'ruivo',
-    accessory: { type: 'goggles', color: [240, 140, 40, 255], strapColor: [40, 40, 40, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'goggles', color: [240, 140, 40, 255], strapColor: [40, 40, 40, 255], dirs: FRONT_DIRS },
     note: 'Goggles laranja + cabelo ruivo-acastanhado espetado: lembra o arquétipo "lider de goggles" (Tai/Takato/Agumon-tamer).',
   },
   {
@@ -49,7 +53,7 @@ const PRESETS = [
   },
   {
     id: 'TAMER-0006', name: 'Determinacao (goggles azul)', base: 'NPC-0008', hair: 'ruivo',
-    accessory: { type: 'goggles', color: [60, 140, 230, 255], strapColor: [30, 30, 30, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'goggles', color: [60, 140, 230, 255], strapColor: [30, 30, 30, 255], dirs: FRONT_DIRS },
     note: 'Goggles azuis sobre faixa/headband: lembra o arquetipo "goggles impetuoso" (Davis/Daisuke).',
   },
   {
@@ -59,22 +63,22 @@ const PRESETS = [
   },
   {
     id: 'TAMER-0008', name: 'Vinculo (goggles, jaqueta)', base: 'NPC-0010', hair: 'ruivo',
-    accessory: { type: 'goggles', color: [235, 120, 30, 255], strapColor: [20, 20, 20, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'goggles', color: [235, 120, 30, 255], strapColor: [20, 20, 20, 255], dirs: FRONT_DIRS },
     note: 'Goggles laranja + base de cabelo curto castanho: lembra o arquetipo "tamer de dragao vermelho" (Takato).',
   },
   {
     id: 'TAMER-0009', name: 'Raposa (viseira)', base: 'NPC-0006', hair: 'ruivo',
-    accessory: { type: 'visor', color: [180, 60, 160, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'visor', color: [180, 60, 160, 255], dirs: FRONT_DIRS },
     note: 'Cabelo ruivo preso + viseira: lembra o arquetipo "tamer solitaria de raposa" (Rika/Ruki).',
   },
   {
     id: 'TAMER-0010', name: 'Vento (oculos)', base: 'NPC-0019', hair: 'azul',
-    accessory: { type: 'glasses', color: [30, 30, 30, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'glasses', color: [30, 30, 30, 255], dirs: FRONT_DIRS },
     note: 'Cabelo azulado + oculos retangulares: lembra o arquetipo "estrategista de oculos" (Henry/Jenrya).',
   },
   {
     id: 'TAMER-0011', name: 'Chama (goggles vermelhos)', base: 'NPC-0009', hair: 'castanho',
-    accessory: { type: 'goggles', color: [220, 50, 40, 255], strapColor: [30, 20, 10, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'goggles', color: [220, 50, 40, 255], strapColor: [30, 20, 10, 255], dirs: FRONT_DIRS },
     note: 'Goggles vermelhos + cabelo castanho despenteado: lembra o arquetipo "guerreiro das chamas" (Takuya).',
   },
   {
@@ -89,7 +93,7 @@ const PRESETS = [
   },
   {
     id: 'TAMER-0014', name: 'Furia (goggles verdes)', base: 'NPC-0032', hair: 'castanho',
-    accessory: { type: 'goggles', color: [60, 180, 90, 255], strapColor: [20, 20, 20, 255], dirs: ['S', 'W', 'E'] },
+    accessory: { type: 'goggles', color: [60, 180, 90, 255], strapColor: [20, 20, 20, 255], dirs: FRONT_DIRS },
     note: 'Goggles verdes + silhueta despojada: lembra o arquetipo "novato caotico de goggles" (Tagiru).',
   },
 ];
@@ -126,7 +130,7 @@ function loadBaseFrames(baseId) {
 function buildPreset(def) {
   const { cj: baseCj, frames: baseFrames } = loadBaseFrames(def.base);
   const swatch = SWATCHES.find((s) => s.id === def.hair);
-  const seed = KIT.sampleHairSeed(baseFrames.S[1]);
+  const seed = KIT.sampleHairSeed(baseFrames.SW[1]);
 
   function makeVariant(hairHex) {
     const out = {};
@@ -147,6 +151,10 @@ function buildPreset(def) {
   const dir = path.join(OUT, def.id);
   const spritesDir = path.join(dir, 'sprites');
   fs.mkdirSync(spritesDir, { recursive: true });
+  for (const f of fs.readdirSync(spritesDir)) { // drop stale S/N/W/E files and recolor_* dirs from before the SW/SE/NW/NE rename
+    const fp = path.join(spritesDir, f);
+    fs.rmSync(fp, { recursive: true, force: true });
+  }
   const keys = {};
   for (const d of DIRS) {
     keys[d] = canonical[d].map((c, i) => {
@@ -161,7 +169,7 @@ function buildPreset(def) {
   const recolorIndex = [];
   for (const sw of SWATCHES) {
     const sub = path.join(spritesDir, `recolor_${sw.id}`);
-    fs.mkdirSync(sub, { recursive: true });
+    fs.mkdirSync(sub, { recursive: true }); // spritesDir was just cleared above, so this is always fresh
     const variant = sw.id === def.hair ? canonical : makeVariant(sw.hex);
     const relKeys = {};
     for (const d of DIRS) {
@@ -179,11 +187,11 @@ function buildPreset(def) {
     return [{ durationMs: 150, atlasKey: f[0] }, { durationMs: 150, atlasKey: f[1] }, { durationMs: 150, atlasKey: f[0] }, { durationMs: 150, atlasKey: f[2] }];
   }
   const animations = {
-    idle: { loop: true, space: 'map', frames: [{ durationMs: 600, atlasKey: keys.S[1] }], events: [], dirFrames: Object.fromEntries(DIRS.map((d) => [d, [{ durationMs: 600, atlasKey: keys[d][1] }]])) },
-    walk: { loop: true, space: 'map', frames: dirFramesOf('S'), events: [], dirFrames: Object.fromEntries(DIRS.map((d) => [d, dirFramesOf(d)])) },
+    idle: { loop: true, space: 'map', frames: [{ durationMs: 600, atlasKey: keys.SW[1] }], events: [], dirFrames: Object.fromEntries(DIRS.map((d) => [d, [{ durationMs: 600, atlasKey: keys[d][1] }]])) },
+    walk: { loop: true, space: 'map', frames: dirFramesOf('SW'), events: [], dirFrames: Object.fromEntries(DIRS.map((d) => [d, dirFramesOf(d)])) },
   };
 
-  const stand = canonical.S[1];
+  const stand = canonical.SW[1];
   const bb = LIB.bboxOf(stand);
   const pivot = { x: Math.round((bb.minX + bb.maxX) / 2), y: bb.maxY + 1 };
 

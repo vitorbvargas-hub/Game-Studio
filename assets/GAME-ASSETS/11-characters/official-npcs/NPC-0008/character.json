@@ -5,7 +5,7 @@
   "name": "NPC-0008 (provisorio)",
   "category": "npc-human",
   "role": "npc",
-  "description": "NPC humano de Digimon World DS (folha \"NPC-Characters\", Spriters Resource). No mapa: idle e walk nas 4 direcoes desenhadas (S/N/W/E), sem espelhamento.",
+  "description": "NPC humano de Digimon World DS (folha \"NPC-Characters\", Spriters Resource). No mapa: idle e walk nas 4 vistas desenhadas na folha -- 2 de frente (SW/SE) e 2 de costas (NW/NE), sem cardeal S/N/W/E real e sem espelhamento. Ver qaNotes.",
   "dimensions": {
     "frameW": 40,
     "frameH": 33,
@@ -18,19 +18,19 @@
   "directions": {
     "walk": {
       "drawn": [
-        "S",
-        "N",
-        "W",
-        "E"
+        "SW",
+        "SE",
+        "NW",
+        "NE"
       ],
       "mirrored": {}
     },
     "idle": {
       "drawn": [
-        "S",
-        "N",
-        "W",
-        "E"
+        "SW",
+        "SE",
+        "NW",
+        "NE"
       ],
       "mirrored": {}
     }
@@ -42,33 +42,33 @@
       "frames": [
         {
           "durationMs": 600,
-          "atlasKey": "NPC-0008_walk_S_01.png"
+          "atlasKey": "NPC-0008_walk_SW_01.png"
         }
       ],
       "events": [],
       "dirFrames": {
-        "S": [
+        "SW": [
           {
             "durationMs": 600,
-            "atlasKey": "NPC-0008_walk_S_01.png"
+            "atlasKey": "NPC-0008_walk_SW_01.png"
           }
         ],
-        "N": [
+        "SE": [
           {
             "durationMs": 600,
-            "atlasKey": "NPC-0008_walk_N_01.png"
+            "atlasKey": "NPC-0008_walk_SE_01.png"
           }
         ],
-        "W": [
+        "NW": [
           {
             "durationMs": 600,
-            "atlasKey": "NPC-0008_walk_W_01.png"
+            "atlasKey": "NPC-0008_walk_NW_01.png"
           }
         ],
-        "E": [
+        "NE": [
           {
             "durationMs": 600,
-            "atlasKey": "NPC-0008_walk_E_01.png"
+            "atlasKey": "NPC-0008_walk_NE_01.png"
           }
         ]
       }
@@ -79,93 +79,93 @@
       "frames": [
         {
           "durationMs": 150,
-          "atlasKey": "NPC-0008_walk_S_00.png"
+          "atlasKey": "NPC-0008_walk_SW_00.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "NPC-0008_walk_S_01.png"
+          "atlasKey": "NPC-0008_walk_SW_01.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "NPC-0008_walk_S_00.png"
+          "atlasKey": "NPC-0008_walk_SW_00.png"
         },
         {
           "durationMs": 150,
-          "atlasKey": "NPC-0008_walk_S_02.png"
+          "atlasKey": "NPC-0008_walk_SW_02.png"
         }
       ],
       "events": [],
       "dirFrames": {
-        "S": [
+        "SW": [
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_S_00.png"
+            "atlasKey": "NPC-0008_walk_SW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_S_01.png"
+            "atlasKey": "NPC-0008_walk_SW_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_S_00.png"
+            "atlasKey": "NPC-0008_walk_SW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_S_02.png"
+            "atlasKey": "NPC-0008_walk_SW_02.png"
           }
         ],
-        "N": [
+        "SE": [
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_N_00.png"
+            "atlasKey": "NPC-0008_walk_SE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_N_01.png"
+            "atlasKey": "NPC-0008_walk_SE_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_N_00.png"
+            "atlasKey": "NPC-0008_walk_SE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_N_02.png"
+            "atlasKey": "NPC-0008_walk_SE_02.png"
           }
         ],
-        "W": [
+        "NW": [
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_W_00.png"
+            "atlasKey": "NPC-0008_walk_NW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_W_01.png"
+            "atlasKey": "NPC-0008_walk_NW_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_W_00.png"
+            "atlasKey": "NPC-0008_walk_NW_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_W_02.png"
+            "atlasKey": "NPC-0008_walk_NW_02.png"
           }
         ],
-        "E": [
+        "NE": [
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_E_00.png"
+            "atlasKey": "NPC-0008_walk_NE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_E_01.png"
+            "atlasKey": "NPC-0008_walk_NE_01.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_E_00.png"
+            "atlasKey": "NPC-0008_walk_NE_00.png"
           },
           {
             "durationMs": 150,
-            "atlasKey": "NPC-0008_walk_E_02.png"
+            "atlasKey": "NPC-0008_walk_NE_02.png"
           }
         ]
       }
@@ -181,7 +181,8 @@
   "approvalStatus": "UNDER_REVIEW",
   "qaNotes": [
     "Bloco detectado por componentes conexos contra o teal de fundo da folha (merge <= 3px); colunas = terco igual da largura do bloco (grade RPG-Maker-like, sem suposicao de tamanho de celula fixo).",
-    "Sem quadro extra alem dos 12 (4 direcoes x 3 passos).",
+    "Sem quadro extra alem dos 12 (4 vistas x 3 passos).",
+    "CORRECAO 2026-11-09 [E, conferido visualmente]: a folha so tem 2 vistas de frente e 2 de costas (nao 4 cardeais). As 4 linhas da grade (antes rotuladas S/N/W/E) agora sao SW/SE (frente) e NW/NE (costas); qual e \"-west\" vs \"-east\" dentro de cada par e leitura visual [H], mas consistente em todo o bloco (mesma grade fixa da folha). Ver 11-characters/README.md para o mapeamento usado pelos presets de Tamer.",
     "Pivo = centroide em x das 12-13 celulas, alinhado pelos pes (ultima linha opaca). Nome provisorio: preencher apos a revisao da folha de contato (09-previews/)."
   ]
 }

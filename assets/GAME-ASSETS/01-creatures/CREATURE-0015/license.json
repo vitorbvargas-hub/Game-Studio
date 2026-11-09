@@ -1,0 +1,31 @@
+{
+  "creatureId": "CREATURE-0015",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "GeoGreymon",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon (c) Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS (c) Bandai Namco Games",
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__GeoGreymon__48577.png",
+    "sha256": "f75e5a8279f44f3f17d6c629a51579ab138712ff9e82f06fcc79e10a9a907b13",
+    "bytes": 33258,
+    "retrievedAt": "2026-11-09",
+    "modifications": "chroma key automático (cores com bloco liso 12x12); quadros de mapa recortados por componentes conexos e realinhados pelo pivô nos pés"
+  },
+  "credit": {
+    "ripper": "redblueyellow",
+    "creditTextOnSheet": "Ripped by redblueyellow. No credit needed.",
+    "creditRequiredBySheet": false,
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-09",
+  "verifiedBy": "game-art",
+  "notes": "Créditos em qualquer build/tela de créditos: redblueyellow (rip DW DS, The Spriters Resource); (c) Bandai Namco."
+}

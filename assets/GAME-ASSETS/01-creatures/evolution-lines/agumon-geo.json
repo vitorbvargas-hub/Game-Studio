@@ -1,0 +1,16 @@
+{
+  "lineId": "agumon-geo",
+  "label": "Koromon → Agumon → GeoGreymon (ramo alternativo, requer Defesa 25+ no Nv.16)",
+  "branchOf": "agumon",
+  "branchAtIndex": 1,
+  "sequence": [
+    "CREATURE-0005",
+    "CREATURE-0006",
+    "CREATURE-0015"
+  ],
+  "names": [
+    "Koromon",
+    "Agumon",
+    "GeoGreymon"
+  ]
+}
