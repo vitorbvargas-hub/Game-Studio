@@ -50,6 +50,8 @@ export const WORLD = {
   wildStatMult: 0.8,
   baseXpByStage: { 1: 8, 2: 14, 3: 30, 4: 48 } as Record<number, number>,
   scanPerDefeat: 25,
+  /** Ticks parada depois de evoluir (animação de digivolução no mapa: espera do level up + EVO_TOTAL_MS do presenter). */
+  evolveLockTicks: 34,
 } as const;
 
 /** Recarga do ataque básico, em ticks, a partir da velocidade (SPD). */

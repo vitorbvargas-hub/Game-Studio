@@ -39,6 +39,14 @@ const GLYPHS: Record<string, string> = {
   Q: "010101101110011",
   R: "110101110101101",
   T: "111010010010010",
+  // nomes das espécies e textos de nível/digivolução
+  J: "001001001101010",
+  K: "101101110101101",
+  W: "101101101111101",
+  Y: "101101010010010",
+  Z: "111001010100111",
+  "?": "111001011000010",
+  ".": "000000000000010",
   "↑": "010111010010010",
   "↓": "010010010111010",
 };
@@ -48,7 +56,8 @@ export function drawPixelText(ctx: CanvasRenderingContext2D, text: string, x: nu
   let cx = Math.round(x);
   const cy = Math.round(y);
   for (const ch of text) {
-    const g = GLYPHS[ch] ?? GLYPHS[" "];
+    // Só maiúsculas: minúsculas e acentos viram a letra base ("Nível" → "NIVEL").
+    const g = GLYPHS[ch] ?? GLYPHS[ch.normalize("NFD")[0].toUpperCase()] ?? GLYPHS[" "];
     for (let i = 0; i < 15; i++) if (g[i] === "1") ctx.fillRect(cx + (i % 3) * scale, cy + Math.floor(i / 3) * scale, scale, scale);
     cx += 4 * scale;
   }

@@ -9,7 +9,7 @@ import { loadMoveContent, type MoveContent } from "../sim/moves";
 import { PX_PER_SUB } from "../sim/params";
 import type { Dir8, EntityKind, EntitySnapshot, LogicState, Vec, WorldEvent } from "../sim/types";
 import vfxTable from "../data/world-vfx.json";
-import { archetypeParams, castEnd, castTiming, moveVfx, type Cast } from "./vfx/engine";
+import { castEnd, castTiming, moveVfx, type Cast } from "./vfx/engine";
 import { DAMAGE_GRACE_MS, DEFEAT_FADE_MS, HIT_STOP_MS, HURT_FLASH_MS, HURT_VIS_MS, KNOCKBACK_CRIT_PX, KNOCKBACK_PX } from "./anim";
 
 export const HP_ANIM_MS = 150;
@@ -24,6 +24,75 @@ export const HIT_FX_MS = 450;
 /** Tremida de câmera no crítico. */
 export const SHAKE_MS = 180;
 export const SHAKE_PX = 2;
+
+/** Level up no mapa: brilho dourado + "Nível X!" sobre a parceira. */
+export const LEVEL_UP_FX_MS = 900;
+
+// Digivolução no mapa (estilo anime): carga de luz → silhuetas brancas alternando antiga/nova cada vez mais rápido →
+// clarão → forma nova revelada com o nome. Tempos relativos ao início (evo.start).
+/** Espera depois do level up exibido, quando a evolução veio na mesma vitória. */
+export const EVO_LEAD_MS = 650;
+/** O "Nível X!" sai um pouco depois do "+N XP" da mesma vitória (os dois ficam sobre a parceira). */
+export const LEVEL_UP_DELAY_MS = 350;
+export const EVO_CHARGE_MS = 500;
+export const EVO_SWAP_END_MS = 1850;
+/** Clarão: a forma nova aparece aqui. */
+export const EVO_FLASH_MS = 2000;
+export const EVO_TOTAL_MS = 2700;
+/** Faixa "X digivolveu para Y!" depois do clarão. */
+export const EVO_BANNER_MS = 3200;
+/** Trocas de silhueta durante a alternância (par = forma antiga). */
+export const EVO_SWAPS = 16;
+
+export interface EvoFx {
+  start: number;
+  from: string;
+  to: string;
+  fromName: string;
+  toName: string;
+  /** A forma nova já foi revelada (speciesId/name da entidade visual trocados). */
+  revealed: boolean;
+  mine: boolean;
+}
+
+export type EvoPhase = "wait" | "charge" | "swap" | "flash" | "reveal" | "done";
+
+export interface EvoFrame {
+  phase: EvoPhase;
+  /** ms desde o início. */
+  t: number;
+  /** Qual forma desenhar agora. */
+  show: "from" | "to";
+  /** 0..1: quanto do sprite vira silhueta branca (1 = só a silhueta). */
+  white: number;
+  /** 0..1: força da luz em volta (anel, coluna e partículas). */
+  aura: number;
+  /** 0..1: clarão (explosão de luz) — 0 fora dele. */
+  flash: number;
+}
+
+/** Quadro da digivolução no instante `now` (puro: a view só desenha). */
+export function evoFrame(evo: Pick<EvoFx, "start">, now: number): EvoFrame {
+  const t = now - evo.start;
+  if (t < 0) return { phase: "wait", t, show: "from", white: 0, aura: 0, flash: 0 };
+  if (t < EVO_CHARGE_MS) {
+    const k = t / EVO_CHARGE_MS;
+    return { phase: "charge", t, show: "from", white: Math.min(1, k * 1.25), aura: k, flash: 0 };
+  }
+  if (t < EVO_SWAP_END_MS) {
+    // Alternância acelerando: trocas ~ u² (lentas no começo, rápidas no fim).
+    const u = (t - EVO_CHARGE_MS) / (EVO_SWAP_END_MS - EVO_CHARGE_MS);
+    const n = Math.floor(EVO_SWAPS * (0.35 * u + 0.65 * u * u));
+    return { phase: "swap", t, show: n % 2 ? "to" : "from", white: 1, aura: 1, flash: 0 };
+  }
+  if (t < EVO_FLASH_MS) return { phase: "swap", t, show: "to", white: 1, aura: 1, flash: (t - EVO_SWAP_END_MS) / (EVO_FLASH_MS - EVO_SWAP_END_MS) };
+  if (t < EVO_FLASH_MS + 220) return { phase: "flash", t, show: "to", white: 1, aura: 1, flash: 1 - (t - EVO_FLASH_MS) / 220 };
+  if (t < EVO_TOTAL_MS) {
+    const k = (t - EVO_FLASH_MS - 220) / (EVO_TOTAL_MS - EVO_FLASH_MS - 220);
+    return { phase: "reveal", t, show: "to", white: Math.max(0, 1 - k * 1.4), aura: 1 - k, flash: 0 };
+  }
+  return { phase: "done", t, show: "to", white: 0, aura: 0, flash: 0 };
+}
 
 export type VfxElement = "fire" | "frost" | "wind" | "light" | "bubble" | "spark";
 
@@ -88,6 +157,10 @@ export interface VisualEntity {
   exclaimUntil: number;
   /** Desfase da respiração (idle) para não ficarem em uníssono. */
   phase: number;
+  /** Instante do level up exibido (brilho dourado). */
+  lvUpAt?: number;
+  /** Digivolução em andamento (a entidade mostra a forma antiga até o clarão). */
+  evo?: EvoFx;
 }
 
 export interface Floater {
@@ -179,6 +252,8 @@ export class Presenter {
   /** alvo → último instante agendado de dano (DEFEAT vem depois dele). */
   private lastDamageAt = new Map<string, number>();
   private phaseSeed = 0;
+  /** Entidade → instante em que o último "Nível X!" aparece (a digivolução espera por ele). */
+  private lvUpShowAt = new Map<string, number>();
 
   constructor(
     private readonly manifestOf: ManifestLookup,
@@ -194,6 +269,7 @@ export class Presenter {
   onTick(snaps: EntitySnapshot[], events: WorldEvent[], now: number): void {
     for (const ev of events) if (ev.t === "spawn") this.spawn(ev.entity, now);
     const seen = new Set<string>();
+    const prevNames = new Map<string, string>();
     for (const s of snaps) {
       seen.add(s.id);
       let v = this.entities.get(s.id);
@@ -202,7 +278,9 @@ export class Presenter {
       v.cur = toPx(s);
       v.facing = s.facing;
       v.logicState = s.state;
-      if (s.speciesId !== v.speciesId) {
+      // Durante a digivolução a forma antiga fica na tela até o clarão (update() troca).
+      if (s.speciesId !== v.speciesId && !(v.evo && !v.evo.revealed)) {
+        prevNames.set(v.id, v.name);
         v.speciesId = s.speciesId;
         v.name = s.name;
       }
@@ -274,12 +352,14 @@ export class Presenter {
         case "evolve": {
           const v = this.entities.get(ev.id);
           if (v) {
-            const p = archetypeParams("holy_burst", 220, "light");
-            const seq = -(++this.phaseSeed);
-            const c: Cast = { seq, moveId: "evolve", archetype: "holy_burst", params: p, attackerId: v.id, targetId: v.id, targetIds: [v.id], at: { ...v.cur }, from: { ...v.cur }, to: { ...v.cur }, self: true, radius: 18, start: now, launchAt: now + p.charge, hitAt: now + p.charge + p.travel, end: 0, mine: this.isMine(v.id) };
-            c.end = castEnd(c);
-            this.casts.push(c);
-            this.floaters.push({ text: "EVOLUIU!", x: v.cur.x, y: v.cur.y - 16, start: c.hitAt, durationMs: REWARD_FLOATER_MS * 1.5, color: "#fee761", big: true, thirdParty: !c.mine, drift: 0 });
+            // Veio logo depois de um level up (mesma vitória): espera o golpe final, o "+XP" e o "Nível X!" aparecerem.
+            const lu = this.lvUpShowAt.get(ev.id);
+            const start = lu !== undefined && lu + EVO_LEAD_MS > now ? lu + EVO_LEAD_MS : now;
+            const toName = v.speciesId === ev.to ? v.name : this.manifestOf(ev.to)?.name ?? v.name;
+            const fromName = prevNames.get(v.id) ?? v.evo?.toName ?? v.name;
+            v.evo = { start, from: ev.from, to: ev.to, fromName, toName, revealed: false, mine: this.isMine(v.id) };
+            v.speciesId = ev.from;
+            v.name = fromName;
           }
           break;
         }
@@ -300,7 +380,8 @@ export class Presenter {
         case "reward":
         case "level_up":
         case "capture":
-          this.pending.push({ at: tickMax, kind: ev.t, ev } as Pending);
+          this.pending.push({ at: ev.t === "level_up" ? tickMax + LEVEL_UP_DELAY_MS : tickMax, kind: ev.t, ev } as Pending);
+          if (ev.t === "level_up") this.lvUpShowAt.set(ev.id, tickMax + LEVEL_UP_DELAY_MS);
           break;
         case "despawn": {
           const v = this.entities.get(ev.id);
@@ -350,6 +431,13 @@ export class Presenter {
     this.pending = this.pending.filter((p) => p.at > now);
     for (const p of due) this.release(p, p.at);
     for (const v of this.entities.values()) {
+      if (v.evo && !v.evo.revealed && now >= v.evo.start + EVO_FLASH_MS) {
+        v.evo.revealed = true;
+        v.speciesId = v.evo.to;
+        v.name = v.evo.toName;
+      }
+      if (v.evo?.revealed && now >= v.evo.start + EVO_FLASH_MS + EVO_BANNER_MS) v.evo = undefined;
+      if (v.lvUpAt !== undefined && now > v.lvUpAt + LEVEL_UP_FX_MS) v.lvUpAt = undefined;
       if (v.attack && now > v.attack.start + Math.max(v.attack.durationMs, v.attack.hitAtMs + DAMAGE_GRACE_MS)) v.attack = undefined;
       if (v.hurt && now > v.hurt.start + HURT_VIS_MS) v.hurt = undefined;
       if (v.hitStop && now > v.hitStop.until) v.hitStop = undefined;
@@ -463,10 +551,19 @@ export class Presenter {
     const mine = p.ev.t === "level_up" ? this.isMine(p.ev.id) : this.isMine(p.ev.ownerId);
     if (p.kind === "reward") {
       const ev = p.ev;
-      this.floaters.push({ text: `+${ev.xp} XP`, x: ev.at.x * PX_PER_SUB, y: ev.at.y * PX_PER_SUB - 10, start: at, durationMs: REWARD_FLOATER_MS, color: "#2ce8f5", big: false, thirdParty: !mine, drift: 0 });
+      // "+N XP" sobe da parceira que ganhou (sem parceira na tela: no lugar da vitória).
+      const pv = this.entities.get(ev.partnerId);
+      if (pv) this.floaters.push({ text: `+${ev.xp} XP`, x: pv.cur.x, y: pv.cur.y, start: at, durationMs: REWARD_FLOATER_MS * 1.3, color: "#2ce8f5", big: false, thirdParty: !mine, targetId: pv.id, drift: 0 });
+      else this.floaters.push({ text: `+${ev.xp} XP`, x: ev.at.x * PX_PER_SUB, y: ev.at.y * PX_PER_SUB - 10, start: at, durationMs: REWARD_FLOATER_MS, color: "#2ce8f5", big: false, thirdParty: !mine, drift: 0 });
     } else if (p.kind === "level_up") {
       const v = this.entities.get(p.ev.id);
-      if (v) this.floaters.push({ text: "LV UP", x: v.cur.x, y: v.cur.y - 16, start: at, durationMs: REWARD_FLOATER_MS, color: "#fee761", big: true, thirdParty: !mine, drift: 0 });
+      if (v) {
+        v.lvUpAt = at;
+        // O "+N XP" da mesma vitória ainda está no ar: some em 150 ms (encurta a vida para o fade já começar).
+        for (const f of this.floaters)
+          if (f.targetId === v.id && f.text.endsWith(" XP") && at > f.start && at < f.start + f.durationMs) f.durationMs = Math.min(f.durationMs, Math.max((at - f.start) / 0.7, at - f.start + 150));
+        this.floaters.push({ text: `Nível ${p.ev.level}!`, x: v.cur.x, y: v.cur.y - 6, start: at, durationMs: REWARD_FLOATER_MS * 1.4, color: "#fee761", big: mine, thirdParty: !mine, targetId: v.id, drift: 0 });
+      }
     }
   }
 

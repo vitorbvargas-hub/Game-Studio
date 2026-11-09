@@ -23,7 +23,7 @@ import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from 
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
 import { drawOutlinedText, pixelTextWidth } from "./pixelfont";
-import { EXCLAIM_MS, type Presenter, type VisualEntity } from "./presenter";
+import { LEVEL_UP_FX_MS, EXCLAIM_MS, evoFrame, type EvoFrame, type Presenter, type VisualEntity } from "./presenter";
 import type { VfxFrame } from "./vfx/archetypes";
 import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
 import { ambientAt } from "./daynight";
@@ -735,21 +735,114 @@ export class WorldView {
       if (tv && this.images.get(tv.sheetUrl)) return this.drawSprite(tv, v, pos, p, now, this.opts.tamerTints?.[v.id]);
       return this.drawTamer(v, pos, now);
     }
+    const f = v.evo ? evoFrame(v.evo, now) : undefined;
+    if (f && f.phase !== "wait" && f.phase !== "done") return this.drawEvolving(v, pos, p, now, f);
     const cv = this.visualOf(v);
-    if (cv) this.drawSprite(cv, v, pos, p, now);
-    else if (v.speciesId) this.drawMissing(v, pos, p, now);
+    const lv = v.lvUpAt !== undefined ? (now - v.lvUpAt) / LEVEL_UP_FX_MS : -1;
+    if (lv >= 0 && lv < 1) this.drawLevelUpAura(pos, lv, "under");
+    // Level up: a parceira pisca branca no começo do brilho.
+    const white = lv >= 0 && lv < 0.35 ? 0.75 * (1 - lv / 0.35) * (Math.floor(lv * 20) % 2 ? 0.6 : 1) : 0;
+    if (cv) this.drawSprite(cv, v, pos, p, now, undefined, white);
+    else if (v.speciesId) this.drawMissing(v, pos, p, now, white);
+    if (lv >= 0 && lv < 1) this.drawLevelUpAura(pos, lv, "over");
+  }
+
+  /** Brilho do level up: anel dourado que abre no chão e faíscas subindo (pixel a pixel, sem blur). */
+  private drawLevelUpAura(pos: Vec, k: number, layer: "under" | "over"): void {
+    const ctx = this.ctx;
+    const cx = Math.round(pos.x - this.camera.x);
+    const cy = Math.round(pos.y - this.camera.y);
+    ctx.globalAlpha = Math.max(0, 1 - k);
+    if (layer === "under") {
+      const rx = Math.round(6 + 14 * Math.min(1, k * 1.6));
+      this.pixelRing(cx, cy, rx, Math.max(2, Math.round(rx / 3)), "#feae34");
+      if (k < 0.6) this.pixelRing(cx, cy, Math.max(3, rx - 4), Math.max(2, Math.round(rx / 3) - 1), "#fee761");
+    } else {
+      for (let i = 0; i < 8; i++) {
+        const x = cx + Math.round(Math.sin(i * 2.39) * (6 + (i % 3) * 3));
+        const y = cy - 4 - Math.round((k * 34 + i * 5) % 30) - (i % 2) * 6;
+        ctx.fillStyle = i % 2 ? "#fee761" : "#ffffff";
+        ctx.fillRect(x, y, 1 + (i % 2), 1 + (i % 2));
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /**
+   * Digivolução no mapa (presenter.evoFrame): coluna e anel de luz, silhuetas brancas alternando entre a forma
+   * antiga e a nova cada vez mais rápido, clarão e a forma nova revelada. Tudo em fillRect/sprites inteiros.
+   */
+  private drawEvolving(v: VisualEntity, pos: Vec, p: Presenter, now: number, f: EvoFrame): void {
+    const evo = v.evo!;
+    const ctx = this.ctx;
+    const cx = Math.round(pos.x - this.camera.x);
+    const cy = Math.round(pos.y - this.camera.y);
+    const speciesId = f.show === "from" ? evo.from : evo.to;
+    const sv: VisualEntity = { ...v, speciesId };
+    const cv = this.creatures[speciesId];
+    const top = cv ? Math.round(this.headOffset(sv).top) + 6 : 30;
+    if (f.aura > 0) {
+      // Coluna de luz (faixas verticais que pulsam) atrás do corpo.
+      const pulse = Math.floor(now / 90) % 2;
+      const w = Math.round(4 + 10 * f.aura) + pulse * 2;
+      ctx.globalAlpha = 0.18 * f.aura;
+      ctx.fillStyle = "#fff6c8";
+      ctx.fillRect(cx - w, cy - top - 24, w * 2, top + 26);
+      ctx.globalAlpha = 0.3 * f.aura;
+      ctx.fillRect(cx - Math.ceil(w / 2), cy - top - 24, Math.ceil(w / 2) * 2, top + 26);
+      // Anéis no chão: um gira para dentro, o outro respira.
+      ctx.globalAlpha = Math.min(1, f.aura * 1.2);
+      const r1 = Math.round(10 + 8 * f.aura + 2 * Math.sin(now / 120));
+      this.pixelRing(cx, cy, r1, Math.max(3, Math.round(r1 / 3)), "#fee761");
+      const r2 = Math.round(18 - ((now / 30) % 12));
+      if (r2 > 4) this.pixelRing(cx, cy, r2, Math.max(2, Math.round(r2 / 3)), "#ffffff");
+      ctx.globalAlpha = 1;
+    }
+    if (cv) this.drawSprite(cv, sv, pos, p, now, undefined, f.white);
+    else this.drawMissing(sv, pos, p, now, f.white);
+    if (f.aura > 0) {
+      // Partículas de dados subindo em espiral.
+      for (let i = 0; i < 14; i++) {
+        const ph = ((now / 700 + i / 14) % 1);
+        const ang = i * 2.4 + now / 260;
+        const r = 6 + (i % 4) * 3;
+        const x = cx + Math.round(Math.cos(ang) * r);
+        const y = cy - Math.round(ph * (top + 18));
+        ctx.globalAlpha = f.aura * (1 - ph);
+        ctx.fillStyle = i % 3 ? "#ffffff" : "#2ce8f5";
+        ctx.fillRect(x, y, i % 4 === 0 ? 2 : 1, i % 4 === 0 ? 2 : 1);
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (f.flash > 0) {
+      // Clarão: esfera branca que cresce e some (elipse em linhas inteiras).
+      const grow = f.phase === "flash" ? 1 : f.flash;
+      const rx = Math.round(8 + 30 * grow);
+      ctx.globalAlpha = 0.9 * f.flash;
+      ctx.fillStyle = "#ffffff";
+      this.pixelEllipse(cx, cy - Math.round(top / 2), rx, Math.round(rx * 0.85));
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  /** Elipse cheia em linhas de 1 px (fillStyle já definido). */
+  private pixelEllipse(cx: number, cy: number, rx: number, ry: number): void {
+    for (let y = -ry; y <= ry; y++) {
+      const half = Math.floor(rx * Math.sqrt(Math.max(0, 1 - (y * y) / (ry * ry))));
+      this.ctx.fillRect(cx - half, cy + y, half * 2 + 1, 1);
+    }
   }
 
   /** Espécie ainda sem arte (ramo de evolução SP-*): marcador "?" no lugar do sprite, para não sumir do mapa. */
-  private drawMissing(v: VisualEntity, pos: Vec, p: Presenter, now: number): void {
+  private drawMissing(v: VisualEntity, pos: Vec, p: Presenter, now: number, white = 0): void {
     const off = this.combatOffset(v, p, now);
     const x = Math.round(pos.x - this.camera.x + off.x);
     const y = Math.round(pos.y - this.camera.y + off.y);
     const r = 11;
     const ctx = this.ctx;
     ctx.save();
-    ctx.fillStyle = "#3a4466";
-    ctx.strokeStyle = "#c0cbdc";
+    ctx.fillStyle = white >= 1 ? "#ffffff" : "#3a4466";
+    ctx.strokeStyle = white >= 1 ? "#ffffff" : "#c0cbdc";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.arc(x, y - r - 1, r, 0, Math.PI * 2);
@@ -786,7 +879,8 @@ export class WorldView {
     return { key: frames[fi]?.atlasKey ?? "", mirror: face.mirror, state, anim: choice.name };
   }
 
-  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number): void {
+  /** `white` 0..1: silhueta branca por cima do sprite (1 = só a silhueta: digivolução). */
+  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number, white = 0): void {
     const mo = this.motions.get(v.id);
     const { key, mirror, state } = this.frameFor(cv, v, p, now);
     const url = imageUrlOf(cv, key);
@@ -813,9 +907,9 @@ export class WorldView {
     const ctx = this.ctx;
     const fade = state === "DEFEAT" && v.defeatedAt !== undefined ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;
     ctx.globalAlpha = fade;
-    this.blitEntity(`${url}|${tint ?? 0}|${key}`, img, fr, dx, dy, S, mirror);
+    if (white < 1) this.blitEntity(`${url}|${tint ?? 0}|${key}`, img, fr, dx, dy, S, mirror);
     // Flash branco do impacto (alvo, durante o hit-stop) e brilho curto do atacante.
-    const flash = now < v.flashUntil ? 1 : v.attackFlashAt && now >= v.attackFlashAt && now < v.attackFlashAt + 50 ? 0.5 : 0;
+    const flash = Math.max(white, now < v.flashUntil ? 1 : v.attackFlashAt && now >= v.attackFlashAt && now < v.attackFlashAt + 50 ? 0.5 : 0);
     if (flash > 0 && fade > 0) {
       ctx.globalAlpha = flash * fade;
       this.blit(this.silhouette(cv, key, img, fr), { x: 0, y: 0, w: fr.w, h: fr.h }, dx, dy, S, mirror);
@@ -959,9 +1053,12 @@ export class WorldView {
     const pulse = Math.floor(now / 250) % 2;
     const rx = (r ? Math.round(r.rx * S) + 2 : 10) + pulse;
     const ry = r ? Math.max(3, Math.round(r.ry * S) + 1) : 4;
-    const cx = Math.round(pos.x - this.camera.x);
-    const cy = Math.round(pos.y - this.camera.y);
-    this.ctx.fillStyle = "#feae34";
+    this.pixelRing(Math.round(pos.x - this.camera.x), Math.round(pos.y - this.camera.y), rx, ry, "#feae34");
+  }
+
+  /** Contorno de elipse em pixels inteiros (anel do alvo, level up, digivolução). */
+  private pixelRing(cx: number, cy: number, rx: number, ry: number, color: string): void {
+    this.ctx.fillStyle = color;
     let lastHalf = -1;
     for (let y = -ry; y <= ry; y++) {
       const half = Math.floor(rx * Math.sqrt(Math.max(0, 1 - (y * y) / (ry * ry))));

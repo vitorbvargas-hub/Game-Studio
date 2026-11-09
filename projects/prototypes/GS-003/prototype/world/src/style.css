@@ -3302,3 +3302,56 @@ body {
 .ar-rbtns .act {
   padding: 8px 18px;
 }
+
+/* ---------- XP da parceira: enche animada, "+N" e brilho do level up ---------- */
+.hud-bar.xp i {
+  transition: width 0.4s ease-out;
+}
+.hud-partner .row {
+  position: relative;
+}
+.xp-gain {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2ce8f5;
+  text-shadow: 0 1px 0 #0b0d13, 1px 0 0 #0b0d13, -1px 0 0 #0b0d13, 0 -1px 0 #0b0d13;
+  opacity: 0;
+  pointer-events: none;
+}
+.xp-gain.show {
+  animation: xp-gain 1.1s ease-out forwards;
+}
+@keyframes xp-gain {
+  0% { opacity: 0; transform: translateY(4px); }
+  15% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+.hud-partner.lvup {
+  animation: hud-lvup 0.9s steps(6, end);
+}
+.hud-partner.lvup .hud-bar.xp i {
+  background: linear-gradient(#fff3a6, #feae34);
+}
+@keyframes hud-lvup {
+  0%, 33%, 66% { box-shadow: 0 0 0 2px #fee761, 0 0 12px #feae34; }
+  16%, 50%, 83% { box-shadow: 0 0 0 1px #feae34; }
+  100% { box-shadow: none; }
+}
+/* Selo do modo de teste ?demo=evo */
+.demo-badge {
+  position: absolute;
+  left: 8px;
+  bottom: 150px;
+  padding: 2px 8px;
+  font: 700 11px/1.4 monospace;
+  color: #181425;
+  background: #fee761;
+  border: 1px solid #181425;
+  border-radius: 3px;
+  pointer-events: auto;
+  z-index: 5;
+}

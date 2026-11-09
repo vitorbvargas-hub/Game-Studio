@@ -91,6 +91,12 @@ interface TeamMember {
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 const fmt = (n: number) => n.toLocaleString("pt-BR");
 
+/**
+ * O aviso "X digivolveu para Y!" (e os golpes novos) espera o clarão da digivolução no mapa: main.ts chama
+ * releaseEvolve() quando o presenter revela a forma nova; sem isso (parceira fora da tela), sai depois deste prazo.
+ */
+export const EVO_ANNOUNCE_FALLBACK_MS = 4500;
+
 export class Hud {
   private auto = false;
   private autoEvolve = false;
@@ -109,6 +115,12 @@ export class Hud {
   private minimapCanvas: HTMLCanvasElement;
   private names = new Map<string, string>();
   private lastPartnerHtml = "";
+  /** Avisos da última digivolução esperando a forma nova aparecer no mapa. */
+  private evoHeld: (() => void)[] | null = null;
+  private evoTimer?: ReturnType<typeof setTimeout>;
+  /** Último nível/XP mostrado no painel da parceira (para animar a barra). */
+  private partnerShown?: { level: number; xp: number; pct: number };
+  private xpTimer?: ReturnType<typeof setTimeout>;
   private lastTeamKey = "";
   private partner?: EntitySnapshot;
   private partnerXp = { xp: 0, next: 1 };
@@ -270,6 +282,19 @@ export class Hud {
     this.renderTamerXp();
   }
 
+  /** Há avisos de digivolução esperando o clarão. */
+  get evolvePending(): boolean {
+    return !!this.evoHeld;
+  }
+
+  /** Solta os avisos da digivolução ("X digivolveu para Y!" e os golpes novos). */
+  releaseEvolve(): void {
+    clearTimeout(this.evoTimer);
+    const held = this.evoHeld;
+    this.evoHeld = null;
+    for (const f of held ?? []) f();
+  }
+
   /** XP do Tamer ganha fora do log de combate (relatório offline). Devolve quantos níveis subiu. */
   addTamerXp(xp: number): number {
     const from = this.tamerLevel;
@@ -293,7 +318,7 @@ export class Hud {
     return this.names.get(id) ?? id;
   }
 
-  private push(text: string, cls = ""): void {
+  push(text: string, cls = ""): void {
     const li = document.createElement("li");
     li.textContent = text;
     if (cls) li.className = cls;
@@ -348,17 +373,29 @@ export class Hud {
           if (this.mine(ev.id)) {
             const m = this.content.moves.moves[ev.moveId];
             const text = `${this.name(ev.id)} aprendeu ${m?.name ?? ev.moveId}!`;
-            this.push(text, "gold");
-            this.announce(text, ev.slot !== null ? `Equipado no slot ${ev.slot + 1}.` : "Abra Equipe & Box → Golpes para equipar.", ev.moveId);
+            const show = () => {
+              this.push(text, "gold");
+              this.announce(text, ev.slot !== null ? `Equipado no slot ${ev.slot + 1}.` : "Abra Equipe & Box → Golpes para equipar.", ev.moveId);
+            };
+            if (this.evoHeld) this.evoHeld.push(show);
+            else show();
           }
           break;
         case "evolve":
           if (this.mine(ev.id)) {
             const to = this.content.species[ev.to]?.name ?? ev.to;
-            const text = `${this.name(ev.id)} evoluiu para ${to}!`;
+            const text = `${this.name(ev.id)} digivolveu para ${to}!`;
             this.names.set(ev.id, to);
-            this.push(text, "gold");
-            this.announce(text, ev.kept.length ? `Manteve ${ev.kept.map((id) => this.content.moves.moves[id]?.name ?? id).join(" e ")}.` : "Golpes novos liberados.");
+            const sub = ev.kept.length ? `Manteve ${ev.kept.map((id) => this.content.moves.moves[id]?.name ?? id).join(" e ")}.` : "Golpes novos liberados.";
+            // Segura este aviso e os golpes novos até o clarão da animação no mapa (sem estragar a surpresa).
+            this.releaseEvolve();
+            this.evoHeld = [
+              () => {
+                this.push(text, "gold");
+                this.announce(text, sub);
+              },
+            ];
+            this.evoTimer = setTimeout(() => this.releaseEvolve(), EVO_ANNOUNCE_FALLBACK_MS);
           }
           break;
         case "moves_changed":
@@ -492,23 +529,66 @@ export class Hud {
     this.coins.textContent = fmt(bits);
     const hpPct = Math.round((p.hp / p.maxHp) * 100);
     const xpPct = xpNext > 0 ? Math.round((xp / xpNext) * 100) : 0;
+    // A estrutura só é refeita quando muda a espécie/nome; nível, PV e XP mudam no lugar, para a barra animar.
     const html = `
       <canvas class="pt" width="56" height="56" data-species="${p.speciesId ?? ""}"></canvas>
       <div class="info">
         <div class="hud-name">${esc(p.name)} <span>Nv.${p.level}</span></div>
         <div class="row"><label>PV</label><div class="hud-bar hp seg"><i style="width:${hpPct}%"></i></div><em>${p.hp}/${p.maxHp}</em></div>
-        <div class="row"><label>XP</label><div class="hud-bar xp"><i style="width:${xpPct}%"></i></div><em>${xp}/${xpNext}</em></div>
+        <div class="row"><label>XP</label><div class="hud-bar xp"><i style="width:${xpPct}%"></i></div><em>${xp}/${xpNext}</em><b class="xp-gain" aria-hidden="true"></b></div>
       </div>`;
-    if (html !== this.lastPartnerHtml) {
-      const speciesChanged = !this.lastPartnerHtml.includes(`data-species="${p.speciesId ?? ""}"`);
+    const shape = `${p.speciesId}|${p.name}`;
+    const last = this.partnerShown;
+    if (shape !== this.lastPartnerHtml) {
+      const speciesChanged = !this.lastPartnerHtml.startsWith(`${p.speciesId}|`);
       const old = this.partnerBox.querySelector("canvas");
-      this.lastPartnerHtml = html;
+      this.lastPartnerHtml = shape;
       this.partnerBox.innerHTML = html;
       const cnv = this.partnerBox.querySelector("canvas")!;
       if (old && !speciesChanged) cnv.replaceWith(old);
       else this.paint(cnv);
+    } else {
+      this.partnerBox.querySelector(".hud-name span")!.textContent = `Nv.${p.level}`;
+      const [hpRow, xpRow] = this.partnerBox.querySelectorAll<HTMLElement>(".row");
+      hpRow.querySelector<HTMLElement>("i")!.style.width = `${hpPct}%`;
+      hpRow.querySelector("em")!.textContent = `${p.hp}/${p.maxHp}`;
+      xpRow.querySelector("em")!.textContent = `${xp}/${xpNext}`;
+      this.animateXp(xpRow, last, { level: p.level, xp, pct: xpPct });
     }
+    this.partnerShown = { level: p.level, xp, pct: xpPct };
     this.renderTeam();
+  }
+
+  /** Barra de XP: enche até o novo valor; no level up enche até o fim, brilha e recomeça do zero. "+N" ao lado. */
+  private animateXp(row: HTMLElement, last: { level: number; xp: number; pct: number } | undefined, now: { level: number; xp: number; pct: number }): void {
+    const bar = row.querySelector<HTMLElement>(".hud-bar.xp i")!;
+    if (!last || (last.level === now.level && last.xp === now.xp)) return;
+    const gain = row.querySelector<HTMLElement>(".xp-gain");
+    if (now.level > last.level) {
+      clearTimeout(this.xpTimer);
+      bar.style.width = "100%";
+      this.partnerBox.classList.remove("lvup");
+      void this.partnerBox.offsetWidth;
+      this.partnerBox.classList.add("lvup");
+      this.xpTimer = setTimeout(() => {
+        bar.style.transition = "none";
+        bar.style.width = "0%";
+        void bar.offsetWidth;
+        bar.style.transition = "";
+        bar.style.width = `${this.partnerShown?.pct ?? now.pct}%`;
+      }, 420);
+      if (gain) this.flashGain(gain, `Nv.${now.level}!`);
+    } else if (now.level === last.level && now.xp > last.xp) {
+      bar.style.width = `${now.pct}%`;
+      if (gain) this.flashGain(gain, `+${now.xp - last.xp}`);
+    } else bar.style.width = `${now.pct}%`;
+  }
+
+  private flashGain(el: HTMLElement, text: string): void {
+    el.textContent = text;
+    el.classList.remove("show");
+    void el.offsetWidth;
+    el.classList.add("show");
   }
 
   private paint(c: HTMLCanvasElement | null): void {

@@ -3,6 +3,56 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## Ver o Digimon ganhar XP e digievoluir — `?demo=evo` (2026-11-09)
+
+Pedido do fundador: "Faça o Digi ganhar XP e evoluir para eu ver". XP, level up e evolução já existiam, mas não dava para **ver** isso numa sessão curta.
+
+- **Teste rápido:** `http://localhost:5174/?map=digimon-forest-01&demo=evo` (o `jogar.sh` também mostra o link). Ligue o **AUTO** (ou ande até um selvagem): em **1 a 3 vitórias** a parceira sobe de nível e digievolui na sua frente.
+- **Feedback de XP no mapa** (`src/render/presenter.ts`, `src/render/view.ts`, `src/ui/hud.ts`):
+  - A cada vitória, **"+N XP"** sobe da própria parceira (antes saía no lugar do inimigo derrotado).
+  - A barra de XP do painel da parceira **enche animada** (é atualizada no lugar, sem recriar o HTML), com um "+N" sobre ela.
+  - **Level up:** "NÍVEL X!" grande e dourado sobre a parceira, anel dourado que abre no chão, faíscas e um piscar branco. No painel, a barra enche até o fim, fica dourada, o painel pisca e a barra recomeça do novo valor ("Nv.X!"). O "+N XP" da mesma vitória some antes do "NÍVEL X!" aparecer, para os dois não se sobreporem.
+  - Som: o jogo **não tem sistema de som** ainda, então não há som de level up.
+- **Digivolução no mapa** (~2,7 s; linha do tempo pura em `evoFrame()` no presenter, desenho em `drawEvolving()` na view):
+  1. **Espera:** se a evolução veio na mesma vitória, ela começa depois do golpe final, do "+XP" e do "NÍVEL X!".
+  2. **Carga** (0–0,5 s): coluna de luz, dois anéis no chão e partículas de dados subindo em espiral; a parceira vai ficando branca.
+  3. **Silhuetas** (0,5–1,85 s): silhuetas brancas da forma antiga e da nova se alternam, cada vez mais rápido (16 trocas).
+  4. **Clarão** (1,85–2,2 s): uma esfera branca cresce e some, e a forma nova aparece.
+  5. **Revelação** (até 2,7 s): o branco sai da forma nova, e o HUD mostra **"Guilmon digivolveu para Growlmon!"**. Esse aviso e os golpes novos ficam **segurados até o clarão** (`Hud.releaseEvolve`), para não estragar a surpresa. Se a parceira não estiver na tela, o aviso sai depois de 4,5 s.
+  - Durante a animação, o nome no mapa, o painel e o retrato continuam com a forma antiga até o clarão.
+  - Tudo em pixel inteiro: sprites e silhuetas com nearest-neighbor, elipses e anéis desenhados linha a linha com `fillRect`, sem blur.
+  - **A sim não para:** só a parceira fica parada (`Entity.evolveLockTicks`, 34 ticks ≈ 3,4 s, `WORLD.evolveLockTicks`), sem caçar alvo nem seguir o Tamer. O mundo, os bots e os selvagens continuam normais. O Auto-evoluir espera a trava acabar antes de uma segunda evolução, mas o offline continua encadeando formas como antes.
+  - A animação antiga (o `holy_burst` com "EVOLUIU!") foi substituída por esta.
+- **Modo `?demo=evo`** (`src/save/demo.ts`):
+  - As vitórias valem **XP ×25** (`PlayerState.xpMult`). Esse multiplicador vive só na sim da sessão: é reaplicado a cada troca de mapa e **não vai para o save**.
+  - Ao entrar, a parceira fica **um nível antes da próxima evolução**, com a barra a ~3 vitórias pequenas de encher. Na floresta, isso dá 1 a 3 vitórias reais. Até esse nível ela sobe pelas regras do jogo (learnset de cada nível). O **Auto-evoluir** liga; com 2+ caminhos elegíveis, o modal de escolha abre como no jogo normal.
+  - **Forma final** (ex. Growlmon): volta para a forma anterior da mesma linha (Guilmon), para dar para ver a evolução. Se a espécie não tiver linha conhecida, usa o **Guilmon** de reserva.
+  - **Save separado** (`gs003.world.save.demo-evo`):
+    - Na 1ª carga, o demo **lê** o save normal; sem save, começa um jogo novo (criador e inicial).
+    - Daí em diante, grava só no slot dele. "Apagar save" no demo apaga só o slot do demo, e a cópia de save corrompido também vai para o slot do demo.
+    - Não há crédito offline no demo.
+    - O save normal (`gs003.world.save`) **nunca é escrito**. Basta tirar `&demo=evo` da URL para voltar a ele.
+    - Para refazer o demo do zero: `&demo=evo&novo=1`, ou `localStorage.removeItem("gs003.world.save.demo-evo")`.
+  - Um selo **"DEMO EVO · XP ×25"** fica no canto inferior esquerdo, e o log avisa em quantos níveis a parceira evolui.
+- **Linha da parceira inicial com arte:**
+  - As 5 iniciais têm sprite no bebê, na Criança e no Adulto, conferido por teste.
+  - Gigimon → Guilmon (Nv.8) → **Growlmon** (Nv.16, `CREATURE-0004`, com folha no GAME-ASSETS).
+  - A cena da floresta usa Guilmon Nv.5, então o demo leva para Guilmon Nv.15 → Growlmon.
+  - Só os ramos `SP-GEOGREYMON` e `SP-DRIMOGEMON` continuam sem arte: aparecem como "?", e a silhueta branca na digivolução também é o "?".
+- **Testes:**
+  - `tests/evo-demo.test.ts`: XP ×mult, vitória → level up → evolução elegível → evolução executada com a parceira parada, demo a partir de save novo (Gigimon) e existente (Growlmon), storage separado, multiplicador fora do save, arte das linhas iniciais e linha do tempo do presenter.
+  - `tests/evo-hud.test.ts`: a barra no lugar, "+N", level up e o aviso segurado.
+  - `tests/gif.test.ts`: ida e volta do GIF.
+- **Evidência:** `GS-003/evidence/evolution/` (`ONLY=evodemo npm run shots:live`, porta 5190; a 5174 não é usada):
+  - `evo_00_inicio_demo.png`: início do demo.
+  - `evo_01_vitoria_xp*.png`: "+XP".
+  - `evo_02_level_up*.png`: level up.
+  - `evo_03_carga`, `evo_04_silhuetas_lento`, `evo_05_silhuetas_rapido`, `evo_06_clarao` e `evo_07_revelacao`: os quadros da digivolução.
+  - `evo_08_faixa_nome.png`: o aviso "digivolveu".
+  - `evo_09_forma_nova_mapa*.png`: a forma nova no mapa.
+  - `evo_digivolucao.gif`: os quadros reais em volta da parceira, meia escala, ~5 s.
+  - O GIF é feito por `scripts/gif.mjs`, um encoder GIF89a próprio e sem dependências.
+
 ## Arena PvP local — GS-006 Fases 3 e 4 (2026-11-09)
 
 Base: `docs/PVP_ARENA_SPEC.md` (§3–§11), ADR-010 (seção 2026-11-09) e os frames de `evidence/pvp-video-nVY9eDfpWtQ/`. Tudo local: o oponente é um **fantasma** simulado no aparelho, sem rede, conta remota ou ranking.

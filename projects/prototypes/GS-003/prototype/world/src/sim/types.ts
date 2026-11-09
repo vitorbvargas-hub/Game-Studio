@@ -220,6 +220,8 @@ export interface Entity {
   team?: string;
   /** Tamers: trilha de pontos (mais recente por último) que a parceira segue (follow-the-leader). */
   trail?: Vec[];
+  /** Parceira: ticks em que fica parada depois de evoluir (a animação de digivolução no mapa). */
+  evolveLockTicks?: number;
   removed: boolean;
 }
 
@@ -238,6 +240,8 @@ export interface PlayerState {
   autoEvolve?: boolean;
   /** Preferência de caminho por espécie de origem (EVOLUTION_PROPOSAL.md §5), usada pelo Auto-evoluir. */
   evoPrefs?: Record<string, string>;
+  /** Multiplicador da XP das vitórias (modo de teste ?demo=evo). Ausente = 1. Não vai para o save. */
+  xpMult?: number;
 }
 
 export interface Encounter {

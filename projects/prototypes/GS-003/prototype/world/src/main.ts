@@ -45,6 +45,7 @@ import { ArenaScreen } from "./ui/arena";
 import { ARENA_OWNER } from "./sim/arena";
 import { emptyArena, type ArenaSave } from "./save/arena-league";
 import vilaPack from "./data/maps/vila.aliases.json";
+import { DEMO_XP_MULT, demoModeOf, demoStorage, prepareDemo } from "./save/demo";
 import type { ScenePack } from "./assets/scene-tiles";
 
 const params = new URLSearchParams(location.search);
@@ -66,6 +67,9 @@ const ZOOM = Math.max(0, Math.floor(Number(params.get("zoom") ?? 0)));
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
+
+/** ?demo=evo: modo de teste da evolução (XP ×25, parceira a poucas vitórias da evolução, save separado; save/demo.ts). */
+const DEMO = demoModeOf(params);
 
 /** ?criador=0 pula o criador de Tamer (capturas/testes) e usa o visual padrão. */
 const CREATOR = params.get("criador") !== "0";
@@ -156,7 +160,9 @@ async function boot() {
   const images = new ImageStore(browserImageLoader);
   const regionMode = MAP !== "meadow";
   // Save (só nos mapas das regiões). ?novo=1 ignora o save (começa do zero; o save é sobrescrito no próximo salvamento).
-  const storage = regionMode ? browserStorage() : undefined;
+  // ?demo=evo lê o save normal só na 1ª carga e grava num slot próprio (o save normal nunca é escrito).
+  const baseStorage = regionMode ? browserStorage() : undefined;
+  const storage = baseStorage && DEMO ? demoStorage(baseStorage) : baseStorage;
   const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
@@ -205,6 +211,8 @@ async function boot() {
       applySave(sim, LOCAL_PLAYER, carry);
       if (auto) getPlayer(sim.state, LOCAL_PLAYER)!.auto = true;
     }
+    // O multiplicador do demo vive só na sim da sessão (não vai para o save): reaplicado a cada mapa.
+    if (DEMO) getPlayer(sim.state, LOCAL_PLAYER)!.xpMult = DEMO_XP_MULT;
     let tiles = loadTileSources(TILES_DWDS, globalTileFilter);
     let nightTiles: typeof tiles | undefined;
     if (def) {
@@ -257,7 +265,8 @@ async function boot() {
     applySave(cur.sim, LOCAL_PLAYER, loaded.data);
     if (auto) getPlayer(cur.sim.state, LOCAL_PLAYER)!.auto = true;
     speciesBefore = loaded.data.partner.speciesId;
-    const away = params.has("offline") ? Number(params.get("offline")) * 60_000 : Date.now() - loaded.savedAt;
+    // No demo não há crédito offline (a evolução tem de acontecer no mapa, na frente do jogador).
+    const away = DEMO ? 0 : params.has("offline") ? Number(params.get("offline")) * 60_000 : Date.now() - loaded.savedAt;
     bootOffline = applyOffline(cur.sim, LOCAL_PLAYER, away, offlineSeed(loaded.savedAt));
     console.info(`save v${loaded.migratedFrom ? `${loaded.migratedFrom}→` : ""}ok · ausente ${Math.round(away / 60_000)} min`, bootOffline ?? "sem crédito offline");
     for (const ev of cur.spawnEvents) {
@@ -266,6 +275,17 @@ async function boot() {
     }
     cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
+  }
+  // Demo: a parceira (do save ou a inicial nova) fica um nível antes da evolução, com a barra a ~2 vitórias de encher.
+  const demoPrep = DEMO ? prepareDemo(cur.sim, LOCAL_PLAYER) : null;
+  if (demoPrep) {
+    for (const ev of cur.spawnEvents) {
+      const e = ev.t === "spawn" ? getEntity(cur.sim.state, ev.entity.id) : undefined;
+      if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
+    }
+    cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
+    console.info("demo=evo", demoPrep);
   }
   console.info(`Tamer ${look.name}: ${lookKey(look)} (preset v3)`);
   const intents: Intent[] = [];
@@ -312,6 +332,16 @@ async function boot() {
   );
   hud.onEvents(cur.spawnEvents);
   hud.setAutoEvolve(!!player().autoEvolve);
+  if (demoPrep) {
+    const badge = document.createElement("div");
+    badge.className = "demo-badge";
+    badge.dataset.testid = "demo-badge";
+    badge.title = "Modo de teste da evolução: XP das vitórias ×25 e save separado (o save normal não é alterado). Tire ?demo=evo da URL para voltar.";
+    badge.textContent = `DEMO EVO · XP ×${DEMO_XP_MULT}`;
+    hudRoot.appendChild(badge);
+    const sp = cur.sim.content.species;
+    hud.push(`Modo demo: XP ×${DEMO_XP_MULT}. ${sp[demoPrep.speciesId]?.name} evolui no Nv.${demoPrep.evoLevel} — vença ~2 selvagens.`, "gold");
+  }
   if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
 
   // ---- save (a cada 5 s, ao esconder a aba e ao sair) e relatório offline ----
@@ -560,7 +590,7 @@ async function boot() {
       }
       return;
     }
-    if (!branching || !canEvolveNow(e) || traveling) return;
+    if (!branching || !canEvolveNow(e) || e.evolveLockTicks || traveling) return;
     const st = statusesOf(cur.sim.content.moves, e, (id) => !!cur.sim.content.species[id]);
     if (!st.some((x) => x.eligible)) return;
     if (player().autoEvolve && autoEvolveTarget(st, player().evoPrefs?.[e.speciesId!])) return;
@@ -822,7 +852,12 @@ async function boot() {
     updateHudWorld(now);
     const partner = getEntity(cur.sim.state, player().partnerId);
     if (partner) {
-      hud.updatePartner(snapshotOf(partner), partner.xp, xpToNext(cur.sim.content.balance, partner.level), player().bits);
+      // O painel mostra a forma que está na tela: durante a digivolução, a antiga até o clarão.
+      const shown = snapshotOf(partner);
+      const pv = cur.presenter.entities.get(partner.id);
+      if (pv?.evo && !pv.evo.revealed) Object.assign(shown, { speciesId: pv.speciesId, name: pv.name });
+      else if (hud.evolvePending) hud.releaseEvolve();
+      hud.updatePartner(shown, partner.xp, xpToNext(cur.sim.content.balance, partner.level), player().bits);
       hud.updateMoves(movesView(cur.sim, partner, player().evoPrefs));
     }
     requestAnimationFrame(frame);

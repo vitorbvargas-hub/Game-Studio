@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|perf
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|perf|evodemo
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -144,6 +144,7 @@ async function main() {
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
     if (process.env.ONLY === "arena") return await arena(cdp);
+    if (process.env.ONLY === "evodemo") return await evoDemo(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -276,6 +277,102 @@ async function creator(cdp) {
  * `__gs003.setPartner` (espécie + nível, stats recalculados): Dorumon Nv.16 (Dorugamon e Drimogemon elegíveis → o
  * modal abre sozinho), Agumon Nv.16 (GeoGreymon com Defesa pendente) e a aba Golpes / Evolução com a preferência.
  */
+/**
+ * ?demo=evo na Digimon Forest 01 (jogo novo, sem criador: parceira da cena, Guilmon): vitória com "+XP", level up,
+ * quadros da digivolução (carga, silhuetas, clarão, revelação, faixa) e a forma nova no mapa, mais um GIF curto
+ * recortado em volta da parceira. Saída: GS-003/evidence/evolution/ (OUT= troca).
+ */
+async function evoDemo(cdp) {
+  const out = process.env.OUT ?? join(ROOT, "../../evidence/evolution");
+  mkdirSync(out, { recursive: true });
+  const shot = async (name, clip) => {
+    const r = await cdp.send("Page.captureScreenshot", clip ? { format: "png", clip } : { format: "png" });
+    writeFileSync(join(out, name), Buffer.from(r.data, "base64"));
+    console.log("ok", name);
+    return Buffer.from(r.data, "base64");
+  };
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&map=digimon-forest-01&demo=evo&auto=1&criador=0&novo=1&time=day` });
+  await cdp.waitFor("!!window.__gs003", 60000, "o jogo iniciar");
+  await sleep(1500);
+  console.log("demo:", JSON.stringify(await cdp.eval(`(() => { const g = window.__gs003; const p = g.sim.state.entities.find((e) => e.id === "p1:partner"); const pl = g.sim.state.players.find((x) => x.id === "p1"); return { sp: p.name, lv: p.level, xp: p.xp, mult: pl.xpMult, autoEvolve: pl.autoEvolve, badge: !!document.querySelector(".demo-badge") }; })()`)));
+  await shot("evo_00_inicio_demo.png");
+  // Recorte 2× em volta da parceira (px de tela), para ler o efeito.
+  const zoom = async () => {
+    const at = await cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const p = v.motionPos(g.presenter.localPartnerId);
+      const s = parseFloat(document.querySelector("#world").style.width) / document.querySelector("#world").width;
+      return { x: (p.x - v.camera.x) * s, y: (p.y - v.camera.y) * s }; })()`);
+    const cw = 480;
+    const ch = 300;
+    return { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.62)), width: cw, height: ch, scale: 1 };
+  };
+  const floaterAge = (re) => `(() => { const g = window.__gs003; const now = performance.now(); const f = g.presenter.floaters.find((f) => !f.thirdParty && ${re}.test(f.text)); return f ? now - f.start : -1; })()`;
+  // 1) vitória: "+N XP" subindo da parceira e a barra de XP do HUD enchendo
+  await cdp.waitFor(`(() => { const a = ${floaterAge("/XP$/")}; return a > 150 && a < 400; })()`, 90000, "o +XP de uma vitória");
+  await shot("evo_01_vitoria_xp.png");
+  await shot("evo_01_vitoria_xp_zoom.png", await zoom());
+  // 2) level up: "Nível X!", anel dourado e brilho no painel
+  await cdp.waitFor(`(() => { const a = ${floaterAge("/^N.vel/")}; return a > 120 && a < 350; })()`, 120000, "o level up");
+  await shot("evo_02_level_up.png");
+  await shot("evo_02_level_up_zoom.png", await zoom());
+  // 3) digivolução: quadros em instantes fixos da linha do tempo + GIF recortado
+  await cdp.waitFor(`!!window.__gs003.presenter.entities.get("p1:partner")?.evo`, 120000, "a evolução");
+  const clip = await zoom();
+  const evoT = `(() => { const v = window.__gs003.presenter.entities.get("p1:partner"); return v?.evo ? performance.now() - v.evo.start : 99999; })()`;
+  const marks = [
+    [250, "evo_03_carga.png"],
+    [800, "evo_04_silhuetas_lento.png"],
+    [1550, "evo_05_silhuetas_rapido.png"],
+    [1940, "evo_06_clarao.png"],
+    [2350, "evo_07_revelacao.png"],
+    // tela inteira: o aviso "X digivolveu para Y!" do HUD sai no clarão
+    [2650, "evo_08_faixa_nome.png", true],
+  ];
+  const gifFrames = [];
+  let last = 0;
+  const t0 = Date.now();
+  for (let mi = 0; Date.now() - t0 < 12000; ) {
+    const t = await cdp.eval(evoT);
+    if (t === 99999 || t > 5600) break;
+    if (t < -400) {
+      await sleep(20);
+      continue;
+    }
+    if (mi < marks.length && t >= marks[mi][0]) {
+      await shot(marks[mi][1], marks[mi][2] ? undefined : clip);
+      mi++;
+      continue;
+    }
+    const r = await cdp.send("Page.captureScreenshot", { format: "png", clip });
+    gifFrames.push({ t, png: Buffer.from(r.data, "base64") });
+    last = t;
+  }
+  console.log(`gif: ${gifFrames.length} quadros até t=${Math.round(last)} ms`);
+  await sleep(1500);
+  await shot("evo_09_forma_nova_mapa.png");
+  await shot("evo_09_forma_nova_mapa_zoom.png", await zoom());
+  console.log("depois:", JSON.stringify(await cdp.eval(`(() => { const p = window.__gs003.sim.state.entities.find((e) => e.id === "p1:partner"); return { sp: p.name, lv: p.level }; })()`)));
+  // GIF: quadros reais na cadência capturada (meia escala, nearest), atraso = intervalo medido
+  const { loadImage, createCanvas } = await import("@napi-rs/canvas");
+  const { encodeGif } = await import("./gif.mjs");
+  const frames = [];
+  for (let i = 0; i < gifFrames.length; i++) {
+    const img = await loadImage(gifFrames[i].png);
+    const w = Math.round(img.width / 2);
+    const h = Math.round(img.height / 2);
+    const c = createCanvas(w, h);
+    const g = c.getContext("2d");
+    g.imageSmoothingEnabled = false;
+    g.drawImage(img, 0, 0, w, h);
+    const next = gifFrames[i + 1]?.t ?? gifFrames[i].t + 120;
+    frames.push({ data: g.getImageData(0, 0, w, h).data, width: w, height: h, delayMs: i === gifFrames.length - 1 ? 1200 : Math.max(20, next - gifFrames[i].t) });
+  }
+  if (frames.length) {
+    writeFileSync(join(out, "evo_digivolucao.gif"), encodeGif(frames));
+    console.log("ok evo_digivolucao.gif", frames.length, "quadros");
+  }
+  await cdp.eval(`localStorage.clear()`);
+}
+
 async function evolveChoice(cdp) {
   await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&time=day&map=vila&novo=1&criador=0` });
   await cdp.waitFor("!!window.__gs003", 60000, "o jogo iniciar");

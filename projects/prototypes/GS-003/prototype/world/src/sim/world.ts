@@ -293,7 +293,11 @@ export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
   }
   for (const enc of [...w.encounters])
     if (w.tick - enc.startTick > WORLD.encounterTimeoutTicks) endEncounter(ctx, enc, "timeout");
-  for (const p of w.players) if (p.autoEvolve) tryAutoEvolve(ctx, getEntity(w, p.partnerId), p.evoPrefs);
+  // Uma forma por vez no mapa: a próxima evolução espera a animação da anterior acabar.
+  for (const p of w.players) {
+    const pe = getEntity(w, p.partnerId);
+    if (p.autoEvolve && !pe?.evolveLockTicks) tryAutoEvolve(ctx, pe, p.evoPrefs);
+  }
   for (const p of w.players) p.dir = undefined;
   const due = w.pendingSpawns.filter((s) => s.atTick <= w.tick);
   w.pendingSpawns = w.pendingSpawns.filter((s) => s.atTick > w.tick);
@@ -528,6 +532,9 @@ export function tickCooldowns(ctx: Ctx, e: Entity): void {
 function thinkPartner(ctx: Ctx, e: Entity): void {
   const { w } = ctx;
   tickCooldowns(ctx, e);
+  // Digivolução no mapa: a parceira fica parada enquanto a animação toca (o resto do mundo segue normal).
+  const evolving = (e.evolveLockTicks ?? 0) > 0;
+  if (evolving) e.evolveLockTicks = e.evolveLockTicks! - 1 || undefined;
   if (timedStates(ctx, e)) return;
   const owner = getEntity(w, e.ownerId)!;
   const player = getPlayer(w, e.ownerId!)!;
@@ -556,6 +563,7 @@ function thinkPartner(ctx: Ctx, e: Entity): void {
   // ENGAGE sem alvo (ex.: alvo largado pelo leash sem encontro aberto) volta a IDLE antes de seguir (ENGAGE → FOLLOW é ilegal).
   if (e.state === "ENGAGE") setState(e, "IDLE", w.tick, ctx.ev);
   e.hp = Math.min(e.maxHp, e.hp + Math.max(1, Math.round(e.maxHp * WORLD.partnerRegenPct)));
+  if (evolving) return;
   if (player.auto && e.hp >= e.maxHp * WORLD.autoMinHpPct) {
     const t = findAutoTarget(ctx, e, owner);
     if (t) {
@@ -860,7 +868,7 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
   const { w, c } = ctx;
   const p = getPlayer(w, partner.ownerId!)!;
   const sp = c.species[t.speciesId!];
-  const xp = enemyXp(WORLD.baseXpByStage[sp.stage] ?? 8, t.level);
+  const xp = Math.round(enemyXp(WORLD.baseXpByStage[sp.stage] ?? 8, t.level) * Math.max(1, p.xpMult ?? 1));
   const bits = sp.stage * 2 + t.level;
   p.bits += bits;
   ctx.ev.push({ t: "reward", tick: w.tick, ownerId: p.id, partnerId: partner.id, xp, bits, drops: [], at: { x: t.x, y: t.y } });
@@ -1003,6 +1011,7 @@ function evolve(ctx: Ctx, e: Entity, to: string, keep?: string[]): void {
   e.radius = sp.radius;
   applyStats(ctx, e, e.hp / e.maxHp);
   e.mp = e.maxMp;
+  e.evolveLockTicks = WORLD.evolveLockTicks;
   ctx.ev.push({ t: "evolve", tick: w.tick, id: e.id, from, to, kept });
   learnAndAnnounce(ctx, e);
   // herdados ocupam os slots que sobraram
