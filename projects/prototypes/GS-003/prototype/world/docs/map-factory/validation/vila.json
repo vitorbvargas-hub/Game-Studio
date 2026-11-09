@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-09T16:18:12.495Z",
+  "map": "vila",
+  "profile": "legacy",
+  "ok": true,
+  "gates": [
+    {
+      "id": "layers",
+      "title": "Camadas obrigatórias presentes",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "perfil legacy; para factory-v1 faltariam: ground_detail, objects_below, objects_above, collision, spawns, npcs, triggers, poi"
+      ]
+    },
+    {
+      "id": "tile_ids",
+      "title": "IDs de tile existentes",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "asset_keys",
+      "title": "Chaves visuais resolvem em PNG (dia/noite)",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "19 chaves verificadas"
+      ]
+    },
+    {
+      "id": "reach",
+      "title": "BFS do início do jogador alcança 100% dos alvos",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "alvos alcançados: 3/3 (start 2, portal 1)"
+      ]
+    },
+    {
+      "id": "placement",
+      "title": "Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "wang",
+      "title": "Máscaras de autotile coerentes entre vizinhos",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "ground/vl5_path_blob: 120 tiles blob16, borda 'out'"
+      ]
+    },
+    {
+      "id": "species",
+      "title": "Espécies dos spawns existem em world-species.json",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "portals",
+      "title": "Portais com destino válido",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    }
+  ],
+  "stats": {
+    "size": "36x26",
+    "tileSize": 32,
+    "tileLayers": 1,
+    "objects": 51,
+    "byClass": {
+      "prop": 48,
+      "start": 2,
+      "portal": 1
+    },
+    "solidPct": 9.2,
+    "reachablePctOfFree": 100
+  },
+  "file": "src/data/maps/vila.tmj.json"
+}

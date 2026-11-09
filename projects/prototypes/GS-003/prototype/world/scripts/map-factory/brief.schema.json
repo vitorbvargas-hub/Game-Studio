@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gs003/map-factory/brief-v0.1",
+  "title": "Map Factory — brief de mapa (interface provisória v0.1, game-dev)",
+  "description": "Entrada de scripts/gen-map-from-brief.mjs. Provisória: o schema oficial é do game-design (projects/prototypes/GS-003/world-design/map-brief.schema.json, ainda não existe em 2026-11-09). Quando ele existir, um adaptador converte o brief do game-design para esta forma ou esta forma é ajustada. Coordenadas em TILES; inícios e NPCs ficam no centro do tile.",
+  "type": "object",
+  "required": ["id", "size", "terrains", "base", "starts"],
+  "properties": {
+    "briefVersion": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "description": "Id do mapa = nome do arquivo <id>.tmj.json e chave em MAPS (src/world/regions.ts)." },
+    "out": { "type": "string", "description": "Pasta de saída relativa a prototype/world/ (padrão src/data/maps)." },
+    "profile": { "enum": ["factory-v1", "legacy"], "default": "factory-v1", "description": "factory-v1 = 9 camadas do briefing §4; legacy = ground + objects (mapas antigos)." },
+    "seed": { "type": "integer", "description": "Semente do RNG (mulberry32). Mesma semente → mesmo mapa." },
+    "size": {
+      "type": "object",
+      "required": ["width", "height"],
+      "properties": { "width": { "type": "integer", "minimum": 8 }, "height": { "type": "integer", "minimum": 8 }, "tile": { "type": "integer", "default": 32 } }
+    },
+    "properties": { "type": "object", "description": "Propriedades do mapa (biome, regionName...). O gerador acrescenta mapProfile, brief e generator." },
+    "pack": {
+      "type": "object",
+      "description": "Pacote de arte (GAME-ASSETS/03-environments/<pack>/). Vira o <id>.aliases.json.",
+      "properties": {
+        "pack": { "type": "string" },
+        "prefix": { "type": "string", "description": "Prefixo das chaves: '<prefix><nome>' = PNG <nome> do pacote." },
+        "night": { "type": "string", "description": "Subpasta noturna (mesmos nomes de arquivo). Ausente = noite usa o dia." },
+        "aliasesFrom": { "type": "string", "description": "Id de um mapa de src/data/maps cujo aliases serve de base (trees, smoothAutotile...)." }
+      }
+    },
+    "terrains": {
+      "type": "object",
+      "description": "Tipos de terreno. Cada um: autotile (w47 = 8 vizinhos, blob16 = 4) com prefix, OU variants (lista sorteada).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "autotile": { "enum": ["w47", "blob16"] },
+          "prefix": { "type": "string", "description": "Chave = prefix + máscara (ex. fp4_path_w47_ + 255)." },
+          "outside": { "enum": ["in", "out", "clamp"], "default": "in", "description": "Fora do mapa conta como o mesmo terreno (in), outro (out) ou repete a borda (clamp)." },
+          "variants": { "type": "array", "items": { "type": "string" } },
+          "solid": { "description": "true, false ou \"interior\" (sólido só longe de outro terreno: a borda fica andável).", "oneOf": [{ "type": "boolean" }, { "const": "interior" }] },
+          "border": { "type": "string", "description": "Só trilhas: o terreno base a 1 tile da trilha vira este (dá para andar ao lado)." },
+          "cleanEdges": { "type": "boolean", "default": true, "description": "Só trilhas: limpeza de reentrâncias/calombos/diagonais do forest-proof." }
+        }
+      }
+    },
+    "base": { "type": "string", "description": "Terreno que preenche o mapa antes das áreas (ex. forest)." },
+    "areas": {
+      "type": "array",
+      "description": "Pintadas em ordem sobre o base.",
+      "items": {
+        "type": "object",
+        "required": ["terrain"],
+        "properties": {
+          "name": { "type": "string" },
+          "terrain": { "type": "string" },
+          "shape": { "enum": ["ellipse", "rect"], "default": "ellipse" },
+          "cx": { "type": "number" }, "cy": { "type": "number" }, "rx": { "type": "number" }, "ry": { "type": "number" },
+          "wobble": { "type": "number", "default": 0.12, "description": "Irregularidade da borda da elipse." },
+          "x": { "type": "integer" }, "y": { "type": "integer" }, "w": { "type": "integer" }, "h": { "type": "integer" }
+        }
+      }
+    },
+    "paths": {
+      "type": "array",
+      "description": "Trilhas em spline Catmull-Rom (pintadas depois das áreas). Pontos em tiles (aceita fração; >= W/H sai do mapa).",
+      "items": {
+        "type": "object",
+        "required": ["terrain", "points"],
+        "properties": {
+          "name": { "type": "string" },
+          "terrain": { "type": "string" },
+          "points": { "type": "array", "minItems": 2, "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } },
+          "radius": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "default": [0.73, 0.89], "description": "Raio mín/máx da amostra; < 1 mantém a trilha em até 2 tiles." },
+          "meander": { "type": "number", "default": 0.22 }
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "description": "Regras de props em ordem. kind: grid (grade escalonada, mata), patches (manchas, grama alta), scatter (dispersão), edge (borda entre terrenos), fixed (posições exatas). Props não entram em células reservadas (inícios, NPCs, centros de spawn, portais, POIs, arena, keepClear); sólidos não entram em trilha.",
+      "items": {
+        "type": "object",
+        "required": ["kind"],
+        "properties": {
+          "kind": { "enum": ["grid", "patches", "scatter", "edge", "fixed"] },
+          "on": { "type": "string", "description": "Terreno onde o prop pode cair." },
+          "key": { "type": "string" },
+          "keys": { "type": "array", "items": { "type": "string" } },
+          "solid": { "type": "boolean" },
+          "solidW": { "type": "integer" }, "solidH": { "type": "integer" },
+          "pick": { "type": "array", "description": "grid: [{key, weight, where: any|edge|interior}]", "items": { "type": "object" } },
+          "dx": { "type": "integer" }, "dy": { "type": "integer" }, "jitter": { "type": "integer" }, "edgeSkip": { "type": "number" },
+          "patches": { "type": "array", "description": "patches: [[cx, cy, r], ...]", "items": { "type": "array" } },
+          "skip": { "type": "number" }, "perTile": { "type": "integer" },
+          "count": { "type": "integer" }, "avoidPath": { "type": "boolean" },
+          "offset": { "type": "array", "description": "scatter: [ox, oy, jx, jy] px dentro do tile (pé do prop)." },
+          "adjacentTo": { "type": "string" }, "side": { "enum": ["north", "south", "east", "west"] }, "chance": { "type": "number" },
+          "at": { "type": "array", "description": "fixed: [{x, y, key?, solid?, solidW?, solidH?}] em tiles (pé no fundo do tile).", "items": { "type": "object" } }
+        }
+      }
+    },
+    "starts": { "type": "object", "required": ["player"], "description": "{ nome: [x, y] }. player = início do jogador (origem do BFS); from_<mapa> = chegada por portal.", "additionalProperties": { "type": "array", "items": { "type": "number" } } },
+    "spawns": { "type": "array", "items": { "type": "object", "required": ["name", "x", "y", "w", "h", "species", "levelMin", "levelMax", "count"], "properties": { "species": { "type": "array", "items": { "type": "string", "description": "id de src/data/world-species.json" } } } } },
+    "npcs": { "type": "array", "items": { "type": "object", "required": ["name", "x", "y"], "properties": { "properties": { "type": "object" } } } },
+    "pois": { "type": "array", "items": { "type": "object", "required": ["name", "x", "y"], "properties": { "w": { "type": "integer" }, "h": { "type": "integer" }, "kind": { "type": "string" }, "properties": { "type": "object" } } } },
+    "bossArena": { "type": "object", "required": ["name", "x", "y", "w", "h"], "properties": { "boss": { "type": "string" } } },
+    "collision": { "type": "array", "description": "Retângulos de colisão sem arte (camada collision).", "items": { "type": "object", "required": ["x", "y", "w", "h"] } },
+    "triggers": { "type": "array", "items": { "type": "object", "required": ["name", "x", "y", "w", "h"] } },
+    "portals": { "type": "array", "items": { "type": "object", "required": ["name", "x", "y", "w", "h", "to"], "properties": { "toStart": { "type": "string", "default": "player" } } } },
+    "keepClear": { "type": "array", "description": "Retângulos extras sem props.", "items": { "type": "object", "required": ["x", "y", "w", "h"] } }
+  }
+}

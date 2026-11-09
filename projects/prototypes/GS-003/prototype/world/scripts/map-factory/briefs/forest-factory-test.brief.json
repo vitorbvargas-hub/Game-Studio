@@ -1,0 +1,62 @@
+{
+  "$schema": "../brief.schema.json",
+  "briefVersion": "0.1",
+  "id": "forest-factory-test",
+  "_doc": "Brief de exemplo da Map Factory (FASE 1): floresta pequena com 4 clareiras, 2 rotas até a arena (principal pelo norte, alternativa pelo sul), NPC, POI, arena de chefe, colisão independente da arte e saída ao sul. Usa o pacote forest-v4 do forest-proof. Não é um mapa do jogo: serve de prova do gerador e de fixture de teste.",
+  "out": "tests/fixtures/maps",
+  "profile": "factory-v1",
+  "seed": 20261109,
+  "size": { "width": 48, "height": 34, "tile": 32 },
+  "properties": { "biome": "forest", "regionName": "Floresta de Teste (Map Factory)" },
+  "pack": { "pack": "forest-v4", "prefix": "fp4_", "night": "night", "aliasesFrom": "forest-proof" },
+  "terrains": {
+    "forest": { "autotile": "w47", "prefix": "fp4_denseedge_w47_", "outside": "in", "solid": "interior" },
+    "clearing": { "variants": ["fp4_clearing_floor_v41_00", "fp4_clearing_floor_v41_01", "fp4_clearing_floor_v41_02", "fp4_clearing_floor_v41_03"], "solid": false },
+    "path": { "autotile": "w47", "prefix": "fp4_path_w47_", "outside": "clamp", "solid": false, "border": "clearing" }
+  },
+  "base": "forest",
+  "areas": [
+    { "name": "clareira-inicio", "terrain": "clearing", "shape": "ellipse", "cx": 9, "cy": 17, "rx": 6, "ry": 5 },
+    { "name": "clareira-santuario", "terrain": "clearing", "shape": "ellipse", "cx": 24, "cy": 9, "rx": 7, "ry": 4.5 },
+    { "name": "clareira-sul", "terrain": "clearing", "shape": "ellipse", "cx": 24, "cy": 26, "rx": 7, "ry": 4.5 },
+    { "name": "clareira-arena", "terrain": "clearing", "shape": "ellipse", "cx": 39, "cy": 17, "rx": 6.5, "ry": 6 }
+  ],
+  "paths": [
+    { "name": "inicio-santuario", "terrain": "path", "points": [[14, 15], [17, 12.5], [20, 10.5], [22, 10]] },
+    { "name": "inicio-sul", "terrain": "path", "points": [[14, 19], [17, 22], [20, 24.5], [22, 25]] },
+    { "name": "santuario-arena (principal)", "terrain": "path", "points": [[27, 10], [31, 11.5], [34, 13.5], [36, 15]] },
+    { "name": "sul-arena (alternativa)", "terrain": "path", "points": [[27, 25], [31, 23.5], [34, 21], [36, 19]] },
+    { "name": "saida-sul", "terrain": "path", "points": [[24, 29], [24.5, 31], [24, 33.6]] }
+  ],
+  "props": [
+    {
+      "kind": "grid", "on": "forest", "dx": 44, "dy": 40, "jitter": 10, "edgeSkip": 0.12, "solid": true,
+      "pick": [
+        { "key": "fp4_tree_round_a", "weight": 22 }, { "key": "fp4_tree_round_b", "weight": 22 },
+        { "key": "fp4_tree_conifer_a", "weight": 12 }, { "key": "fp4_tree_conifer_b", "weight": 12 },
+        { "key": "fp4_tree_bushy_a", "weight": 4 }, { "key": "fp4_tree_bushy_b", "weight": 4 },
+        { "key": "fp4_tree_birch", "weight": 5 }, { "key": "fp4_tree_flowering", "weight": 4 },
+        { "key": "fp4_tree_data_leaf", "weight": 9 },
+        { "key": "fp4_tree_palm_digital", "weight": 14, "where": "edge" },
+        { "key": "fp4_tree_ancient", "weight": 2, "where": "interior" }
+      ]
+    },
+    { "kind": "patches", "on": "clearing", "keys": ["fp4_tall_grass_a", "fp4_tall_grass_b"], "patches": [[22, 7, 2.6], [26, 27, 2.8], [21, 25, 2.0], [7, 19, 2.0]], "skip": 0.15 },
+    { "kind": "scatter", "on": "clearing", "keys": ["fp4_flower_cluster_white", "fp4_flower_cluster_red", "fp4_flower_cluster_purple"], "count": 40, "offset": [6, 14, 20, 16] },
+    { "kind": "edge", "on": "clearing", "adjacentTo": "forest", "side": "north", "chance": 0.35, "keys": ["fp4_fallen_leaves_cluster", "fp4_tall_grass_a", "fp4_tall_grass_b"] },
+    { "kind": "scatter", "on": "clearing", "keys": ["fp4_rock_cluster"], "count": 6, "solid": true, "avoidPath": true, "offset": [16, 26, 0, 0] },
+    { "kind": "scatter", "on": "clearing", "keys": ["fp4_mushroom_cluster"], "count": 10, "offset": [8, 20, 16, 10] },
+    { "kind": "fixed", "keys": ["fp4_fallen_log"], "solid": true, "at": [{ "x": 6, "y": 14 }] }
+  ],
+  "starts": { "player": [9, 17], "from_floresta": [24, 31] },
+  "spawns": [
+    { "name": "santuario", "x": 19, "y": 6, "w": 10, "h": 6, "species": ["CREATURE-0005", "CREATURE-0008", "CREATURE-0011"], "levelMin": 2, "levelMax": 4, "count": 3 },
+    { "name": "sul", "x": 19, "y": 23, "w": 10, "h": 6, "species": ["CREATURE-0006", "CREATURE-0009", "CREATURE-0107"], "levelMin": 3, "levelMax": 5, "count": 3 }
+  ],
+  "npcs": [{ "name": "guia", "x": 11, "y": 15, "properties": { "dialog": "npc_guia_intro" } }],
+  "pois": [{ "name": "santuario-de-dados", "x": 24, "y": 8, "kind": "shrine" }],
+  "bossArena": { "name": "arena-do-chefe", "x": 35, "y": 13, "w": 9, "h": 9, "boss": "BOSS-KUWAGAMON" },
+  "collision": [{ "name": "cerca-invisivel", "x": 4, "y": 20, "w": 2, "h": 1 }],
+  "triggers": [{ "name": "entrada-arena", "x": 35, "y": 15, "w": 1, "h": 4, "properties": { "event": "boss_intro" } }],
+  "portals": [{ "name": "sul-floresta", "x": 22, "y": 33, "w": 4, "h": 1, "to": "forest-proof", "toStart": "from_vila" }]
+}

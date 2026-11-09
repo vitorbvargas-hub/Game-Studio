@@ -155,6 +155,14 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
         });
       } else if (cls === "start") {
         starts[o.name ?? "player"] = { x: toSub(o.x), y: toSub(o.y) };
+      } else if (cls === "collision") {
+        // Map Factory (camada `collision`, independente da arte): retângulo que bloqueia toda célula que ele toca.
+        const x0 = Math.floor(o.x / tile);
+        const y0 = Math.floor(o.y / tile);
+        const x1 = o.width ? Math.ceil((o.x + o.width) / tile) - 1 : x0;
+        const y1 = o.height ? Math.ceil((o.y + o.height) / tile) - 1 : y0;
+        for (let ty = Math.max(0, y0); ty <= Math.min(m.height - 1, y1); ty++)
+          for (let tx = Math.max(0, x0); tx <= Math.min(m.width - 1, x1); tx++) solid[ty * m.width + tx] = 1;
       } else if (cls === "portal") {
         portals.push({ name: o.name ?? "", x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile, to: String(prop(o.properties, "to")), toStart: String(prop(o.properties, "toStart") ?? "player") });
       }

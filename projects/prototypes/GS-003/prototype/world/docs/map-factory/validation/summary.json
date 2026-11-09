@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-09T16:18:12.495Z",
+  "ok": true,
+  "maps": [
+    {
+      "map": "forest-proof",
+      "ok": true,
+      "profile": "legacy",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    },
+    {
+      "map": "praia",
+      "ok": true,
+      "profile": "legacy",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    },
+    {
+      "map": "test-meadow",
+      "ok": true,
+      "profile": "legacy",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    },
+    {
+      "map": "vila",
+      "ok": true,
+      "profile": "legacy",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    },
+    {
+      "map": "forest-factory-test",
+      "ok": true,
+      "profile": "factory-v1",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    }
+  ]
+}
