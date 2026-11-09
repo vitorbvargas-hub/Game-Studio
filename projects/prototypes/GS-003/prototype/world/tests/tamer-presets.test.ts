@@ -32,11 +32,12 @@ describe("Tamers v3 (presets TAMER-0003..0014)", () => {
     expect(v.manifest.animations.idle.dirFrames!.N[0].atlasKey).toBe("N_01");
     expect(v.manifest.dimensions).toMatchObject({ frameW: 42, frameH: 33 });
     expect(v.manifest.name).toBe("Ana");
-    expect(v.frameUrls!.W_02).toContain("recolor_verde/TAMER-0007_verde_W_02.png");
-    // os rips do DS são diagonais: direita = frente-direita (arquivo _N_), cima = costas-direita (arquivo _E_)
-    expect(v.frameUrls!.E_00).toContain("recolor_verde/TAMER-0007_verde_N_00.png");
-    expect(v.frameUrls!.N_01).toContain("recolor_verde/TAMER-0007_verde_E_01.png");
-    expect(v.frameUrls!.S_00).toContain("recolor_verde/TAMER-0007_verde_S_00.png");
+    // os rips do DS são diagonais (arquivos _SW_/_SE_/_NW_/_NE_ desde o ecc2744): esquerda = costas-esquerda,
+    // direita = frente-direita, cima = costas-direita
+    expect(v.frameUrls!.W_02).toContain("recolor_verde/TAMER-0007_verde_NW_02.png");
+    expect(v.frameUrls!.E_00).toContain("recolor_verde/TAMER-0007_verde_SE_00.png");
+    expect(v.frameUrls!.N_01).toContain("recolor_verde/TAMER-0007_verde_NE_01.png");
+    expect(v.frameUrls!.S_00).toContain("recolor_verde/TAMER-0007_verde_SW_00.png");
     expect(v.atlas.frames.E_01.frame).toEqual({ x: 0, y: 0, w: 42, h: 33 });
   });
 

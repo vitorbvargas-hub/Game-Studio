@@ -103,14 +103,16 @@ export function buildPresets(manifests: Record<string, unknown>, pngs: Record<st
     for (const o of c.hairRecolors.options) {
       const frames: HairOption["frames"] = {};
       for (const d of DIRS4) {
-        const list = (o.frames?.[d] ?? []).map(url);
+        const src = FILE_DIR[d].find((k) => o.frames?.[k]?.length);
+        const list = (src ? o.frames![src] : []).map(url);
         if (list.length && list.every(Boolean)) frames[d] = list as string[];
       }
       if (DIRS4.every((d) => frames[d]?.length)) hairs.push({ id: o.id, hex: o.hex, frames });
     }
     if (!hairs.length) continue;
     const seq = (anim: string, d: Dir4, fallback: { i: number; ms: number }[]) => {
-      const f = c.animations?.[anim]?.dirFrames?.[d];
+      const df = c.animations?.[anim]?.dirFrames;
+      const f = df?.[FILE_DIR[d].find((k) => df?.[k]?.length) ?? d];
       return f?.length ? f.map((x) => ({ i: fileIndex(x.atlasKey), ms: x.durationMs ?? 150 })) : fallback;
     };
     const walk = Object.fromEntries(DIRS4.map((d) => [d, seq("walk", d, [0, 1, 0, 2].map((i) => ({ i, ms: 150 })))])) as TamerPreset["walk"];
@@ -281,13 +283,12 @@ export function migrateLegacyLook(l: LegacyLook | Record<string, unknown>, prese
 // ---------- visual ----------
 
 /**
- * Os rips de NPC do DW DS só têm as 4 diagonais. Nos presets v3, os arquivos `_S_` e `_N_` são as duas de frente
- * (olhando para a esquerda e para a direita) e `_W_`/`_E_` as duas de costas (esquerda/direita) — conferido no olho
- * nos 12 presets em 2026-11-09 [E]. O jogo anda em 4 direções: cada direção usa a diagonal mais próxima, girando
- * (baixo → frente-esquerda, direita → frente-direita, cima → costas-direita, esquerda → costas-esquerda) [H].
- * Se o game-art renomear os arquivos para as direções reais, basta trocar para o mapa identidade.
+ * Os rips de NPC do DW DS só têm as 4 diagonais. Desde o ecc2744 o game-art nomeia os arquivos pelas diagonais
+ * (`_SW_`/`_SE_` = frente, `_NW_`/`_NE_` = costas; 11-characters/README.md) e o jogo anda em 4 direções usando a
+ * diagonal mais próxima (baixo → SW, direita → SE, cima → NE, esquerda → NW, o mapa recomendado lá) [H]. Os presets
+ * antigos (arquivos `_S_`/`_N_`/`_W_`/`_E_`, que já eram essas mesmas diagonais) caem no mapa de antes.
  */
-export const FILE_DIR: Record<Dir4, Dir4> = { S: "S", E: "N", N: "E", W: "W" };
+export const FILE_DIR: Record<Dir4, string[]> = { S: ["SW", "S"], E: ["SE", "N"], N: ["NE", "E"], W: ["NW", "W"] };
 
 /**
  * Visual do Tamer no contrato dos sprites do mundo (idle/walk em S/N/W/E, sem espelho), uma PNG por quadro da cor
@@ -301,16 +302,16 @@ export function presetVisual(look: TamerLook, presets: TamerPreset[] = loadPrese
   const frameUrls: Record<string, string> = {};
   const atlas: AtlasJson = { frames: {} };
   for (const d of DIRS4)
-    hair.frames[FILE_DIR[d]]!.forEach((url, i) => {
+    hair.frames[d]!.forEach((url, i) => {
       frameUrls[key(d, i)] = url;
       atlas.frames[key(d, i)] = { frame: { x: 0, y: 0, w: p.frame.w, h: p.frame.h } };
     });
-  const pick = (d: Dir4, i: number) => key(d, Math.min(i, hair.frames[FILE_DIR[d]]!.length - 1));
+  const pick = (d: Dir4, i: number) => key(d, Math.min(i, hair.frames[d]!.length - 1));
   const walk: Record<string, AnimFrame[]> = {};
   const idle: Record<string, AnimFrame[]> = {};
   for (const d of DIRS4) {
-    walk[d] = p.walk[FILE_DIR[d]].map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
-    idle[d] = [{ atlasKey: pick(d, p.idle[FILE_DIR[d]].i), durationMs: p.idle[FILE_DIR[d]].ms }];
+    walk[d] = p.walk[d].map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
+    idle[d] = [{ atlasKey: pick(d, p.idle[d].i), durationMs: p.idle[d].ms }];
   }
   const manifest: CreatureManifest = {
     id: `tamer:${lookKey(look)}`,
