@@ -1,42 +1,71 @@
-// Chaves lógicas de um mapa de cena (ex. fp_tree_a no forest-proof) → fonte real de tile/prop.
-// Ordem: pacote preferido (03-environments/<pack>/: chave lógica, depois nomes "v3") → outros pacotes ("fallback")
-// → placeholder em código. Só apresentação: a sim usa a colisão do mapa, que não depende disso.
+// Chaves de um mapa de cena (ex. fp4_grass_00 no forest-proof) → fonte real de tile/prop num pacote de bioma.
+// forest-proof usa o pacote forest-v4 por prefixo: 'fp4_<nome>' = PNG <nome> do pacote; árvores 'fp4_tree_X' viram
+// tree_X_base + tree_X_top. O preset (dia/noite) só troca a pasta do pacote (mesmos nomes de arquivo).
+// Só apresentação: a sim usa a colisão do mapa, que não depende disso.
 
-import type { TileSource } from "./tiles";
+import { loadTileSources, type TileSource } from "./tiles";
 
-export interface SceneAliases {
+export interface ScenePack {
   pack: string;
-  aliases: Record<string, { v3: string[]; fallback: string[] }>;
+  prefix: string;
+  /** Subpasta do preset noturno dentro do pacote (mesmos nomes de arquivo). */
+  night?: string;
+  trees: { overlap: number; shadowSmall: string; shadowLarge: string; largeShadowMinW: number; behindAlpha: number };
 }
 
-export type AliasOrigin = "pack" | "fallback" | "placeholder";
+export type Preset = "day" | "night";
 
-export function resolveSceneTiles(
+/** Filtro de caminho de um preset do pacote: dia = tudo menos a subpasta noturna; noite = só ela. */
+export function presetFilter(cfg: ScenePack, preset: Preset): (path: string) => boolean {
+  const root = `/${cfg.pack}/`;
+  const nightDir = `/${cfg.pack}/${cfg.night ?? "night"}/`;
+  return preset === "night" ? (p) => p.includes(nightDir) : (p) => p.includes(root) && !p.includes(nightDir);
+}
+
+/** Árvore em 2 sprites: chave do mapa → chaves das partes no mapa de tiles resolvido. */
+export function treeParts(key: string): { base: string; top: string } {
+  return { base: `${key}_base`, top: `${key}_top` };
+}
+
+/**
+ * Acrescenta a `base` todas as entradas do pacote com o prefixo da cena e devolve as chaves usadas no mapa que
+ * não têm imagem (placeholder). Uma árvore conta como resolvida se base e copa existem.
+ */
+export function resolvePackTiles(
   base: Record<string, TileSource>,
   pack: Record<string, TileSource>,
-  cfg: SceneAliases,
-): { tiles: Record<string, TileSource>; report: Record<string, { origin: AliasOrigin; key?: string }> } {
+  cfg: ScenePack,
+  used: Iterable<string> = [],
+): { tiles: Record<string, TileSource>; missing: string[]; fromPack: number } {
   const tiles = { ...base };
-  const report: Record<string, { origin: AliasOrigin; key?: string }> = {};
-  for (const [logical, a] of Object.entries(cfg.aliases)) {
-    const fromPack = [logical, ...a.v3].find((k) => pack[k]);
-    const fromBase = fromPack ? undefined : a.fallback.find((k) => base[k]);
-    if (fromPack) {
-      tiles[logical] = pack[fromPack];
-      report[logical] = { origin: "pack", key: fromPack };
-    } else if (fromBase) {
-      tiles[logical] = base[fromBase];
-      report[logical] = { origin: "fallback", key: fromBase };
-    } else {
-      delete tiles[logical];
-      report[logical] = { origin: "placeholder" };
-    }
+  for (const [k, v] of Object.entries(pack)) tiles[cfg.prefix + k] = v;
+  const missing: string[] = [];
+  let fromPack = 0;
+  for (const k of new Set(used)) {
+    const t = treeParts(k);
+    if (tiles[k] || (tiles[t.base] && tiles[t.top])) fromPack += k.startsWith(cfg.prefix) ? 1 : 0;
+    else missing.push(k);
   }
-  return { tiles, report };
+  return { tiles, missing, fromPack };
 }
 
-/** Resumo de uma linha para o console/README ("forest-v3: 0/18 · fallback: 16 · placeholder: 2"). */
-export function aliasSummary(cfg: SceneAliases, report: Record<string, { origin: AliasOrigin }>): string {
-  const n = (o: AliasOrigin) => Object.values(report).filter((r) => r.origin === o).length;
-  return `${cfg.pack}: ${n("pack")}/${Object.keys(cfg.aliases).length} · fallback: ${n("fallback")} · placeholder: ${n("placeholder")}`;
+/** Resumo de uma linha para o console ("forest-v4/dia: 62/62 chaves · placeholder: 0"). */
+export function packSummary(cfg: ScenePack, preset: Preset, r: { missing: string[]; fromPack: number }): string {
+  return `${cfg.pack}/${preset === "day" ? "dia" : "noite"}: ${r.fromPack}/${r.fromPack + r.missing.length} chaves · placeholder: ${r.missing.length}`;
+}
+
+/** Tiles do mapa de cena num preset: biblioteca global (sem pastas night/) + pacote da cena com o prefixo. */
+export function loadSceneTiles(
+  cfg: ScenePack,
+  preset: Preset,
+  used: Iterable<string>,
+  includeDwds = true,
+): { tiles: Record<string, TileSource>; missing: string[]; fromPack: number } {
+  const base = loadTileSources(includeDwds, (p) => !/\/night\//.test(p));
+  return resolvePackTiles(base, loadTileSources(true, presetFilter(cfg, preset)), cfg, used);
+}
+
+/** Chaves visuais usadas por um mapa (tiles e props). */
+export function usedKeys(map: { tileLayers: { keys: string[] }[]; props: { key: string }[] }): string[] {
+  return [...new Set([...map.tileLayers.flatMap((l) => l.keys.filter(Boolean)), ...map.props.map((p) => p.key)])];
 }

@@ -135,6 +135,7 @@ async function main() {
     await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1${QUERY}` });
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
     await sleep(3500);
+    if (process.env.ONLY === "forest") return await forestV4(cdp);
     await cdp.shot("proof_live_geral.png");
     if (process.env.ONLY === "geral") return;
     if (process.env.ONLY === "golpes") return await golpes(cdp);
@@ -188,6 +189,33 @@ async function main() {
     await server.close();
     if (process.env.DEBUG_CHROME) console.error(stderr.slice(-2000));
   }
+}
+
+/**
+ * forest-v4 no jogo: visão geral e o Tamer atrás de uma copa (copa translúcida), com recorte ampliado.
+ * O Tamer é posto (só posição lógica) num ponto andável sob a copa da árvore mais próxima.
+ */
+async function forestV4(cdp) {
+  await cdp.shot("forest_v4_depois.png");
+  const spot = await cdp.eval(`(() => { const g = window.__gs003; const me = g.sim.state.entities.find((e) => e.id === "p1");
+    const m = g.sim.map; const px = me.x * 2, py = me.y * 2;
+    const free = (x, y) => !m.solid[Math.floor(y / 32) * m.width + Math.floor(x / 32)];
+    const c = g.view.treeGeoms().map((t) => ({ t, x: t.top.x + t.top.w / 2, y: t.top.y + t.top.h * 0.62 }))
+      .filter((o) => free(o.x, o.y) && free(o.x, o.y - 12) && o.t.top.w < 80).sort((a, b) => Math.hypot(a.x - px, a.y - py) - Math.hypot(b.x - px, b.y - py))[0];
+    me.x = Math.round(c.x / 2); me.y = Math.round(c.y / 2); me.dest = undefined;
+    return { index: c.t.index, x: c.x, y: c.y }; })()`);
+  await sleep(1200);
+  const alpha = await cdp.eval(`window.__gs003.view.canopyAlphaOf(${spot.index})`);
+  console.log("copa atrás:", JSON.stringify({ ...spot, alpha }));
+  await cdp.shot("forest_v4_copa.png");
+  const at = await cdp.eval(`(() => { const g = window.__gs003; const v = g.view; const p = v.motionPos("p1");
+    const s = parseFloat(document.querySelector("#world").style.width) / document.querySelector("#world").width;
+    return { x: (p.x - v.camera.x) * s, y: (p.y - v.camera.y) * s }; })()`);
+  const cw = 480;
+  const ch = 300;
+  const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * 0.6)), width: cw, height: ch, scale: 2 } });
+  writeFileSync(join(OUT, "forest_v4_copa_zoom.png"), Buffer.from(r.data, "base64"));
+  console.log("ok forest_v4_copa_zoom.png");
 }
 
 /**

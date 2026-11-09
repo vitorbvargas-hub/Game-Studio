@@ -3,6 +3,30 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## forest-v4 no jogo (2026-11-08)
+
+O mapa `forest-proof` agora usa o pacote `GAME-ASSETS/03-environments/forest-v4/` (commit dac3d4d), seguindo o `tileset.json` e o README dele.
+
+- **Chaves do mapa:** `fp4_<nome>` é o PNG `<nome>` do pacote (`src/data/maps/forest-proof.aliases.json` define pacote, prefixo, pasta noturna e regras das árvores). `src/assets/scene-tiles.ts` monta os tiles por preset: o dia usa `tiles/` e `props/`, e a noite usa `night/` com os mesmos nomes. As pastas `night/` ficam fora do conjunto global para não colidirem com os nomes do dia.
+- **Chão com autotile de 16 peças** (`scripts/gen-forest-proof.mjs`): a bitmask é N·1 + E·2 + S·4 + W·8 e fora do mapa conta como mata.
+  - Trilha: `path_blob_N`.
+  - Mata contra a clareira: `denseedge_blob_N`. O miolo é sólido e a borda colada na clareira não é, como antes.
+  - Clareira: `grass_00..05`, com as variantes lisas mais frequentes.
+- **Decor:** grama alta, flores, cogumelos, pedras, troncos caídos e folhas caídas do v4.
+- **Árvores em 2 sprites** (`render/view.ts`, `treeGeoms`/`drawCanopies`):
+  - O prop `fp4_tree_X` vira `tree_X_base` (tronco, colide, ordenado por Y com as entidades) e `tree_X_top` (copa, numa camada desenhada **depois** de todas as entidades e antes do VFX).
+  - A copa é ancorada como na prova do game-art: o fundo dela fica `round(0,42 × top.h)` px abaixo do topo do tronco.
+  - Quando a copa cobre o Tamer local ou a parceira, ela vai para alpha 0,45, com transição de cerca de 120 ms.
+  - São 9 tipos de árvore, com a ancestral rara e só no miolo.
+- **Sombras como decal no chão:** `canopy_shadow_small` (ou `_large`, para copa com mais de 80 px) é desenhada dentro dos chunks pré-renderizados do chão, deslocada 20% para a direita (luz de cima à esquerda). Ela pode atravessar a borda do chunk.
+- **Capturas:**
+  - `docs/screens/forest_v4_antes.png` (forest-v3, HEAD 2d14bb0) e `forest_v4_depois.png`: mesma semente e mesma janela.
+  - `forest_v4_copa.png` e `forest_v4_copa_zoom.png`: o Tamer atrás de uma copa translúcida.
+  - Para gerar: `ONLY=forest npm run shots:live`.
+- **Testes:**
+  - `tests/forest-proof.test.ts`: todas as chaves resolvem no pacote, de dia e de noite, sem placeholder. Confere também a bitmask do autotile tile a tile, a solidez de miolo e borda e o filtro dos presets.
+  - `tests/canopy.test.ts`: geometria de tronco, copa e sombra; a copa fica translúcida com transição só sobre o jogador; e a ordem do quadro é chão → troncos e entidades → copas.
+
 ## Sistema de golpes (4 slots) + VFX por arquétipo (2026-11-08)
 
 Pedido do fundador: "Todos os Digimon só têm 1 ataque? Tem que ter 4, e ir aprendendo mais, e a pessoa mudando. Cada ataque com um efeito visual bonito." Os dados e as regras são do game-design (`GS-003/docs/MOVE_SYSTEM.md` e `src/data/moves/{moves,learnsets,vfx_archetypes}.json`: 70 golpes, learnsets das 12 espécies, 15 arquétipos). O que o schema deles ainda não define e a sim precisa ficou em `src/data/moves-sim.json`, um complemento [H] do game-dev: efeito numérico de buff e debuff, alcance e raio por forma, elemento de cada espécie, tabela elemental e regen de MP.

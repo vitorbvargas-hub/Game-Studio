@@ -45,6 +45,20 @@ export interface ViewOptions {
   tamerTints?: Record<string, number>;
   /** Folhas de efeito do game-art (04-effects), desenhadas por cima do VFX em código. */
   fxSheets?: SheetDrawer;
+  /**
+   * Árvores em 2 sprites (forest-v4): prop `K` sem imagem própria mas com `K_base` e `K_top` vira tronco em Y-sort +
+   * copa na camada acima das entidades, com sombra decal no chão. Sem isto, o prop é desenhado como sprite único.
+   */
+  trees?: { overlap: number; shadowSmall: string; shadowLarge: string; largeShadowMinW: number; behindAlpha: number };
+}
+
+/** Geometria de uma árvore em 2 sprites, em px do mundo (sx/sy = canto superior esquerdo de cada parte). */
+export interface TreeGeom {
+  index: number;
+  footY: number;
+  base: { url: string; x: number; y: number; w: number; h: number };
+  top: { url: string; x: number; y: number; w: number; h: number };
+  shadow?: { url: string; x: number; y: number; w: number; h: number };
 }
 
 const LOCOMOTION: LogicState[] = ["IDLE", "WALK", "FOLLOW", "ENGAGE", "RETURN"];
@@ -77,6 +91,10 @@ export class WorldView {
   private propImages = new Map<string, HTMLCanvasElement>();
   private tinted = new Map<string, HTMLCanvasElement>();
   private tamers: Record<string, ReturnType<typeof makeTamerFrames>>;
+  /** Alpha atual de cada copa (índice do prop), suavizado para a transparência quando alguém passa por trás. */
+  private canopyAlpha = new Map<number, number>();
+  private trees?: TreeGeom[];
+  private lastRender?: number;
   /** Estatística do último quadro (culling). */
   stats = { entitiesDrawn: 0, propsDrawn: 0, chunksDrawn: 0 };
 
@@ -84,7 +102,7 @@ export class WorldView {
     private readonly canvas: HTMLCanvasElement,
     private readonly map: WorldMap,
     private readonly creatures: Record<string, CreatureVisual>,
-    private readonly tiles: Record<string, TileSource>,
+    private tiles: Record<string, TileSource>,
     private readonly images: ImageStore,
     private readonly makeCanvas: CanvasFactory,
     readonly opts: ViewOptions,
@@ -105,6 +123,42 @@ export class WorldView {
   invalidateGround(): void {
     this.chunks.clear();
     this.propImages.clear();
+    this.trees = undefined;
+  }
+
+  /** Troca o conjunto de tiles/props (ex.: preset noturno do pacote, mesmos nomes) e refaz o chão. */
+  setTiles(tiles: Record<string, TileSource>): void {
+    this.tiles = tiles;
+    this.invalidateGround();
+  }
+
+  /**
+   * Árvores em 2 sprites do mapa (só as com imagens carregadas). Ancoragem do forest-v4: tronco com os pés no ponto
+   * do prop; copa centrada no mesmo X com o fundo `overlap × top.h` px abaixo do topo do tronco; sombra deslocada
+   * 20% da largura para a direita (luz de cima à esquerda) e assentada no pé.
+   */
+  treeGeoms(): TreeGeom[] {
+    if (this.trees) return this.trees;
+    const cfg = this.opts.trees;
+    const out: TreeGeom[] = [];
+    if (cfg)
+      this.map.props.forEach((pr, index) => {
+        if (this.tiles[pr.key]) return;
+        const b = this.tiles[`${pr.key}_base`];
+        const t = this.tiles[`${pr.key}_top`];
+        const bi = b && this.images.get(b.url);
+        const ti = t && this.images.get(t.url);
+        if (!bi || !ti) return;
+        const base = { url: b.url, x: Math.round(pr.x - Math.floor(bi.width / 2)), y: pr.y - bi.height, w: bi.width, h: bi.height };
+        const top = { url: t.url, x: Math.round(pr.x - Math.floor(ti.width / 2)), y: pr.y - bi.height - ti.height + Math.round(ti.height * cfg.overlap), w: ti.width, h: ti.height };
+        const s = this.tiles[ti.width > cfg.largeShadowMinW ? cfg.shadowLarge : cfg.shadowSmall];
+        const si = s && this.images.get(s.url);
+        const shadow = si ? { url: s.url, x: Math.round(pr.x - si.width / 2 + Math.round(si.width * 0.2)), y: pr.y - Math.round(si.height * 0.55) + 3, w: si.width, h: si.height } : undefined;
+        out.push({ index, footY: pr.y, base, top, shadow });
+      });
+    // só fixa o cache quando as imagens já existem (senão tenta de novo no próximo quadro)
+    if (out.length || !cfg) this.trees = out;
+    return out;
   }
 
   /**
@@ -189,15 +243,19 @@ export class WorldView {
 
     const list: Drawable[] = [];
     let props = 0;
-    for (const pr of this.map.props) {
-      if (!inView(pr.x, pr.y)) continue;
+    const trees = this.treeGeoms();
+    const treeAt = new Map(trees.map((t) => [t.index, t]));
+    this.map.props.forEach((pr, i) => {
+      if (!inView(pr.x, pr.y)) return;
       props++;
-      list.push({ y: pr.y, order: `p${pr.x}`, draw: () => this.drawProp(pr) });
-    }
+      const tree = treeAt.get(i);
+      list.push({ y: pr.y, order: `p${pr.x}`, draw: tree ? () => this.blitWorld(tree.base) : () => this.drawProp(pr) });
+    });
     for (const { v, pos } of visible) list.push({ y: pos.y, order: v.id, draw: () => this.drawEntity(v, pos, p, now) });
     list.sort((a, b) => a.y - b.y || (a.order < b.order ? -1 : 1));
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
+    this.drawCanopies(p, trees, visible, now);
 
     for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "over");
     // Impacto genérico da v2 só para golpes sem Cast (eventos sintéticos/legado).
@@ -226,6 +284,51 @@ export class WorldView {
     }
     ctx.globalAlpha = 1;
     this.stats = { ...this.stats, entitiesDrawn: visible.length, propsDrawn: props };
+  }
+
+  private blitWorld(part: { url: string; x: number; y: number }): void {
+    const img = this.images.get(part.url);
+    if (img) this.ctx.drawImage(img, part.x - this.camera.x, part.y - this.camera.y);
+  }
+
+  /**
+   * Camada canopy-top: copas acima de todas as entidades (ordem pelo pé da árvore). Uma copa que cobre o Tamer local
+   * ou a parceira dele fica translúcida (`behindAlpha`), com transição suave (~120 ms).
+   */
+  private drawCanopies(p: Presenter, trees: TreeGeom[], visible: { v: VisualEntity; pos: Vec }[], now: number): void {
+    const cfg = this.opts.trees;
+    if (!cfg || !trees.length) return;
+    const dt = this.lastRender === undefined ? 16 : Math.max(0, now - this.lastRender);
+    this.lastRender = now;
+    const k = Math.min(1, dt / 120);
+    const cam = this.camera;
+    const watch = visible.filter(({ v }) => v.id === p.localPlayerId || v.id === p.localPartnerId).map(({ v, pos }) => {
+      const top = v.kind === "player" ? this.tamerTop(v) : this.headOffset(v).top;
+      return { x0: pos.x - 7, x1: pos.x + 7, y0: pos.y - top, y1: pos.y };
+    });
+    const ctx = this.ctx;
+    for (const t of trees) {
+      const r = t.top;
+      if (r.x > cam.x + cam.w || r.x + r.w < cam.x || r.y > cam.y + cam.h || r.y + r.h < cam.y) {
+        this.canopyAlpha.delete(t.index);
+        continue;
+      }
+      // miolo da copa (as bordas dela são puffs ralos): 12% de margem lateral e 15% no fundo
+      const behind = watch.some((e) => e.x1 > r.x + r.w * 0.12 && e.x0 < r.x + r.w * 0.88 && e.y1 > r.y && e.y0 < r.y + r.h * 0.85);
+      const target = behind ? cfg.behindAlpha : 1;
+      const a0 = this.canopyAlpha.get(t.index) ?? 1;
+      const a = Math.abs(target - a0) < 0.01 ? target : a0 + (target - a0) * k;
+      if (a < 1) this.canopyAlpha.set(t.index, a);
+      else this.canopyAlpha.delete(t.index);
+      ctx.globalAlpha = a;
+      this.blitWorld(r);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /** Alpha atual da copa de uma árvore (1 = opaca), para testes e capturas. */
+  canopyAlphaOf(index: number): number {
+    return this.canopyAlpha.get(index) ?? 1;
   }
 
   // ---------- chão ----------
@@ -264,6 +367,16 @@ export class WorldView {
           if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts);
         }
       }
+    // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
+    const x0 = cx * CHUNK_TILES * ts;
+    const y0 = cy * CHUNK_TILES * ts;
+    const size = CHUNK_TILES * ts;
+    for (const t of this.treeGeoms()) {
+      const s = t.shadow;
+      if (!s || s.x > x0 + size || s.x + s.w < x0 || s.y > y0 + size || s.y + s.h < y0) continue;
+      const img = this.images.get(s.url);
+      if (img) g.drawImage(img, s.x - x0, s.y - y0);
+    }
     this.chunks.set(key, c);
     return c;
   }

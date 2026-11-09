@@ -3,9 +3,9 @@
 
 import { xpToNext } from "@game/src/sim/formulas";
 import { imageUrlsOf, loadCharacterCatalog, loadCreatureCatalog, pickTamers, loadSizeTable } from "./assets/creatures";
-import { aliasSummary, resolveSceneTiles, type SceneAliases } from "./assets/scene-tiles";
+import { loadSceneTiles, packSummary, usedKeys, type ScenePack } from "./assets/scene-tiles";
 import { countDwdsSources, loadTileSources } from "./assets/tiles";
-import forestProofAliases from "./data/maps/forest-proof.aliases.json";
+import forestProofPack from "./data/maps/forest-proof.aliases.json";
 import { browserCanvasFactory, browserImageLoader, ImageStore } from "./render/images";
 import { drawLabels, labelMetrics, layoutLabels, measureWith } from "./render/labels";
 import { makePortraitFn } from "./render/portrait";
@@ -50,13 +50,13 @@ async function boot() {
   const auto = params.get("auto") === "1";
   const { sim, events: spawnEvents } = forest ? createForestProofWorld(SEED, { auto }) : createDefaultWorld(SEED, { auto });
   const creatures = loadCreatureCatalog();
-  let tiles = loadTileSources(TILES_DWDS);
+  // Presets noturnos (pastas night/) repetem os nomes do dia: ficam fora do conjunto global.
+  let tiles = loadTileSources(TILES_DWDS, (p) => !/\/night\//.test(p));
+  const packCfg = forestProofPack as ScenePack;
   if (forest) {
-    const aliases = forestProofAliases as SceneAliases;
-    const pack = loadTileSources(true, (p) => p.includes(`/${aliases.pack}/`));
-    const scene = resolveSceneTiles(tiles, pack, aliases);
+    const scene = loadSceneTiles(packCfg, "day", usedKeys(sim.map), TILES_DWDS);
     tiles = scene.tiles;
-    console.info(`forest-proof · tiles ${aliasSummary(aliases, scene.report)}`, scene.report);
+    console.info(`forest-proof · ${packSummary(packCfg, "day", scene)}`, scene.missing);
   }
   const tamers = pickTamers(loadCharacterCatalog());
   const fxSheets = loadSheetCatalog();
@@ -83,6 +83,7 @@ async function boot() {
     smoothing: SMOOTH,
     tamerLevels: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel])) : undefined,
     tamerTints: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint])) : undefined,
+    trees: forest ? packCfg.trees : undefined,
     fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
   });
   const intents: Intent[] = [];

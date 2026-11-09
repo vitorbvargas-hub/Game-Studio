@@ -2,9 +2,9 @@
 // referência canônica do IdleDex: mata densa nas bordas, clareiras ligadas por caminho, grama alta em grade,
 // flores e arbustos. Determinístico (mesma semente → mesmo mapa). Uso: npm run map:forest
 //
-// As chaves visuais são LÓGICAS (prefixo fp_). src/data/maps/forest-proof.aliases.json diz qual PNG real usar
-// para cada uma, em ordem de preferência; o pacote GAME-ASSETS/03-environments/forest-v3/ (quando existir)
-// tem prioridade sobre todos os outros (ver src/assets/scene-tiles.ts).
+// As chaves visuais têm o prefixo fp4_: fp4_<nome> = PNG <nome> do pacote GAME-ASSETS/03-environments/forest-v4/
+// (dia em tiles/ e props/, noite em night/ com os mesmos nomes; ver src/assets/scene-tiles.ts). Árvore = fp4_tree_X,
+// que o renderer monta com tree_X_base (Y-sort), tree_X_top (camada de copas) e canopy_shadow_* (decal no chão).
 
 import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -23,17 +23,18 @@ const rnd = () => {
 };
 const pick = (arr) => arr[Math.floor(rnd() * arr.length)];
 
-// Tiles de chão. A mata fechada é sólida (ninguém entra nela; as árvores da borda tapam a passagem).
-const TILES = [
-  { key: "fp_floor_forest_a", solid: true },
-  { key: "fp_floor_forest_b", solid: true },
-  { key: "fp_floor_edge" },
-  { key: "fp_floor_clearing_a" },
-  { key: "fp_floor_clearing_b" },
-  { key: "fp_floor_clearing_c" },
-  { key: "fp_path" },
-];
-const gid = Object.fromEntries(TILES.map((t, i) => [t.key, i + 1]));
+// Tiles de chão (pacote forest-v4, prefixo fp4_ = nome do PNG no pacote). A mata fechada é sólida (ninguém entra
+// nela; as árvores da borda tapam a passagem). A mesma chave visual pode existir sólida e não sólida (gids distintos).
+const TILES = [];
+const gidOf = new Map();
+const gid = (key, solid = false) => {
+  const id = `${key}|${solid}`;
+  if (!gidOf.has(id)) {
+    TILES.push({ key, solid });
+    gidOf.set(id, TILES.length);
+  }
+  return gidOf.get(id);
+};
 const at = (x, y) => y * W + x;
 const inside = (x, y) => x >= 0 && y >= 0 && x < W && y < H;
 
@@ -103,17 +104,17 @@ const nearOpen = (x, y, r) => {
   return false;
 };
 
+// Autotile 16 peças do forest-v4: bitmask N*1 + E*2 + S*4 + W*8 (1 = vizinho do mesmo tipo; fora do mapa = mata).
+const blob = (x, y, t) => (k(x, y - 1) === t ? 1 : 0) + (k(x + 1, y) === t ? 2 : 0) + (k(x, y + 1) === t ? 4 : 0) + (k(x - 1, y) === t ? 8 : 0);
 const ground = new Array(W * H).fill(0);
 for (let y = 0; y < H; y++)
   for (let x = 0; x < W; x++) {
     const t = kind[at(x, y)];
-    let key;
-    if (t === "p") key = "fp_path";
-    else if (t === "c") key = pick(["fp_floor_clearing_a", "fp_floor_clearing_a", "fp_floor_clearing_b", "fp_floor_clearing_c"]);
-    // mata colada na clareira: chão de borda e NÃO sólido (os troncos é que bloqueiam)
-    else if (nearOpen(x, y, 1)) key = "fp_floor_edge";
-    else key = rnd() < 0.6 ? "fp_floor_forest_a" : "fp_floor_forest_b";
-    ground[at(x, y)] = gid[key];
+    if (t === "p") ground[at(x, y)] = gid(`fp4_path_blob_${blob(x, y, "p")}`);
+    // grama da clareira: 6 variantes, com as lisas (00/01) mais frequentes para a textura não virar ruído
+    else if (t === "c") ground[at(x, y)] = gid(`fp4_grass_0${pick([0, 0, 1, 1, 2, 3, 4, 5])}`);
+    // mata: borda arredondada (denseedge) contra a clareira; colada na clareira NÃO é sólida (os troncos bloqueiam)
+    else ground[at(x, y)] = gid(`fp4_denseedge_blob_${blob(x, y, "f")}`, !nearOpen(x, y, 1));
   }
 
 // ---- objetos ----
@@ -157,8 +158,11 @@ for (let py = 24; py < H * T + 40; py += 40, row++)
     const edge = nearOpen(tx, ty, 1);
     // borda: quase sempre árvore (fecha a clareira); miolo: densidade total
     if (edge && rnd() < 0.12) continue;
+    // Árvore em 2 sprites no jogo (fp4_tree_X → tree_X_base em Y-sort + tree_X_top na camada das copas).
     const r = rnd();
-    addProp(r < 0.04 ? "fp_tree_flowering" : r < 0.2 ? pick(["fp_tree_e", "fp_tree_f"]) : r < 0.45 ? pick(["fp_tree_c", "fp_tree_d"]) : pick(["fp_tree_a", "fp_tree_b"]), x, y, true);
+    const tree =
+      r < 0.015 && !edge ? "fp4_tree_ancient" : r < 0.05 ? "fp4_tree_flowering" : r < 0.1 ? "fp4_tree_birch" : r < 0.24 ? pick(["fp4_tree_bushy_a", "fp4_tree_bushy_b"]) : r < 0.5 ? pick(["fp4_tree_conifer_a", "fp4_tree_conifer_b"]) : pick(["fp4_tree_round_a", "fp4_tree_round_b"]);
+    addProp(tree, x, y, true);
   }
 
 // Grama alta em manchas (a grade de tufos escuros da referência), nas clareiras, longe do caminho.
@@ -172,8 +176,8 @@ for (const [cx, cy, r] of PATCHES)
       if (k(x, y) !== "c" || pathTiles.has(at(x, y))) continue;
       if ((x - cx) ** 2 + (y - cy) ** 2 > r * r || rnd() < 0.15) continue;
       // dois tufos por tile, em quincôncio, para a mancha ler como grama alta contínua
-      addProp(pick(["fp_tall_grass_a", "fp_tall_grass_b"]), x * T + 9, y * T + 15, false);
-      addProp(pick(["fp_tall_grass_a", "fp_tall_grass_b"]), x * T + 24, y * T + 31, false);
+      addProp(pick(["fp4_tall_grass_a", "fp4_tall_grass_b"]), x * T + 9, y * T + 15, false);
+      addProp(pick(["fp4_tall_grass_a", "fp4_tall_grass_b"]), x * T + 24, y * T + 31, false);
     }
 
 // Flores, arbustos e pedras soltos nas clareiras; arbustos colados na borda da mata.
@@ -181,20 +185,20 @@ const clearTiles = [];
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (kind[at(x, y)] === "c") clearTiles.push([x, y]);
 for (let i = 0; i < 70; i++) {
   const [x, y] = pick(clearTiles);
-  addProp(pick(["fp_flower_a", "fp_flower_b", "fp_flower_c"]), x * T + 6 + Math.floor(rnd() * 20), y * T + 14 + Math.floor(rnd() * 16), false);
+  addProp(pick(["fp4_flower_cluster_white", "fp4_flower_cluster_red", "fp4_flower_cluster_purple"]), x * T + 6 + Math.floor(rnd() * 20), y * T + 14 + Math.floor(rnd() * 16), false);
 }
-for (const [x, y] of clearTiles) if (k(x, y - 1) === "f" && rnd() < 0.35) addProp("fp_bush_a", x * T + 16, y * T + 20, false);
+for (const [x, y] of clearTiles) if (k(x, y - 1) === "f" && rnd() < 0.35) addProp(rnd() < 0.5 ? "fp4_fallen_leaves_cluster" : pick(["fp4_tall_grass_a", "fp4_tall_grass_b"]), x * T + 16, y * T + 20, false);
 for (let i = 0; i < 10; i++) {
   const [x, y] = pick(clearTiles);
-  addProp("fp_rock", x * T + 16, y * T + 26, true);
+  addProp("fp4_rock_cluster", x * T + 16, y * T + 26, true);
 }
 for (let i = 0; i < 16; i++) {
   const [x, y] = pick(clearTiles);
-  addProp("fp_mushroom", x * T + 8 + Math.floor(rnd() * 16), y * T + 20 + Math.floor(rnd() * 10), false);
+  addProp("fp4_mushroom_cluster", x * T + 8 + Math.floor(rnd() * 16), y * T + 20 + Math.floor(rnd() * 10), false);
 }
 for (let i = 0; i < 5; i++) {
   const [x, y] = pick(clearTiles);
-  if (!pathTiles.has(at(x, y))) addProp("fp_log", x * T + 16, y * T + 24, true);
+  if (!pathTiles.has(at(x, y))) addProp("fp4_fallen_log", x * T + 16, y * T + 24, true);
 }
 
 const tile = (t) => t * T + T / 2;
@@ -242,7 +246,7 @@ const map = {
   tilesets: [
     {
       firstgid: 1,
-      name: "forest-proof",
+      name: "forest-v4",
       tilewidth: T,
       tileheight: T,
       tilecount: TILES.length,

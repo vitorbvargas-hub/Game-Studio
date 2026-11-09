@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { resolveSceneTiles, type SceneAliases } from "../src/assets/scene-tiles";
-import { buildTileSources, loadTileSources } from "../src/assets/tiles";
-import aliasesJson from "../src/data/maps/forest-proof.aliases.json";
+import { loadSceneTiles, presetFilter, resolvePackTiles, treeParts, usedKeys, type ScenePack } from "../src/assets/scene-tiles";
+import { buildTileSources } from "../src/assets/tiles";
+import packJson from "../src/data/maps/forest-proof.aliases.json";
 import { createForestProofWorld, FOREST_PROOF_SCENE, loadForestProofMap } from "../src/sim/setup";
 import { snapshot, stepWorld } from "../src/sim/world";
 import { ofType, run } from "./helpers";
 
-const aliases = aliasesJson as SceneAliases;
+const packCfg = packJson as ScenePack;
 
 describe("cena forest-proof (prova visual GS-004 §4)", () => {
   const map = loadForestProofMap();
@@ -14,13 +14,13 @@ describe("cena forest-proof (prova visual GS-004 §4)", () => {
   it("mapa: floresta densa com clareiras, trilha e grama alta; inícios livres para os 4 jogadores", () => {
     const keys = map.tileLayers[0].keys;
     const count = (re: RegExp) => keys.filter((k) => re.test(k)).length;
-    expect(count(/fp_floor_forest/)).toBeGreaterThan(keys.length * 0.35);
-    expect(count(/fp_floor_clearing/)).toBeGreaterThan(keys.length * 0.15);
-    expect(count(/fp_path/)).toBeGreaterThan(60);
+    expect(count(/^fp4_denseedge_blob_/)).toBeGreaterThan(keys.length * 0.35);
+    expect(count(/^fp4_grass_0[0-5]$/)).toBeGreaterThan(keys.length * 0.15);
+    expect(count(/^fp4_path_blob_/)).toBeGreaterThan(60);
     const props = (re: RegExp) => map.props.filter((p) => re.test(p.key)).length;
-    expect(props(/fp_tree/)).toBeGreaterThan(400);
-    expect(props(/fp_tall_grass/)).toBeGreaterThan(100);
-    expect(props(/fp_flower/)).toBeGreaterThan(30);
+    expect(props(/^fp4_tree_/)).toBeGreaterThan(400);
+    expect(props(/^fp4_tall_grass/)).toBeGreaterThan(100);
+    expect(props(/^fp4_flower_cluster/)).toBeGreaterThan(30);
     const solid = (v: { x: number; y: number }) => map.solid[Math.floor(v.y / 16) * map.width + Math.floor(v.x / 16)];
     for (const p of FOREST_PROOF_SCENE.players) {
       expect(map.starts[p.start], p.start).toBeDefined();
@@ -29,34 +29,52 @@ describe("cena forest-proof (prova visual GS-004 §4)", () => {
     expect(map.spawns.length).toBeGreaterThanOrEqual(5);
   });
 
-  it("toda chave lógica do mapa tem alias; com os pacotes de hoje nenhuma cai em placeholder", () => {
-    const used = new Set([...map.tileLayers.flatMap((l) => l.keys.filter(Boolean)), ...map.props.map((p) => p.key)]);
-    for (const k of used) expect(aliases.aliases[k], k).toBeDefined();
-    const base = loadTileSources();
-    const pack = loadTileSources(true, (p) => p.includes(`/${aliases.pack}/`));
-    const { tiles, report } = resolveSceneTiles(base, pack, aliases);
-    const missing = [...used].filter((k) => !tiles[k]);
-    expect(missing).toEqual([]);
-    // quando o pacote forest-v3 existe, ele vence (o resto é fallback DS/original)
-    if (Object.keys(pack).length) expect(Object.values(report).some((r) => r.origin === "pack")).toBe(true);
+  it("forest-v4: toda chave do mapa resolve no pacote (dia e noite), sem placeholder; árvores em 2 sprites", () => {
+    const used = usedKeys(map);
+    for (const k of used) expect(k.startsWith(packCfg.prefix), k).toBe(true);
+    for (const preset of ["day", "night"] as const) {
+      const r = loadSceneTiles(packCfg, preset, used);
+      expect(r.missing, preset).toEqual([]);
+      const tree = map.props.find((p) => p.key.startsWith("fp4_tree_"))!;
+      const parts = treeParts(tree.key);
+      expect(r.tiles[parts.base].url, preset).toMatch(preset === "night" ? /forest-v4\/night\/props\// : /forest-v4\/props\//);
+      expect(r.tiles[parts.top].url).toMatch(/_top\.png/);
+      expect(r.tiles.fp4_canopy_shadow_large).toBeDefined();
+    }
   });
 
-  it("resolução: pacote preferido > fallback > placeholder", () => {
-    const base = { tree_forest_a: { url: "base-tree" }, path_full: { url: "base-path" } };
-    const pack = { tree_round_a: { url: "v3-tree" } };
-    const cfg: SceneAliases = {
-      pack: "forest-v3",
-      aliases: {
-        fp_tree_a: { v3: ["tree_round_a"], fallback: ["tree_forest_a"] },
-        fp_path: { v3: ["path_rich"], fallback: ["path_full"] },
-        fp_tall_grass_a: { v3: ["tall_grass_a"], fallback: [] },
-      },
+  it("autotile 16 peças: bitmask N1+E2+S4+W8 sobre o tipo do terreno; mata interna sólida, borda livre", () => {
+    const keys = map.tileLayers[0].keys;
+    const type = (x: number, y: number) => {
+      if (x < 0 || y < 0 || x >= map.width || y >= map.height) return "f";
+      const k = keys[y * map.width + x];
+      return k.startsWith("fp4_path") ? "p" : k.startsWith("fp4_denseedge") ? "f" : "c";
     };
-    const { tiles, report } = resolveSceneTiles(base, pack, cfg);
-    expect(tiles.fp_tree_a.url).toBe("v3-tree");
-    expect(tiles.fp_path.url).toBe("base-path");
-    expect(tiles.fp_tall_grass_a).toBeUndefined();
-    expect(report.fp_tall_grass_a.origin).toBe("placeholder");
+    let checked = 0;
+    for (let y = 0; y < map.height; y++)
+      for (let x = 0; x < map.width; x++) {
+        const t = type(x, y);
+        if (t === "c") continue;
+        const bm = (type(x, y - 1) === t ? 1 : 0) + (type(x + 1, y) === t ? 2 : 0) + (type(x, y + 1) === t ? 4 : 0) + (type(x - 1, y) === t ? 8 : 0);
+        expect(keys[y * map.width + x]).toBe(t === "p" ? `fp4_path_blob_${bm}` : `fp4_denseedge_blob_${bm}`);
+        checked++;
+      }
+    expect(checked).toBeGreaterThan(1000);
+    // há mata sólida (miolo) e mata não sólida (borda colada na clareira), com a mesma família de tiles
+    const dense = keys.map((k, i) => (k.startsWith("fp4_denseedge") ? map.solid[i] : -1)).filter((v) => v >= 0);
+    expect(dense.filter((v) => v === 1).length).toBeGreaterThan(200);
+    expect(dense.filter((v) => v === 0).length).toBeGreaterThan(100);
+  });
+
+  it("presets: dia ignora a pasta night/, noite usa só ela; prefixo mapeia o nome do PNG", () => {
+    expect(presetFilter(packCfg, "day")("/a/forest-v4/props/tree_round_a_top.png")).toBe(true);
+    expect(presetFilter(packCfg, "day")("/a/forest-v4/night/props/tree_round_a_top.png")).toBe(false);
+    expect(presetFilter(packCfg, "night")("/a/forest-v4/night/props/tree_round_a_top.png")).toBe(true);
+    expect(presetFilter(packCfg, "night")("/a/forest-v3/props/tree_round_a.png")).toBe(false);
+    const r = resolvePackTiles({}, { grass_00: { url: "g" }, tree_x_base: { url: "b" }, tree_x_top: { url: "t" } }, packCfg, ["fp4_grass_00", "fp4_tree_x", "fp4_nada"]);
+    expect(r.tiles.fp4_grass_00.url).toBe("g");
+    expect(r.missing).toEqual(["fp4_nada"]);
+    expect(r.fromPack).toBe(2);
   });
 
   it("tileset.json no formato dos pacotes *-dwds/forest-v3 (lista com 'file') é aceito", () => {
