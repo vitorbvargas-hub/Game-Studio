@@ -1,7 +1,65 @@
 {
-  "_doc": "Mapa forest-proof → pacote GAME-ASSETS/03-environments/forest-v4/. Chave 'fp4_<nome>' = PNG <nome> do pacote (dia: tiles/ e props/; noite: night/ com os mesmos nomes). Árvore 'fp4_tree_X' = tree_X_base (decor, Y-sort, colide) + tree_X_top (canopy-top, acima das entidades) + sombra canopy_shadow_{small,large} como decal no chão. Ancoragem da copa como em art/src/forest_v4_proof_scene.js: topo = pé - base.h - top.h + round(top.h × overlap).",
+  "_doc": "Mapa forest-proof → pacote GAME-ASSETS/03-environments/forest-v4/ (+ campos aditivos do forest-v4.1). Chave 'fp4_<nome>' = PNG <nome> do pacote (dia: tiles/ e props/; noite: night/ com os mesmos nomes). Chão: path_w47_* e denseedge_w47_* (autotile Wang/blob-47) e clearing_floor_v41_*. Árvore 'fp4_tree_X' = tree_X_base (decor, Y-sort, colide) + tree_X_top (canopy-top, acima das entidades). Ancoragem da copa como em art/src/forest_v4_proof_scene.js: topo = pé - base.h - top.h + round(top.h × overlap) (+ topOffset da árvore). Luz v4.1 (lightingV41): castShadow = sombra projetada para baixo/direita (cor ramp.canopyShadow do forest_v4_palette.js); rimLight = foliage[7] dia/noite, alpha 150 × 0,6 como a cena de prova; 'baked' = árvores do v4.1 que já trazem o rim no PNG. A palmeira tem o tronco curvo: a coroa fica ~4 px à direita do pé. smoothAutotile: recorte suave das chaves Wang-47 no renderer (src/render/pathsmooth.ts) -- os PNGs path_w47_*/denseedge_w47_* cortam um círculo em todo canto com uma só borda e a trilha reta vira corrente de cruzes; o recorte usa um campo B-spline contínuo + ruído no limiar e as texturas do próprio pacote.",
   "pack": "forest-v4",
   "prefix": "fp4_",
   "night": "night",
-  "trees": { "overlap": 0.42, "shadowSmall": "canopy_shadow_small", "shadowLarge": "canopy_shadow_large", "largeShadowMinW": 80, "behindAlpha": 0.45 }
+  "trees": {
+    "overlap": 0.42,
+    "shadowSmall": "canopy_shadow_small",
+    "shadowLarge": "canopy_shadow_large",
+    "largeShadowMinW": 80,
+    "behindAlpha": 0.45,
+    "castShadow": {
+      "day": "#0c2615",
+      "dayAlpha": 92,
+      "night": "#060a1c",
+      "nightAlpha": 130
+    },
+    "rimLight": {
+      "day": "#dff08a",
+      "night": "#a6c0e8",
+      "alpha": 90,
+      "baked": [
+        "fp4_tree_palm_digital",
+        "fp4_tree_data_leaf"
+      ]
+    },
+    "topOffset": {
+      "fp4_tree_palm_digital": [
+        4,
+        0
+      ]
+    }
+  },
+  "smoothAutotile": [
+    {
+      "prefix": "fp4_path_w47_",
+      "full": "fp4_path_w47_255",
+      "keepOwnDirt": true,
+      "outside": "edge",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.62,
+      "noise": 0.1,
+      "noiseScale": 6
+    },
+    {
+      "prefix": "fp4_denseedge_w47_",
+      "full": "fp4_denseedge_w47_255",
+      "outside": "fill",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.64,
+      "noise": 0.1,
+      "noiseScale": 8
+    }
+  ]
 }

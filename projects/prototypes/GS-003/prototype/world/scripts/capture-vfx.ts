@@ -95,7 +95,7 @@ async function main() {
     wilds[1].speciesId = "CREATURE-0005";
     const canvas = makeCanvas(VIEW_W, VIEW_H);
     const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
-    const view = new WorldView(canvas, sim.map, creatures, tiles, images, makeCanvas, { creatureScale: 1, tamers, trees: packCfg.trees });
+    const view = new WorldView(canvas, sim.map, creatures, tiles, images, makeCanvas, { creatureScale: 1, tamers, trees: packCfg.trees, smoothAutotile: packCfg.smoothAutotile });
     presenter.onTick(snapshot(sim), events, 0);
     presenter.onTick(snapshot(sim), [], 100);
     const T0 = 1000;

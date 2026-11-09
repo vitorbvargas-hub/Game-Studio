@@ -152,6 +152,7 @@ async function boot() {
     tamerLevels: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.map((p) => [p.id, p.tamerLevel])) : undefined,
     tamerTints: forest ? Object.fromEntries(FOREST_PROOF_SCENE.players.filter((p) => p.tint).map((p) => [p.id, p.tint])) : undefined,
     trees: forest ? packCfg.trees : undefined,
+    smoothAutotile: forest ? packCfg.smoothAutotile : undefined,
     fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
   });
   if (nightTiles) view.setNightTiles(nightTiles);

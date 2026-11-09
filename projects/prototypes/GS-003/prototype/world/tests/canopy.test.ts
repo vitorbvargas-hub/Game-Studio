@@ -1,5 +1,5 @@
 // forest-v4 no renderer: tronco em Y-sort, copa numa camada acima das entidades (translúcida com o jogador atrás) e
-// sombra como decal no chão. Renderer real com @napi-rs/canvas e os PNGs do pacote.
+// sombra projetada no chão + rim-light na copa (forest-v4.1). Renderer real com @napi-rs/canvas e os PNGs do pacote.
 
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { join } from "node:path";
@@ -8,6 +8,7 @@ import { loadSceneTiles, usedKeys, type ScenePack } from "../src/assets/scene-ti
 import packJson from "../src/data/maps/forest-proof.aliases.json";
 import { ImageStore, type CanvasFactory, type ImageLike } from "../src/render/images";
 import { Presenter } from "../src/render/presenter";
+import { castShadowCanvas, castShadowGeometry, rimLit, rimPixels } from "../src/render/lighting";
 import { WorldView } from "../src/render/view";
 import { PX_PER_SUB } from "../src/sim/params";
 import { createForestProofWorld, LOCAL_PLAYER } from "../src/sim/setup";
@@ -35,8 +36,8 @@ async function setup() {
   return { sim, view, presenter, images };
 }
 
-describe("forest-v4 no jogo: árvore em 2 sprites, sombra decal, copa translúcida", () => {
-  it("geometria: tronco com o pé no prop, copa ancorada em 42% da própria altura, sombra deslocada para a direita", async () => {
+describe("forest-v4 no jogo: árvore em 2 sprites, sombra projetada, rim-light, copa translúcida", () => {
+  it("geometria: tronco com o pé no prop, copa ancorada em 42% da própria altura, sombra projetada para baixo/direita", async () => {
     const { view, sim } = await setup();
     const trees = view.treeGeoms();
     expect(trees.length).toBe(sim.map.props.filter((p) => p.key.startsWith("fp4_tree_")).length);
@@ -44,11 +45,43 @@ describe("forest-v4 no jogo: árvore em 2 sprites, sombra decal, copa translúci
       const pr = sim.map.props[t.index];
       expect(t.base.y + t.base.h).toBe(pr.y);
       expect(Math.abs(t.base.x + t.base.w / 2 - pr.x)).toBeLessThanOrEqual(1);
-      expect(t.top.y + t.top.h).toBe(pr.y - t.base.h + Math.round(t.top.h * 0.42));
-      expect(t.shadow).toBeDefined();
-      expect(t.shadow!.w).toBe(t.top.w > 80 ? 64 : 36);
-      expect(t.shadow!.x + t.shadow!.w / 2).toBeGreaterThan(pr.x);
+      const [ox, oy] = packCfg.trees.topOffset?.[pr.key] ?? [0, 0];
+      expect(t.top.y + t.top.h).toBe(pr.y - t.base.h + Math.round(t.top.h * 0.42) + oy);
+      expect(t.top.x + Math.floor(t.top.w / 2) - ox).toBe(Math.round(pr.x));
+      // sombra v4.1: elipse em código (sem decal), proporcional à copa, centro abaixo e à direita do pé
+      const s = t.shadow!;
+      expect(s.url).toBeUndefined();
+      expect(s.rx).toBe(Math.max(10, Math.round(t.top.w * 0.42)));
+      expect(s.ry).toBe(Math.round(s.rx! * 0.34));
+      expect(s.x + s.rx!).toBeGreaterThan(pr.x);
+      expect(s.y + s.ry!).toBeGreaterThan(pr.y);
+      expect(t.rim).toBe(!packCfg.trees.rimLight!.baked.includes(pr.key));
     }
+    // as árvores novas do v4.1 estão no mapa e montam em 2 sprites
+    for (const k of ["fp4_tree_palm_digital", "fp4_tree_data_leaf"]) expect(trees.some((t) => t.key === k), k).toBe(true);
+  });
+
+  it("luz v4.1: rim-light clareia só a borda de cima/esquerda da copa; sombra projetada com núcleo opaco e borda livre", async () => {
+    const { view, images } = await setup();
+    const t = view.treeGeoms().find((g) => g.rim && g.key === "fp4_tree_round_a")!;
+    const img = images.get(t.top.url)!;
+    const src = makeCanvas(img.width, img.height).getContext("2d")!;
+    src.drawImage(img, 0, 0);
+    const before = src.getImageData(0, 0, img.width, img.height).data;
+    const lit = rimLit(img, packCfg.trees.rimLight!.day, packCfg.trees.rimLight!.alpha, makeCanvas).getContext("2d")!.getImageData(0, 0, img.width, img.height).data;
+    const edge = new Set(rimPixels(before, img.width, img.height));
+    let changed = 0;
+    for (let i = 0; i < img.width * img.height; i++) {
+      const diff = Math.abs(lit[i * 4] - before[i * 4]) + Math.abs(lit[i * 4 + 1] - before[i * 4 + 1]) + Math.abs(lit[i * 4 + 2] - before[i * 4 + 2]);
+      if (!edge.has(i)) expect(diff).toBe(0);
+      else if (diff > 0) changed++;
+      expect(lit[i * 4 + 3]).toBe(before[i * 4 + 3]);
+    }
+    expect(changed).toBeGreaterThan(edge.size * 0.5);
+    expect(castShadowGeometry(100, 100, 74)).toEqual({ cx: 117, cy: 107, rx: 31, ry: 11 });
+    const sh = castShadowCanvas(31, 11, "#0c2615", 92, makeCanvas).getContext("2d")!.getImageData(0, 0, 63, 23).data;
+    expect(sh[(11 * 63 + 31) * 4 + 3]).toBeGreaterThan(100);
+    expect(sh[3]).toBe(0);
   });
 
   it("copa sobre o Tamer local fica translúcida (behindAlpha) com transição; as outras seguem opacas", async () => {
@@ -86,15 +119,17 @@ describe("forest-v4 no jogo: árvore em 2 sprites, sombra decal, copa translúci
     view.update(presenter, 1, 0);
     const trees = view.treeGeoms();
     const kindOf = new Map<unknown, string>();
-    for (const t of trees) {
-      kindOf.set(images.get(t.base.url), "base");
-      kindOf.set(images.get(t.top.url), "top");
-    }
+    for (const t of trees) kindOf.set(images.get(t.base.url), "base");
+    // copas: o PNG (as do v4.1, com o rim já pintado) ou o canvas com rim-light (as demais), sempre do tamanho da copa
+    const topSizes = new Set(trees.map((t) => `${t.top.w}x${t.top.h}`));
+    for (const t of trees) if (!t.rim) kindOf.set(images.get(t.top.url), "top");
     const calls: string[] = [];
     const ctx = view.ctx;
     const orig = ctx.drawImage.bind(ctx);
     ctx.drawImage = ((img: CanvasImageSource, ...rest: number[]) => {
-      calls.push(kindOf.get(img) ?? "other");
+      const sz = img as unknown as { width: number; height: number };
+      const k = kindOf.get(img) ?? (img.constructor.name !== "Image" && topSizes.has(`${sz.width}x${sz.height}`) && rest[2] === sz.width ? "top" : "other");
+      calls.push(k);
       return (orig as (...a: unknown[]) => void)(img, ...rest);
     }) as typeof ctx.drawImage;
     view.render(presenter, 1, 0);

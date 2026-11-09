@@ -56,41 +56,76 @@ for (const c of CLEARINGS)
       if (((x - c.cx) / (c.rx * wob)) ** 2 + ((y - c.cy) / (c.ry * wob)) ** 2 < 1) kind[at(x, y)] = "c";
     }
 
-// Trilha sinuosa de 1 tile (na escala dos sprites DS, 2 tiles viram avenida) entre as clareiras, com saídas para o sul e para o leste.
+// Trilha orgânica de 1 a 2 tiles (forest-v4.1): spline Catmull-Rom pelos pontos de cada rota, amostrada a cada 0,1
+// tile, com meandro lateral suave e largura variável. Cada amostra marca os tiles cujo centro fica a até `r` dela;
+// com r em [0,72; 0,9) a trilha nunca passa de 2 tiles (r < 1) e, nas diagonais, vira uma faixa de 2 tiles em vez
+// de escadinha de 1 (r > √2/2), que com os cantos do Wang-47 lê como curva suave, sem serrilhado.
 // As rotas partem da BORDA da clareira central (o meio dela fica de chão, não vira praça de terra).
 const ROUTES = [
-  [[13, 12], [18, 15], [22, 19], [25, 22]],
-  [[37, 21], [42, 18], [47, 15], [51, 13]],
-  [[36, 28], [40, 32], [44, 35], [47, 36]],
-  [[25, 28], [21, 31], [16, 33], [12, 35]],
-  [[31, 30], [30, 35], [32, 40], [31, 45]],
-  [[51, 13], [57, 12], [63, 13]],
-  [[25, 22], [28, 23], [31, 24], [34, 23], [37, 21]],
+  [[13, 12], [17, 14], [19, 17], [22, 19], [25, 22]],
+  [[37, 21], [41, 19], [44, 15], [48, 14], [51, 13]],
+  [[36, 28], [39, 31], [42, 33], [44, 36], [47, 36]],
+  [[25, 28], [22, 30], [19, 33], [15, 33], [12, 35]],
+  [[31, 30], [29, 34], [32, 38], [30, 42], [31, 45.6]],
+  [[51, 13], [55, 11], [59, 13], [63.6, 12]],
+  [[25, 22], [28, 23.5], [31, 23.2], [34, 22.6], [37, 21]],
 ];
+const catmull = (p0, p1, p2, p3, t) => {
+  const t2 = t * t;
+  const t3 = t2 * t;
+  return [0, 1].map((i) => 0.5 * (2 * p1[i] + (-p0[i] + p2[i]) * t + (2 * p0[i] - 5 * p1[i] + 4 * p2[i] - p3[i]) * t2 + (-p0[i] + 3 * p1[i] - 3 * p2[i] + p3[i]) * t3));
+};
 const pathTiles = new Set();
-let last;
-for (const r of ROUTES) {
-  last = undefined;
-  for (let i = 0; i < r.length - 1; i++) {
-    const [ax, ay] = r[i];
-    const [bx, by] = r[i + 1];
-    const n = Math.ceil(Math.hypot(bx - ax, by - ay) * 3);
+const routeEnds = new Set();
+ROUTES.forEach((r, ri) => {
+  const pts = [r[0], ...r, r[r.length - 1]];
+  let dist = 0;
+  let prev;
+  for (let i = 1; i < pts.length - 2; i++) {
+    const n = Math.ceil(Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) * 10);
     for (let k = 0; k <= n; k++) {
-      const t = k / n;
-      // leve curva: deslocamento senoidal perpendicular ao segmento
-      const off = Math.sin(t * Math.PI) * 1.2 * (i % 2 ? 1 : -1);
-      const len = Math.hypot(bx - ax, by - ay) || 1;
-      const px = ax + (bx - ax) * t + (-(by - ay) / len) * off;
-      const py = ay + (by - ay) * t + ((bx - ax) / len) * off;
-      // 1 tile, conectada em 4 direções: num passo diagonal entra também o tile do canto
-      const x = Math.floor(px);
-      const y = Math.floor(py);
-      if (last && last[0] !== x && last[1] !== y && inside(x, last[1])) pathTiles.add(at(x, last[1]));
-      if (inside(x, y)) pathTiles.add(at(x, y));
-      last = [x, y];
+      const [cx, cy] = catmull(pts[i - 1], pts[i], pts[i + 1], pts[i + 2], k / n);
+      if (prev) dist += Math.hypot(cx - prev[0], cy - prev[1]);
+      // normal da curva (para o meandro) a partir da tangente numérica
+      const [nx2, ny2] = catmull(pts[i - 1], pts[i], pts[i + 1], pts[i + 2], Math.min(1, k / n + 0.01));
+      const tl = Math.hypot(nx2 - cx, ny2 - cy) || 1;
+      const wob = 0.22 * Math.sin(dist * 0.55 + ri * 2.1);
+      const px = cx + (-(ny2 - cy) / tl) * wob;
+      const py = cy + ((nx2 - cx) / tl) * wob;
+      prev = [cx, cy];
+      const rad = 0.73 + 0.16 * (0.5 + 0.5 * Math.sin(dist * 0.31 + ri * 1.3));
+      for (let y = Math.floor(py - 1); y <= Math.floor(py + 1); y++)
+        for (let x = Math.floor(px - 1); x <= Math.floor(px + 1); x++)
+          if (inside(x, y) && Math.hypot(x + 0.5 - px, y + 0.5 - py) <= rad) pathTiles.add(at(x, y));
     }
   }
+  for (const [x, y] of [r[0], r[r.length - 1]]) routeEnds.add(at(Math.min(W - 1, Math.floor(x)), Math.min(H - 1, Math.floor(y))));
+});
+// Limpeza da borda (2 passadas): preenche reentrâncias de 1 tile (3+ vizinhos de trilha) e tira calombos laterais
+// (1 vizinho só, fora das pontas das rotas). Depois garante conexão em 4 direções nas diagonais soltas.
+const isP = (x, y) => inside(x, y) && pathTiles.has(at(x, y));
+const n4 = (x, y) => (isP(x, y - 1) ? 1 : 0) + (isP(x + 1, y) ? 1 : 0) + (isP(x, y + 1) ? 1 : 0) + (isP(x - 1, y) ? 1 : 0);
+for (let pass = 0; pass < 2; pass++) {
+  const add = [];
+  const del = [];
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      if (!isP(x, y) && n4(x, y) >= 3) add.push(at(x, y));
+      else if (isP(x, y) && n4(x, y) <= 1 && !routeEnds.has(at(x, y)) && x > 0 && y > 0 && x < W - 1 && y < H - 1) {
+        // só é calombo se o vizinho tiver outros 2+ vizinhos (não é a ponta de um trecho de 1 tile)
+        const nb = [[0, -1], [1, 0], [0, 1], [-1, 0]].find(([dx, dy]) => isP(x + dx, y + dy));
+        if (!nb || n4(x + nb[0], y + nb[1]) >= 3) del.push(at(x, y));
+      }
+    }
+  for (const i of add) pathTiles.add(i);
+  for (const i of del) pathTiles.delete(i);
 }
+for (let y = 0; y < H - 1; y++)
+  for (let x = 0; x < W; x++)
+    for (const dx of [-1, 1]) {
+      if (!isP(x, y) || !isP(x + dx, y + 1) || isP(x + dx, y) || isP(x, y + 1)) continue;
+      pathTiles.add(at(x + dx, y));
+    }
 // Ao longo do caminho, a mata recua 1 tile (dá para andar ao lado da trilha).
 for (const i of pathTiles) {
   const x = i % W;
@@ -104,17 +139,26 @@ const nearOpen = (x, y, r) => {
   return false;
 };
 
-// Autotile 16 peças do forest-v4: bitmask N*1 + E*2 + S*4 + W*8 (1 = vizinho do mesmo tipo; fora do mapa = mata).
-const blob = (x, y, t) => (k(x, y - 1) === t ? 1 : 0) + (k(x + 1, y) === t ? 2 : 0) + (k(x, y + 1) === t ? 4 : 0) + (k(x - 1, y) === t ? 8 : 0);
+// Autotile Wang/blob-47 do forest-v4.1 (tileset.json → autotileV41): bitmask de 8 vizinhos N1 E2 S4 W8 NE16 SE32
+// SW64 NW128, com cada diagonal zerada quando as duas bordas vizinhas a ela não são do mesmo tipo (47 formas).
+// Trilha: fora do mapa repete o tile da borda (a trilha sai do mapa aberta); mata: fora do mapa é mata.
+const w47 = (x, y, same) => {
+  const N = same(x, y - 1);
+  const E = same(x + 1, y);
+  const S = same(x, y + 1);
+  const Wn = same(x - 1, y);
+  return (N ? 1 : 0) | (E ? 2 : 0) | (S ? 4 : 0) | (Wn ? 8 : 0) | (N && E && same(x + 1, y - 1) ? 16 : 0) | (S && E && same(x + 1, y + 1) ? 32 : 0) | (S && Wn && same(x - 1, y + 1) ? 64 : 0) | (N && Wn && same(x - 1, y - 1) ? 128 : 0);
+};
+const clampK = (x, y) => kind[at(Math.max(0, Math.min(W - 1, x)), Math.max(0, Math.min(H - 1, y)))];
 const ground = new Array(W * H).fill(0);
 for (let y = 0; y < H; y++)
   for (let x = 0; x < W; x++) {
     const t = kind[at(x, y)];
-    if (t === "p") ground[at(x, y)] = gid(`fp4_path_blob_${blob(x, y, "p")}`);
-    // grama da clareira: 6 variantes, com as lisas (00/01) mais frequentes para a textura não virar ruído
-    else if (t === "c") ground[at(x, y)] = gid(`fp4_grass_0${pick([0, 0, 1, 1, 2, 3, 4, 5])}`);
+    if (t === "p") ground[at(x, y)] = gid(`fp4_path_w47_${w47(x, y, (a, b) => clampK(a, b) === "p")}`);
+    // chão da clareira v4.1: textura com dither contínuo entre tiles, 4 variantes
+    else if (t === "c") ground[at(x, y)] = gid(`fp4_clearing_floor_v41_0${pick([0, 1, 2, 3])}`);
     // mata: borda arredondada (denseedge) contra a clareira; colada na clareira NÃO é sólida (os troncos bloqueiam)
-    else ground[at(x, y)] = gid(`fp4_denseedge_blob_${blob(x, y, "f")}`, !nearOpen(x, y, 1));
+    else ground[at(x, y)] = gid(`fp4_denseedge_w47_${w47(x, y, (a, b) => k(a, b) === "f")}`, !nearOpen(x, y, 1));
   }
 
 // ---- objetos ----
@@ -159,9 +203,11 @@ for (let py = 24; py < H * T + 40; py += 40, row++)
     // borda: quase sempre árvore (fecha a clareira); miolo: densidade total
     if (edge && rnd() < 0.12) continue;
     // Árvore em 2 sprites no jogo (fp4_tree_X → tree_X_base em Y-sort + tree_X_top na camada das copas).
+    // v4.1: palmeira digital só na borda (o tronco fino e curvo aparece contra a clareira) e árvore de folhas de
+    // dados ciano espalhada (~9%), como toque de Mundo Digital sem virar neon.
     const r = rnd();
     const tree =
-      r < 0.015 && !edge ? "fp4_tree_ancient" : r < 0.05 ? "fp4_tree_flowering" : r < 0.1 ? "fp4_tree_birch" : r < 0.24 ? pick(["fp4_tree_bushy_a", "fp4_tree_bushy_b"]) : r < 0.5 ? pick(["fp4_tree_conifer_a", "fp4_tree_conifer_b"]) : pick(["fp4_tree_round_a", "fp4_tree_round_b"]);
+      r < 0.015 && !edge ? "fp4_tree_ancient" : r < 0.05 ? "fp4_tree_flowering" : r < 0.1 ? "fp4_tree_birch" : r < 0.24 && edge ? "fp4_tree_palm_digital" : r < 0.19 ? "fp4_tree_data_leaf" : r < 0.27 ? pick(["fp4_tree_bushy_a", "fp4_tree_bushy_b"]) : r < 0.5 ? pick(["fp4_tree_conifer_a", "fp4_tree_conifer_b"]) : pick(["fp4_tree_round_a", "fp4_tree_round_b"]);
     addProp(tree, x, y, true);
   }
 

@@ -3,6 +3,37 @@
 - **Autor:** game-dev · **Data:** 2026-11-08 · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
 - Projeto Vite novo e separado. `../game/` é reaproveitado **sem alteração** (RNG, fórmulas e pacote `digimon-fan` importados via alias `@game`). `../game/arena-spike/` (congelado) não é tocado.
 
+## forest-v4.1: Wang-47, árvores novas, luz e noite nas entidades (2026-11-08)
+
+- **Pacote:** forest-v4.1 (commit ed5721e, campos aditivos `autotileV41`, `clearingFloorV41`, `lightingV41` e `treesV41` no `tileset.json`). Os PNGs novos entram pelo mesmo glob do forest-v4, com o prefixo `fp4_`.
+- **Mapa** (`scripts/gen-forest-proof.mjs`, `npm run map:forest`):
+  - O chão usa agora `path_w47_<máscara>` (trilha × grama), `denseedge_w47_<máscara>` (mata × clareira) e `clearing_floor_v41_0N` (chão da clareira, 4 variantes).
+  - A máscara tem 8 vizinhos: N1, E2, S4, W8, NE16, SE32, SW64 e NW128. Cada diagonal só conta quando as duas bordas vizinhas a ela também contam (47 formas).
+  - Fora do mapa, a trilha repete o tile da borda, então ela sai do mapa aberta; para a mata, fora do mapa conta como mata.
+  - A trilha é uma spline Catmull-Rom pelos pontos de cada rota, com meandro lateral e largura variável. Cada amostra marca os tiles a até `r` ∈ [0,73; 0,89] dela, o que dá **1 a 2 tiles** de largura e uma faixa de 2 nas diagonais, em vez de escadinha.
+  - Depois vêm duas passadas de limpeza: uma tira reentrâncias e calombos de 1 tile e a outra garante conexão em 4 direções.
+  - **Árvores novas:** palmeira digital (20, só na borda das clareiras) e árvore de folhas de dados ciano (78). Cada uma tem tronco e copa separados, como as outras. A coroa da palmeira tem `topOffset` de +4 px, porque o tronco é curvo.
+- **Recorte suave do Wang-47** (`src/render/pathsmooth.ts`):
+  - Os PNGs `path_w47_*` e `denseedge_w47_*` cortam um círculo de cerca de 10 px em todo canto que tem só uma borda (`buildBlobTile47`, R = 10). Por isso, até uma trilha reta virava uma corrente de cruzes.
+  - O renderer recorta a trilha e a borda da mata por um **campo contínuo no mundo**: uma B-spline quadrática da grade (vizinhança 3×3), com um ruído de valor somado ao limiar em coordenadas do mundo. Assim não há costura entre tiles.
+  - A textura continua sendo a do pacote: a terra vem do próprio PNG Wang-47 do tile (ou do `_255`), e o lado de fora vem do `clearing_floor_v41`. A borda leva 1 px de pontilhado.
+  - A configuração fica em `smoothAutotile` no `forest-proof.aliases.json`. Sem ela, o renderer desenha os PNGs como vieram.
+- **Luz** (`src/render/lighting.ts`; a luz vem de cima à esquerda):
+  - A sombra das árvores é projetada: uma elipse alongada para baixo e para a direita, com a mesma geometria de `castShadowGeometry` do game-art e a cor `canopyShadow` do preset. Ela substitui o decal centrado do v4.
+  - O **rim-light** clareia a borda de cima/esquerda das copas com o `foliage[7]` do preset (dia `#dff08a`, noite `#a6c0e8`, α 90). As 2 árvores do v4.1 já vêm com o rim no PNG e o renderer não aplica de novo.
+- **Noite nas entidades** (`src/render/nightgrade.ts`):
+  - Os Digimon e os Tamers (sprite, composto ou placeholder) passam pela grade da noite: dessaturam 30%, são multiplicados pela rampa da lua (0,64 / 0,70 / 0,96) e ganham um piso frio.
+  - Para manter a leitura, ganham também um rim-light `#a6c0e8` (α 0,55) na borda virada para a luz, que acompanha o espelhamento, e um contorno externo de 1 px na tinta da noite (α 0,5).
+  - A grade segue a mistura dia/noite em 8 degraus, e o cache guarda só o degrau atual. Os nomes ficam no canvas de rótulos, por cima do overlay, sem mudança.
+- **Capturas:**
+  - `forest_v41_dia.png`, `forest_v41_noite.png`, `forest_v41_noite_zoom.png` (as entidades à noite com os nomes) e `trilha_zoom.png`: `ONLY=v41 npm run shots:live`.
+  - Refeitas: `proof_live_*` e `moves_*`. As capturas padrão agora fixam `time=day` (`TIME=night` para a noite), e o modal Equipe & Box é fechado pelo ×. O Esc sintético não fechava o modal, que aparecia aberto no `moves_aprendeu`.
+- **Testes:**
+  - `tests/forest-proof.test.ts`: as máscaras Wang-47 conferidas contra o `tileset.json`; a trilha com no máximo 2 tiles de largura, sem diagonal solta, reentrância ou tile isolado; e as árvores novas.
+  - `tests/pathsmooth.test.ts`: largura constante numa trilha reta, comparada com o PNG do pacote; continuidade na emenda; e o chão desenhado pelo recorte suave.
+  - `tests/canopy.test.ts`: a sombra projetada e o rim-light.
+  - `tests/nightgrade.test.ts`: a grade, o rim, o contorno e o espelho. Um Digimon real à noite fica mais escuro que de dia e mais claro que o chão noturno, e o renderer usa o quadro graduado.
+
 ## Save, progresso offline e Auto-evoluir (2026-11-08)
 
 - **Save** (`src/save/save.ts`, `localStorage["gs003.world.save"]`, só na cena `forest-proof`):

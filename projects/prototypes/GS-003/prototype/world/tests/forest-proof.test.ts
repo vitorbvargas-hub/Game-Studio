@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { loadSceneTiles, presetFilter, resolvePackTiles, treeParts, usedKeys, type ScenePack } from "../src/assets/scene-tiles";
 import { buildTileSources } from "../src/assets/tiles";
 import packJson from "../src/data/maps/forest-proof.aliases.json";
+import tileset from "@game-assets/03-environments/forest-v4/tileset.json";
 import { createForestProofWorld, FOREST_PROOF_SCENE, loadForestProofMap } from "../src/sim/setup";
 import { snapshot, stepWorld } from "../src/sim/world";
 import { ofType, run } from "./helpers";
@@ -14,11 +15,16 @@ describe("cena forest-proof (prova visual GS-004 §4)", () => {
   it("mapa: floresta densa com clareiras, trilha e grama alta; inícios livres para os 4 jogadores", () => {
     const keys = map.tileLayers[0].keys;
     const count = (re: RegExp) => keys.filter((k) => re.test(k)).length;
-    expect(count(/^fp4_denseedge_blob_/)).toBeGreaterThan(keys.length * 0.35);
-    expect(count(/^fp4_grass_0[0-5]$/)).toBeGreaterThan(keys.length * 0.15);
-    expect(count(/^fp4_path_blob_/)).toBeGreaterThan(60);
+    expect(count(/^fp4_denseedge_w47_/)).toBeGreaterThan(keys.length * 0.35);
+    expect(count(/^fp4_clearing_floor_v41_0[0-3]$/)).toBeGreaterThan(keys.length * 0.15);
+    expect(count(/^fp4_path_w47_/)).toBeGreaterThan(60);
+    // v4.1 substitui o chão do v4 neste mapa
+    expect(count(/_blob_|^fp4_grass_/)).toBe(0);
     const props = (re: RegExp) => map.props.filter((p) => re.test(p.key)).length;
     expect(props(/^fp4_tree_/)).toBeGreaterThan(400);
+    // as 2 árvores novas do v4.1
+    expect(props(/^fp4_tree_palm_digital$/)).toBeGreaterThan(8);
+    expect(props(/^fp4_tree_data_leaf$/)).toBeGreaterThan(30);
     expect(props(/^fp4_tall_grass/)).toBeGreaterThan(100);
     expect(props(/^fp4_flower_cluster/)).toBeGreaterThan(30);
     const solid = (v: { x: number; y: number }) => map.solid[Math.floor(v.y / 16) * map.width + Math.floor(v.x / 16)];
@@ -40,30 +46,78 @@ describe("cena forest-proof (prova visual GS-004 §4)", () => {
       expect(r.tiles[parts.base].url, preset).toMatch(preset === "night" ? /forest-v4\/night\/props\// : /forest-v4\/props\//);
       expect(r.tiles[parts.top].url).toMatch(/_top\.png/);
       expect(r.tiles.fp4_canopy_shadow_large).toBeDefined();
+      for (const t of ["fp4_tree_palm_digital", "fp4_tree_data_leaf"]) expect(r.tiles[treeParts(t).top].url, `${preset} ${t}`).toMatch(preset === "night" ? /night\/props\// : /forest-v4\/props\//);
+      expect(r.tiles.fp4_path_w47_255.url).toMatch(preset === "night" ? /night\/tiles\/path_w47_255/ : /forest-v4\/tiles\/path_w47_255/);
     }
   });
 
-  it("autotile 16 peças: bitmask N1+E2+S4+W8 sobre o tipo do terreno; mata interna sólida, borda livre", () => {
+  it("autotile Wang/blob-47: máscara de 8 vizinhos normalizada (diagonal só com as 2 bordas); mata interna sólida, borda livre", () => {
     const keys = map.tileLayers[0].keys;
+    const W = map.width;
+    const H = map.height;
     const type = (x: number, y: number) => {
-      if (x < 0 || y < 0 || x >= map.width || y >= map.height) return "f";
-      const k = keys[y * map.width + x];
+      const k = keys[y * W + x];
       return k.startsWith("fp4_path") ? "p" : k.startsWith("fp4_denseedge") ? "f" : "c";
     };
+    // trilha: fora do mapa repete a borda; mata: fora do mapa é mata
+    const sameP = (x: number, y: number) => type(Math.max(0, Math.min(W - 1, x)), Math.max(0, Math.min(H - 1, y))) === "p";
+    const sameF = (x: number, y: number) => x < 0 || y < 0 || x >= W || y >= H || type(x, y) === "f";
+    const mask = (x: number, y: number, same: (x: number, y: number) => boolean) => {
+      const [N, E, S, Wn] = [same(x, y - 1), same(x + 1, y), same(x, y + 1), same(x - 1, y)];
+      return (+N) | (+E << 1) | (+S << 2) | (+Wn << 3) | (+(N && E && same(x + 1, y - 1)) << 4) | (+(S && E && same(x + 1, y + 1)) << 5) | (+(S && Wn && same(x - 1, y + 1)) << 6) | (+(N && Wn && same(x - 1, y - 1)) << 7);
+    };
+    const files = new Set<string>(tileset.autotileV41.sets.flatMap((s) => s.files.map((f) => f.replace(/^tiles\/|\.png$/g, ""))));
     let checked = 0;
-    for (let y = 0; y < map.height; y++)
-      for (let x = 0; x < map.width; x++) {
+    const seen = new Set<string>();
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
         const t = type(x, y);
         if (t === "c") continue;
-        const bm = (type(x, y - 1) === t ? 1 : 0) + (type(x + 1, y) === t ? 2 : 0) + (type(x, y + 1) === t ? 4 : 0) + (type(x - 1, y) === t ? 8 : 0);
-        expect(keys[y * map.width + x]).toBe(t === "p" ? `fp4_path_blob_${bm}` : `fp4_denseedge_blob_${bm}`);
+        const want = t === "p" ? `fp4_path_w47_${mask(x, y, sameP)}` : `fp4_denseedge_w47_${mask(x, y, sameF)}`;
+        expect(keys[y * W + x]).toBe(want);
+        expect(files.has(want.slice(4)), want).toBe(true);
+        seen.add(want);
         checked++;
       }
     expect(checked).toBeGreaterThan(1000);
-    // há mata sólida (miolo) e mata não sólida (borda colada na clareira), com a mesma família de tiles
+    // usa as diagonais de fato (formas além das 16 de bordas)
+    expect([...seen].filter((k) => Number(k.split("_").pop()) > 15).length).toBeGreaterThan(10);
     const dense = keys.map((k, i) => (k.startsWith("fp4_denseedge") ? map.solid[i] : -1)).filter((v) => v >= 0);
     expect(dense.filter((v) => v === 1).length).toBeGreaterThan(200);
     expect(dense.filter((v) => v === 0).length).toBeGreaterThan(100);
+  });
+
+  it("trilha orgânica: 1 a 2 tiles de largura, conectada em 4 direções, sem calombos nem reentrâncias de 1 tile", () => {
+    const keys = map.tileLayers[0].keys;
+    const W = map.width;
+    const H = map.height;
+    const p = (x: number, y: number) => x >= 0 && y >= 0 && x < W && y < H && keys[y * W + x].startsWith("fp4_path");
+    const n4 = (x: number, y: number) => +p(x, y - 1) + +p(x + 1, y) + +p(x, y + 1) + +p(x - 1, y);
+    let tiles = 0;
+    let wide = 0;
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
+        // nunca 3×3 de terra (no máximo 2 de largura)
+        if (x < W - 2 && y < H - 2) {
+          let all = true;
+          for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) all &&= p(x + i, y + j);
+          expect(all, `3×3 em ${x},${y}`).toBe(false);
+        }
+        if (!p(x, y)) {
+          // reentrância: tile de grama cercado por trilha em 3 lados
+          expect(n4(x, y), `reentrância em ${x},${y}`).toBeLessThan(3);
+          continue;
+        }
+        tiles++;
+        if (p(x + 1, y) && p(x, y + 1) && p(x + 1, y + 1)) wide++;
+        // diagonal solta (só encosta pelo canto) = serrilhado
+        for (const dx of [-1, 1]) if (p(x + dx, y + 1)) expect(p(x + dx, y) || p(x, y + 1), `diagonal solta em ${x},${y}`).toBe(true);
+        expect(n4(x, y), `tile isolado em ${x},${y}`).toBeGreaterThan(0);
+      }
+    expect(tiles).toBeGreaterThan(150);
+    // largura variável: há trechos de 2 tiles (blocos 2×2) e trechos de 1
+    expect(wide).toBeGreaterThan(20);
+    expect(wide).toBeLessThan(tiles * 0.6);
   });
 
   it("presets: dia ignora a pasta night/, noite usa só ela; prefixo mapeia o nome do PNG", () => {

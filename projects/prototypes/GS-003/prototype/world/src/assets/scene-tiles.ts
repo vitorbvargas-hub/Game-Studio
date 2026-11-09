@@ -3,6 +3,8 @@
 // tree_X_base + tree_X_top. O preset (dia/noite) só troca a pasta do pacote (mesmos nomes de arquivo).
 // Só apresentação: a sim usa a colisão do mapa, que não depende disso.
 
+import type { PathSmoothCfg } from "../render/pathsmooth";
+import type { TreesCfg } from "../render/view";
 import { loadTileSources, type TileSource } from "./tiles";
 
 export interface ScenePack {
@@ -10,7 +12,9 @@ export interface ScenePack {
   prefix: string;
   /** Subpasta do preset noturno dentro do pacote (mesmos nomes de arquivo). */
   night?: string;
-  trees: { overlap: number; shadowSmall: string; shadowLarge: string; largeShadowMinW: number; behindAlpha: number };
+  trees: TreesCfg;
+  /** Recorte suave do autotile Wang-47 (forest-v4.1). */
+  smoothAutotile?: PathSmoothCfg[];
 }
 
 export type Preset = "day" | "night";

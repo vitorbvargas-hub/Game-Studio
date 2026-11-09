@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -133,9 +133,12 @@ async function main() {
     await cdp.send("Page.enable");
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: 1, mobile: false });
     if (process.env.ONLY === "creator") return await creator(cdp);
+    if (process.env.ONLY === "v41") return await forestV41(cdp);
     if (process.env.ONLY === "offline") return await offline(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0${QUERY}` });
+    // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
+    // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&time=${process.env.TIME ?? "day"}${QUERY}` });
     await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
     await sleep(3500);
     if (process.env.ONLY === "forest") return await forestV4(cdp);
@@ -181,7 +184,8 @@ async function main() {
     await cdp.shot("proof_live_modal_transicao.png");
     await sleep(400);
     await cdp.shot("proof_live_modal.png");
-    await cdp.eval(`document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })) || window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`);
+    // fecha pelo × do modal (o Esc sintético no document não chegava ao atalho do jogo e o modal ficava aberto)
+    await cdp.eval(`document.querySelector('button.x[data-act="close"]')?.click()`);
     await sleep(300);
     await golpes(cdp);
     const report = await cdp.eval(`(() => { const g = window.__gs003; const ents = [...g.presenter.entities.values()];
@@ -303,6 +307,48 @@ async function dayNight(cdp) {
     console.log(name, JSON.stringify(st));
     await cdp.shot(name);
   }
+}
+
+/** Recorte ampliado (2×) da tela em volta de um ponto do mundo. */
+async function zoomShot(cdp, name, world, cw, ch, fy = 0.55) {
+  const at = await cdp.eval(`(() => { const v = window.__gs003.view; const c = document.querySelector("#world");
+    const s = parseFloat(c.style.width) / c.width; return { x: (${world.x} - v.camera.x) * s, y: (${world.y} - v.camera.y) * s }; })()`);
+  const r = await cdp.send("Page.captureScreenshot", { format: "png", clip: { x: Math.max(0, Math.min(W - cw, at.x - cw / 2)), y: Math.max(0, Math.min(H - ch, at.y - ch * fy)), width: cw, height: ch, scale: 2 } });
+  writeFileSync(join(OUT, name), Buffer.from(r.data, "base64"));
+  console.log("ok", name, JSON.stringify(at));
+}
+
+/**
+ * forest-v4.1 no jogo: visão geral de dia e de noite (mesma semente; Digimon e Tamers com a grade noturna, nomes
+ * no canvas de rótulos), recorte ampliado das entidades à noite e da trilha Wang-47 numa curva (o Tamer é posto,
+ * só na posição lógica, ao lado da trilha, para a câmera ir até lá).
+ */
+async function forestV41(cdp) {
+  for (const [name, q] of [["forest_v41_dia.png", "time=day"], ["forest_v41_noite.png", "time=night"]]) {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&${q}${QUERY}` });
+    await sleep(500);
+    await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+    await sleep(4000);
+    const st = await cdp.eval(`(() => { const g = window.__gs003; const t = g.view.treeGeoms();
+      return { mix: g.view.nightMix, arvores: t.length, palmeiras: t.filter((x) => x.key === "fp4_tree_palm_digital").length, folhasDeDados: t.filter((x) => x.key === "fp4_tree_data_leaf").length, comRim: t.filter((x) => x.rim).length }; })()`);
+    console.log(name, JSON.stringify(st));
+    await cdp.shot(name);
+    if (name.includes("noite")) {
+      const p = await cdp.eval(`(() => { const p = window.__gs003.view.motionPos("p1"); return { x: p.x, y: p.y }; })()`);
+      await zoomShot(cdp, "forest_v41_noite_zoom.png", p, 560, 320, 0.6);
+    }
+  }
+  // trilha: de dia, Tamer numa curva da trilha a nordeste da clareira central (tile 42,17)
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=0&criador=0&time=day${QUERY}` });
+  await sleep(500);
+  await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");
+  await sleep(1500);
+  const spot = await cdp.eval(`(() => { const g = window.__gs003; const me = g.sim.state.entities.find((e) => e.id === "p1");
+    const tx = Number(${JSON.stringify(process.env.TRAIL_TILE ?? "44,16")}.split(",")[0]); const ty = Number(${JSON.stringify(process.env.TRAIL_TILE ?? "44,16")}.split(",")[1]);
+    me.x = Math.round((tx * 32 + 16) / 2); me.y = Math.round((ty * 32 + 16) / 2); me.dest = undefined;
+    return { x: tx * 32 + 16, y: ty * 32 + 16 }; })()`);
+  await sleep(2500);
+  await zoomShot(cdp, "trilha_zoom.png", spot, 800, 450, 0.5);
 }
 
 /**

@@ -27,6 +27,9 @@ import { EXCLAIM_MS, type Presenter, type VisualEntity } from "./presenter";
 import type { VfxFrame } from "./vfx/archetypes";
 import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
 import { ambientAt } from "./daynight";
+import { castShadowCanvas, castShadowGeometry, rimLit, type CastShadowCfg, type RimLightCfg } from "./lighting";
+import { NIGHT_STEPS, nightFrame, nightStep } from "./nightgrade";
+import { composePathTile, pathMask, type PathSmoothCfg } from "./pathsmooth";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
 
 export const CHUNK_TILES = 16;
@@ -52,16 +55,37 @@ export interface ViewOptions {
    * Árvores em 2 sprites (forest-v4): prop `K` sem imagem própria mas com `K_base` e `K_top` vira tronco em Y-sort +
    * copa na camada acima das entidades, com sombra decal no chão. Sem isto, o prop é desenhado como sprite único.
    */
-  trees?: { overlap: number; shadowSmall: string; shadowLarge: string; largeShadowMinW: number; behindAlpha: number };
+  trees?: TreesCfg;
+  /** Autotile Wang-47 com recorte suave (pathsmooth.ts): conjuntos por prefixo de chave. */
+  smoothAutotile?: PathSmoothCfg[];
+}
+
+/** Árvores em 2 sprites (forest-v4) + luz do forest-v4.1 (sombra projetada, rim-light, ajuste fino da copa). */
+export interface TreesCfg {
+  overlap: number;
+  shadowSmall: string;
+  shadowLarge: string;
+  largeShadowMinW: number;
+  behindAlpha: number;
+  /** Sombra projetada procedural (v4.1); sem isto, usa o decal canopy_shadow_* do v4. */
+  castShadow?: CastShadowCfg;
+  /** Rim-light na borda de cima/esquerda das copas (v4.1). */
+  rimLight?: RimLightCfg;
+  /** Deslocamento extra (px) da copa por árvore, ex. a palmeira de tronco curvo: { "fp4_tree_palm_digital": [4, 0] }. */
+  topOffset?: Record<string, number[]>;
 }
 
 /** Geometria de uma árvore em 2 sprites, em px do mundo (sx/sy = canto superior esquerdo de cada parte). */
 export interface TreeGeom {
   index: number;
+  key: string;
   footY: number;
+  /** Copa recebe o rim-light em tempo de execução (as do v4.1 já vêm com ele no PNG). */
+  rim: boolean;
   base: { url: string; x: number; y: number; w: number; h: number };
   top: { url: string; x: number; y: number; w: number; h: number };
-  shadow?: { url: string; x: number; y: number; w: number; h: number };
+  /** Decal do v4 (`url`) ou sombra projetada do v4.1 (`rx`/`ry`, desenhada em código). */
+  shadow?: { url?: string; x: number; y: number; w: number; h: number; rx?: number; ry?: number };
 }
 
 const LOCOMOTION: LogicState[] = ["IDLE", "WALK", "FOLLOW", "ENGAGE", "RETURN"];
@@ -101,6 +125,15 @@ export class WorldView {
   /** Preset noturno do pacote (mesmas chaves): URL do dia → URL da noite. */
   private nightUrls = new Map<string, string>();
   private nightTiles?: Record<string, TileSource>;
+  /** Copas com rim-light (por URL do preset) e sombras projetadas (por tamanho e preset). */
+  private litTops = new Map<string, HTMLCanvasElement>();
+  private castShadows = new Map<string, HTMLCanvasElement>();
+  /** Quadros de entidade com a grade noturna, só do degrau atual da mistura. */
+  private nightFrames = new Map<string, HTMLCanvasElement>();
+  private nightFramesStep = 0;
+  /** Pixels RGBA dos PNGs de chão (por URL) e tiles de recorte suave já compostos (por célula e preset). */
+  private pixels = new Map<string, Uint8ClampedArray>();
+  private smoothTiles = new Map<string, HTMLCanvasElement | null>();
   /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
   nightMix = 0;
   /** Estatística do último quadro (culling). */
@@ -130,6 +163,8 @@ export class WorldView {
   /** Invalida chunks do chão (ex.: tiles reais acabaram de carregar). */
   invalidateGround(): void {
     this.chunks.clear();
+    this.smoothTiles.clear();
+    this.litTops.clear();
     this.propImages.clear();
     this.trees = undefined;
   }
@@ -155,16 +190,27 @@ export class WorldView {
   }
 
   /** drawImage com crossfade dia → noite (respeita o globalAlpha corrente). */
-  private drawPreset(url: string, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw = sw, dh = sh): void {
+  private drawPreset(
+    url: string,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    dx: number,
+    dy: number,
+    dw = sw,
+    dh = sh,
+    resolve: (url: string, night: boolean) => CanvasImageSource | undefined = (u, n) => this.presetImage(u, n),
+  ): void {
     const ctx = this.ctx;
     const mix = this.nightUrls.size ? this.nightMix : 0;
     const a = ctx.globalAlpha;
     if (mix < 1) {
-      const img = this.presetImage(url, false);
+      const img = resolve(url, false);
       if (img) ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
     }
     if (mix > 0) {
-      const img = this.presetImage(url, true);
+      const img = resolve(url, true);
       ctx.globalAlpha = a * (mix < 1 ? mix : 1);
       if (img) ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
       ctx.globalAlpha = a;
@@ -173,8 +219,9 @@ export class WorldView {
 
   /**
    * Árvores em 2 sprites do mapa (só as com imagens carregadas). Ancoragem do forest-v4: tronco com os pés no ponto
-   * do prop; copa centrada no mesmo X com o fundo `overlap × top.h` px abaixo do topo do tronco; sombra deslocada
-   * 20% da largura para a direita (luz de cima à esquerda) e assentada no pé.
+   * do prop; copa centrada no mesmo X com o fundo `overlap × top.h` px abaixo do topo do tronco (+ `topOffset` da
+   * árvore). Sombra: com `castShadow` (v4.1), elipse alongada projetada para baixo/direita a partir do pé, do tamanho
+   * da copa; sem ele, o decal do v4 deslocado 20% da largura para a direita. Luz sempre de cima à esquerda.
    */
   treeGeoms(): TreeGeom[] {
     if (this.trees) return this.trees;
@@ -189,11 +236,18 @@ export class WorldView {
         const ti = t && this.images.get(t.url);
         if (!bi || !ti) return;
         const base = { url: b.url, x: Math.round(pr.x - Math.floor(bi.width / 2)), y: pr.y - bi.height, w: bi.width, h: bi.height };
-        const top = { url: t.url, x: Math.round(pr.x - Math.floor(ti.width / 2)), y: pr.y - bi.height - ti.height + Math.round(ti.height * cfg.overlap), w: ti.width, h: ti.height };
-        const s = this.tiles[ti.width > cfg.largeShadowMinW ? cfg.shadowLarge : cfg.shadowSmall];
-        const si = s && this.images.get(s.url);
-        const shadow = si ? { url: s.url, x: Math.round(pr.x - si.width / 2 + Math.round(si.width * 0.2)), y: pr.y - Math.round(si.height * 0.55) + 3, w: si.width, h: si.height } : undefined;
-        out.push({ index, footY: pr.y, base, top, shadow });
+        const [ox, oy] = cfg.topOffset?.[pr.key] ?? [0, 0];
+        const top = { url: t.url, x: Math.round(pr.x - Math.floor(ti.width / 2)) + ox, y: pr.y - bi.height - ti.height + Math.round(ti.height * cfg.overlap) + oy, w: ti.width, h: ti.height };
+        let shadow: TreeGeom["shadow"];
+        if (cfg.castShadow) {
+          const g = castShadowGeometry(pr.x, pr.y, ti.width);
+          shadow = { x: g.cx - g.rx, y: g.cy - g.ry, w: g.rx * 2 + 1, h: g.ry * 2 + 1, rx: g.rx, ry: g.ry };
+        } else {
+          const s = this.tiles[ti.width > cfg.largeShadowMinW ? cfg.shadowLarge : cfg.shadowSmall];
+          const si = s && this.images.get(s.url);
+          shadow = si ? { url: s.url, x: Math.round(pr.x - si.width / 2 + Math.round(si.width * 0.2)), y: pr.y - Math.round(si.height * 0.55) + 3, w: si.width, h: si.height } : undefined;
+        }
+        out.push({ index, key: pr.key, footY: pr.y, rim: !!cfg.rimLight && !cfg.rimLight.baked.includes(pr.key), base, top, shadow });
       });
     // só fixa o cache quando as imagens já existem (senão tenta de novo no próximo quadro)
     if (out.length || !cfg) this.trees = out;
@@ -381,9 +435,55 @@ export class WorldView {
       if (a < 1) this.canopyAlpha.set(t.index, a);
       else this.canopyAlpha.delete(t.index);
       ctx.globalAlpha = a;
-      this.blitWorld(r);
+      if (t.rim) this.drawPreset(r.url, 0, 0, r.w, r.h, r.x - cam.x, r.y - cam.y, r.w, r.h, (u, n) => this.rimTop(u, n));
+      else this.blitWorld(r);
     }
     ctx.globalAlpha = 1;
+  }
+
+  /** Copa com o rim-light do preset (cache por URL; cai na copa sem rim enquanto a imagem não carregou). */
+  private rimTop(url: string, night: boolean): CanvasImageSource | undefined {
+    const rim = this.opts.trees?.rimLight;
+    const img = this.presetImage(url, night);
+    if (!rim || !img) return img;
+    const id = `${night ? (this.nightUrls.get(url) ?? url) : url}|${night ? "n" : "d"}`;
+    let c = this.litTops.get(id);
+    if (!c) this.litTops.set(id, (c = rimLit(img, night ? rim.night : rim.day, rim.alpha, this.makeCanvas)));
+    return c;
+  }
+
+  /** Sombra projetada (v4.1) de um tamanho, no preset pedido. */
+  private castShadowImage(rx: number, ry: number, night: boolean): HTMLCanvasElement | undefined {
+    const cs = this.opts.trees?.castShadow;
+    if (!cs) return undefined;
+    const id = `${rx}x${ry}|${night ? "n" : "d"}`;
+    let c = this.castShadows.get(id);
+    if (!c) this.castShadows.set(id, (c = castShadowCanvas(rx, ry, night ? cs.night : cs.day, night ? cs.nightAlpha : cs.dayAlpha, this.makeCanvas)));
+    return c;
+  }
+
+  /**
+   * Quadro de entidade com a grade noturna (nightgrade.ts) no degrau atual da mistura; undefined de dia (ou fora da
+   * cena com preset noturno). O cache guarda só o degrau atual.
+   */
+  private entityNight(id: string, img: CanvasImageSource, fr: { x: number; y: number; w: number; h: number }, mirror: boolean): HTMLCanvasElement | undefined {
+    const step = this.nightTiles ? nightStep(this.nightMix) : 0;
+    if (!step) return undefined;
+    if (step !== this.nightFramesStep) {
+      this.nightFrames.clear();
+      this.nightFramesStep = step;
+    }
+    const key = `${id}|${mirror ? "m" : ""}`;
+    let c = this.nightFrames.get(key);
+    if (!c) this.nightFrames.set(key, (c = nightFrame(img, fr, step / NIGHT_STEPS, mirror, this.makeCanvas)));
+    return c;
+  }
+
+  /** Desenha um quadro de entidade: com a grade noturna (1 px de margem) ou o original. */
+  private blitEntity(id: string, img: CanvasImageSource, fr: { x: number; y: number; w: number; h: number }, dx: number, dy: number, S: number, mirror: boolean): void {
+    const n = this.entityNight(id, img, fr, mirror);
+    if (n) this.blit(n, { x: 0, y: 0, w: fr.w + 2, h: fr.h + 2 }, dx - S, dy - S, S, mirror);
+    else this.blit(img, fr, dx, dy, S, mirror);
   }
 
   /** Alpha atual da copa de uma árvore (1 = opaca), para testes e capturas. */
@@ -431,7 +531,9 @@ export class WorldView {
         if (mx >= this.map.width || my >= this.map.height) continue;
         for (const layer of this.map.tileLayers) {
           const key = layer.keys[my * this.map.width + mx];
-          if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
+          const smooth = key ? this.smoothTile(layer.keys, key, mx, my, set, night) : undefined;
+          if (smooth) g.drawImage(smooth, tx * ts, ty * ts);
+          else if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
         }
       }
     // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
@@ -441,10 +543,62 @@ export class WorldView {
     for (const t of this.treeGeoms()) {
       const s = t.shadow;
       if (!s || s.x > x0 + size || s.x + s.w < x0 || s.y > y0 + size || s.y + s.h < y0) continue;
-      const img = this.presetImage(s.url, night);
+      const img = s.url ? this.presetImage(s.url, night) : this.castShadowImage(s.rx!, s.ry!, night);
       if (img) g.drawImage(img, s.x - x0, s.y - y0);
     }
     this.chunks.set(key, c);
+    return c;
+  }
+
+  /** Pixels RGBA de um PNG de 1 tile (cache por URL); undefined enquanto a imagem não carregou. */
+  private pixelsOf(url: string | undefined): Uint8ClampedArray | undefined {
+    if (!url) return undefined;
+    const hit = this.pixels.get(url);
+    if (hit) return hit;
+    const img = this.images.get(url);
+    if (!img) return undefined;
+    const ts = this.map.tileSize;
+    const c = this.makeCanvas(ts, ts);
+    const g = c.getContext("2d")!;
+    g.drawImage(img, 0, 0, ts, ts);
+    const d = g.getImageData(0, 0, ts, ts).data;
+    this.pixels.set(url, d);
+    return d;
+  }
+
+  /**
+   * Tile Wang-47 com recorte suave (pathsmooth.ts) da célula (mx, my), ou undefined se a chave não é de um conjunto
+   * configurado ou as imagens ainda não carregaram (cai no PNG original).
+   */
+  private smoothTile(keys: string[], key: string, mx: number, my: number, set: Record<string, TileSource>, night: boolean): HTMLCanvasElement | undefined {
+    const cfg = this.opts.smoothAutotile?.find((c) => key.startsWith(c.prefix));
+    if (!cfg) return undefined;
+    const id = `${cfg.prefix}|${mx},${my}|${night ? "n" : "d"}`;
+    const hit = this.smoothTiles.get(id);
+    if (hit !== undefined) return hit ?? undefined;
+    const W = this.map.width;
+    const H = this.map.height;
+    const ts = this.map.tileSize;
+    const variant = cfg.ground[(mx * 7 + my * 3) % cfg.ground.length];
+    const full = this.pixelsOf(set[cfg.full]?.url);
+    const ground = this.pixelsOf(set[variant]?.url);
+    const own = cfg.keepOwnDirt ? this.pixelsOf(set[key]?.url) : undefined;
+    if (!full || !ground || (cfg.keepOwnDirt && !own)) return undefined;
+    const isSet = (x: number, y: number) => {
+      if (x < 0 || y < 0 || x >= W || y >= H) {
+        if (cfg.outside === "fill") return true;
+        x = Math.max(0, Math.min(W - 1, x));
+        y = Math.max(0, Math.min(H - 1, y));
+      }
+      return keys[y * W + x].startsWith(cfg.prefix);
+    };
+    const px = composePathTile(pathMask(mx, my, ts, isSet, cfg), ts, own, full, ground, mx * 131 + my * 977);
+    const c = this.makeCanvas(ts, ts);
+    const g = c.getContext("2d")!;
+    const data = g.createImageData(ts, ts);
+    data.data.set(px);
+    g.putImageData(data, 0, 0);
+    this.smoothTiles.set(id, c);
     return c;
   }
 
@@ -570,7 +724,7 @@ export class WorldView {
     const ctx = this.ctx;
     const fade = state === "DEFEAT" && v.defeatedAt !== undefined ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;
     ctx.globalAlpha = fade;
-    this.blit(img, fr, dx, dy, S, mirror);
+    this.blitEntity(`${url}|${tint ?? 0}|${key}`, img, fr, dx, dy, S, mirror);
     // Flash branco do impacto (alvo, durante o hit-stop) e brilho curto do atacante.
     const flash = now < v.flashUntil ? 1 : v.attackFlashAt && now >= v.attackFlashAt && now < v.attackFlashAt + 50 ? 0.5 : 0;
     if (flash > 0 && fade > 0) {
@@ -673,7 +827,7 @@ export class WorldView {
     const bob = walking ? (step ? -1 : 0) : idleBob(now, v.phase, 1100);
     const dx = Math.round(pos.x - this.camera.x - (mirror ? TAMER_W - TAMER_PIVOT.x : TAMER_PIVOT.x));
     const dy = Math.round(pos.y - this.camera.y - TAMER_PIVOT.y + bob);
-    this.blit(frames[step], { x: 0, y: 0, w: TAMER_W, h: TAMER_H }, dx, dy, 1, side && mirror);
+    this.blitEntity(`tamer-ph|${v.kind}|${side ? "e" : "s"}|${step}`, frames[step], { x: 0, y: 0, w: TAMER_W, h: TAMER_H }, dx, dy, 1, side && mirror);
   }
 
   private drawShadow(v: VisualEntity, pos: Vec, now: number, p?: Presenter): void {
