@@ -11,6 +11,10 @@
       "from": ["fp4_clearing_floor_v41_00", "fp4_clearing_floor_v41_01", "fp4_clearing_floor_v41_02", "fp4_clearing_floor_v41_03"],
       "to": ["fp8_ground_variant_0", "fp8_ground_variant_1", "fp8_ground_variant_2", "fp8_ground_variant_0", "fp8_ground_variant_6"]
     },
+    "_propSwapsDoc": "fp7_tall_grass_c (forest-v7-pixellab) é um bloco de folhagem quase quadrado (18×18, com 2 px claros soltos nos cantos): sob o grade escuro do v8 vira um quadrado escuro de 1 tile na clareira. No v8 a vaga dele vai para fp4_tall_grass_a (lista do mesmo tamanho: as posições sorteadas não mudam).",
+    "propSwaps": [
+      { "from": ["fp4_tall_grass_a", "fp4_tall_grass_b", "fp7_tall_grass_c"], "to": ["fp4_tall_grass_a", "fp4_tall_grass_b", "fp4_tall_grass_a"] }
+    ],
     "render": {
       "doc": "grade escuro/frio no chão e nas copas, luzes pontuais aditivas, névoa na borda da mata, partículas, sombra de contato, zoom x1,5",
       "prefix": "fp8_",
@@ -46,7 +50,7 @@
       "npcKeys": ["fp8_npc_ranger", "fp8_npc_merchant"],
       "_fireDoc": "Luzes de fogo (flicker quente: tremor rápido + oscilação lenta + engasgo raro).",
       "fireKeys": ["fp8_lantern_post", "fp8_campfire_small"],
-      "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores.",
+      "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores. A máscara é desenhada em 1/3 da tela e ampliada com filtro bilinear (feather de ~3 px), para o halo não ficar cortado em degrau na borda da copa.",
       "canopyMask": 0.92,
       "playerLight": { "color": "#ffd59a", "radius": 64, "intensity": 0.5 },
       "ambient": {

@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { generateFromBrief } from "../scripts/map-factory/generate.mjs";
+import { applyLook } from "../scripts/map-factory/look.mjs";
 import v8Pack from "../src/data/maps/v8/digimon-forest-01.aliases.json";
 import v8Map from "../src/data/maps/v8/digimon-forest-01.tmj.json";
 import { flicker, gradePixels, gradeRuleFor, mapLights, type LookCfg } from "../src/render/look";
@@ -174,5 +175,17 @@ describe("digimon-forest-01 ?look=v8", () => {
     const sat = (r: number, g: number, b: number) => (Math.max(r, g, b) - Math.min(r, g, b)) / Math.max(r, g, b);
     expect(sat(px[0], px[1], px[2])).toBeLessThan(sat(140, 220, 60));
     expect(Math.max(px[0], px[1], px[2])).toBeLessThan(220);
+  });
+  it("troca de chão chega aos recortes suaves (sem retângulo de chão v4 na borda da mata) e sem a grama quadrada do v7", () => {
+    // o chão em volta da borda da mata e da trilha é o mesmo das clareiras v8 (senão a célula de borda vira um bloco)
+    for (const s of (v8Pack as { smoothAutotile: { prefix: string; ground: string[] }[] }).smoothAutotile)
+      expect(s.ground.every((k) => k.startsWith("fp8_ground_variant_")), s.prefix).toBe(true);
+    expect(JSON.stringify(v8Map)).not.toContain("fp7_tall_grass_c");
+    // applyLook não estraga a própria regra de troca (o lookAliases dos aliases usa a mesma `from`)
+    const from = ["a0", "a1"];
+    const b = { terrains: { c: { variants: ["a0", "a1"] } }, pack: {} } as Record<string, unknown>;
+    applyLook(b, { look: { id: "t", groundSwap: { from, to: ["b0"] }, propSwaps: [{ from: ["g0", "g1"], to: ["g0", "g0"] }] } });
+    expect((b.look as { groundSwap: { from: string[] } }).groundSwap.from).toEqual(["a0", "a1"]);
+    expect((b.terrains as { c: { variants: string[] } }).c.variants).toEqual(["b0"]);
   });
 });

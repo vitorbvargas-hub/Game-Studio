@@ -94,6 +94,8 @@ export interface TreeGeom {
   shadow?: { url?: string; x: number; y: number; w: number; h: number; rx?: number; ry?: number };
 }
 
+/** Feather da máscara das copas sobre as luzes do look (px de tela do mundo): fator de redução do buffer da máscara. */
+const CANOPY_FEATHER = 3;
 /** Pivô do frame 26×33 dos Tamers v3 (character.json), quando não há Tamer carregado para copiar. */
 const NPC_PIVOT = { x: 13, y: 32 };
 
@@ -154,6 +156,8 @@ export class WorldView {
   private veil?: { id: string; c: HTMLCanvasElement };
   /** Buffer das luzes do look (máscara das copas). */
   private lightBuf?: HTMLCanvasElement;
+  /** Máscara das copas em 1/CANOPY_FEATHER da tela (a ampliação bilinear dá a borda suave, sem degrau na luz). */
+  private canopyMaskBuf?: HTMLCanvasElement;
   /** Mistura noite 0..1 (ciclo dia/noite): troca de paleta em crossfade + overlay ambiente. */
   nightMix = 0;
   /** Estatística do último quadro (culling). */
@@ -520,16 +524,32 @@ export class WorldView {
     if (mask > 0 && this.lightBuf) {
       if (lit) {
         // máscara: a silhueta de cada copa visível apaga a luz sob ela (× o alpha atual da copa, que fica translúcida
-        // quando cobre o Tamer)
-        lg.globalCompositeOperation = "destination-out";
+        // quando cobre o Tamer). As silhuetas vão para um buffer em 1/CANOPY_FEATHER da tela (a redução faz a média da
+        // cobertura) e voltam ampliadas com filtro bilinear: a borda da máscara ganha ~CANOPY_FEATHER px de feather e o
+        // halo não fica cortado em degrau junto à copa.
+        const F = CANOPY_FEATHER;
+        const mw = Math.ceil(w / F) + 2;
+        const mh = Math.ceil(h / F) + 2;
+        if (this.canopyMaskBuf?.width !== mw || this.canopyMaskBuf.height !== mh) this.canopyMaskBuf = this.makeCanvas(mw, mh);
+        const mg = this.canopyMaskBuf.getContext("2d")!;
+        mg.globalCompositeOperation = "source-over";
+        mg.globalAlpha = 1;
+        mg.clearRect(0, 0, mw, mh);
+        mg.imageSmoothingEnabled = true;
         for (const t of this.treeGeoms()) {
           const r = t.top;
           if (r.x > cam.x + cam.w || r.x + r.w < cam.x || r.y > cam.y + cam.h || r.y + r.h < cam.y) continue;
           const img = this.presetImage(r.url, false);
           if (!img) continue;
-          lg.globalAlpha = mask * this.canopyAlphaOf(t.index);
-          lg.drawImage(img, Math.round(r.x - cam.x), Math.round(r.y - cam.y));
+          mg.globalAlpha = this.canopyAlphaOf(t.index);
+          mg.drawImage(img, (Math.round(r.x - cam.x) + F) / F, (Math.round(r.y - cam.y) + F) / F, img.width / F, img.height / F);
         }
+        mg.globalAlpha = 1;
+        lg.globalCompositeOperation = "destination-out";
+        lg.globalAlpha = mask;
+        lg.imageSmoothingEnabled = true;
+        lg.drawImage(this.canopyMaskBuf, -F, -F, mw * F, mh * F);
+        lg.imageSmoothingEnabled = false;
         lg.globalCompositeOperation = "source-over";
         lg.globalAlpha = 1;
         ctx.globalCompositeOperation = "lighter";

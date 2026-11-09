@@ -38,10 +38,11 @@
       "keepOwnDirt": true,
       "outside": "edge",
       "ground": [
-        "fp4_clearing_floor_v41_00",
-        "fp4_clearing_floor_v41_01",
-        "fp4_clearing_floor_v41_02",
-        "fp4_clearing_floor_v41_03"
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
       ],
       "threshold": 0.62,
       "noise": 0.1,
@@ -52,10 +53,11 @@
       "full": "fp4_denseedge_w47_255",
       "outside": "fill",
       "ground": [
-        "fp4_clearing_floor_v41_00",
-        "fp4_clearing_floor_v41_01",
-        "fp4_clearing_floor_v41_02",
-        "fp4_clearing_floor_v41_03"
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_1",
+        "fp8_ground_variant_2",
+        "fp8_ground_variant_0",
+        "fp8_ground_variant_6"
       ],
       "threshold": 0.64,
       "noise": 0.1,
@@ -436,7 +438,7 @@
       "fp8_lantern_post",
       "fp8_campfire_small"
     ],
-    "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores.",
+    "_canopyMaskDoc": "As luzes são mascaradas pelas copas (destination-out com o alfa da copa × canopyMask): não vazam por cima das árvores. A máscara é desenhada em 1/3 da tela e ampliada com filtro bilinear (feather de ~3 px), para o halo não ficar cortado em degrau na borda da copa.",
     "canopyMask": 0.92,
     "playerLight": {
       "color": "#ffd59a",

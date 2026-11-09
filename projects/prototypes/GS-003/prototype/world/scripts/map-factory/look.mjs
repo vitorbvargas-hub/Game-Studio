@@ -1,7 +1,7 @@
 // Map Factory — "look" de um mapa (ex. v8, profundidade do DRAKANTOS_VISUAL_STUDY.md) por cima de uma montagem.
 // A montagem do look (`<id>.<look>.build.json`, `extends` a montagem padrão) traz:
 //   look.id, look.pack/prefix (pacote do game-art), look.groundSwap (troca a lista de chão em terrenos, curvas e
-//   recortes suaves), look.render (grade de cor, luzes extras, névoa, partículas, sombras: lido pelo renderer) e
+//   recortes suaves), look.propSwaps (troca listas de props, ex. tirar uma peça que não funciona no grade do look), look.render (grade de cor, luzes extras, névoa, partículas, sombras: lido pelo renderer) e
 //   depth (passe de profundidade do gerador, ver depth.mjs). out: pasta do mapa variante (mesmo id do mapa).
 // As luzes dos props emissores vêm do campo `light` do tileset.json do pacote; o grade, do palette.json.
 
@@ -17,6 +17,8 @@ function swapLists(obj, from, to) {
   if (!obj || typeof obj !== "object") return 0;
   let n = 0;
   for (const [k, v] of Object.entries(obj)) {
+    // a própria regra de troca fica intacta (senão `from` vira `to` e o lookAliases não troca mais nada)
+    if (k === "groundSwap" || k === "propSwaps") continue;
     if (sameList(v, from)) {
       obj[k] = [...to];
       n++;
@@ -28,7 +30,7 @@ function swapLists(obj, from, to) {
 /** Aplica o look ao brief adaptado (v0.1): depth, pacote extra, troca de chão e pasta de saída. */
 export function applyLook(brief, build) {
   const look = build.look;
-  brief.look = { id: look.id, render: look.render ?? {}, groundSwap: look.groundSwap };
+  brief.look = { id: look.id, render: look.render ?? {}, groundSwap: look.groundSwap, ...(look.propSwaps ? { propSwaps: look.propSwaps } : {}) };
   if (build.depth) brief.depth = build.depth;
   if (build.out) brief.out = build.out;
   brief.pack ??= {};
@@ -36,6 +38,8 @@ export function applyLook(brief, build) {
   if (look.pack && !extra.some((e) => e.prefix === look.prefix)) extra.push({ pack: look.pack, prefix: look.prefix, root: "map-factory" });
   brief.pack.extraPacks = extra;
   if (look.groundSwap) swapLists(brief, look.groundSwap.from, look.groundSwap.to);
+  // troca de peças nas listas de props (mesmo tamanho de lista: as posições sorteadas não mudam, só a peça)
+  for (const sw of look.propSwaps ?? []) swapLists(brief, sw.from, sw.to);
   return brief;
 }
 
