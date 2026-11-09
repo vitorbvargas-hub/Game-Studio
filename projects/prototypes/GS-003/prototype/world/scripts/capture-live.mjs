@@ -5,7 +5,8 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|perf
+//   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
@@ -138,6 +139,7 @@ async function main() {
     if (process.env.ONLY === "maps") return await maps(cdp);
     if (process.env.ONLY === "factory") return await factory(cdp);
     if (process.env.ONLY === "factory-full") return await factoryFull(cdp);
+    if (process.env.ONLY === "perf") return await perf(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
     if (process.env.ONLY === "arena") return await arena(cdp);
@@ -460,6 +462,127 @@ async function factoryFull(cdp) {
     await sleep(300);
     await cdp.shot(`factory_00_mapa_inteiro_${time === "day" ? "dia" : "noite"}.png`);
   }
+}
+
+/**
+ * Medição reproduzível de frame-time (QA Digimon Forest 01, P1). Janela do tamanho do mapa (W=1792 H=1280 para
+ * 56×40 tiles), zoom 1, HUD escondido, AUTO ligado (selvagens, parceira e bots se mexendo). Três medidas por hora do
+ * dia (day/night), depois de PERF_WARMUP quadros de aquecimento:
+ *   loop     PERF_FRAMES quadros do jogo de verdade: um script injetado antes do carregamento embrulha os callbacks de
+ *            requestAnimationFrame e mede (a) o trabalho do quadro (passo da sim + render + rótulos + HUD) e (b) o
+ *            intervalo entre quadros (o que o fps médio reflete; no headless o rAF segue o relógio de ~60 Hz).
+ *   raster   o mesmo nº de chamadas síncronas a view.render() seguidas de getImageData(1×1) no canvas do mundo, que
+ *            força a rasterização (Canvas 2D em software: --disable-gpu): custo do render + raster, sem o resto do quadro.
+ * Saída: OUT/perf-<mapa>.json + .md (p50/p95/p99/média/máx em ms, fps médio e fps potencial = 1000/p50 do trabalho).
+ * Uso: OUT=../../evidence/map-factory W=1792 H=1280 CHROME_LIBS=… ONLY=perf npm run shots:live
+ */
+async function perf(cdp) {
+  const ID = process.env.PERF_MAP ?? "digimon-forest-01";
+  const N = Number(process.env.PERF_FRAMES ?? 600);
+  const WARM = Number(process.env.PERF_WARMUP ?? 120);
+  await cdp.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `(() => { const raf = window.requestAnimationFrame.bind(window);
+      const P = (window.__perf = { on: false, work: [], ts: [] });
+      window.requestAnimationFrame = (cb) => raf((t) => { const t0 = performance.now(); cb(t);
+        if (P.on) { P.work.push(performance.now() - t0); P.ts.push(t); } }); })();`,
+  });
+  const stats = (xs) => {
+    const a = [...xs].sort((p, q) => p - q);
+    const q = (f) => a[Math.min(a.length - 1, Math.max(0, Math.ceil(f * a.length) - 1))];
+    const mean = a.reduce((s2, v) => s2 + v, 0) / a.length;
+    const r3 = (v) => Math.round(v * 1000) / 1000;
+    return { n: a.length, p50: r3(q(0.5)), p95: r3(q(0.95)), p99: r3(q(0.99)), mean: r3(mean), max: r3(a[a.length - 1]), min: r3(a[0]) };
+  };
+  const browser = await cdp.send("Browser.getVersion");
+  const { cpus, totalmem, release } = await import("node:os");
+  const runs = [];
+  for (const time of ["day", "night"]) {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&zoom=1&map=${ID}${QUERY}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar");
+    await sleep(2500);
+    await cdp.eval(`document.querySelector("#hud").style.visibility = "hidden"`);
+    // aquecimento e depois N quadros do loop real
+    await cdp.eval(`new Promise((res) => { let k = 0; const f = () => (++k >= ${WARM} ? res(k) : requestAnimationFrame(f)); requestAnimationFrame(f); })`);
+    await cdp.eval(`(() => { window.__perf.work = []; window.__perf.ts = []; window.__perf.on = true; })()`);
+    await cdp.waitFor(`window.__perf.ts.length >= ${N} + 1`, 120000, `${N} quadros`);
+    const loop = await cdp.eval(`(() => { const P = window.__perf; P.on = false; return { work: P.work.slice(1, ${N} + 1), ts: P.ts.slice(0, ${N} + 1) }; })()`);
+    const intervals = loop.ts.slice(1).map((t, i) => t - loop.ts[i]);
+    // render + raster síncronos (o mesmo estado do presenter; now avança 16,67 ms por chamada)
+    const raster = await cdp.eval(`(() => { const g = window.__gs003; const cv = document.querySelector("#world"); const ctx = cv.getContext("2d");
+      const out = []; let now = performance.now();
+      for (let i = 0; i < ${WARM}; i++) { g.view.render(g.presenter, 0, (now += 16.667)); ctx.getImageData(0, 0, 1, 1); }
+      for (let i = 0; i < ${N}; i++) { const t0 = performance.now(); g.view.render(g.presenter, 0, (now += 16.667)); ctx.getImageData(0, 0, 1, 1); out.push(performance.now() - t0); }
+      return { out, canvas: [cv.width, cv.height], css: [cv.style.width, cv.style.height] }; })()`);
+    const scene = await cdp.eval(`(() => { const g = window.__gs003; const ents = [...g.presenter.entities.values()];
+      return { mapa: g.mapId, tiles: [g.sim.map.width, g.sim.map.height], props: g.sim.map.props.length, entidades: ents.length,
+               selvagens: ents.filter((v) => v.kind === "wild").length, jogadores: ents.filter((v) => v.kind === "remote_player").length }; })()`);
+    const work = stats(loop.work);
+    const iv = stats(intervals);
+    const rs = stats(raster.out);
+    runs.push({
+      time,
+      scene: { ...scene, canvasPx: raster.canvas },
+      loopWorkMs: work,
+      loopIntervalMs: iv,
+      fpsAvg: Math.round((1000 / iv.mean) * 10) / 10,
+      fpsPotentialFromWorkP50: Math.round((1000 / work.p50) * 10) / 10,
+      renderRasterMs: rs,
+      framesOver16_7ms: { loopWork: loop.work.filter((v) => v > 16.667).length, renderRaster: raster.out.filter((v) => v > 16.667).length },
+    });
+    console.log(`perf ${time}: trabalho p50 ${work.p50} p95 ${work.p95} p99 ${work.p99} ms · intervalo médio ${iv.mean} ms (${runs.at(-1).fpsAvg} fps) · render+raster p50 ${rs.p50} p95 ${rs.p95} p99 ${rs.p99} ms`);
+  }
+  const res = {
+    map: ID,
+    date: new Date().toISOString(),
+    method: {
+      headless: true,
+      note: "Ambiente headless (chrome-headless-shell, --disable-gpu: Canvas 2D rasterizado em software, sem vsync de monitor real). Não é medição de dispositivo de jogador; serve para comparar versões do mapa/renderer na mesma máquina.",
+      window: [W, H],
+      zoom: 1,
+      hudHidden: true,
+      seed: SEED,
+      auto: true,
+      warmupFrames: WARM,
+      frames: N,
+      loop: "wrapper em requestAnimationFrame injetado antes do carregamento (Page.addScriptToEvaluateOnNewDocument): work = duração do callback do quadro (sim + render + rótulos + HUD); interval = diferença entre timestamps do rAF",
+      renderRaster: "N chamadas síncronas de view.render(presenter, 0, now) + getImageData(0,0,1,1) no #world (força a rasterização)",
+      command: "OUT=../../evidence/map-factory W=1792 H=1280 CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu ONLY=perf npm run shots:live",
+    },
+    environment: { browser: browser.product, userAgent: browser.userAgent, cpu: cpus()[0]?.model, cores: cpus().length, memGB: Math.round(totalmem() / 2 ** 30), kernel: release(), node: process.version },
+    runs,
+  };
+  writeFileSync(join(OUT, `perf-${ID}.json`), JSON.stringify(res, null, 2) + "\n");
+  const row = (label, s2) => `| ${label} | ${s2.p50} | ${s2.p95} | ${s2.p99} | ${s2.mean} | ${s2.max} |`;
+  const md = [
+    `# Performance — ${ID} (frame-time, ambiente headless)`,
+    "",
+    `- **Data:** ${res.date} · **Gerado por:** \`scripts/capture-live.mjs\` (\`ONLY=perf\`)`,
+    `- **Comando:** \`${res.method.command}\``,
+    `- **Ambiente:** ${res.environment.browser}, ${res.environment.cpu} (${res.environment.cores} núcleos), ${res.environment.memGB} GB, kernel ${res.environment.kernel}, Node ${res.environment.node}`,
+    "",
+    "> **Headless.** Chromium headless (`chrome-headless-shell`) com `--disable-gpu`: o Canvas 2D é rasterizado em software e o rAF segue um relógio de ~60 Hz, não o vsync de um monitor. Os números servem para comparar versões do mapa/renderer nesta máquina, não como garantia de fps no dispositivo do jogador.",
+    "",
+    "## Método",
+    "",
+    `- Mapa inteiro na tela: janela ${W}×${H}, zoom 1, HUD escondido, semente ${SEED}, AUTO ligado (selvagens, parceira e bots em movimento).`,
+    `- ${WARM} quadros de aquecimento, depois **${N} quadros** medidos, de dia e de noite (grade noturno + luzes).`,
+    `- **Trabalho do quadro (loop real):** ${res.method.loop}.`,
+    `- **Render + raster:** ${res.method.renderRaster}.`,
+    "- Percentis por posto mais próximo sobre as N amostras; fps médio = 1000 / intervalo médio; fps potencial = 1000 / p50 do trabalho.",
+    "",
+    "## Resultado (ms)",
+    "",
+    "| Medida | p50 | p95 | p99 | média | máx |",
+    "|---|---|---|---|---|---|",
+    ...runs.flatMap((r) => [row(`${r.time}: trabalho do quadro`, r.loopWorkMs), row(`${r.time}: intervalo entre quadros`, r.loopIntervalMs), row(`${r.time}: render + raster`, r.renderRasterMs)]),
+    "",
+    "| Hora | fps médio | fps potencial (p50 trabalho) | quadros > 16,7 ms (trabalho / render+raster) | cena |",
+    "|---|---|---|---|---|",
+    ...runs.map((r) => `| ${r.time} | ${r.fpsAvg} | ${r.fpsPotentialFromWorkP50} | ${r.framesOver16_7ms.loopWork} / ${r.framesOver16_7ms.renderRaster} | ${r.scene.tiles.join("×")} tiles, ${r.scene.props} props, ${r.scene.entidades} entidades (${r.scene.selvagens} selvagens), canvas ${r.scene.canvasPx.join("×")} |`),
+    "",
+  ].join("\n");
+  writeFileSync(join(OUT, `perf-${ID}.md`), md);
+  console.log("ok", `perf-${ID}.json`, `perf-${ID}.md`);
 }
 
 async function maps(cdp) {

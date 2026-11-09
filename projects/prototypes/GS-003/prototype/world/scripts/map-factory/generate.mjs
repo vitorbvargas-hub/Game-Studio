@@ -3,6 +3,10 @@
 // Catmull-Rom com meandro e largura variável + limpeza de borda, autotile Wang-47 (8 vizinhos) ou blob-16 (4),
 // props por grade escalonada / manchas / dispersão / borda, e os objetos de jogo (inícios, spawns, NPCs, POIs,
 // arena de chefe, portais, colisão, triggers). Determinístico: mesma semente → mesmo mapa. Puro: sem fs.
+// Orgânico (opt-in pelo brief): riacho em spline com meandro, largura variável e margem irregular (shape "river"),
+// pontes automáticas no trecho reto (bridges[].auto), clareiras com baías na borda (area.organic) e borda da mata
+// ao longo das trilhas com largura variável (brief.organic.borderJitter). Tudo isso usa RNGs próprios (semente do
+// brief + nome), então mapas sem esses campos saem idênticos aos de antes.
 
 import { buildTmj } from "./tiled.mjs";
 
@@ -23,6 +27,62 @@ export const catmull = (p0, p1, p2, p3, t) => {
   const t3 = t2 * t;
   return [0, 1].map((i) => 0.5 * (2 * p1[i] + (-p0[i] + p2[i]) * t + (2 * p0[i] - 5 * p1[i] + 4 * p2[i] - p3[i]) * t2 + (-p0[i] + 3 * p1[i] - 3 * p2[i] + p3[i]) * t3));
 };
+
+/** FNV-1a de 32 bits (semente de um RNG próprio por elemento: não consome o RNG principal). */
+export function strHash(s) {
+  let h = 0x811c9dc5;
+  for (const ch of String(s)) h = Math.imul(h ^ ch.charCodeAt(0), 0x01000193) >>> 0;
+  return h;
+}
+
+/** Ruído suave em [0,1] por célula (soma de senos com fases da semente): manchas contínuas, não chuvisco. */
+export function smoothNoise(seed) {
+  const r = mulberry(seed);
+  const p = Array.from({ length: 6 }, () => r() * Math.PI * 2);
+  return (x, y) => 0.5 + 0.2 * Math.sin(x * 0.53 + p[0]) * Math.cos(y * 0.47 + p[1]) + 0.15 * Math.sin((x + y) * 0.31 + p[2]) + 0.15 * Math.sin((x - y) * 0.71 + p[3]) * Math.sin(y * 0.29 + p[4]);
+}
+
+/**
+ * Riacho: spline Catmull-Rom pelos pontos [x, y, meiaLargura, fixo(0..1)] (tiles). A meia-largura é interpolada
+ * entre os pontos e ganha ruído (noise, em tiles) onde fixo = 0; onde fixo = 1 a largura é exata (trecho reto da
+ * ponte). A margem (bank) é um anel de largura variável [bankWidth] por lado. Pontos podem sair do mapa.
+ */
+export function paintRiver(water, bank, points, { W, H, noise = 0.3, bankWidth = [0.4, 1.4], seed = 1 }) {
+  const inside = (x, y) => x >= 0 && y >= 0 && x < W && y < H;
+  const r = mulberry(seed);
+  const ph = Array.from({ length: 5 }, () => r() * Math.PI * 2);
+  const pts = [points[0], ...points, points[points.length - 1]];
+  const lerp = (a, b, t) => a + (b - a) * t;
+  let dist = 0;
+  let prev;
+  for (let i = 1; i < pts.length - 2; i++) {
+    const n = Math.max(1, Math.ceil(Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) * 10));
+    for (let k = 0; k <= n; k++) {
+      const t = k / n;
+      const [cx, cy] = catmull(pts[i - 1], pts[i], pts[i + 1], pts[i + 2], t);
+      if (prev) dist += Math.hypot(cx - prev[0], cy - prev[1]);
+      prev = [cx, cy];
+      const [nx2, ny2] = catmull(pts[i - 1], pts[i], pts[i + 1], pts[i + 2], Math.min(1, t + 0.01));
+      const tl = Math.hypot(nx2 - cx, ny2 - cy) || 1;
+      const tx = (nx2 - cx) / tl;
+      const ty = (ny2 - cy) / tl;
+      const free = 1 - lerp(pts[i][3] ?? 0, pts[i + 1][3] ?? 0, t);
+      const hw = lerp(pts[i][2], pts[i + 1][2], t) + free * noise * (0.6 * Math.sin(dist * 0.83 + ph[0]) + 0.4 * Math.sin(dist * 1.91 + ph[1]));
+      // margem: um lado e o outro variam com fases diferentes (a mata não espelha nas duas margens)
+      const bw = (side) => bankWidth[0] + (bankWidth[1] - bankWidth[0]) * (0.5 + 0.5 * Math.sin(dist * 0.47 + ph[side ? 2 : 3]) * (0.7 + 0.3 * Math.sin(dist * 1.3 + ph[4])));
+      const reach = Math.ceil(hw + bankWidth[1]) + 1;
+      for (let y = Math.floor(cy - reach); y <= Math.floor(cy + reach); y++)
+        for (let x = Math.floor(cx - reach); x <= Math.floor(cx + reach); x++) {
+          if (!inside(x, y)) continue;
+          const dx = x + 0.5 - cx;
+          const dy = y + 0.5 - cy;
+          const d = Math.hypot(dx, dy);
+          if (d <= hw) water.add(y * W + x);
+          else if (d <= hw + bw(tx * dy - ty * dx > 0)) bank.add(y * W + x);
+        }
+    }
+  }
+}
 
 /** Máscara de autotile: w47 = 8 vizinhos com diagonal normalizada (N1 E2 S4 W8 NE16 SE32 SW64 NW128); blob16 = 4. */
 export function autotileMask(same, x, y, mode) {
@@ -134,17 +194,39 @@ export function generateFromBrief(b) {
 
   // ---- terreno ----
   const kind = new Array(W * H).fill(b.base);
+  const seed0 = (b.seed ?? 1) >>> 0;
   // áreas com afterPaths (água) são pintadas depois das trilhas: a trilha não atravessa a água (só a ponte)
+  const rivers = [];
   const paintArea = (a) => {
     if (a.shape === "rect")
       for (let y = Math.max(0, a.y); y < Math.min(H, a.y + a.h); y++) for (let x = Math.max(0, a.x); x < Math.min(W, a.x + a.w); x++) kind[at(x, y)] = a.terrain;
-    else {
-      // elipse com borda irregular (o raio oscila com o ângulo), como as clareiras do forest-proof
+    else if (a.shape === "river") {
+      // riacho em spline: água + margem (só sobre o terreno base: não apaga trilha nem clareira)
+      const ws = new Set();
+      const bs = new Set();
+      paintRiver(ws, bs, a.points, { W, H, noise: a.noise, bankWidth: a.bankWidth, seed: seed0 ^ strHash(a.name ?? "river") });
+      if (a.clean !== false) cleanPath(ws, new Set(), W, H);
+      if (a.bank) for (const i of bs) if (kind[i] === b.base && !ws.has(i)) kind[i] = a.bank;
+      for (const i of ws) kind[i] = a.terrain;
+      rivers.push({ name: a.name, cells: ws.size });
+    } else {
+      // elipse com borda irregular (o raio oscila com o ângulo), como as clareiras do forest-proof; organic: fases
+      // próprias, um 3º harmônico e baías (bumps só para fora: nada da zona do brief vira mata)
       const wob = a.wobble ?? 0.12;
+      let ph = [a.cx, a.cy, 0];
+      let nooks = [];
+      if (a.organic) {
+        const r = mulberry(seed0 ^ strHash(a.name ?? `${a.cx},${a.cy}`));
+        ph = [r() * 6.283, r() * 6.283, r() * 6.283];
+        nooks = Array.from({ length: a.organic.nooks ?? 3 }, () => [r() * 6.283 - Math.PI, (a.organic.amp ?? 0.22) * (0.55 + 0.45 * r()), 0.2 + 0.25 * r()]);
+      }
+      const angDiff = (p, q) => Math.atan2(Math.sin(p - q), Math.cos(p - q));
       for (let y = 0; y < H; y++)
         for (let x = 0; x < W; x++) {
           const ang = Math.atan2(y - a.cy, x - a.cx);
-          const f = 1 + wob * Math.sin(ang * 3 + a.cx) + wob * 0.58 * Math.sin(ang * 7 + a.cy);
+          let f = 1 + wob * Math.sin(ang * 3 + ph[0]) + wob * 0.58 * Math.sin(ang * 7 + ph[1]);
+          if (a.organic) f += wob * 0.35 * Math.sin(ang * 11 + ph[2]);
+          for (const [na, amp, wd] of nooks) f += amp * Math.exp(-((angDiff(ang, na) / wd) ** 2));
           if (((x - a.cx) / (a.rx * f)) ** 2 + ((y - a.cy) / (a.ry * f)) ** 2 < 1) kind[at(x, y)] = a.terrain;
         }
     }
@@ -163,20 +245,46 @@ export function generateFromBrief(b) {
     if (b.terrains[terrain].cleanEdges !== false) cleanPath(set, set.ends, W, H);
     // ao longo da trilha, o terreno base recua (dá para andar ao lado dela)
     const border = b.terrains[terrain].border;
+    // organic.borderJitter: onde o ruído suave passa do limiar a mata recua 2 tiles em vez de 1 (borda irregular)
+    const jit = b.organic?.borderJitter ?? 0;
+    const bn = jit > 0 ? smoothNoise(seed0 ^ strHash(`border:${terrain}`)) : null;
     if (border)
       for (const i of set) {
         const x = i % W;
         const y = Math.floor(i / W);
-        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (inside(x + dx, y + dy) && kind[at(x + dx, y + dy)] === b.base) kind[at(x + dx, y + dy)] = border;
+        const r = bn && bn(x, y) > 1 - jit ? 2 : 1;
+        for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (inside(x + dx, y + dy) && kind[at(x + dx, y + dy)] === b.base) kind[at(x + dx, y + dy)] = border;
       }
     for (const i of set) kind[i] = terrain;
   }
   for (const a of b.areas ?? []) if (a.afterPaths) paintArea(a);
   // pontes: células andáveis por cima de um terreno sólido (água); o chão mantém a chave do terreno (autotile
   // intacto) com solid=false e a arte da ponte vai na camada ground_detail
+  // auto: a ponte cobre a faixa contínua de água da linha (h) / coluna (v) que passa pelo ponto de travessia
+  const bridges = (b.bridges ?? []).map((br) => {
+    if (!br.auto) return br;
+    const over = br.over ?? "water";
+    const h = (br.axis ?? "h") === "h";
+    const n = h ? W : H;
+    const isW = (i) => (h ? inside(i, br.y) && kind[at(i, br.y)] === over : inside(br.x, i) && kind[at(br.x, i)] === over);
+    let c = h ? br.x : br.y;
+    if (!isW(c)) {
+      const near = Array.from({ length: n }, (_, i) => i).filter(isW).sort((p, q) => Math.abs(p - c) - Math.abs(q - c))[0];
+      if (near === undefined) throw new Error(`brief inválido: ponte '${br.name}' sem ${over} na ${h ? "linha" : "coluna"} ${h ? br.y : br.x}`);
+      c = near;
+    }
+    let i0 = c;
+    let i1 = c;
+    while (isW(i0 - 1)) i0--;
+    while (isW(i1 + 1)) i1++;
+    const len = i1 - i0 + 1;
+    const set = br.set ?? [];
+    const det = Array.from({ length: len }, (_, i) => (i === 0 ? set[0] : i === len - 1 ? set[2] : set[1]));
+    return h ? { name: br.name, x: i0, y: br.y, w: len, h: 1, detail: det } : { name: br.name, x: br.x, y: i0, w: 1, h: len, detail: det };
+  });
   const walkable = new Set();
   const detail = new Array(W * H).fill("");
-  for (const br of b.bridges ?? []) {
+  for (const br of bridges) {
     let k = 0;
     for (let y = br.y; y < br.y + br.h; y++)
       for (let x = br.x; x < br.x + br.w; x++, k++) {
@@ -238,7 +346,7 @@ export function generateFromBrief(b) {
   for (const p of b.portals ?? []) reserve(p.x - 1, p.y - 1, p.x + p.w, p.y + p.h);
   for (const p of b.pois ?? []) reserve(p.x - 1, p.y - 1, p.x + (p.w ?? 1), p.y + (p.h ?? 1));
   for (const r of b.keepClear ?? []) reserve(r.x, r.y, r.x + r.w - 1, r.y + r.h - 1);
-  for (const br of b.bridges ?? []) reserve(br.x - 1, br.y - 1, br.x + br.w, br.y + br.h);
+  for (const br of bridges) reserve(br.x - 1, br.y - 1, br.x + br.w, br.y + br.h);
   if (b.bossArena) reserve(b.bossArena.x, b.bossArena.y, b.bossArena.x + b.bossArena.w - 1, b.bossArena.y + b.bossArena.h - 1);
   const pathAt = (x, y) => [...pathCells.values()].some((s) => s.has(at(x, y)));
 
@@ -251,7 +359,8 @@ export function generateFromBrief(b) {
     const ty = Math.floor((py - 1) / T);
     // force: props de objetos de jogo (baú, placa, cura) entram na célula reservada do próprio POI
     if (!inside(tx, ty) || (keep.has(at(tx, ty)) && !extra.force)) return false;
-    if (solid && (usedSolid.has(at(tx, ty)) || (extra.avoidPath !== false && pathAt(tx, ty)))) return false;
+    // um prop de POI (force) nunca é descartado por cair na trilha: o objeto de jogo existe; o gate reach confere o caminho
+    if (solid && (usedSolid.has(at(tx, ty)) || (!extra.force && extra.avoidPath !== false && pathAt(tx, ty)))) return false;
     if (solid) usedSolid.add(at(tx, ty));
     props.push({
       id: oid++, name: key, type: "prop", x: Math.round(px), y: Math.round(py), point: true,
@@ -357,7 +466,17 @@ export function generateFromBrief(b) {
     properties: { ...(b.properties ?? {}), mapProfile: profile, brief: b.id, generator: "gen-map-from-brief" },
   });
   const count = (t) => kind.filter((k) => k === t).length;
-  return { tmj, stats: { size: `${W}x${H}`, props: props.length, terrain: Object.fromEntries(Object.keys(b.terrains).map((t) => [t, count(t)])), tiles: TILES.length } };
+  return {
+    tmj,
+    stats: {
+      size: `${W}x${H}`,
+      props: props.length,
+      terrain: Object.fromEntries(Object.keys(b.terrains).map((t) => [t, count(t)])),
+      tiles: TILES.length,
+      bridges: bridges.map(({ name, x, y, w, h }) => ({ name, x, y, w, h })),
+      rivers,
+    },
+  };
 }
 
 /** Aliases do mapa (<id>.aliases.json): base copiada de outro mapa + pack/prefix/night do brief + _doc. */

@@ -37,9 +37,10 @@ if (isDesignBrief(brief)) {
   const kitPath = kitArg.endsWith(".json") ? resolve(process.cwd(), kitArg) : join(WORLD_DIR, "scripts/map-factory/kits", `${kitArg}.kit.json`);
   const defBuild = join(WORLD_DIR, "scripts/map-factory/briefs", `${brief.id}.build.json`);
   const buildPath = buildArg ? resolve(process.cwd(), buildArg) : existsSync(defBuild) ? defBuild : null;
-  const { brief: adapted, report } = adaptDesignBrief(brief, readJson(kitPath), buildPath ? readJson(buildPath) : {});
+  const { brief: adapted, report, warnings } = adaptDesignBrief(brief, readJson(kitPath), buildPath ? readJson(buildPath) : {});
   console.log(`brief do game-design '${brief.id}' → v0.1 (kit ${kitArg}${buildPath ? `, montagem ${buildPath.replace(WORLD_DIR + "/", "")}` : ""})`);
-  for (const r of report) console.log(`   · ${r}`);
+  for (const r of report) if (!warnings.includes(r)) console.log(`   · ${r}`);
+  for (const w of warnings) console.warn(`   ⚠ ${w}`);
   const adaptedDir = join(WORLD_DIR, "scripts/map-factory/briefs/adapted");
   mkdirSync(adaptedDir, { recursive: true });
   writeFileSync(join(adaptedDir, `${brief.id}.brief.json`), JSON.stringify(adapted, null, 2) + "\n");
@@ -59,6 +60,7 @@ mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, `${brief.id}.tmj.json`), JSON.stringify(tmj) + "\n");
 writeFileSync(join(outDir, `${brief.id}.aliases.json`), JSON.stringify(aliases, null, 2) + "\n");
 console.log(`ok: ${join(outDir, `${brief.id}.tmj.json`).replace(WORLD_DIR + "/", "")} (${stats.size}, ${stats.props} props, ${stats.tiles} tiles; terreno ${Object.entries(stats.terrain).map(([k, v]) => `${k} ${v}`).join(", ")})`);
+for (const br of stats.bridges) console.log(`   ponte '${br.name}': ${br.w}×${br.h} em (${br.x},${br.y})`);
 
 if (!noValidate) {
   const maps = loadMaps([MAPS_DIR, outDir]);

@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-09T16:39:36.754Z",
+  "date": "2026-11-09T17:09:28.125Z",
   "map": "digimon-forest-01",
   "profile": "factory-v1",
   "ok": true,
@@ -27,7 +27,7 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "83 chaves verificadas"
+        "93 chaves verificadas"
       ]
     },
     {
@@ -46,9 +46,7 @@
       "status": "pass",
       "errors": [],
       "warnings": [
-        "spawn 'spawn-tsunomon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
-        "spawn 'spawn-tanemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
-        "spawn 'spawn-dorumon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)"
+        "spawn 'spawn-tanemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)"
       ],
       "info": []
     },
@@ -59,9 +57,9 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "ground/fp4_denseedge_w47: 1407 tiles w47, borda 'in'",
-        "ground/fp6_water_blob: 56 tiles blob16, borda 'in'",
-        "ground/fp4_path_w47: 146 tiles w47, borda 'in'"
+        "ground/fp4_denseedge_w47: 1276 tiles w47, borda 'in'",
+        "ground/fp6_water_blob: 58 tiles blob16, borda 'in'",
+        "ground/fp4_path_w47: 157 tiles w47, borda 'in'"
       ]
     },
     {
@@ -85,9 +83,9 @@
     "size": "56x40",
     "tileSize": 32,
     "tileLayers": 2,
-    "objects": 938,
+    "objects": 874,
     "byClass": {
-      "prop": 916,
+      "prop": 852,
       "start": 2,
       "spawn": 8,
       "npc": 1,
@@ -96,8 +94,8 @@
       "poi": 8,
       "boss_arena": 1
     },
-    "solidPct": 59.2,
-    "reachablePctOfFree": 98
+    "solidPct": 53.7,
+    "reachablePctOfFree": 99.6
   },
   "file": "src/data/maps/digimon-forest-01.tmj.json"
 }

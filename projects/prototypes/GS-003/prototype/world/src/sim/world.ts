@@ -6,7 +6,7 @@ import { computeDamage, computeHeal, enemyXp, statsAtLevel, xpToNext } from "@ga
 import { nextFloat, nextInt } from "@game/src/sim/rng";
 import { isTamer, setState } from "./fsm";
 import { autoEvolveTarget, manualEvolveTarget, statusesOf } from "./evolution";
-import { isSolidAt, type SpawnZone, type WorldMap } from "./map";
+import { isReachableAt, isSolidAt, reachableCellsOf, type SpawnZone, type WorldMap } from "./map";
 import {
   castReach,
   chooseMove,
@@ -166,13 +166,22 @@ function spawnWild(ctx: Ctx, z: SpawnZone, zoneIndex: number): void {
   const { w, map } = ctx;
   const speciesId = z.species[nextInt(w.rng, 0, z.species.length - 1)];
   const level = nextInt(w.rng, z.levelMin, z.levelMax);
-  let pos = z.center;
+  // só células livres E alcançáveis a partir dos inícios (BFS do carregamento do mapa): nada de bolsão entre árvores
+  let pos: { x: number; y: number } | undefined;
   for (let i = 0; i < 12; i++) {
     const p = { x: z.center.x + nextInt(w.rng, -z.radius, z.radius), y: z.center.y + nextInt(w.rng, -z.radius, z.radius) };
-    if (!isSolidAt(map, p.x, p.y)) {
+    if (isReachableAt(map, p.x, p.y)) {
       pos = p;
       break;
     }
+  }
+  if (!pos) {
+    // 12 tentativas sem sorte: sorteia direto entre as células alcançáveis da zona (centro só se não houver nenhuma)
+    const cells = reachableCellsOf(map, z);
+    if (cells.length) {
+      const c = cells[nextInt(w.rng, 0, cells.length - 1)];
+      pos = { x: (c % map.width) * SUB + SUB / 2, y: Math.floor(c / map.width) * SUB + SUB / 2 };
+    } else pos = z.center;
   }
   const e = makeCreature(ctx, `wild-${++w.idSeq}`, "wild", speciesId, level, pos);
   e.speed = WORLD.wildSpeed;

@@ -63,3 +63,25 @@ Log da sessão de captura: NPC, placa, baú (+50 bits), cura, placa secreta e ar
 - **Diálogo do NPC** é o placeholder do brief. O loot do baú (50 bits) é placeholder do game-dev.
 - **forest-v6 sem noite e sem Wang-47:** a água é blob-16; à noite usa o PNG do dia.
 - **60 fps:** o contador do HUD mostrou 52–60 fps nas capturas headless; não é medição formal.
+
+## Correções do QA (QA_DIGIMON_FOREST_01) — v2
+
+Comandos novos (dentro de `prototype/world/`):
+
+```
+npm run map:brief -- ../../world-design/briefs/digimon-forest-01.json   # agora com riacho/trilhas orgânicos e ⚠ de raio recortado
+OUT=$(cd ../../evidence/map-factory && pwd) W=1792 H=1280 CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu ONLY=perf npm run shots:live
+```
+
+- **P1 spawn alcançável:** `parseTiledMap` pré-computa `map.reachable` (BFS 4-vizinhos a partir de todos os inícios); `spawnWild` só aceita célula alcançável e, se as 12 tentativas falharem, sorteia entre as células alcançáveis da zona. Teste: `tests/spawn-reach.test.ts` (bolsão murado no centro da zona, 40 sementes).
+- **P1 performance:** `perf-digimon-forest-01.json` + `.md` (método completo no `.md`). **Ambiente headless** (chrome-headless-shell, `--disable-gpu`, raster em software), 600 quadros após 120 de aquecimento, mapa inteiro em zoom 1:
+
+| Hora | trabalho do quadro p50/p95/p99 (ms) | intervalo p50/p95/p99 (ms) | fps médio | render+raster p50/p95/p99 (ms) |
+|---|---|---|---|---|
+| day | 4 / 5.6 / 6.6 | 16.7 / 33.4 / 33.4 | 40.4 | 15.9 / 20 / 24.8 |
+| night | 5.8 / 7.7 / 9.4 | 33.3 / 33.4 / 33.5 | 38.4 | 17.9 / 20.4 / 23.2 |
+
+- **P2 bioma:** zona de água comprida vira riacho em spline (meandro, largura variável, margem irregular, ponta afinada, encostado na borda norte); trecho reto com a largura da zona em volta da ponte (a ponte mede a faixa de água real); trilhas com meandro (âncoras = waypoints do brief, trechos perto da água ficam retos); clareiras com baías; borda da mata ao longo das trilhas recua 1–2 tiles. `organic: false` no `.build.json` volta ao traçado reto.
+- **P2 raio recortado:** `adapt-brief.mjs` devolve `warnings` e o `map:brief` imprime `⚠ AVISO spawn …` (6 spawns do piloto).
+- **Capturas antes/depois:** `factory_00_mapa_inteiro_{dia,noite}.png` → `_v2.png`; `factory_06_riacho_ponte`, `factory_07_riacho_sobre_a_ponte`, `factory_11_riacho_noite` → `_v2.png`; `previews/digimon-forest-01{,_art}_v2.png`. As demais `factory_*.png` foram refeitas no lugar com o mapa v2.
+- **Limitação visual:** a água do forest-v6 é blob-16 sem peças diagonais, então de perto a margem do riacho fica em degraus de 1 tile; a curva aparece na escala do mapa, não no contorno do tile.

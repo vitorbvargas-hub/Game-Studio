@@ -124,6 +124,11 @@ export interface WorldMap {
   npcs?: MapNpc[];
   interactables?: MapInteractable[];
   arenas?: MapArena[];
+  /**
+   * Células (1 = sim) alcançáveis andando (4 vizinhos, colisão) a partir dos inícios do mapa. Calculado no
+   * carregamento (parseTiledMap); mapas montados em código ganham o cálculo na primeira consulta (reachableOf).
+   */
+  reachable?: Uint8Array;
 }
 
 const INTERACTIVE_KINDS = new Set(["chest", "sign", "heal_point"]);
@@ -221,7 +226,71 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
       }
     }
   }
-  return { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas };
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas };
+  map.reachable = computeReachable(map);
+  return map;
+}
+
+/**
+ * BFS na grade de colisão a partir de todos os inícios do mapa (player, from_<mapa>...: toda entrada do Tamer).
+ * Sem início, conta toda célula livre (comportamento antigo).
+ */
+export function computeReachable(map: WorldMap): Uint8Array {
+  const { width: W, height: H, solid } = map;
+  const out = new Uint8Array(W * H);
+  const q: number[] = [];
+  for (const s of Object.values(map.starts)) {
+    const tx = Math.floor(s.x / SUB);
+    const ty = Math.floor(s.y / SUB);
+    if (tx < 0 || ty < 0 || tx >= W || ty >= H || solid[ty * W + tx] || out[ty * W + tx]) continue;
+    out[ty * W + tx] = 1;
+    q.push(ty * W + tx);
+  }
+  if (!q.length) {
+    for (let i = 0; i < W * H; i++) out[i] = solid[i] ? 0 : 1;
+    return out;
+  }
+  for (let h = 0; h < q.length; h++) {
+    const x = q[h] % W;
+    const y = (q[h] - x) / W;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      const j = ny * W + nx;
+      if (solid[j] || out[j]) continue;
+      out[j] = 1;
+      q.push(j);
+    }
+  }
+  return out;
+}
+
+/** Alcance pré-computado do mapa (calcula e guarda na primeira consulta se o mapa não veio do parser). */
+export function reachableOf(map: WorldMap): Uint8Array {
+  if (!map.reachable || map.reachable.length !== map.width * map.height) map.reachable = computeReachable(map);
+  return map.reachable;
+}
+
+/** Ponto (sub-tiles) numa célula livre e alcançável a partir dos inícios. */
+export function isReachableAt(map: WorldMap, x: number, y: number): boolean {
+  const tx = Math.floor(x / SUB);
+  const ty = Math.floor(y / SUB);
+  if (tx < 0 || ty < 0 || tx >= map.width || ty >= map.height) return false;
+  const i = ty * map.width + tx;
+  return reachableOf(map)[i] === 1 && map.solid[i] === 0;
+}
+
+/** Células (índices) livres e alcançáveis dentro do quadrado de sorteio de uma zona de spawn. */
+export function reachableCellsOf(map: WorldMap, z: SpawnZone): number[] {
+  const r = reachableOf(map);
+  const x0 = Math.max(0, Math.floor((z.center.x - z.radius) / SUB));
+  const y0 = Math.max(0, Math.floor((z.center.y - z.radius) / SUB));
+  const x1 = Math.min(map.width - 1, Math.floor((z.center.x + z.radius) / SUB));
+  const y1 = Math.min(map.height - 1, Math.floor((z.center.y + z.radius) / SUB));
+  const out: number[] = [];
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (r[y * map.width + x] && !map.solid[y * map.width + x]) out.push(y * map.width + x);
+  return out;
 }
 
 /** Sólido no ponto (sub-tiles). Fora do mapa conta como sólido. */

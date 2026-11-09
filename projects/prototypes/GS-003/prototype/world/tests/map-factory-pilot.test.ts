@@ -153,3 +153,54 @@ describe("Map Factory fase 2: piloto digimon-forest-01 no jogo", () => {
     expect(wild && wild.t === "spawn" ? wild.entity.speciesId : undefined).toMatch(/^CREATURE-000[258]$/);
   });
 });
+
+// QA Digimon Forest 01, P2: identidade do bioma (riacho em spline, trilhas com meandro, borda da mata irregular)
+// e o aviso quando o raio de spawn é recortado pela zona.
+describe("Map Factory: bioma orgânico e avisos do adaptador (QA P2)", () => {
+  const ground = map.tileLayers.find((l) => l.name === "ground")!;
+  const water = (x: number, y: number) => map.solid[y * map.width + x] === 1 && /water/.test(ground.keys[y * map.width + x] ?? "");
+  const waterRow = (y: number) => {
+    const xs: number[] = [];
+    for (let x = 18; x < 40; x++) if (water(x, y)) xs.push(x);
+    return xs;
+  };
+
+  it("o riacho não é retângulo: a margem e a largura variam, ele afina na ponta e encosta na borda norte", () => {
+    const { brief } = adaptDesignBrief(pilotBrief, kit, pilotBuild);
+    const river = brief.areas.find((a: { shape: string }) => a.shape === "river");
+    expect(river, "zona de água comprida vira riacho em spline").toBeTruthy();
+    const { stats } = generateFromBrief(brief);
+    expect(stats.rivers[0].cells).toBeGreaterThan(40);
+    const rows = Array.from({ length: 16 }, (_, y) => waterRow(y)).filter((r) => r.length);
+    expect(new Set(rows.map((r) => r[0])).size, "margem oeste em mais de 2 colunas").toBeGreaterThanOrEqual(3);
+    expect(new Set(rows.map((r) => r.length)).size, "largura variável").toBeGreaterThanOrEqual(2);
+    expect(waterRow(0).length, "chega na borda norte do mapa").toBeGreaterThan(0);
+  });
+
+  it("a ponte atravessa um trecho reto: a faixa de água nas linhas vizinhas tem a largura e a posição da ponte", () => {
+    const { brief } = adaptDesignBrief(pilotBrief, kit, pilotBuild);
+    const { stats } = generateFromBrief(brief);
+    const br = stats.bridges[0];
+    expect(br).toMatchObject({ x: 26, y: 9, w: 4, h: 1 });
+    for (const y of [br.y - 1, br.y + 1]) expect(waterRow(y), `linha ${y}`).toEqual([26, 27, 28, 29]);
+  });
+
+  it("trilhas meandram (pontos fora dos waypoints) e o mirante na zona do riacho fica em terra e alcançável", () => {
+    const { brief, report } = adaptDesignBrief(pilotBrief, kit, pilotBuild);
+    // só as rotas do brief (o acesso curto da saída, 2–3 tiles, é reto de propósito)
+    for (const p of brief.paths.filter((q: { name: string }) => pilotBrief.routes.some((r: { id: string }) => r.id === q.name))) {
+      const off = p.points.filter(([x, y]: number[]) => x % 1 !== 0.5 || y % 1 !== 0.5);
+      expect(off.length, `rota ${p.name}`).toBeGreaterThan(0);
+    }
+    expect(report.some((r) => r.includes("poi-mirante-clareira") && r.includes("em terra"))).toBe(true);
+    expect(isSolidAt(map, 28 * SUB + 8, 15 * SUB + 8)).toBe(false);
+  });
+
+  it("raio de spawn recortado pela zona gera aviso (warnings) e o traçado reto da fase 2 continua disponível (organic: false)", () => {
+    const { warnings } = adaptDesignBrief(pilotBrief, kit, pilotBuild);
+    expect(warnings.some((w) => /spawn 'spawn-palmon': radiusTiles 8 recortado/.test(w))).toBe(true);
+    const flat = adaptDesignBrief(pilotBrief, kit, { ...pilotBuild, organic: false }).brief;
+    expect(flat.areas.some((a: { shape: string }) => a.shape === "river")).toBe(false);
+    expect(flat.areas.some((a: { shape: string; terrain: string }) => a.shape === "rect" && a.terrain === "water")).toBe(true);
+  });
+});
