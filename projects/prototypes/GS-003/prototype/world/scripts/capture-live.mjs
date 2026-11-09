@@ -136,6 +136,8 @@ async function main() {
     if (process.env.ONLY === "v41") return await forestV41(cdp);
     if (process.env.ONLY === "offline") return await offline(cdp);
     if (process.env.ONLY === "maps") return await maps(cdp);
+    if (process.env.ONLY === "factory") return await factory(cdp);
+    if (process.env.ONLY === "factory-full") return await factoryFull(cdp);
     if (process.env.ONLY === "screens") return await screens(cdp);
     if (process.env.ONLY === "evolve") return await evolveChoice(cdp);
     if (process.env.ONLY === "arena") return await arena(cdp);
@@ -352,6 +354,114 @@ async function screens(cdp) {
  * Troca de mapa: Mapa-múndi na floresta → viaja para a Praia dos Postes e para a Vila dos Bebês (fade) → sai da vila
  * pela borda norte andando (W) e chega na floresta pela saída sul. Recortes ampliados do HUD (região + minimapa).
  */
+/**
+ * Map Factory (piloto digimon-forest-01): o jogo real no mapa gerado do brief. Teleporta o Tamer (e a parceira) para
+ * cada ponto do brief e fotografa: entrada com o NPC e a placa, Clareira Central com o baú e a cura, o riacho com a
+ * ponte, o Campo de Pedras e a arena do chefe; depois a ida e volta pela Vila andando nos portais. Uso:
+ *   OUT=../../evidence/map-factory ONLY=factory npm run shots:live
+ */
+async function factory(cdp) {
+  const ID = "digimon-forest-01";
+  const open = async (time) => {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&map=${ID}${QUERY}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar no mapa da Map Factory");
+    await sleep(2500);
+  };
+  /** Teleporta o Tamer local e a parceira para o tile (tx, ty); a câmera segue sozinha. */
+  const tp = (tx, ty) =>
+    cdp.eval(`(() => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1");
+      const t = s.state.entities.find((e) => e.id === p.tamerId), pa = s.state.entities.find((e) => e.id === p.partnerId);
+      t.x = ${tx} * SUB + 8; t.y = ${ty} * SUB + 8; t.dest = undefined; t.trail = [{ x: t.x - 20, y: t.y }, { x: t.x, y: t.y }];
+      if (pa) { pa.x = t.x - 20; pa.y = t.y; pa.targetId = undefined; }
+      return [t.x, t.y]; })()`);
+  const log = async (label) => console.log(label, JSON.stringify(await cdp.eval(`(() => { const g = window.__gs003; return { mapa: g.mapId, interacoes: g.interactions.map((i) => i.kind + ":" + i.id + " → " + i.text), bits: g.sim.state.players[0].bits, encontros: g.sim.state.encounters.length, toast: document.querySelector(".hud-toast")?.textContent }; })()`)));
+  await open("day");
+  await cdp.shot("factory_01_entrada_inicio.png");
+  // NPC guia (fala ao chegar perto) e depois a placa da entrada
+  await tp(22, 29);
+  await sleep(2200);
+  await cdp.shot("factory_02a_entrada_npc_guia.png");
+  await tp(25, 32);
+  await sleep(1500);
+  await cdp.shot("factory_02b_entrada_placa.png");
+  await log("entrada:");
+  // Clareira Central: baú (31,18) e fonte de cura (33,21)
+  await tp(30, 19);
+  await sleep(700);
+  await cdp.shot("factory_03_clareira_bau.png");
+  // cura fora de combate: espera a parceira sair do encontro e chega na fonte
+  await cdp.waitFor(`(() => { const s = window.__gs003.sim; const p = s.state.players[0]; return !s.state.entities.find((e) => e.id === p.partnerId)?.encounterId; })()`, 20000, "a parceira sair do combate");
+  await cdp.eval(`(() => { const s = window.__gs003.sim; const p = s.state.players[0]; const e = s.state.entities.find((x) => x.id === p.partnerId); e.hp = Math.max(1, Math.round(e.maxHp * 0.3)); })()`);
+  await tp(33, 22);
+  await sleep(1500);
+  await cdp.shot("factory_04_clareira_cura.png");
+  await log("clareira:");
+  // encontro na clareira (AUTO ligado): espera a parceira engajar um selvagem
+  await cdp.waitFor("window.__gs003.sim.state.encounters.length > 0", 20000, "um encontro na clareira");
+  await sleep(900);
+  await cdp.shot("factory_05_clareira_encontro.png");
+  await log("encontro:");
+  // riacho com a ponte (26..29, 9): Tamer na margem leste e depois em cima da ponte
+  await tp(31, 11);
+  await sleep(2500);
+  await cdp.shot("factory_06_riacho_ponte.png");
+  await tp(27, 9);
+  await sleep(1200);
+  await cdp.shot("factory_07_riacho_sobre_a_ponte.png");
+  // Clareira Oculta (placa secreta) e Campo de Pedras
+  await tp(9, 6);
+  await sleep(2500);
+  await cdp.shot("factory_08_clareira_oculta.png");
+  await tp(44, 31);
+  await sleep(2500);
+  await cdp.shot("factory_09_campo_de_pedras.png");
+  // arena do Kuwagamon (aviso de chefe ainda não implementado)
+  await tp(50, 20);
+  await sleep(2500);
+  await cdp.shot("factory_10_arena_chefe.png");
+  await log("arena:");
+  // noite: riacho e ponte (forest-v6 não tem noite: a água usa o PNG do dia sob o grade noturno)
+  await open("night");
+  await tp(30, 10);
+  await sleep(1500);
+  await cdp.shot("factory_11_riacho_noite.png");
+  // ida e volta: Vila → (saída sul, andando) → Floresta Digimon → (saída sul, andando) → Vila
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=day&map=vila${QUERY}` });
+  await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "vila"`, 40000, "a vila");
+  await sleep(2000);
+  await tp(17, 21);
+  await sleep(800);
+  await cdp.shot("factory_12_vila_saida_sul.png");
+  const key = (k, type) => cdp.eval(`window.dispatchEvent(new KeyboardEvent("${type}", { key: "${k}" }))`);
+  await key("s", "keydown");
+  await cdp.waitFor(`window.__gs003.mapId === "${ID}"`, 20000, "chegar na floresta Digimon pela saída sul da vila");
+  await key("s", "keyup");
+  await cdp.waitFor(`!document.querySelector(".map-fade.on")`, 5000, "o fade acabar");
+  await sleep(1800);
+  await cdp.shot("factory_13_chegada_da_vila.png");
+  await log("chegada:");
+  await key("s", "keydown");
+  await cdp.waitFor(`window.__gs003.mapId === "vila"`, 20000, "voltar para a vila pela saída sul da floresta");
+  await key("s", "keyup");
+  await cdp.waitFor(`!document.querySelector(".map-fade.on")`, 5000, "o fade acabar");
+  await sleep(1800);
+  await cdp.shot("factory_14_volta_na_vila.png");
+  console.log("volta:", await cdp.eval(`window.__gs003.mapId`));
+}
+
+/** Mapa inteiro no jogo real: janela do tamanho do mapa (W=1792 H=1280), zoom 1, HUD escondido. */
+async function factoryFull(cdp) {
+  const ID = "digimon-forest-01";
+  for (const time of ["day", "night"]) {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=${time}&zoom=1&map=${ID}${QUERY}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 40000, "o jogo iniciar");
+    await sleep(2500);
+    await cdp.eval(`document.querySelector("#hud").style.visibility = "hidden"`);
+    await sleep(300);
+    await cdp.shot(`factory_00_mapa_inteiro_${time === "day" ? "dia" : "noite"}.png`);
+  }
+}
+
 async function maps(cdp) {
   await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=day${QUERY}` });
   await cdp.waitFor("!!window.__gs003", 30000, "o jogo iniciar");

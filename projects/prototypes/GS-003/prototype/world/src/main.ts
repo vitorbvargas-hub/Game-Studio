@@ -21,6 +21,7 @@ import { makePortraitFn, makeSpriteFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
 import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
+import { arenaOf, interact, nearestInteraction, type InteractResult } from "./sim/interact";
 import { TICK_MS } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
@@ -421,6 +422,35 @@ async function boot() {
     else void travel(p.to, p.toStart);
   };
 
+  // ---- interativos do mapa (Map Factory): placa, baú, cura e NPC ao chegar perto; aviso na arena do chefe ----
+  /** Baús já abertos nesta sessão (`<mapa>:<id>`; não vai para o save). */
+  const openedChests = new Set<string>();
+  let lastInteract = "";
+  let lastArena = "";
+  const interactions: InteractResult[] = [];
+  const checkInteract = () => {
+    if (!cur.def || traveling) return;
+    const near = nearestInteraction(cur.sim, LOCAL_PLAYER);
+    const key = near ? `${cur.mapId}:${near.id}` : "";
+    // dispara uma vez ao chegar; só arma de novo depois de sair do alcance
+    if (near && key !== lastInteract) {
+      const r = interact(cur.sim, LOCAL_PLAYER, near.id, openedChests);
+      if (r) {
+        interactions.push(r);
+        hud.toast(r.kind === "npc" ? `${r.title}: ${r.text}` : r.text);
+      }
+    }
+    lastInteract = key;
+    const a = arenaOf(cur.sim, LOCAL_PLAYER);
+    const ak = a ? `${cur.mapId}:${a.id}` : "";
+    if (a && ak !== lastArena) {
+      const boss = a.boss.replace(/^BOSS-/, "").toLowerCase().replace(/^./, (c) => c.toUpperCase());
+      hud.toast(`Covil de ${boss}: a luta de chefe ainda não existe nesta prova`);
+      interactions.push({ id: a.id, kind: "arena", title: boss, text: a.boss });
+    }
+    lastArena = ak;
+  };
+
   // ---- telas secundárias (modais) ----
   const panels = {
     map: new Panel(hudRoot, "map", "Mapa-múndi", "map"),
@@ -770,6 +800,7 @@ async function boot() {
     }
     if (steps === 10) acc = 0;
     if (steps) checkPortal();
+    if (steps) checkInteract();
     if (steps && regionMode) checkEvolve();
     cur.presenter.update(now);
     const alpha = acc / TICK_MS;
@@ -805,6 +836,8 @@ async function boot() {
       get mapId() {
         return cur.mapId;
       },
+      /** Interações disparadas (Map Factory: placa, baú, cura, NPC, arena), para capturas e testes. */
+      interactions,
       hud,
       clock,
       persist,

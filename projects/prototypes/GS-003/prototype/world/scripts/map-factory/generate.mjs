@@ -134,7 +134,8 @@ export function generateFromBrief(b) {
 
   // ---- terreno ----
   const kind = new Array(W * H).fill(b.base);
-  for (const a of b.areas ?? []) {
+  // áreas com afterPaths (água) são pintadas depois das trilhas: a trilha não atravessa a água (só a ponte)
+  const paintArea = (a) => {
     if (a.shape === "rect")
       for (let y = Math.max(0, a.y); y < Math.min(H, a.y + a.h); y++) for (let x = Math.max(0, a.x); x < Math.min(W, a.x + a.w); x++) kind[at(x, y)] = a.terrain;
     else {
@@ -147,7 +148,8 @@ export function generateFromBrief(b) {
           if (((x - a.cx) / (a.rx * f)) ** 2 + ((y - a.cy) / (a.ry * f)) ** 2 < 1) kind[at(x, y)] = a.terrain;
         }
     }
-  }
+  };
+  for (const a of b.areas ?? []) if (!a.afterPaths) paintArea(a);
   const pathCells = new Map();
   (b.paths ?? []).forEach((p, pi) => {
     const set = pathCells.get(p.terrain) ?? new Set();
@@ -169,6 +171,21 @@ export function generateFromBrief(b) {
       }
     for (const i of set) kind[i] = terrain;
   }
+  for (const a of b.areas ?? []) if (a.afterPaths) paintArea(a);
+  // pontes: células andáveis por cima de um terreno sólido (água); o chão mantém a chave do terreno (autotile
+  // intacto) com solid=false e a arte da ponte vai na camada ground_detail
+  const walkable = new Set();
+  const detail = new Array(W * H).fill("");
+  for (const br of b.bridges ?? []) {
+    let k = 0;
+    for (let y = br.y; y < br.y + br.h; y++)
+      for (let x = br.x; x < br.x + br.w; x++, k++) {
+        if (!inside(x, y)) continue;
+        walkable.add(at(x, y));
+        if (br.detail?.[k]) detail[at(x, y)] = br.detail[k];
+      }
+  }
+  for (const d of b.details ?? []) if (inside(d.x, d.y)) detail[at(d.x, d.y)] = d.key;
   const kAt = (x, y) => (inside(x, y) ? kind[at(x, y)] : b.base);
   const nearOther = (x, y, r, t) => {
     for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (kAt(x + dx, y + dy) !== t) return true;
@@ -192,7 +209,7 @@ export function generateFromBrief(b) {
       const tn = kind[at(x, y)];
       const t = b.terrains[tn];
       // sólido: true/false, ou "interior" (sólido só se não houver outro terreno a 1 tile: a borda fica andável)
-      const solid = t.solid === "interior" ? !nearOther(x, y, 1, tn) : !!t.solid;
+      const solid = walkable.has(at(x, y)) ? false : t.solid === "interior" ? !nearOther(x, y, 1, tn) : !!t.solid;
       let key;
       if (t.autotile) {
         const outside = t.outside ?? "in";
@@ -221,6 +238,7 @@ export function generateFromBrief(b) {
   for (const p of b.portals ?? []) reserve(p.x - 1, p.y - 1, p.x + p.w, p.y + p.h);
   for (const p of b.pois ?? []) reserve(p.x - 1, p.y - 1, p.x + (p.w ?? 1), p.y + (p.h ?? 1));
   for (const r of b.keepClear ?? []) reserve(r.x, r.y, r.x + r.w - 1, r.y + r.h - 1);
+  for (const br of b.bridges ?? []) reserve(br.x - 1, br.y - 1, br.x + br.w, br.y + br.h);
   if (b.bossArena) reserve(b.bossArena.x, b.bossArena.y, b.bossArena.x + b.bossArena.w - 1, b.bossArena.y + b.bossArena.h - 1);
   const pathAt = (x, y) => [...pathCells.values()].some((s) => s.has(at(x, y)));
 
@@ -231,7 +249,8 @@ export function generateFromBrief(b) {
   const addProp = (key, px, py, solid, extra = {}) => {
     const tx = Math.floor(px / T);
     const ty = Math.floor((py - 1) / T);
-    if (!inside(tx, ty) || keep.has(at(tx, ty))) return false;
+    // force: props de objetos de jogo (baú, placa, cura) entram na célula reservada do próprio POI
+    if (!inside(tx, ty) || (keep.has(at(tx, ty)) && !extra.force)) return false;
     if (solid && (usedSolid.has(at(tx, ty)) || (extra.avoidPath !== false && pathAt(tx, ty)))) return false;
     if (solid) usedSolid.add(at(tx, ty));
     props.push({
@@ -249,6 +268,8 @@ export function generateFromBrief(b) {
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (kind[at(x, y)] === terrain && filter(x, y)) out.push([x, y]);
     return out;
   };
+  // within: retângulo {x, y, w, h} em tiles que limita scatter/edge a uma zona do brief
+  const inWithin = (r, x, y) => !r.within || (x >= r.within.x && y >= r.within.y && x < r.within.x + r.within.w && y < r.within.y + r.within.h);
   const keysOf = (r) => r.keys ?? (r.key ? [r.key] : []);
   for (const r of b.props ?? []) {
     if (r.kind === "grid") {
@@ -280,7 +301,7 @@ export function generateFromBrief(b) {
             if ((r.perTile ?? 2) > 1) addProp(pick(keysOf(r)), x * T + 24, y * T + 31, !!r.solid, r);
           }
     } else if (r.kind === "scatter") {
-      const pool = tilesOf(r.on, (x, y) => !(r.avoidPath && pathAt(x, y)));
+      const pool = tilesOf(r.on, (x, y) => !(r.avoidPath && pathAt(x, y)) && inWithin(r, x, y));
       if (!pool.length) continue;
       const [ox, oy, jx, jy] = r.offset ?? [16, 24, 0, 0];
       for (let i = 0; i < r.count; i++) {
@@ -290,9 +311,9 @@ export function generateFromBrief(b) {
     } else if (r.kind === "edge") {
       // tiles de `on` colados em `adjacentTo` pelo lado indicado (north = o vizinho de cima é adjacentTo)
       const d = { north: [0, -1], south: [0, 1], east: [1, 0], west: [-1, 0] }[r.side ?? "north"];
-      for (const [x, y] of tilesOf(r.on)) if (kAt(x + d[0], y + d[1]) === r.adjacentTo && rnd() < (r.chance ?? 0.35)) addProp(pick(keysOf(r)), x * T + 16, y * T + 20, !!r.solid, r);
+      for (const [x, y] of tilesOf(r.on, (x2, y2) => inWithin(r, x2, y2))) if (kAt(x + d[0], y + d[1]) === r.adjacentTo && rnd() < (r.chance ?? 0.35)) addProp(pick(keysOf(r)), x * T + 16, y * T + 20, !!r.solid, r);
     } else if (r.kind === "fixed") {
-      for (const p of r.at) addProp(p.key ?? pick(keysOf(r)), p.x * T + T / 2, (p.y + 1) * T, p.solid ?? !!r.solid, { ...r, ...p });
+      for (const p of r.at) addProp(p.key ?? pick(keysOf(r)), p.x * T + T / 2 + (p.ox ?? 0), (p.y + 1) * T + (p.oy ?? 0), p.solid ?? !!r.solid, { ...r, ...p });
     } else throw new Error(`brief inválido: props.kind '${r.kind}'`);
   }
 
@@ -317,7 +338,7 @@ export function generateFromBrief(b) {
         ]
       : [
           { type: "tilelayer", name: "ground", data: ground },
-          { type: "tilelayer", name: "ground_detail", data: new Array(W * H).fill(0) },
+          { type: "tilelayer", name: "ground_detail", data: detail.map((k) => (k ? gid(k, false) : 0)) },
           // props com Y-sort; as copas das árvores (objects_above) o renderer monta a partir da chave fpX_tree_*
           { type: "objectgroup", name: "objects_below", objects: props },
           { type: "objectgroup", name: "objects_above", objects: [] },
@@ -341,12 +362,13 @@ export function generateFromBrief(b) {
 
 /** Aliases do mapa (<id>.aliases.json): base copiada de outro mapa + pack/prefix/night do brief + _doc. */
 export function aliasesFor(b, baseAliases) {
-  const { pack, prefix, night } = b.pack ?? {};
+  const { pack, prefix, night, extraPacks } = b.pack ?? {};
   return {
     ...(baseAliases ?? {}),
     _doc: `Mapa ${b.id} (gerado de brief por gen-map-from-brief.mjs) → pacote GAME-ASSETS/03-environments/${pack ?? baseAliases?.pack}/. Chave '${prefix ?? baseAliases?.prefix}<nome>' = PNG <nome> do pacote.${baseAliases ? " Demais campos copiados do mapa base." : ""}`,
     ...(pack ? { pack } : {}),
     ...(prefix ? { prefix } : {}),
     ...(night ? { night } : {}),
+    ...(extraPacks?.length ? { extraPacks } : {}),
   };
 }

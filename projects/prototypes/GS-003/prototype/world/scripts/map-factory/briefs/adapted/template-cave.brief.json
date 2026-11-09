@@ -1,0 +1,774 @@
+{
+  "briefVersion": "0.1",
+  "id": "template-cave",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'template-cave' (schemaVersion 1) com o kit 'forest-v6'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "profile": "factory-v1",
+  "seed": 4097889487,
+  "size": {
+    "width": 28,
+    "height": 48,
+    "tile": 32
+  },
+  "properties": {
+    "biome": "cave",
+    "regionName": "Modelo: Caverna (dungeon linear)",
+    "levelMin": 10,
+    "levelMax": 18,
+    "safeZone": false,
+    "briefSchema": "game-design/map-brief v1",
+    "kit": "forest-v6"
+  },
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing"
+    },
+    "water": {
+      "autotile": "blob16",
+      "prefix": "fp6_water_blob_",
+      "outside": "clamp",
+      "solid": true
+    }
+  },
+  "base": "forest",
+  "areas": [
+    {
+      "name": "entrada",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 14,
+      "cy": 43,
+      "rx": 4.75,
+      "ry": 3.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "andar1",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 14,
+      "cy": 34,
+      "rx": 5.75,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "andar2",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 14,
+      "cy": 24,
+      "rx": 5.75,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "bifurcacao_tesouro",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 6.5,
+      "cy": 14,
+      "rx": 5.25,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "bifurcacao_oculta",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 21.5,
+      "cy": 14,
+      "rx": 5.25,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "sala_final",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 14,
+      "cy": 5.5,
+      "rx": 5.75,
+      "ry": 4.25,
+      "wobble": 0.08
+    },
+    {
+      "name": "exit-entrada-chao",
+      "terrain": "clearing",
+      "shape": "rect",
+      "x": 12,
+      "y": 46,
+      "w": 4,
+      "h": 2
+    }
+  ],
+  "paths": [
+    {
+      "name": "rota_atalho",
+      "terrain": "path",
+      "points": [
+        [
+          14.5,
+          40.5
+        ],
+        [
+          14.5,
+          30.5
+        ],
+        [
+          14.5,
+          20.5
+        ],
+        [
+          21.5,
+          16.5
+        ],
+        [
+          21.5,
+          10.5
+        ],
+        [
+          14.5,
+          6.5
+        ],
+        [
+          14.5,
+          5.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "rota_tesouro",
+      "terrain": "path",
+      "points": [
+        [
+          14.5,
+          20.5
+        ],
+        [
+          7.5,
+          16.5
+        ],
+        [
+          7.5,
+          10.5
+        ],
+        [
+          14.5,
+          6.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "exit-entrada-acesso",
+      "terrain": "path",
+      "points": [
+        [
+          14.5,
+          48.5
+        ],
+        [
+          14.5,
+          44.5
+        ]
+      ]
+    }
+  ],
+  "bridges": [],
+  "props": [
+    {
+      "kind": "grid",
+      "on": "forest",
+      "dx": 44,
+      "dy": 40,
+      "jitter": 10,
+      "edgeSkip": 0.12,
+      "solid": true,
+      "pick": [
+        {
+          "key": "fp4_tree_round_a",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_round_b",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_conifer_a",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_conifer_b",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_bushy_a",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_bushy_b",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_birch",
+          "weight": 5
+        },
+        {
+          "key": "fp4_tree_flowering",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_data_leaf",
+          "weight": 9
+        },
+        {
+          "key": "fp4_tree_palm_digital",
+          "weight": 14,
+          "where": "edge"
+        },
+        {
+          "key": "fp4_tree_ancient",
+          "weight": 2,
+          "where": "interior"
+        }
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 40,
+        "w": 8,
+        "h": 6
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 3,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 40,
+        "w": 8,
+        "h": 6
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 0,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 30,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 5,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 30,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 20,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 5,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 20,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ],
+      "patches": [
+        [
+          4.25,
+          12.4,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 2,
+        "y": 10,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 6,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 2,
+        "y": 10,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 17,
+        "y": 10,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 4,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 17,
+        "y": 10,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 2,
+        "w": 10,
+        "h": 7
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 4,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 9,
+        "y": 2,
+        "w": 10,
+        "h": 7
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "edge",
+      "on": "clearing",
+      "adjacentTo": "forest",
+      "side": "north",
+      "chance": 0.3,
+      "keys": [
+        "fp4_fallen_leaves_cluster",
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ]
+    },
+    {
+      "kind": "fixed",
+      "at": [
+        {
+          "x": 14,
+          "y": 8,
+          "key": "fp6_healing_point",
+          "solid": false,
+          "force": true,
+          "ox": 0,
+          "oy": -10
+        },
+        {
+          "x": 14,
+          "y": 19,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        }
+      ]
+    }
+  ],
+  "starts": {
+    "from_forest-proof": [
+      14,
+      44
+    ],
+    "player": [
+      14,
+      44
+    ]
+  },
+  "spawns": [
+    {
+      "name": "spawn-andar1",
+      "x": 10,
+      "y": 30,
+      "w": 9,
+      "h": 8,
+      "species": [
+        "CREATURE-0011"
+      ],
+      "levelMin": 10,
+      "levelMax": 13,
+      "count": 3
+    },
+    {
+      "name": "spawn-andar2",
+      "x": 10,
+      "y": 20,
+      "w": 9,
+      "h": 8,
+      "species": [
+        "CREATURE-0003"
+      ],
+      "levelMin": 10,
+      "levelMax": 14,
+      "count": 3
+    },
+    {
+      "name": "spawn-tesouro-miniboss",
+      "x": 2,
+      "y": 10,
+      "w": 9,
+      "h": 8,
+      "species": [
+        "CREATURE-0003"
+      ],
+      "levelMin": 14,
+      "levelMax": 18,
+      "count": 4
+    },
+    {
+      "name": "spawn-miniboss-growlmon",
+      "x": 3,
+      "y": 11,
+      "w": 7,
+      "h": 7,
+      "species": [
+        "CREATURE-0004"
+      ],
+      "levelMin": 16,
+      "levelMax": 18,
+      "count": 1
+    }
+  ],
+  "npcs": [],
+  "pois": [
+    {
+      "name": "poi-bifurcacao",
+      "x": 14,
+      "y": 20,
+      "kind": "landmark",
+      "properties": {
+        "title": "Bifurcação dos Ramos",
+        "description": "Ponto onde o jogador escolhe entre a Câmara do Tesouro e a Passagem Oculta (dungeons.json, floor 3 branch)."
+      }
+    },
+    {
+      "name": "interact-cura-pre-chefe",
+      "x": 14,
+      "y": 8,
+      "kind": "heal_point",
+      "properties": {
+        "interactable": true,
+        "title": "Ponto de cura fixo antes do chefe final.",
+        "text": "Ponto de cura fixo antes do chefe final.",
+        "effect": "healPointBeforeBoss, exatamente como dungeons.json cripta_das_raizes.floors[4] — [E] padrão real já definido."
+      }
+    },
+    {
+      "name": "interact-placa-bifurcacao",
+      "x": 14,
+      "y": 19,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa/marcação na bifurcação.",
+        "text": "Placa/marcação na bifurcação.",
+        "effect": "Texto pt-BR avisando: ramo do tesouro é mais difícil."
+      }
+    }
+  ],
+  "bossArena": {
+    "name": "arena-chefe-elite",
+    "x": 9,
+    "y": 2,
+    "w": 10,
+    "h": 7,
+    "boss": "BOSS-KUWAGAMON-ELITE",
+    "properties": {
+      "triggerType": "approach",
+      "arenaType": "sala_fechada",
+      "centerX": 14,
+      "centerY": 5
+    }
+  },
+  "triggers": [
+    {
+      "name": "arena-chefe-elite-entrada",
+      "x": 9,
+      "y": 2,
+      "w": 10,
+      "h": 7,
+      "properties": {
+        "event": "boss_approach",
+        "boss": "BOSS-KUWAGAMON-ELITE"
+      }
+    }
+  ],
+  "portals": [
+    {
+      "name": "exit-entrada",
+      "x": 12,
+      "y": 46,
+      "w": 4,
+      "h": 2,
+      "to": "forest-proof",
+      "toStart": "from_template-cave"
+    }
+  ]
+}

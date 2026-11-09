@@ -1,14 +1,36 @@
 # Validação de mapas — resumo
 
-- **Data:** 2026-11-09T16:18:12.495Z
+- **Data:** 2026-11-09T16:39:36.754Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|
+| digimon-forest-01 | factory-v1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
 | forest-proof | legacy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
 | praia | legacy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
 | test-meadow | legacy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
 | vila | legacy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
 | forest-factory-test | factory-v1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **PASS** |
+
+## digimon-forest-01 — PASS
+
+- 56x40 tiles de 32px · 938 objetos (prop 916, start 2, spawn 8, npc 1, portal 1, trigger 1, poi 8, boss_arena 1) · sólido 59.2% · alcançável 98% das células livres
+
+- ✅ **layers** — Camadas obrigatórias presentes
+- ✅ **tile_ids** — IDs de tile existentes
+- ✅ **asset_keys** — Chaves visuais resolvem em PNG (dia/noite)
+  - 83 chaves verificadas
+- ✅ **reach** — BFS do início do jogador alcança 100% dos alvos
+  - alvos alcançados: 21/21 (start 2, spawn 8, npc 1, poi 8, boss_arena 1, portal 1)
+- ✅ **placement** — Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição
+  - ⚠️ spawn 'spawn-tsunomon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)
+  - ⚠️ spawn 'spawn-tanemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)
+  - ⚠️ spawn 'spawn-dorumon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)
+- ✅ **wang** — Máscaras de autotile coerentes entre vizinhos
+  - ground/fp4_denseedge_w47: 1407 tiles w47, borda 'in'
+  - ground/fp6_water_blob: 56 tiles blob16, borda 'in'
+  - ground/fp4_path_w47: 146 tiles w47, borda 'in'
+- ✅ **species** — Espécies dos spawns existem em world-species.json
+- ✅ **portals** — Portais com destino válido
 
 ## forest-proof — PASS
 
@@ -64,7 +86,7 @@
 
 ## vila — PASS
 
-- 36x26 tiles de 32px · 51 objetos (prop 48, start 2, portal 1) · sólido 9.2% · alcançável 100% das células livres
+- 36x26 tiles de 32px · 53 objetos (prop 48, start 3, portal 2) · sólido 9.2% · alcançável 100% das células livres
 
 - ✅ **layers** — Camadas obrigatórias presentes
   - perfil legacy; para factory-v1 faltariam: ground_detail, objects_below, objects_above, collision, spawns, npcs, triggers, poi
@@ -72,10 +94,10 @@
 - ✅ **asset_keys** — Chaves visuais resolvem em PNG (dia/noite)
   - 19 chaves verificadas
 - ✅ **reach** — BFS do início do jogador alcança 100% dos alvos
-  - alvos alcançados: 3/3 (start 2, portal 1)
+  - alvos alcançados: 5/5 (start 3, portal 2)
 - ✅ **placement** — Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição
 - ✅ **wang** — Máscaras de autotile coerentes entre vizinhos
-  - ground/vl5_path_blob: 120 tiles blob16, borda 'out'
+  - ground/vl5_path_blob: 128 tiles blob16, borda 'out'
 - ✅ **species** — Espécies dos spawns existem em world-species.json
 - ✅ **portals** — Portais com destino válido
 

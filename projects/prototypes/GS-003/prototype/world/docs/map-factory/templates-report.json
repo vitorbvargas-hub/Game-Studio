@@ -1,0 +1,122 @@
+[
+  {
+    "id": "template-cave",
+    "file": "cave.json",
+    "biome": "cave",
+    "size": "28x48",
+    "ok": false,
+    "gates": {
+      "layers": "pass",
+      "tile_ids": "pass",
+      "asset_keys": "pass",
+      "reach": "pass",
+      "placement": "pass",
+      "wang": "pass",
+      "species": "pass",
+      "portals": "fail"
+    },
+    "errors": [
+      "portals: portal 'exit-entrada': 'forest-proof' não tem o início 'from_template-cave'"
+    ],
+    "warnings": [
+      "placement: spawn 'spawn-andar1': 2 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+      "placement: spawn 'spawn-andar2': 2 células livres da área de sorteio fora do alcance do jogador (bolsões)"
+    ],
+    "adapter": []
+  },
+  {
+    "id": "template-desert",
+    "file": "desert.json",
+    "biome": "desert",
+    "size": "60x36",
+    "ok": false,
+    "gates": {
+      "layers": "pass",
+      "tile_ids": "pass",
+      "asset_keys": "pass",
+      "reach": "pass",
+      "placement": "pass",
+      "wang": "pass",
+      "species": "pass",
+      "portals": "fail"
+    },
+    "errors": [
+      "portals: portal 'exit-oeste-montanha': destino 'montanha_overworld' não é um mapa conhecido"
+    ],
+    "warnings": [
+      "placement: spawn 'spawn-hagurumon': 2 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+      "placement: spawn 'spawn-angemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+      "portals: portal 'exit-oeste-montanha' não encosta na borda do mapa"
+    ],
+    "adapter": []
+  },
+  {
+    "id": "template-forest",
+    "file": "forest.json",
+    "biome": "forest",
+    "size": "48x36",
+    "ok": false,
+    "gates": {
+      "layers": "pass",
+      "tile_ids": "pass",
+      "asset_keys": "pass",
+      "reach": "pass",
+      "placement": "pass",
+      "wang": "pass",
+      "species": "pass",
+      "portals": "fail"
+    },
+    "errors": [
+      "portals: portal 'exit-exemplo': 'vila' não tem o início 'from_template-forest'"
+    ],
+    "warnings": [],
+    "adapter": []
+  },
+  {
+    "id": "template-mountain",
+    "file": "mountain.json",
+    "biome": "mountain",
+    "size": "40x56",
+    "ok": false,
+    "gates": {
+      "layers": "pass",
+      "tile_ids": "pass",
+      "asset_keys": "pass",
+      "reach": "pass",
+      "placement": "pass",
+      "wang": "pass",
+      "species": "pass",
+      "portals": "fail"
+    },
+    "errors": [
+      "portals: portal 'exit-sul-floresta': 'forest-proof' não tem o início 'from_template-mountain'"
+    ],
+    "warnings": [
+      "placement: spawn 'spawn-growlmon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+      "placement: spawn 'spawn-greymon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)"
+    ],
+    "adapter": []
+  },
+  {
+    "id": "template-village",
+    "file": "village.json",
+    "biome": "village",
+    "size": "36x26",
+    "ok": true,
+    "gates": {
+      "layers": "pass",
+      "tile_ids": "pass",
+      "asset_keys": "pass",
+      "reach": "pass",
+      "placement": "pass",
+      "wang": "pass",
+      "species": "pass",
+      "portals": "pass"
+    },
+    "errors": [],
+    "warnings": [
+      "portals: 'forest-proof' não tem portal de volta para 'template-village'"
+    ],
+    "adapter": []
+  }
+]

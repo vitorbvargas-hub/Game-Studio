@@ -12,8 +12,8 @@ game-design      game-dev      world/src/data/maps/           game-dev/game-qa  
 ```
 
 1. **Brief.** O game-design entrega a planta lógica: terrenos, clareiras, trilhas, spawns, NPCs, POIs, arena, portais.
-   - O schema oficial do game-design vai ficar em `projects/prototypes/GS-003/world-design/map-brief.schema.json`. Em 2026-11-09 ele ainda não existia.
-   - O gerador lê a **interface provisória v0.1** em `world/scripts/map-factory/brief.schema.json`. Quando o schema oficial chegar, há duas saídas: um adaptador converte o brief oficial para a v0.1, ou a v0.1 é ajustada a ele.
+   - O schema oficial do game-design está em `projects/prototypes/GS-003/world-design/map-brief.schema.json`. O gerador o aceita pelo adaptador (ver "Fase 2").
+   - Internamente, o gerador lê a interface v0.1 em `world/scripts/map-factory/brief.schema.json`.
    - Exemplo completo: `world/scripts/map-factory/briefs/forest-factory-test.brief.json`.
 2. **Kit de arte.** O game-art entrega o pacote em `assets/GAME-ASSETS/03-environments/<pack>/`, com `tiles/`, `props/` e, se houver, `night/` com os mesmos nomes.
    - Regra das chaves: `'<prefixo><nome>'` corresponde a `<nome>.png` do pacote.
@@ -62,7 +62,13 @@ A colisão do validador é a mesma da sim. Há um teste que compara a grade com 
 | `scripts/map-factory/context.mjs` | Espécies, índice de mapas e resolvedor de chaves → PNG (mesma regra de `src/assets/tiles.ts` e `scene-tiles.ts`) |
 | `scripts/map-factory/tiled.mjs` | Leitura e escrita de `.tmj` e grade de colisão |
 | `scripts/map-preview.mjs` | Prévia PNG (`npm run map:preview`) |
-| `scripts/map-factory/brief.schema.json` | Interface provisória do brief (v0.1) |
+| `scripts/map-factory/brief.schema.json` | Interface interna do brief (v0.1) |
+| `scripts/map-factory/adapt-brief.mjs` | Adaptador do brief oficial do game-design (schema v1) para a v0.1 |
+| `scripts/map-factory/kits/forest-v6.kit.json` | Kit de montagem: forest-v4 (`fp4_`) + forest-v6 (`fp6_`), terrenos e regras |
+| `scripts/map-factory/briefs/<id>.build.json` | Ajustes de montagem de um mapa (rotas corrigidas, semente) |
+| `scripts/map-templates.mjs` | Os 5 modelos do game-design como mapas de teste + relatório (`npm run map:templates`) |
+| `src/sim/interact.ts` | Placa, baú, cura, NPC e arena na sim |
+| `tests/map-factory-pilot.test.ts` | Piloto: determinismo, 8 gates, fp6_, colisão, interativos, passeio até a clareira com encontro |
 | `scripts/map-factory/briefs/` | Briefs |
 | `tests/map-factory.test.ts` | Gates nos mapas do jogo, um caso negativo por gate, determinismo do gerador e carga do mapa gerado na sim |
 | `tests/fixtures/maps/forest-factory-test.*` | Saída do brief de exemplo (fixture, não registrada no jogo) |
@@ -70,11 +76,50 @@ A colisão do validador é a mesma da sim. Há um teste que compara a grade com 
 | `docs/map-factory/previews/` | Prévias |
 | `scripts/gen-forest-proof.mjs`, `gen-region-maps.mjs` | Geradores antigos dos mapas atuais. Continuam valendo, sem alteração |
 
+## Fase 2 (2026-11-09): brief oficial, forest-v6 e o piloto no jogo
+
+### Brief oficial do game-design → gerador
+
+- `npm run map:brief -- <brief>` agora aceita os dois formatos. Um brief com `schemaVersion: 1` (o schema oficial em `world-design/map-brief.schema.json`) passa antes pelo **adaptador** `world/scripts/map-factory/adapt-brief.mjs`, que produz o brief v0.1 e grava uma cópia em `scripts/map-factory/briefs/adapted/<id>.brief.json`.
+- O adaptador usa um **kit de montagem** (`--kit`, padrão `forest-v6` → `scripts/map-factory/kits/forest-v6.kit.json`): pacotes de arte, terrenos, tipo de zona → terreno, árvores, regras de vegetação por densidade, props dos interativos e peças da ponte.
+- Ajustes que o brief não resolve ficam num arquivo de **montagem** opcional, `scripts/map-factory/briefs/<id>.build.json` (semente, saída, waypoints corrigidos de uma rota, inícios). Cada ajuste leva o motivo.
+- Regras do adaptador:
+
+| Brief | Vira |
+|---|---|
+| `zones` (clareira, spawn, concentração, secreta, arena, pedras, `cave_floor`, `dune`, `village_hub`) | área de clareira em elipse que cobre o retângulo |
+| `zones` `water` | retângulo de água pintado **depois** das trilhas (sólido; a trilha não atravessa) |
+| `zones` `dense_border`, `cliff` | ficam mata (sólida por dentro) |
+| `routes` | trilha em spline pelos waypoints (centro do tile); a largura vira o raio |
+| `pois` `crossing` dentro de água | ponte no eixo curto da zona: células andáveis + arte em `ground_detail` (ponta, meio repetido, ponta) |
+| `exits` | portal + chão de clareira + trilha curta + início `from_<destino>` 2 tiles para dentro |
+| `spawns` | retângulo do raio em volta do centro da zona, cortado pela zona |
+| `npcs` | objeto `npc` com `speciesId`, `displayName`, `dialogue` |
+| `interactables` | POI com `kind` chest/sign/heal_point e `text` (trecho entre aspas do `effect`) + prop do kit na célula |
+| `bossArena` | `boss_arena` (retângulo da zona) + trigger `boss_approach` |
+| `vegetationDensityRules` | manchas de grama alta, flores e cogumelos por zona; `rock_field` ganha rochas sólidas e decorativas |
+
+### Novidades no gerador, validador e prévia
+
+- Gerador: `areas[].afterPaths`, `bridges` (células andáveis sobre terreno sólido, arte na `ground_detail`), `details`, `within` em scatter/edge e `force`/`ox`/`oy` em props `fixed`.
+- Pacote suplementar por mapa: `aliases.extraPacks: [{ pack, prefix, root, crops }]`. `root: "map-factory"` lê `projects/prototypes/GS-003/art/map-factory/<pack>/` (alias `@gs003-art` no Vite). `crops` cria chaves recortadas de um PNG. Jogo (`scene-tiles.ts`), validador (`context.mjs`) e prévia seguem a mesma regra. Sem `night/`, a noite usa o dia.
+- `npm run map:templates [-- --preview]` gera os 5 modelos de `world-design/briefs/templates/` como mapas de teste em `tests/fixtures/maps/templates/` e escreve `docs/map-factory/templates-report.md`. Resultado em 2026-11-09: `village` PASS; `cave`, `desert`, `forest` e `mountain` falham só no gate `portals`, porque o destino não tem a chegada `from_template-*` (ou o mapa não existe).
+
+### Na sim e no jogo
+
+- `parseTiledMap` lê `npc`, `poi` com `kind` chest/sign/heal_point e `boss_arena` (`WorldMap.npcs/interactables/arenas`, opcionais).
+- `createWorld` põe cada NPC com espécie como entidade `npc`: parada, sem IA, ninguém a ataca.
+- `src/sim/interact.ts`: chegar a 1,5 tile dispara uma vez. Placa e NPC mostram texto. Baú dá 50 bits uma vez por sessão. Cura enche PV/MP da parceira fora de combate. Arena mostra aviso de chefe.
+- Piloto: `digimon-forest-01` registrado em `MAPS` (região `floresta_densa`), com ida e volta pela saída sul da `vila` (portal reverso em `gen-region-maps.mjs`).
+- Captura: `ONLY=factory` e `ONLY=factory-full` em `scripts/capture-live.mjs`. Evidência em `projects/prototypes/GS-003/evidence/map-factory/`.
+
 ## Limitações conhecidas
 
-- **Camadas factory-v1 só no gerador.** O motor lê todas as camadas de objetos pela classe (`prop`, `spawn`, `start`, `portal`, `collision`). `npc`, `poi`, `boss_arena` e `trigger` são validados, mas a sim ainda os ignora. Ligá-los ao jogo é trabalho da integração.
+- **Interativos mínimos.** NPC, placa, baú e cura funcionam por proximidade, sem botão e sem caixa de diálogo (toast). Baú aberto não vai para o save. `trigger` continua só validado.
+- **Sem luta de chefe.** A arena é objeto validado mais um aviso. A sim não tem chefe, e Kuwagamon não está em `world-species.json`.
+- **Um kit só.** Caverna, deserto, montanha e vila usam a arte de floresta nos mapas de teste.
 - **`objects_above` sai vazia.** As copas vêm da chave da árvore, montadas pelo renderer. `ground_detail` sai zerada.
 - **BFS em células inteiras, 4 vizinhos.** É conservador: não modela o raio do corpo nem passagens diagonais em sub-tile.
 - **Sem medição de performance (60 fps).** Esse gate do §7 fica para a integração do piloto.
 - **Licença do sprite não é conferida.** O gate de espécies verifica só a existência em `world-species.json`, não a licença em `CREDITS.md`.
-- **Gerador sem água/costa com arte de forest-v4.** O pacote não tem esses tiles. O gerador já aceita qualquer terreno `blob16`/`w47` com `solid: true`, então basta o kit do game-art trazê-los.
+- **Água só em blob-16 e só de dia** (forest-v6). Não tem Wang-47 nem preset noturno.

@@ -1,0 +1,11 @@
+{
+  "_doc": "Ajustes de montagem (game-dev) do piloto digimon-forest-01 sobre o brief do game-design (world-design/briefs/digimon-forest-01.json). Só o que o brief não resolve sozinho; cada ajuste tem o motivo.",
+  "seed": 20261109,
+  "routes": {
+    "rota_secundaria_riacho": {
+      "reason": "no brief a rota sobe por x=27, dentro do riacho (zona de água x 26..29): sobe pela margem leste, atravessa na ponte (27,9) e segue pela margem oeste até a Clareira Oculta",
+      "widthTiles": 1.5,
+      "waypoints": [[31, 17], [31, 13], [31, 10], [30, 9], [25, 9], [24, 7], [20, 5], [16, 5], [12, 6], [8, 6]]
+    }
+  }
+}

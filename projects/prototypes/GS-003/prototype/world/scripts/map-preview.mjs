@@ -8,7 +8,7 @@
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
-import { GAME_ASSETS, MAPS_DIR, WORLD_DIR } from "./map-factory/context.mjs";
+import { extraPackFiles, GAME_ASSETS, MAPS_DIR, WORLD_DIR } from "./map-factory/context.mjs";
 import { allObjects, gidTable, objectCells, prop, solidGrid } from "./map-factory/tiled.mjs";
 
 const args = process.argv.slice(2);
@@ -46,9 +46,25 @@ const walk = (d) => {
   }
 };
 walk(join(GAME_ASSETS, "03-environments"));
+// pacotes suplementares (aliases.extraPacks: forest-v6 com fp6_) e os recortes deles
+const crops = new Map();
+for (const e of aliases?.extraPacks ?? [])
+  for (const [k, f] of extraPackFiles(e)) {
+    files.set(k, f.path);
+    if (f.rect) crops.set(k, f.rect);
+  }
 const cache = new Map();
 const img = async (key) => {
-  if (!cache.has(key)) cache.set(key, files.has(key) ? await loadImage(files.get(key)) : null);
+  if (!cache.has(key)) {
+    let im = files.has(key) ? await loadImage(files.get(key)) : null;
+    if (im && crops.has(key)) {
+      const [x, y, w, h] = crops.get(key);
+      const cc = createCanvas(w, h);
+      cc.getContext("2d").drawImage(im, x, y, w, h, 0, 0, w, h);
+      im = cc;
+    }
+    cache.set(key, im);
+  }
   return cache.get(key);
 };
 

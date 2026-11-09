@@ -1,25 +1,50 @@
 // Map Factory — gera <id>.tmj.json + <id>.aliases.json a partir de um brief JSON e valida o resultado.
-// Uso: npm run map:brief -- <brief.json> [--out <dir>] [--no-validate]
-//   saída: --out, senão brief.out (relativo a prototype/world/), senão src/data/maps/
-//   aliases: brief.pack.aliasesFrom (id de um mapa de src/data/maps) é a base; pack/prefix/night do brief por cima.
-// Interface do brief: scripts/map-factory/brief.schema.json. Sai com código 1 se a validação falhar.
+// Uso: npm run map:brief -- <brief.json> [--out <dir>] [--kit <kit>] [--build <x.build.json>] [--no-validate]
+//   Aceita os dois formatos de brief:
+//   - brief do game-design (world-design/map-brief.schema.json, schemaVersion 1): passa antes pelo adaptador
+//     (scripts/map-factory/adapt-brief.mjs) com o kit (--kit, padrão forest-v6 → scripts/map-factory/kits/) e os
+//     ajustes de montagem (--build, senão scripts/map-factory/briefs/<id>.build.json se existir). O brief v0.1
+//     resultante fica em scripts/map-factory/briefs/adapted/<id>.brief.json (para revisão e reprodução).
+//   - brief v0.1 do gerador (scripts/map-factory/brief.schema.json): direto.
+//   saída: --out, senão build.out/brief.out (relativo a prototype/world/), senão src/data/maps/
+//   aliases: brief.pack.aliasesFrom (id de um mapa de src/data/maps) é a base; pack/prefix/night/extraPacks por cima.
+// Sai com código 1 se a validação falhar.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { adaptDesignBrief, isDesignBrief } from "./map-factory/adapt-brief.mjs";
 import { contextFor, loadMaps, loadSpecies, MAPS_DIR, WORLD_DIR } from "./map-factory/context.mjs";
 import { aliasesFor, generateFromBrief } from "./map-factory/generate.mjs";
 import { validateMap } from "./map-factory/validate.mjs";
 
 const args = process.argv.slice(2);
-const oi = args.indexOf("--out");
-const outArg = oi >= 0 ? args.splice(oi, 2)[1] : undefined;
+const opt = (n) => {
+  const i = args.indexOf(n);
+  return i >= 0 ? args.splice(i, 2)[1] : undefined;
+};
+const outArg = opt("--out");
+const kitArg = opt("--kit") ?? "forest-v6";
+const buildArg = opt("--build");
 const noValidate = args.includes("--no-validate");
 const briefPath = args.find((a) => !a.startsWith("--"));
 if (!briefPath) {
-  console.error("uso: npm run map:brief -- <brief.json> [--out <dir>] [--no-validate]");
+  console.error("uso: npm run map:brief -- <brief.json> [--out <dir>] [--kit forest-v6] [--build <x.build.json>] [--no-validate]");
   process.exit(2);
 }
-const brief = JSON.parse(readFileSync(resolve(process.cwd(), briefPath), "utf8"));
+const readJson = (p) => JSON.parse(readFileSync(p, "utf8"));
+let brief = readJson(resolve(process.cwd(), briefPath));
+if (isDesignBrief(brief)) {
+  const kitPath = kitArg.endsWith(".json") ? resolve(process.cwd(), kitArg) : join(WORLD_DIR, "scripts/map-factory/kits", `${kitArg}.kit.json`);
+  const defBuild = join(WORLD_DIR, "scripts/map-factory/briefs", `${brief.id}.build.json`);
+  const buildPath = buildArg ? resolve(process.cwd(), buildArg) : existsSync(defBuild) ? defBuild : null;
+  const { brief: adapted, report } = adaptDesignBrief(brief, readJson(kitPath), buildPath ? readJson(buildPath) : {});
+  console.log(`brief do game-design '${brief.id}' → v0.1 (kit ${kitArg}${buildPath ? `, montagem ${buildPath.replace(WORLD_DIR + "/", "")}` : ""})`);
+  for (const r of report) console.log(`   · ${r}`);
+  const adaptedDir = join(WORLD_DIR, "scripts/map-factory/briefs/adapted");
+  mkdirSync(adaptedDir, { recursive: true });
+  writeFileSync(join(adaptedDir, `${brief.id}.brief.json`), JSON.stringify(adapted, null, 2) + "\n");
+  brief = adapted;
+}
 const outDir = outArg ? resolve(process.cwd(), outArg) : resolve(WORLD_DIR, brief.out ?? "src/data/maps");
 const baseId = brief.pack?.aliasesFrom;
 const basePath = baseId ? join(MAPS_DIR, `${baseId}.aliases.json`) : null;
@@ -29,7 +54,7 @@ if (basePath && !existsSync(basePath)) {
 }
 
 const { tmj, stats } = generateFromBrief(brief);
-const aliases = aliasesFor(brief, basePath ? JSON.parse(readFileSync(basePath, "utf8")) : null);
+const aliases = aliasesFor(brief, basePath ? readJson(basePath) : null);
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, `${brief.id}.tmj.json`), JSON.stringify(tmj) + "\n");
 writeFileSync(join(outDir, `${brief.id}.aliases.json`), JSON.stringify(aliases, null, 2) + "\n");

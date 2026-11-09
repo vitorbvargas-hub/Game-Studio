@@ -1,0 +1,753 @@
+{
+  "briefVersion": "0.1",
+  "id": "template-desert",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'template-desert' (schemaVersion 1) com o kit 'forest-v6'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "profile": "factory-v1",
+  "seed": 1143026547,
+  "size": {
+    "width": 60,
+    "height": 36,
+    "tile": 32
+  },
+  "properties": {
+    "biome": "desert",
+    "regionName": "Modelo: Deserto",
+    "regionRef": "deserto",
+    "levelMin": 30,
+    "levelMax": 45,
+    "safeZone": false,
+    "briefSchema": "game-design/map-brief v1",
+    "kit": "forest-v6"
+  },
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing"
+    },
+    "water": {
+      "autotile": "blob16",
+      "prefix": "fp6_water_blob_",
+      "outside": "clamp",
+      "solid": true
+    }
+  },
+  "base": "forest",
+  "areas": [
+    {
+      "name": "spawn_area",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 30,
+      "cy": 31.5,
+      "rx": 6.75,
+      "ry": 4.25,
+      "wobble": 0.08
+    },
+    {
+      "name": "duna_aberta",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 30,
+      "cy": 18,
+      "rx": 20.75,
+      "ry": 8.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "oasis_secreto",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 8.5,
+      "cy": 7.5,
+      "rx": 5.25,
+      "ry": 4.25,
+      "wobble": 0.08
+    },
+    {
+      "name": "zona_concentracao",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 47,
+      "cy": 17,
+      "rx": 5.75,
+      "ry": 5.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "boss_arena",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 55,
+      "cy": 17.5,
+      "rx": 3.75,
+      "ry": 5.25,
+      "wobble": 0.08
+    },
+    {
+      "name": "exit-oeste-montanha-chao",
+      "terrain": "clearing",
+      "shape": "rect",
+      "x": 24,
+      "y": 30,
+      "w": 2,
+      "h": 4
+    }
+  ],
+  "paths": [
+    {
+      "name": "rota_principal",
+      "terrain": "path",
+      "points": [
+        [
+          30.5,
+          30.5
+        ],
+        [
+          30.5,
+          20.5
+        ],
+        [
+          38.5,
+          17.5
+        ],
+        [
+          46.5,
+          17.5
+        ],
+        [
+          52.5,
+          17.5
+        ]
+      ],
+      "radius": [
+        1.2,
+        1.5
+      ]
+    },
+    {
+      "name": "rota_secundaria",
+      "terrain": "path",
+      "points": [
+        [
+          28.5,
+          28.5
+        ],
+        [
+          16.5,
+          20.5
+        ],
+        [
+          8.5,
+          10.5
+        ],
+        [
+          12.5,
+          8.5
+        ],
+        [
+          20.5,
+          10.5
+        ],
+        [
+          30.5,
+          14.5
+        ],
+        [
+          46.5,
+          17.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "exit-oeste-montanha-acesso",
+      "terrain": "path",
+      "points": [
+        [
+          -0.5,
+          32.5
+        ],
+        [
+          27.5,
+          32.5
+        ]
+      ]
+    }
+  ],
+  "bridges": [],
+  "props": [
+    {
+      "kind": "grid",
+      "on": "forest",
+      "dx": 44,
+      "dy": 40,
+      "jitter": 10,
+      "edgeSkip": 0.12,
+      "solid": true,
+      "pick": [
+        {
+          "key": "fp4_tree_round_a",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_round_b",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_conifer_a",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_conifer_b",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_bushy_a",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_bushy_b",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_birch",
+          "weight": 5
+        },
+        {
+          "key": "fp4_tree_flowering",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_data_leaf",
+          "weight": 9
+        },
+        {
+          "key": "fp4_tree_palm_digital",
+          "weight": 14,
+          "where": "edge"
+        },
+        {
+          "key": "fp4_tree_ancient",
+          "weight": 2,
+          "where": "interior"
+        }
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 24,
+        "y": 28,
+        "w": 12,
+        "h": 7
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 5,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 24,
+        "y": 28,
+        "w": 12,
+        "h": 7
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 10,
+        "w": 40,
+        "h": 16
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 38,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 10,
+        "w": 40,
+        "h": 16
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 6,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ],
+      "patches": [
+        [
+          6.25,
+          6.1,
+          1.8
+        ],
+        [
+          10.75,
+          8.899999999999999,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 4,
+        "w": 9,
+        "h": 7
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 6,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 4,
+        "w": 9,
+        "h": 7
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 3,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 42,
+        "y": 12,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 6,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 42,
+        "y": 12,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 52,
+        "y": 13,
+        "w": 6,
+        "h": 9
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 3,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 52,
+        "y": 13,
+        "w": 6,
+        "h": 9
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "edge",
+      "on": "clearing",
+      "adjacentTo": "forest",
+      "side": "north",
+      "chance": 0.3,
+      "keys": [
+        "fp4_fallen_leaves_cluster",
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ]
+    },
+    {
+      "kind": "fixed",
+      "at": [
+        {
+          "x": 30,
+          "y": 29,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 8,
+          "y": 7,
+          "key": "fp6_healing_point",
+          "solid": false,
+          "force": true,
+          "ox": 0,
+          "oy": -10
+        },
+        {
+          "x": 46,
+          "y": 15,
+          "key": "fp6_chest_closed",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        }
+      ]
+    }
+  ],
+  "starts": {
+    "from_montanha_overworld": [
+      27,
+      32
+    ],
+    "player": [
+      27,
+      32
+    ]
+  },
+  "spawns": [
+    {
+      "name": "spawn-hagurumon",
+      "x": 20,
+      "y": 10,
+      "w": 21,
+      "h": 16,
+      "species": [
+        "CREATURE-0112"
+      ],
+      "levelMin": 30,
+      "levelMax": 34,
+      "count": 5
+    },
+    {
+      "name": "spawn-numemon",
+      "x": 42,
+      "y": 12,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0110"
+      ],
+      "levelMin": 30,
+      "levelMax": 35,
+      "count": 5
+    },
+    {
+      "name": "spawn-garurumon",
+      "x": 42,
+      "y": 12,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0010"
+      ],
+      "levelMin": 30,
+      "levelMax": 38,
+      "count": 3
+    },
+    {
+      "name": "spawn-angemon",
+      "x": 4,
+      "y": 4,
+      "w": 9,
+      "h": 7,
+      "species": [
+        "CREATURE-0013"
+      ],
+      "levelMin": 32,
+      "levelMax": 40,
+      "count": 2
+    }
+  ],
+  "npcs": [],
+  "pois": [
+    {
+      "name": "poi-entrada-oasis",
+      "x": 10,
+      "y": 9,
+      "kind": "secret_entrance",
+      "properties": {
+        "title": "Entrada do Oásis",
+        "description": "Só visível seguindo a rota do desvio."
+      }
+    },
+    {
+      "name": "interact-placa-entrada",
+      "x": 30,
+      "y": 29,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa de aviso na entrada do deserto.",
+        "text": "Placa de aviso na entrada do deserto.",
+        "effect": "Texto pt-BR: aviso de calor/distância, dica da rota do oásis."
+      }
+    },
+    {
+      "name": "interact-cura-oasis",
+      "x": 8,
+      "y": 7,
+      "kind": "heal_point",
+      "properties": {
+        "interactable": true,
+        "title": "Ponto de água no oásis.",
+        "text": "Ponto de água no oásis.",
+        "effect": "[H] recupera HP/MP, recompensa por explorar a rota secundária."
+      }
+    },
+    {
+      "name": "interact-bau-engrenagens",
+      "x": 46,
+      "y": 15,
+      "kind": "chest",
+      "properties": {
+        "interactable": true,
+        "title": "Baú entre as engrenagens, perto da zona de concentração.",
+        "text": "Baú entre as engrenagens, perto da zona de concentração.",
+        "effect": "[H] loot a definir."
+      }
+    }
+  ],
+  "bossArena": {
+    "name": "arena-guardromon",
+    "x": 52,
+    "y": 13,
+    "w": 6,
+    "h": 9,
+    "boss": "BOSS-GUARDROMON",
+    "properties": {
+      "triggerType": "approach",
+      "arenaType": "clareira_aberta",
+      "centerX": 55,
+      "centerY": 17
+    }
+  },
+  "triggers": [
+    {
+      "name": "arena-guardromon-entrada",
+      "x": 52,
+      "y": 13,
+      "w": 6,
+      "h": 9,
+      "properties": {
+        "event": "boss_approach",
+        "boss": "BOSS-GUARDROMON"
+      }
+    }
+  ],
+  "portals": [
+    {
+      "name": "exit-oeste-montanha",
+      "x": 24,
+      "y": 30,
+      "w": 2,
+      "h": 4,
+      "to": "montanha_overworld",
+      "toStart": "from_template-desert"
+    }
+  ]
+}

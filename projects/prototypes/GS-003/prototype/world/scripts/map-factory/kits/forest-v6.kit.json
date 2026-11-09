@@ -1,0 +1,80 @@
+{
+  "_doc": "Kit de montagem da Map Factory (game-dev): como o adaptador (adapt-brief.mjs) transforma um brief do game-design (world-design/map-brief.schema.json) num brief v0.1 do gerador. Arte: forest-v4/v4.1 (GAME-ASSETS/03-environments/forest-v4, prefixo fp4_, com noite) + pacote suplementar forest-v6 do game-art (projects/prototypes/GS-003/art/map-factory/forest-v6, prefixo fp6_, só dia): água blob-16, ponte h/v, rochas, baú, placa e ponto de cura. A ponte de 3 tiles vira 3 recortes de chão (bridge_h_0..2 / bridge_v_0..2); uma ponte mais longa repete o recorte do meio.",
+  "id": "forest-v6",
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": { "from": "bridge_h", "rect": [0, 0, 32, 32] },
+          "bridge_h_1": { "from": "bridge_h", "rect": [32, 0, 32, 32] },
+          "bridge_h_2": { "from": "bridge_h", "rect": [64, 0, 32, 32] },
+          "bridge_v_0": { "from": "bridge_v", "rect": [0, 0, 32, 32] },
+          "bridge_v_1": { "from": "bridge_v", "rect": [0, 32, 32, 32] },
+          "bridge_v_2": { "from": "bridge_v", "rect": [0, 64, 32, 32] }
+        }
+      }
+    ]
+  },
+  "terrains": {
+    "forest": { "autotile": "w47", "prefix": "fp4_denseedge_w47_", "outside": "in", "solid": "interior" },
+    "clearing": { "variants": ["fp4_clearing_floor_v41_00", "fp4_clearing_floor_v41_01", "fp4_clearing_floor_v41_02", "fp4_clearing_floor_v41_03"], "solid": false },
+    "path": { "autotile": "w47", "prefix": "fp4_path_w47_", "outside": "clamp", "solid": false, "border": "clearing" },
+    "water": { "autotile": "blob16", "prefix": "fp6_water_blob_", "outside": "clamp", "solid": true }
+  },
+  "base": "forest",
+  "_zoneTerrainDoc": "Tipo de zona do brief → terreno. null = fica mata (forest, sólida por dentro). Biomas sem kit próprio (cave, desert, mountain, village) usam o mesmo mapeamento com a arte de floresta: só a planta é testada.",
+  "zoneTerrain": {
+    "spawn_area": "clearing",
+    "clearing": "clearing",
+    "concentration": "clearing",
+    "secret": "clearing",
+    "boss_arena": "clearing",
+    "rock_field": "clearing",
+    "village_hub": "clearing",
+    "cave_floor": "clearing",
+    "dune": "clearing",
+    "other": "clearing",
+    "water": "water",
+    "dense_border": null,
+    "cliff": null
+  },
+  "trees": [
+    { "key": "fp4_tree_round_a", "weight": 22 },
+    { "key": "fp4_tree_round_b", "weight": 22 },
+    { "key": "fp4_tree_conifer_a", "weight": 12 },
+    { "key": "fp4_tree_conifer_b", "weight": 12 },
+    { "key": "fp4_tree_bushy_a", "weight": 4 },
+    { "key": "fp4_tree_bushy_b", "weight": 4 },
+    { "key": "fp4_tree_birch", "weight": 5 },
+    { "key": "fp4_tree_flowering", "weight": 4 },
+    { "key": "fp4_tree_data_leaf", "weight": 9 },
+    { "key": "fp4_tree_palm_digital", "weight": 14, "where": "edge" },
+    { "key": "fp4_tree_ancient", "weight": 2, "where": "interior" }
+  ],
+  "tallGrass": ["fp4_tall_grass_a", "fp4_tall_grass_b"],
+  "flowers": ["fp4_flower_cluster_white", "fp4_flower_cluster_red", "fp4_flower_cluster_purple"],
+  "mushrooms": ["fp4_mushroom_cluster"],
+  "edgeLitter": ["fp4_fallen_leaves_cluster", "fp4_tall_grass_a", "fp4_tall_grass_b"],
+  "rocks": { "solid": ["fp6_rock_big", "fp4_rock_cluster"], "decor": ["fp6_rock_small"] },
+  "_densityDoc": "Regra de vegetação (vegetationDensityRules do brief) por zona: patches = manchas de grama alta (não sólida) por 100 tiles da zona; flowers/mushrooms = props de chão por 100 tiles.",
+  "density": {
+    "low": { "patches": 0, "flowers": 6, "mushrooms": 1 },
+    "medium": { "patches": 1.5, "flowers": 8, "mushrooms": 2 },
+    "high": { "patches": 3, "flowers": 10, "mushrooms": 4 }
+  },
+  "rockField": { "solidPer100": 7, "decorPer100": 6 },
+  "interactables": {
+    "chest": { "key": "fp6_chest_closed", "solid": true },
+    "sign": { "key": "fp6_sign_post", "solid": true },
+    "heal_point": { "key": "fp6_healing_point", "solid": false, "oy": -10 },
+    "other": { "key": "fp6_sign_post", "solid": true }
+  },
+  "bridge": { "h": ["fp6_bridge_h_0", "fp6_bridge_h_1", "fp6_bridge_h_2"], "v": ["fp6_bridge_v_0", "fp6_bridge_v_1", "fp6_bridge_v_2"] }
+}

@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-09T16:18:12.495Z",
+  "date": "2026-11-09T16:39:36.754Z",
   "map": "vila",
   "profile": "legacy",
   "ok": true,
@@ -39,7 +39,7 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "alvos alcançados: 3/3 (start 2, portal 1)"
+        "alvos alcançados: 5/5 (start 3, portal 2)"
       ]
     },
     {
@@ -57,7 +57,7 @@
       "errors": [],
       "warnings": [],
       "info": [
-        "ground/vl5_path_blob: 120 tiles blob16, borda 'out'"
+        "ground/vl5_path_blob: 128 tiles blob16, borda 'out'"
       ]
     },
     {
@@ -81,11 +81,11 @@
     "size": "36x26",
     "tileSize": 32,
     "tileLayers": 1,
-    "objects": 51,
+    "objects": 53,
     "byClass": {
       "prop": 48,
-      "start": 2,
-      "portal": 1
+      "start": 3,
+      "portal": 2
     },
     "solidPct": 9.2,
     "reachablePctOfFree": 100

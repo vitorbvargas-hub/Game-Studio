@@ -1,0 +1,1065 @@
+{
+  "briefVersion": "0.1",
+  "id": "digimon-forest-01",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'digimon-forest-01' (schemaVersion 1) com o kit 'forest-v6'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "profile": "factory-v1",
+  "seed": 20261109,
+  "size": {
+    "width": 56,
+    "height": 40,
+    "tile": 32
+  },
+  "properties": {
+    "biome": "forest",
+    "regionName": "Digimon Forest — Prototype 01",
+    "regionRef": "floresta_densa",
+    "levelMin": 1,
+    "levelMax": 15,
+    "safeZone": false,
+    "briefSchema": "game-design/map-brief v1",
+    "kit": "forest-v6"
+  },
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing"
+    },
+    "water": {
+      "autotile": "blob16",
+      "prefix": "fp6_water_blob_",
+      "outside": "clamp",
+      "solid": true
+    }
+  },
+  "base": "forest",
+  "areas": [
+    {
+      "name": "spawn_area",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 25,
+      "cy": 33.5,
+      "rx": 7.75,
+      "ry": 5.25,
+      "wobble": 0.08
+    },
+    {
+      "name": "clareira_central",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 28,
+      "cy": 21,
+      "rx": 8.75,
+      "ry": 7.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "agua_riacho",
+      "terrain": "water",
+      "shape": "rect",
+      "x": 26,
+      "y": 2,
+      "w": 4,
+      "h": 14,
+      "afterPaths": true
+    },
+    {
+      "name": "zona_concentracao",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 43,
+      "cy": 21,
+      "rx": 5.75,
+      "ry": 5.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "campo_de_pedras",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 45,
+      "cy": 32,
+      "rx": 5.75,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "clareira_oculta",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 8.5,
+      "cy": 6,
+      "rx": 5.25,
+      "ry": 4.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "boss_arena",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 51.5,
+      "cy": 20,
+      "rx": 4.25,
+      "ry": 5.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "exit-sul-vila-chao",
+      "terrain": "clearing",
+      "shape": "rect",
+      "x": 22,
+      "y": 38,
+      "w": 6,
+      "h": 2
+    }
+  ],
+  "paths": [
+    {
+      "name": "rota_principal",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          36.5
+        ],
+        [
+          26.5,
+          27.5
+        ],
+        [
+          27.5,
+          20.5
+        ],
+        [
+          30.5,
+          20.5
+        ],
+        [
+          38.5,
+          20.5
+        ],
+        [
+          44.5,
+          20.5
+        ],
+        [
+          48.5,
+          20.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "rota_secundaria_pedras",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          33.5
+        ],
+        [
+          32.5,
+          32.5
+        ],
+        [
+          40.5,
+          32.5
+        ],
+        [
+          45.5,
+          30.5
+        ],
+        [
+          48.5,
+          24.5
+        ],
+        [
+          50.5,
+          20.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "rota_secundaria_riacho",
+      "terrain": "path",
+      "points": [
+        [
+          31.5,
+          17.5
+        ],
+        [
+          31.5,
+          13.5
+        ],
+        [
+          31.5,
+          10.5
+        ],
+        [
+          30.5,
+          9.5
+        ],
+        [
+          25.5,
+          9.5
+        ],
+        [
+          24.5,
+          7.5
+        ],
+        [
+          20.5,
+          5.5
+        ],
+        [
+          16.5,
+          5.5
+        ],
+        [
+          12.5,
+          6.5
+        ],
+        [
+          8.5,
+          6.5
+        ]
+      ],
+      "radius": [
+        0.6,
+        0.75
+      ]
+    },
+    {
+      "name": "exit-sul-vila-acesso",
+      "terrain": "path",
+      "points": [
+        [
+          25.5,
+          40.5
+        ],
+        [
+          25.5,
+          36.5
+        ]
+      ]
+    }
+  ],
+  "bridges": [
+    {
+      "name": "poi-ponte-riacho",
+      "x": 26,
+      "y": 9,
+      "w": 4,
+      "h": 1,
+      "detail": [
+        "fp6_bridge_h_0",
+        "fp6_bridge_h_1",
+        "fp6_bridge_h_1",
+        "fp6_bridge_h_2"
+      ]
+    }
+  ],
+  "props": [
+    {
+      "kind": "grid",
+      "on": "forest",
+      "dx": 44,
+      "dy": 40,
+      "jitter": 10,
+      "edgeSkip": 0.12,
+      "solid": true,
+      "pick": [
+        {
+          "key": "fp4_tree_round_a",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_round_b",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_conifer_a",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_conifer_b",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_bushy_a",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_bushy_b",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_birch",
+          "weight": 5
+        },
+        {
+          "key": "fp4_tree_flowering",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_data_leaf",
+          "weight": 9
+        },
+        {
+          "key": "fp4_tree_palm_digital",
+          "weight": 14,
+          "where": "edge"
+        },
+        {
+          "key": "fp4_tree_ancient",
+          "weight": 2,
+          "where": "interior"
+        }
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 18,
+        "y": 29,
+        "w": 14,
+        "h": 9
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 8,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 18,
+        "y": 29,
+        "w": 14,
+        "h": 9
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 20,
+        "y": 14,
+        "w": 16,
+        "h": 14
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 13,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 20,
+        "y": 14,
+        "w": 16,
+        "h": 14
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 2,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ],
+      "patches": [
+        [
+          40.5,
+          19,
+          1.8
+        ],
+        [
+          45.5,
+          23,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 38,
+        "y": 16,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 8,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 38,
+        "y": 16,
+        "w": 10,
+        "h": 10
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 2,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 5,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp6_rock_big",
+        "fp4_rock_cluster"
+      ],
+      "count": 6,
+      "solid": true,
+      "avoidPath": true,
+      "offset": [
+        16,
+        28,
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 40,
+        "y": 28,
+        "w": 10,
+        "h": 8
+      },
+      "keys": [
+        "fp6_rock_small"
+      ],
+      "count": 5,
+      "offset": [
+        8,
+        18,
+        16,
+        12
+      ]
+    },
+    {
+      "kind": "patches",
+      "on": "clearing",
+      "keys": [
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ],
+      "patches": [
+        [
+          6.25,
+          4.4,
+          1.8
+        ],
+        [
+          10.75,
+          7.6,
+          1.8
+        ]
+      ],
+      "skip": 0.2
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 2,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 7,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 4,
+        "y": 2,
+        "w": 9,
+        "h": 8
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 3,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 48,
+        "y": 15,
+        "w": 7,
+        "h": 10
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 4,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 48,
+        "y": 15,
+        "w": 7,
+        "h": 10
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 1,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "edge",
+      "on": "clearing",
+      "adjacentTo": "forest",
+      "side": "north",
+      "chance": 0.3,
+      "keys": [
+        "fp4_fallen_leaves_cluster",
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ]
+    },
+    {
+      "kind": "fixed",
+      "at": [
+        {
+          "x": 31,
+          "y": 18,
+          "key": "fp6_chest_closed",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 24,
+          "y": 31,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 33,
+          "y": 21,
+          "key": "fp6_healing_point",
+          "solid": false,
+          "force": true,
+          "ox": 0,
+          "oy": -10
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        }
+      ]
+    }
+  ],
+  "starts": {
+    "from_vila": [
+      25,
+      36
+    ],
+    "player": [
+      25,
+      36
+    ]
+  },
+  "spawns": [
+    {
+      "name": "spawn-gigimon",
+      "x": 22,
+      "y": 15,
+      "w": 13,
+      "h": 13,
+      "species": [
+        "CREATURE-0002"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 4
+    },
+    {
+      "name": "spawn-koromon",
+      "x": 22,
+      "y": 15,
+      "w": 13,
+      "h": 13,
+      "species": [
+        "CREATURE-0005"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 4
+    },
+    {
+      "name": "spawn-tsunomon",
+      "x": 20,
+      "y": 29,
+      "w": 11,
+      "h": 9,
+      "species": [
+        "CREATURE-0008"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 3
+    },
+    {
+      "name": "spawn-tanemon",
+      "x": 4,
+      "y": 2,
+      "w": 9,
+      "h": 8,
+      "species": [
+        "CREATURE-0116"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "count": 3
+    },
+    {
+      "name": "spawn-palmon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0107"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 5
+    },
+    {
+      "name": "spawn-tentomon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0106"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 5
+    },
+    {
+      "name": "spawn-floramon",
+      "x": 38,
+      "y": 16,
+      "w": 10,
+      "h": 10,
+      "species": [
+        "CREATURE-0111"
+      ],
+      "levelMin": 3,
+      "levelMax": 6,
+      "count": 4
+    },
+    {
+      "name": "spawn-dorumon",
+      "x": 40,
+      "y": 28,
+      "w": 10,
+      "h": 8,
+      "species": [
+        "CREATURE-0101"
+      ],
+      "levelMin": 4,
+      "levelMax": 6,
+      "count": 3
+    }
+  ],
+  "npcs": [
+    {
+      "name": "npc-guia-gigimon",
+      "x": 23,
+      "y": 30,
+      "properties": {
+        "displayName": "Gigimon Guia",
+        "kind": "digimon_resident",
+        "role": "guia",
+        "aggressive": false,
+        "speciesId": "CREATURE-0002",
+        "dialogue": "Diálogo placeholder: dá uma dica sobre as duas rotas até o covil (principal pela clareira, alternativa pelas pedras).",
+        "behavior": "static"
+      }
+    }
+  ],
+  "pois": [
+    {
+      "name": "poi-ponte-riacho",
+      "x": 27,
+      "y": 9,
+      "kind": "crossing",
+      "properties": {
+        "title": "Ponte do Riacho",
+        "description": "Ponte de madeira simples onde a Rota do Riacho atravessa o riacho. Único ponto de travessia do mapa."
+      }
+    },
+    {
+      "name": "poi-entrada-secreta",
+      "x": 13,
+      "y": 6,
+      "kind": "secret_entrance",
+      "properties": {
+        "title": "Entrada da Clareira Oculta",
+        "description": "Passagem estreita entre rochas e arbustos; não visível da Trilha Principal, só de quem segue a Rota do Riacho até o fim."
+      }
+    },
+    {
+      "name": "poi-entrada-covil",
+      "x": 47,
+      "y": 20,
+      "kind": "arena_entrance",
+      "properties": {
+        "title": "Entrada do Covil",
+        "description": "Ponto onde as 3 rotas (principal e as 2 secundárias) convergem antes da arena do chefe."
+      }
+    },
+    {
+      "name": "poi-mirante-clareira",
+      "x": 28,
+      "y": 15,
+      "kind": "viewpoint",
+      "properties": {
+        "title": "Mirante da Clareira",
+        "description": "Pequena elevação de onde se vê o riacho ao norte e o início do Capinzal ao leste (uso de câmera/composição, sem mecânica)."
+      }
+    },
+    {
+      "name": "interact-bau",
+      "x": 31,
+      "y": 18,
+      "kind": "chest",
+      "properties": {
+        "interactable": true,
+        "title": "Baú de madeira simples na Clareira Central.",
+        "text": "Baú de madeira simples na Clareira Central.",
+        "effect": "[H] loot não balanceado nesta entrega: bits e/ou 1 item comum de economy.json, a definir pelo game-dev na integração."
+      }
+    },
+    {
+      "name": "interact-placa-entrada",
+      "x": 24,
+      "y": 31,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa de madeira na entrada sul.",
+        "text": "Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura, mas também chega ao covil.",
+        "effect": "Texto pt-BR placeholder: 'Trilha principal ao norte leva à Clareira Central. Trilha das Pedras ao leste é mais dura, mas também chega ao covil.'"
+      }
+    },
+    {
+      "name": "interact-fonte-cura",
+      "x": 33,
+      "y": 21,
+      "kind": "heal_point",
+      "properties": {
+        "interactable": true,
+        "title": "Pequena fonte/altar na Clareira Central.",
+        "text": "Pequena fonte/altar na Clareira Central.",
+        "effect": "[H] restaura o HP da equipe ao interagir, seguindo o mesmo padrão de healPointBeforeBoss usado em dungeons.json (cripta_das_raizes, andar 5)."
+      }
+    },
+    {
+      "name": "interact-placa-secreta",
+      "x": 9,
+      "y": 7,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa desgastada na Clareira Oculta.",
+        "text": "Placa desgastada na Clareira Oculta.",
+        "effect": "Texto pt-BR placeholder: lore/curiosidade sobre a zona secreta, sem efeito de jogo."
+      }
+    }
+  ],
+  "bossArena": {
+    "name": "arena-kuwagamon",
+    "x": 48,
+    "y": 15,
+    "w": 7,
+    "h": 10,
+    "boss": "BOSS-KUWAGAMON",
+    "properties": {
+      "triggerType": "approach",
+      "arenaType": "clareira_aberta",
+      "centerX": 51,
+      "centerY": 20
+    }
+  },
+  "triggers": [
+    {
+      "name": "arena-kuwagamon-entrada",
+      "x": 48,
+      "y": 15,
+      "w": 7,
+      "h": 10,
+      "properties": {
+        "event": "boss_approach",
+        "boss": "BOSS-KUWAGAMON"
+      }
+    }
+  ],
+  "portals": [
+    {
+      "name": "exit-sul-vila",
+      "x": 22,
+      "y": 38,
+      "w": 6,
+      "h": 2,
+      "to": "vila",
+      "toStart": "from_digimon-forest-01"
+    }
+  ]
+}

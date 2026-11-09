@@ -1,0 +1,480 @@
+{
+  "briefVersion": "0.1",
+  "id": "template-village",
+  "_doc": "Gerado por adapt-brief.mjs a partir do brief do game-design 'template-village' (schemaVersion 1) com o kit 'forest-v6'. Não editar à mão: edite o brief e/ou o .build.json e rode de novo.",
+  "profile": "factory-v1",
+  "seed": 3253661478,
+  "size": {
+    "width": 36,
+    "height": 26,
+    "tile": 32
+  },
+  "properties": {
+    "biome": "village",
+    "regionName": "Modelo: Vila",
+    "regionRef": "vila_dos_bebes",
+    "levelMin": 1,
+    "levelMax": 5,
+    "safeZone": true,
+    "briefSchema": "game-design/map-brief v1",
+    "kit": "forest-v6"
+  },
+  "pack": {
+    "pack": "forest-v4",
+    "prefix": "fp4_",
+    "night": "night",
+    "aliasesFrom": "forest-proof",
+    "extraPacks": [
+      {
+        "pack": "forest-v6",
+        "prefix": "fp6_",
+        "root": "map-factory",
+        "crops": {
+          "bridge_h_0": {
+            "from": "bridge_h",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_1": {
+            "from": "bridge_h",
+            "rect": [
+              32,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_h_2": {
+            "from": "bridge_h",
+            "rect": [
+              64,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_0": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              0,
+              32,
+              32
+            ]
+          },
+          "bridge_v_1": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              32,
+              32,
+              32
+            ]
+          },
+          "bridge_v_2": {
+            "from": "bridge_v",
+            "rect": [
+              0,
+              64,
+              32,
+              32
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "terrains": {
+    "forest": {
+      "autotile": "w47",
+      "prefix": "fp4_denseedge_w47_",
+      "outside": "in",
+      "solid": "interior"
+    },
+    "clearing": {
+      "variants": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "solid": false
+    },
+    "path": {
+      "autotile": "w47",
+      "prefix": "fp4_path_w47_",
+      "outside": "clamp",
+      "solid": false,
+      "border": "clearing"
+    },
+    "water": {
+      "autotile": "blob16",
+      "prefix": "fp6_water_blob_",
+      "outside": "clamp",
+      "solid": true
+    }
+  },
+  "base": "forest",
+  "areas": [
+    {
+      "name": "spawn_area",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 18,
+      "cy": 5,
+      "rx": 4.75,
+      "ry": 3.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "praca_central",
+      "terrain": "clearing",
+      "shape": "ellipse",
+      "cx": 18,
+      "cy": 16,
+      "rx": 8.75,
+      "ry": 6.75,
+      "wobble": 0.08
+    },
+    {
+      "name": "exit-norte-floresta-chao",
+      "terrain": "clearing",
+      "shape": "rect",
+      "x": 16,
+      "y": 0,
+      "w": 4,
+      "h": 1
+    }
+  ],
+  "paths": [
+    {
+      "name": "trilha_cruz_vertical",
+      "terrain": "path",
+      "points": [
+        [
+          18.5,
+          4.5
+        ],
+        [
+          18.5,
+          12.5
+        ],
+        [
+          18.5,
+          22.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "trilha_cruz_horizontal",
+      "terrain": "path",
+      "points": [
+        [
+          6.5,
+          16.5
+        ],
+        [
+          18.5,
+          16.5
+        ],
+        [
+          30.5,
+          16.5
+        ]
+      ],
+      "radius": [
+        0.73,
+        0.89
+      ]
+    },
+    {
+      "name": "exit-norte-floresta-acesso",
+      "terrain": "path",
+      "points": [
+        [
+          18.5,
+          -0.5
+        ],
+        [
+          18.5,
+          2.5
+        ]
+      ]
+    }
+  ],
+  "bridges": [],
+  "props": [
+    {
+      "kind": "grid",
+      "on": "forest",
+      "dx": 44,
+      "dy": 40,
+      "jitter": 10,
+      "edgeSkip": 0.12,
+      "solid": true,
+      "pick": [
+        {
+          "key": "fp4_tree_round_a",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_round_b",
+          "weight": 22
+        },
+        {
+          "key": "fp4_tree_conifer_a",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_conifer_b",
+          "weight": 12
+        },
+        {
+          "key": "fp4_tree_bushy_a",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_bushy_b",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_birch",
+          "weight": 5
+        },
+        {
+          "key": "fp4_tree_flowering",
+          "weight": 4
+        },
+        {
+          "key": "fp4_tree_data_leaf",
+          "weight": 9
+        },
+        {
+          "key": "fp4_tree_palm_digital",
+          "weight": 14,
+          "where": "edge"
+        },
+        {
+          "key": "fp4_tree_ancient",
+          "weight": 2,
+          "where": "interior"
+        }
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 14,
+        "y": 2,
+        "w": 8,
+        "h": 6
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 3,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 14,
+        "y": 2,
+        "w": 8,
+        "h": 6
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 0,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 10,
+        "w": 16,
+        "h": 12
+      },
+      "keys": [
+        "fp4_flower_cluster_white",
+        "fp4_flower_cluster_red",
+        "fp4_flower_cluster_purple"
+      ],
+      "count": 12,
+      "offset": [
+        6,
+        14,
+        20,
+        16
+      ]
+    },
+    {
+      "kind": "scatter",
+      "on": "clearing",
+      "within": {
+        "x": 10,
+        "y": 10,
+        "w": 16,
+        "h": 12
+      },
+      "keys": [
+        "fp4_mushroom_cluster"
+      ],
+      "count": 2,
+      "offset": [
+        8,
+        20,
+        16,
+        10
+      ]
+    },
+    {
+      "kind": "edge",
+      "on": "clearing",
+      "adjacentTo": "forest",
+      "side": "north",
+      "chance": 0.3,
+      "keys": [
+        "fp4_fallen_leaves_cluster",
+        "fp4_tall_grass_a",
+        "fp4_tall_grass_b"
+      ]
+    },
+    {
+      "kind": "fixed",
+      "at": [
+        {
+          "x": 18,
+          "y": 6,
+          "key": "fp6_sign_post",
+          "solid": true,
+          "force": true,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "x": 18,
+          "y": 16,
+          "key": "fp6_healing_point",
+          "solid": false,
+          "force": true,
+          "ox": 0,
+          "oy": -10
+        }
+      ]
+    }
+  ],
+  "starts": {
+    "from_forest-proof": [
+      18,
+      2
+    ],
+    "player": [
+      18,
+      2
+    ]
+  },
+  "spawns": [],
+  "npcs": [
+    {
+      "name": "npc-elecmon",
+      "x": 18,
+      "y": 15,
+      "properties": {
+        "displayName": "Elecmon",
+        "kind": "digimon_resident",
+        "role": "guardião/morador",
+        "aggressive": false,
+        "catalogRef": "NPC-ELECMON",
+        "dialogue": "Placeholder: boas-vindas e dica sobre a Floresta Densa.",
+        "behavior": "static"
+      }
+    },
+    {
+      "name": "npc-botamon",
+      "x": 21,
+      "y": 14,
+      "properties": {
+        "displayName": "Botamon",
+        "kind": "digimon_resident",
+        "role": "morador (Baby I)",
+        "aggressive": false,
+        "catalogRef": "NPC-BOTAMON",
+        "behavior": "static"
+      }
+    }
+  ],
+  "pois": [
+    {
+      "name": "poi-bercario",
+      "x": 20,
+      "y": 14,
+      "kind": "landmark",
+      "properties": {
+        "title": "Berços e Ovos",
+        "description": "Área de berços/ovos citada no README do world (pacote vila-v5)."
+      }
+    },
+    {
+      "name": "interact-placa-boas-vindas",
+      "x": 18,
+      "y": 6,
+      "kind": "sign",
+      "properties": {
+        "interactable": true,
+        "title": "Placa de boas-vindas na entrada.",
+        "text": "Placa de boas-vindas na entrada.",
+        "effect": "Texto pt-BR: apresentação da Vila dos Bebês como zona segura."
+      }
+    },
+    {
+      "name": "interact-cura",
+      "x": 18,
+      "y": 16,
+      "kind": "heal_point",
+      "properties": {
+        "interactable": true,
+        "title": "Fonte na praça central.",
+        "text": "Fonte na praça central.",
+        "effect": "[H] cura completa a qualquer momento — coerente com ser zona segura."
+      }
+    }
+  ],
+  "triggers": [],
+  "portals": [
+    {
+      "name": "exit-norte-floresta",
+      "x": 16,
+      "y": 0,
+      "w": 4,
+      "h": 1,
+      "to": "forest-proof",
+      "toStart": "from_vila"
+    }
+  ]
+}

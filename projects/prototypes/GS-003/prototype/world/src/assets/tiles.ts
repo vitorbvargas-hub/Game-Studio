@@ -77,6 +77,21 @@ export function countDwdsSources(src: Record<string, TileSource>): number {
   return Object.values(src).filter((t) => /-dwds\//.test(t.url)).length;
 }
 
+/**
+ * PNGs de um pacote da Map Factory (projects/prototypes/GS-003/art/map-factory/<pack>/, do game-art, fora do
+ * GAME-ASSETS), chaveados pelo nome do arquivo. A prancha `preview.png` do pacote fica de fora.
+ */
+export function loadMapFactoryPack(pack: string): Record<string, TileSource> {
+  const pngs = import.meta.glob<string>("@gs003-art/map-factory/**/*.png", { eager: true, query: "?url", import: "default" });
+  const out: Record<string, TileSource> = {};
+  for (const [path, url] of Object.entries(pngs)) {
+    const p = path.replace(/\\/g, "/");
+    if (!p.includes(`/map-factory/${pack}/`) || /\/preview\.png$/i.test(p)) continue;
+    out[p.split("/").pop()!.replace(/\.png$/i, "")] = { url };
+  }
+  return out;
+}
+
 // ---------- placeholders ----------
 
 type Ctx2D = CanvasRenderingContext2D;

@@ -8,6 +8,8 @@ const GAME_ASSETS = fileURLToPath(new URL("../../../../../assets/GAME-ASSETS", i
 const GAME_PROTO = fileURLToPath(new URL("../game", import.meta.url));
 // Pesquisa do GS-003 (tabela de tamanhos do game-research, opcional).
 const GS003_RESEARCH = fileURLToPath(new URL("../../research", import.meta.url));
+// Arte do GS-003 fora do GAME-ASSETS: pacotes da Map Factory (art/map-factory/<pack>/, ex. forest-v6), lidos sem cópia.
+const GS003_ART = fileURLToPath(new URL("../../art", import.meta.url));
 /** Pastas do GAME-ASSETS lidas pelo jogo (glob): vigiadas no dev para arquivo novo/removido entrar sem reiniciar. */
 export const WATCHED_ASSET_DIRS = ["01-creatures", "03-environments", "04-effects", "11-characters"].map((d) => `${GAME_ASSETS}/${d}`);
 
@@ -37,10 +39,10 @@ export function devNoStore(): Plugin {
 export default defineConfig({
   base: "./",
   plugins: [devNoStore()],
-  resolve: { alias: { "@game-assets": GAME_ASSETS, "@game": GAME_PROTO, "@gs003-research": GS003_RESEARCH } },
+  resolve: { alias: { "@game-assets": GAME_ASSETS, "@game": GAME_PROTO, "@gs003-research": GS003_RESEARCH, "@gs003-art": GS003_ART } },
   // strictPort: se a 5174 estiver ocupada (outro `npm run dev` antigo), falha em vez de subir em outra porta e deixar
   // a aba velha apontando para o servidor antigo.
-  server: { host: "127.0.0.1", port: 5174, strictPort: true, fs: { allow: [".", GAME_ASSETS, GAME_PROTO, GS003_RESEARCH] } },
+  server: { host: "127.0.0.1", port: 5174, strictPort: true, fs: { allow: [".", GAME_ASSETS, GAME_PROTO, GS003_RESEARCH, GS003_ART] } },
   build: { target: "es2022", assetsInlineLimit: 0 },
   test: { include: ["tests/**/*.test.ts"], environment: "node" },
 });

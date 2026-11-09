@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-09T16:39:36.754Z",
+  "map": "digimon-forest-01",
+  "profile": "factory-v1",
+  "ok": true,
+  "gates": [
+    {
+      "id": "layers",
+      "title": "Camadas obrigatórias presentes",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "tile_ids",
+      "title": "IDs de tile existentes",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "asset_keys",
+      "title": "Chaves visuais resolvem em PNG (dia/noite)",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "83 chaves verificadas"
+      ]
+    },
+    {
+      "id": "reach",
+      "title": "BFS do início do jogador alcança 100% dos alvos",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "alvos alcançados: 21/21 (start 2, spawn 8, npc 1, poi 8, boss_arena 1, portal 1)"
+      ]
+    },
+    {
+      "id": "placement",
+      "title": "Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição",
+      "status": "pass",
+      "errors": [],
+      "warnings": [
+        "spawn 'spawn-tsunomon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+        "spawn 'spawn-tanemon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)",
+        "spawn 'spawn-dorumon': 1 células livres da área de sorteio fora do alcance do jogador (bolsões)"
+      ],
+      "info": []
+    },
+    {
+      "id": "wang",
+      "title": "Máscaras de autotile coerentes entre vizinhos",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "ground/fp4_denseedge_w47: 1407 tiles w47, borda 'in'",
+        "ground/fp6_water_blob: 56 tiles blob16, borda 'in'",
+        "ground/fp4_path_w47: 146 tiles w47, borda 'in'"
+      ]
+    },
+    {
+      "id": "species",
+      "title": "Espécies dos spawns existem em world-species.json",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    },
+    {
+      "id": "portals",
+      "title": "Portais com destino válido",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "info": []
+    }
+  ],
+  "stats": {
+    "size": "56x40",
+    "tileSize": 32,
+    "tileLayers": 2,
+    "objects": 938,
+    "byClass": {
+      "prop": 916,
+      "start": 2,
+      "spawn": 8,
+      "npc": 1,
+      "portal": 1,
+      "trigger": 1,
+      "poi": 8,
+      "boss_arena": 1
+    },
+    "solidPct": 59.2,
+    "reachablePctOfFree": 98
+  },
+  "file": "src/data/maps/digimon-forest-01.tmj.json"
+}

@@ -82,6 +82,14 @@ export function createWorld(map: WorldMap, content: WorldContent, seed: number, 
   map.spawns.forEach((z, i) => {
     for (let k = 0; k < z.count; k++) spawnWild(ctx, z, i);
   });
+  // NPCs residentes (Map Factory): Digimon parados e não hostis; nenhum `think` os move e ninguém os ataca
+  for (const n of map.npcs ?? []) {
+    if (!n.speciesId || !content.species[n.speciesId]) continue;
+    const e = makeCreature(ctx, `npc:${n.id}`, "npc", n.speciesId, 1, n.pos);
+    e.name = n.name;
+    e.speed = 0;
+    addEntity(ctx, e);
+  }
   return { sim, events: ctx.ev };
 }
 

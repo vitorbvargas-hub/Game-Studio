@@ -114,7 +114,8 @@ const px = (t) => t * T + T / 2;
   const W = 36, H = 26;
   const r = rng(909);
   const road = (x, y) =>
-    ((x === 17 || x === 18) && y <= 21) || ((y === 12 || y === 13) && x >= 4 && x <= 31) || (x >= 14 && x <= 21 && y >= 10 && y <= 15);
+    // a rua norte-sul vai até a borda sul (saída para a Floresta Digimon, Map Factory)
+    (x === 17 || x === 18) || ((y === 12 || y === 13) && x >= 4 && x <= 31) || (x >= 14 && x <= 21 && y >= 10 && y <= 15);
   const ground = [];
   for (let y = 0; y < H; y++)
     for (let x = 0; x < W; x++) {
@@ -145,8 +146,12 @@ const px = (t) => t * T + T / 2;
     name: "vila", W, H, ground, props,
     solidKeys: () => false,
     properties: { biome: "vila", regionName: "Vila dos Bebês" },
-    starts: { player: [18 * T, px(2)], from_floresta: [18 * T, px(2)] },
+    starts: { player: [18 * T, px(2)], from_floresta: [18 * T, px(2)], "from_digimon-forest-01": [18 * T, px(22)] },
     spawns: [],
-    portals: [{ name: "norte-floresta", x: 16, y: 0, w: 4, h: 1, to: "forest-proof", toStart: "from_vila" }],
+    portals: [
+      { name: "norte-floresta", x: 16, y: 0, w: 4, h: 1, to: "forest-proof", toStart: "from_vila" },
+      // Map Factory (piloto): saída sul pelo vão da cerca até a Floresta Digimon — Prototype 01
+      { name: "sul-digimon-forest", x: 16, y: 25, w: 4, h: 1, to: "digimon-forest-01", toStart: "from_vila" },
+    ],
   });
 }

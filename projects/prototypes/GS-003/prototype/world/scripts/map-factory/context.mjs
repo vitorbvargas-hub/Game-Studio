@@ -11,6 +11,25 @@ import { fileURLToPath } from "node:url";
 export const WORLD_DIR = join(dirname(fileURLToPath(import.meta.url)), "../..");
 export const GAME_ASSETS = join(WORLD_DIR, "../../../../../assets/GAME-ASSETS");
 export const MAPS_DIR = join(WORLD_DIR, "src/data/maps");
+/** Pacotes da Map Factory do game-art fora do GAME-ASSETS (art/map-factory/<pack>/), alias @gs003-art no Vite. */
+export const MAP_FACTORY_ART = join(WORLD_DIR, "../../art/map-factory");
+
+/**
+ * Arquivos PNG de um pacote suplementar (aliases.extraPacks[]): { nome: caminho }, sem a prancha preview.png e sem
+ * night/. Mesma regra de src/assets/scene-tiles.ts (extraPackTiles); os recortes (`crops`) apontam para o PNG de origem.
+ */
+export function extraPackFiles(e) {
+  const root = e.root === "game-assets" ? join(GAME_ASSETS, "03-environments") : MAP_FACTORY_ART;
+  const out = new Map();
+  for (const f of walk(root)) {
+    if (!/\.png$/i.test(f) || !f.includes(`/${e.pack}/`) || /\/night\//.test(f) || /\/preview\.png$/i.test(f)) continue;
+    out.set(basename(f).replace(/\.png$/i, ""), f);
+  }
+  const files = new Map();
+  for (const [k, f] of out) files.set(e.prefix + k, { path: f });
+  for (const [k, c] of Object.entries(e.crops ?? {})) if (out.has(c.from)) files.set(e.prefix + k, { path: out.get(c.from), rect: c.rect });
+  return files;
+}
 
 const readJson = (p) => JSON.parse(readFileSync(p, "utf8"));
 
@@ -59,7 +78,9 @@ export function assetResolver(aliases) {
   const day = pack ? new Set(files.filter((f) => f.path.includes(`/${pack}/`) && !f.path.includes(nightDir)).map((f) => f.key)) : new Set();
   const night = pack && aliases.night ? new Set(files.filter((f) => f.path.includes(nightDir)).map((f) => f.key)) : null;
   const prefix = aliases?.prefix ?? "";
-  const has = (packSet, k) => global.has(k) || (prefix && k.startsWith(prefix) && packSet.has(k.slice(prefix.length)));
+  // pacotes suplementares (Map Factory): sem noite, valem para os dois presets
+  const extra = new Set((aliases?.extraPacks ?? []).flatMap((e) => [...extraPackFiles(e).keys()]));
+  const has = (packSet, k) => global.has(k) || extra.has(k) || (prefix && k.startsWith(prefix) && packSet.has(k.slice(prefix.length)));
   const ok = (packSet, k) => has(packSet, k) || (has(packSet, `${k}_base`) && has(packSet, `${k}_top`));
   return (k) => ({ day: ok(day, k), night: night ? ok(night, k) : null });
 }

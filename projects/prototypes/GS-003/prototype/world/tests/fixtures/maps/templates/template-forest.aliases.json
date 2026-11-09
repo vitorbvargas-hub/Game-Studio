@@ -1,0 +1,128 @@
+{
+  "_doc": "Mapa template-forest (gerado de brief por gen-map-from-brief.mjs) → pacote GAME-ASSETS/03-environments/forest-v4/. Chave 'fp4_<nome>' = PNG <nome> do pacote. Demais campos copiados do mapa base.",
+  "pack": "forest-v4",
+  "prefix": "fp4_",
+  "night": "night",
+  "trees": {
+    "overlap": 0.42,
+    "shadowSmall": "canopy_shadow_small",
+    "shadowLarge": "canopy_shadow_large",
+    "largeShadowMinW": 80,
+    "behindAlpha": 0.45,
+    "castShadow": {
+      "day": "#0c2615",
+      "dayAlpha": 92,
+      "night": "#060a1c",
+      "nightAlpha": 130
+    },
+    "rimLight": {
+      "day": "#dff08a",
+      "night": "#a6c0e8",
+      "alpha": 90,
+      "baked": [
+        "fp4_tree_palm_digital",
+        "fp4_tree_data_leaf"
+      ]
+    },
+    "topOffset": {
+      "fp4_tree_palm_digital": [
+        4,
+        0
+      ]
+    }
+  },
+  "smoothAutotile": [
+    {
+      "prefix": "fp4_path_w47_",
+      "full": "fp4_path_w47_255",
+      "keepOwnDirt": true,
+      "outside": "edge",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.62,
+      "noise": 0.1,
+      "noiseScale": 6
+    },
+    {
+      "prefix": "fp4_denseedge_w47_",
+      "full": "fp4_denseedge_w47_255",
+      "outside": "fill",
+      "ground": [
+        "fp4_clearing_floor_v41_00",
+        "fp4_clearing_floor_v41_01",
+        "fp4_clearing_floor_v41_02",
+        "fp4_clearing_floor_v41_03"
+      ],
+      "threshold": 0.64,
+      "noise": 0.1,
+      "noiseScale": 8
+    }
+  ],
+  "extraPacks": [
+    {
+      "pack": "forest-v6",
+      "prefix": "fp6_",
+      "root": "map-factory",
+      "crops": {
+        "bridge_h_0": {
+          "from": "bridge_h",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_h_1": {
+          "from": "bridge_h",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_h_2": {
+          "from": "bridge_h",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_v_0": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        "bridge_v_1": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            32,
+            32,
+            32
+          ]
+        },
+        "bridge_v_2": {
+          "from": "bridge_v",
+          "rect": [
+            0,
+            64,
+            32,
+            32
+          ]
+        }
+      }
+    }
+  ]
+}

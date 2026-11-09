@@ -17,7 +17,7 @@ const parsed = Object.fromEntries(Object.values(MAPS).map((d) => [d.id, parseTil
 
 describe("mapas por região e saídas (troca de mapa)", () => {
   it("floresta, praia e vila: toda saída leva a um mapa que existe, num início que existe e não é sólido", () => {
-    expect(Object.keys(MAPS).sort()).toEqual(["forest-proof", "praia", "vila"]);
+    expect(Object.keys(MAPS).sort()).toEqual(["digimon-forest-01", "forest-proof", "praia", "vila"]);
     for (const m of Object.values(parsed)) {
       expect(m.portals.length, m.id).toBeGreaterThan(0);
       for (const p of m.portals) {
@@ -38,6 +38,9 @@ describe("mapas por região e saídas (troca de mapa)", () => {
     expect(parsed["forest-proof"].portals.map((p) => p.to).sort()).toEqual(["praia", "vila"]);
     expect(parsed.praia.portals[0].to).toBe("forest-proof");
     expect(parsed.vila.portals[0].to).toBe("forest-proof");
+    // Map Factory: vila ↔ digimon-forest-01 (saída sul da vila, saída sul da floresta Digimon)
+    expect(parsed.vila.portals.map((p) => p.to).sort()).toEqual(["digimon-forest-01", "forest-proof"]);
+    expect(parsed["digimon-forest-01"].portals.map((p) => [p.to, p.toStart])).toEqual([["vila", "from_digimon-forest-01"]]);
   });
 
   it("os pacotes praia-v5 e vila-v5 resolvem todas as chaves do mapa (sem placeholder) e ficam fora do conjunto global", () => {

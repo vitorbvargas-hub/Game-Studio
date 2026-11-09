@@ -80,6 +80,34 @@ export interface MapPortal {
   toStart: string;
 }
 
+/** NPC residente (camada `npcs`, Map Factory): Digimon parado, não hostil. Posição em sub-tiles. */
+export interface MapNpc {
+  id: string;
+  name: string;
+  speciesId?: string;
+  dialogue?: string;
+  pos: Vec;
+}
+
+/** Ponto interativo (POI com kind chest/sign/heal_point da camada `poi`). Posição em sub-tiles. */
+export interface MapInteractable {
+  id: string;
+  kind: "chest" | "sign" | "heal_point";
+  title: string;
+  text: string;
+  pos: Vec;
+}
+
+/** Arena de chefe (objeto `boss_arena`). Retângulo em px. */
+export interface MapArena {
+  id: string;
+  boss: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export interface WorldMap {
   id: string;
   width: number;
@@ -92,7 +120,13 @@ export interface WorldMap {
   spawns: SpawnZone[];
   starts: Record<string, Vec>;
   portals: MapPortal[];
+  /** Map Factory: NPCs, interativos e arenas (vazios nos mapas antigos; ausentes em mapas montados em código). */
+  npcs?: MapNpc[];
+  interactables?: MapInteractable[];
+  arenas?: MapArena[];
 }
+
+const INTERACTIVE_KINDS = new Set(["chest", "sign", "heal_point"]);
 
 function prop(props: TiledProperty[] | undefined, name: string): TiledProperty["value"] | undefined {
   return props?.find((p) => p.name === name)?.value;
@@ -113,6 +147,9 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const spawns: SpawnZone[] = [];
   const starts: Record<string, Vec> = {};
   const portals: MapPortal[] = [];
+  const npcs: MapNpc[] = [];
+  const interactables: MapInteractable[] = [];
+  const arenas: MapArena[] = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
   for (const layer of m.layers) {
@@ -163,12 +200,28 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
         const y1 = o.height ? Math.ceil((o.y + o.height) / tile) - 1 : y0;
         for (let ty = Math.max(0, y0); ty <= Math.min(m.height - 1, y1); ty++)
           for (let tx = Math.max(0, x0); tx <= Math.min(m.width - 1, x1); tx++) solid[ty * m.width + tx] = 1;
+      } else if (cls === "npc") {
+        const sp = prop(o.properties, "speciesId");
+        const dl = prop(o.properties, "dialogue");
+        npcs.push({ id: o.name || `npc-${o.id}`, name: String(prop(o.properties, "displayName") ?? o.name ?? "NPC"), speciesId: sp === undefined ? undefined : String(sp), dialogue: dl === undefined ? undefined : String(dl), pos: { x: toSub(o.x), y: toSub(o.y) } });
+      } else if (cls === "poi" && INTERACTIVE_KINDS.has(String(prop(o.properties, "kind")))) {
+        const cx = o.x + (o.point ? 0 : (o.width ?? 0) / 2);
+        const cy = o.y + (o.point ? 0 : (o.height ?? 0) / 2);
+        interactables.push({
+          id: o.name || `poi-${o.id}`,
+          kind: String(prop(o.properties, "kind")) as MapInteractable["kind"],
+          title: String(prop(o.properties, "title") ?? o.name ?? ""),
+          text: String(prop(o.properties, "text") ?? prop(o.properties, "title") ?? ""),
+          pos: { x: toSub(cx), y: toSub(cy) },
+        });
+      } else if (cls === "boss_arena") {
+        arenas.push({ id: o.name || `arena-${o.id}`, boss: String(prop(o.properties, "boss") ?? ""), x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile });
       } else if (cls === "portal") {
         portals.push({ name: o.name ?? "", x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile, to: String(prop(o.properties, "to")), toStart: String(prop(o.properties, "toStart") ?? "player") });
       }
     }
   }
-  return { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals };
+  return { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas };
 }
 
 /** Sólido no ponto (sub-tiles). Fora do mapa conta como sólido. */

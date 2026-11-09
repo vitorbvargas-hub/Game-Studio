@@ -16,6 +16,7 @@
     "map:brief": "node scripts/gen-map-from-brief.mjs",
     "map:validate": "node scripts/validate-map.mjs",
     "map:preview": "node scripts/map-preview.mjs",
+    "map:templates": "node scripts/map-templates.mjs",
     "shots:live": "node scripts/capture-live.mjs",
     "shots": "vite-node scripts/capture-screens.ts",
     "shots:vfx": "vite-node scripts/capture-vfx.ts"
