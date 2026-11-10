@@ -141,3 +141,12 @@ describe("kit circuit-kit-v1 no HUD v2", () => {
     for (const f of ["worldmap_v1.png", "poi_icons.png", "worldmap.json"]) expect(existsSync(join(ART, "map-factory/worldmap-v1", f))).toBe(true);
   });
 });
+
+describe("kit: cores dos botões", () => {
+  it("as cores dos botões do kit vencem '#hud button { color: inherit }' (seletor com #hud)", () => {
+    const css = readFileSync(join(__dirname, "../src/style.css"), "utf8");
+    expect(css).toMatch(/#hud button \{[^}]*color: inherit/);
+    expect(css).toMatch(/\.hud-v2#hud \.dg-cta:disabled,[^{]*\{[^}]*color: #6b7aa1/);
+    expect(css).toMatch(/\.hud-v2 \.dg-cta:disabled::before \{[^}]*var\(--ck-btn-locked\)/);
+  });
+});

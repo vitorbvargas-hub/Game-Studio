@@ -3853,6 +3853,27 @@ body {
   border-image-source: var(--ck-btn-locked);
   border-image-slice: 5;
   background: #15192a padding-box;
+}
+/* o cadeado do próprio button_locked.png (6×7 px no centro do PNG), em 2×, antes do texto */
+.hud-v2 .dg-cta:disabled::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 14px;
+  margin: 0 6px -2px 0;
+  background: var(--ck-btn-locked) -58px -10px / 128px 40px no-repeat;
+  image-rendering: pixelated;
+}
+/* cores dos botões do kit: "#hud button { color: inherit }" tem especificidade de id, então o seletor leva #hud */
+.hud-v2#hud .dg-cta {
+  color: #eef2fb;
+}
+.hud-v2#hud .dg-cta:active,
+.hud-v2#hud .dg-tab.on {
+  color: #ffd27a;
+}
+.hud-v2#hud .dg-cta:disabled,
+.hud-v2#hud .dg-tab.locked {
   color: #6b7aa1;
   cursor: not-allowed;
 }
