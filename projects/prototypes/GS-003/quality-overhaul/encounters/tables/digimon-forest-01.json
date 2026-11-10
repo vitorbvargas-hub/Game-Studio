@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "digimon-forest-01",
+  "mapId": "digimon-forest-01",
+  "regionId": "floresta_densa",
+  "_notes": "GS-012 passo 4 (proposta, game-dev, 2026-11-09). Espécies: só ids de src/data/world-species.json, todas com arte em GAME-ASSETS/01-creatures e listadas em regions.json floresta_densa.wildSpecies [E]. Faixas de nível seguem as zonas de spawn atuais do .tmj (1-4 bebês, 3-6 Crianças, 4-6 Dorumon) e o regions.json (8-10 Adultos) [E]. Pesos, taxas e carências são [H], calibrados com scripts/encounters/sim.mjs (BALANCE_SIM.md). Áreas: retângulos em tiles sobre as zonas do brief world-design/briefs/digimon-forest-01.json, onde a grama alta (fp4_tall_grass_*) e os juncos (fp8_reed_cluster) já estão no mapa v8 [E]; vão para a camada `encounters` do .tmj no passo 5.",
+
+  "params": {
+    "exposure": "steps",
+    "stepSeconds": 0.32,
+    "graceSteps": [16, 24],
+    "minIntervalSec": 4,
+    "ramp": { "start": 40, "perStep": 0.006 },
+    "pMax": 0.22,
+    "emptyRustle": { "chance": 0.12, "graceSteps": [5, 9] },
+    "regionRateMult": 1.0,
+    "conditionRateMult": [
+      { "when": { "weather": ["rain", "storm"] }, "mult": 1.15 },
+      { "when": { "time": ["night"] }, "mult": 1.1 }
+    ],
+    "blockedWhen": ["partner_in_combat", "partner_defeated", "partner_evolving", "intro_playing", "safe_zone", "near_portal", "repel_active", "cutscene"],
+    "nearPortalTiles": 4
+  },
+
+  "terrains": {
+    "tall_grass": { "baseRate": 0.038, "label": "Grama alta", "visual": "fp4_tall_grass_a|fp4_tall_grass_b (a aprovar no laboratório GS-010)" },
+    "dense_bush": { "baseRate": 0.045, "label": "Mata rasteira densa", "visual": "fp8_fern + fp4_tree_bushy (a aprovar)" },
+    "reeds": { "baseRate": 0.03, "label": "Juncos da margem", "visual": "fp8_reed_cluster (a aprovar)" }
+  },
+
+  "areas": [
+    { "id": "oculta-grama", "terrain": "tall_grass", "zoneRef": "clareira_oculta", "rect": { "x": 5, "y": 3, "w": 8, "h": 7 }, "rateMult": 1.1, "_notes": "14 props de grama alta já entre (5,3) e (12,9) no v8." },
+    { "id": "concentracao-grama", "terrain": "tall_grass", "zoneRef": "zona_concentracao", "rect": { "x": 39, "y": 16, "w": 9, "h": 9 }, "rateMult": 1.0, "_notes": "Grama alta em (39..47, 16..24). Antessala do covil." },
+    { "id": "riacho-oeste-juncos", "terrain": "reeds", "zoneRef": "agua_riacho", "rect": { "x": 12, "y": 22, "w": 2, "h": 14 }, "rateMult": 1.0, "_notes": "Margem oeste do braço sul do riacho; juncos em (13,27) e (14,31)." },
+    { "id": "riacho-leste-juncos", "terrain": "reeds", "zoneRef": "agua_riacho", "rect": { "x": 19, "y": 17, "w": 1, "h": 10 }, "rateMult": 1.0, "_notes": "Margem leste; juncos em (19,18) e (19,25). Fica fora da spawn_area (y<29)." },
+    { "id": "sudeste-mata", "terrain": "dense_bush", "rect": { "x": 34, "y": 34, "w": 6, "h": 4 }, "rateMult": 1.0, "_notes": "Samambaias em (37,35), (38,36), (34,37)." }
+  ],
+
+  "entries": [
+    { "id": "gigimon-grama", "speciesId": "CREATURE-0002", "name": "Gigimon", "mode": "random", "rarity": "common", "weight": 30, "levels": [1, 4], "terrains": ["tall_grass", "dense_bush"] },
+    { "id": "koromon-grama", "speciesId": "CREATURE-0005", "name": "Koromon", "mode": "random", "rarity": "common", "weight": 30, "levels": [1, 4], "terrains": ["tall_grass", "reeds"] },
+    { "id": "tokomon-grama", "speciesId": "CREATURE-0011", "name": "Tokomon", "mode": "random", "rarity": "common", "weight": 18, "levels": [1, 4], "terrains": ["tall_grass"] },
+    { "id": "tanemon-grama", "speciesId": "CREATURE-0116", "name": "Tanemon", "mode": "random", "rarity": "common", "weight": 22, "levels": [1, 4], "terrains": ["tall_grass", "dense_bush"], "modifiers": [{ "when": { "weather": ["rain"] }, "weightMult": 1.5 }] },
+    { "id": "tsunomon-juncos", "speciesId": "CREATURE-0008", "name": "Tsunomon", "mode": "random", "rarity": "common", "weight": 35, "levels": [1, 4], "terrains": ["reeds"] },
+
+    { "id": "palmon-grama", "speciesId": "CREATURE-0107", "name": "Palmon", "mode": "random", "rarity": "uncommon", "weight": 12, "levels": [3, 6], "terrains": ["tall_grass", "dense_bush"], "modifiers": [{ "when": { "weather": ["rain"] }, "weightMult": 1.5 }] },
+    { "id": "floramon-dia", "speciesId": "CREATURE-0111", "name": "Floramon", "mode": "random", "rarity": "uncommon", "weight": 11, "levels": [3, 6], "terrains": ["tall_grass"], "requires": { "time": ["day", "dawn", "dusk"] }, "_notes": "Flor: não aparece em noite plena." },
+    { "id": "tentomon-grama", "speciesId": "CREATURE-0106", "name": "Tentomon", "mode": "random", "rarity": "uncommon", "weight": 11, "levels": [3, 6], "terrains": ["tall_grass", "reeds"] },
+    { "id": "lalamon-dia", "speciesId": "CREATURE-0117", "name": "Lalamon", "mode": "random", "rarity": "uncommon", "weight": 8, "levels": [1, 3], "terrains": ["tall_grass"], "requires": { "time": ["day", "dawn"] } },
+
+    { "id": "dorumon-mata", "speciesId": "CREATURE-0101", "name": "Dorumon", "mode": "random", "rarity": "rare", "weight": 4, "levels": [4, 6], "terrains": ["dense_bush", "tall_grass"], "requires": { "areas": ["concentracao-grama", "sudeste-mata"] } },
+    { "id": "goburimon-noite", "speciesId": "CREATURE-0115", "name": "Goburimon", "mode": "random", "rarity": "rare", "weight": 4, "levels": [4, 6], "terrains": ["tall_grass", "dense_bush"], "requires": { "time": ["dusk", "night"] }, "modifiers": [{ "when": { "weather": ["fog"] }, "weightMult": 1.5 }] },
+    { "id": "biyomon-dia", "speciesId": "CREATURE-0104", "name": "Biyomon", "mode": "random", "rarity": "rare", "weight": 3.5, "levels": [4, 6], "terrains": ["tall_grass"], "requires": { "time": ["day"], "weather": ["clear", "fog"] } },
+
+    { "id": "dorugamon-noite", "speciesId": "CREATURE-0102", "name": "Dorugamon", "mode": "random", "rarity": "very_rare", "weight": 1, "levels": [8, 10], "terrains": ["tall_grass"], "requires": { "time": ["night"], "areas": ["concentracao-grama"], "minPartnerLevel": 5 }, "_notes": "Exclusivo: noite + antessala do covil + parceira Nv.5+ (progressão). Não é requisito de evolução." },
+    { "id": "numemon-chuva", "speciesId": "CREATURE-0110", "name": "Numemon", "mode": "random", "rarity": "very_rare", "weight": 1.5, "levels": [8, 10], "terrains": ["reeds", "dense_bush"], "requires": { "weather": ["rain", "storm"] }, "_notes": "Exclusivo de clima: só com chuva." },
+
+    {
+      "id": "dorumon-pedras", "speciesId": "CREATURE-0101", "name": "Dorumon", "mode": "visible", "rarity": "rare", "weight": 1, "levels": [5, 6], "shared": true,
+      "visible": { "spot": { "x": 44, "y": 31, "wanderTiles": 2, "zoneRef": "campo_de_pedras" }, "behavior": "chase", "detectRadiusTiles": 4, "loseRadiusTiles": 7, "fightable": true, "interaction": "none", "respawn": { "kind": "timer", "seconds": 120 }, "maxAlive": 1 },
+      "_notes": "Substitui spawn-dorumon (3 vivos) por 1 agressivo com território."
+    },
+    {
+      "id": "gotsumon-pedras", "speciesId": "CREATURE-0109", "name": "Gotsumon", "mode": "visible", "rarity": "uncommon", "weight": 1, "levels": [4, 6], "shared": true,
+      "visible": { "spot": { "x": 47, "y": 33, "wanderTiles": 0, "zoneRef": "campo_de_pedras" }, "behavior": "idle", "detectRadiusTiles": 0, "fightable": true, "interaction": "inspect", "respawn": { "kind": "timer", "seconds": 90 }, "maxAlive": 1 },
+      "_notes": "Parado entre as rochas, quase uma rocha. Só luta se atacado."
+    },
+    {
+      "id": "tentomon-clareira", "speciesId": "CREATURE-0106", "name": "Tentomon", "mode": "visible", "rarity": "uncommon", "weight": 1, "levels": [3, 6], "shared": true,
+      "visible": { "spot": { "x": 34, "y": 16, "wanderTiles": 3, "zoneRef": "clareira_central" }, "behavior": "flee", "detectRadiusTiles": 3, "loseRadiusTiles": 7, "fightable": true, "interaction": "none", "respawn": { "kind": "timer", "seconds": 90 }, "maxAlive": 1 },
+      "requires": { "time": ["day", "dawn", "dusk"] }
+    },
+    {
+      "id": "palmon-clareira", "speciesId": "CREATURE-0107", "name": "Palmon", "mode": "visible", "rarity": "common", "weight": 1, "levels": [3, 5], "shared": true,
+      "visible": { "spot": { "x": 22, "y": 17, "wanderTiles": 3, "zoneRef": "clareira_central" }, "behavior": "ignore", "detectRadiusTiles": 0, "fightable": true, "interaction": "none", "respawn": { "kind": "timer", "seconds": 60 }, "maxAlive": 2 }
+    },
+    {
+      "id": "patamon-oculta", "speciesId": "CREATURE-0012", "name": "Patamon", "mode": "visible", "rarity": "very_rare", "weight": 1, "levels": [6, 8], "shared": false,
+      "visible": { "spot": { "x": 8, "y": 5, "wanderTiles": 2, "zoneRef": "clareira_oculta" }, "behavior": "flee", "detectRadiusTiles": 4, "loseRadiusTiles": 8, "fightable": true, "interaction": "none", "respawn": { "kind": "daily" }, "maxAlive": 1 },
+      "requires": { "time": ["night"] },
+      "_notes": "Avistamento individual (cada jogador vê o seu, sem disputa). Patamon está em regions.json floresta_densa [E]."
+    }
+  ]
+}
