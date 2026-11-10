@@ -1,0 +1,170 @@
+{
+  "source": "phase2/art/scale-proof-v3/pipeline-m1 (12 frames: south, south-west, idle-s x4, walk-s x6)",
+  "method": "weighted k-means (RGB, pixel-frequency weighted), deterministic farthest-point init, pure stdlib",
+  "k_requested": 18,
+  "k_actual": 18,
+  "colors": [
+    {
+      "rgb": [
+        77,
+        58,
+        58
+      ],
+      "hex": "#4d3a3a",
+      "material": "gray/claw"
+    },
+    {
+      "rgb": [
+        88,
+        89,
+        90
+      ],
+      "hex": "#58595a",
+      "material": "gray/claw"
+    },
+    {
+      "rgb": [
+        111,
+        104,
+        100
+      ],
+      "hex": "#6f6864",
+      "material": "gray/claw"
+    },
+    {
+      "rgb": [
+        161,
+        161,
+        162
+      ],
+      "hex": "#a1a1a2",
+      "material": "gray/claw"
+    },
+    {
+      "rgb": [
+        135,
+        41,
+        30
+      ],
+      "hex": "#87291e",
+      "material": "other"
+    },
+    {
+      "rgb": [
+        39,
+        34,
+        35
+      ],
+      "hex": "#272223",
+      "material": "outline/black"
+    },
+    {
+      "rgb": [
+        184,
+        59,
+        41
+      ],
+      "hex": "#b83b29",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        229,
+        85,
+        56
+      ],
+      "hex": "#e55538",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        212,
+        110,
+        79
+      ],
+      "hex": "#d46e4f",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        165,
+        137,
+        115
+      ],
+      "hex": "#a58973",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        248,
+        120,
+        86
+      ],
+      "hex": "#f87856",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        237,
+        160,
+        122
+      ],
+      "hex": "#eda07a",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        247,
+        234,
+        50
+      ],
+      "hex": "#f7ea32",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        246,
+        228,
+        102
+      ],
+      "hex": "#f6e466",
+      "material": "red/body"
+    },
+    {
+      "rgb": [
+        207,
+        203,
+        199
+      ],
+      "hex": "#cfcbc7",
+      "material": "white/highlight"
+    },
+    {
+      "rgb": [
+        242,
+        231,
+        204
+      ],
+      "hex": "#f2e7cc",
+      "material": "white/highlight"
+    },
+    {
+      "rgb": [
+        245,
+        242,
+        242
+      ],
+      "hex": "#f5f2f2",
+      "material": "white/highlight"
+    },
+    {
+      "rgb": [
+        196,
+        180,
+        146
+      ],
+      "hex": "#c4b492",
+      "material": "yellow/eye"
+    }
+  ]
+}
