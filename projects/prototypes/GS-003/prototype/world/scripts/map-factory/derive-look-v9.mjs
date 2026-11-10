@@ -5,7 +5,7 @@
 //
 // Uso: node scripts/map-factory/derive-look-v9.mjs
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { composeClareira, ratio603010, BOX } from "./p7-clareira.mjs";
@@ -36,11 +36,22 @@ look.playerLight = { ...pack.look.playerLight, radius: 48, intensity: 0.38 };
 look.ambient = structuredClone(pack.look.ambient);
 look.ambient.day.lightScale = 0.4;
 look.ambient.night.lightScale = 1.0;
+// Fase 3, rodada 2 (QA P2 "contraste dia/noite fraco"): o dia do v8 multiplicava por #bcc4d6 (−25% e azulado) com
+// véu azul, e ficava quase tão escuro quanto a noite. Dia agora: luz quente quase neutra, véu dourado leve e vinheta
+// curta. Noite: mais escura e mais azul (multiplica #7c80c4, véu 0,16, vinheta 0,6); as luzes continuam em 1,0 e
+// passam a destacar mais.
+Object.assign(look.ambient.day, { multiply: "#f6eedc", tint: "#ffd890", tintAlpha: 0.05, vignette: 0.24 });
+Object.assign(look.ambient.night, { multiply: "#7c80c4", tint: "#070a2c", tintAlpha: 0.16, vignette: 0.6 });
+look.fog = { ...pack.look.fog, dayAlpha: 0.04, nightAlpha: 0.18 };
 look.particles = { ...pack.look.particles, fireflies: 0.6, dust: 0.8 };
-look.sway = { keys: "^(fp8_fern|fp8_tuft|fp4_tall_grass_[ab]|fp8_reed_cluster|fp8_edge_cluster_[ab]|fp8_flowering_bush)$", canopies: true, amp: 1, periodMs: 2600, bands: 3 };
+look.sway = { keys: "^(fp8_fern|fp8_tuft|fp4_tall_grass_[ab]|fp9_enc_grass_[abc]|fp8_reed_cluster|fp8_edge_cluster_[ab]|fp8_flowering_bush)$", canopies: true, amp: 1, periodMs: 2600, bands: 3 };
+// grama alta de encontro (art/map-factory/forest-v9-p7, prefixo fp9_): grade mais suave que a da folhagem comum, para
+// o tom verde-azulado saturado continuar se destacando do chão (QA P2 "grama alta não se distingue")
+look.grade = { ...look.grade, rules: [{ match: "^fp9_enc_grass_", saturationMul: 0.95, valueMul: 0.9 }, ...(look.grade.rules ?? [])] };
 look.water = { terrain: "water", stepPx: [2, 1], frameMs: 140, frames: 16 };
 look.foreground = { behindAlpha: 0.38, fadeMs: 120 };
-const outPack = { ...pack, _doc: `${pack._doc ?? ""} | v9: derivado por scripts/map-factory/derive-look-v9.mjs`.trim(), look };
+const extraPacks = [...(pack.extraPacks ?? []).filter((e) => e.pack !== "forest-v9-p7"), { pack: "forest-v9-p7", prefix: "fp9_", root: "map-factory" }];
+const outPack = { ...pack, extraPacks, _doc: `${pack._doc ?? ""} | v9: derivado por scripts/map-factory/derive-look-v9.mjs`.trim(), look };
 
 // ---------- primeiro plano ----------
 const prop = (o, n) => o.properties?.find((p) => p.name === n)?.value;
@@ -154,6 +165,30 @@ tmj.nextobjectid = nextId;
 const table = JSON.parse(readFileSync(join(ROOT, "src/data/encounters", `${ID}.json`), "utf8"));
 const p7 = composeClareira(tmj, { TS, prop, layer, solid, nearAny, paths, water, table });
 p7.ratioV8 = ratioV8;
+
+// ---------- mirante: kit de penhasco v9 do game-art (art/map-factory/forest-v9-cliffs/), quando existir ----------
+// QA fase 3 (P1): o platô do mirante (x20–29, y14–18) lê como laje cinza; o game-art está fazendo o kit. Contrato:
+// tiles/<nome>.png com os MESMOS nomes do forest-v8-depth (cliff_top_blob_0..15, cliff_face_straight,
+// cliff_face_corner_inner, cliff_face_corner_outer_left/right, cliff_ramp; 32×32, mesma máscara blob-16). Cada
+// tile fp8_cliff_* do v9 cujo arquivo exista no kit passa a usar fp9c_<nome>; o que faltar continua no v8. Sem o
+// kit, nada muda (o arquivo derivado é o mesmo). Grade: a mesma regra dos penhascos do v8.
+const CLIFF_KIT = join(ROOT, "../../art/map-factory/forest-v9-cliffs");
+const kitTiles = existsSync(join(CLIFF_KIT, "tiles")) ? new Set(readdirSync(join(CLIFF_KIT, "tiles")).filter((f) => f.endsWith(".png")).map((f) => f.slice(0, -4))) : new Set();
+p7.cliffKit = { present: existsSync(CLIFF_KIT), swapped: [] };
+if (kitTiles.size) {
+  for (const ts of tmj.tilesets ?? [])
+    for (const t of ts.tiles ?? []) {
+      const kp = t.properties?.find((q) => q.name === "key");
+      const m = typeof kp?.value === "string" && /^fp8_(cliff_[a-z0-9_]+)$/.exec(kp.value);
+      if (m && kitTiles.has(m[1])) {
+        kp.value = `fp9c_${m[1]}`;
+        p7.cliffKit.swapped.push(m[1]);
+      }
+    }
+  outPack.extraPacks = [...outPack.extraPacks.filter((e) => e.pack !== "forest-v9-cliffs"), { pack: "forest-v9-cliffs", prefix: "fp9c_", root: "map-factory" }];
+  const cliffRule = look.grade.rules.find((r) => r.match === "^fp8_cliff_");
+  if (cliffRule) look.grade.rules.unshift({ ...cliffRule, match: "^fp9c_cliff_" });
+}
 look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };
 look.foreground = { ...look.foreground, headFrac: 0.35 };
 outPack.look = look;

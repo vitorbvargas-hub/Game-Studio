@@ -1,6 +1,6 @@
 # Validação — vila
 
-- **Data:** 2026-11-09T20:41:06.359Z
+- **Data:** 2026-11-10T05:49:49.374Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|

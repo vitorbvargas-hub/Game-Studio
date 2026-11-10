@@ -39,7 +39,7 @@ export interface EncWorldState {
   seq: number;
 }
 
-export const INTRO_TICKS = 12; // 1,2 s: o selvagem "salta da grama" antes de o combate começar
+export const INTRO_TICKS = 20; // 2,0 s: grama treme, "!", salto em arco e pouso antes de o combate começar (QA fase 3: 1,2 s era curto demais)
 export const PAID_MAX = 512;
 
 export interface VisibleZone extends SpawnZone {

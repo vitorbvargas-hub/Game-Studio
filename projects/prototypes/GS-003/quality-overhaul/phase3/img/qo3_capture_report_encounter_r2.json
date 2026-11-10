@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-10T05:50:45.262Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p12_encontro_1_grama_r2.png": {
+      "msAfterEffectStart": 267,
+      "phase": "grama",
+      "target": 300
+    },
+    "p12_encontro_2_alerta_r2.png": {
+      "msAfterEffectStart": 765,
+      "phase": "alerta",
+      "target": 800
+    },
+    "p12_encontro_3_salto_sobe_r2.png": {
+      "msAfterEffectStart": 1030,
+      "phase": "salto",
+      "target": 1120
+    },
+    "p12_encontro_4_salto_desce_r2.png": {
+      "msAfterEffectStart": 1282,
+      "phase": "salto",
+      "target": 1380
+    },
+    "p12_encontro_5_pouso_r2.png": {
+      "msAfterEffectStart": 1531,
+      "phase": "pouso",
+      "target": 1580
+    },
+    "p12_encontro_6_placa_r2.png": {
+      "msAfterEffectStart": 2065,
+      "phase": "placa",
+      "target": 1950
+    },
+    "p12_encontro_7_combate_debug_r2.png": {
+      "note": "combate no mapa + painel ?encdebug=1"
+    }
+  },
+  "perf": [],
+  "encounter": {
+    "frames": [
+      {
+        "t": 15,
+        "phase": "grama"
+      },
+      {
+        "t": 267,
+        "phase": "grama"
+      },
+      {
+        "t": 513,
+        "phase": "grama"
+      },
+      {
+        "t": 765,
+        "phase": "alerta"
+      },
+      {
+        "t": 1030,
+        "phase": "salto"
+      },
+      {
+        "t": 1282,
+        "phase": "salto"
+      },
+      {
+        "t": 1531,
+        "phase": "pouso"
+      },
+      {
+        "t": 1801,
+        "phase": "pouso"
+      },
+      {
+        "t": 2065,
+        "phase": "placa"
+      },
+      {
+        "t": 2315,
+        "phase": "placa"
+      },
+      {
+        "t": 2565,
+        "phase": "placa"
+      }
+    ],
+    "inspectAfter": {
+      "env": {
+        "time": "day",
+        "weather": "clear"
+      },
+      "tile": {
+        "x": 22,
+        "y": 21
+      },
+      "areaId": "clareira-noroeste-grama",
+      "terrain": "tall_grass",
+      "pStep": 0.038,
+      "graceLeft": 23,
+      "readyInSec": 3.5999999999999996,
+      "stepsSince": 1,
+      "counters": {
+        "steps": 1,
+        "rolls": 0,
+        "encounters": 1,
+        "empties": 0
+      },
+      "emptyPct": 12,
+      "pool": [
+        {
+          "entryId": "gigimon-grama",
+          "name": "Gigimon",
+          "rarity": "common",
+          "levels": [
+            1,
+            4
+          ],
+          "pct": 20.618556701030926
+        },
+        {
+          "entryId": "koromon-grama",
+          "name": "Koromon",
+          "rarity": "common",
+          "levels": [
+            1,
+            4
+          ],
+          "pct": 20.618556701030926
+        },
+        {
+          "entryId": "tokomon-grama",
+          "name": "Tokomon",
+          "rarity": "common",
+          "levels": [
+            1,
+            4
+          ],
+          "pct": 12.371134020618557
+        },
+        {
+          "entryId": "tanemon-grama",
+          "name": "Tanemon",
+          "rarity": "common",
+          "levels": [
+            1,
+            4
+          ],
+          "pct": 15.120274914089347
+        },
+        {
+          "entryId": "palmon-grama",
+          "name": "Palmon",
+          "rarity": "uncommon",
+          "levels": [
+            3,
+            6
+          ],
+          "pct": 8.24742268041237
+        },
+        {
+          "entryId": "floramon-dia",
+          "name": "Floramon",
+          "rarity": "uncommon",
+          "levels": [
+            3,
+            6
+          ],
+          "pct": 7.560137457044673
+        },
+        {
+          "entryId": "tentomon-grama",
+          "name": "Tentomon",
+          "rarity": "uncommon",
+          "levels": [
+            3,
+            6
+          ],
+          "pct": 7.560137457044673
+        },
+        {
+          "entryId": "lalamon-dia",
+          "name": "Lalamon",
+          "rarity": "uncommon",
+          "levels": [
+            1,
+            3
+          ],
+          "pct": 5.498281786941581
+        },
+        {
+          "entryId": "biyomon-dia",
+          "name": "Biyomon",
+          "rarity": "rare",
+          "levels": [
+            4,
+            6
+          ],
+          "pct": 2.405498281786942
+        }
+      ],
+      "rarityPct": {
+        "common": 68.72852233676976,
+        "uncommon": 28.865979381443296,
+        "rare": 2.405498281786942
+      },
+      "wildAlive": 5,
+      "visibleAlive": 5,
+      "randomAlive": 0,
+      "rewardsPaid": 0
+    }
+  },
+  "video": {}
+}

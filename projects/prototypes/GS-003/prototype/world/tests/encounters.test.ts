@@ -180,6 +180,8 @@ describe("GS-012: encontro aleatório (passos 5 e 7)", () => {
       expect(a.playerId).toBe(LOCAL_PLAYER);
       // salta perto do Tamer (1–2 tiles) e só entra em combate depois do salto
       const eng = evs.find((e) => e.t === "engage" && (e.targetId === a.id || e.attackerId === a.id));
+      // (um sorteio nos últimos INTRO_TICKS do passeio ainda está saltando quando o passeio acaba)
+      if (a.tick + INTRO_TICKS + 2 > sim.state.tick) continue;
       expect(eng).toBeDefined();
       expect(eng!.tick - a.tick).toBeGreaterThanOrEqual(INTRO_TICKS);
       const rewards = evs.filter((e) => e.t === "reward" && Math.hypot(e.at.x - a.at.x, e.at.y - a.at.y) < 40 * SUB && e.tick > a.tick);

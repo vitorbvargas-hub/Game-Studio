@@ -1,6 +1,6 @@
 # Validação de mapas — resumo
 
-- **Data:** 2026-11-09T20:41:06.359Z
+- **Data:** 2026-11-10T05:49:49.374Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -55,7 +55,7 @@
   - perfil legacy; para factory-v1 faltariam: ground_detail, objects_below, objects_above, collision, spawns, npcs, triggers, poi
 - ✅ **tile_ids** — IDs de tile existentes
 - ✅ **asset_keys** — Chaves visuais resolvem em PNG (dia/noite)
-  - 8 chaves verificadas
+  - 7 chaves verificadas
 - ✅ **reach** — BFS do início do jogador alcança 100% dos alvos
   - alvos alcançados: 5/5 (start 2, spawn 2, portal 1)
 - ✅ **placement** — Inícios, spawns e NPCs fora de célula bloqueada e sem sobreposição

@@ -10,7 +10,11 @@
     <canvas id="labels"></canvas>
     <div class="vignette"></div>
     <div id="hud"></div>
-    <p class="fan-note" data-testid="fan-note"><strong>Fan game não oficial, sem afiliação com Bandai/Toei Animation.</strong> Não comercial. Digimon © Bandai Namco / Toei Animation. Sprites de Digimon World DS (rip AngelOfHope / With the Will).</p>
+    <!-- Aviso de fan game (ADR-007 §3): ícone "i" no canto; clicar abre o texto completo (QA fase 3: não fica fixo sobre o cenário). -->
+    <details class="fan-note" data-testid="fan-note">
+      <summary aria-label="Aviso legal: fan game não oficial" title="Fan game não oficial, sem afiliação com Bandai/Toei Animation">i</summary>
+      <p><strong>Fan game não oficial, sem afiliação com Bandai/Toei Animation.</strong> Não comercial. Digimon © Bandai Namco / Toei Animation. Sprites de Digimon World DS (rip AngelOfHope / With the Will).</p>
+    </details>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

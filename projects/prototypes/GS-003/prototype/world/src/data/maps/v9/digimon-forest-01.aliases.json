@@ -296,6 +296,11 @@
       "pack": "forest-v8-depth",
       "prefix": "fp8_",
       "root": "map-factory"
+    },
+    {
+      "pack": "forest-v9-p7",
+      "prefix": "fp9_",
+      "root": "map-factory"
     }
   ],
   "look": {
@@ -312,6 +317,11 @@
       "accentSaturationMul": 1,
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
+        {
+          "match": "^fp9_enc_grass_",
+          "saturationMul": 0.95,
+          "valueMul": 0.9
+        },
         {
           "match": "^fp8_(data_crystal|mushroom_bioluminescent|data_totem|lantern_post|campfire_small)$",
           "skip": true
@@ -411,17 +421,17 @@
     },
     "ambient": {
       "day": {
-        "multiply": "#bcc4d6",
-        "tint": "#20304a",
-        "tintAlpha": 0.1,
-        "vignette": 0.34,
+        "multiply": "#f6eedc",
+        "tint": "#ffd890",
+        "tintAlpha": 0.05,
+        "vignette": 0.24,
         "lightScale": 0.4
       },
       "night": {
-        "multiply": "#9a9cd0",
-        "tint": "#0a0c28",
-        "tintAlpha": 0.12,
-        "vignette": 0.55,
+        "multiply": "#7c80c4",
+        "tint": "#070a2c",
+        "tintAlpha": 0.16,
+        "vignette": 0.6,
         "lightScale": 1
       }
     },
@@ -445,8 +455,8 @@
     },
     "fog": {
       "color": "#a9bcd6",
-      "dayAlpha": 0.08,
-      "nightAlpha": 0.16,
+      "dayAlpha": 0.04,
+      "nightAlpha": 0.18,
       "every": 3
     },
     "particles": {
@@ -461,7 +471,7 @@
       "rim": "#1f1a2a"
     },
     "sway": {
-      "keys": "^(fp8_fern|fp8_tuft|fp4_tall_grass_[ab]|fp8_reed_cluster|fp8_edge_cluster_[ab]|fp8_flowering_bush)$",
+      "keys": "^(fp8_fern|fp8_tuft|fp4_tall_grass_[ab]|fp9_enc_grass_[abc]|fp8_reed_cluster|fp8_edge_cluster_[ab]|fp8_flowering_bush)$",
       "canopies": true,
       "amp": 1,
       "periodMs": 2600,

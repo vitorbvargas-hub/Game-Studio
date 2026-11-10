@@ -1,13 +1,15 @@
 // GS-012 passo 8 (mínimo para os passos 5–7, atrás de ?encounters=1): apresentação do encontro aleatório no
 // próprio mapa (ENCOUNTER_ARCHITECTURE.md §4, recomendação A). Só consome eventos da sim (wild_appear,
 // grass_rustle, wild_leave): não decide nada. A sim já criou o selvagem no tick do sorteio; aqui ele fica
-// escondido na grama e salta em arco.
+// escondido na grama e salta em arco. Fase 3, rodada 2 (QA P1 "legibilidade do salto"): 1,2 s → 2,0 s
+// (INTRO_TICKS = 20), cada fase com tempo próprio para ser lida sem pausar:
 //
-//   0–350 ms     a grama do tile treme (±2 px), folhas sobem, "!" sobre o Tamer, vinheta entra, câmera puxa
-//   350–700 ms   o selvagem salta da grama num arco de 12 px (sobe 3 quadros, desce 2); sem squash (o sprite não
-//                é deformado: pixel art; quadros de salto desenhados ficam para o game-art)
-//   700–1000 ms  poeira/folhas no pouso, placa "NOME NV.N" com a borda na cor da raridade, selo NOVO
-//   1000–1200 ms vinheta e câmera voltam; a parceira já está em ENGAGE (a sim faz isso no fim do salto)
+//   0–600 ms      a touceira do tile treme forte (±2 px) e solta folhas sem parar; vinheta entra; câmera começa a puxar
+//   600–1000 ms   a grama para; balão "!" estoura sobre o Tamer (pulo de 3 px na entrada) e fica — a pausa
+//   1000–1500 ms  o selvagem salta num arco de 26 px em 10 quadros inteiros; a sombra no chão começa pequena no alto
+//                 e cresce até o tamanho normal no pouso (sem squash: o sprite não é deformado)
+//   1500–1850 ms  pouso: anel de poeira + folhas espalhando; placa "NOME NV.N" com a borda da raridade, selo NOVO
+//   2000 ms       a sim põe a parceira em ENGAGE; placa fica até 2300 e some até 2600; vinheta e câmera voltam
 //
 // O zoom 1,0→1,06 da proposta virou um puxão de câmera de até ~1/3 do caminho até o selvagem: zoom fracionário
 // reamostra a arte e quebraria a grade de pixels inteiros do ?dpr=1. Som: não há sistema de áudio no protótipo.
@@ -23,11 +25,19 @@ export const RARITY_COLORS: Record<string, string> = {
   very_rare: "#ffd34a",
 };
 
-const T_JUMP = 350;
-const T_LAND = 700;
-const T_PLATE = 1000;
-const T_END = 1200;
+/** Fim do tremor da grama; começo da pausa do "!". */
+export const T_ALERT = 600;
+export const T_JUMP = 1000;
+export const T_LAND = 1500;
+const T_DUST = 350;
+/** A sim entra no combate aqui (INTRO_TICKS × TICK_MS); vinheta e câmera voltam depois. */
+const T_FIGHT = 2000;
+const T_PLATE = 2300;
+const T_END = 2600;
 const RUSTLE_MS = 420;
+/** Arco do salto (px, para cima negativo): 10 quadros inteiros em 500 ms, sobe rápido e cai acelerando. */
+const ARC = [-9, -16, -21, -25, -26, -25, -21, -15, -8, -2];
+const ARC_TOP = 26;
 
 interface Appear {
   kind: "appear";
@@ -80,24 +90,38 @@ export class EncounterFx {
     this.fx = this.fx.filter((f) => now - f.start < T_END + 200);
   }
 
-  /** Algum efeito ativo (as capturas esperam por isso). */
-  active(now: number): boolean {
-    return this.fx.some((f) => now - f.start < (f.kind === "appear" ? T_END : RUSTLE_MS));
+  /** Fase do encontro mais recente (capturas e testes): grama | alerta | salto | pouso | placa | fim. */
+  phase(now: number): string | undefined {
+    const f = [...this.fx].reverse().find((x): x is Appear => x.kind === "appear");
+    if (!f) return undefined;
+    const t = now - f.start;
+    return t < T_ALERT ? "grama" : t < T_JUMP ? "alerta" : t < T_LAND ? "salto" : t < T_LAND + T_DUST ? "pouso" : t < T_END ? "placa" : "fim";
   }
 
-  /** O selvagem em salto: escondido na grama antes do salto; depois, deslocamento vertical (px) do arco. */
-  entityOffset(id: string, now: number): { hidden: boolean; dy: number } | undefined {
+  /** Algum efeito ativo (as capturas esperam por isso). */
+  active(now: number): boolean {
+    return this.fx.some((f) => now - f.start < (f.kind === "appear" ? T_END : f.big ? T_ALERT : RUSTLE_MS));
+  }
+
+  /**
+   * O selvagem em salto: escondido na grama antes do salto; depois, deslocamento vertical (px) do arco e escala da
+   * sombra no chão (0,4 no alto do arco → 1 no pouso: a sombra "cresce" enquanto ele cai).
+   */
+  entityOffset(id: string, now: number): { hidden: boolean; dy: number; shadow: number } | undefined {
     const f = this.fx.find((x): x is Appear => x.kind === "appear" && x.id === id);
     if (!f) return undefined;
     const t = now - f.start;
     if (t < 0 || t >= T_LAND + 80) return undefined;
-    if (t < T_JUMP) return { hidden: true, dy: 0 };
-    if (t >= T_LAND) return { hidden: false, dy: 0 };
-    // arco em 5 quadros (3 subindo, 2 descendo), quantizado: sem subpixel
-    const u = (t - T_JUMP) / (T_LAND - T_JUMP);
-    const q = Math.min(4, Math.floor(u * 5));
-    const ARC = [-5, -10, -12, -8, -3];
-    return { hidden: false, dy: ARC[q] };
+    if (t < T_JUMP) return { hidden: true, dy: 0, shadow: 0 };
+    if (t >= T_LAND) return { hidden: false, dy: 0, shadow: 1 };
+    const q = Math.min(ARC.length - 1, Math.floor(((t - T_JUMP) / (T_LAND - T_JUMP)) * ARC.length));
+    const dy = ARC[q];
+    return { hidden: false, dy, shadow: 0.4 + 0.6 * (1 - -dy / ARC_TOP) };
+  }
+
+  /** O rótulo comum de nome fica escondido enquanto a placa de raridade estiver na tela (sem nome duplicado). */
+  hidesLabel(id: string, now: number): boolean {
+    return this.fx.some((x) => x.kind === "appear" && x.id === id && now - x.start >= 0 && now - x.start < T_END);
   }
 
   /** Deslocamento extra (px) da touceira de grama perto de um efeito de farfalhar. */
@@ -106,11 +130,13 @@ export class EncounterFx {
     for (const f of this.fx) {
       if (f.kind !== "rustle") continue;
       const t = now - f.start;
-      if (t < 0 || t > RUSTLE_MS) continue;
+      const dur = f.big ? T_ALERT : RUSTLE_MS;
+      if (t < 0 || t > dur) continue;
       const d = Math.hypot(x - f.at.x, y - f.at.y);
-      if (d > (f.big ? 30 : 22)) continue;
-      const amp = f.big ? 2 : 1;
-      s += Math.round(Math.sin(t / 28 + x * 0.3) * amp * (1 - t / RUSTLE_MS));
+      if (d > (f.big ? 34 : 22)) continue;
+      // no salto: tremor cheio até os últimos 120 ms (a grama "para" antes do "!"); farfalhar vazio decai
+      const amp = f.big ? 2 * Math.min(1, (dur - t) / 120) : 1 - t / dur;
+      s += Math.round(Math.sin(t / 26 + x * 0.3) * (f.big ? 2.4 : 1) * amp);
     }
     return Math.max(-2, Math.min(2, s));
   }
@@ -120,7 +146,7 @@ export class EncounterFx {
     const f = this.fx.find((x): x is Appear => x.kind === "appear" && now - x.start < T_END);
     if (!f || !tamerPos) return { x: 0, y: 0 };
     const t = now - f.start;
-    const k = t < T_JUMP ? ease(t / T_JUMP) : t > T_PLATE ? 1 - ease((t - T_PLATE) / (T_END - T_PLATE)) : 1;
+    const k = t < T_JUMP ? ease(t / T_JUMP) : t > T_FIGHT ? Math.max(0, 1 - ease((t - T_FIGHT) / (T_END - T_FIGHT))) : 1;
     return { x: Math.round((f.at.x - tamerPos.x) * 0.33 * k), y: Math.round((f.at.y - tamerPos.y) * 0.33 * k) };
   }
 
@@ -129,7 +155,7 @@ export class EncounterFx {
     const f = this.fx.find((x): x is Appear => x.kind === "appear" && now - x.start < T_END);
     if (!f) return { k: 0, warm: false };
     const t = now - f.start;
-    const k = t < T_JUMP ? t / T_JUMP : t > T_PLATE ? 1 - (t - T_PLATE) / (T_END - T_PLATE) : 1;
+    const k = t < T_ALERT ? t / T_ALERT : t > T_FIGHT ? 1 - (t - T_FIGHT) / (T_END - T_FIGHT) : 1;
     return { k: 0.15 * Math.max(0, Math.min(1, k)), warm: f.rarity === "very_rare" };
   }
 
@@ -141,48 +167,70 @@ export class EncounterFx {
       const ax = Math.round(f.at.x - cam.x);
       const ay = Math.round(f.at.y - cam.y);
       if (f.kind === "rustle") {
-        if (t > RUSTLE_MS + 200) continue;
-        // folhas verdes subindo (4–6 no salto, 2 no farfalhar vazio)
-        const n = f.big ? 6 : 2;
-        for (let i = 0; i < n; i++) {
-          const u = Math.min(1, t / (RUSTLE_MS + 200));
-          const sx = ((i * 37) % 13) - 6;
-          ctx.globalAlpha = 1 - u;
-          ctx.fillStyle = i % 2 ? "#7fcf5a" : "#4f9a3c";
-          ctx.fillRect(ax + sx + Math.round(Math.sin(t / 90 + i) * 2), ay - 6 - Math.round(u * (6 + (i % 3) * 2)), 2, 1);
+        if (!f.big) {
+          if (t > RUSTLE_MS + 200) continue;
+          // farfalhar vazio: 2 folhas subindo
+          for (let i = 0; i < 2; i++) {
+            const u = Math.min(1, t / (RUSTLE_MS + 200));
+            ctx.globalAlpha = 1 - u;
+            ctx.fillStyle = i % 2 ? "#7fcf5a" : "#4f9a3c";
+            ctx.fillRect(ax + ((i * 37) % 13) - 6 + Math.round(Math.sin(t / 90 + i) * 2), ay - 6 - Math.round(u * (6 + i * 2)), 2, 1);
+          }
+          ctx.globalAlpha = 1;
+          continue;
+        }
+        // salto: a touceira solta folhas em ondas durante todo o tremor (3 ondas de 4 folhas, 400 ms cada)
+        if (t > T_ALERT + 250) continue;
+        for (let i = 0; i < 12; i++) {
+          const born = (i >> 2) * 170;
+          const u = (t - born) / 400;
+          if (u < 0 || u > 1) continue;
+          const sx = ((i * 37) % 17) - 8;
+          ctx.globalAlpha = 1 - u * u;
+          ctx.fillStyle = i % 3 === 0 ? "#a8e070" : i % 2 ? "#7fcf5a" : "#4f9a3c";
+          ctx.fillRect(ax + sx + Math.round(Math.sin(t / 70 + i) * 3), ay - 8 - Math.round(u * (10 + (i % 3) * 3)), 2, 1);
         }
         ctx.globalAlpha = 1;
         continue;
       }
       if (t > T_END) continue;
-      // "!" sobre o Tamer (0–700 ms), com um pulo de 1 px na entrada
+      // balão "!" sobre o Tamer (600–1500 ms): estoura com pulo de 3 px e fica parado (a pausa antes do salto)
       const tp = posOf(f.tamerId);
-      if (tp && t < T_LAND) {
-        const pop = t < 80 ? -2 : 0;
-        drawOutlinedText(ctx, "!", Math.round(tp.x - cam.x - 3), Math.round(tp.y - cam.y - tamerTop - 14 + pop), "#ffe066", 2);
+      if (tp && t >= T_ALERT && t < T_LAND) {
+        const e = t - T_ALERT;
+        const pop = e < 60 ? -3 : e < 120 ? -1 : 0;
+        const bx = Math.round(tp.x - cam.x - 5);
+        const by = Math.round(tp.y - cam.y - tamerTop - 19 + pop);
+        drawAlertBubble(ctx, bx, by);
       }
       // muito raro: brilho dourado subindo da grama antes do salto
-      if (f.rarity === "very_rare" && t > 180 && t < T_JUMP + 60) {
+      if (f.rarity === "very_rare" && t > T_ALERT - 200 && t < T_JUMP + 60) {
         ctx.globalAlpha = 0.85;
         ctx.fillStyle = "#ffd34a";
-        const h = Math.round(((t - 180) / 230) * 14);
+        const h = Math.min(18, Math.round(((t - T_ALERT + 200) / 400) * 18));
         ctx.fillRect(ax - 1, ay - h, 2, h);
         ctx.fillRect(ax - 4, ay - Math.round(h * 0.6), 1, Math.round(h * 0.4));
         ctx.fillRect(ax + 3, ay - Math.round(h * 0.7), 1, Math.round(h * 0.5));
         ctx.globalAlpha = 1;
       }
-      // poeira e folhas no pouso (6 partículas, 250 ms)
-      if (t >= T_LAND && t < T_LAND + 250) {
-        const u = (t - T_LAND) / 250;
-        ctx.globalAlpha = 1 - u;
+      // pouso (350 ms): anel de poeira achatado abrindo + 6 folhas espalhando para cima e para os lados
+      if (t >= T_LAND && t < T_LAND + T_DUST) {
+        const u = (t - T_LAND) / T_DUST;
+        ctx.globalAlpha = 1 - u * u;
+        for (let i = 0; i < 12; i++) {
+          const a = (i / 12) * Math.PI * 2;
+          const r = 5 + ease(u) * 11;
+          ctx.fillStyle = i % 3 === 0 ? "#e0d2b2" : "#c9b99a";
+          ctx.fillRect(ax + Math.round(Math.cos(a) * r), ay + Math.round(Math.sin(a) * r * 0.4) - 1, 2, 1);
+        }
         for (let i = 0; i < 6; i++) {
-          const a = (i / 6) * Math.PI * 2;
-          ctx.fillStyle = i % 2 ? "#c9b99a" : "#6fae4f";
-          ctx.fillRect(ax + Math.round(Math.cos(a) * (4 + u * 8)), ay + Math.round(Math.sin(a) * (2 + u * 3)) - 1, 1, 1);
+          const dir = i % 2 ? 1 : -1;
+          ctx.fillStyle = i % 3 ? "#7fcf5a" : "#4f9a3c";
+          ctx.fillRect(ax + dir * Math.round(3 + u * (8 + i * 2)), ay - 2 - Math.round(Math.sin(u * Math.PI) * (6 + (i % 3) * 3)), 2, 1);
         }
         ctx.globalAlpha = 1;
       }
-      // placa: nome + nível com a borda da raridade (700–1200 ms)
+      // placa: nome + nível com a borda da raridade (1500–2600 ms)
       if (t >= T_LAND) {
         const wp = posOf(f.id) ?? f.at;
         const text = `${f.name.toUpperCase()} NV.${f.level}`;
@@ -223,4 +271,21 @@ export class EncounterFx {
       ctx.fillRect(0, 0, cam.w, cam.h);
     }
   }
+}
+
+/** Balão branco 11×14 com contorno escuro e "!" vermelho (lê em qualquer fundo, dia ou noite). */
+function drawAlertBubble(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  ctx.fillStyle = "#14101e";
+  ctx.fillRect(x + 1, y, 9, 1);
+  ctx.fillRect(x + 1, y + 11, 9, 1);
+  ctx.fillRect(x, y + 1, 1, 10);
+  ctx.fillRect(x + 10, y + 1, 1, 10);
+  ctx.fillRect(x + 4, y + 12, 3, 1);
+  ctx.fillRect(x + 5, y + 13, 1, 1);
+  ctx.fillStyle = "#fffaf0";
+  ctx.fillRect(x + 1, y + 1, 9, 10);
+  ctx.fillStyle = "#e0303a";
+  ctx.fillRect(x + 4, y + 2, 3, 5);
+  ctx.fillRect(x + 5, y + 7, 1, 1);
+  ctx.fillRect(x + 4, y + 9, 3, 2);
 }

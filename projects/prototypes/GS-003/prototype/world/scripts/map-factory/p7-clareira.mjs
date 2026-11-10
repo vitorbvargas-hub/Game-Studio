@@ -228,42 +228,66 @@ export function composeClareira(tmj, h) {
   }
 
   // ---------- 3. molduras de primeiro plano (compostas, altura de cintura) ----------
-  // Altura OPACA dos sprites do forest-v8-depth: edge_cluster_a 18 px, fern 15, flowering_bush 22, edge_cluster_b 24.
-  // A moita composta junta 4 deles em 2 fileiras (~80 px de largura, ~26 px de altura): com o Tamer (~26 px opacos)
-  // andando na trilha ~10 px atrás do pé dela, cobre pernas e cintura. O look v9 só a deixa translúcida se cobrir a cabeça
-  // (foreground.headFrac), o que acontece quando ele encosta nela.
+  // Altura OPACA dos sprites do forest-v8-depth: edge_cluster_a 18 px, fern 15, flowering_bush 22, edge_cluster_b 24,
+  // reed_cluster 24. O Tamer tem ~34 px opacos (cabeça a 32 px do pé). Fase 3, rodada 2 (QA P1): as moitas de 2
+  // fileiras (~26 px) só chegavam ao joelho/coxa; agora são 3 fileiras empilhadas (trás subida 15–16 px, meio 8 px,
+  // frente no pé) → massa de ~40 px de altura e ~70 px de largura. O pé fica 20 px ao sul do EIXO da trilha: com o
+  // Tamer no meio da trilha a moita cobre ~20 px (≈59% do corpo, até a cintura/peito); mais ao sul ela passaria da
+  // cabeça e o look v9 a deixa translúcida (foreground.headFrac, medido pela parte opaca do sprite).
   const above = layer("objects_above");
   const fg = [];
   const COMPOSITE = {
-    // [chave, dx, dy] em relação ao pé da moita (dy negativo = mais para trás/acima)
-    // fileira de trás (desenhada primeiro): as moitas altas (22–24 px opacos) subidas 2–3 px → ~26 px acima do pé;
-    // fileira da frente: a moita baixa de borda (18 px) e samambaia (15 px) no pé
-    big: [["fp8_edge_cluster_b", 4, -3], ["fp8_flowering_bush", -18, -2], ["fp8_fern", 22, -1], ["fp8_edge_cluster_a", -2, 0]],
-    bigB: [["fp8_flowering_bush", 12, -3], ["fp8_edge_cluster_b", -10, -2], ["fp8_fern", -28, -1], ["fp8_edge_cluster_a", 6, 0]],
-    reeds: [["fp8_reed_cluster", -8, -3], ["fp8_reed_cluster", 7, -2], ["fp8_fern", -1, 0], ["fp8_reed_cluster", 15, 0]],
+    // [chave, dx, dy] em relação ao pé da moita (dy negativo = mais para trás/acima); desenhadas nesta ordem
+    // larguras opacas: edge_cluster_b 43, edge_cluster_a 46, flowering_bush 28, fern 20 — sobrepostas ~50% para ler
+    // como UMA massa (rodada 2: espalhadas, viravam 3–4 moitas redondas soltas)
+    tall: [
+      ["fp8_edge_cluster_b", -6, -16], ["fp8_flowering_bush", 14, -15], // trás: topo a 37–40 px
+      ["fp8_fern", -20, -9], ["fp8_edge_cluster_a", 6, -8], // meio: topo a ~26 px
+      ["fp8_edge_cluster_a", -8, 0], ["fp8_fern", 16, 0], // frente, no pé
+    ],
+    tallB: [
+      ["fp8_flowering_bush", -12, -15], ["fp8_edge_cluster_b", 8, -16],
+      ["fp8_edge_cluster_a", -4, -8], ["fp8_fern", 20, -9],
+      ["fp8_fern", -18, 0], ["fp8_edge_cluster_a", 8, 0],
+    ],
+    reeds: [
+      ["fp8_reed_cluster", -9, -12], ["fp8_reed_cluster", 6, -14], ["fp8_reed_cluster", 18, -9],
+      ["fp8_reed_cluster", -2, -5], ["fp8_fern", -12, 0], ["fp8_reed_cluster", 12, 0], ["fp8_fern", 24, 1],
+    ],
   };
   const addComposite = (kind, x, y, tag) => {
     for (const [key, dx, dy] of COMPOSITE[kind]) fg.push({ key, x: Math.round(x + dx), y: Math.round(y + dy), tag });
   };
-  /** Pé logo ao sul da borda da trilha (o jogador andando na trilha passa atrás), perto do alvo. */
+  /** Eixo da trilha na coluna x, perto de yHint (mínimo do campo de distância: o centro fica a −hw). */
+  const trailAxis = (x, yHint) => {
+    let best;
+    for (let y = Math.round(yHint - 48); y <= yHint + 48; y++) {
+      const f = nearAny(paths, x, y);
+      if (f < 0 && (!best || f < best.f)) best = { y, f };
+    }
+    return best?.y;
+  };
+  /** Pé da moita 20 px ao sul do eixo da trilha (o jogador no meio da trilha passa atrás, coberto até a cintura). */
+  const FOOT_BELOW_AXIS = 20;
   const southOfPath = (tx, ty) => {
-    for (let dy = 0; dy < 40; dy++)
-      for (const dx of [0, -4, 4, -8, 8, -12, 12]) {
-        const x = Math.round(tx + dx);
-        const y = Math.round(ty + dy);
-        const f = nearAny(paths, x, y);
-        if (f < 3 || f > 9 || solid.has(cellOf(x, y)) || nearAny(water, x, y) < 4) continue;
-        if (nearAny(paths, x, y - 6) > f) continue; // a trilha tem de estar ao NORTE do pé
-        return { x, y };
-      }
+    for (const dx of [0, -6, 6, -12, 12, -18, 18]) {
+      const x = Math.round(tx + dx);
+      const axis = trailAxis(x, ty);
+      if (axis === undefined) continue;
+      const y = axis + FOOT_BELOW_AXIS;
+      if (solid.has(cellOf(x, y)) || nearAny(water, x, y) < 4) continue;
+      return { x, y };
+    }
     return undefined;
   };
   const chest = below.find((o) => prop(o, "key") === "fp6_chest_closed" && inBox(o));
+  // ponte (tabuado nas células 25–31 da linha 9): as molduras ficam na trilha em terra firme, logo antes e logo depois
+  // dela — em cima do tabuado uma moita não faz sentido (rodada 2)
   const frames = [
-    { tag: "ponte-oeste", kind: "big", at: southOfPath(26.0 * TS, 9.9 * TS) },
-    { tag: "ponte-leste", kind: "bigB", at: southOfPath(30.0 * TS, 9.9 * TS) },
-    // baú: moita na frente (sul), o baú só aparece inteiro de perto
-    { tag: "bau", kind: "big", at: chest ? { x: chest.x, y: chest.y + 12 } : undefined },
+    { tag: "ponte-oeste", kind: "tall", at: southOfPath(23.7 * TS, 9.2 * TS) },
+    { tag: "ponte-leste", kind: "tallB", at: southOfPath(32.9 * TS, 10.2 * TS) },
+    // baú: a moita fica na trilha logo a oeste do baú (quem chega pela trilha passa atrás dela; o baú fica à vista)
+    { tag: "bau", kind: "tall", at: chest ? southOfPath(chest.x - 54, chest.y - 8) : undefined },
   ];
   // curva do riacho dentro da clareira (y 13–16, x 17–24): juncos + samambaia na margem de baixo
   const wc = water[0];
@@ -343,6 +367,8 @@ export function composeClareira(tmj, h) {
   };
 
   // ---------- 5. grama alta nas 2 zonas novas (GS-012) ----------
+  // Fase 3, rodada 2 (QA P2): touceiras próprias de encontro (fp9_enc_grass_a/b/c, ~24 px, verde-azulado com pontas
+  // claras, art/map-factory/forest-v9-p7), 3 por tile em vez de 2, densidade cheia até perto da borda.
   const NEW_ZONES = (table?.areas ?? []).filter((a) => a.zoneRef === "clareira_central");
   report.tallGrass = {};
   for (const z of NEW_ZONES) {
@@ -350,17 +376,18 @@ export function composeClareira(tmj, h) {
     const r = z.rect;
     for (let ty = r.y; ty < r.y + r.h; ty++)
       for (let tx = r.x; tx < r.x + r.w; tx++)
-        for (let k = 0; k < 2; k++) {
-          const x = Math.round(tx * TS + 6 + hash(tx, ty * 2 + k, 931) * 20);
-          const y = Math.round(ty * TS + 8 + hash(tx, ty * 2 + k, 932) * 20);
-          // densidade cai para a borda do retângulo (elipse inscrita) e some perto da trilha
+        for (let k = 0; k < 3; k++) {
+          const x = Math.round(tx * TS + 4 + hash(tx, ty * 3 + k, 931) * 24);
+          const y = Math.round(ty * TS + 6 + ((k + hash(tx, ty * 3 + k, 932)) / 3) * 24);
+          // densidade cai só na borda do retângulo (elipse inscrita "achatada") e some perto da trilha
           const ex = (x - (r.x + r.w / 2) * TS) / ((r.w / 2) * TS);
           const ey = (y - (r.y + r.h / 2) * TS) / ((r.h / 2) * TS);
-          const dens = Math.max(0, 1 - Math.hypot(ex, ey)) * 1.25 + vnoise(x / 60, y / 60, 933) * 0.35 - 0.12;
-          if (hash(tx, ty * 2 + k, 934) > dens) continue;
+          const dens = Math.min(1, Math.max(0, 1.15 - Math.hypot(ex, ey) ** 2) * 1.3) + vnoise(x / 60, y / 60, 933) * 0.25 - 0.08;
+          if (hash(tx, ty * 3 + k, 934) > dens) continue;
           if (solid.has(cellOf(x, y)) || nearAny(water, x, y) < 6 || nearAny(paths, x, y) < TS * 0.5) continue;
-          if (below.some((o) => Math.hypot(o.x - x, o.y - y) < 11)) continue;
-          const key = hash(tx, ty * 2 + k, 935) < 0.55 ? "fp4_tall_grass_a" : "fp4_tall_grass_b";
+          if (below.some((o) => Math.hypot(o.x - x, o.y - y) < (prop(o, "encounterGrass") ? 9 : 11))) continue;
+          const hk = hash(tx, ty * 3 + k, 935);
+          const key = hk < 0.4 ? "fp9_enc_grass_a" : hk < 0.75 ? "fp9_enc_grass_b" : "fp9_enc_grass_c";
           below.push({ id: nextId++, name: key, type: "prop", x, y, point: true, properties: [{ name: "key", type: "string", value: key }, { name: "solid", type: "bool", value: false }, { name: "encounterGrass", type: "string", value: z.id }] });
           n++;
         }

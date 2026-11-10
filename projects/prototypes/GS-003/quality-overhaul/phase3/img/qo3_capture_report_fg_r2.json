@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-10T05:45:10.722Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p7_fg_ponte_tamer_atras_r2.png": {
+      "frame": "ponte-oeste",
+      "tamerPx": [
+        746,
+        278
+      ],
+      "tamerFootPx": [
+        746,
+        278
+      ],
+      "tamerHeightPx": 34,
+      "coveredPxMedian": 18,
+      "coveredFrac": 0.53,
+      "columns": 13,
+      "fgAlphaCovering": []
+    },
+    "p7_fg_ponte_tamer_atras_zoom_r2.png": {
+      "clip": {
+        "x": 720,
+        "y": 262,
+        "width": 480,
+        "height": 300
+      },
+      "of": "p7_fg_ponte_tamer_atras_r2.png"
+    },
+    "p7_fg_ponte_leste_tamer_atras_r2.png": {
+      "frame": "ponte-leste",
+      "tamerPx": [
+        1065,
+        333
+      ],
+      "tamerFootPx": [
+        1066,
+        334
+      ],
+      "tamerHeightPx": 34,
+      "coveredPxMedian": 17,
+      "coveredFrac": 0.5,
+      "columns": 13,
+      "fgAlphaCovering": []
+    },
+    "p7_fg_ponte_leste_tamer_atras_zoom_r2.png": {
+      "clip": {
+        "x": 717,
+        "y": 259,
+        "width": 480,
+        "height": 300
+      },
+      "of": "p7_fg_ponte_leste_tamer_atras_r2.png"
+    },
+    "p7_fg_bau_tamer_atras_r2.png": {
+      "frame": "bau",
+      "tamerPx": [
+        942,
+        631
+      ],
+      "tamerFootPx": [
+        942,
+        632
+      ],
+      "tamerHeightPx": 34,
+      "coveredPxMedian": 19,
+      "coveredFrac": 0.56,
+      "columns": 13,
+      "fgAlphaCovering": []
+    },
+    "p7_fg_bau_tamer_atras_zoom_r2.png": {
+      "clip": {
+        "x": 720,
+        "y": 259,
+        "width": 480,
+        "height": 300
+      },
+      "of": "p7_fg_bau_tamer_atras_r2.png"
+    },
+    "p12_grama_alta_zona_dia_r2.png": {
+      "query": "zoom=2",
+      "time": "day",
+      "tamerTile": [
+        26,
+        20
+      ],
+      "areas": [
+        "clareira-noroeste-grama x19–25 y18–23",
+        "clareira-corredor-grama"
+      ]
+    },
+    "p12_grama_alta_zona_noite_r2.png": {
+      "query": "zoom=2",
+      "time": "night",
+      "tamerTile": [
+        26,
+        20
+      ],
+      "areas": [
+        "clareira-noroeste-grama x19–25 y18–23",
+        "clareira-corredor-grama"
+      ]
+    }
+  },
+  "perf": [],
+  "encounter": {},
+  "video": {}
+}

@@ -8,8 +8,10 @@
 //   node scripts/qo3-capture.mjs [shots|fg|encounter|perf|video|all]
 // (PLAYWRIGHT_BROWSERS_PATH aponta para links das revisões instaladas: o ffmpeg do recordVideo vem de lá. O
 // ffmpeg-1011 só tem VP8: /tmp/pwb/ffmpeg-1013/ffmpeg-linux é um wrapper que troca libvpx-vp9 por libvpx.)
+// Rodada 2: SUFFIX=_r2 grava ao lado da rodada 1. O vídeo bruto inclui o carregamento e todo o vaivém na grama;
+// scripts/qo3-trim-video.py (PyAV) corta os trechos usados (ver phase3/P7_GS012_DEV_R2.md).
 
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,6 +22,9 @@ const W = 1920;
 const H = 1080;
 const ID = "digimon-forest-01";
 const what = process.argv[2] ?? "all";
+// rodada 2 (correções do QA da fase 3): SUFFIX=_r2 grava ao lado das capturas da rodada 1, sem sobrescrever
+const SFX = process.env.SUFFIX ?? "";
+const nm = (f) => (SFX ? f.replace(/\.(png|webm)$/, `${SFX}.$1`) : f);
 mkdirSync(OUT, { recursive: true });
 
 const { chromium } = await import(process.env.PW_CORE);
@@ -70,6 +75,7 @@ const tp = (page, tx, ty, opt = {}) =>
   }, [tx, ty, opt]);
 const hideHud = (page, on = true) => page.evaluate((on) => { document.querySelector("#hud").style.visibility = on ? "hidden" : ""; }, on);
 const shot = async (page, name, meta) => {
+  name = nm(name);
   await page.screenshot({ path: join(OUT, name) });
   report.shots[name] = meta;
   console.log("ok", name);
@@ -98,18 +104,69 @@ async function shots() {
       await shot(page, `p7_clareira_${tag}_${time === "day" ? "dia" : "noite"}_geral.png`, { query: `${q}&zoom=1`, time, framing: "geral (zoom=1)", tamerTile: [27, 18] });
     }
   }
-  // molduras de primeiro plano com o Tamer atrás: ponte e baú (v9 + P7)
-  await open(page, "&look=v9&dpr=1&anim=v2&encounters=1&time=day&charh=11");
+  // molduras de primeiro plano com o Tamer atrás: ponte (oeste/leste) e baú (v9 + P7). Rodada 2: moitas de 3
+  // fileiras (~40 px) com o pé 20 px ao sul do eixo da trilha; o Tamer fica NO EIXO, atrás da parte mais alta, e a
+  // cobertura é medida pelos pixels opacos do primeiro plano em cada coluna do corpo dele.
+  await open(page, "&look=v9&dpr=1&anim=v2&encounters=1&time=day");
   await hideHud(page);
-  // pés do Tamer 13 px atrás (ao norte) do pé da moita composta, na trilha: ela cobre pernas e cintura e fica opaca
-  for (const [name, x, y, partner] of [
-    ["p7_fg_ponte_tamer_atras.png", 25.6 * 32, 10.28 * 32 - 13, [-1.2, -0.6]],
-    ["p7_fg_bau_tamer_atras.png", 30.7 * 32, 19.38 * 32 - 13, [-1.2, -0.4]],
+  const rep = JSON.parse(readFileSync(join(ROOT, "src/data/maps/v9/digimon-forest-01.p7-report.json"), "utf8"));
+  const tiles = Object.fromEntries(rep.frames.filter((f) => f.placed).map((f) => [f.tag, f.tile]));
+  for (const [name, tag, dx, partner] of [
+    ["p7_fg_ponte_tamer_atras.png", "ponte-oeste", -12, [-1.6, -0.9]],
+    ["p7_fg_ponte_leste_tamer_atras.png", "ponte-leste", 12, [1.6, -0.9]],
+    ["p7_fg_bau_tamer_atras.png", "bau", -12, [-1.6, -0.9]],
   ]) {
+    if (!tiles[tag]) continue;
+    const footX = tiles[tag][0] * 32;
+    const footY = tiles[tag][1] * 32;
+    const x = Math.round(footX + dx);
+    const y = Math.round(footY - 20); // eixo da trilha
     await tp(page, x, y, { px: true, partner });
     await page.waitForTimeout(1800);
-    const alpha = await page.evaluate(() => [...window.__gs003.view.fgAlpha?.values?.() ?? []]);
-    await shot(page, name, { tamerPx: [x, y], fgAlphaCovering: alpha });
+    const cover = await page.evaluate(([x, y]) => {
+      const g = window.__gs003, v = g.view;
+      const me = g.presenter.entities.get(g.presenter.localPlayerId);
+      const top = v.tamerTop(me);
+      const pos = v.posOf(g.presenter, me, 1);
+      const cols = {};
+      for (const pr of v.map.fgProps) {
+        if (Math.abs(pr.x - pos.x) > 60 || Math.abs(pr.y - pos.y) > 60) continue;
+        const src = v.tiles[pr.key]; const img = src && v.images.get(src.url);
+        if (!img) continue;
+        const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
+        const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
+        const c = document.createElement("canvas"); c.width = sw; c.height = sh;
+        const cg = c.getContext("2d"); cg.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+        const d = cg.getImageData(0, 0, sw, sh).data;
+        for (let cx = Math.round(pos.x) - 6; cx <= Math.round(pos.x) + 6; cx++) {
+          const lx = cx - Math.round(pr.x - px);
+          if (lx < 0 || lx >= sw) continue;
+          for (let ly = 0; ly < sh; ly++) if (d[(ly * sw + lx) * 4 + 3] > 24) { const wy = Math.round(pr.y - py) + ly; cols[cx] = Math.min(cols[cx] ?? 1e9, wy); break; }
+        }
+      }
+      const covered = Object.values(cols).map((wy) => Math.max(0, Math.min(top + 2, Math.round(pos.y) - wy)));
+      covered.sort((a, b) => a - b);
+      const med = covered.length ? covered[Math.floor(covered.length / 2)] : 0;
+      return { tamerFootPx: [Math.round(pos.x), Math.round(pos.y)], tamerHeightPx: top + 2, coveredPxMedian: med, coveredFrac: +(med / (top + 2)).toFixed(2), columns: covered.length, fgAlphaCovering: [...(v.fgAlpha?.values?.() ?? [])] };
+    }, [x, y]);
+    await shot(page, name, { frame: tag, tamerPx: [x, y], ...cover });
+    console.log("  cobertura", tag, JSON.stringify(cover));
+    // recorte 1:1 em volta do Tamer (para ver de perto)
+    const cam = await page.evaluate(() => { const v = window.__gs003.view; return { x: v.camera.x, y: v.camera.y, w: v.camera.w }; });
+    const k = W / cam.w;
+    const cx = Math.round((x - cam.x) * k), cy = Math.round((y - cam.y) * k);
+    const clip = { x: Math.max(0, cx - 240), y: Math.max(0, cy - 230), width: 480, height: 300 };
+    const cn = nm(name.replace(".png", "_zoom.png"));
+    await page.screenshot({ path: join(OUT, cn), clip });
+    report.shots[cn] = { clip, of: nm(name) };
+  }
+  // zona de grama alta (GS-012) em plano geral, com a trilha: dia e noite
+  for (const time of ["day", "night"]) {
+    await open(page, `&look=v9&dpr=1&anim=v2&encounters=1&time=${time}&zoom=2`);
+    await hideHud(page);
+    await tp(page, 26, 20, { partner: [1, 0] });
+    await page.waitForTimeout(2200);
+    await shot(page, `p12_grama_alta_zona_${time === "day" ? "dia" : "noite"}.png`, { query: "zoom=2", time, tamerTile: [26, 20], areas: ["clareira-noroeste-grama x19–25 y18–23", "clareira-corredor-grama"] });
   }
   await page.close();
 }
@@ -119,30 +176,31 @@ async function encounter() {
   await open(page, "&look=v9&dpr=1&anim=v2&encounters=1&encdebug=1&time=day");
   await tp(page, 22, 21);
   await page.waitForTimeout(1500);
-  // quadros do salto: força um encontro (painel de debug) e fotografa o mais rápido possível, guardando o tempo
+  // quadros do salto: força um encontro (painel de debug) e fotografa sem parar; o tempo de cada quadro é medido
+  // DENTRO da página em relação ao início do efeito (encounterFx), e a fase é a do próprio efeito
   await page.evaluate(() => window.__gs003.forceEncounter("tentomon-grama"));
-  const t0 = await page.evaluate(() => performance.now());
+  await page.waitForFunction(() => window.__gs003.view.encFx?.fx?.some((f) => f.kind === "appear"), null, { timeout: 5000 });
   const frames = [];
-  for (let i = 0; i < 7; i++) {
-    const t = Math.round((await page.evaluate(() => performance.now())) - t0);
+  for (let i = 0; i < 40; i++) {
+    const info = await page.evaluate(() => { const fx = window.__gs003.view.encFx; const f = [...fx.fx].reverse().find((x) => x.kind === "appear"); const now = performance.now(); return { t: Math.round(now - f.start), phase: fx.phase(now) }; });
     const buf = await page.screenshot();
-    frames.push({ t, buf });
+    frames.push({ ...info, buf });
+    if (info.t > 2500) break;
   }
-  // 3 quadros: grama mexendo + "!" (< 350 ms), salto (350–700), placa de raridade (700–1200)
-  const pickIn = (a, b) => frames.find((f) => f.t >= a && f.t < b) ?? frames.reduce((x, y) => (Math.abs(y.t - (a + b) / 2) < Math.abs(x.t - (a + b) / 2) ? y : x));
-  const chosen = [
-    ["p12_encontro_1_grama.png", pickIn(0, 350)],
-    ["p12_encontro_2_salto.png", pickIn(350, 700)],
-    ["p12_encontro_3_placa.png", pickIn(700, 1200)],
-  ];
-  for (const [name, f] of chosen) {
+  // 6 quadros, um por fase: grama treme, "!" (pausa), salto subindo, alto do arco/descida, pouso com poeira, placa
+  const TARGETS = [["1_grama", 300], ["2_alerta", 800], ["3_salto_sobe", 1120], ["4_salto_desce", 1380], ["5_pouso", 1580], ["6_placa", 1950]];
+  const used = new Set();
+  for (const [tag, ms] of TARGETS) {
+    const f = frames.filter((x) => !used.has(x)).reduce((a, b) => (Math.abs(b.t - ms) < Math.abs(a.t - ms) ? b : a));
+    used.add(f);
+    const name = nm(`p12_encontro_${tag}.png`);
     writeFileSync(join(OUT, name), f.buf);
-    report.shots[name] = { msAfterForce: f.t };
-    console.log("ok", name, f.t, "ms");
+    report.shots[name] = { msAfterEffectStart: f.t, phase: f.phase, target: ms };
+    console.log("ok", name, f.t, "ms", f.phase);
   }
-  report.encounter.allFrameTimesMs = frames.map((f) => f.t);
-  await page.waitForTimeout(1500);
-  await shot(page, "p12_encontro_4_combate_debug.png", { note: "combate no mapa + painel ?encdebug=1" });
+  report.encounter.frames = frames.map((f) => ({ t: f.t, phase: f.phase }));
+  await page.waitForTimeout(800);
+  await shot(page, "p12_encontro_7_combate_debug.png", { note: "combate no mapa + painel ?encdebug=1" });
   report.encounter.inspectAfter = await page.evaluate(() => window.__gs003.encounters());
   await page.close();
 }
@@ -207,7 +265,8 @@ async function video() {
   await page.evaluate(() => window.__walkTo(31, 20)); // passa pela moita na frente do baú
   mark("baú atrás da moita (moldura de primeiro plano)");
   await page.evaluate(() => window.__walkTo(33, 13));
-  await page.evaluate(() => window.__walkTo(26, 10)); // ponte, moitas de primeiro plano
+  await page.evaluate(() => window.__walkTo(32, 9));
+  await page.evaluate(() => window.__walkTo(24, 9)); // eixo da trilha (linha 9) atrás das 2 molduras da ponte
   mark("ponte do riacho com as molduras de primeiro plano");
   await page.waitForTimeout(600);
   await page.evaluate(() => window.__walkTo(30, 21));
@@ -235,7 +294,7 @@ async function video() {
   const info = await page.evaluate(() => window.__gs003.encounters());
   const vid = page.video();
   await ctx.close();
-  const name = "p12_clareira_passeio_encontro.webm";
+  const name = nm("p12_clareira_passeio_encontro.webm");
   await vid.saveAs(join(OUT, name));
   await vid.delete();
   rmSync(dir, { recursive: true, force: true });

@@ -180,10 +180,12 @@ describe("look v9 no renderer", () => {
 
   it("primeiro plano: cobre pernas e cintura e fica opaco; só fica translúcido quando esconderia a cabeça (P7 headFrac)", async () => {
     const { sim, view, presenter } = await setup("v9");
-    const fg = sim.map.fgProps!.find((p) => p.key === "fp8_fern")!;
+    // a moita alta de borda (24 px opacos): a samambaia (15 px opacos, 7 px transparentes no topo do recorte) nunca
+    // chega à cabeça, e a oclusão é medida pela parte opaca do sprite (fase 3, rodada 2)
+    const fg = sim.map.fgProps!.find((p) => p.key === "fp8_edge_cluster_b")!;
     const alphaOf = () => (view as unknown as { fgAlpha: Map<number, number> }).fgAlpha.get(sim.map.fgProps!.indexOf(fg)) ?? 1;
     const me = presenter.entities.get(LOCAL_PLAYER)!;
-    // Tamer (só posição visual) 8 px atrás do pé da samambaia (22 px): ela cobre pernas e cintura, não a cabeça → opaca
+    // Tamer (só posição visual) 8 px atrás do pé da moita: ela cobre pernas e cintura, não a cabeça → opaca
     me.prev = me.cur = { x: fg.x, y: fg.y - 8 };
     view.update(presenter, 1, 0);
     view.follow({ x: fg.x, y: fg.y });

@@ -171,6 +171,8 @@ export class WorldView {
   private waterCells?: number[];
   /** Look v9: opacidade atual de cada prop de primeiro plano (índice em map.fgProps). */
   private fgAlpha = new Map<number, number>();
+  /** Caixa opaca (offsets dentro do recorte) dos sprites de primeiro plano, por url+recorte. */
+  private fgOpaque = new Map<string, { x0: number; y0: number; x1: number; y1: number }>();
   private swayRe?: RegExp;
   /** GS-012 (?encounters=1): apresentação do encontro (salto da grama, "!", placa, farfalhar). */
   encFx?: EncounterFx;
@@ -449,7 +451,8 @@ export class WorldView {
       if (inView(pos.x, pos.y)) visible.push({ v, pos });
     }
     // sombras (sempre sob a entidade, inclusive em ATTACK/HURT)
-    for (const { v, pos } of visible) this.drawShadow(v, pos, now, p);
+    // (no salto da grama a sombra fica no chão e cresce enquanto o selvagem cai: encounterFx.entityOffset().shadow)
+    for (const { v, pos } of visible) this.drawShadow(v, pos, now, p, this.encFx?.entityOffset(v.id, now)?.shadow);
     // VFX: camada do chão (círculos de área, marcas, rachaduras) fica sob as entidades
     for (const c of p.casts) this.drawCastLayer(p, c, alpha, now, "ground");
     // anel do alvo atual da parceira local
@@ -783,7 +786,9 @@ export class WorldView {
         this.fgAlpha.delete(i);
         return;
       }
-      const target = fgCovers({ x0: x, y0: y, x1: x + sw, y1: y + sh }, watch) ? (cfg?.behindAlpha ?? 0.4) : 1;
+      // headFrac: mede pela parte OPACA do sprite (as samambaias têm 7 px transparentes no topo do recorte)
+      const ob = cfg?.headFrac ? this.opaqueBox(src.url, img, sx, sy, sw, sh) : { x0: 0, y0: 0, x1: sw, y1: sh };
+      const target = fgCovers({ x0: x + ob.x0, y0: y + ob.y0, x1: x + ob.x1, y1: y + ob.y1 }, watch) ? (cfg?.behindAlpha ?? 0.4) : 1;
       const a = fadeToward(this.fgAlpha.get(i) ?? 1, target, dt, cfg?.fadeMs ?? 120);
       if (a < 1) this.fgAlpha.set(i, a);
       else this.fgAlpha.delete(i);
@@ -792,6 +797,33 @@ export class WorldView {
       this.drawSwayed(src.url, sx, sy, sw, sh, x - cam.x, y - cam.y, s, 2);
     });
     ctx.globalAlpha = 1;
+  }
+
+  private opaqueBox(url: string, img: CanvasImageSource, sx: number, sy: number, sw: number, sh: number): { x0: number; y0: number; x1: number; y1: number } {
+    const key = `${url}|${sx},${sy},${sw},${sh}`;
+    let b = this.fgOpaque.get(key);
+    if (b) return b;
+    b = { x0: 0, y0: 0, x1: sw, y1: sh };
+    try {
+      const c = this.makeCanvas(sw, sh);
+      const g = c.getContext("2d")!;
+      g.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+      const d = g.getImageData(0, 0, sw, sh).data;
+      let x0 = sw, y0 = sh, x1 = 0, y1 = 0;
+      for (let y = 0; y < sh; y++)
+        for (let x = 0; x < sw; x++)
+          if (d[(y * sw + x) * 4 + 3] > 24) {
+            x0 = Math.min(x0, x);
+            y0 = Math.min(y0, y);
+            x1 = Math.max(x1, x + 1);
+            y1 = Math.max(y1, y + 1);
+          }
+      if (x1 > x0) b = { x0, y0, x1, y1 };
+    } catch {
+      // sem getImageData (canvas de teste): fica o recorte inteiro
+    }
+    this.fgOpaque.set(key, b);
+    return b;
   }
 
   /** Copa com o rim-light do preset (cache por URL; cai na copa sem rim enquanto a imagem não carregou). */
@@ -1533,7 +1565,7 @@ export class WorldView {
     this.blitEntity(`tamer-ph|${v.kind}|${side ? "e" : "s"}|${step}`, frames[step], { x: 0, y: 0, w: TAMER_W, h: TAMER_H }, dx, dy, 1, side && mirror);
   }
 
-  private drawShadow(v: VisualEntity, pos: Vec, now: number, p?: Presenter): void {
+  private drawShadow(v: VisualEntity, pos: Vec, now: number, p?: Presenter, scale = 1): void {
     let rx = 6;
     let ry = 2;
     let ox = 0;
@@ -1542,8 +1574,8 @@ export class WorldView {
     const S = this.scaleOf(cv);
     if (cv?.manifest.anchors?.shadow) {
       const s = cv.manifest.anchors.shadow;
-      rx = Math.max(3, Math.round(s.rx * 0.8 * S));
-      ry = Math.max(1, Math.round(s.ry * 0.7 * S));
+      rx = Math.max(3, Math.round(s.rx * 0.8 * S * scale));
+      ry = Math.max(1, Math.round(s.ry * 0.7 * S * scale));
       ox = Math.round((s.cx - cv.manifest.pivot.x) * S);
       oy = Math.round((s.cy - cv.manifest.pivot.y) * S);
     }
@@ -1677,9 +1709,8 @@ export class WorldView {
     const localPartner = p.entities.get(p.localPartnerId);
     for (const v of p.entities.values()) {
       if (v.defeatedAt !== undefined && now > v.defeatedAt + 400) continue;
-      // GS-012: até o fim do salto da grama, o nome fica na placa de raridade (encounterFx), não no rótulo
-      const jump = this.encFx?.entityOffset(v.id, now);
-      if (jump?.hidden || jump?.dy) continue;
+      // GS-012: do salto da grama até a placa sumir, o nome fica na placa de raridade (encounterFx), não no rótulo
+      if (this.encFx?.hidesLabel(v.id, now)) continue;
       const pos = this.posOf(p, v, alpha);
       const x = Math.round(pos.x - cam.x);
       const y = Math.round(pos.y - cam.y);
