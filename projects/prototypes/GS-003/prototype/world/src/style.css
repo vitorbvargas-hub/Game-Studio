@@ -4114,11 +4114,13 @@ body {
   filter: grayscale(0.9);
   opacity: 0.6;
 }
+/* pronta para coletar: moldura rara + filete âmbar (a lendária tem ornamento no meio da borda, que esticaria) */
 .hud-v2 .ach.complete {
-  border-image-source: var(--ck-frame3);
+  border-image-source: var(--ck-frame2);
+  box-shadow: inset 3px 0 #ffd27a;
 }
 .hud-v2 .ach.claimed {
-  border-image-source: var(--ck-frame2);
+  border-image-source: var(--ck-frame1);
 }
 .hud-v2 .ach.claimed .dg-bar i {
   background: var(--ui-green);
@@ -4203,12 +4205,13 @@ body {
 }
 .hud-v2 .wm2-poi {
   position: absolute;
-  width: 44px;
-  height: 44px;
+  /* 8 + 32 + 8: cantos da moldura (4 px) e glifo (16 px), ambos em 2× */
+  width: 48px;
+  height: 48px;
   padding: 0;
   transform: translate(-50%, -50%);
-  border: 6px solid transparent;
-  border-image: var(--ck-frame1) 4 / 6px stretch;
+  border: 8px solid transparent;
+  border-image: var(--ck-frame1) 4 / 8px stretch;
   background: #12121c padding-box;
   image-rendering: pixelated;
   cursor: pointer;
