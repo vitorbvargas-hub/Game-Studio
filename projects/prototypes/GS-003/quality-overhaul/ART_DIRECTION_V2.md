@@ -15,7 +15,7 @@
 
 ### 1.2 Regra de escala por porte (tile = 32 px, mantido) — proposta inicial, ver §1.4 para a decisão oficial confirmada
 
-> **Esta tabela foi revisada em §1.4** (2026-11-10) depois da prova técnica de escala (`phase2/art/scale-proof/`). Fica aqui só como registro da lógica original — **não usar para produção**, usar §1.4.
+> **Esta tabela foi revisada em §1.4** (2026-11-10) depois da prova técnica de escala (`phase2/art/scale-proof/`). Fica aqui só como registro da lógica original — **não usar para produção**, usar §1.4. **Para o Tamer especificamente, os "52–60 px" abaixo estão SUPERADOS por §1.5 (2026-11-10)** — voltaram a circular em `quality-overhaul/phase3/qa/QA_PHASE3.md` apesar deste aviso, e `QA_P8_AND_V3FIX.md` §1.2.1 apontou a confusão; §1.5 fecha o número oficial único.
 
 | Porte | Altura nativa alvo (sprite de mapa, só o corpo, sem folga) | Relação ao tile |
 |---|---|---|
@@ -73,6 +73,30 @@
 - Só Rookie (Guilmon) foi testado de verdade; Bebê/Champion/Mega/Tamer na tabela §1.4.1 são proposta por extrapolação proporcional, não teste (`[H]`).
 - O impacto em zoom/câmera (§1.4.2) é análise de arte, não foi validado dentro do jogo rodando — decisão de integração fica com `game-dev`/`game-design`.
 - O custo §1.4.3 assume que toda criatura consegue uma referência de entrada equivalente ao frame S limpo do Guilmon — espécies sem isso (ver `phase2/art/scale-proof/README.md` §6) podem custar mais ou sair com qualidade diferente.
+
+### 1.5 Decisão de escala — 2026-11-10 (Tamer, resolve QA P8 §1.2.1)
+
+**Problema [E]:** `QA_P8_AND_V3FIX.md` §1.2.1 (`quality-overhaul/phase2/qa/`) achou **3 números de "altura do Tamer" não reconciliados** circulando no projeto, nenhum citado pela spec de HUD v2 (P8) ao descrever o "retrato mini 48×48px, recorte do sprite do Tamer":
+
+1. **52–60 px** — `ART_DIRECTION_V2.md` §1.2 (tabela descartada, já marcada "não usar para produção" mas citada de novo por `quality-overhaul/phase3/qa/QA_PHASE3.md`).
+2. **56–64 px nativos** — `ART_DIRECTION_V2.md` §1.4.1 (tabela oficial atual), harmonizado com o Rookie/Guilmon testado — mas o próprio §1.4.4 já avisava: **só o Guilmon foi testado, o Tamer nessa faixa não**.
+3. **~90 px físicos na tela** — `phase2/PHASE2_DEV.md` §2, o que está de fato implementado hoje: `dprLayout()` escala um Tamer de referência de **30 px lógicos** (a arte-placeholder atual, ~32×32px) por um fator inteiro de **3** (a 1080p) para atingir `charh` ≈ 9% da altura física da tela.
+
+(1) e (2) são tamanho de **arte nativa** (canvas do sprite, o que o game-art desenha). (3) é tamanho **renderizado na tela** depois do zoom de câmera — uma grandeza diferente, que não deveria ter sido comparada diretamente com (1)/(2) para começar. Nenhum documento fazia essa distinção explicita antes desta seção.
+
+**Decisão (diretor de arte, 2026-11-10):**
+
+- **Padrão único de arte nativa do Tamer: altura de corpo 56–64 px, canvas 64–72 px.** É exatamente a mesma faixa já testada e confirmada para o Rookie (Guilmon, `phase2/art/scale-proof/`, entregue em 60×68 px) — Tamer e parceiro ficam na MESMA régua "nível Drakantos" pedida pelo fundador (`evidence/drakantos-video/`), em vez de o Tamer ficar levemente menor como a tabela antiga de §1.2 propunha (52–60 px vs. Rookie 56–64 px). §1.4.1 é, a partir de agora, o único número de arte nativa válido para o Tamer — §1.2 (item 1 acima) fica formalmente superado, sem exceção.
+- **O fator de escala de tela é um parâmetro separado da arte, não o mesmo tipo de número.** O "~90 px físicos" de `PHASE2_DEV.md` §2 mede o placeholder de 30 px lógicos de hoje após o zoom `dprLayout()`, não a arte nova de 56–64 px — os dois números param de ser comparados entre si a partir de agora.
+- **Relação entre os dois quando a arte nova entrar:** se o Tamer for redesenhado em 56–64 px nativos (quase o dobro do placeholder de 30 px), o fator inteiro de `dprLayout()` precisa CAIR para manter o mesmo alvo de tela já aprovado (`charh` 8–10%, hoje fator 3) — grosso modo de 3× para algo entre 1× e 2×, dependendo do arredondamento ao inteiro mais próximo que `dprLayout()` já faz. **O valor exato é decisão de `game-dev`, testada no jogo real** — mesma ressalva já registrada em §1.4.2 para o Rookie: este documento de arte fixa só a escala nativa do sprite, não o zoom/câmera.
+
+**O que isso desbloqueia (P8):**
+
+- Retrato mini (48×48 px) e retrato grande (72×72 px, §5 da spec P8) devem ser recortados a partir da arte nativa de 56–64 px (canvas 64–72 px) definida aqui — nunca do placeholder de 30 px hoje em produção: um recorte de 48–72 px a partir de 30 px sairia upscaled/borrado, exatamente o risco já citado por `QA_P8_AND_V3FIX.md` §1.2.1.
+- Para o parceiro Digimon (Guilmon/Rookie), não há bloqueio: a escala já está confirmada e testada (§1.4.1), o retrato pode ser recortado da arte existente hoje.
+- Para o Tamer, a AMBIGUIDADE que travava a spec (3 números concorrentes, nenhum oficial) acaba aqui: quando a arte do Tamer for redesenhada (fora do escopo desta decisão — custo zero hoje, ver limitação abaixo), ela já nasce no tamanho certo para os dois recortes do P8, sem mais escolha entre 3 valores.
+
+**Limitação [H]:** esta decisão fixa o número-alvo, mas não autoriza gasto de PixelLab para redesenhar o Tamer agora — a autorização de hoje é custo zero (saldo 0,80). Enquanto o Tamer não for redesenhado em 56–64 px, um retrato P8 feito do sprite atual (30 px) deve ser marcado como provisório/placeholder visual, não como arte final.
 
 ---
 
