@@ -3,7 +3,7 @@
   "layer": "original",
   "assets": [
     {
-      "group": "palette.json (2 familias novas + rampas reaproveitadas de v8) + 12 ground variants + 4 decalques grandes + 4 especies de arvore x 2 tamanhos (8 top + 8 base) + preview.png + before_after_20x12.png",
+      "group": "palette.json (rampas reaproveitadas de v8 + 2 tints macro) + 10 ground variants (familia unica, tileavel) + 16 pecas de autotile grama<->terra + 2 overlays macro + 4 decalques grandes + 4 especies de arvore x 2 tamanhos (8 top + 8 base) + preview.png + before_after_20x12.png + tileability_check.png",
       "origin": "game-art, 100% pipeline local, 2026-11-10",
       "layer": "original",
       "author": "game-art",

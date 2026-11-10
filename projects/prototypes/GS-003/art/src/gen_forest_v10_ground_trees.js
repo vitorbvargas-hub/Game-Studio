@@ -50,6 +50,7 @@ const { Canvas } = require('./canvas.js');
 const { W, hx, withAlpha, rng } = require('./endesga32.js');
 const { buildDepthRamps, shiftRamp, shiftColor, hexOf, hexRamp } = require('./forest_v8_depth_palette.js');
 const { paintCanopyPuffs, rimDarken } = require('./forest_v4_props.js');
+const { buildBlobTile } = require('./blob_autotile16.js');
 const { drawText } = require('./font5x3.js');
 
 const TILE = 32;
@@ -59,28 +60,53 @@ const d = buildDepthRamps(); // same forest-v8/v9 ramps: grass, dirt, leafLitter
 function pick(rnd, arr) { return arr[Math.floor(rnd() * arr.length)]; }
 
 // =========================================================================
-// 0. Macro-hue ground families -- item pedido "variacao de matiz em
-//    macro-escala (manchas grandes de tom)". Nao e possivel pintar uma
-//    mancha de centenas de px DENTRO de um tile de 32px -- a escala macro
-//    vem de ALTERNAR FAMILIAS inteiras de tile por regiao (nao por celula),
-//    cada familia com seu proprio tom de base, documentado em tileset.json
-//    como regra de espalhamento pro game-dev. 0 hex novo -- shiftColor/
-//    shiftRamp (ja usados por forest_v8_depth_palette.js) sobre d.grass.
+// 0. Macro-hue ground tints -- item pedido "variacao de matiz em
+//    macro-escala (manchas grandes de tom)". QA do coordenador (rodada 2)
+//    pegou a v1 deste pacote alternando GRASS_A/B/sombra POR TILE: cada
+//    familia tinha um tom medio diferente e a textura nao era tileable
+//    (sem wrap-around nas bordas), entao o resultado era um XADREZ de
+//    quadrados de 32px visivel na montagem 20x12 -- o que GS-008 proibe.
+//    Fix: GRASS_A e a UNICA familia usada nos tiles cheios
+//    (ground_variant_*, todos com o MESMO tom medio e borda tileavel);
+//    GRASS_B/GRASS_SHADE viram so o TINT de 2 overlays grandes e
+//    semitransparentes (macroPatch(), secao 1b) que o game-dev cola por
+//    CIMA do chao uniforme, sem nenhum alinhamento de grade -- a mancha
+//    grande nunca bate numa borda de tile porque ela nao E um tile. 0 hex
+//    novo -- mesmo shiftColor/shiftRamp de antes sobre d.grass.
 // =========================================================================
-const GRASS_A = d.grass; // familia base (igual a clareira atual)
-const GRASS_B = shiftRamp(d.grass, { hueDeg: -9, sMul: 0.95, vMul: 1.06 }); // oliva quente, mancha macro
-const GRASS_SHADE = shiftRamp(d.grass, { sMul: 1.03, vMul: 0.76, hueDeg: 5 }); // poca de sombra sob copa, mais fria/escura
+const GRASS_A = d.grass; // UNICA familia usada nos tiles cheios -- mesmo tom medio em toda variante
+const GRASS_B = shiftRamp(d.grass, { hueDeg: -9, sMul: 0.95, vMul: 1.06 }); // oliva quente -- so tint de overlay macro
+const GRASS_SHADE = shiftRamp(d.grass, { sMul: 1.03, vMul: 0.76, hueDeg: 5 }); // poca fria -- so tint de overlay macro
 const FLECK_CLOVER_W = shiftColor(W.white, { vMul: 0.88 });
 const FLECK_CLOVER_Y = shiftColor(hx('#f6d84a'), { sMul: 0.55, vMul: 0.8 });
 
+// Replica (cx,cy) + a chamada de desenho nas 9 posicoes do wrap toroidal
+// (-TILE,0,+TILE em x e y) -- como Canvas.setPixel/blendPixel/line ja
+// descartam silenciosamente qualquer coordenada fora do canvas, as 8
+// copias extras nao fazem nada exceto quando o stamp original esta perto
+// de uma borda, caso em que a copia vizinha pinta a "sombra" que falta do
+// outro lado -- e assim que a textura fica tileable sem precisar de um
+// algoritmo de costura.
+function forEachWrap(cx, cy, fn) {
+  for (const ox of [-TILE, 0, TILE]) {
+    for (const oy of [-TILE, 0, TILE]) fn(cx + ox, cy + oy);
+  }
+}
+
 // =========================================================================
-// 1. Textura de chao -- clusters de folhagem (substitui pontinhos
-//    isolados) + 2-3 blotches de valor macio (substitui elipses de borda
-//    dura) + decalques GRANDES (substitui o crack preto fino).
+// 1. Textura de chao TILEAVEL -- clusters de folhagem desenhados com
+//    wrap-around (substitui pontinhos isolados E a antiga faixa quieta de
+//    4px na borda do tile, que era a causa raiz do xadrez: toda variante
+//    tinha um "anel" sem cluster perto da borda, entao tiles vizinhos
+//    nunca casavam). Preenchimento base e SEMPRE ramp5[2] solido (mesmo
+//    tom medio em toda variante da familia) -- a variacao vem SO dos
+//    clusters internos, nunca de blotches de valor por-tile (que tambem
+//    quebravam o tom medio entre variantes).
 // =========================================================================
 function clumpBlades(c, cx, cy, ramp5, rnd, opts = {}) {
   const n = opts.n || (8 + Math.floor(rnd() * 6));
   const spread = opts.spread != null ? opts.spread : 3.4;
+  const blades = [];
   for (let i = 0; i < n; i++) {
     const a = rnd() * Math.PI * 2;
     const r = spread * Math.sqrt(rnd());
@@ -92,56 +118,131 @@ function clumpBlades(c, cx, cy, ramp5, rnd, opts = {}) {
     let idx = Math.round(2 + lit * 1.7);
     idx = Math.max(0, Math.min(4, idx));
     const tone = rnd() < 0.78 ? ramp5[idx] : ramp5[Math.max(0, idx - 1)];
-    c.line(Math.round(bx), Math.round(by + bh), Math.round(bx + lean), Math.round(by), tone, 1);
+    blades.push({ bx, by, bh, lean, tone });
+  }
+  // cada lamina e desenhada nas 9 posicoes do wrap -- a copia que cai fora
+  // do canvas e descartada de graca pelo bounds-check de Canvas.line().
+  for (const b of blades) {
+    for (const ox of [-TILE, 0, TILE]) {
+      for (const oy of [-TILE, 0, TILE]) {
+        c.line(Math.round(b.bx + ox), Math.round(b.by + b.bh + oy), Math.round(b.bx + b.lean + ox), Math.round(b.by + oy), b.tone, 1);
+      }
+    }
   }
 }
 
 function groundClumpFill(c, ramp5, rnd, opts = {}) {
-  c.fillRect(0, 0, TILE - 1, TILE - 1, ramp5[2]);
-  const blotches = opts.blotches != null ? opts.blotches : 2;
-  for (let i = 0; i < blotches; i++) {
-    const bx = 4 + rnd() * (TILE - 8), by = 4 + rnd() * (TILE - 8);
-    const r = 6 + rnd() * 5;
-    const n = Math.round(r * r * 0.55);
-    for (let k = 0; k < n; k++) {
-      const a = rnd() * Math.PI * 2, rr = r * Math.sqrt(rnd());
-      const px = Math.round(bx + Math.cos(a) * rr), py = Math.round(by + Math.sin(a) * rr * 0.7);
-      c.blendPixel(px, py, withAlpha(ramp5[rnd() < 0.5 ? 1 : 3], 65));
-    }
-  }
+  c.fillRect(0, 0, TILE - 1, TILE - 1, ramp5[2]); // base solida, SEMPRE o mesmo tom medio na familia
   const clusterCount = opts.clusters != null ? opts.clusters : (4 + Math.floor(rnd() * 2));
   const centers = [];
   for (let i = 0; i < clusterCount; i++) {
-    const cx = 4 + rnd() * (TILE - 8), cy = 4 + rnd() * (TILE - 8);
+    // range CHEIO [0,TILE) -- inclusive perto/sobre a borda; o wrap de
+    // clumpBlades cobre a costura, entao nao ha mais motivo pra evitar
+    // a borda (era isso que criava o anel quieto no v1).
+    const cx = rnd() * TILE, cy = rnd() * TILE;
     centers.push([cx, cy]);
     clumpBlades(c, cx, cy, ramp5, rnd, { n: 8 + Math.floor(rnd() * 6), spread: 3 + rnd() * 1.7 });
   }
-  // AO entre clusters -- gruda a leitura de "tufos separados", nao poeira solta
+  // AO entre clusters -- gruda a leitura de "tufos separados", nao poeira
+  // solta; tambem wrapped, pelo mesmo motivo.
   for (let i = 0; i < 9; i++) {
-    const px = 2 + Math.floor(rnd() * (TILE - 4)), py = 2 + Math.floor(rnd() * (TILE - 4));
+    const px = Math.floor(rnd() * TILE), py = Math.floor(rnd() * TILE);
     let near = false;
     for (const [cx, cy] of centers) { if (Math.hypot(px - cx, py - cy) < 4) { near = true; break; } }
     if (near) continue;
-    if (rnd() < 0.55) c.blendPixel(px, py, withAlpha(ramp5[0], 85));
+    if (rnd() < 0.55) forEachWrap(px, py, (x, y) => c.blendPixel(x, y, withAlpha(ramp5[0], 85)));
   }
   return c;
 }
 
 function dirtGrainFill(c, dirtRamp, rnd) {
-  c.fillRect(0, 0, TILE - 1, TILE - 1, dirtRamp[1]);
+  c.fillRect(0, 0, TILE - 1, TILE - 1, dirtRamp[1]); // mesmo tom medio em toda variante de terra
   for (let i = 0; i < 3; i++) {
-    const bx = Math.round(4 + rnd() * (TILE - 8)), by = Math.round(4 + rnd() * (TILE - 8)), r = Math.round(5 + rnd() * 4);
-    c.fillEllipse(bx, by, r, Math.round(r * 0.6), withAlpha(dirtRamp[2], 110));
+    const bx = Math.round(rnd() * TILE), by = Math.round(rnd() * TILE), r = Math.round(5 + rnd() * 4);
+    forEachWrap(bx, by, (x, y) => c.fillEllipse(x, y, r, Math.round(r * 0.6), withAlpha(dirtRamp[2], 110)));
   }
+  // graos independentes pixel-a-pixel -- sem estrutura espacial, entao ja
+  // tileia de graca (nao precisa de wrap: o ruido nao tem borda pra casar).
   for (let i = 0; i < Math.round(TILE * TILE * 0.12); i++) {
     const px = Math.floor(rnd() * TILE), py = Math.floor(rnd() * TILE);
     c.setPixel(px, py, rnd() < 0.5 ? dirtRamp[0] : dirtRamp[2]);
   }
   for (let i = 0; i < 3; i++) {
-    const px = 3 + Math.floor(rnd() * (TILE - 6)), py = 3 + Math.floor(rnd() * (TILE - 6));
-    c.setPixel(px, py, d.stone[1]);
-    if (rnd() < 0.5) c.setPixel(px + 1, py, withAlpha(d.stone[0], 180));
+    const px = Math.floor(rnd() * TILE), py = Math.floor(rnd() * TILE);
+    forEachWrap(px, py, (x, y) => {
+      c.setPixel(x, y, d.stone[1]);
+      if (rnd() < 0.5) c.setPixel(x + 1, y, withAlpha(d.stone[0], 180));
+    });
   }
+}
+
+// =========================================================================
+// 1b. Overlays de macro-escala (96-192px, maior que 1 tile) -- a mancha de
+//    tom grande pedida pelo fundador, agora NUNCA por tile: uma mascara
+//    organica de lobulos + alpha com dither (nao um circulo/retangulo
+//    liso), pra colar por cima do chao uniforme sem nenhuma borda
+//    alinhada a grade. O game-dev posiciona livremente (world pixels, nao
+//    celula de tile) -- ver tileset.json macroOverlays.
+// =========================================================================
+function macroPatch(size, tintRamp, seed) {
+  const c = new Canvas(size, size);
+  const rnd = rng(seed);
+  const cx = size / 2, cy = size / 2;
+  const lobes = 10;
+  const rBase = size * 0.36;
+  const radii = [];
+  for (let i = 0; i < lobes; i++) radii.push(rBase * (0.72 + rnd() * 0.55));
+  const featherBand = Math.round(size * 0.1);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const dx = x - cx, dy = y - cy;
+      const dist = Math.hypot(dx, dy);
+      const ang = Math.atan2(dy, dx);
+      const t = ((ang + Math.PI) / (2 * Math.PI)) * lobes;
+      const i0 = Math.floor(t) % lobes, i1 = (i0 + 1) % lobes;
+      const f = t - Math.floor(t);
+      const r = radii[i0] * (1 - f) + radii[i1] * f;
+      if (dist > r + featherBand) continue;
+      let a;
+      if (dist < r - featherBand) a = 150;
+      else a = Math.round(150 * Math.max(0, Math.min(1, (r + featherBand - dist) / (featherBand * 2))));
+      a += Math.round((rnd() - 0.5) * 55); // dither -- quebra o anel liso
+      a = Math.max(0, Math.min(150, a));
+      if (a <= 4) continue;
+      c.blendPixel(x, y, withAlpha(tintRamp[rnd() < 0.5 ? 2 : 3], a));
+    }
+  }
+  return c;
+}
+
+// =========================================================================
+// 1c. Transicao grama<->terra -- autotile blob-16 (MESMA geometria
+//    compartilhada de path_blob/water_blob/cliff_top_blob, via
+//    blob_autotile16.js, ja usada e comprovada em forest-v4/v6/v7/v8/v9).
+//    Substitui o seam diagonal reto do v1 (transitionTile, removido) --
+//    o arredondamento de canto do blob ja garante borda organica e
+//    encaixe sem degrau quadrado entre pecas vizinhas.
+// =========================================================================
+function grassDirtFg(c, x0, y0, w, h, _ramp, seed) {
+  const rnd = rng(seed);
+  const sub = new Canvas(w, h);
+  dirtGrainFill(sub, d.dirt, rnd);
+  c.blit(sub, x0, y0);
+}
+
+function grassDirtBg(c, x0, y0, w, h, _ramp, seed) {
+  const rnd = rng(seed);
+  const sub = new Canvas(w, h);
+  groundClumpFill(sub, GRASS_A, rnd, { clusters: 5 });
+  c.blit(sub, x0, y0);
+}
+
+function grassDirtBlobSet(seed) {
+  const tiles = {};
+  for (let m = 0; m < 16; m++) {
+    tiles[`grass_dirt_blob_${m}`] = buildBlobTile(TILE, m, d, seed + m * 23, grassDirtFg, grassDirtBg, { rOuter: Math.round(TILE * 0.4), rSingle: Math.round(TILE * 0.24) });
+  }
+  return tiles;
 }
 
 // Rachadura de barro seco MUDA (tom terra, nao quase-preto) -- so faz
@@ -220,83 +321,43 @@ function tuftClusterDense(c, cx, baseY, rnd, count, maxLen) {
   }
 }
 
-// Borda macia entre familias de grama (A/B) -- espalha pixels do tom
-// vizinho com densidade decrescente perto da borda, pra uma tira de
-// tiles da MESMA familia ler como uma mancha unica de bordas organicas,
-// nao um retangulo xadrez.
-function softFamilyEdge(c, towardRamp, rnd, side) {
-  for (let i = 0; i < 55; i++) {
-    let x, y;
-    const depth = Math.floor(Math.pow(rnd(), 1.6) * 10);
-    if (side === 'south') { x = Math.floor(rnd() * TILE); y = TILE - 1 - depth; }
-    else { x = TILE - 1 - depth; y = Math.floor(rnd() * TILE); }
-    c.blendPixel(x, y, withAlpha(towardRamp[rnd() < 0.5 ? 1 : 2], 60 + Math.floor(rnd() * 55)));
-  }
-}
-
-// Transicao grama<->terra com tufos SOBREPOSTOS mordendo a terra (em vez
-// da costura reta/dura).
-function transitionTile(grassRamp, dirtRamp, rnd, mirrorFlag) {
-  const c = new Canvas(TILE, TILE);
-  dirtGrainFill(c, dirtRamp, rnd);
-  const sub = new Canvas(TILE, TILE);
-  groundClumpFill(sub, grassRamp, rnd, { clusters: 5 });
-  const seamBase = mirrorFlag ? TILE * 0.62 : TILE * 0.38;
-  for (let y = 0; y < TILE; y++) {
-    const jitter = Math.round((rnd() - 0.5) * 3);
-    const seamX = Math.round(seamBase + jitter);
-    for (let x = 0; x < TILE; x++) {
-      const isGrassSide = mirrorFlag ? (x > seamX) : (x < seamX);
-      if (isGrassSide) c.blendPixel(x, y, sub.getPixel(x, y));
-    }
-  }
-  for (let i = 0; i < 9; i++) {
-    const y = Math.floor(rnd() * (TILE - 4)) + 2;
-    const bx = Math.round(seamBase) + (-2 + Math.floor(rnd() * 4));
-    const lean = mirrorFlag ? -(2 + Math.floor(rnd() * 4)) : (2 + Math.floor(rnd() * 4));
-    const bh = 3 + Math.floor(rnd() * 4);
-    c.line(bx, y + 2, bx + lean, y - bh + 2, rnd() < 0.4 ? d.foliage[6] : d.foliage[4], 1);
-  }
-  return c;
-}
-
 // =========================================================================
-// 2. 12 variantes de chao (pedido: 8-12)
+// 2. 10 variantes de chao, TODAS da familia GRASS_A (ou dirt) -- mesmo tom
+//    medio, mesma base tileavel; a variacao vem SO do decalque interior
+//    (nunca de familia/blotch, que foi pro overlay macro -- secao 1b -- e
+//    pra autotile -- secao 1c). Pedido original: 8-12; ficou 10.
 // =========================================================================
 function groundVariant(variant, seed) {
   const rnd = rng(seed + variant * 191);
-  let c;
+  const c = new Canvas(TILE, TILE);
+  const isDirt = variant >= 8;
+  if (isDirt) dirtGrainFill(c, d.dirt, rnd);
+  else groundClumpFill(c, GRASS_A, rnd, { clusters: 5 });
   switch (variant) {
-    case 0: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 5 }); break;
-    case 1: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 4 }); stampLeafLitterBig(c, 16, 20, rnd); break;
-    case 2: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 4 }); stampExposedRoot(c, 16, 22, rnd); break;
-    case 3: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 4 }); stampMossyStoneCluster(c, 17, 18, rnd, 3); break;
-    case 4: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 5 }); stampCloverFleck(c, 16, 18, rnd, 3); break;
-    case 5: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_SHADE, rnd, { clusters: 5, blotches: 1 }); break;
-    case 6: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_B, rnd, { clusters: 5 }); softFamilyEdge(c, GRASS_A, rnd, 'south'); break;
-    case 7: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_B, rnd, { clusters: 4 }); stampMossyStoneCluster(c, 16, 17, rnd, 2); softFamilyEdge(c, GRASS_A, rnd, 'east'); break;
-    case 8: c = new Canvas(TILE, TILE); dirtGrainFill(c, d.dirt, rnd); break;
-    case 9: c = new Canvas(TILE, TILE); dirtGrainFill(c, d.dirt, rnd); clayCrackMuted(c, 12, 18, rnd, 10); clayCrackMuted(c, 22, 10, rnd, 7); break;
-    case 10: c = transitionTile(GRASS_A, d.dirt, rnd, false); break;
-    case 11: c = transitionTile(GRASS_A, d.dirt, rnd, true); break;
-    default: c = groundClumpFill(new Canvas(TILE, TILE), GRASS_A, rnd, { clusters: 5 }); break;
+    case 1: stampLeafLitterBig(c, 16, 20, rnd); break;
+    case 2: stampExposedRoot(c, 16, 22, rnd); break;
+    case 3: stampMossyStoneCluster(c, 17, 18, rnd, 3); break;
+    case 4: stampCloverFleck(c, 16, 18, rnd, 3); break;
+    case 5: stampMossyStoneCluster(c, 15, 16, rnd, 1); break;
+    case 6: stampLeafLitterBig(c, 18, 15, rnd); break;
+    case 7: stampCloverFleck(c, 17, 19, rnd, 2); break;
+    case 9: clayCrackMuted(c, 12, 18, rnd, 10); clayCrackMuted(c, 22, 10, rnd, 7); break;
+    default: break; // 0 e 8: textura pura, sem decalque
   }
   return c;
 }
 
 const GROUND_META = [
-  { decal: 'grama densa (familia A)', family: 'grass-A' },
+  { decal: 'grama densa, sem decalque', family: 'grass-A' },
   { decal: 'grama + folhas caidas em grupo', family: 'grass-A' },
   { decal: 'grama + raiz exposta com musgo', family: 'grass-A' },
-  { decal: 'grama + pedras com musgo', family: 'grass-A' },
+  { decal: 'grama + pedras com musgo (grupo de 3)', family: 'grass-A' },
   { decal: 'grama + trevo/flor esparsa', family: 'grass-A' },
-  { decal: 'grama em poca de sombra (mais fria/escura)', family: 'grass-shade' },
-  { decal: 'grama familia B (oliva, mancha macro) + borda macia sul', family: 'grass-B' },
-  { decal: 'grama familia B + pedras com musgo + borda macia leste', family: 'grass-B' },
+  { decal: 'grama + 1 pedra com musgo (sutil)', family: 'grass-A' },
+  { decal: 'grama + folhas caidas (posicao alternativa)', family: 'grass-A' },
+  { decal: 'grama + trevo esparso (sutil)', family: 'grass-A' },
   { decal: 'terra/trilha (grao, sem rachadura)', family: 'dirt' },
   { decal: 'terra + rachadura muda (tom terra, rara)', family: 'dirt' },
-  { decal: 'transicao grama->terra com tufos sobrepostos', family: 'transition' },
-  { decal: 'transicao grama->terra (espelhada)', family: 'transition' },
 ];
 
 // =========================================================================
@@ -619,9 +680,31 @@ function buildPreviewSheet(sections) {
 // =========================================================================
 const COLS = 20, ROWS = 12;
 
-function isOnPath(tx, ty) {
-  const pathX = COLS * 0.42 + Math.sin(ty * 0.45) * 3.2;
-  return Math.abs(tx - pathX) < 1.4;
+// Grade de trilha: banda sinuosa de ~2-3 celulas, usada pra decidir quais
+// celulas sao "terra" (true) antes de desenhar -- precisa saber ISSO antes
+// de montar cada tile pra calcular o bitmask (vizinho tambem e trilha?) do
+// autotile blob.
+function computePathGrid() {
+  const grid = [];
+  for (let ty = 0; ty < ROWS; ty++) {
+    const row = [];
+    for (let tx = 0; tx < COLS; tx++) {
+      const pathX = COLS * 0.42 + Math.sin(ty * 0.45) * 3.2;
+      row.push(Math.abs(tx - pathX) < 1.5);
+    }
+    grid.push(row);
+  }
+  return grid;
+}
+
+function pathBitmask(grid, tx, ty) {
+  const at = (x, y) => (y >= 0 && y < ROWS && x >= 0 && x < COLS) ? grid[y][x] : false;
+  let m = 0;
+  if (at(tx, ty - 1)) m |= 1; // N
+  if (at(tx + 1, ty)) m |= 2; // E
+  if (at(tx, ty + 1)) m |= 4; // S
+  if (at(tx - 1, ty)) m |= 8; // W
+  return m;
 }
 
 function placeTreeOnScene(scene, treeEntities, tree, footX, footY) {
@@ -635,17 +718,23 @@ function buildScene(isAfter, seed) {
   const W_px = COLS * TILE, H_px = ROWS * TILE;
   const scene = new Canvas(W_px, H_px);
   const rnd = rng(seed);
+  const pathGrid = computePathGrid();
+  const blobSet = isAfter ? grassDirtBlobSet(42000) : null;
   for (let ty = 0; ty < ROWS; ty++) {
     for (let tx = 0; tx < COLS; tx++) {
       let tile;
       if (isAfter) {
-        if (isOnPath(tx, ty)) {
-          tile = groundVariant(8 + (rnd() < 0.5 ? 0 : 1), 9000 + ty * 97 + tx * 7);
+        if (pathGrid[ty][tx]) {
+          const mask = pathBitmask(pathGrid, tx, ty);
+          tile = blobSet[`grass_dirt_blob_${mask}`];
         } else {
+          // grama quase sempre lisa (0), decalque ocasional -- nunca
+          // familia/blotch por celula (isso agora e o overlay macro,
+          // aplicado depois, fora da grade).
           const r = rnd();
           let v;
-          if (r < 0.42) v = 0; else if (r < 0.56) v = 5; else if (r < 0.68) v = 6;
-          else if (r < 0.76) v = 1; else if (r < 0.84) v = 2; else if (r < 0.91) v = 3; else v = 4;
+          if (r < 0.62) v = 0; else if (r < 0.74) v = 1; else if (r < 0.83) v = 2;
+          else if (r < 0.90) v = 3; else if (r < 0.95) v = 4; else v = 5 + Math.floor(rnd() * 3);
           tile = groundVariant(v, 9000 + ty * 131 + tx * 11);
         }
       } else {
@@ -653,6 +742,17 @@ function buildScene(isAfter, seed) {
       }
       scene.blit(tile, tx * TILE, ty * TILE);
     }
+  }
+
+  if (isAfter) {
+    // Overlays de macro-escala -- 2 manchas grandes, posicionadas em
+    // pixels do MUNDO (nao alinhadas a nenhuma celula), coladas por cima
+    // do chao uniforme. Isto e o item 2 do pedido do coordenador: a
+    // variacao de matiz nunca mais vem de um tile cheio.
+    const olive = macroPatch(176, GRASS_B, 51001);
+    const shade = macroPatch(140, GRASS_SHADE, 51002);
+    scene.blit(olive, 46, 210);
+    scene.blit(shade, 380, 70);
   }
 
   const treeEntities = [];
@@ -705,13 +805,66 @@ function buildBeforeAfterMockup() {
   return sheet;
 }
 
+// Prova de tileabilidade (pedido do coordenador, rodada 2): a MESMA
+// variante repetida 6x6 lado a lado, em escala alta -- se o wrap-around
+// funcionou, nenhuma linha de grade de 32px deve aparecer. Inclui tambem
+// um trecho real do autotile grama<->terra (bloco de celulas de trilha no
+// meio de uma grade de grama), pra confirmar que a transicao tambem nao
+// faz degrau quadrado.
+function buildTileabilityCheck() {
+  const N = 6, scale = 4;
+  const grass = groundVariant(0, 77000);
+  const dirt = groundVariant(8, 77001);
+  const blobSet = grassDirtBlobSet(77002);
+
+  const gridW = N * TILE * scale;
+  const sectionGap = 22;
+  const sheet = new Canvas(gridW + 16, (N * TILE * scale + sectionGap) * 3 + 10);
+  sheet.fillRect(0, 0, sheet.w - 1, sheet.h - 1, [12, 12, 20, 255]);
+
+  let y = 6;
+  drawText(sheet, 'VARIANTE 0 (GRAMA) REPETIDA 6X6 - SEM GRADE', 8, y, [200, 230, 255, 255]);
+  y += 14;
+  for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) sheet.blit(grass.scaleNearest(scale), 8 + tx * TILE * scale, y + ty * TILE * scale);
+  y += N * TILE * scale + sectionGap;
+
+  drawText(sheet, 'VARIANTE 8 (TERRA) REPETIDA 6X6 - SEM GRADE', 8, y, [200, 230, 255, 255]);
+  y += 14;
+  for (let ty = 0; ty < N; ty++) for (let tx = 0; tx < N; tx++) sheet.blit(dirt.scaleNearest(scale), 8 + tx * TILE * scale, y + ty * TILE * scale);
+  y += N * TILE * scale + sectionGap;
+
+  drawText(sheet, 'AUTOTILE GRAMA<->TERRA - TRILHA 2 CELULAS NUMA GRADE 6X6', 8, y, [200, 230, 255, 255]);
+  y += 14;
+  const miniGrid = [];
+  for (let ty = 0; ty < N; ty++) {
+    const row = [];
+    for (let tx = 0; tx < N; tx++) row.push(tx === 2 || tx === 3);
+    miniGrid.push(row);
+  }
+  const at = (x, yy) => (yy >= 0 && yy < N && x >= 0 && x < N) ? miniGrid[yy][x] : false;
+  for (let ty = 0; ty < N; ty++) {
+    for (let tx = 0; tx < N; tx++) {
+      let tile;
+      if (miniGrid[ty][tx]) {
+        let m = 0;
+        if (at(tx, ty - 1)) m |= 1; if (at(tx + 1, ty)) m |= 2; if (at(tx, ty + 1)) m |= 4; if (at(tx - 1, ty)) m |= 8;
+        tile = blobSet[`grass_dirt_blob_${m}`];
+      } else {
+        tile = groundVariant(0, 77100 + ty * 17 + tx * 7);
+      }
+      sheet.blit(tile.scaleNearest(scale), 8 + tx * TILE * scale, y + ty * TILE * scale);
+    }
+  }
+  return sheet;
+}
+
 // =========================================================================
 // tileset.json / palette.json / license.json / README.md
 // =========================================================================
 function paletteJson() {
   return {
     biome: 'forest-v10-ground-trees',
-    note: 'Reaproveita INTEGRALMENTE as rampas de forest-v8-depth/palette.json (buildDepthRamps()) -- nenhum hex novo para grass/dirt/bark/foliage/moss/stone. So 2 familias NOVAS de grama (GRASS_B, GRASS_SHADE) sao derivadas por shiftColor/shiftRamp (mesma funcao ja usada por forest_v8_depth_palette.js), pra variacao de matiz em macro-escala (item pedido pelo fundador). Acentos de flor sao versoes rebaixadas (sMul/vMul) de tons ja usados no pipeline, nunca o ACCENT reservado para props emissores.',
+    note: 'Reaproveita INTEGRALMENTE as rampas de forest-v8-depth/palette.json (buildDepthRamps()) -- nenhum hex novo para grass/dirt/bark/foliage/moss/stone. GRASS_A e a UNICA familia usada nos tiles cheios (ground_variant_*, tileaveis, mesmo tom medio). GRASS_B/GRASS_SHADE (mesmo shiftColor/shiftRamp de antes) agora so tingem os overlays macro (overlays/macro_patch_*.png) -- fix da rodada 2 de QA: v1 alternava familia por tile e isso criava um xadrez visivel. Acentos de flor sao versoes rebaixadas (sMul/vMul) de tons ja usados no pipeline, nunca o ACCENT reservado para props emissores.',
     ramps: {
       grassFamilyA: hexRamp(GRASS_A),
       grassFamilyBOlive: hexRamp(GRASS_B),
@@ -732,18 +885,30 @@ function tilesetJson(decals) {
     note: 'Responde ao feedback do fundador na clareira v9 (branch quality-overhaul, p7_clareira_depois_v9p7_*_r2.png): chao "fraco" (verde chapado com rachaduras pretas finas + pontinhos) e arvores "fracas" (blobs de copa sem volume/tronco/silhueta). Substitui so os ground_variant_* e os props de arvore de forest-v8-depth -- decalques de chao, props emissores, clutter, cliff, NPCs e luzes de v8/v9 NAO sao tocados nem sobrescritos por este pacote (continuam a melhor fonte para esses itens). NAO integrado em prototype/world -- isso e trabalho de game-dev. 0 geracoes do PixelLab gastas -- pipeline 100% local Canvas.js.',
     tile: TILE,
     grid: { tileWidth: TILE, tileHeight: TILE },
-    layers: ['ground', 'ground-decal', 'decor', 'canopy-top'],
-    palette: 'Ver palette.json -- mesma rampa fria/escura de forest-v8-depth, mais 2 familias de grama macro-escala.',
+    layers: ['ground', 'ground-macro-overlay', 'ground-decal', 'decor', 'canopy-top'],
+    palette: 'Ver palette.json -- mesma rampa fria/escura de forest-v8-depth.',
     groundVariants: {
-      note: 'NAO autotile -- espalhar por ruido/aleatorio igual a convencao ja usada por forest-v4/v6/v7/v8. REGRA NOVA pedida pelo fundador (macro-escala): nao sortear familia A/B/sombra POR CELULA -- sortear por REGIAO (ruido de baixa frequencia, ex. Perlin/value-noise amostrado a cada 4-6 celulas, ou "blotches" de 3-8 celulas contiguas da MESMA familia) para que o tom mude em manchas grandes, nao em xadrez. Dentro de uma regiao, ai sim sortear a variante especifica (plain/decal) por celula.',
-      families: { grassA: 'tom base da clareira (igual hoje)', grassB: 'oliva quente, mancha macro alternativa', grassShade: 'poca de sombra sob copa densa', dirt: 'trilha/terra', transition: 'borda grama<->terra' },
-      files: Array.from({ length: 12 }, (_, i) => ({
+      note: 'FIX r2 (QA do coordenador): a v1 alternava 3 familias de tom (A/B/sombra) POR CELULA com base nao-tileavel, o que criava um xadrez de 32px visivel em qualquer trecho grande. Agora: 10 variantes, TODAS a mesma familia GRASS_A (grama) ou dirt (terra) -- mesmo tom medio, mesma base tileavel (wrap-around nos 4 lados, ver groundClumpFill/dirtGrainFill em gen_forest_v10_ground_trees.js). A variacao vem SO do decalque interior (nunca mais de familia/blotch por tile). Continua NAO autotile para o chao SIMPLES -- espalhar por ruido/aleatorio.',
+      files: Array.from({ length: 10 }, (_, i) => ({
         file: `tiles/ground_variant_${i}.png`,
         collision: false,
         suggestedLayer: 'ground',
         family: GROUND_META[i].family,
         decal: GROUND_META[i].decal,
+        tileable: true,
       })),
+    },
+    grassDirtTransition: {
+      note: 'FIX r2: substitui o seam diagonal reto do v1 por autotile blob-16, MESMA geometria compartilhada ja usada em path_blob/water_blob/cliff_top_blob (blob_autotile16.js, nao modificado) -- o arredondamento de canto do blob garante borda organica sem degrau quadrado entre pecas vizinhas (comprovado nesses 3 usos de producao). bitmask = N*1 + E*2 + S*4 + W*8, bit=1 quando a trilha de terra CONTINUA por aquele lado (celula vizinha tambem e trilha). Prova visual: tileability_check.png, secao "AUTOTILE GRAMA<->TERRA".',
+      pattern: '16-tile blob',
+      files: Array.from({ length: 16 }, (_, m) => ({ file: `tiles/grass_dirt_blob_${m}.png`, collision: false, suggestedLayer: 'ground' })),
+    },
+    macroOverlays: {
+      note: 'FIX r2: a variacao de matiz em macro-escala pedida pelo fundador NUNCA MAIS e um tile cheio -- e um PNG grande (96-192px, aqui 176 e 140), semitransparente, com borda de lobulos organicos + dither de alpha (nao um circulo/retangulo liso, ver macroPatch() no gerador). O game-dev posiciona em PIXELS DO MUNDO (nao em celula de tile, nao precisa alinhar a grade), 2-4 por clareira grande, blended por cima da layer "ground" na nova layer "ground-macro-overlay" (abaixo de ground-decal/decor). Como a borda nunca cai numa linha de 32px, nao ha como formar xadrez.',
+      files: [
+        { file: 'overlays/macro_patch_olive.png', size: '176x176', tint: 'GRASS_B (oliva quente)', note: 'mancha macro alternativa -- cola por cima do chao uniforme' },
+        { file: 'overlays/macro_patch_shade.png', size: '140x140', tint: 'GRASS_SHADE (poca fria)', note: 'poca de sombra sob copa densa -- cola por cima do chao uniforme' },
+      ],
     },
     decals: {
       note: 'Overlays transparentes, maiores/mais massudos que os de forest-v8-depth (que eram elipses pequenas ou pixel-crack) -- espalhar por ruido sobre QUALQUER chao, nao so os ground_variant_* novos.',
@@ -776,7 +941,7 @@ function licenseJson() {
     layer: 'original',
     assets: [
       {
-        group: 'palette.json (2 familias novas + rampas reaproveitadas de v8) + 12 ground variants + 4 decalques grandes + 4 especies de arvore x 2 tamanhos (8 top + 8 base) + preview.png + before_after_20x12.png',
+        group: 'palette.json (rampas reaproveitadas de v8 + 2 tints macro) + 10 ground variants (familia unica, tileavel) + 16 pecas de autotile grama<->terra + 2 overlays macro + 4 decalques grandes + 4 especies de arvore x 2 tamanhos (8 top + 8 base) + preview.png + before_after_20x12.png + tileability_check.png',
         origin: 'game-art, 100% pipeline local, 2026-11-10',
         layer: 'original',
         author: 'game-art',
@@ -821,20 +986,61 @@ Comparei contra \`evidence/drakantos-video/t0058_floresta_lama_roxa_fundador.png
 silhueta serrilhada em 3-4 valores com AO forte entre clumps, e os troncos/raizes sao grossos e visiveis
 mesmo sob a copa.
 
+## Correcao rodada 2 (revisao do coordenador sobre o commit \`fc34af2\`)
+
+As **arvores foram aprovadas sem ressalvas** ("troncos, raizes, lobulos e luz ficaram otimos") -- o
+codigo de arvore desta rodada (\`paintTrunkThick\`, \`paintCanopyVolume\`, \`SPECIES\`, \`buildTree\`,
+\`standingComposite\`) **nao foi tocado**; os 16 PNGs de \`trees/\` saem bit-a-bit identicos ao commit
+aprovado (conferido com \`git diff --stat\`, sem saida).
+
+O **chao reprovou**: a \`before_after_20x12.png\` da v1 mostrava um XADREZ de quadrados de 32px, porque
+(a) as 12 variantes v1 alternavam 3 familias de tom diferente (GRASS_A/GRASS_B/GRASS_SHADE) **por
+celula**, cada familia com um tom medio proprio, e (b) os clusters de \`groundClumpFill\` v1 evitavam uma
+faixa de 4px perto da borda do tile (\`cx = 4 + rnd()*(TILE-8)\`), entao toda variante tinha um "anel"
+mais quieto que a textura interna -- tiles vizinhos nunca casavam nessa faixa. Isso e exatamente o que
+GS-008 probe. Tres mudancas de tecnica, nenhuma geracao gasta:
+
+1. **Base tileavel por wrap-around**: \`clumpBlades\`/\`groundClumpFill\`/\`dirtGrainFill\` agora desenham
+   cada cluster/blotch 9 VEZES, nas posicoes \`(cx+ox, cy+oy)\` pra \`ox,oy em {-TILE,0,+TILE}\`
+   (\`forEachWrap\`) -- como \`Canvas.setPixel\`/\`line\`/\`blendPixel\` ja descartam de graca qualquer
+   coordenada fora do canvas, as 8 copias extras so fazem alguma coisa quando o stamp original esta perto
+   de uma borda, e ai pintam a "sombra" que faltava do lado oposto. Nenhum algoritmo de costura novo --
+   e o mesmo truque que faz uma textura de ruido repetir sem emenda. Prova: \`tileability_check.png\`,
+   a MESMA variante repetida 6x6 em escala 4x, sem nenhuma linha de grade visivel.
+2. **Mesma familia, mesmo tom medio**: as 10 variantes de chao sao TODAS \`GRASS_A\` (ou \`dirt\`) -- a
+   base solida (\`ramp5[2]\`) e identica em toda variante da familia; a unica diferenca entre variantes
+   e o decalque interior (que fica centrado, longe da borda, entao nunca estraga o wrap). Os blotches de
+   valor por-tile da v1 foram REMOVIDOS (eram outra fonte de tom inconsistente entre variantes).
+3. **Macro-escala nunca mais por tile**: \`GRASS_B\`/\`GRASS_SHADE\` deixaram de ser familias de tile cheio
+   e viraram o TINT de 2 overlays grandes (\`overlays/macro_patch_*.png\`, 176px e 140px, pedido era
+   96-192px) com borda de lobulos organicos + dither de alpha (\`macroPatch()\`) -- o game-dev cola em
+   PIXELS DO MUNDO, nao em celula de tile, entao a borda da mancha nunca cai numa linha de 32px.
+4. **Transicao grama<->terra virou autotile blob-16** (\`grassDirtBlobSet\`, via \`blob_autotile16.js\`,
+   NAO modificado) -- a mesma geometria ja comprovada em producao por \`path_blob\`/\`water_blob\`/
+   \`cliff_top_blob\`. O seam diagonal reto da v1 (\`transitionTile\`) foi removido; o arredondamento de
+   canto do blob garante borda organica sem degrau quadrado entre pecas vizinhas -- prova visual na
+   secao "AUTOTILE GRAMA<->TERRA" de \`tileability_check.png\` e na trilha sinuosa de
+   \`before_after_20x12.png\` "DEPOIS".
+
 ## O que tem aqui
 
 - **\`palette.json\`** — reaproveita 100% as rampas de \`forest-v8-depth/palette.json\` (0 hex novo pra
-  grass/dirt/bark/foliage/moss/stone) + 2 familias NOVAS de grama (\`GRASS_B\` oliva quente, \`GRASS_SHADE\`
-  poca fria) derivadas pela MESMA funcao \`shiftColor\`/\`shiftRamp\` que ja existia, pra variacao de matiz
-  em macro-escala.
-- **\`tiles/ground_variant_0..11.png\`** (32x32, 12 variantes) — chao reescrito do zero: \`groundClumpFill()\`
-  planta 4-5 CLUSTERS de 8-14 laminas cada (nao 40 pixels soltos), em ate 4-5 tons com vies de luz
-  cima-esquerda por cluster, + AO entre clusters (nao em cima deles) + 2 blotches macios de valor (nao
-  elipse de borda dura). O \`stampCrack\` preto sumiu de TODAS as variantes de grama -- so sobra uma
-  rachadura muda (tom terra, nao quase-preto) numa unica variante de TERRA seca (fisicamente faz sentido
-  so ali). Decalques embutidos: folhas em grupo, raiz exposta com musgo, pedras com musgo, trevo esparso
-  -- nunca mais um ponto isolado. 2 variantes de transicao grama<->terra com tufos SOBREPOSTOS mordendo a
-  costura (pedido explicito da tarefa).
+  grass/dirt/bark/foliage/moss/stone). \`GRASS_B\`/\`GRASS_SHADE\` (mesma funcao \`shiftColor\`/\`shiftRamp\`
+  de antes) agora so tingem os 2 overlays macro, nunca um tile cheio (ver Correcao rodada 2).
+- **\`tiles/ground_variant_0..9.png\`** (32x32, 10 variantes, TODAS familia \`GRASS_A\` ou \`dirt\`, mesmo tom
+  medio e base TILEAVEL por wrap-around) — \`groundClumpFill()\` planta 4-5 CLUSTERS de 8-14 laminas cada
+  (nao 40 pixels soltos), em ate 4-5 tons com vies de luz cima-esquerda por cluster, + AO entre clusters
+  (nao em cima deles). O \`stampCrack\` preto sumiu de TODAS as variantes de grama -- so sobra uma
+  rachadura muda (tom terra, nao quase-preto) numa unica variante de TERRA seca. Decalques embutidos
+  (interiores, nunca tocam a borda): folhas em grupo, raiz exposta com musgo, pedras com musgo, trevo
+  esparso -- nunca mais um ponto isolado.
+- **\`tiles/grass_dirt_blob_0..15.png\`** (32x32, 16 pecas, autotile blob-16) — transicao grama<->terra,
+  MESMA geometria compartilhada de \`path_blob\`/\`water_blob\`/\`cliff_top_blob\` (\`blob_autotile16.js\`, nao
+  modificado). bitmask N*1+E*2+S*4+W*8, bit=1 onde a trilha de terra CONTINUA por aquele lado.
+- **\`overlays/macro_patch_olive.png\`** (176x176) e **\`overlays/macro_patch_shade.png\`** (140x140) —
+  a variacao de matiz macro-escala, agora como overlay semitransparente com borda de lobulos organicos +
+  dither de alpha (\`macroPatch()\`), NUNCA um tile. Posicionar em pixels do mundo, 2-4 por clareira
+  grande, layer "ground-macro-overlay" (entre "ground" e "ground-decal").
 - **\`decals/\`** (4 PNGs avulsos, maiores que os de v8) — \`leaf_litter_big\` (grupo de 5-7 folhas),
   \`root_exposed_mossy\`, \`mossy_stone_cluster\`, \`tuft_overlap_big\` -- pra espalhar sobre QUALQUER chao do
   jogo, nao so os \`ground_variant_*\` novos.
@@ -850,14 +1056,17 @@ mesmo sob a copa.
   colide e vai na layer "decor" (Y-sort pelo pe); \`top\` nao colide e vai na layer "canopy-top", SEMPRE
   acima de qualquer entidade -- mesma regra de overlap ja usada em \`forest_v4_proof_scene.js\`
   (\`topY = footY - base.h - top.h + round(top.h * 0.4)\`).
-- **\`preview.png\`** — prancha com as 12 variantes de chao, os 4 decalques e as 8 arvores (4 especies x 2
-  tamanhos, compostas de pe).
+- **\`preview.png\`** — prancha com as 10 variantes de chao, as 16 pecas de autotile, os 2 overlays macro,
+  os 4 decalques e as 8 arvores (4 especies x 2 tamanhos, compostas de pe).
 - **\`before_after_20x12.png\`** — montagem simulada de 20x12 tiles (640x384px cada metade). **ANTES** e
   uma RECONSTRUCAO ESQUEMATICA rodando as MESMAS formulas de \`gen_forest_v8_depth.js\` (\`groundBase\` +
   \`stampCrack\`) e uma arvore-blob equivalente (1 elipse de copa + tronco fino), nao uma captura real
-  editada -- ver Limitacoes. **DEPOIS** usa este pacote (variantes de chao + trilha de terra sinuosa +
-  as 4 especies de arvore nas bordas) com o MARCADOR DE ESCALA do Tamer (~26x33, proporcao documentada em
-  \`forest-v8-depth/README.md\`) na MESMA celula nas duas metades.
+  editada -- ver Limitacoes. **DEPOIS** usa este pacote (chao tileavel + trilha de terra sinuosa via
+  autotile + 2 overlays macro + as 4 especies de arvore nas bordas) com o MARCADOR DE ESCALA do Tamer
+  (~26x33, proporcao documentada em \`forest-v8-depth/README.md\`) na MESMA celula nas duas metades.
+- **\`tileability_check.png\`** — prova de ausencia de grade (pedido do coordenador): a variante 0
+  repetida 6x6 e a variante 8 repetida 6x6, em escala 4x, mais um trecho real do autotile grama<->terra
+  (2 celulas de largura numa grade 6x6) -- nenhuma das 3 secoes mostra linha de 32px.
 - \`tileset.json\` / \`license.json\` — mesmo schema de forest-v4/v6/v7/v8/v9.
 
 ## O que o game-dev precisa ligar
@@ -865,33 +1074,40 @@ mesmo sob a copa.
 1. **Trocar as referencias de chao de clareira** que hoje apontam pra \`forest-v8-depth/tiles/ground_variant_*\`
    por este pacote -- os decalques/props emissores/clutter/cliff/NPCs de v8/v9 continuam valendo, so o
    CHAO muda.
-2. **Espalhamento por REGIAO, nao por celula**: pra a variacao de matiz macro funcionar, nao sortear a
-   familia (A/B/sombra) tile a tile -- usar ruido de baixa frequencia (Perlin/value-noise amostrado a
-   cada 4-6 celulas) ou blotches de 3-8 celulas contiguas da MESMA familia; dentro da regiao, ai sim
-   sortear a variante especifica por celula. Sem isso o efeito de "mancha grande" nao aparece -- so
-   plantar os 12 arquivos ja resolve os pontinhos/rachaduras, mas nao a macro-variacao de tom.
-2. **Arvores**: trocar os \`tree_round\`/\`tree_bushy\`/etc. de \`forest_v4_props.js\` usados na clareira
+2. **Chao simples**: espalhar \`ground_variant_0..9\` por ruido/aleatorio na layer "ground", igual a
+   convencao de sempre -- sao TODOS tileaveis entre si (mesma familia), entao qualquer combinacao casa
+   sem costura.
+3. **Trilha**: usar \`grass_dirt_blob_0..15\` com a mesma logica de autotile ja implementada pra
+   \`path_blob\`/\`water_blob\` -- calcular o bitmask pelos 4 vizinhos (N/E/S/W, bit=1 se o vizinho tambem
+   e trilha) e escolher a peca correspondente.
+4. **Overlays macro**: colar \`overlays/macro_patch_olive.png\`/\`macro_patch_shade.png\` em pixels do
+   MUNDO (nao celula de tile), 2-4 por clareira grande, numa layer nova "ground-macro-overlay" entre
+   "ground" e "ground-decal" -- resolve a variacao de matiz macro-escala sem nenhum risco de grade
+   (a borda da mancha nunca cai numa linha de 32px porque ela nao e um tile).
+5. **Arvores**: trocar os \`tree_round\`/\`tree_bushy\`/etc. de \`forest_v4_props.js\` usados na clareira
    pelas 4 especies novas (ou usar ambos, misturados -- as novas nao substituem as de v4 em outras areas
    do mapa, so foram feitas pra essa clareira). \`base\` tem colisao; \`top\` nao, e precisa da layer
    dedicada "canopy-top" sempre por cima (se o motor ja tem essa layer pras arvores de v4, e so apontar
    pra ela).
-3. **Colisao**: como sempre neste pipeline, vem de \`tileset.json\` por arquivo -- hitbox e trabalho do
+6. **Colisao**: como sempre neste pipeline, vem de \`tileset.json\` por arquivo -- hitbox e trabalho do
    game-dev.
 
 ## Veredito do diretor
 
 Resolve o problema relatado nos dois pontos exatos que o fundador apontou: o chao deixa de ser "verde
-chapado com rachadura preta fina + pontinho" e passa a ter massa de clusters + decalques grandes +
-manchas de tom; as arvores deixam de ser 1 elipse sobre um palito e passam a ter tronco grosso com
-raizes visiveis, copa em 2-3 lobulos com rim light e sombra interna, e 4 silhuetas diferentes. Aprovo
-para integracao e teste no mapa real.
+chapado com rachadura preta fina + pontinho" e passa a ter massa de clusters + decalques grandes; as
+arvores (aprovadas pelo coordenador sem ressalvas na rodada 1, inalteradas aqui) tem tronco grosso com
+raizes visiveis, copa em 2-3 lobulos com rim light e sombra interna, e 4 silhuetas diferentes. **E, apos
+a rodada 2, o chao tambem deixa de formar xadrez**: base tileavel por wrap-around (prova em
+\`tileability_check.png\`), mesma familia/tom medio em toda variante, macro-escala e transicao movidas
+pra fora da grade de tile (overlay + autotile blob-16). Aprovo para integracao e teste no mapa real.
 
-**Mas, sendo critico**: isto ainda e textura/volume GERADOS POR REGRA (clusters/lobulos proceduralmente
-posicionados), nao pintura a mao peca a peca -- de perto, ainda vai ler como "gerado", so que agora
-gerado-organico em vez de gerado-chapado (mesma ressalva honesta que \`forest-v9-cliffs/README.md\` ja fez
-pro penhasco). O salto real de qualidade so vem depois de ver isto rodando no mapa de verdade, com as
-variantes espalhadas por regiao (nao so plantadas) e as 4 especies de arvore misturadas de forma
-nao-repetitiva -- o que este pacote nao pode validar sozinho (ver Limitacoes).
+**Mas, sendo critico**: isto ainda e textura/volume GERADOS POR REGRA (clusters/lobulos/autotile
+proceduralmente posicionados), nao pintura a mao peca a peca -- de perto, ainda vai ler como "gerado",
+so que agora gerado-organico e tileavel em vez de gerado-chapado-com-xadrez (mesma ressalva honesta que
+\`forest-v9-cliffs/README.md\` ja fez pro penhasco). O salto real de qualidade so vem depois de ver isto
+rodando no mapa de verdade, com os overlays macro posicionados pelo game-dev e as 4 especies de arvore
+misturadas de forma nao-repetitiva -- o que este pacote nao pode validar sozinho (ver Limitacoes).
 
 ## Limitacoes (autocritica)
 
@@ -905,15 +1121,20 @@ nao-repetitiva -- o que este pacote nao pode validar sozinho (ver Limitacoes).
   silhouette compacto de 16x30px so pra comparar proporcao chao/arvore x jogador na montagem, na mesma
   proporcao documentada (~26x33) que \`forest-v8-depth/README.md\` ja usou pros NPCs -- nao e pra ser
   exportado nem usado no jogo.
-- **Espalhamento por regiao (macro-escala) e so uma REGRA documentada em \`tileset.json\`, nao
-  implementada aqui** -- os 12 arquivos de chao existem e cada um resolve pontinho/rachadura sozinho,
-  mas o efeito de "mancha de tom grande" so aparece se o game-dev plantar GRASS_A/B/shade em blocos
-  contiguos, nao tile a tile; isto e dado + instrucao, nao codigo de posicionamento (mesma divisao de
-  responsabilidade do resto do pipeline -- game-art nao escreve o posicionador do game-dev).
-  Um motivo, que ficou mais claro depois de montar a cena 20x12 de teste: 1 unica celula de 32px nao tem
-  espaco pra ler como "mancha grande" sozinha -- a macro-variacao SO existe quando varias celulas da
-  mesma familia ficam juntas, entao o impacto real desta entrega so se confirma depois do game-dev
-  implementar o espalhamento por regiao, nao antes.
+- **Os overlays macro sao so 2 formas/tamanhos fixos** (\`macroPatch(176, ...)\`/\`macroPatch(140, ...)\`,
+  seeds fixas) -- o game-dev pode escalar/rotacionar o PNG livremente (e um overlay comum, nao um tile),
+  mas nao ha um gerador parametrico de N formas diferentes aqui; repetir o MESMO overlay varias vezes
+  numa clareira muito grande pode comecar a se repetir visualmente (nao testado em escala, so as 2
+  instancias da cena 20x12 de exemplo).
+- **O autotile grama<->terra (16 pecas) e so blob-16, nao Wang-47** -- mesma limitacao ja documentada
+  pelo resto do pipeline (v4/v6/v7) pros seus proprios autotiles: cantos internos num layout MUITO
+  irregular (varias reentrancias seguidas) podem expor um padrao repetitivo; nao testado num mapa real
+  com geometria assim, so na trilha sinuosa simples de \`before_after_20x12.png\`.
+- **A tecnica de wrap (\`forEachWrap\`) garante textura tileavel, nao detecta automaticamente se uma
+  macro-regiao ficou visivelmente repetitiva** -- o fundador/coordenador pode achar a variante 0 (plana)
+  repetida por uma area MUITO grande sem nenhum decalque um pouco monotona; a mistura de variantes
+  plain/decal continua sendo responsabilidade do posicionador do game-dev (ruido/aleatorio por celula),
+  nao deste pacote.
 - **4 especies, 2 tamanhos cada -- nao um "arvoredo" infinito** -- um trecho MUITO grande e denso ainda
   pode repetir uma mesma especie/tamanho visivel se o game-dev nao misturar bem; nao testado em escala
   (so nas bordas da cena 20x12 de exemplo).
@@ -932,18 +1153,40 @@ nao-repetitiva -- o que este pacote nao pode validar sozinho (ver Limitacoes).
 // main
 // =========================================================================
 function main() {
+  // limpa tiles/ e overlays/ antes de regerar -- uma rodada anterior deste
+  // gerador (r1) deixou ground_variant_10/11.png (contagem antiga) no disco
+  // porque fs.mkdirSync nao apaga arquivos existentes; rmSync evita esse
+  // tipo de residuo stale em qualquer rerun futuro. trees/ e decals/ NAO
+  // sao limpos -- trees/ fica fora do escopo desta rodada (ja aprovado) e
+  // nao deve mudar nem por acidente.
+  fs.rmSync(path.join(OUT, 'tiles'), { recursive: true, force: true });
+  fs.rmSync(path.join(OUT, 'overlays'), { recursive: true, force: true });
   fs.mkdirSync(path.join(OUT, 'tiles'), { recursive: true });
   fs.mkdirSync(path.join(OUT, 'decals'), { recursive: true });
   fs.mkdirSync(path.join(OUT, 'trees'), { recursive: true });
+  fs.mkdirSync(path.join(OUT, 'overlays'), { recursive: true });
 
   const seed = 101000;
 
   const groundTiles = [];
-  for (let v = 0; v < 12; v++) {
+  for (let v = 0; v < 10; v++) {
     const c = groundVariant(v, seed);
     c.save(path.join(OUT, 'tiles', `ground_variant_${v}.png`));
     groundTiles.push(c);
   }
+
+  const blobSet = grassDirtBlobSet(seed + 500);
+  const blobTiles = [];
+  for (let m = 0; m < 16; m++) {
+    const c = blobSet[`grass_dirt_blob_${m}`];
+    c.save(path.join(OUT, 'tiles', `grass_dirt_blob_${m}.png`));
+    blobTiles.push(c);
+  }
+
+  const macroOlive = macroPatch(176, GRASS_B, seed + 600);
+  const macroShade = macroPatch(140, GRASS_SHADE, seed + 601);
+  macroOlive.save(path.join(OUT, 'overlays', 'macro_patch_olive.png'));
+  macroShade.save(path.join(OUT, 'overlays', 'macro_patch_shade.png'));
 
   const decalLeafLitter = decalLeafLitterBig(seed + 1);
   const decalRoot = decalRootExposedMossy(seed + 2);
@@ -969,7 +1212,9 @@ function main() {
   }
 
   const preview = buildPreviewSheet([
-    { title: 'CHAO (12 variantes)', items: groundTiles.map((c) => ({ canvas: c })), scale: 3 },
+    { title: 'CHAO (10 variantes, familia unica/tileavel)', items: groundTiles.map((c) => ({ canvas: c })), scale: 3 },
+    { title: 'AUTOTILE GRAMA<->TERRA (16 pecas)', items: blobTiles.map((c) => ({ canvas: c })), scale: 2 },
+    { title: 'OVERLAYS MACRO (oliva / sombra)', items: [macroOlive, macroShade].map((c) => ({ canvas: c })), scale: 1 },
     { title: 'DECALQUES AVULSOS', items: [decalLeafLitter, decalRoot, decalStones, decalTuft].map((c) => ({ canvas: c })), scale: 4 },
     { title: 'ARVORES - PEQUENAS (tall_narrow / wide_low / leaning / ancient_thick)', items: treeComposites.small.map((t) => ({ canvas: t.canvas })), scale: 2 },
     { title: 'ARVORES - GRANDES (tall_narrow / wide_low / leaning / ancient_thick)', items: treeComposites.large.map((t) => ({ canvas: t.canvas })), scale: 2 },
@@ -978,6 +1223,9 @@ function main() {
 
   const mockup = buildBeforeAfterMockup();
   mockup.save(path.join(OUT, 'before_after_20x12.png'));
+
+  const tileabilityCheck = buildTileabilityCheck();
+  tileabilityCheck.save(path.join(OUT, 'tileability_check.png'));
 
   fs.writeFileSync(path.join(OUT, 'palette.json'), JSON.stringify(paletteJson(), null, 2));
   fs.writeFileSync(path.join(OUT, 'tileset.json'), JSON.stringify(tilesetJson(), null, 2));

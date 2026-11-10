@@ -1,6 +1,6 @@
 {
   "biome": "forest-v10-ground-trees",
-  "note": "Reaproveita INTEGRALMENTE as rampas de forest-v8-depth/palette.json (buildDepthRamps()) -- nenhum hex novo para grass/dirt/bark/foliage/moss/stone. So 2 familias NOVAS de grama (GRASS_B, GRASS_SHADE) sao derivadas por shiftColor/shiftRamp (mesma funcao ja usada por forest_v8_depth_palette.js), pra variacao de matiz em macro-escala (item pedido pelo fundador). Acentos de flor sao versoes rebaixadas (sMul/vMul) de tons ja usados no pipeline, nunca o ACCENT reservado para props emissores.",
+  "note": "Reaproveita INTEGRALMENTE as rampas de forest-v8-depth/palette.json (buildDepthRamps()) -- nenhum hex novo para grass/dirt/bark/foliage/moss/stone. GRASS_A e a UNICA familia usada nos tiles cheios (ground_variant_*, tileaveis, mesmo tom medio). GRASS_B/GRASS_SHADE (mesmo shiftColor/shiftRamp de antes) agora so tingem os overlays macro (overlays/macro_patch_*.png) -- fix da rodada 2 de QA: v1 alternava familia por tile e isso criava um xadrez visivel. Acentos de flor sao versoes rebaixadas (sMul/vMul) de tons ja usados no pipeline, nunca o ACCENT reservado para props emissores.",
   "ramps": {
     "grassFamilyA": [
       "#273f2b",
