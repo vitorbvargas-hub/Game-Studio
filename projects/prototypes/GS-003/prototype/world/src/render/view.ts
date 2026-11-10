@@ -21,7 +21,7 @@ import {
 import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
 import { drawImpact, shakeOffset } from "./fx";
 import type { EncounterFx } from "./encounterFx";
-import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterComposeNoisy, waterFrame, waterMixFrom, waterNoiseFor, type Rect, type WaterMix } from "./life";
+import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterComposeNoisy, waterFrame, waterMixFrom, waterNoiseFor, type Rect, type SwayCfg, type WaterMix } from "./life";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
@@ -38,6 +38,9 @@ import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W 
 import { ambientMix, drawDecals, drawParticles, drawPatches, drawPropShadows, flicker, fogAnchors, fogSprite, lightSprite, mapLights, type LightSource, type LookCfg } from "./look";
 
 export const CHUNK_TILES = 16;
+
+/** Touceiras da grama de encontro (GS-012): a de P4 e a dedicada da rodada 2 da fase 3. */
+export const ENC_GRASS_RE = /^(fp4_tall_grass_|fp9_enc_grass_)/;
 
 export interface ViewOptions {
   /** Fator inteiro global aplicado aos sprites de criatura (DS nativo = 1). Multiplica o mapScale de cada manifest. */
@@ -57,6 +60,11 @@ export interface ViewOptions {
   smoothing?: boolean;
   /** ?anim=v2 (fase 2 do Quality Overhaul): controlador de animação v2 (animctl.ts), só na apresentação. */
   animV2?: boolean;
+  /**
+   * P8 (?hud=v2, §8.3): multiplicador da amplitude do vento na grama de encontro (touceiras fp4_tall_grass_* e
+   * fp9_enc_grass_*), para ela ler como "aqui nasce Digimon" pelo movimento. Ausente = 1 (como hoje).
+   */
+  encGrassSwayMul?: number;
   /** Só apresentação (dados de cena): nível exibido no nome de cada Tamer, por id de jogador. */
   tamerLevels?: Record<string, number>;
   /** Só apresentação: matiz (graus) do sprite de cada outro jogador, para diferenciar quem usa o mesmo sprite. */
@@ -795,7 +803,7 @@ export class WorldView {
       if (a < 1) this.fgAlpha.set(i, a);
       else this.fgAlpha.delete(i);
       ctx.globalAlpha = a;
-      const s = (re?.test(pr.key) ? swayOffset(pr.x, pr.y, now, sway!) : 0) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0);
+      const s = (re?.test(pr.key) ? this.swayAt(pr.key, pr.x, pr.y, now, sway!) : 0) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0);
       this.drawSwayed(src.url, sx, sy, sw, sh, x - cam.x, y - cam.y, s, 2);
     });
     ctx.globalAlpha = 1;
@@ -1224,7 +1232,7 @@ export class WorldView {
       const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
       const sway = this.opts.look?.sway;
       if (sway && (this.swayRe ??= new RegExp(sway.keys)).test(pr.key)) {
-        this.drawSwayed(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), swayOffset(pr.x, pr.y, now, sway) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0), 2);
+        this.drawSwayed(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), this.swayAt(pr.key, pr.x, pr.y, now, sway) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0), 2);
         return;
       }
       this.drawPreset(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y));
@@ -1691,6 +1699,12 @@ export class WorldView {
     }
     ctx.fillStyle = ratio > 0.5 ? "#63c74d" : ratio > 0.25 ? "#feae34" : "#e43b44";
     ctx.fillRect(bx + 1, by + 1, Math.max(hp > 0 ? 1 : 0, Math.round(inner * ratio)), 2);
+  }
+
+  /** Vento de um prop: a grama de encontro balança `encGrassSwayMul` vezes mais (P8 v2, §8.3). */
+  private swayAt(key: string, x: number, y: number, now: number, sway: SwayCfg): number {
+    const mul = this.opts.encGrassSwayMul ?? 1;
+    return swayOffset(x, y, now, mul !== 1 && ENC_GRASS_RE.test(key) ? { ...sway, amp: sway.amp * mul } : sway);
   }
 
   /** P8 v2: ponto acima da cabeça de uma entidade (px lógicos de tela), onde a placa de alvo apoia a base. */

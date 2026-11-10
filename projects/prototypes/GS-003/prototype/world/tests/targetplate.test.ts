@@ -1,5 +1,7 @@
 // P8 v2 — placa de alvo / identificação (P8_HUD_V2_SPEC.md §4.3.1, §8.1; critério 10.3 na redação do QA).
 import { describe, expect, it } from "vitest";
+import { swayOffset } from "../src/render/life";
+import { ENC_GRASS_RE } from "../src/render/view";
 import { EncounterFx, T_END, T_FIGHT, T_LAND, T_PLATE } from "../src/render/encounterFx";
 import { PLATE, platesFor, plateSize, plateText, type PlateIntro, type PlateTarget } from "../src/render/targetplate";
 import { INTRO_TICKS } from "../src/sim/encounters/authority";
@@ -72,7 +74,7 @@ describe("P8 v2 — placa de alvo", () => {
     expect(fx.intro(1000 + T_LAND)).toMatchObject({ id: "w1", rarity: "very_rare", level: 7, t: T_LAND, isNew: true });
     const calls: string[] = [];
     const ctx = new Proxy({} as CanvasRenderingContext2D, {
-      get: (_, k) => (typeof k === "string" && ["fillRect", "createRadialGradient"].includes(k) ? (...a: unknown[]) => (calls.push(k), k === "createRadialGradient" ? { addColorStop() {} } : undefined) : () => undefined),
+      get: (_, k) => (typeof k === "string" && ["fillRect", "createRadialGradient"].includes(k) ? () => (calls.push(k), k === "createRadialGradient" ? { addColorStop() {} } : undefined) : () => undefined),
       set: () => true,
     });
     fx.draw(ctx, { x: 0, y: 0, w: 320, h: 180 }, 1000 + T_LAND + 100, () => ({ x: 20, y: 20 }), 30);
@@ -83,5 +85,15 @@ describe("P8 v2 — placa de alvo", () => {
     v1.draw(ctx, { x: 0, y: 0, w: 320, h: 180 }, 1000 + T_LAND + 100, () => ({ x: 20, y: 20 }), 30);
     // v1 desenha a placa no mundo (5 retângulos + NOVO); v2 não
     expect(calls.filter((c) => c === "fillRect").length).toBeGreaterThan(v2Rects);
+  });
+});
+
+describe("P8 v2 — grama de encontro (§8.3)", () => {
+  it("vento 2× só nas touceiras de encontro; a grama comum segue igual", () => {
+    expect(["fp9_enc_grass_a", "fp9_enc_grass_c", "fp4_tall_grass_b"].every((k) => ENC_GRASS_RE.test(k))).toBe(true);
+    expect(["fp8_tuft", "fp8_fern", "fp8_tuft_over_path_a", "fp8_reed_cluster"].some((k) => ENC_GRASS_RE.test(k))).toBe(false);
+    const amp = (a: number) => Math.max(...Array.from({ length: 400 }, (_, i) => Math.abs(swayOffset(100, 50, i * 37, { amp: a, periodMs: 2600 }))));
+    expect(amp(1)).toBe(1);
+    expect(amp(2)).toBe(2);
   });
 });

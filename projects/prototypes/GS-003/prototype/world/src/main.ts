@@ -302,6 +302,7 @@ async function boot() {
       creatureScale: CREATURE_SCALE,
       unifiedScale: DPR_MODE,
       animV2: ANIM_V2,
+      ...(HUD_V2 ? { encGrassSwayMul: 2 } : {}),
       sizeTable,
       tamers,
       smoothing: SMOOTH,

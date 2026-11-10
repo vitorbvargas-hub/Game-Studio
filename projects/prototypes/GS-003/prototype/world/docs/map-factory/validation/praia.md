@@ -1,6 +1,6 @@
 # Validação — praia
 
-- **Data:** 2026-11-10T07:15:16.167Z
+- **Data:** 2026-11-10T09:05:24.902Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|
