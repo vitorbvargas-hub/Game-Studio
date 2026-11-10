@@ -1,0 +1,8 @@
+timestamp,tool,step,direction,frames,generations_spent,balance_before,balance_after,job_id,notes
+2026-11-10T00:42Z,get_balance,baseline,-,-,0,21,21,-,saldo antes da prova de escala (21 restantes / 19 usadas de 40 trial) - confere com o fim do piloto comparativo anterior (19b6507)
+2026-11-10T00:43Z,create_character,v3+reference 60x68 (upscale nearest 2x do frame S nativo do rip),-,8 direcoes,1,21,20,870372f7-f285-4bac-86d9-2977016d8b1e,reference = upload do walk_S_01.png (30x34) escalado nearest x2 para 60x68 via scripts/nearest_upscale.py; ceil(60*68*8/65536)=1; size omitido de proposito para herdar o canvas da referencia (60x68), nao o 30x34 nativo
+2026-11-10T00:45Z,animate_character,breathing-idle (template),south,4,1,20,19,f5110e2f-2cf1-4b31-affa-3861e29ffeae,template mode, ai_freedom=0; group 501d853a
+2026-11-10T00:47Z,animate_character,breathing-idle (template),south-west,4,1,19,18,12442c03-b11e-4a74-8816-e7c5601e61cd,mesmo group 501d853a; trial so permite 1 geracao simultanea, por isso 1 direcao por chamada
+2026-11-10T00:49Z,animate_character,walking (template),south,6,1,18,17,e2a9b6eb-f63b-465d-b75e-89a4fb131380,group 13cb2de0
+2026-11-10T00:51Z,animate_character,walking (template),south-west,6,1,17,16,9217cf80-70b0-439b-9878-be239440bb48,mesmo group 13cb2de0
+2026-11-10T00:52Z,get_balance,final,-,-,0,16,16,-,saldo depois: 16 restantes / 24 usadas de 40 trial; total gasto nesta prova = 5 geracoes (teto autorizado = 8); 0 regeneracoes necessarias (identidade estavel na primeira tentativa em todos os 20 quadros gerados - 8 rotacoes + 2x4 idle + 2x6 walk)
