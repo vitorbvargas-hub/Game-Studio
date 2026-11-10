@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "previousVersions": [],
+  "id": "CREATURE-0017",
+  "name": "Guilmon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "virus",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": {
+    "lineId": "guilmon",
+    "previous": null,
+    "next": []
+  },
+  "evolutionRequirements": {},
+  "description": "Guilmon 64 px gerado no PixelLab (teste de escala v3 do Quality Overhaul, personagem c9035021…, animações v3 com custom_start_frame = south.png e paleta travada de 18 cores). Criatura de COMPARAÇÃO (?team=compare) contra o Gabumon à mão (CREATURE-0119); não substitui o Guilmon rip (CREATURE-0003) nem entra no roster.",
+  "dimensions": {
+    "frameW": 64,
+    "frameH": 64,
+    "tile": 64
+  },
+  "pivot": {
+    "x": 33,
+    "y": 47
+  },
+  "mapScale": 1,
+  "targetHeightPx": 32,
+  "nativeMapHeightPx": 32,
+  "sizeNotes": "Mesma convenção do Gabumon à mão (CREATURE-0119): canvas 64×64, corpo ~32 px, pé em y=47. mapScale 1 = mesma escala de tela do Guilmon rip (corpo ~31 px).",
+  "hitbox": {
+    "x": 17,
+    "y": 14,
+    "w": 35,
+    "h": 35
+  },
+  "anchors": {
+    "head": {
+      "x": 33,
+      "y": 20
+    },
+    "hit": {
+      "x": 33,
+      "y": 32
+    },
+    "shadow": {
+      "cx": 33,
+      "cy": 47,
+      "rx": 10,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "walk": {
+      "drawn": [
+        "S"
+      ],
+      "mirrored": {},
+      "fallback": "nearest"
+    },
+    "idle": {
+      "drawn": [
+        "S",
+        "SW"
+      ],
+      "mirrored": {},
+      "fallback": "nearest"
+    }
+  },
+  "walkSpeedPxPerSec": 96,
+  "anatomy": "biped",
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0017_idle_S_00.png"
+        },
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0017_idle_S_01.png"
+        },
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0017_idle_S_02.png"
+        },
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0017_idle_S_03.png"
+        },
+        {
+          "durationMs": 240,
+          "atlasKey": "CREATURE-0017_idle_S_04.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_S_00.png"
+          },
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_S_01.png"
+          },
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_S_02.png"
+          },
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_S_03.png"
+          },
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_S_04.png"
+          }
+        ],
+        "SW": [
+          {
+            "durationMs": 240,
+            "atlasKey": "CREATURE-0017_idle_SW_00.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_01.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_02.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_03.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_04.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_05.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_06.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_07.png"
+        },
+        {
+          "durationMs": 110,
+          "atlasKey": "CREATURE-0017_walk_S_08.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_01.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_02.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_03.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_04.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_05.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_06.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_07.png"
+          },
+          {
+            "durationMs": 110,
+            "atlasKey": "CREATURE-0017_walk_S_08.png"
+          }
+        ]
+      }
+    }
+  },
+  "sprites": "./sprites/",
+  "assetOrigin": {
+    "layer": "ai-generated",
+    "tool": "PixelLab (create_character v3 + animate_character v3 custom_start_frame)",
+    "source": "quality-overhaul/phase2/art/scale-proof-v3-reanim/fixed (idle S), scale-proof-v3-reanim/fixed (walk S), scale-proof-v3-fix/pipeline-m1-fixed/rotations/south-west.png (idle SW parado)",
+    "built": "prototype/world/scripts/build-guilmon-pl64.mjs (cópia e renomeação; nenhum pixel alterado)"
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "[E] bbox por quadro em source/metrics.json: altura 32–35 px, pé 45–48 (pivô no da âncora, 47).",
+    "Só S tem animação; SW só a rotação parada. Walk em W/E/N cai no S (fallback nearest)."
+  ]
+}

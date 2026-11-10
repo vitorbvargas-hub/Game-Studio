@@ -307,3 +307,85 @@ describe("troca de Digimon: apresentação", () => {
     expect(d.phase).toBe("done");
   });
 });
+
+// ---------- ?team=compare: Guilmon 64 px PixelLab × Gabumon 64 px à mão ----------
+import { nearestFacing, resolveFacing } from "../src/render/anim";
+import { COMPARE_LEVEL, COMPARE_PAIR, COMPARE_VISUALS, compareModeOf, compareShowcase, prepareCompare, withCompareVisuals } from "../src/save/compare";
+
+describe("?team=compare", () => {
+  const cat = loadCreatureCatalog();
+
+  it("as duas criaturas 64 px carregam com todos os quadros, mesmo canvas e pé na mesma convenção", () => {
+    for (const id of Object.values(COMPARE_VISUALS)) {
+      const cv = cat[id];
+      expect(cv, id).toBeDefined();
+      expect(cv.frameUrls).toBeDefined();
+      expect(cv.manifest.dimensions.frameW).toBe(64);
+      expect(cv.manifest.dimensions.frameH).toBe(64);
+      expect(cv.manifest.mapScale).toBe(1);
+      expect(cv.manifest.animations.idle.frames.length).toBeGreaterThan(1);
+      expect(cv.manifest.animations.walk.frames.length).toBeGreaterThanOrEqual(8);
+      // pé (pivô) a ≤ 2 px um do outro e corpo de ~32 px nos dois
+      expect(cv.manifest.pivot.y).toBeGreaterThanOrEqual(47);
+      expect(cv.manifest.pivot.y).toBeLessThanOrEqual(49);
+      expect(cv.manifest.targetHeightPx).toBeGreaterThanOrEqual(31);
+      expect(cv.manifest.targetHeightPx).toBeLessThanOrEqual(34);
+    }
+    expect(cat["CREATURE-0017"].manifest.name).toBe("Guilmon");
+    expect(cat["CREATURE-0119"].manifest.name).toBe("Gabumon");
+  });
+
+  it("direções que faltam: a mais próxima ou o espelho dela (fallback nearest)", () => {
+    expect(nearestFacing(["S", "SW"], "W")).toEqual({ dir: "SW", mirror: false });
+    expect(nearestFacing(["S", "SW"], "E")).toEqual({ dir: "SW", mirror: true });
+    expect(nearestFacing(["S", "SW"], "SE")).toEqual({ dir: "SW", mirror: true });
+    expect(nearestFacing(["S", "SW"], "S")).toEqual({ dir: "S", mirror: false });
+    expect(nearestFacing(["S", "SW"], "N")).toEqual({ dir: "SW", mirror: false });
+    expect(nearestFacing(["S"], "W")).toEqual({ dir: "S", mirror: false });
+    const gab = cat["CREATURE-0119"].manifest;
+    const gui = cat["CREATURE-0017"].manifest;
+    expect(resolveFacing(gab, "walk", "E")).toEqual({ dir: "SW", mirror: true });
+    expect(resolveFacing(gab, "walk", "W")).toEqual({ dir: "SW", mirror: false });
+    expect(resolveFacing(gui, "walk", "E")).toEqual({ dir: "S", mirror: false });
+    expect(resolveFacing(gui, "idle", "E")).toEqual({ dir: "SW", mirror: true });
+    // as criaturas do roster (sem `fallback`) não mudam
+    const rip = cat["CREATURE-0003"].manifest;
+    expect(resolveFacing(rip, "walk", "E")).toEqual({ dir: "W", mirror: true });
+  });
+
+  it("parado: idle de vários quadros desenhado (sem remapear para passada) nos dois", () => {
+    for (const id of Object.values(COMPARE_VISUALS)) {
+      const m = cat[id].manifest;
+      const walkKeys = new Set(m.animations.walk.frames.map((f) => f.atlasKey));
+      // o idle não usa quadro de passada do walk (o Guilmon usa a âncora parada, que ficou fora do ciclo)
+      for (const f of m.animations.idle.frames) expect(walkKeys.has(f.atlasKey), `${id} ${f.atlasKey}`).toBe(false);
+      expect(standRemap(m, standPose(m)).size).toBe(0);
+    }
+  });
+
+  it("modo e equipe: Guilmon ativo no nível de teste, Gabumon na equipe; troca entre os dois", () => {
+    expect(compareModeOf(new URLSearchParams("team=compare"))).toBe(true);
+    expect(compareModeOf(new URLSearchParams("team=x"))).toBe(false);
+    const sim = forest(4, false);
+    const { partner } = mine(sim);
+    const prep = prepareCompare(sim, LOCAL_PLAYER)!;
+    expect(partner.speciesId).toBe(COMPARE_PAIR[0]);
+    expect(partner.level).toBe(COMPARE_LEVEL);
+    expect(prep.team.map((t) => t.species)).toEqual([COMPARE_PAIR[1]]);
+    const evs = run(sim, 1, () => [{ t: "swap_partner", playerId: LOCAL_PLAYER, speciesId: COMPARE_PAIR[1], level: COMPARE_LEVEL }]);
+    expect(evs.some((e) => e.t === "partner_swap")).toBe(true);
+    expect(partner.speciesId).toBe(COMPARE_PAIR[1]);
+    // retratos do HUD: a arte de comparação no lugar das duas espécies
+    const shown = withCompareVisuals(cat);
+    expect(shown["CREATURE-0003"]).toBe(cat["CREATURE-0017"]);
+    expect(shown["CREATURE-0009"]).toBe(cat["CREATURE-0119"]);
+    // modelo ao lado (capturas): npc parado, não entra em combate
+    compareShowcase(sim, LOCAL_PLAYER, COMPARE_PAIR[0]);
+    const show = sim.state.entities.find((e) => e.id === "compare-show")!;
+    expect(show.kind).toBe("npc");
+    run(sim, 30);
+    expect(sim.state.entities.find((e) => e.id === "compare-show")!.x).toBe(show.x);
+    compareShowcase(sim, LOCAL_PLAYER, null);
+    expect(sim.state.entities.some((e) => e.id === "compare-show")).toBe(false);
+  });
+});

@@ -38,7 +38,12 @@ export interface CreatureManifest {
     hit?: { x: number; y: number };
     shadow?: { cx: number; cy: number; rx: number; ry: number };
   };
-  directions?: Record<string, { drawn: string[]; mirrored?: Record<string, string> }>;
+  /**
+   * Direções desenhadas por animação. `fallback: "nearest"`: direção que falta (sem `mirrored`) cai na desenhada mais
+   * próxima pelo ângulo, ou no espelho dela se o espelho for mais próximo (empate: sem espelho). Sem o campo, a regra
+   * antiga (eixo de 4 direções, depois a 1ª desenhada).
+   */
+  directions?: Record<string, { drawn: string[]; mirrored?: Record<string, string>; fallback?: "nearest" }>;
   animations: Record<string, CreatureAnimation>;
   combatStates?: Partial<Record<LogicState, string>>;
   /** v2: fator inteiro do sprite no mapa (1 = nativo do DS, já relativo entre espécies). */

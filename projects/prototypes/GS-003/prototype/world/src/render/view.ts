@@ -44,6 +44,8 @@ export const CHUNK_TILES = 16;
 export const ENC_GRASS_RE = /^(fp4_tall_grass_|fp9_enc_grass_)/;
 
 export interface ViewOptions {
+  /** ?team=compare: espécie → criatura de comparação, só para a parceira local (save/compare.ts). */
+  partnerVisuals?: Record<string, string>;
   /** Fator inteiro global aplicado aos sprites de criatura (DS nativo = 1). Multiplica o mapScale de cada manifest. */
   creatureScale: number;
   /**
@@ -1256,7 +1258,10 @@ export class WorldView {
   // ---------- entidades ----------
 
   private visualOf(v: VisualEntity): CreatureVisual | undefined {
-    return v.speciesId ? this.creatures[v.speciesId] : undefined;
+    if (!v.speciesId) return undefined;
+    // a parceira local e o "modelo" ao lado dela nas capturas da comparação (id compare-show)
+    const alias = v.kind === "partner" || v.id === "compare-show" ? this.opts.partnerVisuals?.[v.speciesId] : undefined;
+    return (alias && this.creatures[alias]) || this.creatures[v.speciesId];
   }
 
   /** Escala inteira da criatura no mapa: global × mapScale do manifest (ou da tabela de tamanhos, se ligada). */
@@ -1339,7 +1344,7 @@ export class WorldView {
     const cy = Math.round(pos.y - this.camera.y);
     const speciesId = f.show === "from" ? evo.from : evo.to;
     const sv: VisualEntity = { ...v, speciesId };
-    const cv = this.creatures[speciesId];
+    const cv = this.visualOf(sv);
     const top = cv ? Math.round(this.headOffset(sv).top) + 6 : 30;
     if (f.aura > 0) {
       // Coluna de luz (faixas verticais que pulsam) atrás do corpo.
@@ -1395,7 +1400,7 @@ export class WorldView {
     const ctx = this.ctx;
     const speciesId = f.show === "from" ? sw.from : sw.to;
     const sv: VisualEntity = { ...v, speciesId };
-    const cv = this.creatures[speciesId];
+    const cv = this.visualOf(sv);
     const at = f.phase === "recall" ? { x: pos.x + (sw.tamerAt.x - pos.x) * f.pull, y: pos.y + (sw.tamerAt.y - pos.y) * f.pull } : pos;
     const cx = Math.round(at.x - this.camera.x);
     const cy = Math.round(at.y - this.camera.y);

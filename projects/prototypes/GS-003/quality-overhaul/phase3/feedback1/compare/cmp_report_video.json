@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-10T10:10:19.925Z",
+  "url": "http://127.0.0.1:5190/?team=compare&map=digimon-forest-01&look=v9&dpr=1&time=day&criador=0&novo=1&seed=7&auto=0",
+  "shots": {},
+  "video": {
+    "raw": "cmp_video_bruto.webm",
+    "marks": [
+      {
+        "s": 12.4,
+        "label": "lado a lado: Guilmon PixelLab (ativo) e Gabumon à mão (modelo parado)"
+      },
+      {
+        "s": 15,
+        "label": "anda com o Guilmon PixelLab (S, E, W, N) e para"
+      },
+      {
+        "s": 22.2,
+        "label": "troca (Shift+2): Gabumon à mão entra"
+      },
+      {
+        "s": 24,
+        "label": "anda com o Gabumon à mão (S, E, W, N) e para"
+      },
+      {
+        "s": 31.2,
+        "label": "troca de volta (clique no retrato)"
+      },
+      {
+        "s": 33.2,
+        "label": "lado a lado de novo"
+      },
+      {
+        "s": 35.7,
+        "label": "fim"
+      }
+    ],
+    "size": [
+      1280,
+      720
+    ]
+  }
+}

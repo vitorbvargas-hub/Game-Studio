@@ -137,6 +137,7 @@ export function resolveFacing(m: CreatureManifest, animName: string, facing: Dir
   if (drawn.includes(facing)) return { dir: facing, mirror: false };
   const src = d?.mirrored?.[facing];
   if (src && drawn.includes(src)) return { dir: src, mirror: true };
+  if (d?.fallback === "nearest") return nearestFacing(drawn, facing);
   // v2 (4 direções do DS): diagonal cai no eixo horizontal (NE/SE → E, NW/SW → W).
   const four = to4(facing);
   if (four !== facing) {
@@ -149,6 +150,30 @@ export function resolveFacing(m: CreatureManifest, animName: string, facing: Dir
   const base = drawn[0];
   const mirror = (isWest(base) && isEast(facing)) || (isEast(base) && isWest(facing));
   return { dir: base, mirror };
+}
+
+/** Ângulo (graus, horário a partir do S) de cada direção, e o espelho horizontal (E↔W). */
+const ANGLE: Record<string, number> = { S: 0, SW: 45, W: 90, NW: 135, N: 180, NE: 225, E: 270, SE: 315 };
+const MIRROR: Record<string, string> = { S: "S", N: "N", E: "W", W: "E", SE: "SW", SW: "SE", NE: "NW", NW: "NE" };
+
+/**
+ * Fallback "nearest" (criaturas de comparação com só S/SW desenhadas): a desenhada de menor distância angular até
+ * `facing`, considerando também o espelho de cada uma; empate fica sem espelho e na ordem de `drawn`.
+ * Ex. com S e SW: W → SW; E/SE → SW espelhado; N/NW → SW; NE → SW espelhado.
+ */
+export function nearestFacing(drawn: string[], facing: string): { dir: string; mirror: boolean } {
+  const dist = (a: string, b: string) => {
+    const d = Math.abs((ANGLE[a] ?? 0) - (ANGLE[b] ?? 0)) % 360;
+    return Math.min(d, 360 - d);
+  };
+  let best = { dir: drawn[0] ?? "S", mirror: false };
+  let bd = Infinity;
+  for (const mirror of [false, true])
+    for (const d of drawn) {
+      const k = dist(mirror ? MIRROR[d] : d, facing);
+      if (k < bd) [best, bd] = [{ dir: d, mirror }, k];
+    }
+  return best;
 }
 
 export type Dir4 = "S" | "N" | "E" | "W";

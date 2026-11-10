@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-10T10:09:08.260Z",
+  "url": "http://127.0.0.1:5190/?team=compare&map=digimon-forest-01&look=v9&dpr=1&time=day&criador=0&novo=1&seed=7&auto=0",
+  "shots": {
+    "cmp_lado_a_lado_v2_tela.png": {
+      "anim": "v2",
+      "left": "CREATURE-0003",
+      "right": "CREATURE-0009 (visual CREATURE-0119)"
+    },
+    "cmp_lado_a_lado_v2.png": {
+      "anim": "v2",
+      "clip": {
+        "x": 764,
+        "y": 487,
+        "width": 440,
+        "height": 190
+      }
+    },
+    "cmp_lado_a_lado_v1_tela.png": {
+      "anim": "v1",
+      "left": "CREATURE-0003",
+      "right": "CREATURE-0009 (visual CREATURE-0119)"
+    },
+    "cmp_lado_a_lado_v1.png": {
+      "anim": "v1",
+      "clip": {
+        "x": 764,
+        "y": 487,
+        "width": 440,
+        "height": 190
+      }
+    }
+  },
+  "video": {}
+}

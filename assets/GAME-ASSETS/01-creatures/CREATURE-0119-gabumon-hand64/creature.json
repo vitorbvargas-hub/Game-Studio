@@ -42,8 +42,8 @@
     "shadow": { "cx": 32, "cy": 49, "rx": 10, "ry": 4 }
   },
   "directions": {
-    "walk": { "drawn": ["S", "SW"], "mirrored": {} },
-    "idle": { "drawn": ["S", "SW"], "mirrored": {} }
+    "walk": { "drawn": ["S", "SW"], "mirrored": {}, "fallback": "nearest" },
+    "idle": { "drawn": ["S", "SW"], "mirrored": {}, "fallback": "nearest" }
   },
   "animations": {
     "idle": {
@@ -116,6 +116,7 @@
     }
   },
   "walkSpeedPxPerSec": 96,
+  "anatomy": "biped",
   "combatStates": {
     "IDLE": "idle",
     "WALK": "walk",

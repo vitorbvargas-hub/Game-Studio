@@ -47,6 +47,7 @@ import { ARENA_OWNER } from "./sim/arena";
 import { emptyArena, type ArenaSave } from "./save/arena-league";
 import vilaPack from "./data/maps/vila.aliases.json";
 import { DEMO_XP_MULT, demoModeOf, demoStorage, prepareDemo } from "./save/demo";
+import { COMPARE_SAVE_KEY, COMPARE_VISUALS, compareModeOf, compareShowcase, compareStorage, prepareCompare, withCompareVisuals } from "./save/compare";
 import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, resolvePartnerSpecies } from "./save/partner";
 import type { ScenePack } from "./assets/scene-tiles";
 import { dprLayout, REF_CHAR_PX } from "./render/scale";
@@ -123,6 +124,12 @@ const DEMO = demoModeOf(params);
 
 /** ?partner=<espécie>: parceira de teste (ex. wargreymon) num nível do estágio, save separado; save/partner.ts. */
 const PARTNER_RAW = partnerParamOf(params);
+
+/**
+ * ?team=compare: equipe de teste com o Guilmon 64 px do PixelLab e o Gabumon 64 px à mão, para trocar entre eles
+ * e comparar a arte (save separado; save/compare.ts).
+ */
+const COMPARE = compareModeOf(params);
 
 /** ?criador=0 pula o criador de Tamer (capturas/testes) e usa o visual padrão. */
 const CREATOR = params.get("criador") !== "0";
@@ -218,15 +225,17 @@ async function boot() {
   // ?partner= também usa um slot próprio (PARTNER_SAVE_KEY) e tem prioridade sobre o do demo.
   const partnerSpecies = PARTNER_RAW ? resolvePartnerSpecies(loadWorldContent(), PARTNER_RAW) : null;
   if (PARTNER_RAW && !partnerSpecies) console.warn(`?partner=${PARTNER_RAW}: espécie desconhecida (use o id CREATURE-NNNN ou o nome)`);
-  const storage = baseStorage && partnerSpecies ? partnerStorage(baseStorage) : baseStorage && DEMO ? demoStorage(baseStorage) : baseStorage;
+  const storage = baseStorage && COMPARE ? compareStorage(baseStorage) : baseStorage && partnerSpecies ? partnerStorage(baseStorage) : baseStorage && DEMO ? demoStorage(baseStorage) : baseStorage;
   const loaded: LoadResult = storage && params.get("novo") !== "1" ? loadFromStorage(storage) : { ok: false, reason: "empty" };
   if (!loaded.ok && loaded.reason !== "empty") console.warn(`save ignorado (${loaded.reason}): ${loaded.detail ?? ""}`);
   // Com save, o criador só abre com ?criador=1 (trocar o visual mantendo o progresso).
   const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, loaded.ok ? loaded.data.tamer : defaultLook());
   const creatures = loadCreatureCatalog();
+  /** Catálogo dos retratos e dos tempos de golpe: no ?team=compare, Guilmon/Gabumon com a arte de comparação. */
+  const shown = COMPARE ? withCompareVisuals(creatures) : creatures;
   // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
   // Com ?partner=, jogo novo pula a escolha do bebê: a parceira de teste entra no lugar (preparePartnerTest).
-  const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && partnerSpecies ? partnerSpecies : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
+  const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && COMPARE ? "CREATURE-0003" : regionMode && partnerSpecies ? partnerSpecies : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
   const newStarter = !loaded.ok && !!starter;
   // Telas secundárias: espécies vistas (Digivice), inventário, missões do dia e configurações (save v5).
   const seen = new Set<string>(loaded.ok ? loaded.data.seen : []);
@@ -249,7 +258,8 @@ async function boot() {
   const fxSheets = loadSheetCatalog();
   const sizeTable = SIZE_MODE === "table" ? loadSizeTable() : undefined;
   const failed = await images.loadAll([
-    ...Object.values(creatures).map((c) => c.sheetUrl),
+    // criaturas só com PNG por quadro (sprites/, ex. as de comparação 64 px): todos os quadros, não só o primeiro
+    ...Object.values(creatures).flatMap((c) => imageUrlsOf(c)),
     ...[tamers.local, tamers.remote].flatMap((t) => (t ? imageUrlsOf(t) : [])),
     ...fxSheets.map((s) => s.url),
   ]);
@@ -308,6 +318,7 @@ async function boot() {
       creatureScale: CREATURE_SCALE,
       unifiedScale: DPR_MODE,
       animV2: ANIM_V2,
+      ...(COMPARE ? { partnerVisuals: COMPARE_VISUALS } : {}),
       ...(HUD_V2 ? { encGrassSwayMul: 2 } : {}),
       sizeTable,
       tamers,
@@ -332,7 +343,7 @@ async function boot() {
         isNew: (id) => !seen.has(id),
         v2: HUD_V2,
       });
-    const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    const presenter = new Presenter((id) => (id ? shown[id]?.manifest : undefined), LOCAL_PLAYER);
     // Os spawns saíram antes do save: atualiza a foto de quem mudou (parceira restaurada/evoluída).
     for (const ev of events) {
       const e = ev.t === "spawn" ? getEntity(sim.state, ev.entity.id) : undefined;
@@ -364,20 +375,22 @@ async function boot() {
       const e = ev.t === "spawn" ? getEntity(cur.sim.state, ev.entity.id) : undefined;
       if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
     }
-    cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    cur.presenter = new Presenter((id) => (id ? shown[id]?.manifest : undefined), LOCAL_PLAYER);
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
   }
   // Demo: a parceira (do save ou a inicial nova) fica um nível antes da evolução, com a barra a ~2 vitórias de encher.
   const demoPrep = DEMO && !partnerSpecies ? prepareDemo(cur.sim, LOCAL_PLAYER) : null;
   // Parceira de teste (?partner=): troca a espécie e o nível depois do save (que já vem do slot de teste).
   const partnerPrep = partnerSpecies ? preparePartnerTest(cur.sim, LOCAL_PLAYER, partnerSpecies) : null;
+  // ?team=compare: parceira = Guilmon PixelLab ou Gabumon à mão; a equipe é o outro (save/compare.ts)
+  const comparePrep = COMPARE && regionMode ? prepareCompare(cur.sim, LOCAL_PLAYER, loaded.ok ? loaded.data.team : []) : null;
   if (partnerPrep) console.info("partner", partnerPrep);
-  if (demoPrep || partnerPrep) {
+  if (demoPrep || partnerPrep || comparePrep) {
     for (const ev of cur.spawnEvents) {
       const e = ev.t === "spawn" ? getEntity(cur.sim.state, ev.entity.id) : undefined;
       if (ev.t === "spawn" && e) ev.entity = snapshotOf(e);
     }
-    cur.presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
+    cur.presenter = new Presenter((id) => (id ? shown[id]?.manifest : undefined), LOCAL_PLAYER);
     cur.presenter.onTick(snapshot(cur.sim), cur.spawnEvents, performance.now());
     if (demoPrep) console.info("demo=evo", demoPrep);
   }
@@ -406,9 +419,9 @@ async function boot() {
         tamerLevel: me.tamerLevel,
         tamerXp: FOREST_PROOF_SCENE.tamerXp,
         // Jogo novo com inicial: a equipe é só a parceira; sem criador (capturas), a equipe placeholder da cena.
-        team: loaded.ok ? loaded.data.team : newStarter ? [] : FOREST_PROOF_SCENE.team,
+        team: comparePrep ? comparePrep.team : loaded.ok ? loaded.data.team : newStarter ? [] : FOREST_PROOF_SCENE.team,
         // Box do save (v8); jogo novo com inicial começa vazio; sem criador (capturas), o Box placeholder da cena.
-        box: loaded.ok ? loaded.data.box : newStarter ? [] : FOREST_PROOF_SCENE.box,
+        box: comparePrep ? [] : loaded.ok ? loaded.data.box : newStarter ? [] : FOREST_PROOF_SCENE.box,
         chat: FOREST_PROOF_SCENE.chat,
       }
     : undefined;
@@ -431,7 +444,7 @@ async function boot() {
     player().auto,
     {
       scene: hudScene,
-      portrait: makePortraitFn(creatures, images),
+      portrait: makePortraitFn(shown, images),
       minimap: new Minimap(cur.sim.map, browserCanvasFactory),
       moveIcon: drawMoveIcon,
       shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear", "arena"] : [],
@@ -460,10 +473,19 @@ async function boot() {
     hudRoot.appendChild(badge);
     hud.push(`Parceira de teste: ${name} Nv.${partnerPrep.level} (save separado). Teclas 1–4 usam os golpes.`, "gold");
   }
+  if (comparePrep) {
+    const badge = document.createElement("div");
+    badge.className = "demo-badge";
+    badge.dataset.testid = "compare-badge";
+    badge.title = `Equipe de comparação com save separado (${COMPARE_SAVE_KEY}); o save normal não é alterado. Tire ?team=compare da URL para voltar.`;
+    badge.textContent = "COMPARAÇÃO · Guilmon PixelLab × Gabumon à mão";
+    hudRoot.appendChild(badge);
+    hud.push("Comparação: Guilmon 64 px (PixelLab) e Gabumon 64 px (à mão). Shift+1/2 ou clique no retrato da equipe para trocar.", "gold");
+  }
   if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
 
   // ---- save (a cada 5 s, ao esconder a aba e ao sair) e relatório offline ----
-  const portrait = makePortraitFn(creatures, images);
+  const portrait = makePortraitFn(shown, images);
   /** Arena local (save v8): composições, histórico e rating placeholder. */
   let arenaData: ArenaSave = loaded.ok ? loaded.data.arena : emptyArena();
   const capture = (): SaveData => {
@@ -1163,6 +1185,8 @@ async function boot() {
       arena,
       openArena,
       openEvolve,
+      /** ?team=compare (capturas): modelo parado do outro Digimon ao lado da parceira; null tira. */
+      compareShowcase: (speciesId: string | null, dx?: number) => compareShowcase(cur.sim, LOCAL_PLAYER, speciesId, dx),
       /** Capturas/testes: troca a parceira (espécie + nível, stats recalculados) sem passar pelo save. */
       setPartner(speciesId: string, level: number) {
         const e = getEntity(cur.sim.state, player().partnerId)!;

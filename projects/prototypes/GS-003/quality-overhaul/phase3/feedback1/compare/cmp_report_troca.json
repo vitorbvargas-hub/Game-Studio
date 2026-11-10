@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-10T10:10:03.314Z",
+  "url": "http://127.0.0.1:5190/?team=compare&map=digimon-forest-01&look=v9&dpr=1&time=day&criador=0&novo=1&seed=7&auto=0",
+  "shots": {
+    "cmp_troca_0_guilmon_tela.png": {
+      "active": "CREATURE-0003"
+    },
+    "cmp_troca_0_guilmon.png": {},
+    "cmp_troca_1_recuo.png": {
+      "ms": 150
+    },
+    "cmp_troca_2_recuo_fim.png": {
+      "ms": 380
+    },
+    "cmp_troca_3_entrada.png": {
+      "ms": 600
+    },
+    "cmp_troca_4_gabumon.png": {
+      "ms": 1400
+    },
+    "cmp_troca_4_gabumon_tela.png": {
+      "active": "CREATURE-0009"
+    },
+    "cmp_troca_5_volta_guilmon_tela.png": {
+      "active": "CREATURE-0003",
+      "via": "clique no retrato"
+    },
+    "log": [
+      "Gabumon, volte! Vai, Guilmon!",
+      "Guilmon, volte! Vai, Gabumon!",
+      "Comparação: Guilmon 64 px (PixelLab) e Gabumon 64 px (à mão). Shift+1/2 ou clique no retrato da equipe para trocar."
+    ]
+  },
+  "video": {}
+}

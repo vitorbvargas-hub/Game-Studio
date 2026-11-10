@@ -1,0 +1,24 @@
+{
+  "creatureId": "CREATURE-0017",
+  "version": "1.0.0",
+  "layer": "ai-generated",
+  "officialRip": false,
+  "fanException": true,
+  "baseCharacter": "Guilmon",
+  "basis": "ADR-007 (fan game não comercial com monstros oficiais de Digimon); arte gerada no PixelLab pela conta do estúdio (teste de escala v3, phase2/art).",
+  "nonCommercial": true,
+  "noRip": true,
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation (nome e conceito do personagem, não os pixels)",
+  "restrictions": [
+    "ADR-007: fan game sem monetização",
+    "Publicação exige aprovação separada do fundador",
+    "Criatura de comparação (?team=compare) — não integrada ao roster nem substitui CREATURE-0003"
+  ],
+  "source": {
+    "type": "pixellab",
+    "characterId": "c9035021-cb9d-4edb-9c2f-5792e6a2239c",
+    "costLog": "quality-overhaul/phase2/art/scale-proof-v3-reanim/pixellab_cost_log.csv"
+  },
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-dev"
+}
