@@ -1,0 +1,222 @@
+{
+  "biome": "forest-v10-ground-trees",
+  "note": "Responde ao feedback do fundador na clareira v9 (branch quality-overhaul, p7_clareira_depois_v9p7_*_r2.png): chao \"fraco\" (verde chapado com rachaduras pretas finas + pontinhos) e arvores \"fracas\" (blobs de copa sem volume/tronco/silhueta). Substitui so os ground_variant_* e os props de arvore de forest-v8-depth -- decalques de chao, props emissores, clutter, cliff, NPCs e luzes de v8/v9 NAO sao tocados nem sobrescritos por este pacote (continuam a melhor fonte para esses itens). NAO integrado em prototype/world -- isso e trabalho de game-dev. 0 geracoes do PixelLab gastas -- pipeline 100% local Canvas.js.",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "ground-decal",
+    "decor",
+    "canopy-top"
+  ],
+  "palette": "Ver palette.json -- mesma rampa fria/escura de forest-v8-depth, mais 2 familias de grama macro-escala.",
+  "groundVariants": {
+    "note": "NAO autotile -- espalhar por ruido/aleatorio igual a convencao ja usada por forest-v4/v6/v7/v8. REGRA NOVA pedida pelo fundador (macro-escala): nao sortear familia A/B/sombra POR CELULA -- sortear por REGIAO (ruido de baixa frequencia, ex. Perlin/value-noise amostrado a cada 4-6 celulas, ou \"blotches\" de 3-8 celulas contiguas da MESMA familia) para que o tom mude em manchas grandes, nao em xadrez. Dentro de uma regiao, ai sim sortear a variante especifica (plain/decal) por celula.",
+    "families": {
+      "grassA": "tom base da clareira (igual hoje)",
+      "grassB": "oliva quente, mancha macro alternativa",
+      "grassShade": "poca de sombra sob copa densa",
+      "dirt": "trilha/terra",
+      "transition": "borda grama<->terra"
+    },
+    "files": [
+      {
+        "file": "tiles/ground_variant_0.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama densa (familia A)"
+      },
+      {
+        "file": "tiles/ground_variant_1.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + folhas caidas em grupo"
+      },
+      {
+        "file": "tiles/ground_variant_2.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + raiz exposta com musgo"
+      },
+      {
+        "file": "tiles/ground_variant_3.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + pedras com musgo"
+      },
+      {
+        "file": "tiles/ground_variant_4.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + trevo/flor esparsa"
+      },
+      {
+        "file": "tiles/ground_variant_5.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-shade",
+        "decal": "grama em poca de sombra (mais fria/escura)"
+      },
+      {
+        "file": "tiles/ground_variant_6.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-B",
+        "decal": "grama familia B (oliva, mancha macro) + borda macia sul"
+      },
+      {
+        "file": "tiles/ground_variant_7.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-B",
+        "decal": "grama familia B + pedras com musgo + borda macia leste"
+      },
+      {
+        "file": "tiles/ground_variant_8.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra/trilha (grao, sem rachadura)"
+      },
+      {
+        "file": "tiles/ground_variant_9.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra + rachadura muda (tom terra, rara)"
+      },
+      {
+        "file": "tiles/ground_variant_10.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "transition",
+        "decal": "transicao grama->terra com tufos sobrepostos"
+      },
+      {
+        "file": "tiles/ground_variant_11.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "transition",
+        "decal": "transicao grama->terra (espelhada)"
+      }
+    ]
+  },
+  "decals": {
+    "note": "Overlays transparentes, maiores/mais massudos que os de forest-v8-depth (que eram elipses pequenas ou pixel-crack) -- espalhar por ruido sobre QUALQUER chao, nao so os ground_variant_* novos.",
+    "files": [
+      {
+        "file": "decals/leaf_litter_big.png",
+        "size": "20x14",
+        "note": "grupo de 5-7 folhas sobrepostas, nao 1 elipse isolada"
+      },
+      {
+        "file": "decals/root_exposed_mossy.png",
+        "size": "22x12",
+        "note": "raiz arqueada saindo do solo com musgo no topo"
+      },
+      {
+        "file": "decals/mossy_stone_cluster.png",
+        "size": "22x14",
+        "note": "3 pedras com capa de musgo + realce + AO"
+      },
+      {
+        "file": "decals/tuft_overlap_big.png",
+        "size": "20x16",
+        "note": "tufo denso de 14 laminas, pra morder bordas grama<->terra"
+      }
+    ]
+  },
+  "trees": {
+    "note": "Substitui os troncos finos/copa-unica de forest-v4 props.js para a clareira v10: tronco grosso com raizes visiveis (paintTrunkThick), copa composta de 2-3 lobulos (nao 1 elipse), rim light explicito (luz de cima-esquerda) + sombra interna entre lobulos. base = tronco+raizes (colide, layer \"decor\", Y-sort pelo pe); top = copa (nao colide, layer \"canopy-top\", sempre desenhada por cima de qualquer entidade -- MESMA convencao de overlap de forest_v4_proof_scene.js: topY = footY - base.h - top.h + round(top.h*0.4)).",
+    "species": [
+      {
+        "kind": "tall_narrow",
+        "label": "ALTA/ESTREITA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/tall_narrow_small_base.png",
+            "top": "trees/tall_narrow_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/tall_narrow_large_base.png",
+            "top": "trees/tall_narrow_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "wide_low",
+        "label": "LARGA/BAIXA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/wide_low_small_base.png",
+            "top": "trees/wide_low_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/wide_low_large_base.png",
+            "top": "trees/wide_low_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "leaning",
+        "label": "TOMBADA/TORTA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/leaning_small_base.png",
+            "top": "trees/leaning_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/leaning_large_base.png",
+            "top": "trees/leaning_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "ancient_thick",
+        "label": "GROSSA/RAIZES A MOSTRA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/ancient_thick_small_base.png",
+            "top": "trees/ancient_thick_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/ancient_thick_large_base.png",
+            "top": "trees/ancient_thick_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      }
+    ]
+  }
+}
