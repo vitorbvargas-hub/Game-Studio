@@ -3,7 +3,7 @@
 Branch `quality-overhaul`, worktree `workspaces/game-dev/qo`. Data: 2026-11-10. Tudo atrás de `?hud=v2`; sem a flag nada muda.
 Base: `phase3/design/HUD_IDENTITY_V3.md` §2 (Alt A, decisão do fundador), `phase3/design/PANELS_SPEC.md` §5–§8, mockups `v3_mockups/alt_a_*.svg`.
 
-- Commit do código: `e4c1a2a` (por cima de `33e7dc0`, o `?team=compare`; nada dele foi tocado). O trabalho que estava sem commit no worktree (`hud.ts`, `style.css`, `digivice.ts`, `achievements.json`, testes) foi retomado como estava, não refeito; nesta sessão só corrigi o que os testes apontaram (abaixo).
+- Commit do código: `e4c1a2a`, por cima de `031d925` (merge do master com `VIDEO_IDEAS_SPEC.md`, feito no worktree enquanto eu trabalhava). Esse merge já contém `33e7dc0` (o `?team=compare`), e nada dele foi tocado; não foi preciso rebase. O trabalho que estava sem commit no worktree (`hud.ts`, `style.css`, `digivice.ts`, `achievements.json`, testes) foi retomado como estava, não refeito; nesta sessão só corrigi o que os testes apontaram (abaixo).
 - Capturas e vídeo: tirados de um worktree limpo nesse commit (`/tmp/dgverify`, vite na **5191**), porque outro agente estava editando mapa/look/`main.ts` no worktree compartilhado durante a captura, e o HMR recarregava a página no meio. A 5190 continua servindo o worktree compartilhado (com o Digivice e as mudanças em andamento dele).
 
 ## Links
