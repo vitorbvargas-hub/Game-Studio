@@ -1,0 +1,61 @@
+{
+  "biome": "forest-v11-ground",
+  "note": "0 hex novo. Reaproveita INTEGRALMENTE as rampas de forest-v8-depth/palette.json (buildDepthRamps()) para grama/terra/pedra/musgo/casca -- a mesma familia GRASS_A de forest-v10-ground-trees continua sendo a unica usada nos tiles cheios. NIGHT_FOLIAGE e a unica rampa nova deste pacote e tambem NAO e um hex novo: e FOLIAGE_NIGHT de forest_v4_palette.js (ja hand-picked, usada pela noite \"pintada\" de forest-v4) passada pelos MESMOS multiplicadores que forest_v8_depth_palette.js buildDepthRamps() aplica ao dia (GF_SAT_MUL 0.64, GF_VAL_MUL 0.80, RIM_SAT_MUL 0.88, RIM_VAL_MUL 0.92) -- formula copiada, nao reinventada.",
+  "ramps": {
+    "grassFamilyA": [
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d"
+    ],
+    "grassFamilyBOlive": [
+      "#2b432b",
+      "#405d3d",
+      "#5e7c52",
+      "#839c63",
+      "#a9b777"
+    ],
+    "grassShadePocket": [
+      "#1d3022",
+      "#2a432d",
+      "#3a5938",
+      "#527044",
+      "#6d8351"
+    ],
+    "dirt": [
+      "#3f3025",
+      "#584531",
+      "#715b41",
+      "#8c7656"
+    ],
+    "foliageDepthDay": [
+      "#111e16",
+      "#1b2e20",
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d",
+      "#cfdd8a"
+    ],
+    "foliageDepthNight": [
+      "#0e101a",
+      "#181c29",
+      "#222a38",
+      "#2f384a",
+      "#404b60",
+      "#57627b",
+      "#707b93",
+      "#a0b5d5"
+    ],
+    "stone": [
+      "#474b54",
+      "#656b75",
+      "#8c9199"
+    ],
+    "moss": "#445838",
+    "mossEdge": "#49643c"
+  },
+  "source": "art/src/forest_v8_depth_palette.js buildDepthRamps() + art/src/forest_v4_palette.js withPreset(false).foliage (para NIGHT_FOLIAGE, mesma formula de buildDepthRamps aplicada a base noturna em vez da diurna)."
+}
