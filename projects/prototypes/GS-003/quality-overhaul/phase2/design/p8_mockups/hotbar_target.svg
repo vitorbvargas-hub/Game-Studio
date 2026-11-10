@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="260" viewBox="0 0 700 260" font-family="monospace">
+  <rect width="700" height="260" fill="#0e1016"/>
+  <text x="4" y="14" fill="#8b93b0" font-size="10">Hotbar de golpes (4x52px, borda por categoria) + alvo (placa + anel no solo)</text>
+
+  <!-- hotbar -->
+  <g transform="translate(20,40)">
+    <rect width="238" height="68" fill="rgba(14,16,24,0.78)" stroke="#59618a" stroke-width="2"/>
+    <g transform="translate(6,8)">
+      <rect width="52" height="52" fill="#0d0f16" stroke="#feae34" stroke-width="3"/>
+      <text x="4" y="12" fill="#fff" font-size="9">1</text>
+      <text x="26" y="48" fill="#feae34" font-size="7">físico</text>
+    </g>
+    <g transform="translate(64,8)">
+      <rect width="52" height="52" fill="#0d0f16" stroke="#2a3550" stroke-width="3"/>
+      <text x="4" y="12" fill="#fff" font-size="9">2</text>
+      <text x="22" y="48" fill="#9ad4ff" font-size="7">especial</text>
+    </g>
+    <g transform="translate(122,8)">
+      <rect width="52" height="52" fill="#0d0f16" stroke="#4a3f1f" stroke-width="3"/>
+      <text x="4" y="12" fill="#fff" font-size="9">3</text>
+      <text x="28" y="48" fill="#ffd66b" font-size="7">buff</text>
+    </g>
+    <g transform="translate(180,8)">
+      <rect width="52" height="52" fill="#0d0f16" stroke="#1f4a2f" stroke-width="3"/>
+      <text x="4" y="12" fill="#fff" font-size="9">4</text>
+      <text x="28" y="48" fill="#8fe07a" font-size="7">cura</text>
+    </g>
+  </g>
+  <text x="20" y="128" fill="#8b93b0" font-size="8">slot 52x52 · borda 3px = categoria do golpe (seção 1.3)</text>
+
+  <!-- target plate + ring -->
+  <g transform="translate(420,60)">
+    <ellipse cx="60" cy="120" rx="16" ry="4" fill="none" stroke="#e43b44" stroke-width="2" stroke-dasharray="4,3" opacity="0.7"/>
+    <rect x="20" y="10" width="80" height="40" fill="#2b3150"/>
+    <g transform="translate(16,56)">
+      <rect width="88" height="20" fill="rgba(10,12,18,0.72)" stroke="#2ce8f5" stroke-width="2"/>
+      <text x="6" y="14" fill="#e6e9f2" font-size="9">Dorumon Nv.14</text>
+      <rect x="64" y="2" width="22" height="12" fill="#e8b84a"/>
+      <text x="67" y="11" fill="#171a26" font-size="7" font-weight="bold">NOVO</text>
+    </g>
+    <rect x="16" y="78" width="88" height="4" fill="#262b40"/>
+    <rect x="16" y="78" width="60" height="4" fill="#63c74d"/>
+  </g>
+  <text x="400" y="190" fill="#8b93b0" font-size="8">placa 88x20 (cresce com nome), borda = raridade (raro=ciano) + selo NOVO 22x12</text>
+  <text x="400" y="202" fill="#8b93b0" font-size="8">anel de alvo no solo: ø32, 2px pontilhado vermelho 70%</text>
+</svg>
