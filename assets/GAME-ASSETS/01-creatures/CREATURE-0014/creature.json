@@ -15,6 +15,7 @@
   ],
   "id": "CREATURE-0014",
   "name": "Dorimon",
+  "anatomy": "blob",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",
@@ -210,5 +211,6 @@
     "Revisado com view_image em 8x (acima do minimo de 4x pedido) antes desta entrega.",
     "Sem olho visivel desenhado em S/N, de proposito -- a arte fonte (W oficial) tambem nao mostra um olho distinto (silhueta de 'bola de pelo', nao um rosto detalhado); inventar um olho destacado teria divergido da fonte.",
     "Revisar com game-dev antes de promover approvalStatus."
-  ]
+  ],
+  "resampled": [{"anim": "*", "directions": ["W", "E"], "from": "rip DW DS", "factor": 1.056, "method": "redimensionado 18→19 px; S/N desenhados à mão (TECH_AUDIT §3)"}]
 }

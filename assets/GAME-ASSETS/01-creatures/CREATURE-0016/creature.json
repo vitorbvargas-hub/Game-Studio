@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "id": "CREATURE-0016",
   "name": "WarGreymon",
+  "anatomy": "biped",
   "category": "digital-creature",
   "rarity": "legendary",
   "element": "vaccine",
@@ -315,5 +316,25 @@
     "Ataque/dano só existem de frente (quadros 9 e 8): virado para N/W/E o golpe e o dano usam a pose de frente. As poses de batalha (de lado) ficam em battle_* na escala nativa; reduzidas para o mapa ficaram ilegíveis e foram descartadas.",
     "Linha: MetalGreymon não tem criatura importada (a folha 48322 existe no acervo, mas a grade de mapa mistura duas paletas e não dá para separar direções com segurança). Sem caminho Greymon → WarGreymon no jogo normal.",
     "rarity/element/evolutionStage provisórios [H]."
+  ],
+  "resampled": [
+    {
+      "anim": "attack",
+      "frames": [
+        "CREATURE-0016_attack_S_00.png"
+      ],
+      "from": "battle_attack",
+      "factor": 0.303,
+      "method": "redução por moda de bloco da pose de batalha (TECH_AUDIT §3)"
+    },
+    {
+      "anim": "hurt",
+      "frames": [
+        "CREATURE-0016_hurt_S_00.png"
+      ],
+      "from": "battle_hurt",
+      "factor": 0.303,
+      "method": "redução por moda de bloco da pose de batalha (TECH_AUDIT §3)"
+    }
   ]
 }

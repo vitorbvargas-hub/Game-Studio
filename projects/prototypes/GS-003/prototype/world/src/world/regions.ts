@@ -6,6 +6,8 @@ import digimonForest01Pack from "../data/maps/digimon-forest-01.aliases.json";
 import digimonForest01Map from "../data/maps/digimon-forest-01.tmj.json";
 import digimonForest01V8Pack from "../data/maps/v8/digimon-forest-01.aliases.json";
 import digimonForest01V8Map from "../data/maps/v8/digimon-forest-01.tmj.json";
+import digimonForest01V9Pack from "../data/maps/v9/digimon-forest-01.aliases.json";
+import digimonForest01V9Map from "../data/maps/v9/digimon-forest-01.tmj.json";
 import forestProofPack from "../data/maps/forest-proof.aliases.json";
 import forestProofMap from "../data/maps/forest-proof.tmj.json";
 import praiaPack from "../data/maps/praia.aliases.json";
@@ -61,7 +63,12 @@ export const MAPS: Record<string, MapDef> = {
     pack: digimonForest01Pack as unknown as ScenePack,
     scene: false,
     // look v8 (profundidade, DRAKANTOS_VISUAL_STUDY.md): scripts/map-factory/briefs/digimon-forest-01.v8.build.json
-    looks: { v8: { tmj: digimonForest01V8Map as unknown as TiledMap, pack: digimonForest01V8Pack as unknown as ScenePack } },
+    // look v9 (Quality Overhaul, fase 2) = v8 + primeiro plano, água correndo, vento e menos luzes:
+    // scripts/map-factory/derive-look-v9.mjs
+    looks: {
+      v8: { tmj: digimonForest01V8Map as unknown as TiledMap, pack: digimonForest01V8Pack as unknown as ScenePack },
+      v9: { tmj: digimonForest01V9Map as unknown as TiledMap, pack: digimonForest01V9Pack as unknown as ScenePack },
+    },
   },
 };
 

@@ -3,7 +3,7 @@
 // sem mudar código (o hitAtMs passa a vir do evento `hitFrame` do manifest).
 // Nada daqui decide dano: só QUANDO mostrar um resultado que a sim já confirmou.
 
-import type { AnimFrame, CreatureAnimation, CreatureManifest } from "../assets/creatures";
+import { animHasResampled, type AnimFrame, type CreatureAnimation, type CreatureManifest } from "../assets/creatures";
 import type { Dir8, LogicState } from "../sim/types";
 
 export type Procedural = "lunge" | "knockback" | "fade" | "bob" | null;
@@ -58,10 +58,21 @@ const PROCEDURAL_FALLBACK: Record<LogicState, Procedural> = {
   DEFEAT: "fade",
 };
 
-function realAnim(m: CreatureManifest, name: string | undefined): CreatureAnimation | undefined {
+/**
+ * Escala unificada (?dpr=1, fase 2 do Quality Overhaul): animações com quadros marcados como redimensionados
+ * (`resampled` no creature.json) ficam fora do mapa. Global de apresentação, ligado uma vez no boot.
+ */
+let skipResampled = false;
+export function setSkipResampled(on: boolean): void {
+  skipResampled = on;
+}
+
+export function realAnim(m: CreatureManifest, name: string | undefined): CreatureAnimation | undefined {
   if (!name || name === "idle") return undefined;
   const a = m.animations[name];
-  return a && a.frames.length > 0 ? a : undefined;
+  if (!a || a.frames.length === 0) return undefined;
+  if (skipResampled && animHasResampled(m, a)) return undefined;
+  return a;
 }
 
 export function resolveAnim(m: CreatureManifest, state: LogicState, moving = true): AnimChoice {

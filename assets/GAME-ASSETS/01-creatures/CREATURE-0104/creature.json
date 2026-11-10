@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "id": "CREATURE-0104",
   "name": "Biyomon",
+  "anatomy": "flyer",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",

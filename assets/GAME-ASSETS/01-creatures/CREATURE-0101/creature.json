@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "id": "CREATURE-0101",
   "name": "Dorumon",
+  "anatomy": "quadruped",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",

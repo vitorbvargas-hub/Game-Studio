@@ -10,6 +10,7 @@
   ],
   "id": "CREATURE-0012",
   "name": "Patamon",
+  "anatomy": "flyer",
   "category": "digital-creature",
   "rarity": "common",
   "element": "data",
@@ -311,5 +312,25 @@
     "attack/hurt no mapa = poses de batalha reduzidas por moda de bloco (fator 0.412, de 51 para ~21 px). É derivado do rip, não um quadro do jogo; revisar com o game-art.",
     "Os sprites de mapa do DS têm 3 quadros por direção; o ciclo de walk é f0-f1-f0-f2 e o idle é o quadro do meio (de pé).",
     "rarity, element e evolutionStage herdados da v1 (provisórios [H])."
+  ],
+  "resampled": [
+    {
+      "anim": "attack",
+      "frames": [
+        "CREATURE-0012_attack_W_00.png"
+      ],
+      "from": "battle_attack",
+      "factor": 0.412,
+      "method": "redução por moda de bloco da pose de batalha (TECH_AUDIT §3)"
+    },
+    {
+      "anim": "hurt",
+      "frames": [
+        "CREATURE-0012_hurt_W_00.png"
+      ],
+      "from": "battle_hurt",
+      "factor": 0.412,
+      "method": "redução por moda de bloco da pose de batalha (TECH_AUDIT §3)"
+    }
   ]
 }

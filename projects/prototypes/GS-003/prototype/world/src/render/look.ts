@@ -37,6 +37,8 @@ export interface AmbientCfg {
   lightScale: number;
 }
 
+import type { ForegroundCfg, SwayCfg, WaterCfg } from "./life";
+
 export interface LookCfg {
   id: string;
   zoomMul?: number;
@@ -63,6 +65,12 @@ export interface LookCfg {
   fireKeys?: string[];
   /** Opacidade da máscara das copas sobre as luzes (0 = luz por cima das copas, 1 = a copa apaga a luz sob ela). */
   canopyMask?: number;
+  /** Look v9: vento em copas e grama (life.ts). */
+  sway?: SwayCfg;
+  /** Look v9: água das curvas correndo (scroll de UV por quadros). */
+  water?: WaterCfg;
+  /** Look v9: camada objects_above (primeiro plano) com transparência ao cobrir o jogador. */
+  foreground?: ForegroundCfg;
 }
 
 // ---------- cor ----------

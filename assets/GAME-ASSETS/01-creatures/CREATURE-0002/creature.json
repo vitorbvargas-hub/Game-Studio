@@ -25,6 +25,7 @@
   ],
   "id": "CREATURE-0002",
   "name": "Gigimon",
+  "anatomy": "biped",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",
@@ -287,5 +288,6 @@
     "battle_idle NAO foi alterado nesta versao (fora do escopo desta tarefa); continua official-fan-use via rip E-M-B-E-R.",
     "v4 (desenho autoral) preservada em versions/v4/ para historico.",
     "Recomenda-se revisao do fundador/game-dev antes de promover approvalStatus para APPROVED."
-  ]
+  ],
+  "resampled": [{"anim": "*", "directions": ["S", "W", "E"], "from": "Digimon Brave Tamer", "factor": null, "method": "redução por nearest-neighbor; N desenhado à mão no tamanho do mapa (TECH_AUDIT §3)"}]
 }

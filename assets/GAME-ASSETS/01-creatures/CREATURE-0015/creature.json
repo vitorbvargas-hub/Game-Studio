@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "id": "CREATURE-0015",
   "name": "GeoGreymon",
+  "anatomy": "biped",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",

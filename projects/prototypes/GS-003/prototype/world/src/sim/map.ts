@@ -175,6 +175,11 @@ export interface WorldMap {
   decals?: MapDecal[];
   patches?: MapPatch[];
   /**
+   * Primeiro plano (camada `objects_above`, look v9): props desenhados POR CIMA das entidades e das copas, fora do
+   * Y-sort, que ficam translúcidos quando cobrem o jogador ou a parceira. Só apresentação: nunca sólidos.
+   */
+  fgProps?: MapProp[];
+  /**
    * Células (1 = sim) alcançáveis andando (4 vizinhos, colisão) a partir dos inícios do mapa. Calculado no
    * carregamento (parseTiledMap); mapas montados em código ganham o cálculo na primeira consulta (reachableOf).
    */
@@ -207,6 +212,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const arenas: MapArena[] = [];
   const curves: MapCurve[] = [];
   const decals: MapDecal[] = [];
+  const fgProps: MapProp[] = [];
   const patches: MapPatch[] = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
@@ -225,7 +231,10 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     }
     for (const o of layer.objects) {
       const cls = o.class ?? o.type ?? "";
-      if (cls === "prop") {
+      if (cls === "prop" && layer.name === "objects_above") {
+        // primeiro plano: sem colisão (passa por cima do jogador), fora da lista do Y-sort
+        fgProps.push({ key: String(prop(o.properties, "key")), x: o.x, y: o.y, solid: false });
+      } else if (cls === "prop") {
         const ok = prop(o.properties, "openKey");
         const p: MapProp = { key: String(prop(o.properties, "key")), x: o.x, y: o.y, solid: prop(o.properties, "solid") === true, ...(ok ? { openKey: String(ok) } : {}) };
         props.push(p);
@@ -312,7 +321,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     }
   }
   curves.sort((a, b) => a.z - b.z);
-  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}) };
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}), ...(fgProps.length ? { fgProps } : {}) };
   map.reachable = computeReachable(map);
   return map;
 }

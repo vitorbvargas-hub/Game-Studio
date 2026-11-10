@@ -18,7 +18,9 @@ import {
   resolveFacing,
   type Dir4,
 } from "./anim";
+import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
 import { drawImpact, shakeOffset } from "./fx";
+import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterFrame, type Rect } from "./life";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
@@ -39,6 +41,11 @@ export const CHUNK_TILES = 16;
 export interface ViewOptions {
   /** Fator inteiro global aplicado aos sprites de criatura (DS nativo = 1). Multiplica o mapScale de cada manifest. */
   creatureScale: number;
+  /**
+   * Escala unificada (?dpr=1, fase 2 do Quality Overhaul): ignora o mapScale do manifest (sem ×2 isolado, ex.
+   * WarGreymon) para todas as criaturas e Tamers ficarem na mesma densidade de pixel.
+   */
+  unifiedScale?: boolean;
   /** Tabela de tamanhos (GS-003/research/DIGIMON_SIZE_TABLE.json). Só usada se passada (?size=table). */
   sizeTable?: Record<string, SizeEntry>;
   /** Sprites do Tamer (GAME-ASSETS/11-characters): local e outro jogador. Ausente → placeholder desenhado em código. */
@@ -47,6 +54,8 @@ export interface ViewOptions {
   tamerVisuals?: Record<string, CreatureVisual>;
   /** Suavização visual do movimento (desligar para comparar com a v1). */
   smoothing?: boolean;
+  /** ?anim=v2 (fase 2 do Quality Overhaul): controlador de animação v2 (animctl.ts), só na apresentação. */
+  animV2?: boolean;
   /** Só apresentação (dados de cena): nível exibido no nome de cada Tamer, por id de jogador. */
   tamerLevels?: Record<string, number>;
   /** Só apresentação: matiz (graus) do sprite de cada outro jogador, para diferenciar quem usa o mesmo sprite. */
@@ -122,6 +131,9 @@ export class WorldView {
   /** Centro da câmera em ponto flutuante (lerp); `camera` é a versão inteira usada para desenhar. */
   private camCenter?: Vec;
   private motions = new Map<string, MotionState>();
+  /** ?anim=v2: estado do controlador por entidade (só criaturas com manifest). */
+  private ctls = new Map<string, CtlState>();
+  private interactAt = new Map<string, number>();
   private lastUpdate?: number;
   private chunks = new Map<string, HTMLCanvasElement>();
   private silhouettes = new Map<string, HTMLCanvasElement>();
@@ -148,6 +160,13 @@ export class WorldView {
   /** Curvas contínuas (camada `curves`): índice por célula e faixas já compostas (por célula e preset). */
   private curveIdx?: CurveIndex;
   private curveTiles = new Map<string, HTMLCanvasElement | null>();
+  /** Look v9: faixa da água por célula × quadro do ciclo × preset, e as células com água. */
+  private waterTiles = new Map<string, HTMLCanvasElement | null>();
+  private waterCells?: number[];
+  /** Look v9: opacidade atual de cada prop de primeiro plano (índice em map.fgProps). */
+  private fgAlpha = new Map<number, number>();
+  private swayRe?: RegExp;
+  private lastFg?: number;
   /** Look v8: luzes do mapa, sprites de luz em cache, âncoras e sprite da névoa, brilho dos vagalumes. */
   private lookLights?: LightSource[];
   private lightSprites = new Map<string, HTMLCanvasElement>();
@@ -189,6 +208,7 @@ export class WorldView {
     this.chunks.clear();
     this.smoothTiles.clear();
     this.curveTiles.clear();
+    this.waterTiles.clear();
     this.litTops.clear();
     this.propImages.clear();
     this.trees = undefined;
@@ -318,7 +338,60 @@ export class WorldView {
       else if (v.hurt) force = v.hurt.dir.x < 0 ? "E" : v.hurt.dir.x > 0 ? "W" : sideOf(m.face);
       const next = this.opts.smoothing === false ? { ...stepMotion(newMotion(v.facing), target, 0, v.facing, force), walked: m.walked + Math.hypot(target.x - m.pos.x, target.y - m.pos.y), speed: dt > 0 ? Math.hypot(target.x - m.pos.x, target.y - m.pos.y) / (dt / 1000) : 0 } : stepMotion(m, target, dt, v.facing, force);
       this.motions.set(v.id, next);
+      if (this.opts.animV2) this.stepAnimCtl(p, v, next, now);
     }
+    if (this.opts.animV2) for (const id of [...this.ctls.keys()]) if (!p.entities.has(id)) this.ctls.delete(id);
+  }
+
+  /** ?anim=v2: interação (placa, baú, NPC...) vista pela entidade: dispara o one-shot `interact` dela. */
+  notifyInteract(id: string, now: number): void {
+    this.interactAt.set(id, now);
+  }
+
+  /** Estado atual do controlador v2 (capturas e testes). */
+  animCtl(id: string): CtlState | undefined {
+    return this.ctls.get(id);
+  }
+
+  private ctlInput(p: Presenter, v: VisualEntity, mo: MotionState, now: number): CtlInput {
+    const c = this.ctls.get(v.id);
+    const tgt = c?.lastAttackTarget ? p.entities.get(c.lastAttackTarget) : undefined;
+    const a = v.attack;
+    return {
+      now,
+      lt: p.localTime(v, now),
+      visual: p.visualState(v, now),
+      speed: mo.speed,
+      face: mo.face,
+      walked: mo.walked,
+      isPartner: v.kind === "partner" || v.kind === "remote_partner",
+      attack: a ? { start: a.start, hitAtMs: a.hitAtMs, durationMs: a.durationMs, special: a.special, launchAtMs: a.launchAtMs, targetId: a.targetId } : undefined,
+      hurtStart: v.hurt?.start,
+      targetDefeatedAt: tgt?.defeatedAt !== undefined && now >= tgt.defeatedAt ? tgt.defeatedAt : undefined,
+      interactAt: this.interactAt.get(v.id),
+    };
+  }
+
+  private stepAnimCtl(p: Presenter, v: VisualEntity, mo: MotionState, now: number): void {
+    const cv = this.visualOf(v);
+    if (!cv) return;
+    const c = this.ctls.get(v.id) ?? newCtl(mo.face, p.localTime(v, now));
+    this.ctls.set(v.id, stepCtl(c, this.ctlInput(p, v, mo, now), cv.manifest));
+  }
+
+  /** Quadro do controlador v2 para a entidade (dirFrames da direção já aplicados). */
+  private ctlFrameOf(cv: CreatureVisual, v: VisualEntity, p: Presenter, now: number): { f: CtlFrame; dir: string; mirror: boolean } | undefined {
+    const mo = this.motions.get(v.id);
+    const c = this.ctls.get(v.id);
+    if (!mo || !c) return undefined;
+    const m = cv.manifest;
+    let face: { dir: string; mirror: boolean } = { dir: "S", mirror: false };
+    const f = ctlFrame(c, this.ctlInput(p, v, mo, now), m, (a) => {
+      const name = Object.keys(m.animations).find((k) => m.animations[k] === a) ?? "idle";
+      face = resolveFacing(m, name, DIR4_TO_8[mo.face]);
+      return { ...a, frames: framesFor(a, face.dir) };
+    });
+    return { f, dir: face.dir, mirror: face.mirror };
   }
 
   /** Posição visual (suavizada) de uma entidade, ou undefined se ainda não houve update. */
@@ -375,13 +448,14 @@ export class WorldView {
         list.push({ y: pr.y, order: `p${pr.x}`, draw: () => this.drawNpcProp(pr, now) });
         return;
       }
-      list.push({ y: pr.y, order: `p${pr.x}`, draw: tree ? () => this.blitWorld(tree.base) : () => this.drawProp(pr) });
+      list.push({ y: pr.y, order: `p${pr.x}`, draw: tree ? () => this.blitWorld(tree.base) : () => this.drawProp(pr, now) });
     });
     for (const { v, pos } of visible) list.push({ y: pos.y, order: v.id, draw: () => this.drawEntity(v, pos, p, now) });
     list.sort((a, b) => a.y - b.y || (a.order < b.order ? -1 : 1));
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
     this.drawCanopies(p, trees, visible, now);
+    this.drawForeground(p, visible, now);
     if (this.opts.look) this.drawLook(this.opts.look, p, alpha, now);
     else this.drawAmbient();
 
@@ -604,9 +678,61 @@ export class WorldView {
       if (a < 1) this.canopyAlpha.set(t.index, a);
       else this.canopyAlpha.delete(t.index);
       ctx.globalAlpha = a;
-      if (t.rim) this.drawPreset(r.url, 0, 0, r.w, r.h, r.x - cam.x, r.y - cam.y, r.w, r.h, (u, n) => this.rimTop(u, n));
+      const sway = this.opts.look?.sway;
+      const res = t.rim ? (u: string, n: boolean) => this.rimTop(u, n) : undefined;
+      if (sway?.canopies) this.drawSwayed(r.url, 0, 0, r.w, r.h, r.x - cam.x, r.y - cam.y, swayOffset(t.base.x, t.footY, now, sway), sway.bands, res);
+      else if (t.rim) this.drawPreset(r.url, 0, 0, r.w, r.h, r.x - cam.x, r.y - cam.y, r.w, r.h, res);
       else this.blitWorld(r);
     }
+    ctx.globalAlpha = 1;
+  }
+
+  /** Sprite em faixas horizontais com o cisalhamento do vento (a de cima desloca `s`, a de baixo fica presa). */
+  private drawSwayed(url: string, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, s: number, bands: number, resolve?: (url: string, night: boolean) => CanvasImageSource | undefined): void {
+    if (!s) return this.drawPreset(url, sx, sy, sw, sh, dx, dy, sw, sh, resolve);
+    const shifts = bandShifts(s, bands);
+    bandRows(sh, shifts.length).forEach(([y0, y1], i) => {
+      if (y1 > y0) this.drawPreset(url, sx, sy + y0, sw, y1 - y0, dx + shifts[i], dy + y0, sw, y1 - y0, resolve);
+    });
+  }
+
+  /**
+   * Look v9: primeiro plano (objects_above). Desenhado por cima das entidades e das copas, sem Y-sort; fica
+   * translúcido (behindAlpha) quando cobre o jogador ou a parceira, com a mesma transição das copas.
+   */
+  private drawForeground(p: Presenter, visible: { v: VisualEntity; pos: Vec }[], now: number): void {
+    const fg = this.map.fgProps;
+    const cfg = this.opts.look?.foreground;
+    if (!fg?.length) return;
+    const dt = this.lastFg === undefined ? 16 : Math.max(0, now - this.lastFg);
+    this.lastFg = now;
+    const watch: Rect[] = visible
+      .filter(({ v }) => v.id === p.localPlayerId || v.id === p.localPartnerId)
+      .map(({ v, pos }) => ({ x0: pos.x - 7, x1: pos.x + 7, y0: pos.y - (v.kind === "player" ? this.tamerTop(v) : this.headOffset(v).top), y1: pos.y }));
+    const cam = this.camera;
+    const ctx = this.ctx;
+    const sway = this.opts.look?.sway;
+    const re = sway ? new RegExp(sway.keys) : undefined;
+    fg.forEach((pr, i) => {
+      const src = this.tiles[pr.key];
+      const img = src && this.images.get(src.url);
+      if (!img) return;
+      const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
+      const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
+      const x = Math.round(pr.x - px);
+      const y = Math.round(pr.y - py);
+      if (x > cam.x + cam.w || x + sw < cam.x || y > cam.y + cam.h || y + sh < cam.y) {
+        this.fgAlpha.delete(i);
+        return;
+      }
+      const target = fgCovers({ x0: x, y0: y, x1: x + sw, y1: y + sh }, watch) ? (cfg?.behindAlpha ?? 0.4) : 1;
+      const a = fadeToward(this.fgAlpha.get(i) ?? 1, target, dt, cfg?.fadeMs ?? 120);
+      if (a < 1) this.fgAlpha.set(i, a);
+      else this.fgAlpha.delete(i);
+      ctx.globalAlpha = a;
+      const s = re?.test(pr.key) ? swayOffset(pr.x, pr.y, now, sway!) : 0;
+      this.drawSwayed(src.url, sx, sy, sw, sh, x - cam.x, y - cam.y, s, 2);
+    });
     ctx.globalAlpha = 1;
   }
 
@@ -680,6 +806,65 @@ export class WorldView {
         n++;
       }
     this.stats.chunksDrawn = n;
+    if (this.opts.look?.water) this.drawWater(now);
+  }
+
+  /**
+   * Look v9: água correndo. As células perto de uma curva de água recebem por cima do chunk a mesma faixa das
+   * curvas, mas com a textura da água deslocada (scroll de UV em quadros, com volta no tile). A espuma da margem e
+   * o vau continuam no lugar (são calculados pela posição). Cache por célula × quadro × preset.
+   */
+  private drawWater(now: number): void {
+    const cfg = this.opts.look!.water!;
+    const idx = this.curveIndex();
+    if (!idx) return;
+    const ts = this.map.tileSize;
+    this.waterCells ??= [...idx.near].filter(([, cis]) => cis.some((ci) => idx.curves[ci].terrain === cfg.terrain)).map(([i]) => i);
+    const { frame, dx, dy } = waterFrame(now, cfg, ts);
+    const cam = this.camera;
+    const mix = this.nightTiles ? this.nightMix : 0;
+    for (const i of this.waterCells) {
+      const mx = i % this.map.width;
+      const my = Math.floor(i / this.map.width);
+      const x = mx * ts - cam.x;
+      const y = my * ts - cam.y;
+      if (x < -ts || y < -ts || x > cam.w || y > cam.h) continue;
+      for (const night of mix <= 0 ? [false] : mix >= 1 ? [true] : [false, true]) {
+        const c = this.waterTile(mx, my, frame, dx, dy, night);
+        if (!c) continue;
+        this.ctx.globalAlpha = night && mix < 1 ? mix : 1;
+        this.ctx.drawImage(c, x, y);
+      }
+    }
+    this.ctx.globalAlpha = 1;
+  }
+
+  private waterTile(mx: number, my: number, frame: number, dx: number, dy: number, night: boolean): HTMLCanvasElement | undefined {
+    const id = `${mx},${my}|${frame}|${night ? "n" : "d"}`;
+    const hit = this.waterTiles.get(id);
+    if (hit !== undefined) return hit ?? undefined;
+    const idx = this.curveIndex()!;
+    const ts = this.map.tileSize;
+    const set = night && this.nightTiles ? { ...this.tiles, ...this.nightTiles } : this.tiles;
+    const terrain = this.opts.look!.water!.terrain;
+    let missing = false;
+    const px = composeCurveOverlay(idx, mx, my, ts, this.map.width, (ci) => {
+      const src = set[idx.curves[ci].fill];
+      const d = this.pixelsOf(src?.url, src?.rect);
+      if (!d) missing = true;
+      return d && idx.curves[ci].terrain === terrain ? scrollPixels(d, ts, dx, dy) : d;
+    });
+    if (missing) return undefined;
+    let c: HTMLCanvasElement | null = null;
+    if (px) {
+      c = this.makeCanvas(ts, ts);
+      const g = c.getContext("2d")!;
+      const data = g.createImageData(ts, ts);
+      data.data.set(px);
+      g.putImageData(data, 0, 0);
+    }
+    this.waterTiles.set(id, c);
+    return c ?? undefined;
   }
 
   /** Chunk de 16×16 tiles pré-renderizado. Tiles animados (água) geram uma versão por quadro. */
@@ -891,13 +1076,18 @@ export class WorldView {
     this.blitEntity(`npc|${src.url}`, img, fr, dx, dy, S, false);
   }
 
-  private drawProp(pr: MapProp): void {
+  private drawProp(pr: MapProp, now = 0): void {
     const cam = this.camera;
     const src = this.tiles[pr.key];
     const img = src && this.images.get(src.url);
     if (img) {
       const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
       const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
+      const sway = this.opts.look?.sway;
+      if (sway && (this.swayRe ??= new RegExp(sway.keys)).test(pr.key)) {
+        this.drawSwayed(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), swayOffset(pr.x, pr.y, now, sway), 2);
+        return;
+      }
       this.drawPreset(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y));
       return;
     }
@@ -919,6 +1109,7 @@ export class WorldView {
 
   /** Escala inteira da criatura no mapa: global × mapScale do manifest (ou da tabela de tamanhos, se ligada). */
   private scaleOf(cv: CreatureVisual | undefined): number {
+    if (this.opts.unifiedScale) return this.opts.creatureScale;
     return this.opts.creatureScale * (cv ? mapScaleOf(cv.manifest, this.opts.sizeTable) : 1);
   }
 
@@ -1072,8 +1263,12 @@ export class WorldView {
   }
 
   /** Quadro atual (chave do atlas + espelho) de uma entidade com manifest. Exportado para testes via view. */
-  frameFor(cv: CreatureVisual, v: VisualEntity, p: Presenter, now: number): { key: string; mirror: boolean; state: LogicState; anim: string } {
+  frameFor(cv: CreatureVisual, v: VisualEntity, p: Presenter, now: number): { key: string; mirror: boolean; state: LogicState; anim: string; v2?: CtlFrame } {
     const m = cv.manifest;
+    if (this.opts.animV2) {
+      const r = this.ctlFrameOf(cv, v, p, now);
+      if (r) return { key: r.f.frames.frames[r.f.index]?.atlasKey ?? "", mirror: r.mirror, state: p.visualState(v, now), anim: r.f.anim, v2: r.f };
+    }
     const mo = this.motions.get(v.id) ?? newMotion(v.facing);
     const lt = p.localTime(v, now);
     const state = p.visualState(v, now);
@@ -1097,7 +1292,7 @@ export class WorldView {
   /** `white` 0..1: silhueta branca por cima do sprite (1 = só a silhueta: digivolução). */
   private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number, white = 0): void {
     const mo = this.motions.get(v.id);
-    const { key, mirror, state } = this.frameFor(cv, v, p, now);
+    const { key, mirror, state, v2 } = this.frameFor(cv, v, p, now);
     const url = imageUrlOf(cv, key);
     let img: ImageLike | HTMLCanvasElement | undefined = this.images.get(url);
     if (!img) return;
@@ -1114,10 +1309,15 @@ export class WorldView {
     const off = this.combatOffset(v, p, now);
     const moving = (mo?.speed ?? 0) > MOVING_PX_S;
     let bob = 0;
-    if (!moving && LOCOMOTION.includes(state) && !v.hitStop) bob = idleBob(now, v.phase);
+    let lean = 0;
+    if (v2) {
+      // v2: o controlador decide o deslocamento procedural (bob só com idle de 1 quadro; hop, hover, dip, lean).
+      bob = v.hitStop ? 0 : v2.dy * S;
+      lean = (mo?.face === "W" ? -1 : mo?.face === "E" ? 1 : 0) * v2.dx * S;
+    } else if (!moving && LOCOMOTION.includes(state) && !v.hitStop) bob = idleBob(now, v.phase);
     else if (moving && !cv.manifest.animations.walk) bob = Math.floor((mo?.walked ?? 0) / 8) % 2 ? -1 : 0;
     const pivotX = mirror ? fr.w - pv.x : pv.x;
-    const dx = Math.round(pos.x - this.camera.x - pivotX * S + off.x);
+    const dx = Math.round(pos.x - this.camera.x - pivotX * S + off.x + lean);
     const dy = Math.round(pos.y - this.camera.y - pv.y * S + off.y + bob);
     const ctx = this.ctx;
     const fade = state === "DEFEAT" && v.defeatedAt !== undefined ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;

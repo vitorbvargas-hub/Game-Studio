@@ -49,6 +49,9 @@ import vilaPack from "./data/maps/vila.aliases.json";
 import { DEMO_XP_MULT, demoModeOf, demoStorage, prepareDemo } from "./save/demo";
 import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, resolvePartnerSpecies } from "./save/partner";
 import type { ScenePack } from "./assets/scene-tiles";
+import { dprLayout, REF_CHAR_PX } from "./render/scale";
+import { setSkipResampled } from "./render/anim";
+
 
 const params = new URLSearchParams(location.search);
 const SEED = Number(params.get("seed") ?? Date.now() % 100000);
@@ -74,6 +77,16 @@ const ZOOM = /x$/.test(ZOOM_RAW) ? 0 : Math.max(0, Math.round(Number(ZOOM_RAW ||
 const ZOOM_MUL = /x$/.test(ZOOM_RAW) ? Math.max(0.5, Number(ZOOM_RAW.slice(0, -1)) || 1) : undefined;
 /** ?look=v8: variante de look do mapa (luz, paleta, profundidade), quando o mapa tiver uma (regions.ts `looks`). */
 const LOOK = params.get("look");
+/**
+ * ?dpr=1 (Quality Overhaul, fase 2): escala inteira em pixels FÍSICOS (devicePixelRatio), para os pixels saírem
+ * iguais com o Windows em 125%/150%, e zoom alvo pela altura do personagem (`charScale`). ?charh=N muda o alvo
+ * (% da altura da tela, padrão 9). ?zoom=N continua forçando a escala (agora em pixels físicos).
+ */
+const DPR_MODE = params.get("dpr") === "1";
+const CHAR_H_PCT = Math.min(25, Math.max(3, Number(params.get("charh") ?? 9) || 9));
+setSkipResampled(DPR_MODE);
+/** ?anim=v2 (Quality Overhaul, fase 2): controlador de animação v2 (src/render/animctl.ts), só na apresentação. */
+const ANIM_V2 = params.get("anim") === "v2";
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
@@ -255,6 +268,8 @@ async function boot() {
     if (tvFailed.length) console.warn("Tamers v3 não carregados:", tvFailed);
     const view = new WorldView(canvas, sim.map, creatures, tiles, images, browserCanvasFactory, {
       creatureScale: CREATURE_SCALE,
+      unifiedScale: DPR_MODE,
+      animV2: ANIM_V2,
       sizeTable,
       tamers,
       smoothing: SMOOTH,
@@ -470,7 +485,7 @@ async function boot() {
     hud.onEvents(cur.spawnEvents);
     trackSeen(cur.spawnEvents);
     const pos = view().motionPos(LOCAL_PLAYER);
-    if (pos) view().follow({ x: pos.x, y: pos.y + HUD_BOTTOM_PX / 2 / scale }, 10_000, { x: 0, y: 0 });
+    if (pos) view().follow({ x: pos.x, y: pos.y + HUD_BOTTOM_PX / 2 / cssPerLogical }, 10_000, { x: 0, y: 0 });
     portalArmed = false;
     persist();
     hud.toast(`${regionName(cur.def)}`);
@@ -516,6 +531,7 @@ async function boot() {
       const r = interact(cur.sim, LOCAL_PLAYER, near.id, openedChests);
       if (r) {
         interactions.push(r);
+        if (ANIM_V2 && cur.presenter.localPartnerId) cur.view.notifyInteract(cur.presenter.localPartnerId, performance.now());
         if (r.kind === "chest") applyOpenedChests(cur.sim.map, openedChests);
         hud.toast(r.kind === "npc" ? `${r.title}: ${r.text}` : r.text);
       }
@@ -716,6 +732,8 @@ async function boot() {
       if (failed.length || t.missing.length) console.warn("arena: tiles", failed, t.missing);
       return new WorldView(cnv, map, creatures, t.tiles, images, browserCanvasFactory, {
         creatureScale: CREATURE_SCALE,
+        unifiedScale: DPR_MODE,
+        animV2: ANIM_V2,
         sizeTable,
         tamers,
         smoothing: SMOOTH,
@@ -748,11 +766,28 @@ async function boot() {
   });
 
   // ---- escala inteira pixel-perfect ----
+  /** Pixels do canvas de nomes (e, com ?dpr=1, pixels físicos) por pixel lógico. */
   let scale = 1;
+  /** Pixels CSS por pixel lógico (clique e deslocamento do HUD). Sem ?dpr=1 é igual a `scale`. */
+  let cssPerLogical = 1;
   const view = () => cur.view;
   const resize = () => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
+    if (DPR_MODE) {
+      const r = dprLayout(vw, vh, window.devicePixelRatio || 1, { zoom: ZOOM, charPct: CHAR_H_PCT, refCharPx: REF_CHAR_PX });
+      scale = r.scale;
+      cssPerLogical = r.cssPerLogical;
+      canvas.width = r.logicalW;
+      canvas.height = r.logicalH;
+      canvas.style.width = `${r.cssW}px`;
+      canvas.style.height = `${r.cssH}px`;
+      labelCanvas.width = r.logicalW * r.scale;
+      labelCanvas.height = r.logicalH * r.scale;
+      labelCanvas.style.width = `${r.cssW}px`;
+      labelCanvas.style.height = `${r.cssH}px`;
+      return;
+    }
     // Prova visual: enquadramento da referência (~25 × 14 tiles visíveis) → escala arredondada sobre 640 × 400.
     // ?zoom=N força a escala; o mapa de teste mantém a regra antiga (maior inteiro que caiba em 400 × 240).
     const auto = regionMode ? Math.max(1, Math.round(Math.min(vw / 640, vh / 400))) : Math.max(1, Math.floor(Math.min(vw / MIN_W, vh / MIN_H)));
@@ -767,6 +802,7 @@ async function boot() {
     labelCanvas.height = canvas.height * scale;
     labelCanvas.style.width = `${labelCanvas.width}px`;
     labelCanvas.style.height = `${labelCanvas.height}px`;
+    cssPerLogical = scale;
   };
   window.addEventListener("resize", resize);
   resize();
@@ -775,7 +811,7 @@ async function boot() {
   canvas.addEventListener("pointerdown", (e) => {
     if (traveling) return;
     const r = canvas.getBoundingClientRect();
-    const wpt = view().screenToWorld(Math.floor((e.clientX - r.left) / scale), Math.floor((e.clientY - r.top) / scale));
+    const wpt = view().screenToWorld(Math.floor((e.clientX - r.left) / cssPerLogical), Math.floor((e.clientY - r.top) / cssPerLogical));
     const hit = pickWild(wpt.x, wpt.y);
     if (hit) intents.push({ t: "engage", playerId: LOCAL_PLAYER, targetId: hit });
     else intents.push({ t: "move_to", playerId: LOCAL_PLAYER, x: pxToSub(wpt.x), y: pxToSub(wpt.y) });
@@ -889,7 +925,7 @@ async function boot() {
     const alpha = acc / TICK_MS;
     view().update(cur.presenter, alpha, now);
     const mePos = view().motionPos(LOCAL_PLAYER);
-    if (mePos) view().follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / scale }, now - lastFrame, view().shakeFor(cur.presenter, now));
+    if (mePos) view().follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / cssPerLogical }, now - lastFrame, view().shakeFor(cur.presenter, now));
     lastFrame = now;
     const elapsed = now - bootAt;
     view().nightMix = regionMode ? clock.nightMix(elapsed) : 0;
@@ -923,6 +959,10 @@ async function boot() {
       },
       get mapId() {
         return cur.mapId;
+      },
+      /** Escala atual (capturas da fase 2): pixels físicos/CSS por pixel lógico e o modo. */
+      get scaleInfo() {
+        return { scale, cssPerLogical, dpr: window.devicePixelRatio || 1, dprMode: DPR_MODE, logicalW: canvas.width, logicalH: canvas.height, charPct: CHAR_H_PCT };
       },
       /** Interações disparadas (Map Factory: placa, baú, cura, NPC, arena), para capturas e testes. */
       interactions,

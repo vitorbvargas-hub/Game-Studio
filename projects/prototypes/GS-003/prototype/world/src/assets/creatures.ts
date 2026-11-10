@@ -48,6 +48,14 @@ export interface CreatureManifest {
   nativeMapHeightPx?: number;
   /** v2: velocidade de referência do ciclo de walk (px/s); a cadência acompanha a velocidade real. */
   walkSpeedPxPerSec?: number;
+  /**
+   * Quadros redimensionados (não desenhados no tamanho do mapa), marcados pela fase 2 do Quality Overhaul. `frames`
+   * lista as chaves do atlas; `directions`, direções inteiras. Com ?dpr=1 (escala unificada) animações com quadros
+   * marcados não são usadas no mapa: o golpe/dano cai no efeito procedural sobre o quadro original.
+   */
+  resampled?: { anim: string; frames?: string[]; directions?: string[]; from?: string; factor?: number | null; method?: string }[];
+  /** Anatomia para o controlador de animação v2 (?anim=v2): biped | quadruped | flyer | blob. */
+  anatomy?: string;
   schemaVersion?: number;
   version?: string;
 }
@@ -192,6 +200,19 @@ export function loadSizeTable(): Record<string, SizeEntry> {
  * Fator inteiro no mapa. Padrão: mapScale do manifest (1 = nativo do DS). Com a tabela (modo "table"), usa a
  * razão altura-alvo / altura nativa arredondada para inteiro >= 1, para não sair do pixel-perfect.
  */
+/** Chaves de atlas marcadas como redimensionadas (`resampled[].frames`). */
+export function resampledKeys(m: CreatureManifest): Set<string> {
+  return new Set((m.resampled ?? []).flatMap((r) => r.frames ?? []));
+}
+
+/** A animação usa algum quadro marcado como redimensionado? */
+export function animHasResampled(m: CreatureManifest, anim: CreatureAnimation | undefined): boolean {
+  if (!anim || !m.resampled?.length) return false;
+  const bad = resampledKeys(m);
+  const all = [...anim.frames, ...Object.values(anim.dirFrames ?? {}).flat()];
+  return all.some((f) => !!f.atlasKey && bad.has(f.atlasKey));
+}
+
 export function mapScaleOf(m: CreatureManifest, table?: Record<string, SizeEntry>): number {
   const base = Math.max(1, Math.round(m.mapScale ?? 1));
   const e = table?.[m.name.toLowerCase()];

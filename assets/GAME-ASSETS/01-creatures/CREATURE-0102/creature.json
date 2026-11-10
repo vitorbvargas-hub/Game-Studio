@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "id": "CREATURE-0102",
   "name": "Dorugamon",
+  "anatomy": "quadruped",
   "category": "digital-creature",
   "rarity": "common",
   "element": "none",
