@@ -1,0 +1,494 @@
+{
+  "biome": "forest-v11-ground",
+  "note": "Responde aos 5 itens tecnicos pedidos pelo coordenador sobre forest-v10-ground-trees (integrado no jogo, branch quality-overhaul, commit 1e8f7f1): relevo/contraste no chao, autotile grama<->terra com cantos internos (Wang-47), copas night/, manchas macro com alfa corrigido, e topo de mirante vegetado. NAO sobrescreve forest-v10-ground-trees nem forest-v9-cliffs (pacote novo e paralelo) -- arvores (base+top diurno), penhasco/face e decalques de v8/v9/v10 continuam a melhor fonte e NAO sao tocados aqui. NAO integrado em prototype/world -- isso e trabalho de game-dev. 0 geracoes do PixelLab gastas -- pipeline 100% local Canvas.js.",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "ground-macro-overlay",
+    "ground-decal",
+    "decor",
+    "canopy-top",
+    "canopy-top-night",
+    "cliff-face"
+  ],
+  "palette": "Ver palette.json.",
+  "groundVariants": {
+    "note": "Substitui 1:1 (mesmos 10 slots/decalques de forest-v10-ground-trees/tileset.json groundVariants) -- so a TECNICA de preenchimento mudou (groundClumpFillRelief/dirtGrainFillRelief em vez de groundClumpFill/dirtGrainFill): mais separacao de valor (0..4 usados de verdade, nao so 2-3), microsombra sob cada cluster de tufo (elipse no tom mais escuro, deslocada pra baixo-direita) e realce na ponta da lamina mais alta de cada cluster (tom mais claro) -- o chao passa a sugerir pequenos desniveis, nao so textura. Continua tileavel por wrap-around (prova: tileability_check.png), continua NAO autotile para o chao simples.",
+    "files": [
+      {
+        "file": "tiles/ground_variant_0.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama densa, sem decalque, com relevo (clusters + microsombra)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_1.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + folhas caidas em grupo",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_2.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + raiz exposta com musgo",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_3.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + pedras com musgo (grupo de 3)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_4.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + trevo/flor esparsa",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_5.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + 1 pedra com musgo (sutil)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_6.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + folhas caidas (posicao alternativa)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_7.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + trevo esparso (sutil)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_8.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra/trilha (grao + desnivel, sem rachadura)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_9.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra + rachadura muda (tom terra, rara)",
+        "tileable": true
+      }
+    ]
+  },
+  "grassDirtTransition": {
+    "note": "Substitui o blob-16 de forest-v10-ground-trees (grass_dirt_blob_*) por um Wang-47 completo (blob_autotile47.js, novo, nao modifica blob_autotile16.js) -- cantos internos de verdade: uma celula com as 2 arestas adjacentes continuando mas a diagonal correspondente sendo grama agora renderiza um pequeno entalhe concavo em vez de preencher o canto inteiro, o que resolve a limitacao documentada no v10 (\"borda de um bloco le como retangulo com dentes a cada 32px\"). Qualquer mancha de terra, de qualquer forma (bracos de 1 celula, reentrancias), fecha organicamente. Borda tambem ganhou decoracao propria: tufos de grama mordendo a terra e pedrinhas do lado da terra, plantados exatamente ao longo do contorno que o blob resolveu (nao so a geometria do arredondamento).",
+    "pattern": "47-tile Wang/blob, cantos internos",
+    "bitmaskConvention": "edgeMask = N*1+E*2+S*4+W*8 (bit=1 se o vizinho desse lado tambem e terra) -- MESMA convencao de grass_dirt_blob/path_blob/water_blob/cliff_top_blob. diagMask = NE*1+SE*2+SW*4+NW*8 (bit=1 se o vizinho diagonal tambem e terra); so importa no canto cujas DUAS arestas adjacentes ja sao terra -- qualquer outro bit de diagMask e ignorado antes de resolver o indice (normalizado a 0), e e isso que colapsa 256 combinacoes de 8 vizinhos em exatamente 47 pecas. Index de arquivo = posicao na lista de blob_autotile47.js enumerateBlob47() (ordem estavel); placement table abaixo da enumera as 47 por index.",
+    "placementTable": [
+      {
+        "index": 0,
+        "edgeMask": 0,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_0.png"
+      },
+      {
+        "index": 1,
+        "edgeMask": 1,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_1.png"
+      },
+      {
+        "index": 2,
+        "edgeMask": 2,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_2.png"
+      },
+      {
+        "index": 3,
+        "edgeMask": 3,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_3.png"
+      },
+      {
+        "index": 4,
+        "edgeMask": 3,
+        "diagMask": 1,
+        "file": "tiles/grass_dirt_wang47_4.png"
+      },
+      {
+        "index": 5,
+        "edgeMask": 4,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_5.png"
+      },
+      {
+        "index": 6,
+        "edgeMask": 5,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_6.png"
+      },
+      {
+        "index": 7,
+        "edgeMask": 6,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_7.png"
+      },
+      {
+        "index": 8,
+        "edgeMask": 6,
+        "diagMask": 2,
+        "file": "tiles/grass_dirt_wang47_8.png"
+      },
+      {
+        "index": 9,
+        "edgeMask": 7,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_9.png"
+      },
+      {
+        "index": 10,
+        "edgeMask": 7,
+        "diagMask": 1,
+        "file": "tiles/grass_dirt_wang47_10.png"
+      },
+      {
+        "index": 11,
+        "edgeMask": 7,
+        "diagMask": 2,
+        "file": "tiles/grass_dirt_wang47_11.png"
+      },
+      {
+        "index": 12,
+        "edgeMask": 7,
+        "diagMask": 3,
+        "file": "tiles/grass_dirt_wang47_12.png"
+      },
+      {
+        "index": 13,
+        "edgeMask": 8,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_13.png"
+      },
+      {
+        "index": 14,
+        "edgeMask": 9,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_14.png"
+      },
+      {
+        "index": 15,
+        "edgeMask": 9,
+        "diagMask": 8,
+        "file": "tiles/grass_dirt_wang47_15.png"
+      },
+      {
+        "index": 16,
+        "edgeMask": 10,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_16.png"
+      },
+      {
+        "index": 17,
+        "edgeMask": 11,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_17.png"
+      },
+      {
+        "index": 18,
+        "edgeMask": 11,
+        "diagMask": 1,
+        "file": "tiles/grass_dirt_wang47_18.png"
+      },
+      {
+        "index": 19,
+        "edgeMask": 11,
+        "diagMask": 8,
+        "file": "tiles/grass_dirt_wang47_19.png"
+      },
+      {
+        "index": 20,
+        "edgeMask": 11,
+        "diagMask": 9,
+        "file": "tiles/grass_dirt_wang47_20.png"
+      },
+      {
+        "index": 21,
+        "edgeMask": 12,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_21.png"
+      },
+      {
+        "index": 22,
+        "edgeMask": 12,
+        "diagMask": 4,
+        "file": "tiles/grass_dirt_wang47_22.png"
+      },
+      {
+        "index": 23,
+        "edgeMask": 13,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_23.png"
+      },
+      {
+        "index": 24,
+        "edgeMask": 13,
+        "diagMask": 4,
+        "file": "tiles/grass_dirt_wang47_24.png"
+      },
+      {
+        "index": 25,
+        "edgeMask": 13,
+        "diagMask": 8,
+        "file": "tiles/grass_dirt_wang47_25.png"
+      },
+      {
+        "index": 26,
+        "edgeMask": 13,
+        "diagMask": 12,
+        "file": "tiles/grass_dirt_wang47_26.png"
+      },
+      {
+        "index": 27,
+        "edgeMask": 14,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_27.png"
+      },
+      {
+        "index": 28,
+        "edgeMask": 14,
+        "diagMask": 2,
+        "file": "tiles/grass_dirt_wang47_28.png"
+      },
+      {
+        "index": 29,
+        "edgeMask": 14,
+        "diagMask": 4,
+        "file": "tiles/grass_dirt_wang47_29.png"
+      },
+      {
+        "index": 30,
+        "edgeMask": 14,
+        "diagMask": 6,
+        "file": "tiles/grass_dirt_wang47_30.png"
+      },
+      {
+        "index": 31,
+        "edgeMask": 15,
+        "diagMask": 0,
+        "file": "tiles/grass_dirt_wang47_31.png"
+      },
+      {
+        "index": 32,
+        "edgeMask": 15,
+        "diagMask": 1,
+        "file": "tiles/grass_dirt_wang47_32.png"
+      },
+      {
+        "index": 33,
+        "edgeMask": 15,
+        "diagMask": 2,
+        "file": "tiles/grass_dirt_wang47_33.png"
+      },
+      {
+        "index": 34,
+        "edgeMask": 15,
+        "diagMask": 3,
+        "file": "tiles/grass_dirt_wang47_34.png"
+      },
+      {
+        "index": 35,
+        "edgeMask": 15,
+        "diagMask": 4,
+        "file": "tiles/grass_dirt_wang47_35.png"
+      },
+      {
+        "index": 36,
+        "edgeMask": 15,
+        "diagMask": 5,
+        "file": "tiles/grass_dirt_wang47_36.png"
+      },
+      {
+        "index": 37,
+        "edgeMask": 15,
+        "diagMask": 6,
+        "file": "tiles/grass_dirt_wang47_37.png"
+      },
+      {
+        "index": 38,
+        "edgeMask": 15,
+        "diagMask": 7,
+        "file": "tiles/grass_dirt_wang47_38.png"
+      },
+      {
+        "index": 39,
+        "edgeMask": 15,
+        "diagMask": 8,
+        "file": "tiles/grass_dirt_wang47_39.png"
+      },
+      {
+        "index": 40,
+        "edgeMask": 15,
+        "diagMask": 9,
+        "file": "tiles/grass_dirt_wang47_40.png"
+      },
+      {
+        "index": 41,
+        "edgeMask": 15,
+        "diagMask": 10,
+        "file": "tiles/grass_dirt_wang47_41.png"
+      },
+      {
+        "index": 42,
+        "edgeMask": 15,
+        "diagMask": 11,
+        "file": "tiles/grass_dirt_wang47_42.png"
+      },
+      {
+        "index": 43,
+        "edgeMask": 15,
+        "diagMask": 12,
+        "file": "tiles/grass_dirt_wang47_43.png"
+      },
+      {
+        "index": 44,
+        "edgeMask": 15,
+        "diagMask": 13,
+        "file": "tiles/grass_dirt_wang47_44.png"
+      },
+      {
+        "index": 45,
+        "edgeMask": 15,
+        "diagMask": 14,
+        "file": "tiles/grass_dirt_wang47_45.png"
+      },
+      {
+        "index": 46,
+        "edgeMask": 15,
+        "diagMask": 15,
+        "file": "tiles/grass_dirt_wang47_46.png"
+      }
+    ]
+  },
+  "macroOverlays": {
+    "note": "Mesma forma/tecnica de forest-v10-ground-trees (macroPatch -- lobulos organicos + dither de alfa, posicionar em pixels do MUNDO, nunca celula de tile), com a correcao pedida: alfa forcado a 0 nos 8px mais proximos da borda do PNG (antes era possivel um lobulo alcancar literalmente a borda do canvas com alfa>0, criando a linha reta que o featherAlpha do renderer tinha que compensar). Entre 8 e 20px da borda ha uma rampa suave do alfa organico ate 0, pra nao criar um corte circular visivel. Mesmos tamanhos/tints de v10 (176px GRASS_B oliva, 140px GRASS_SHADE fria) -- drop-in no mesmo lugar.",
+    "files": [
+      {
+        "file": "overlays/macro_patch_olive.png",
+        "size": "176x176",
+        "tint": "GRASS_B (oliva quente)",
+        "alphaBorder": ">=8px alfa 0 garantido"
+      },
+      {
+        "file": "overlays/macro_patch_shade.png",
+        "size": "140x140",
+        "tint": "GRASS_SHADE (poca fria)",
+        "alphaBorder": ">=8px alfa 0 garantido"
+      }
+    ]
+  },
+  "canopyNight": {
+    "note": "Versao night/ das copas (top) das 4 especies x 2 tamanhos de forest-v10-ground-trees/trees/ -- MESMA silhueta/lobulos/rim-light/sombra-interna (0 risco de divergencia de forma: cada PNG e o top diurno ja aprovado, recolorido pixel a pixel). Tecnica: cada pixel opaco e posicionado na rampa de 8 tons de dia (pelo valor/canal mais claro) e substituido pelo MESMO par de indices na rampa noturna (ver palette.json foliageDepthNight) -- realce e sombra interna ja assados no PNG diurno caem nos extremos corretos da rampa noturna de graca, sem reprocessar rim-light/AO. Collision/overlapRule inalterados (ainda usar o `base` diurno do v10 -- so o `top` tem versao night).",
+    "files": [
+      {
+        "file": "trees/night/tall_narrow_small_top.png",
+        "kind": "tall_narrow",
+        "size": "small",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/tall_narrow_small_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/tall_narrow_small_top.png"
+      },
+      {
+        "file": "trees/night/tall_narrow_large_top.png",
+        "kind": "tall_narrow",
+        "size": "large",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/tall_narrow_large_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/tall_narrow_large_top.png"
+      },
+      {
+        "file": "trees/night/wide_low_small_top.png",
+        "kind": "wide_low",
+        "size": "small",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/wide_low_small_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/wide_low_small_top.png"
+      },
+      {
+        "file": "trees/night/wide_low_large_top.png",
+        "kind": "wide_low",
+        "size": "large",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/wide_low_large_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/wide_low_large_top.png"
+      },
+      {
+        "file": "trees/night/leaning_small_top.png",
+        "kind": "leaning",
+        "size": "small",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/leaning_small_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/leaning_small_top.png"
+      },
+      {
+        "file": "trees/night/leaning_large_top.png",
+        "kind": "leaning",
+        "size": "large",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/leaning_large_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/leaning_large_top.png"
+      },
+      {
+        "file": "trees/night/ancient_thick_small_top.png",
+        "kind": "ancient_thick",
+        "size": "small",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/ancient_thick_small_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/ancient_thick_small_top.png"
+      },
+      {
+        "file": "trees/night/ancient_thick_large_top.png",
+        "kind": "ancient_thick",
+        "size": "large",
+        "pairsWithDayBase": "../forest-v10-ground-trees/trees/ancient_thick_large_base.png",
+        "pairsWithDayTop": "../forest-v10-ground-trees/trees/ancient_thick_large_top.png"
+      }
+    ]
+  },
+  "miranteTop": {
+    "note": "Substitui a laje cinza + faixa verde retangular do mirante (como ainda le no jogo hoje, porque forest-v9-cliffs nunca foi integrado em prototype/world) por um topo com grama, manchas de terra batida, clusters de pedra com musgo/AO e borda sul irregular -- MESMA geometria blob-16 (blob_autotile16.js, nao modificado) e MESMAS rampas de forest-v9-cliffs (d.grass/d.dirt/d.stone/d.mossEdge via buildDepthRamps(), 0 hex novo), entao casa visualmente com o penhasco ja aprovado (ver mirante_assembly_demo.png, que usa as pecas de face/rampa REAIS de forest-v9-cliffs lidas do disco). Acrescenta mais presenca de pedra (clusters com musgo/AO, nao so pixels soltos) e um wobble de borda mais forte que o cliff_top_blob de v9-cliffs, respondendo literalmente ao pedido \"com pedras e borda irregular\".",
+    "pattern": "16-tile blob, mesmo bitmask de forest-v9-cliffs cliff_top_blob",
+    "files": [
+      "mirante/mirante_top_blob_0.png",
+      "mirante/mirante_top_blob_1.png",
+      "mirante/mirante_top_blob_2.png",
+      "mirante/mirante_top_blob_3.png",
+      "mirante/mirante_top_blob_4.png",
+      "mirante/mirante_top_blob_5.png",
+      "mirante/mirante_top_blob_6.png",
+      "mirante/mirante_top_blob_7.png",
+      "mirante/mirante_top_blob_8.png",
+      "mirante/mirante_top_blob_9.png",
+      "mirante/mirante_top_blob_10.png",
+      "mirante/mirante_top_blob_11.png",
+      "mirante/mirante_top_blob_12.png",
+      "mirante/mirante_top_blob_13.png",
+      "mirante/mirante_top_blob_14.png",
+      "mirante/mirante_top_blob_15.png"
+    ],
+    "demo": "mirante/mirante_assembly_demo.png -- plataforma de silhueta IRREGULAR (reentrancia + saliencia, nao um retangulo) assentada sobre face/rampa/cantos reais de forest-v9-cliffs."
+  }
+}
