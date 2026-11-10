@@ -22,7 +22,7 @@ export function extraPackFiles(e) {
   const root = e.root === "game-assets" ? join(GAME_ASSETS, "03-environments") : MAP_FACTORY_ART;
   const out = new Map();
   for (const f of walk(root)) {
-    if (!/\.png$/i.test(f) || !f.includes(`/${e.pack}/`) || /\/night\//.test(f) || /\/preview\.png$/i.test(f) || /\/concept\//.test(f)) continue;
+    if (!/\.png$/i.test(f) || !f.includes(`/${e.pack}/`) || /\/night\//.test(f) || /\/(preview|before_after[^/]*|tileability_check|[^/]*_demo|[^/]*_comparison)\.png$/i.test(f) || /\/concept\//.test(f)) continue;
     out.set(basename(f).replace(/\.png$/i, ""), f);
   }
   const files = new Map();

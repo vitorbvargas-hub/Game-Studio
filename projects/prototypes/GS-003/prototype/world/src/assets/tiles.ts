@@ -81,13 +81,24 @@ export function countDwdsSources(src: Record<string, TileSource>): number {
  * PNGs de um pacote da Map Factory (projects/prototypes/GS-003/art/map-factory/<pack>/, do game-art, fora do
  * GAME-ASSETS), chaveados pelo nome do arquivo. A prancha `preview.png` e a pasta `concept/` do pacote ficam de fora.
  */
-export function loadMapFactoryPack(pack: string): Record<string, TileSource> {
+/**
+ * PNGs de prova do pacote (prancha, antes/depois, teste de tileabilidade, montagens de demonstração): não são peças
+ * de produção e não entram no mapa de tiles (senão o jogo carregaria imagens de até 1200 px que nunca desenha).
+ */
+export const PACK_PROOF_RE = /\/(preview|before_after[^/]*|tileability_check|[^/]*_demo|[^/]*_comparison)\.png$/i;
+
+/**
+ * PNGs de um pacote da Map Factory, por nome de arquivo. `preset`: "day" (padrão) ignora as pastas night/;
+ * "night" devolve só os PNGs dentro de alguma pasta night/ do pacote (ex. forest-v11-ground/trees/night/).
+ */
+export function loadMapFactoryPack(pack: string, preset: "day" | "night" = "day"): Record<string, TileSource> {
   const pngs = import.meta.glob<string>("@gs003-art/map-factory/**/*.png", { eager: true, query: "?url", import: "default" });
   const out: Record<string, TileSource> = {};
   for (const [path, url] of Object.entries(pngs)) {
     const p = path.replace(/\\/g, "/");
     // concept/: arte de apoio a decisão (ex. kuwagamon_concept do forest-v7), não é peça de produção
-    if (!p.includes(`/map-factory/${pack}/`) || /\/preview\.png$/i.test(p) || /\/concept\//.test(p)) continue;
+    if (!p.includes(`/map-factory/${pack}/`) || PACK_PROOF_RE.test(p) || /\/concept\//.test(p)) continue;
+    if (/\/night\//.test(p) !== (preset === "night")) continue;
     out[p.split("/").pop()!.replace(/\.png$/i, "")] = { url };
   }
   return out;

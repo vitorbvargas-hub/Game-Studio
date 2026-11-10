@@ -1,0 +1,185 @@
+{
+  "date": "2026-11-10T21:50:37.983Z",
+  "base": "http://127.0.0.1:5192",
+  "tag": "antes",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {},
+  "ground": {},
+  "perf": [
+    {
+      "framing": "jogo",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 7,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 3.4,
+        "p99": 4.3,
+        "mean": 1.4,
+        "max": 5.3
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.333,
+        "max": 16.8
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 1.9,
+        "p95": 2.3,
+        "p99": 2.9,
+        "mean": 1.953,
+        "max": 3.7
+      }
+    },
+    {
+      "framing": "jogo",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 5,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 4.4,
+        "p99": 5.1,
+        "mean": 1.92,
+        "max": 10.7
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.333,
+        "max": 16.8
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 2.9,
+        "p95": 3.6,
+        "p99": 4.4,
+        "mean": 2.977,
+        "max": 9.5
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 16.6,
+        "p99": 18.7,
+        "mean": 6.98,
+        "max": 24.6
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 33.4,
+        "p99": 33.4,
+        "mean": 12.916,
+        "max": 50
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 18.9,
+        "p95": 21.5,
+        "p99": 26.1,
+        "mean": 19.156,
+        "max": 30.4
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 16.3,
+        "p99": 17.8,
+        "mean": 7.724,
+        "max": 25.6
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 33.4,
+        "p99": 33.4,
+        "mean": 13.277,
+        "max": 49.9
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 24.5,
+        "p95": 35.7,
+        "p99": 46.4,
+        "mean": 26.114,
+        "max": 58.7
+      }
+    }
+  ]
+}

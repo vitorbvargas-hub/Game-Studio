@@ -13,12 +13,15 @@ import { globalTileFilter, loadMapFactoryPack, loadTileSources, type TileSource 
  * `root: "map-factory"` (padrão) lê de art/map-factory/<pack>/; "game-assets" lê de 03-environments/<pack>/.
  * Sem preset noturno: a noite usa os mesmos PNGs. `crops`: chaves extras recortadas de um PNG do pacote
  * (ex. a ponte de 3 tiles vira 3 tiles de chão), '<prefix><chave>' → rect [x, y, w, h] de '<from>'.
+ * `nightFor`: os PNGs das pastas night/ do pacote são o preset noturno das chaves '<nightFor><nome>' (de outro
+ * pacote): forest-v11-ground/trees/night/<espécie>_<tamanho>_top.png é a copa noturna de fp10_<espécie>_<tamanho>.
  */
 export interface ExtraPack {
   pack: string;
   prefix: string;
   root?: "map-factory" | "game-assets";
   crops?: Record<string, { from: string; rect: [number, number, number, number] }>;
+  nightFor?: string;
 }
 
 export interface ScenePack {
@@ -73,19 +76,21 @@ export function resolvePackTiles(
 }
 
 /** Chaves dos pacotes suplementares, já com prefixo (e os recortes). `load` lê os PNGs de um pacote (testável). */
-export function extraPackTiles(cfg: ScenePack, load: (e: ExtraPack) => Record<string, TileSource> = loadExtraPack): Record<string, TileSource> {
+export function extraPackTiles(cfg: ScenePack, load: (e: ExtraPack, preset: Preset) => Record<string, TileSource> = loadExtraPack, preset: Preset = "day"): Record<string, TileSource> {
   const out: Record<string, TileSource> = {};
   for (const e of cfg.extraPacks ?? []) {
-    const src = load(e);
+    const src = load(e, "day");
     for (const [k, v] of Object.entries(src)) out[e.prefix + k] = v;
     for (const [k, c] of Object.entries(e.crops ?? {})) if (src[c.from]) out[e.prefix + k] = { url: src[c.from].url, rect: c.rect };
   }
+  // preset noturno de chaves de outros pacotes: aplicado depois, vence a versão diurna
+  if (preset === "night") for (const e of cfg.extraPacks ?? []) if (e.nightFor) for (const [k, v] of Object.entries(load(e, "night"))) out[e.nightFor + k] = v;
   return out;
 }
 
-function loadExtraPack(e: ExtraPack): Record<string, TileSource> {
-  if (e.root === "game-assets") return loadTileSources(true, (p) => p.includes(`/${e.pack}/`) && !/\/night\//.test(p));
-  return loadMapFactoryPack(e.pack);
+function loadExtraPack(e: ExtraPack, preset: Preset): Record<string, TileSource> {
+  if (e.root === "game-assets") return preset === "night" ? {} : loadTileSources(true, (p) => p.includes(`/${e.pack}/`) && !/\/night\//.test(p));
+  return loadMapFactoryPack(e.pack, preset);
 }
 
 /** Resumo de uma linha para o console ("forest-v4/dia: 62/62 chaves · placeholder: 0"). */
@@ -100,7 +105,7 @@ export function loadSceneTiles(
   used: Iterable<string>,
   includeDwds = true,
 ): { tiles: Record<string, TileSource>; missing: string[]; fromPack: number } {
-  const base = { ...loadTileSources(includeDwds, globalTileFilter), ...extraPackTiles(cfg) };
+  const base = { ...loadTileSources(includeDwds, globalTileFilter), ...extraPackTiles(cfg, undefined, preset) };
   return resolvePackTiles(base, loadTileSources(true, presetFilter(cfg, cfg.night ? preset : "day")), cfg, used);
 }
 

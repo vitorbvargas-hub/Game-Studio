@@ -56,7 +56,17 @@ describe("look v9: dados derivados do v8", () => {
     const m9 = parseTiledMap(ID, withLook(MAPS[ID], "v9").tmj);
     // P7 recompõe só a caixa x12–41 × y6–29 (tests/p7-clareira.test.ts); fora dela os props são os mesmos
     const out = (p: { x: number; y: number }) => p.x < 12 * 32 || p.x >= 42 * 32 || p.y < 6 * 32 || p.y >= 30 * 32;
-    expect(m9.props.filter(out)).toEqual(m8.props.filter(out));
+    // forest-v11: as árvores comuns do v4 viram as do v10 no mapa todo (mesma posição e colisão, outra chave)
+    const v10tree = /^fp10_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)$/;
+    const common = /^fp4_tree_(?!palm_digital|data_leaf)/;
+    const p8 = m8.props.filter(out);
+    const p9 = m9.props.filter(out);
+    expect(p9.length).toBe(p8.length);
+    p9.forEach((p, i) => {
+      const q = p8[i];
+      if (v10tree.test(p.key)) expect(common.test(q.key), `${q.key} → ${p.key}`).toBe(true);
+      expect({ ...p, key: v10tree.test(p.key) ? q.key : p.key }).toEqual(q);
+    });
     const outCell = (i: number) => out({ x: (i % m8.width) * 32 + 16, y: Math.floor(i / m8.width) * 32 + 16 });
     expect([...m9.solid].filter((_, i) => outCell(i))).toEqual([...m8.solid].filter((_, i) => outCell(i)));
     expect(m8.fgProps).toBeUndefined();
@@ -153,7 +163,9 @@ describe("vida do mapa (life.ts)", () => {
   });
 });
 
-describe("look v9 no renderer", () => {
+// o setup carrega todos os PNGs do pacote v9 via @napi-rs/canvas (com o forest-v11 são ~75 a mais); isolado leva ~1 s,
+// mas com a suíte inteira em paralelo passava às vezes dos 5 s padrão
+describe("look v9 no renderer", { timeout: 20000 }, () => {
   const waterCell = (sim: Awaited<ReturnType<typeof setup>>["sim"]) => {
     const c = sim.map.curves!.find((c) => c.terrain === "water")!;
     return c.points[Math.floor(c.points.length / 2)];

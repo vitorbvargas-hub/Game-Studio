@@ -1,0 +1,262 @@
+{
+  "date": "2026-11-10T21:43:14.766Z",
+  "base": "http://127.0.0.1:5192",
+  "tag": "antes",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v11_antes_zoom_clareira-leste.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        39,
+        17,
+        48,
+        22
+      ],
+      "camera": {
+        "x": 1184,
+        "y": 693,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 0,
+        "width": 1152,
+        "height": 640
+      }
+    },
+    "v11_antes_zoom_clareira-norte.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        5,
+        2,
+        12,
+        6
+      ],
+      "camera": {
+        "x": 96,
+        "y": 21,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 172,
+        "width": 896,
+        "height": 512
+      }
+    },
+    "v11_antes_zoom_acampamento.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        38,
+        23,
+        47,
+        30
+      ],
+      "camera": {
+        "x": 1120,
+        "y": 757,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 384,
+        "y": 0,
+        "width": 1152,
+        "height": 896
+      }
+    },
+    "v11_antes_zoom_terra-fonte.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        29,
+        18,
+        38,
+        24
+      ],
+      "camera": {
+        "x": 864,
+        "y": 565,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 44,
+        "width": 1152,
+        "height": 768
+      }
+    },
+    "v11_antes_zoom_terra-trilha-riacho.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        14,
+        1,
+        23,
+        8
+      ],
+      "camera": {
+        "x": 384,
+        "y": 53,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 0,
+        "width": 1152,
+        "height": 896
+      }
+    },
+    "v11_antes_zoom_terra-trilha-vau.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        8,
+        17,
+        15,
+        23
+      ],
+      "camera": {
+        "x": 160,
+        "y": 533,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 384,
+        "y": 44,
+        "width": 896,
+        "height": 768
+      }
+    },
+    "v11_antes_zoom_mirante.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        19,
+        13,
+        30,
+        20
+      ],
+      "camera": {
+        "x": 576,
+        "y": 437,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 128,
+        "y": 0,
+        "width": 1408,
+        "height": 896
+      }
+    },
+    "v11_antes_zoom_mirante_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "night",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        19,
+        13,
+        30,
+        20
+      ],
+      "camera": {
+        "x": 576,
+        "y": 437,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 128,
+        "y": 0,
+        "width": 1408,
+        "height": 896
+      }
+    }
+  },
+  "ground": {
+    "clareira-leste": {
+      "seamPairs": 2707,
+      "innerPairs": 88113,
+      "seamMeanDiff": 15.46,
+      "innerMeanDiff": 17.85,
+      "ratio": 0.87
+    },
+    "clareira-norte": {
+      "seamPairs": 1431,
+      "innerPairs": 54861,
+      "seamMeanDiff": 18.88,
+      "innerMeanDiff": 24.44,
+      "ratio": 0.77
+    },
+    "acampamento": {
+      "seamPairs": 3793,
+      "innerPairs": 123699,
+      "seamMeanDiff": 16.97,
+      "innerMeanDiff": 18.52,
+      "ratio": 0.92
+    },
+    "terra-fonte": {
+      "seamPairs": 2963,
+      "innerPairs": 106193,
+      "seamMeanDiff": 13.31,
+      "innerMeanDiff": 19.83,
+      "ratio": 0.67
+    },
+    "terra-trilha-riacho": {
+      "seamPairs": 3793,
+      "innerPairs": 123699,
+      "seamMeanDiff": 11.66,
+      "innerMeanDiff": 14.54,
+      "ratio": 0.8
+    },
+    "terra-trilha-vau": {
+      "seamPairs": 2261,
+      "innerPairs": 82511,
+      "seamMeanDiff": 12.69,
+      "innerMeanDiff": 19.33,
+      "ratio": 0.66
+    },
+    "mirante": {
+      "seamPairs": 4687,
+      "innerPairs": 151285,
+      "seamMeanDiff": 35.9,
+      "innerMeanDiff": 29.61,
+      "ratio": 1.21
+    },
+    "mirante-noite": {
+      "seamPairs": 4687,
+      "innerPairs": 151285,
+      "seamMeanDiff": 22.21,
+      "innerMeanDiff": 19.22,
+      "ratio": 1.16
+    }
+  },
+  "perf": []
+}

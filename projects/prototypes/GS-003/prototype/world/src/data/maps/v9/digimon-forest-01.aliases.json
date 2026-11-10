@@ -78,15 +78,15 @@
       "keepOwnDirt": true,
       "outside": "edge",
       "ground": [
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_7",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_4",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_5",
-        "fp10_ground_variant_0"
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_7",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_4",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_5",
+        "fp11_ground_variant_0"
       ],
       "threshold": 0.62,
       "noise": 0.1,
@@ -97,15 +97,15 @@
       "full": "fp4_denseedge_w47_255",
       "outside": "fill",
       "ground": [
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_7",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_4",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_5",
-        "fp10_ground_variant_0"
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_7",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_4",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_5",
+        "fp11_ground_variant_0"
       ],
       "threshold": 0.64,
       "noise": 0.1,
@@ -116,15 +116,15 @@
       "full": "fp7_wg_c16_15",
       "outside": "edge",
       "ground": [
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_7",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_4",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_0",
-        "fp10_ground_variant_5",
-        "fp10_ground_variant_0"
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_7",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_4",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_0",
+        "fp11_ground_variant_5",
+        "fp11_ground_variant_0"
       ],
       "threshold": 0.62,
       "noise": 0.1,
@@ -363,6 +363,12 @@
       "pack": "forest-v10-ground-trees",
       "prefix": "fp10_",
       "root": "map-factory"
+    },
+    {
+      "pack": "forest-v11-ground",
+      "prefix": "fp11_",
+      "root": "map-factory",
+      "nightFor": "fp10_"
     }
   ],
   "look": {
@@ -380,6 +386,28 @@
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
         {
+          "match": "^fp11_grass_dirt_wang47_",
+          "saturationMul": 0.78,
+          "valueMul": 0.6,
+          "earth": {
+            "saturationMul": 0.55,
+            "valueMul": 0.74,
+            "tint": "#5e4a62",
+            "tintMix": 0.28,
+            "night": {
+              "saturationMul": 0.45,
+              "valueMul": 0.72,
+              "tint": "#4a3c70",
+              "tintMix": 0.5
+            }
+          }
+        },
+        {
+          "match": "^fp11_(ground_variant_|macro_patch_|mirante_top_blob_)",
+          "saturationMul": 0.78,
+          "valueMul": 0.6
+        },
+        {
           "match": "^fp10_(ground_variant_|grass_dirt_blob_|macro_patch_)",
           "saturationMul": 0.78,
           "valueMul": 0.6
@@ -387,14 +415,7 @@
         {
           "match": "^fp10_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)_",
           "saturationMul": 0.92,
-          "valueMul": 0.9,
-          "night": {
-            "saturationMul": 0.6,
-            "valueMul": 0.95,
-            "hueShift": 40,
-            "tint": "#5a62c8",
-            "tintMix": 0.45
-          }
+          "valueMul": 0.9
         },
         {
           "match": "^fp10_",

@@ -64,8 +64,11 @@ const ALL_SPECIES = ["tall_narrow", "wide_low", "leaning", "ancient_thick"];
  * @param look    look v9 (mutado: regras de grade, árvores com rim baked, topOffset)
  * @param outPack aliases do v9 (mutado: pacote extra fp10_ e chão do recorte suave)
  * @param h       { TS, prop, layer, solid:Set, nearAny, paths, water, table, artRoot }
+ * @param opts    { dirt = true: terra batida blob-16 (o forest-v11 desliga e refaz em Wang-47);
+ *                  treesEverywhere = false: troca as árvores do mapa todo, não só as da caixa do P7 }
  */
-export function applyForestV10(tmj, look, outPack, h) {
+export function applyForestV10(tmj, look, outPack, h, opts = {}) {
+  const { dirt: withDirt = true, treesEverywhere = false } = opts;
   const { TS, prop, layer, solid, nearAny, paths, water, table, artRoot } = h;
   const PACK = join(artRoot, V10_PACK);
   const W = tmj.width;
@@ -109,7 +112,7 @@ export function applyForestV10(tmj, look, outPack, h) {
   report.dirt = [];
   const dirtTag = new Map();
   for (const [tag, o, rx, ry, ox, oy] of DIRT) {
-    if (!o) continue;
+    if (!o || !withDirt) continue;
     // centro deslocado (ox/oy em tiles) para o lado com chão livre: a fogueira encosta na mata a oeste
     const cx = o.x / TS + ox;
     const cy = (o.y - 4) / TS + oy;
@@ -232,7 +235,8 @@ export function applyForestV10(tmj, look, outPack, h) {
   report.macro = macro.map((m) => ({ key: m.key.slice(V10_PREFIX.length), px: [m.x, m.y], inClareira: inBox(m.x, m.y), flip: m.flip }));
 
   // ---------- 4. árvores da clareira ----------
-  const trees = below.filter((o) => inBox(o.x, o.y) && TREE_MAP[prop(o, "key")]).sort((a, b) => a.y - b.y || a.x - b.x);
+  const treeArea = (o) => treesEverywhere || inBox(o.x, o.y);
+  const trees = below.filter((o) => treeArea(o) && TREE_MAP[prop(o, "key")]).sort((a, b) => a.y - b.y || a.x - b.x);
   const done = [];
   const swappedTrees = {};
   for (const o of trees) {
@@ -255,7 +259,7 @@ export function applyForestV10(tmj, look, outPack, h) {
     done.push({ x: o.x, y: o.y, key: pick });
     swappedTrees[pick] = (swappedTrees[pick] ?? 0) + 1;
   }
-  report.trees = { swapped: trees.length, byKey: Object.fromEntries(Object.entries(swappedTrees).sort()), keptDigital: below.filter((o) => inBox(o.x, o.y) && /^fp4_tree_(palm_digital|data_leaf)$/.test(prop(o, "key"))).length };
+  report.trees = { swapped: trees.length, byKey: Object.fromEntries(Object.entries(swappedTrees).sort()), keptDigital: below.filter((o) => treeArea(o) && /^fp4_tree_(palm_digital|data_leaf)$/.test(prop(o, "key"))).length };
 
   // ---------- 5. decalques novos na clareira ----------
   const decals = layer("decals");
@@ -287,7 +291,9 @@ export function applyForestV10(tmj, look, outPack, h) {
       const d = 22 + hash(t.id, a, 1403) * 12;
       const x = Math.round(t.x + Math.cos(ang) * d * 1.3);
       const y = Math.round(t.y + 2 + Math.abs(Math.sin(ang)) * d * 0.6);
-      if (!inBox(x, y) || nearAny(paths, x, y) < 6 || blocked(x, y, 12)) continue;
+      // dentro do mapa (árvore da borda da mata: o decalque não pode cair fora dele)
+      if (x < 8 || y < 8 || x > W * TS - 8 || y > H * TS - 2) continue;
+      if (!treeArea({ x, y }) || nearAny(paths, x, y) < 6 || blocked(x, y, 12)) continue;
       addDecal(k, x, y, 1404);
       break;
     }
@@ -313,13 +319,8 @@ export function applyForestV10(tmj, look, outPack, h) {
     { match: `^${V10_PREFIX}(ground_variant_|grass_dirt_blob_|macro_patch_)`, saturationMul: 0.78, valueMul: 0.6 },
     // árvores: grade mais leve que a dos props fp8_ (0,85/0,74), senão a copa nova fica bem mais escura que a mata do
     // v4 em volta da clareira (as copas do v10 já vêm com sombra interna pintada)
-    // (o pacote não tem preset noturno: à noite a copa vai para o azul-violeta da noite do forest-v4)
-    {
-      match: `^${V10_PREFIX}(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)_`,
-      saturationMul: 0.92,
-      valueMul: 0.9,
-      night: { saturationMul: 0.6, valueMul: 0.95, hueShift: 40, tint: "#5a62c8", tintMix: 0.45 },
-    },
+    // (a noite da copa é arte própria: forest-v11-ground/trees/night/, ligada por `nightFor` no v11-ground.mjs)
+    { match: `^${V10_PREFIX}(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)_`, saturationMul: 0.92, valueMul: 0.9 },
     { match: `^${V10_PREFIX}`, saturationMul: 0.85, valueMul: 0.74 },
     ...look.grade.rules.filter((r) => !r.match.startsWith(`^${V10_PREFIX}`)),
   ];

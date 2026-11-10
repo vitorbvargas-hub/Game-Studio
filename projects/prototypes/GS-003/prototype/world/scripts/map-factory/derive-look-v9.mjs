@@ -10,6 +10,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { composeClareira, ratio603010, BOX } from "./p7-clareira.mjs";
 import { applyForestV10 } from "./v10-ground-trees.mjs";
+import { applyForestV11 } from "./v11-ground.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const V8 = join(ROOT, "src/data/maps/v8");
@@ -235,7 +236,13 @@ if (kitTiles.size) {
 }
 // ---------- forest-v10: chão tileável, manchas macro, terra batida, 4 espécies de árvore e decalques ----------
 // (art/map-factory/forest-v10-ground-trees/, game-art fc34af2 + 1fb06d1; ver v10-ground-trees.mjs)
-p7.v10 = applyForestV10(tmj, look, outPack, { TS, prop, layer, solid, nearAny, paths, water, table, artRoot: join(ROOT, "../../art/map-factory") });
+// forest-v11 (fundador: "pode seguir com tudo"): sem a terra batida blob-16 (refeita em Wang-47 no v11) e com as
+// árvores do v10 no mapa todo, não só na caixa do P7 (as digitais, palmeira e data_leaf, ficam todas)
+const artRoot = join(ROOT, "../../art/map-factory");
+p7.v10 = applyForestV10(tmj, look, outPack, { TS, prop, layer, solid, nearAny, paths, water, table, artRoot }, { dirt: false, treesEverywhere: true });
+// ---------- forest-v11: chão com relevo, terra batida Wang-47, manchas corrigidas, copas noturnas, topo do mirante ----------
+// (art/map-factory/forest-v11-ground/, game-art 97a1fdb; ver v11-ground.mjs)
+p7.v11 = applyForestV11(tmj, look, outPack, { TS, prop, layer, solid, nearAny, paths, water, table, artRoot });
 p7.ratioV10 = ratio603010(tmj, { TS, prop, layer, solid, nearAny, water }, { x0: BOX.x0 * TS, y0: BOX.y0 * TS, x1: (BOX.x1 + 1) * TS, y1: (BOX.y1 + 1) * TS });
 
 look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };

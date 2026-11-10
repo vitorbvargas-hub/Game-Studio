@@ -18,11 +18,13 @@ export interface GradeRule {
   tint?: string;
   tintMix?: number;
   /**
-   * Arte sem preset noturno (pacotes extras da Map Factory): valores próprios da noite, no lugar dos do dia. Sem
-   * isto a noite reaproveita a regra do dia com o valor suavizado. forest-v10: copas puxadas para o azul da noite do
-   * forest-v4, senão ficam verdes no meio da mata azul.
+   * Pixels de terra (matiz marrom/laranja, h < 45° ou ≥ 345°, saturação > 0,12) com valores próprios: um tile que
+   * mistura grama e terra (forest-v11 grass_dirt_wang47_*) põe a grama no tom do chão e a terra no tom da trilha.
    */
-  night?: Omit<GradeRule, "match" | "skip" | "night">;
+  earth?: Pick<GradeRule, "saturationMul" | "valueMul" | "tint" | "tintMix"> & {
+    /** À noite (a terra não tem preset noturno; a trilha tem): valores no lugar dos do dia, valor sem suavizar. */
+    night?: Pick<GradeRule, "saturationMul" | "valueMul" | "tint" | "tintMix">;
+  };
 }
 
 export interface LightCfg {
@@ -114,20 +116,24 @@ export function gradeRuleFor(key: string, look: LookCfg): GradeRule | undefined 
  * Grade de cor em RGBA no lugar (palette.json renderPreset): HSV com saturação e valor multiplicados; os ~12% de
  * pixels mais claros (rim de luz) com os multiplicadores mais suaves; sombras empurradas para o azul/roxo.
  */
-export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule0?: GradeRule, night = false): void {
+export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule?: GradeRule, night = false): void {
   const g = look.grade;
-  const ownNight = night && !!rule0?.night;
-  const rule = ownNight ? { ...rule0!, ...rule0!.night } : rule0;
   const sMul = rule?.saturationMul ?? g.groundFoliageSaturationMul ?? 0.64;
   // à noite o pacote já é escuro: o grade mexe só um pouco no valor (senão escurece duas vezes)
   const vMul0 = rule?.valueMul ?? g.groundFoliageValueMul ?? 0.8;
-  const vMul = night && !ownNight ? 1 - (1 - vMul0) * 0.3 : vMul0;
+  const vMul = night ? 1 - (1 - vMul0) * 0.3 : vMul0;
   const tint = rule?.tint ? hexRgb(rule.tint).map((v) => v / 255) : undefined;
   const tMix = rule?.tintMix ?? 0;
   const rimS = rule ? Math.min(1, sMul * 1.25) : (g.rimHighlightSaturationMul ?? 0.88);
   const rimV = rule ? Math.min(1, vMul * 1.15) : (g.rimHighlightValueMul ?? 0.92);
   const hue = rule?.hueShift ?? 0;
   const cool = g.coolShift ?? 0;
+  const earth = rule?.earth && night && rule.earth.night ? rule.earth.night : rule?.earth;
+  const eS = earth?.saturationMul ?? sMul;
+  const eV0 = earth?.valueMul ?? vMul0;
+  const eV = night && earth === rule?.earth ? 1 - (1 - eV0) * 0.3 : eV0;
+  const eTint = earth?.tint ? hexRgb(earth.tint).map((v) => v / 255) : tint;
+  const eMix = earth ? (earth.tintMix ?? 0) : tMix;
   // limiar dos 12% mais claros por valor
   const hist = new Uint32Array(256);
   let n = 0;
@@ -149,17 +155,25 @@ export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule0?: GradeRu
     if (!d[i + 3]) continue;
     const rim = Math.max(d[i], d[i + 1], d[i + 2]) >= rimAt;
     let [h, s, v] = rgbToHsv(d[i] / 255, d[i + 1] / 255, d[i + 2] / 255);
-    s *= rim ? rimS : sMul;
-    v *= rim ? rimV : vMul;
+    const isEarth = !!earth && (h < 45 || h >= 345) && s > 0.12;
+    if (isEarth) {
+      s *= eS;
+      v *= rim ? Math.min(1, eV * 1.15) : eV;
+    } else {
+      s *= rim ? rimS : sMul;
+      v *= rim ? rimV : vMul;
+    }
     // verdes e amarelos giram um pouco para o frio (nada de verde-limão)
     if (h > 50 && h < 170) h = Math.min(180, h + hue + 6 * (1 - Math.abs(h - 100) / 70));
     let [r, gg, b] = hsvToRgb(h, Math.min(1, s), Math.min(1, v));
-    if (tint && tMix > 0) {
+    const tc = isEarth ? eTint : tint;
+    const tm = isEarth ? eMix : tMix;
+    if (tc && tm > 0) {
       // tinta multiplicada pela luminância do pixel (mantém o desenho)
       const l = Math.min(1, (0.3 * r + 0.59 * gg + 0.11 * b) / 0.45);
-      r += (tint[0] * l - r) * tMix;
-      gg += (tint[1] * l - gg) * tMix;
-      b += (tint[2] * l - b) * tMix;
+      r += (tc[0] * l - r) * tm;
+      gg += (tc[1] * l - gg) * tm;
+      b += (tc[2] * l - b) * tm;
     }
     if (cool > 0 && v < 0.42) {
       const k = cool * (1 - v / 0.42);
@@ -279,22 +293,6 @@ export function drawPatches(g: CanvasRenderingContext2D, patches: MapPatch[], x0
 }
 
 /** Decalques de chão (camada `decals`) que tocam o chunk, centrados no ponto, com flip horizontal. */
-/**
- * forest-v10: as manchas macro chegam com alfa baixo (até ~50) encostado na borda do PNG; cortada ali, a mancha
- * mostraria uma linha reta no chão. Multiplica o alfa por uma rampa suave (smoothstep) nos `f` px de cada borda.
- */
-export function featherAlpha(data: Uint8ClampedArray, w: number, h: number, f: number): void {
-  if (f <= 0) return;
-  for (let y = 0; y < h; y++)
-    for (let x = 0; x < w; x++) {
-      const d = Math.min(x, y, w - 1 - x, h - 1 - y);
-      if (d >= f) continue;
-      const t = d / f;
-      const i = (y * w + x) * 4 + 3;
-      data[i] = Math.round(data[i] * t * t * (3 - 2 * t));
-    }
-}
-
 export function drawDecals(g: CanvasRenderingContext2D, decals: MapDecal[], x0: number, y0: number, size: number, imageOf: (key: string) => { img: CanvasImageSource; w: number; h: number; rect?: [number, number, number, number] } | undefined): void {
   for (const dc of decals) {
     const src = imageOf(dc.key);
