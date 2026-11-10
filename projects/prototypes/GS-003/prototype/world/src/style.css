@@ -3379,3 +3379,153 @@ body {
   pointer-events: auto;
   z-index: 5;
 }
+
+/* ======================================================================================================
+   P8 — HUD v2, itens P0 (quality-overhaul/phase2/design/P8_HUD_V2_SPEC.md §9), atrás de ?hud=v2.
+   Tudo aqui é escopado em .hud-v2: sem a flag nenhuma regra deste bloco se aplica (HUD atual intacto).
+   Arte PROVISÓRIA em CSS: moldura nível 1 chanfrada sem o ornamento "garra" (P1) nem fonte bitmap (P2).
+   ====================================================================================================== */
+.hud-v2 {
+  --f1-bg: rgba(14, 16, 24, 0.78);
+  /* chanfro de 4 px nos 4 cantos (§2: nível 1 usa clip-path, nunca border-radius) */
+  --chamfer: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+}
+/* Moldura nível 1 (§2): borda 3 px na cor do estado, fundo 0,78, cantos cortados */
+.hud-v2 .f1 {
+  --f1c: var(--ui-border-hi);
+  border: 3px solid var(--f1c) !important;
+  border-radius: 0 !important;
+  background: var(--f1-bg) !important;
+  clip-path: var(--chamfer);
+}
+/* §2.1: PV ≥ 50% verde, 20–49% dourado, < 20% vermelho com pulso 0,6↔1,0 a cada 600 ms */
+.hud-v2 .f1.tier-ok {
+  --f1c: var(--ui-green);
+}
+.hud-v2 .f1.tier-warn {
+  --f1c: var(--ui-gold);
+}
+.hud-v2 .f1.tier-crit {
+  --f1c: var(--ui-red);
+  animation: hudv2-crit 0.6s ease-in-out infinite alternate;
+}
+@keyframes hudv2-crit {
+  from {
+    border-color: rgba(228, 59, 68, 1);
+  }
+  to {
+    border-color: rgba(228, 59, 68, 0.6);
+  }
+}
+/* Bloco TAMER (§4.1, novo). 136 px e não 120: 48 (retrato) + 68 (barras) + 4 (gap) + 2×4 (padding) + 2×3 (borda)
+   não cabem em 120 — a spec fixa as duas medidas internas, então a externa cresce. */
+.hud-v2 .hud-tamer {
+  flex: none;
+  width: 136px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+}
+.hud-v2 .hud-tamer .tp-ph {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ui-border);
+  clip-path: var(--chamfer);
+  /* placeholder provisório: listras + rótulo, até o recorte do Tamer existir (TAMER_PORTRAIT_CROP) */
+  background: repeating-linear-gradient(45deg, #1c2030 0 4px, #242a40 4px 8px);
+  color: var(--ui-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.hud-v2 .hud-tamer .tinfo {
+  width: 68px;
+  flex: none;
+}
+.hud-v2 .hud-tamer .tname {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.hud-v2 .hud-tamer .tname b {
+  color: var(--ui-text);
+}
+.hud-v2 .hud-tamer .tname span {
+  color: var(--ui-gold);
+  font-weight: 700;
+}
+.hud-v2 .tbar {
+  width: 68px;
+  height: 7px;
+  box-sizing: border-box;
+  background: #262b40;
+  border: 1px solid #0b0d13;
+  overflow: hidden;
+}
+.hud-v2 .tbar.en {
+  height: 5px;
+  margin-top: 2px;
+}
+.hud-v2 .tbar i {
+  display: block;
+  height: 100%;
+  transition: width 0.25s;
+}
+.hud-v2 .tbar.hp i {
+  background: linear-gradient(#8fe07a, #3e8948);
+}
+.hud-v2 .hud-tamer.tier-warn .tbar.hp i {
+  background: linear-gradient(#ffe27a, #c48a1f);
+}
+.hud-v2 .hud-tamer.tier-crit .tbar.hp i {
+  background: linear-gradient(#ff7a80, #a8232b);
+}
+.hud-v2 .tbar.en i {
+  background: linear-gradient(#9ad4ff, #3a78c4);
+}
+/* Parceiro (§4.1): moldura nível 1 reativa + anel de 3 px na cor do atributo em volta do retrato */
+.hud-v2 .hud-partner .pt {
+  box-shadow: 0 0 0 3px var(--ring, #b8c2d8);
+  margin: 3px;
+}
+.hud-v2 .hud-partner.tier-warn .hud-bar.hp i {
+  background: repeating-linear-gradient(90deg, #ffd66b 0 5px, #c48a1f 5px 6px);
+}
+.hud-v2 .hud-partner.tier-crit .hud-bar.hp i {
+  background: repeating-linear-gradient(90deg, #ff6b73 0 5px, #a8232b 5px 6px);
+}
+/* Hotbar (§4.4): slot 52×52 com borda nível 1 (3 px) na cor da categoria do golpe; fundo tingido pelo token k-* */
+.hud-v2 .hud-moves.f1 {
+  --f1c: var(--ui-border);
+}
+.hud-v2 .mv {
+  box-sizing: border-box;
+  width: 52px;
+  height: 52px;
+  border-width: 3px;
+  border-radius: 0;
+  clip-path: var(--chamfer);
+}
+.hud-v2 .mv canvas {
+  margin: -1px;
+}
+.hud-v2 .mv[data-kind] {
+  border-color: var(--mk-border);
+  background: linear-gradient(var(--mk-bg), #0d0f16 85%);
+}
+.hud-v2 .mv[data-kind]:hover {
+  filter: brightness(1.25);
+  transition: filter 0.1s ease-out;
+}
+/* seleção tem prioridade sobre a categoria (§3/§4.1): o golpe na fila fica dourado */
+.hud-v2 .mv.queued {
+  border-color: var(--ui-gold);
+}

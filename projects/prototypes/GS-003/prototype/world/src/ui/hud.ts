@@ -11,6 +11,7 @@ import type { AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
+import { affinityColor, hpPct, hpTier, MOVE_KIND_V2, tamerBlockHtml, type HudVariant, type TamerVitals } from "./hud-v2";
 import { editRules, moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
 
 export interface HudCallbacks {
@@ -47,6 +48,8 @@ export interface HudOptions {
   minimap?: Minimap;
   /** Atalhos com tela própria (onShortcut); "team" é sempre do HUD. */
   shortcuts?: string[];
+  /** P8: "v2" liga o HUD v2 (?hud=v2: bloco do Tamer, molduras nível 1 reativas, hotbar por categoria). */
+  variant?: HudVariant;
 }
 
 /** Atalhos da grade (2 × 6). Só "Equipe" abre algo nesta prova; o resto avisa "Em breve". */
@@ -261,6 +264,66 @@ export class Hud {
     });
     this.setAuto(initialAuto);
     this.renderTamerXp();
+    if (this.v2) {
+      root.classList.add("hud-v2");
+      this.partnerBox.classList.add("f1");
+      this.partnerBox.insertAdjacentHTML("beforebegin", tamerBlockHtml({ name: sc.tamerName, level: this.tamerLevel, hp: 1, maxHp: 1, energy: 1, maxEnergy: 1 }));
+      this.moveBar.classList.add("f1");
+    }
+  }
+
+  get v2(): boolean {
+    return this.opts.variant === "v2";
+  }
+
+  /** P8 v2: bloco do Tamer (PV + Energia, moldura reativa). Sem a flag não faz nada. */
+  updateTamer(v: TamerVitals): void {
+    const el = this.root.querySelector<HTMLElement>(".hud-tamer");
+    if (!el) return;
+    const hp = hpPct(v.hp, v.maxHp);
+    const tier = hpTier(hp);
+    if (el.dataset.tier !== tier) {
+      el.classList.remove("tier-ok", "tier-warn", "tier-crit");
+      el.classList.add(`tier-${tier}`);
+      el.dataset.tier = tier;
+    }
+    el.querySelector<HTMLElement>('[data-testid="tamer-name"]')!.textContent = v.name;
+    el.querySelector<HTMLElement>('[data-testid="tamer-lv"]')!.textContent = String(v.level);
+    el.querySelector<HTMLElement>('[data-testid="tamer-hp"]')!.style.width = `${hp}%`;
+    el.querySelector<HTMLElement>('[data-testid="tamer-en"]')!.style.width = `${hpPct(v.energy, v.maxEnergy)}%`;
+    el.title = `${v.name} — PV ${v.hp}/${v.maxHp}`;
+  }
+
+  /** P8 v2: borda da hotbar pela categoria do golpe de cada slot (§4.4). */
+  private paintMoveKinds(v: MovesView): void {
+    this.moveBar.querySelectorAll<HTMLElement>(".mv").forEach((b, i) => {
+      const id = v.moves[i];
+      const kind = id ? this.content.moves.moves[id]?.type : undefined;
+      if ((b.dataset.kind ?? "") === (kind ?? "")) return;
+      if (kind) {
+        b.dataset.kind = kind;
+        b.style.setProperty("--mk-border", MOVE_KIND_V2[kind].border);
+        b.style.setProperty("--mk-bg", MOVE_KIND_V2[kind].bg);
+      } else {
+        delete b.dataset.kind;
+        b.style.removeProperty("--mk-border");
+        b.style.removeProperty("--mk-bg");
+      }
+    });
+  }
+
+  /** P8 v2: moldura nível 1 do parceiro (faixa de PV, §2.1) e anel do retrato na cor do atributo (§4.1). */
+  private paintPartnerFrame(p: EntitySnapshot): void {
+    const tier = hpTier(hpPct(p.hp, p.maxHp));
+    const box = this.partnerBox;
+    if (box.dataset.tier !== tier) {
+      box.classList.remove("tier-ok", "tier-warn", "tier-crit");
+      box.classList.add(`tier-${tier}`);
+      box.dataset.tier = tier;
+    }
+    const aff = p.speciesId ? this.content.species[p.speciesId]?.affinity : undefined;
+    box.style.setProperty("--ring", affinityColor(aff));
+    box.dataset.affinity = aff ?? "";
   }
 
   setAutoEvolve(on: boolean): void {
@@ -453,6 +516,7 @@ export class Hud {
   updateMoves(v: MovesView): void {
     this.movesView = v;
     updateMoveBar(this.moveBar, this.content.moves, v, (c, m) => this.icon(c, m));
+    if (this.v2) this.paintMoveKinds(v);
     const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready, v.stats, v.evoPrefs]);
     if (key === this.movesKey) return;
     this.movesKey = key;
@@ -556,6 +620,7 @@ export class Hud {
       this.animateXp(xpRow, last, { level: p.level, xp, pct: xpPct });
     }
     this.partnerShown = { level: p.level, xp, pct: xpPct };
+    if (this.v2) this.paintPartnerFrame(p);
     this.renderTeam();
   }
 

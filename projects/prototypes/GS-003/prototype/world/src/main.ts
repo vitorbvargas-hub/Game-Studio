@@ -54,6 +54,7 @@ import { setSkipResampled } from "./render/anim";
 import { EncounterFx } from "./render/encounterFx";
 import { ENCOUNTER_TABLES, periodOf } from "./sim/encounters/table";
 import { mountEncounterDebug } from "./ui/encdebug";
+import { hudVariantOf } from "./ui/hud-v2";
 
 
 const params = new URLSearchParams(location.search);
@@ -98,6 +99,14 @@ const ANIM_V2 = params.get("anim") === "v2";
 const ENC_DEBUG = params.get("encdebug") === "1";
 const ENCOUNTERS = params.get("encounters") === "1" || ENC_DEBUG;
 const WEATHER = params.get("weather") ?? "clear";
+/**
+ * ?hud=v2 (Quality Overhaul P8, só os itens P0 da spec): bloco do Tamer com PV/Energia, molduras nível 1 reativas,
+ * hotbar por categoria, placa de alvo por raridade e "!" com fundo, grama de encontro com vento 2×. Sem a flag, o
+ * HUD atual. ?tamerhp=N (0–100, só com hud=v2) força o PV mostrado do Tamer para testar as 3 faixas da moldura.
+ */
+const HUD_VARIANT = hudVariantOf(params);
+const HUD_V2 = HUD_VARIANT === "v2";
+const TAMER_HP_FORCE = params.has("tamerhp") ? Math.max(0, Math.min(100, Number(params.get("tamerhp")) || 0)) : undefined;
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
@@ -405,6 +414,7 @@ async function boot() {
       minimap: new Minimap(cur.sim.map, browserCanvasFactory),
       moveIcon: drawMoveIcon,
       shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear", "arena"] : [],
+      variant: HUD_VARIANT,
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -986,6 +996,13 @@ async function boot() {
       else if (hud.evolvePending) hud.releaseEvolve();
       hud.updatePartner(shown, partner.xp, xpToNext(cur.sim.content.balance, partner.level), player().bits);
       hud.updateMoves(movesView(cur.sim, partner, player().evoPrefs));
+    }
+    if (HUD_V2) {
+      // Tamer: a sim não dá dano ao Tamer hoje (PV sempre cheio); a Energia ainda não tem regra (só visual, cheia)
+      const t = getEntity(cur.sim.state, player().tamerId);
+      const maxHp = t?.maxHp || 100;
+      const hp = TAMER_HP_FORCE !== undefined ? Math.round((maxHp * TAMER_HP_FORCE) / 100) : t?.hp ?? maxHp;
+      hud.updateTamer({ name: t?.name ?? "Tamer", level: hud.tamerProgress().level, hp, maxHp, energy: 1, maxEnergy: 1 });
     }
     requestAnimationFrame(frame);
   };
