@@ -57,6 +57,7 @@ import { drawTargetPlate, platesFor } from "./render/targetplate";
 import { ENCOUNTER_TABLES, periodOf } from "./sim/encounters/table";
 import { mountEncounterDebug } from "./ui/encdebug";
 import { hudVariantOf } from "./ui/hud-v2";
+import { DIGIVICE_KEY } from "./ui/digivice";
 
 
 const params = new URLSearchParams(location.search);
@@ -440,6 +441,11 @@ async function boot() {
       onSetEvoPref: (from, to) => intents.push({ t: "set_evo_pref", playerId: LOCAL_PLAYER, from, to }),
       onAutoEvolve: (on) => intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on }),
       onShortcut: (id) => openScreen(id),
+      // HUD v2 (Digivice): recompensas do Chefe Mundial/Conquistas pelo mesmo add_bits das Missões
+      onGrantBits: (bits) => {
+        intents.push({ t: "add_bits", playerId: LOCAL_PLAYER, bits });
+        setTimeout(persist, 150);
+      },
     },
     player().auto,
     {
@@ -449,6 +455,7 @@ async function boot() {
       moveIcon: drawMoveIcon,
       shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear", "arena"] : [],
       variant: HUD_VARIANT,
+      digivice: HUD_VARIANT === "v2" ? { storage, captured: player().captured } : undefined,
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -842,6 +849,7 @@ async function boot() {
       // apaga o save e recomeça (o autosave para antes, para não regravar)
       resetting = true;
       storage?.removeItem(SAVE_KEY);
+      storage?.removeItem(DIGIVICE_KEY);
       location.reload();
       return;
     } else return;

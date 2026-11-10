@@ -11,6 +11,8 @@ import type { AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
+import { Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
+import type { StorageLike } from "../save/save";
 import { affinityColor, hpPct, hpTier, MOVE_KIND_V2, tamerBlockHtml, type HudVariant, type TamerVitals } from "./hud-v2";
 import { editRules, moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
 
@@ -28,6 +30,8 @@ export interface HudCallbacks {
   onAutoEvolve?(on: boolean): void;
   /** Atalho de uma tela secundária ligada (map, dex, inv, quest, gear); o resto avisa "em breve". */
   onShortcut?(id: string): void;
+  /** HUD v2 (Digivice): concede bits de uma recompensa coletada (Chefe Mundial, Conquistas) — o main vira add_bits. */
+  onGrantBits?(bits: number): void;
 }
 
 export interface HudScene {
@@ -50,6 +54,8 @@ export interface HudOptions {
   shortcuts?: string[];
   /** P8: "v2" liga o HUD v2 (?hud=v2: bloco do Tamer, molduras nível 1 reativas, hotbar por categoria). */
   variant?: HudVariant;
+  /** HUD v2: onde o Digivice guarda o próprio estado (chave separada do save) e as espécies já escaneadas. */
+  digivice?: { storage?: StorageLike; captured?: string[]; now?: () => number };
 }
 
 /** Atalhos da grade (2 × 6). Só "Equipe" abre algo nesta prova; o resto avisa "Em breve". */
@@ -141,6 +147,9 @@ export class Hud {
   private swapping?: string;
   private closeTimer?: ReturnType<typeof setTimeout>;
   private readonly scene: HudScene;
+  private region: { name: string; route: string };
+  /** HUD v2 (?hud=v2): hub Digivice no lugar do .hud-tr. */
+  readonly digivice?: Digivice;
 
   constructor(
     private readonly root: HTMLElement,
@@ -152,6 +161,7 @@ export class Hud {
   ) {
     this.scene = opts.scene ?? DEFAULT_SCENE;
     this.tamerLevel = this.scene.tamerLevel;
+    this.region = { ...this.scene.region };
     const sc = this.scene;
     root.innerHTML = `
       <div class="hud-tl">
@@ -166,7 +176,7 @@ export class Hud {
           <button class="autoevo-btn" data-act="autoevo" aria-pressed="false" title="Auto-evoluir: ao atingir o nível, a parceira evolui sozinha fora de combate (herda até 2 golpes)">${icon("evo", 12)}Auto-evoluir <i data-testid="autoevo-state">DESL.</i></button>
         </div>
       </div>
-      <div class="hud-tr">
+      ${this.v2 ? digiviceHudHtml() : `<div class="hud-tr">
         <div class="coins">${icon("coin", 16)}<b data-testid="coins">0</b><span>bits</span><button class="plus" data-soon="Loja" title="Em breve">+</button></div>
         <button class="event gold" data-soon="Passe de Temporada">${icon("star", 16)}<b>PASSE DE TEMPORADA</b></button>
         <div class="event">${icon("gift", 16)}<span>Fonte dos Desejos</span><em>61%</em></div>
@@ -175,7 +185,7 @@ export class Hud {
         </div>
         <div class="event dim">${icon("boss", 16)}<span>Chefe Mundial</span><em>6h55</em></div>
         <div class="event dim">${icon("guild", 16)}<span>Guilda dominante da rota</span><em>—</em></div>
-      </div>
+      </div>`}
       <ol class="hud-log" aria-live="polite"></ol>
       <div class="hud-chat collapsed">
         <button class="chat-head" data-act="chat">${icon("chat", 18)}<span><b>Chat</b><small data-testid="chat-last"></small></span><i class="badge">${sc.chat.length}</i></button>
@@ -231,7 +241,7 @@ export class Hud {
 
     // Cliques no HUD não chegam ao canvas (não viram "andar até aqui").
     root.addEventListener("pointerdown", (e) => {
-      if ((e.target as HTMLElement).closest("button, .modal-wrap, .hud-bottom, .hud-tr, .hud-chat, input")) e.stopPropagation();
+      if ((e.target as HTMLElement).closest("button, .modal-wrap, .hud-bottom, .hud-tr, .dg, .hud-chat, input")) e.stopPropagation();
     });
     this.autoBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -252,6 +262,13 @@ export class Hud {
       const short = t.closest<HTMLElement>("[data-short]");
       const soon = t.closest<HTMLElement>("[data-soon]");
       const act = t.closest<HTMLElement>("[data-act]")?.dataset.act;
+      const dg = t.closest<HTMLElement>("[data-dg]")?.dataset.dg ?? (short && this.digivice ? SHORTCUT_TO_HUB[short.dataset.short!] : undefined);
+      if (this.digivice && dg) {
+        this.closeTeam();
+        return this.digivice.openPanel(dg);
+      }
+      if (this.digivice && act === "digivice") return this.digivice.toggle();
+      if (this.digivice && short) this.digivice.closePanels();
       if (short?.dataset.short === "team") this.openTeam();
       else if (short && this.enabled(short.dataset.short!)) cb.onShortcut?.(short.dataset.short!);
       else if (short) this.toast(`${short.title.replace(/ — em breve$/, "")}: em breve`);
@@ -269,7 +286,40 @@ export class Hud {
       this.partnerBox.classList.add("f1");
       this.partnerBox.insertAdjacentHTML("beforebegin", tamerBlockHtml({ name: sc.tamerName, level: this.tamerLevel, hp: 1, maxHp: 1, energy: 1, maxEnergy: 1 }));
       this.moveBar.classList.add("f1");
+      this.digivice = new Digivice({
+        root,
+        playerId,
+        storage: opts.digivice?.storage,
+        captured: opts.digivice?.captured,
+        now: opts.digivice?.now,
+        tamerName: () => this.scene.tamerName,
+        region: () => this.region,
+        tamerLevel: () => this.tamerLevel,
+        grantBits: (bits) => cb.onGrantBits?.(bits),
+        toast: (m) => this.toast(m),
+      });
+      this.bindDigiviceKeys();
     }
+  }
+
+  /** HUD v2: H abre/fecha o hub; Esc fecha hub e painéis do Digivice; as teclas das outras telas fecham os painéis dele. */
+  private bindDigiviceKeys(): void {
+    const dv = this.digivice!;
+    window.addEventListener("keydown", (e) => {
+      if ((e.target as HTMLElement).closest?.("input, select, textarea")) return;
+      if (document.querySelector(".arena:not([hidden])")) return;
+      const k = e.key.toLowerCase();
+      if (k === "escape") {
+        dv.close();
+        dv.closePanels();
+      } else if (k === "h" && !e.repeat) {
+        if (dv.anyPanelOpen) dv.closePanels();
+        dv.toggle(true);
+      } else if ("mviqoe".includes(k) && k.length === 1) dv.closePanels();
+    });
+    document.addEventListener("pointerdown", (e) => {
+      if (dv.isOpen && !(e.target as HTMLElement).closest?.(".dg")) dv.close();
+    });
   }
 
   get v2(): boolean {
@@ -343,6 +393,7 @@ export class Hud {
     this.tamerLevel = Math.max(1, Math.floor(level));
     this.tamerXp = Math.max(0, Math.floor(xp));
     this.renderTamerXp();
+    this.digivice?.noteTamerLevel(this.tamerLevel);
   }
 
   /** Há avisos de digivolução esperando o clarão. */
@@ -478,6 +529,10 @@ export class Hud {
           break;
       }
     }
+    if (this.digivice) {
+      this.digivice.onEvents(events);
+      this.digivice.noteTamerLevel(this.tamerLevel);
+    }
   }
 
   /** Aviso grande de golpe aprendido / evolução, em fila (um por vez). */
@@ -585,12 +640,17 @@ export class Hud {
     this.tamerXpEl.querySelector<HTMLElement>(".bar i")!.style.width = `${Math.round((this.tamerXp / this.tamerNext()) * 100)}%`;
   }
 
+  /** Moeda (faixa de bits do Digivice no v2, caixa .coins no v1). */
+  setBits(bits: number): void {
+    this.coins.textContent = fmt(bits);
+  }
+
   /** Digimon ativo (painel + slot 1 da equipe) e moeda. */
   updatePartner(p: EntitySnapshot | undefined, xp: number, xpNext: number, bits: number): void {
     if (!p) return;
     this.partner = p;
     this.partnerXp = { xp, next: xpNext };
-    this.coins.textContent = fmt(bits);
+    this.setBits(bits);
     const hpPct = Math.round((p.hp / p.maxHp) * 100);
     const xpPct = xpNext > 0 ? Math.round((xp / xpNext) * 100) : 0;
     // A estrutura só é refeita quando muda a espécie/nome; nível, PV e XP mudam no lugar, para a barra animar.
@@ -717,6 +777,8 @@ export class Hud {
 
   /** Região atual (troca de mapa): pílula do topo e etiqueta do minimapa. */
   setRegion(name: string, route: string): void {
+    this.region = { name, route };
+    this.digivice?.noteRegion(regionKey(this.region));
     this.root.querySelector(".pill.region b")!.textContent = name;
     this.root.querySelector(".pill.region span")!.textContent = route;
     this.root.querySelector('[data-testid="mm-region"]')!.textContent = name;

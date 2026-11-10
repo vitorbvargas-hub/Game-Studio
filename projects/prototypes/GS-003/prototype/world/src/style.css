@@ -3559,3 +3559,554 @@ body {
 .hud-v2 .mv.queued {
   border-color: var(--ui-gold);
 }
+
+/* ======================================================================================================
+   HUD Identity v3 — Alternativa A "Digivice Radial" (quality-overhaul/phase3/design/HUD_IDENTITY_V3.md §2) e
+   abas P0 do PANELS_SPEC.md (Chefe Mundial, Conquistas, moldura de Configurações), atrás de ?hud=v2.
+   Linguagem "circuito digital" (docs/DIGIMON_GAMES_STUDY.md, Next Order): molduras chanfradas, traços de circuito,
+   ciano/azul. Arte PROVISÓRIA em CSS/SVG; o kit 9-slice vem do game-art. Tudo escopado em .hud-v2.
+   ====================================================================================================== */
+.hud-v2 {
+  --dg-cyan: #2ce8f5;
+  --dg-blue: #0099db;
+  --dg-deep: #124e89;
+  --dg-ink: rgba(8, 20, 34, 0.86);
+  --dg-line: rgba(44, 232, 245, 0.55);
+  --chamfer8: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  /* traços de circuito: linhas finas + "pads" quadrados, só com gradientes (sem imagem) */
+  --dg-circuit: linear-gradient(90deg, transparent 0 12px, var(--dg-line) 12px 40px, transparent 40px) 0 6px / 100% 1px no-repeat,
+    linear-gradient(90deg, var(--dg-cyan), var(--dg-cyan)) 40px 4px / 4px 4px no-repeat,
+    linear-gradient(90deg, transparent 0 calc(100% - 52px), var(--dg-line) calc(100% - 52px) calc(100% - 12px), transparent 0) 0 calc(100% - 6px) / 100% 1px no-repeat,
+    linear-gradient(90deg, var(--dg-cyan), var(--dg-cyan)) calc(100% - 56px) calc(100% - 8px) / 4px 4px no-repeat;
+}
+.hud-v2 .dg {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 200px;
+  pointer-events: none;
+  z-index: 5;
+}
+.hud-v2 .dg-ribbon {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 0 10px 0 18px;
+  background: linear-gradient(90deg, transparent, rgba(14, 16, 28, 0.55) 22px);
+  border-bottom: 1px solid var(--dg-line);
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%);
+  font-size: 12px;
+  pointer-events: auto;
+}
+.hud-v2 .dg-ribbon b {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+.hud-v2 .dg-ribbon span {
+  color: var(--ui-dim);
+  font-size: 10px;
+}
+.hud-v2 .dg-hubwrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 6px 4px 0 auto;
+}
+.hud-v2 .dg-hub {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.5));
+  transition: transform 0.16s ease-out, filter 0.16s ease-out;
+}
+.hud-v2 .dg-hub:hover,
+.hud-v2 .dg-hub:focus-visible {
+  filter: drop-shadow(0 0 4px rgba(44, 232, 245, 0.7));
+  outline: none;
+}
+.hud-v2 .dg.open .dg-hub {
+  transform: rotate(-12deg) scale(1.04);
+}
+.hud-v2 .dg-emblem {
+  display: block;
+}
+.hud-v2 .dg-emblem .dg-track {
+  fill: rgba(14, 16, 28, 0.88);
+  stroke: #2b3a55;
+  stroke-width: 4;
+}
+.hud-v2 .dg-emblem .dg-bossarc {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 3;
+  transition: stroke-dasharray 0.4s ease-out;
+}
+.hud-v2 .dg-emblem .dg-bossarc.gold {
+  stroke: var(--ui-gold);
+}
+.hud-v2 .dg-emblem .dg-bossarc.red {
+  stroke: var(--ui-red);
+}
+.hud-v2 .dg[data-boss="available"] .dg-bossarc,
+.hud-v2 .dg[data-boss="reward"] .dg-bossarc {
+  animation: dg-pulse 0.6s ease-in-out infinite alternate;
+}
+.hud-v2 .dg-emblem .dg-face {
+  fill: #0d2238;
+  stroke: var(--dg-cyan);
+  stroke-width: 1.5;
+}
+.hud-v2 .dg-emblem .dg-trace {
+  fill: none;
+  stroke: var(--dg-blue);
+  stroke-width: 1.5;
+}
+.hud-v2 .dg-emblem .dg-screen {
+  fill: #0b3b56;
+  stroke: var(--dg-cyan);
+  stroke-width: 1.5;
+}
+.hud-v2 .dg-emblem .dg-glyph {
+  fill: var(--dg-cyan);
+  fill-rule: evenodd;
+}
+.hud-v2 .dg-emblem .dg-node-dot {
+  fill: var(--dg-cyan);
+}
+.hud-v2 .dg.open .dg-screen {
+  fill: #0f5878;
+}
+.hud-v2 .dg-pip {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--ui-gold);
+  box-shadow: 0 0 0 1px #171a26, 0 0 4px rgba(232, 184, 74, 0.9);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.hud-v2 .dg-pip[hidden] {
+  display: none;
+}
+/* arco de atalhos: nascem do centro do hub e vão até a posição no arco (--x/--y), escalonados */
+.hud-v2 .dg-arc {
+  position: absolute;
+  left: 32px;
+  top: 32px;
+  width: 0;
+  height: 0;
+  z-index: 1;
+}
+.hud-v2 .dg-node {
+  position: absolute;
+  left: -17px;
+  top: -17px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid var(--dg-cyan);
+  background: linear-gradient(160deg, rgba(18, 78, 137, 0.92), var(--dg-ink));
+  clip-path: var(--chamfer);
+  opacity: 0;
+  transform: translate(0, 0) scale(0.4);
+  pointer-events: none;
+  transition: transform 0.1s ease-in, opacity 0.1s ease-in;
+}
+.hud-v2 .dg.open .dg-node {
+  opacity: 1;
+  transform: translate(var(--x), var(--y)) scale(1);
+  pointer-events: auto;
+  transition: transform 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.2) calc(var(--i) * 30ms), opacity 0.12s ease-out calc(var(--i) * 30ms);
+}
+.hud-v2 .dg-node:hover,
+.hud-v2 .dg-node:focus-visible {
+  outline: none;
+  border-color: #b8f6ff;
+  background: linear-gradient(160deg, rgba(0, 153, 219, 0.95), rgba(10, 40, 66, 0.92));
+}
+.hud-v2 .dg-node.tier-P1,
+.hud-v2 .dg-node.tier-P2 {
+  border-color: #3b5470;
+  filter: saturate(0.35) brightness(0.8);
+}
+.hud-v2 .dg-node .dg-lock {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 6px;
+  height: 5px;
+  background: #8b93b0;
+  box-shadow: 0 -2px 0 -1px #8b93b0;
+}
+.hud-v2 .dg-node.has-news::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 5px;
+  height: 5px;
+  background: var(--ui-gold);
+}
+.hud-v2 .dg-caption {
+  /* rótulo do atalho sob o pé do arco (o atalho de baixo termina em 32 + ARC_RADIUS + 16 = 168 px) */
+  position: absolute;
+  right: 0;
+  top: 174px;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--dg-cyan);
+  text-shadow: 0 1px 0 #000;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.hud-v2 .dg-caption:empty {
+  display: none;
+}
+@keyframes dg-pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud-v2 .dg-node,
+  .hud-v2 .dg.open .dg-node,
+  .hud-v2 .dg-hub {
+    transition: none;
+  }
+  .hud-v2 .dg[data-boss] .dg-bossarc {
+    animation: none;
+  }
+}
+
+/* Painéis no v2 (inclui Configurações — PANELS_SPEC §7: só a moldura): chanfro, borda ciano dupla, circuito */
+.hud-v2 .modal.panel {
+  border: 0;
+  border-radius: 0;
+  clip-path: var(--chamfer8);
+  background: var(--dg-circuit), linear-gradient(180deg, rgba(12, 34, 56, 0.97), rgba(9, 14, 24, 0.97));
+  box-shadow: inset 0 0 0 2px var(--dg-cyan), inset 0 0 0 4px rgba(8, 20, 34, 0.9), inset 0 0 0 5px var(--dg-deep), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+.hud-v2 .modal.panel header {
+  margin: 6px 6px 0;
+  border-bottom: 1px solid var(--dg-line);
+  background: linear-gradient(90deg, rgba(0, 153, 219, 0.35), transparent 70%);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.hud-v2 .modal.panel h2 {
+  color: #d9fbff;
+  text-shadow: 0 0 6px rgba(44, 232, 245, 0.45);
+}
+.hud-v2 .modal.panel .panel-body {
+  padding: 10px 16px 16px;
+}
+.hud-v2 .settings .st-row {
+  border-color: rgba(44, 232, 245, 0.25);
+}
+.hud-v2 .dg-panel .modal.panel {
+  width: min(640px, 94vw);
+}
+.hud-v2 .dg-frame {
+  border: 1px solid var(--dg-line);
+  background: rgba(8, 28, 46, 0.7);
+  clip-path: var(--chamfer);
+}
+.hud-v2 .dg-cta {
+  padding: 7px 18px;
+  border: 2px solid var(--dg-cyan);
+  background: linear-gradient(180deg, #0f6a98, #0b3b56);
+  color: #eaffff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  clip-path: var(--chamfer);
+}
+.hud-v2 .dg-cta:hover {
+  filter: brightness(1.2);
+}
+.hud-v2 .dg-cta.sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+.hud-v2 .dg-sub {
+  margin: 14px 0 6px;
+  color: var(--dg-cyan);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hud-v2 .dg-empty {
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .dg-bar {
+  flex: 1;
+  height: 6px;
+  background: #0b1a2a;
+  border: 1px solid #1f4566;
+}
+.hud-v2 .dg-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--dg-blue), var(--dg-cyan));
+}
+/* Chefe Mundial */
+.hud-v2 .wb-banner {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+}
+.hud-v2 .wb-portrait {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(228, 59, 68, 0.35), rgba(8, 20, 34, 0.9) 70%);
+  border: 2px solid var(--ui-red);
+  clip-path: var(--chamfer);
+}
+.hud-v2 .wb-id {
+  flex: 1;
+}
+.hud-v2 .wb-id small {
+  color: var(--ui-dim);
+  font-size: 11px;
+}
+.hud-v2 .wb-id h3 {
+  margin: 2px 0 6px;
+  font-size: 18px;
+}
+.hud-v2 .wb-id h3 span {
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .wb-hp {
+  height: 8px;
+  background: #1a0d12;
+  border: 1px solid #5a1f27;
+}
+.hud-v2 .wb-hp i {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, #ff6b73 0 6px, #e43b44 6px 7px);
+  transition: width 0.3s ease-out;
+}
+.hud-v2 .wb-state {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.hud-v2 .wb-state p {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 13px;
+}
+.hud-v2 .wb-state small {
+  color: var(--ui-dim);
+}
+.hud-v2 .wb-timer {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.hud-v2 .wb-timer span {
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .wb-timer b {
+  font-size: 22px;
+  color: var(--ui-gold);
+  font-variant-numeric: tabular-nums;
+}
+.hud-v2 .wb-reward {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ui-gold);
+  font-size: 16px;
+}
+.hud-v2 .wb-rank {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+}
+.hud-v2 .wb-rank li {
+  display: grid;
+  grid-template-columns: 30px 1fr auto 40px 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(44, 232, 245, 0.12);
+}
+.hud-v2 .wb-rank li.you {
+  background: linear-gradient(90deg, rgba(232, 184, 74, 0.18), transparent);
+  border-left: 2px solid var(--ui-gold);
+}
+.hud-v2 .wb-rank li.bot b {
+  color: #9fb3c8;
+}
+.hud-v2 .wb-rank em {
+  font-style: normal;
+  color: var(--dg-cyan);
+}
+.hud-v2 .wb-rank i {
+  font-style: normal;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.hud-v2 .wb-rank small {
+  color: var(--ui-dim);
+  text-align: right;
+}
+.hud-v2 .tag {
+  font-size: 10px;
+  padding: 1px 5px;
+  border: 1px solid #3b5470;
+  color: #9fb3c8;
+}
+.hud-v2 .tag.you {
+  border-color: var(--ui-gold);
+  color: var(--ui-gold);
+}
+/* Conquistas */
+.hud-v2 .ach-head {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.hud-v2 .ach-head b {
+  font-size: 20px;
+  color: var(--dg-cyan);
+}
+.hud-v2 .ach-head span {
+  color: var(--ui-dim);
+}
+.hud-v2 .dg-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.hud-v2 .dg-tab {
+  position: relative;
+  padding: 5px 12px;
+  font-size: 12px;
+  border: 1px solid #2b4a68;
+  background: rgba(8, 28, 46, 0.8);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.hud-v2 .dg-tab.on {
+  border-color: var(--dg-cyan);
+  color: var(--dg-cyan);
+  background: rgba(0, 153, 219, 0.28);
+}
+.hud-v2 .dg-tab.locked {
+  color: var(--ui-dim);
+}
+.hud-v2 .dg-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 5px;
+  height: 5px;
+  background: var(--ui-gold);
+}
+.hud-v2 .ach {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  margin-bottom: 4px;
+  border: 1px solid rgba(44, 232, 245, 0.22);
+  background: rgba(8, 28, 46, 0.55);
+  clip-path: var(--chamfer);
+}
+.hud-v2 .ach-main {
+  flex: 1;
+  min-width: 0;
+}
+.hud-v2 .ach-main b {
+  display: block;
+  font-size: 13px;
+}
+.hud-v2 .ach-main small {
+  display: block;
+  color: #b4bdd6;
+  font-size: 11.5px;
+}
+.hud-v2 .ach .row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.hud-v2 .ach .row em {
+  font-style: normal;
+  font-size: 11px;
+  min-width: 36px;
+}
+.hud-v2 .ach .row .dim {
+  display: inline;
+  color: var(--ui-dim);
+}
+/* bloqueada = progresso 0: dessaturada, sem cadeado (PANELS_SPEC §6) */
+.hud-v2 .ach.locked {
+  filter: grayscale(0.9);
+  opacity: 0.6;
+}
+.hud-v2 .ach.complete {
+  border-color: var(--ui-gold);
+  background: linear-gradient(90deg, rgba(232, 184, 74, 0.16), rgba(8, 28, 46, 0.55));
+}
+.hud-v2 .ach.claimed .dg-bar i {
+  background: var(--ui-green);
+}
+.hud-v2 .ach-ok {
+  color: var(--ui-green);
+  font-size: 18px;
+  width: 30px;
+  text-align: center;
+}
+.hud-v2 .dg-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 26px 20px;
+  text-align: center;
+  border: 1px dashed #3b5470;
+}
+.hud-v2 .dg-locked .ico {
+  filter: grayscale(0.7);
+  opacity: 0.8;
+}
+.hud-v2 .dg-locked b {
+  color: #9fb3c8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hud-v2 .dg-locked p {
+  margin: 0;
+  max-width: 440px;
+  font-size: 13px;
+}
+.hud-v2 .dg-locked small {
+  color: var(--ui-dim);
+  font-size: 11px;
+}

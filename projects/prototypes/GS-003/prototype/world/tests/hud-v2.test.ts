@@ -66,6 +66,10 @@ describe("P8 HUD v2 — DOM", () => {
     expect(root.querySelector(".hud-tamer")).toBeNull();
     expect(root.querySelector(".f1")).toBeNull();
     expect(root.querySelector('[data-testid="partner"]')!.className).toBe("hud-partner");
+    // Digivice Radial (HUD_IDENTITY_V3 Alt A): sem a flag o .hud-tr antigo fica e o hub não entra
+    expect(root.querySelector(".hud-tr")).not.toBeNull();
+    expect(root.querySelector(".dg, .dg-panel, [data-panel^='dg-']")).toBeNull();
+    expect(hud.digivice).toBeUndefined();
   });
 
   it("§4.1/§10.2: bloco Tamer à esquerda do parceiro, com PV e Energia; moldura muda nos 3 limiares", () => {
