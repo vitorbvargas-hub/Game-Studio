@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-10T09:36:06.430Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "fb1_parado_v1_E_antes.png": {
+      "dir": "E",
+      "anim": "v1",
+      "standPoseOff": true
+    },
+    "fb1_parado_v1_E_depois.png": {
+      "dir": "E",
+      "anim": "v1",
+      "standPoseOff": false
+    },
+    "fb1_parado_v1_S_antes.png": {
+      "dir": "S",
+      "anim": "v1",
+      "standPoseOff": true
+    },
+    "fb1_parado_v1_S_depois.png": {
+      "dir": "S",
+      "anim": "v1",
+      "standPoseOff": false
+    },
+    "fb1_parado_v1_W_antes.png": {
+      "dir": "W",
+      "anim": "v1",
+      "standPoseOff": true
+    },
+    "fb1_parado_v1_W_depois.png": {
+      "dir": "W",
+      "anim": "v1",
+      "standPoseOff": false
+    },
+    "fb1_parado_v1_N_antes.png": {
+      "dir": "N",
+      "anim": "v1",
+      "standPoseOff": true
+    },
+    "fb1_parado_v1_N_depois.png": {
+      "dir": "N",
+      "anim": "v1",
+      "standPoseOff": false
+    },
+    "fb1_parado_v2_E_antes.png": {
+      "dir": "E",
+      "anim": "v2",
+      "standPoseOff": true
+    },
+    "fb1_parado_v2_E_depois.png": {
+      "dir": "E",
+      "anim": "v2",
+      "standPoseOff": false
+    },
+    "fb1_parado_v2_S_antes.png": {
+      "dir": "S",
+      "anim": "v2",
+      "standPoseOff": true
+    },
+    "fb1_parado_v2_S_depois.png": {
+      "dir": "S",
+      "anim": "v2",
+      "standPoseOff": false
+    },
+    "fb1_parado_v2_W_antes.png": {
+      "dir": "W",
+      "anim": "v2",
+      "standPoseOff": true
+    },
+    "fb1_parado_v2_W_depois.png": {
+      "dir": "W",
+      "anim": "v2",
+      "standPoseOff": false
+    },
+    "fb1_parado_v2_N_antes.png": {
+      "dir": "N",
+      "anim": "v2",
+      "standPoseOff": true
+    },
+    "fb1_parado_v2_N_depois.png": {
+      "dir": "N",
+      "anim": "v2",
+      "standPoseOff": false
+    }
+  },
+  "stand": {
+    "sheet": "fb1_parado_comparacao.png"
+  },
+  "auto": {},
+  "swap": {},
+  "worldmap": {},
+  "video": {}
+}

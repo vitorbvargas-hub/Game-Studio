@@ -1,0 +1,207 @@
+{
+  "date": "2026-11-10T09:49:03.360Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "fb1_auto_explorando_grama.png": {
+      "t": {
+        "s": 0.8,
+        "mode": "grass",
+        "x": 27,
+        "y": 36,
+        "enc": 0,
+        "rewards": 0,
+        "intro": false
+      }
+    },
+    "fb1_auto_encontro_salto.png": {
+      "t": {
+        "s": 31,
+        "mode": "fight",
+        "x": 37,
+        "y": 36,
+        "enc": 1,
+        "rewards": 2,
+        "intro": true
+      }
+    },
+    "fb1_auto_encontro_luta.png": {
+      "t": {
+        "s": 31,
+        "mode": "fight",
+        "x": 37,
+        "y": 36,
+        "enc": 1,
+        "rewards": 2,
+        "intro": true
+      },
+      "partner": {
+        "species": "CREATURE-0003",
+        "name": "Guilmon",
+        "level": 5,
+        "hp": 79,
+        "maxHp": 83,
+        "target": "rwild-6",
+        "enc": "enc-3",
+        "swapCd": 0,
+        "explore": "fight"
+      }
+    }
+  },
+  "stand": {},
+  "auto": {
+    "firstGrassEncounterAt": 31,
+    "trace": [
+      {
+        "s": 0.8,
+        "mode": "grass",
+        "x": 27,
+        "y": 36,
+        "enc": 0,
+        "rewards": 0,
+        "intro": false
+      },
+      {
+        "s": 3.8,
+        "mode": "hunt",
+        "x": 35,
+        "y": 34,
+        "enc": 0,
+        "rewards": 0,
+        "intro": false
+      },
+      {
+        "s": 5.9,
+        "mode": "fight",
+        "x": 40,
+        "y": 32,
+        "enc": 0,
+        "rewards": 0,
+        "intro": false
+      },
+      {
+        "s": 8,
+        "mode": "fight",
+        "x": 40,
+        "y": 32,
+        "enc": 0,
+        "rewards": 1,
+        "intro": false
+      },
+      {
+        "s": 10.1,
+        "mode": "fight",
+        "x": 45,
+        "y": 33,
+        "enc": 0,
+        "rewards": 1,
+        "intro": false
+      },
+      {
+        "s": 12.2,
+        "mode": "fight",
+        "x": 45,
+        "y": 33,
+        "enc": 0,
+        "rewards": 1,
+        "intro": false
+      },
+      {
+        "s": 14.2,
+        "mode": "grass",
+        "x": 44,
+        "y": 33,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 16.2,
+        "mode": "grass",
+        "x": 38,
+        "y": 35,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 18.3,
+        "mode": "grass",
+        "x": 37,
+        "y": 34,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 20.3,
+        "mode": "grass",
+        "x": 39,
+        "y": 36,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 22.3,
+        "mode": "grass",
+        "x": 39,
+        "y": 34,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 24.4,
+        "mode": "grass",
+        "x": 36,
+        "y": 37,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 26.4,
+        "mode": "grass",
+        "x": 37,
+        "y": 34,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 30.5,
+        "mode": "grass",
+        "x": 36,
+        "y": 36,
+        "enc": 0,
+        "rewards": 2,
+        "intro": false
+      },
+      {
+        "s": 31,
+        "mode": "fight",
+        "x": 37,
+        "y": 36,
+        "enc": 1,
+        "rewards": 2,
+        "intro": true
+      }
+    ],
+    "log": [
+      "Guilmon causou 35 de dano.",
+      "Guilmon sofreu 4 de dano.",
+      "Combate: Guilmon × Gigimon",
+      "Um Gigimon selvagem saltou da grama!",
+      "Escaneando Gotsumon: 25%",
+      "Venceu! +22 XP · +9 bits",
+      "Gotsumon foi derrotado."
+    ]
+  },
+  "swap": {},
+  "worldmap": {},
+  "video": {}
+}

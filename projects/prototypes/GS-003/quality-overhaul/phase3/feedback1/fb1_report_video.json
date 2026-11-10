@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-10T09:46:40.843Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {},
+  "stand": {},
+  "auto": {},
+  "swap": {},
+  "worldmap": {},
+  "video": {
+    "raw": "fb1_video_bruto.webm",
+    "marks": [
+      {
+        "s": 10.4,
+        "label": "carregado"
+      },
+      {
+        "s": 11,
+        "label": "parada: anda e para (pés juntos)"
+      },
+      {
+        "s": 18.3,
+        "label": "mapa-múndi (M), viagem à Vila e volta"
+      },
+      {
+        "s": 27,
+        "label": "troca fora de combate (Shift+2)"
+      },
+      {
+        "s": 29.2,
+        "label": "AUTO ligado: explora, caça, entra na grama"
+      },
+      {
+        "s": 59,
+        "label": "encontro na grama alta (salto)"
+      },
+      {
+        "s": 61.8,
+        "label": "troca em combate (Shift+3)"
+      },
+      {
+        "s": 63,
+        "label": "troca em recarga recusada (Shift+2)"
+      },
+      {
+        "s": 67.7,
+        "label": "fim"
+      }
+    ],
+    "grassEnc": true,
+    "swappedInFight": true,
+    "modes": [
+      {
+        "s": 29.7,
+        "mode": "grass",
+        "hp": 100
+      },
+      {
+        "s": 59,
+        "mode": "fight",
+        "hp": 100
+      }
+    ],
+    "size": [
+      1280,
+      720
+    ]
+  }
+}

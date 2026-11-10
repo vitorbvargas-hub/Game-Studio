@@ -778,9 +778,11 @@ function explore(ctx: Ctx, p: PlayerState, tamer: Entity): void {
     tamer,
     partner,
     grassAt: ctx.auth ? (tx, ty) => !!ctx.auth!.areaAt(tx, ty) : undefined,
-    huntable: (t) => !!partner && huntable(t, partner),
+    // o explorador só sai caçando quem não é mais forte que a parceira (o AUTO da parceira aceita até +2)
+    huntable: (t) => !!partner && huntable(t, partner) && t.level <= partner.level,
     healPoints: (ctx.map.interactables ?? []).filter((i) => i.kind === "heal_point").map((i) => i.pos),
     interactRadius: Math.round(1.5 * SUB),
+    flee: () => applyIntent(ctx, { t: "flee", playerId: p.id }),
   });
   if (mode !== before) ctx.ev.push({ t: "explore_mode", tick: ctx.w.tick, playerId: p.id, mode });
 }

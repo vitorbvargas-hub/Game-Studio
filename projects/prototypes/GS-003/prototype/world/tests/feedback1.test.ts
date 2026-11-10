@@ -184,6 +184,21 @@ describe("AUTO explorador", () => {
     expect(evs.some((e) => e.t === "engage")).toBe(false);
   });
 
+  it("PV crítico em combate: foge uma vez do encontro e vai se curar; não morre em sequência", () => {
+    const sim = forest(7);
+    const { p, partner } = mine(sim);
+    let t = 0;
+    for (; t < 1500 && !partner.encounterId; t++) stepWorld(sim, t === 0 ? autoOn() : []);
+    expect(partner.encounterId).toBeDefined();
+    partner.hp = Math.floor(partner.maxHp * 0.2);
+    const evs = run(sim, 3);
+    expect(evs.some((e) => e.t === "encounter_end" && e.reason === "flee")).toBe(true);
+    expect(p.explore!.mode).toBe("heal");
+    // depois, nos próximos 60 s, no máximo uma derrota da parceira
+    const later = run(sim, 600);
+    expect(later.filter((e) => e.t === "defeat" && (e as { id: string }).id === partner.id).length).toBeLessThanOrEqual(1);
+  });
+
   it("desligar o AUTO para o explorador (o Tamer fica onde está)", () => {
     const sim = forest(3);
     const { p, tamer } = mine(sim);

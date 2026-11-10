@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-10T09:49:59.134Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "fb1_troca_fora_1_recuo.png": {
+      "ms": 120
+    },
+    "fb1_troca_fora_2_recuo_fim.png": {
+      "ms": 330
+    },
+    "fb1_troca_fora_3_entrada.png": {
+      "ms": 560
+    },
+    "fb1_troca_fora_4_pronto.png": {
+      "ms": 1300
+    },
+    "fb1_troca_fora_tela.png": {
+      "after": {
+        "species": "CREATURE-0011",
+        "name": "Tokomon",
+        "level": 4,
+        "hp": 62,
+        "maxHp": 62,
+        "target": null,
+        "enc": null,
+        "swapCd": 0,
+        "explore": null
+      }
+    },
+    "fb1_troca_combate_recuo.png": {},
+    "fb1_troca_combate_entrada.png": {},
+    "fb1_troca_combate_recarga.png": {
+      "fightAfter": {
+        "species": "CREATURE-0008",
+        "name": "Tsunomon",
+        "level": 6,
+        "hp": 48,
+        "maxHp": 67,
+        "target": "wild-3",
+        "enc": "enc-1",
+        "swapCd": 42,
+        "explore": "fight"
+      }
+    }
+  },
+  "stand": {},
+  "auto": {},
+  "swap": {
+    "before": {
+      "species": "CREATURE-0003",
+      "name": "Guilmon",
+      "level": 5,
+      "hp": 83,
+      "maxHp": 83,
+      "target": null,
+      "enc": null,
+      "swapCd": 0,
+      "explore": null
+    },
+    "after": {
+      "species": "CREATURE-0011",
+      "name": "Tokomon",
+      "level": 4,
+      "hp": 62,
+      "maxHp": 62,
+      "target": null,
+      "enc": null,
+      "swapCd": 0,
+      "explore": null
+    },
+    "fightBefore": {
+      "species": "CREATURE-0011",
+      "name": "Tokomon",
+      "level": 4,
+      "hp": 57,
+      "maxHp": 62,
+      "target": "wild-3",
+      "enc": "enc-1",
+      "swapCd": 0,
+      "explore": "fight"
+    },
+    "fightAfter": {
+      "species": "CREATURE-0008",
+      "name": "Tsunomon",
+      "level": 6,
+      "hp": 48,
+      "maxHp": 67,
+      "target": "wild-3",
+      "enc": "enc-1",
+      "swapCd": 42,
+      "explore": "fight"
+    },
+    "log": [
+      "Tsunomon causou 17 de dano.",
+      "Não dá: troca em recarga (5 s).",
+      "Tokomon, volte! Vai, Tsunomon! (troca em combate)",
+      "Tokomon sofreu 5 de dano.",
+      "Tokomon causou 13 de dano.",
+      "Combate: Tokomon × Gigimon"
+    ]
+  },
+  "worldmap": {},
+  "video": {}
+}

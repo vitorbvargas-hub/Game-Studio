@@ -156,6 +156,8 @@ export class WorldView {
   private tinted = new Map<string, HTMLCanvasElement>();
   /** Pose parada (feedback 1, item 3): por visual, quadro de passada do idle → quadro de pés juntos. */
   private stands = new Map<CreatureVisual, Map<string, string>>();
+  /** Capturas "antes": desliga a troca para o quadro de pés juntos (volta o idle de passada). */
+  standPoseOff = false;
   private tamers: Record<string, ReturnType<typeof makeTamerFrames>>;
   /** Alpha atual de cada copa (índice do prop), suavizado para a transparência quando alguém passa por trás. */
   private canopyAlpha = new Map<number, number>();
@@ -1498,6 +1500,7 @@ export class WorldView {
    * por bbox lê os pixels da folha; enquanto ela não carregou, usa só o quadro neutro do walk / idle desenhado.
    */
   standKey(cv: CreatureVisual, key: string): string {
+    if (this.standPoseOff) return key;
     let map = this.stands.get(cv);
     if (!map) {
       const loaded = (k: string) => this.images.get(imageUrlOf(cv, k));

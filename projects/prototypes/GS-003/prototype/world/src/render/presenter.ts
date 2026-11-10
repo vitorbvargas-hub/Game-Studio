@@ -109,6 +109,7 @@ export interface SwapFx {
   toName: string;
   /** Posição (px) do Tamer na troca: o que sai recua até ela. */
   tamerAt: Vec;
+  toLevel: number;
   /** A forma nova já foi revelada (speciesId/name trocados). */
   revealed: boolean;
 }
@@ -336,7 +337,8 @@ export class Presenter {
       v.encounterId = s.encounterId;
       v.targetId = s.targetId;
       v.maxHp = s.maxHp;
-      v.level = s.level;
+      // no recuo da troca o rótulo segue o de quem sai (nome e nível juntos)
+      if (!(v.swap && !v.swap.revealed)) v.level = s.level;
       // HP fora de combate (regeneração) sobe direto; quedas só via evento `damage`.
       if (s.hp > v.hpTo && !this.pending.some((p) => p.kind === "damage" && p.ev.targetId === s.id)) v.hpTo = v.hpFrom = s.hp;
     }
@@ -402,9 +404,10 @@ export class Presenter {
           if (v) {
             const toName = this.manifestOf(ev.to)?.name ?? v.name;
             const fromName = this.manifestOf(ev.out.speciesId)?.name ?? ev.out.speciesId;
-            v.swap = { start: now, from: ev.out.speciesId, to: ev.to, fromName, toName, tamerAt: toPx(ev.tamerAt), revealed: false };
+            v.swap = { start: now, from: ev.out.speciesId, to: ev.to, fromName, toName, toLevel: v.level, tamerAt: toPx(ev.tamerAt), revealed: false };
             v.speciesId = ev.out.speciesId;
             v.name = fromName;
+            v.level = ev.out.level;
             v.evo = undefined;
           }
           break;
@@ -501,6 +504,7 @@ export class Presenter {
         v.swap.revealed = true;
         v.speciesId = v.swap.to;
         v.name = v.swap.toName;
+        v.level = v.swap.toLevel;
       }
       if (v.swap?.revealed && now >= v.swap.start + SWAP_TOTAL_MS) v.swap = undefined;
       if (v.lvUpAt !== undefined && now > v.lvUpAt + LEVEL_UP_FX_MS) v.lvUpAt = undefined;

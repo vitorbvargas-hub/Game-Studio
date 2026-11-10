@@ -18,6 +18,10 @@ export const EXPLORE = {
   /** Abaixo desta fração do PV a parceira vai se curar; volta a explorar ao passar de healDonePct. */
   healPct: 0.35,
   healDonePct: 0.95,
+  /** Em combate abaixo desta fração do PV, o explorador foge (uma vez por encontro) e vai se curar. */
+  fleePct: 0.32,
+  /** Só sai caçando um selvagem visível com a parceira acima desta fração do PV (e de nível ≤ ao dela). */
+  huntPct: 0.6,
   /** Raio (tiles) da escolha de destinos e da procura de selvagens visíveis. */
   goalRadius: 14,
   sightTiles: 9,
@@ -45,6 +49,8 @@ export interface ExploreState {
   pauseTicks: number;
   dwell: number;
   repath: number;
+  /** Encontro do qual o explorador já fugiu (não foge duas vezes do mesmo). */
+  fledEnc?: string;
   /** Ticks seguidos sem conseguir avançar no caminho (colisão com selvagem, quina): passa de STUCK_MAX, desiste. */
   stuck: number;
 }
@@ -163,6 +169,8 @@ export interface ExploreEnv {
   healPoints: Vec[];
   /** Raio (sub) em que a interação dispara (a cura é aplicada pela UI ao chegar). */
   interactRadius: number;
+  /** Foge do combate atual (a mesma regra do botão Fugir). */
+  flee?: () => void;
 }
 
 /**
@@ -192,6 +200,13 @@ export function exploreTick(env: ExploreEnv): ExploreMode {
   if (busy || myIntro) {
     stop();
     ex.targetId = undefined;
+    // PV crítico no meio da luta: foge uma vez deste encontro e, no próximo tick, sai para se curar
+    if (partner.encounterId && partner.hp < partner.maxHp * EXPLORE.fleePct && ex.fledEnc !== partner.encounterId && env.flee) {
+      ex.fledEnc = partner.encounterId;
+      env.flee();
+      ex.mode = "heal";
+      return "heal";
+    }
     return set("fight");
   }
   const avoid = avoidMask(map);
@@ -231,7 +246,7 @@ export function exploreTick(env: ExploreEnv): ExploreMode {
   }
 
   // ---- caça: selvagem visível perto ----
-  const target = pickWild(env, avoid);
+  const target = partner.hp >= partner.maxHp * EXPLORE.huntPct ? pickWild(env, avoid) : undefined;
   if (target) {
     const d = Math.hypot(target.x - tamer.x, target.y - tamer.y);
     if (d <= EXPLORE.approachTiles * SUB) {

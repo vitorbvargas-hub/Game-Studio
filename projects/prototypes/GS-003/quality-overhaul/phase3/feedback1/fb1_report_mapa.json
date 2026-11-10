@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-10T09:30:56.519Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "fb1_mapa_mundi_floresta.png": {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "query": "&look=v9&dpr=1&time=day",
+      "canvas": [
+        522,
+        282,
+        876,
+        434
+      ],
+      "arena": [
+        522,
+        724,
+        83,
+        29
+      ],
+      "arenaIcon": [
+        536,
+        732,
+        14,
+        14
+      ],
+      "nodes": [
+        [
+          "vila_dos_bebes",
+          "open"
+        ],
+        [
+          "floresta_densa",
+          "here"
+        ],
+        [
+          "praia_dos_postes",
+          "open"
+        ],
+        [
+          "montanha",
+          "locked"
+        ],
+        [
+          "deserto",
+          "locked"
+        ],
+        [
+          "zona_corrompida",
+          "locked"
+        ]
+      ]
+    },
+    "fb1_mapa_mundi_na_vila.png": {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "map": "vila"
+    },
+    "fb1_mapa_mundi_volta.png": {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "map": "digimon-forest-01"
+    },
+    "fb1_mapa_mundi_floresta_1366.png": {
+      "viewport": [
+        1366,
+        768
+      ],
+      "query": "&look=v9&dpr=1&time=day",
+      "canvas": [
+        245,
+        141,
+        876,
+        403
+      ],
+      "arena": [
+        245,
+        553,
+        83,
+        29
+      ],
+      "arenaIcon": [
+        259,
+        560,
+        14,
+        14
+      ],
+      "nodes": [
+        [
+          "vila_dos_bebes",
+          "open"
+        ],
+        [
+          "floresta_densa",
+          "here"
+        ],
+        [
+          "praia_dos_postes",
+          "open"
+        ],
+        [
+          "montanha",
+          "locked"
+        ],
+        [
+          "deserto",
+          "locked"
+        ],
+        [
+          "zona_corrompida",
+          "locked"
+        ]
+      ]
+    },
+    "fb1_mapa_mundi_na_vila_1366.png": {
+      "viewport": [
+        1366,
+        768
+      ],
+      "map": "vila"
+    },
+    "fb1_mapa_mundi_volta_1366.png": {
+      "viewport": [
+        1366,
+        768
+      ],
+      "map": "digimon-forest-01"
+    }
+  },
+  "stand": {},
+  "auto": {},
+  "swap": {},
+  "worldmap": {
+    "1920": {
+      "arenaIcon": [
+        536,
+        732,
+        14,
+        14
+      ],
+      "backTo": "digimon-forest-01",
+      "ok": true
+    },
+    "_1366": {
+      "arenaIcon": [
+        259,
+        560,
+        14,
+        14
+      ],
+      "backTo": "digimon-forest-01",
+      "ok": true
+    }
+  },
+  "video": {}
+}
