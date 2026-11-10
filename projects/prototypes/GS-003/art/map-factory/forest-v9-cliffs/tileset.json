@@ -1,0 +1,120 @@
+{
+  "biome": "forest-v9-cliffs",
+  "note": "Kit de penhasco/barranco organico v2 -- SUBSTITUI apenas o sub-kit cliff_* de forest-v8-depth (que continua intacto e e a melhor fonte para chao, decalques, props emissores, clutter e NPCs). Pedido do founder: o mirante da clareira piloto lia como laje cinza lisa, sem variacao nem vegetacao -- ver README.md para a comparacao lado a lado. NAO esta integrado em prototype/world -- isso e trabalho de game-dev. 0 PixelLab generations gastas -- pipeline 100% local Canvas.js.",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "cliff-face",
+    "cliff-face-decal",
+    "decor"
+  ],
+  "palette": "Ver palette.json -- reaproveita INTEGRALMENTE a rampa cliff de forest-v8-depth/palette.json (d.cliffFace hi/lt/mid/dk/core + d.mossEdge + d.foliage + d.bark via buildDepthRamps()), nenhum hex novo foi inventado. \"3-4 tons roxo-acinzentados e frios\" = cliffFace.{hi,lt,mid,dk} + core para a sombra de contato.",
+  "cliff": {
+    "note": "Mesma geometria compartilhada de autotile blob-16 de forest-v4/v6/v7/v8 (blob_autotile16.js, NAO modificado por este pacote). O topo usa o mesmo bitmask N*1+E*2+S*4+W*8 com cantos em quarto-de-circulo; o que muda aqui e so a textura dentro de cada celula (borda sul com musgo/grama espalhados por ruido) e as PECAS da face, que agora sao 4 variantes (nao 1) e tem vegetacao/raizes/sombra organica desenhadas em cada uma. Regra de posicionamento igual a v8: onde o bit S (bit 2) do cliff_top_blob for 0, colocar UMA das 4 variantes de face (ou um canto, se for extremidade) uma celula abaixo, na layer \"cliff-face\"; cliff_ramp.png em qualquer vao da fileira para o jogador subir.",
+    "topAutotile": {
+      "pattern": "16-tile blob, geometria compartilhada em blob_autotile16.js (identica a forest-v8); textura da celula reescrita aqui para borda sul irregular (musgo + grama por ruido).",
+      "files": [
+        "tiles/cliff_top_blob_0.png",
+        "tiles/cliff_top_blob_1.png",
+        "tiles/cliff_top_blob_2.png",
+        "tiles/cliff_top_blob_3.png",
+        "tiles/cliff_top_blob_4.png",
+        "tiles/cliff_top_blob_5.png",
+        "tiles/cliff_top_blob_6.png",
+        "tiles/cliff_top_blob_7.png",
+        "tiles/cliff_top_blob_8.png",
+        "tiles/cliff_top_blob_9.png",
+        "tiles/cliff_top_blob_10.png",
+        "tiles/cliff_top_blob_11.png",
+        "tiles/cliff_top_blob_12.png",
+        "tiles/cliff_top_blob_13.png",
+        "tiles/cliff_top_blob_14.png",
+        "tiles/cliff_top_blob_15.png"
+      ]
+    },
+    "facePieces": [
+      {
+        "file": "tiles/cliff_face_a.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "variant": "a",
+        "note": "estratos padrao + raiz pendurada; use junto com b/c/d para variar a parede, nao sozinha"
+      },
+      {
+        "file": "tiles/cliff_face_b.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "variant": "b",
+        "note": "estratos + fissuras mais densas + pequena saliencia/ressalto na base esquerda (silhueta muda, nao so a textura)"
+      },
+      {
+        "file": "tiles/cliff_face_c.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "variant": "c",
+        "note": "estratos + mancha de liquen/musgo a meia-altura (fenda umida) -- a unica variante com musgo fora da borda superior"
+      },
+      {
+        "file": "tiles/cliff_face_d.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "variant": "d",
+        "note": "estratos + raiz pendurada (segunda posicao) -- junto com \"a\", cobre o caso \"parede com raizes expostas\" sem repetir a mesma raiz"
+      },
+      {
+        "file": "tiles/cliff_face_corner_outer_left.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "canto convexo, fratura irregular (nao diagonal reta) -- plataforma vira para a esquerda"
+      },
+      {
+        "file": "tiles/cliff_face_corner_outer_right.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "canto convexo, espelho do esquerdo"
+      },
+      {
+        "file": "tiles/cliff_face_corner_inner.png",
+        "collision": true,
+        "suggestedLayer": "cliff-face",
+        "note": "canto concavo, fratura irregular + musgo acumulado na fenda (concavidades retem umidade -- leitura organica, nao so geometrica)"
+      },
+      {
+        "file": "tiles/cliff_ramp.png",
+        "collision": false,
+        "suggestedLayer": "cliff-face",
+        "interactive": false,
+        "note": "escada de pedra natural -- degraus desalinhados, musgo na borda dos degraus, grama crescendo na fresta; coloque em qualquer vao da fileira de face"
+      }
+    ]
+  },
+  "decals": {
+    "note": "Overlays transparentes para espalhar por ruido SOBRE qualquer peca de face (das 4 variantes ou os cantos), mesma convencao dos decalques de chao de forest-v8-depth -- nao sao obrigatorios, adicionam variedade extra sem precisar de mais pecas base.",
+    "cliffFace": [
+      {
+        "file": "decals/root_vine_a.png",
+        "size": "12x28",
+        "note": "cipo/raiz pendurado com flecks de folha -- variante A"
+      },
+      {
+        "file": "decals/root_vine_b.png",
+        "size": "12x28",
+        "note": "cipo/raiz pendurado com flecks de folha -- variante B, angulo espelhado"
+      },
+      {
+        "file": "decals/moss_drip_extra.png",
+        "size": "10x24",
+        "note": "musgo pendurado avulso, para alem do que ja esta cozido nas variantes b/c que tem musgo"
+      },
+      {
+        "file": "decals/grass_tuft_edge.png",
+        "size": "16x10",
+        "note": "tufo de grama extra para a borda superior, reforcar a leitura \"borda nunca e reta\" em fileiras longas"
+      }
+    ]
+  }
+}

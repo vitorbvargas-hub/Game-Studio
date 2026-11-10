@@ -1,0 +1,48 @@
+{
+  "biome": "forest-v9-cliffs",
+  "note": "NENHUM hex novo -- esta paleta e uma copia direta (nao um re-derive) da rampa \"cliff\" de forest-v8-depth/palette.json (buildDepthRamps() em forest_v8_depth_palette.js), citada aqui em forma de arquivo soh para forest-v9-cliffs ser auto-contido e nao depender de abrir forest-v8-depth/ pra saber as cores. \"3-4 tons roxo-acinzentados e frios\" pedido na tarefa = cliffFace.{hi,lt,mid,dk} abaixo (core e a sombra de contato quase-preta, nao um 5o tom de rocha). foliage/bark/mossEdge tambem reaproveitados de v8, usados aqui so para a vegetacao (tufos, musgo, raizes) desenhada sobre a face.",
+  "ramps": {
+    "cliff": {
+      "top": [
+        "#36383f",
+        "#5a5d67",
+        "#91949c",
+        "#aeb0b6"
+      ],
+      "face": {
+        "hi": "#6b6d73",
+        "lt": "#3c3e45",
+        "mid": "#1d1e23",
+        "dk": "#131316",
+        "core": "#0a0a10"
+      },
+      "mossEdge": "#49643c"
+    },
+    "foliageDepth": [
+      "#111e16",
+      "#1b2e20",
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d",
+      "#cfdd8a"
+    ],
+    "barkDepth": {
+      "hi": "#ab8d68",
+      "lt": "#86684b",
+      "mid": "#5e4734",
+      "dk": "#3a2d22",
+      "core": "#1e1713"
+    },
+    "grass": [
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d"
+    ],
+    "moss": "#445838"
+  },
+  "source": "art/src/forest_v8_depth_palette.js buildDepthRamps() -- ver esse arquivo para a derivacao HSV completa a partir de forest_v4_palette.js."
+}
