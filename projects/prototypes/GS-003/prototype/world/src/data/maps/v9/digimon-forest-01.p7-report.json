@@ -111,7 +111,33 @@
     "accent": 23.6
   },
   "cliffKit": {
-    "present": false,
-    "swapped": []
+    "present": true,
+    "swapped": [
+      "cliff_top_blob_6",
+      "cliff_top_blob_14",
+      "cliff_top_blob_12",
+      "cliff_top_blob_7",
+      "cliff_top_blob_15",
+      "cliff_top_blob_13",
+      "cliff_top_blob_3",
+      "cliff_top_blob_11",
+      "cliff_top_blob_9",
+      "cliff_face_corner_outer_left",
+      "cliff_ramp",
+      "cliff_face_corner_outer_right",
+      "cliff_face_straight→cliff_face_a"
+    ],
+    "faces": {
+      "22,18": "a",
+      "23,18": "b",
+      "24,18": "d",
+      "25,18": "c",
+      "27,18": "d"
+    },
+    "decals": [
+      "23,18:grass_tuft_edge",
+      "25,18:root_vine_b",
+      "27,18:root_vine_a"
+    ]
   }
 }

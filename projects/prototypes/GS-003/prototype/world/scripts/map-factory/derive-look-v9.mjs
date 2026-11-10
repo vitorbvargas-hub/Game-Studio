@@ -185,6 +185,49 @@ if (kitTiles.size) {
         p7.cliffKit.swapped.push(m[1]);
       }
     }
+  // kit v2 (6110bab): a face reta virou 4 variantes (cliff_face_a..d) — a reta do v8 passa a ser a "a" e cada célula
+  // de face sorteia a sua por hash da célula (determinístico); 0–1 decalque do kit (raiz/musgo/tufo) por célula de face.
+  const faceVariants = ["a", "b", "c", "d"].filter((v) => kitTiles.has(`cliff_face_${v}`));
+  const ts0 = tmj.tilesets[0];
+  const straight = ts0.tiles.find((t) => t.properties?.find((q) => q.name === "key")?.value === "fp8_cliff_face_straight");
+  if (straight && faceVariants.length) {
+    const gidOf = { [faceVariants[0]]: ts0.firstgid + straight.id };
+    straight.properties.find((q) => q.name === "key").value = `fp9c_cliff_face_${faceVariants[0]}`;
+    p7.cliffKit.swapped.push(`cliff_face_straight→cliff_face_${faceVariants[0]}`);
+    for (const v of faceVariants.slice(1)) {
+      const id = ts0.tilecount++;
+      ts0.tiles.push({ id, properties: straight.properties.map((q) => (q.name === "key" ? { ...q, value: `fp9c_cliff_face_${v}` } : { ...q })) });
+      gidOf[v] = ts0.firstgid + id;
+    }
+    const cellHash = (x, y, s) => {
+      let h = (x * 374761393 + y * 668265263 + s * 974634121) >>> 0;
+      h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+      return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+    };
+    const det = layer("ground_detail");
+    const decalLayer = layer("decals");
+    const decalKeys = ["root_vine_a", "root_vine_b", "moss_drip_extra", "grass_tuft_edge"].filter((k) => existsSync(join(CLIFF_KIT, "decals", `${k}.png`)));
+    const straightGid = gidOf[faceVariants[0]];
+    p7.cliffKit.faces = {};
+    p7.cliffKit.decals = [];
+    let prev = null;
+    for (let i = 0; i < det.data.length; i++) {
+      if (det.data[i] !== straightGid) { prev = null; continue; }
+      const x = i % tmj.width, y = Math.floor(i / tmj.width);
+      let v = faceVariants[Math.floor(cellHash(x, y, 31) * faceVariants.length)];
+      if (v === prev) v = faceVariants[(faceVariants.indexOf(v) + 1) % faceVariants.length]; // vizinhas nunca iguais
+      prev = v;
+      det.data[i] = gidOf[v];
+      p7.cliffKit.faces[`${x},${y}`] = v;
+      if (decalKeys.length && cellHash(x, y, 47) < 0.6) {
+        const k = decalKeys[Math.floor(cellHash(x, y, 53) * decalKeys.length)];
+        const o = { id: tmj.nextobjectid++, name: `fp9c_${k}`, type: "decal", x: x * TS + 6 + Math.floor(cellHash(x, y, 59) * 20), y: y * TS + (k === "grass_tuft_edge" ? 2 : 8), point: true, properties: [{ name: "key", type: "string", value: `fp9c_${k}` }] };
+        if (cellHash(x, y, 61) < 0.5) o.properties.push({ name: "flip", type: "bool", value: true });
+        decalLayer.objects.push(o);
+        p7.cliffKit.decals.push(`${x},${y}:${k}`);
+      }
+    }
+  }
   outPack.extraPacks = [...outPack.extraPacks.filter((e) => e.pack !== "forest-v9-cliffs"), { pack: "forest-v9-cliffs", prefix: "fp9c_", root: "map-factory" }];
   const cliffRule = look.grade.rules.find((r) => r.match === "^fp8_cliff_");
   if (cliffRule) look.grade.rules.unshift({ ...cliffRule, match: "^fp9c_cliff_" });

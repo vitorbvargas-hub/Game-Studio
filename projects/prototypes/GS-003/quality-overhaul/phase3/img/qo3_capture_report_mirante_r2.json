@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-10T07:16:14.776Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p7_mirante_antes_v8_dia_r2.png": {
+      "query": "&look=v8&dpr=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        26,
+        20
+      ]
+    },
+    "p7_mirante_antes_v8_dia_zoom_r2.png": {
+      "clip": {
+        "x": 336,
+        "y": 0,
+        "width": 960,
+        "height": 672
+      },
+      "scale": 3
+    },
+    "p7_mirante_depois_v9kit_dia_r2.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        26,
+        20
+      ]
+    },
+    "p7_mirante_depois_v9kit_dia_zoom_r2.png": {
+      "clip": {
+        "x": 336,
+        "y": 0,
+        "width": 960,
+        "height": 672
+      },
+      "scale": 3
+    },
+    "p7_mirante_antes_v8_noite_r2.png": {
+      "query": "&look=v8&dpr=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        26,
+        20
+      ]
+    },
+    "p7_mirante_antes_v8_noite_zoom_r2.png": {
+      "clip": {
+        "x": 336,
+        "y": 0,
+        "width": 960,
+        "height": 672
+      },
+      "scale": 3
+    },
+    "p7_mirante_depois_v9kit_noite_r2.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        26,
+        20
+      ]
+    },
+    "p7_mirante_depois_v9kit_noite_zoom_r2.png": {
+      "clip": {
+        "x": 336,
+        "y": 0,
+        "width": 960,
+        "height": 672
+      },
+      "scale": 3
+    }
+  },
+  "perf": [],
+  "encounter": {},
+  "video": {}
+}

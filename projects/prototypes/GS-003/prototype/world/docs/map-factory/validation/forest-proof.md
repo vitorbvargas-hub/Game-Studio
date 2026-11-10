@@ -1,6 +1,6 @@
 # Validação — forest-proof
 
-- **Data:** 2026-11-10T05:49:49.374Z
+- **Data:** 2026-11-10T07:15:16.167Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|

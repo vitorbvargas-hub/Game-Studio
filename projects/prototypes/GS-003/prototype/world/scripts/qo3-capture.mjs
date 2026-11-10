@@ -5,7 +5,7 @@
 //   PW_CORE=~/.npm/_npx/<hash>/node_modules/playwright-core/index.mjs \
 //   CHROME=~/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell \
 //   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu PLAYWRIGHT_BROWSERS_PATH=/tmp/pwb \
-//   node scripts/qo3-capture.mjs [shots|fg|encounter|perf|video|all]
+//   node scripts/qo3-capture.mjs [shots|fg|mirante|encounter|perf|video|all]
 // (PLAYWRIGHT_BROWSERS_PATH aponta para links das revisões instaladas: o ffmpeg do recordVideo vem de lá. O
 // ffmpeg-1011 só tem VP8: /tmp/pwb/ffmpeg-1013/ffmpeg-linux é um wrapper que troca libvpx-vp9 por libvpx.)
 // Rodada 2: SUFFIX=_r2 grava ao lado da rodada 1. O vídeo bruto inclui o carregamento e todo o vaivém na grama;
@@ -80,6 +80,30 @@ const shot = async (page, name, meta) => {
   report.shots[name] = meta;
   console.log("ok", name);
 };
+
+// Rodada 2 (P1-1): mirante com o kit forest-v9-cliffs (game-art, 6110bab). Antes = look v8 (laje fp8_cliff_*),
+// depois = v9 + kit; dia e noite; visão de jogo com o Tamer ao pé da rampa + recorte 1:1 do platô (x21–28, y15–18).
+async function mirante() {
+  const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+  for (const time of ["day", "night"])
+    for (const [tag, q] of [["antes_v8", "&look=v8&dpr=1"], ["depois_v9kit", "&look=v9&dpr=1&anim=v2&encounters=1"]]) {
+      await open(page, `${q}&time=${time}`);
+      await hideHud(page);
+      await tp(page, 26, 20, { partner: [-1.4, 0.2] });
+      await page.waitForTimeout(2200);
+      const t = time === "day" ? "dia" : "noite";
+      await shot(page, `p7_mirante_${tag}_${t}.png`, { query: q, time, framing: "jogo (dpr=1)", tamerTile: [26, 20] });
+      const cam = await page.evaluate(() => { const v = window.__gs003.view; return { x: v.camera.x, y: v.camera.y, w: v.camera.w }; });
+      const k = W / cam.w;
+      const x0 = Math.max(0, Math.round((20 * 32 - cam.x) * k)), y0 = Math.max(0, Math.round((14 * 32 - cam.y) * k));
+      const clip = { x: x0, y: y0, width: Math.min(W - x0, Math.round(10 * 32 * k)), height: Math.min(H - y0, Math.round(7 * 32 * k)) };
+      const cn = nm(`p7_mirante_${tag}_${t}_zoom.png`);
+      await page.screenshot({ path: join(OUT, cn), clip });
+      report.shots[cn] = { clip, scale: +k.toFixed(2) };
+      console.log("ok", cn);
+    }
+  await page.close();
+}
 
 async function shots() {
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
@@ -304,10 +328,11 @@ async function video() {
 
 try {
   if (what === "shots" || what === "fg" || what === "all") await shots();
+  if (what === "mirante" || what === "all") await mirante();
   if (what === "encounter" || what === "all") await encounter();
   if (what === "video" || what === "all") await video();
   if (what === "perf" || what === "all") await perf();
 } finally {
   await browser.close();
-  writeFileSync(join(OUT, `qo3_capture_report_${what}.json`), `${JSON.stringify(report, null, 2)}\n`);
+  writeFileSync(join(OUT, `qo3_capture_report_${what}${SFX}.json`), `${JSON.stringify(report, null, 2)}\n`);
 }

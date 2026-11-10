@@ -301,6 +301,11 @@
       "pack": "forest-v9-p7",
       "prefix": "fp9_",
       "root": "map-factory"
+    },
+    {
+      "pack": "forest-v9-cliffs",
+      "prefix": "fp9c_",
+      "root": "map-factory"
     }
   ],
   "look": {
@@ -317,6 +322,13 @@
       "accentSaturationMul": 1,
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
+        {
+          "match": "^fp9c_cliff_",
+          "saturationMul": 0.8,
+          "valueMul": 0.8,
+          "tint": "#6c5a86",
+          "tintMix": 0.3
+        },
         {
           "match": "^fp9_enc_grass_",
           "saturationMul": 0.95,
