@@ -1,0 +1,59 @@
+{
+  "scope": "quality-overhaul/phase2/art/scale-proof-v3 — prova de escala v3 (M1 do backlog) do Guilmon por texto, 64x64, revisao da v2 (M2, que ficou 30px dobrado)",
+  "layer": "official-fan-use",
+  "baseCharacter": "Guilmon",
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
+  "basis": [
+    {
+      "adr": "ADR-007-gs003-fan-game-pokemon-digimon.md",
+      "summary": "Fundador autoriza o GS-003 como fan game nao comercial usando monstros oficiais de Digimon (nomes, designs, linhas). Excecao explicita do fundador a regra geral de IP de terceiros do GOVERNANCE, valida so para o GS-003."
+    },
+    {
+      "adr": "ADR-009-gs003-idle-mmorpg-reset.md",
+      "summary": "Condicao 2 do ADR-007 revogada: sprites oficiais extraidos de jogos (rips, incl. Digimon World DS) liberados pelo fundador em todo o projeto e no git, camada official-fan-use."
+    },
+    {
+      "adr": "ADR-010-gs003-referencia-visual-canonica.md",
+      "summary": "Reforca Digimon como identidade completa do produto; nao usar Pokemon nem monstros genericos."
+    },
+    {
+      "adr": "ADR-012-gs003-governanca-de-arte.md",
+      "summary": "GAME-ART-DIRECTOR (este agente) e quem decide direcao visual/escala; revisao independente obrigatoria do game-qa antes de integrar (nao integrado aqui, ver README)."
+    }
+  ],
+  "conditionsStillInForce": [
+    "Sem monetizacao de nenhum tipo (ADR-007)",
+    "Sem logos ou marcas oficiais em titulo/icone/divulgacao (ADR-007)",
+    "Publicacao exige aprovacao separada do fundador (ADR-007/009)",
+    "Conteudo em content pack trocavel, para uma futura versao com monstros originais reaproveitar o motor (ADR-007)",
+    "Substituir por arte propria (camada original) ao longo do projeto (ADR-009)"
+  ],
+  "sourceAsset": {
+    "creatureId": "CREATURE-0003",
+    "path": "assets/GAME-ASSETS/01-creatures/CREATURE-0003/",
+    "sourceGame": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/)",
+    "ripper": "Sonicteam24",
+    "usedAsPixelReference": false,
+    "note": "DIFERENCA central face ao M2 (v2): o M1 NAO usa nenhum pixel do rip como reference_image do PixelLab. O rip e usado nesta prova so como referencia visual de identidade (cores, orelhas, marca do peito, forma geral) escrita na descricao de texto do create_character_pro_flash, e como item de comparacao na prancha/HTML (board/ref/guilmon_rip_idle_30x34.png, copia do mesmo frame CREATURE-0003_walk_S_01.png usado nas provas v1/v2). A obrigacao de credito do rip permanece em vigor enquanto o Guilmon do jogo for baseado no design do rip (mesmo que os pixels gerados aqui sejam novos)."
+  },
+  "styleReference": {
+    "asset": "Tamer (personagem jogavel do GS-003)",
+    "path": "scale-proof-v2/board/ref/tamer_idle_32px.png (copia local, 32x32, mesma arte usada nas pranchas v1/v2)",
+    "usage": "create_character_pro_flash(style_image=...) com style_options.color_palette=false — copia so traco/contorno/sombreamento do jogo, nao a paleta azul/laranja do Tamer, para o Guilmon manter suas proprias cores oficiais (vermelho/creme/preto/amarelo)."
+  },
+  "pipelineM1": {
+    "label": "Pro Flash por texto, 64x64, teto autorizado de 8 geracoes para esta prova v3; gasto real 8.0 (exato)",
+    "technique": "create_character_pro_flash(description=<Guilmon por texto>, width=64, height=64, view='low top-down', style_image=Tamer, style_options.color_palette=false) para as 8 direcoes; animate_character(mode='template', breathing-idle e walking, direcao S, ai_freedom=0) para idle e walk — mesma receita de animacao de v1/v2, so a criacao do personagem mudou de metodo",
+    "generationsSpentActual": 8.0,
+    "costLog": "pixellab_cost_log.csv",
+    "contentPolicyNote": "Primeira tentativa de prompt (com 'reptilian'/'slit pupils') foi recusada pelo filtro de seguranca do modelo, sem custo; reescrita do texto resolveu na segunda tentativa. Ver pixellab_cost_log.csv e README.md Secao 3."
+  },
+  "pipelineM2Reference": {
+    "label": "Metodo da v2 (phase2/art/scale-proof-v2), usado aqui so como item de comparacao, nao regenerado nesta prova",
+    "note": "Arquivos copiados de scale-proof-v2/pipeline-m2/ para board/ref/ e board/compare_scale_v3.html, sem nenhuma geracao nova — zero custo adicional."
+  },
+  "note": "Credito obrigatorio em qualquer build/tela de creditos: Sonicteam24 (rip Digimon World DS, The Spriters Resource); © Bandai Namco — o Guilmon desta prova e uma reinterpretacao gerada por IA do design oficial, nao um redesenho direto dos pixels do rip, mas a identidade (nome, design, cores) continua sendo do personagem oficial Bandai Namco/Toei, sob a mesma excecao do ADR-007.",
+  "verifiedBy": "game-art (papel GAME-ART-DIRECTOR, ADR-012)",
+  "verifiedAt": "2026-11-10"
+}
