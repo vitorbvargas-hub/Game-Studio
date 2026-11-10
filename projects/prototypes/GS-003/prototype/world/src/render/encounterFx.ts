@@ -31,9 +31,9 @@ export const T_JUMP = 1000;
 export const T_LAND = 1500;
 const T_DUST = 350;
 /** A sim entra no combate aqui (INTRO_TICKS × TICK_MS); vinheta e câmera voltam depois. */
-const T_FIGHT = 2000;
-const T_PLATE = 2300;
-const T_END = 2600;
+export const T_FIGHT = 2000;
+export const T_PLATE = 2300;
+export const T_END = 2600;
 const RUSTLE_MS = 420;
 /** Arco do salto (px, para cima negativo): 10 quadros inteiros em 500 ms, sobe rápido e cai acelerando. */
 const ARC = [-9, -16, -21, -25, -26, -25, -21, -15, -8, -2];
@@ -67,6 +67,11 @@ export interface EncounterFxOpts {
   nameOf: (speciesId: string) => string;
   /** Primeira vez que a espécie aparece (selo NOVO do Digidex). */
   isNew: (speciesId: string) => boolean;
+  /**
+   * P8 (?hud=v2): a placa sai do canvas do mundo e vai para a camada de nomes (render/targetplate.ts, px de tela),
+   * e o balão "!" ganha a pílula de fundo escura (§8.1, regra 0.5 da spec).
+   */
+  v2?: boolean;
 }
 
 const ease = (t: number) => 1 - (1 - t) * (1 - t);
@@ -96,6 +101,12 @@ export class EncounterFx {
     if (!f) return undefined;
     const t = now - f.start;
     return t < T_ALERT ? "grama" : t < T_JUMP ? "alerta" : t < T_LAND ? "salto" : t < T_LAND + T_DUST ? "pouso" : t < T_END ? "placa" : "fim";
+  }
+
+  /** Encontro mais recente com o tempo desde o sorteio (placa v2: render/targetplate.ts platesFor). */
+  intro(now: number): { id: string; name: string; level: number; rarity: string; isNew: boolean; t: number } | undefined {
+    const f = [...this.fx].reverse().find((x): x is Appear => x.kind === "appear");
+    return f && { id: f.id, name: f.name, level: f.level, rarity: f.rarity, isNew: f.isNew, t: now - f.start };
   }
 
   /** Algum efeito ativo (as capturas esperam por isso). */
@@ -201,6 +212,7 @@ export class EncounterFx {
         const pop = e < 60 ? -3 : e < 120 ? -1 : 0;
         const bx = Math.round(tp.x - cam.x - 5);
         const by = Math.round(tp.y - cam.y - tamerTop - 19 + pop);
+        if (this.opts.v2) drawAlertPill(ctx, bx, by);
         drawAlertBubble(ctx, bx, by);
       }
       // muito raro: brilho dourado subindo da grama antes do salto
@@ -230,8 +242,8 @@ export class EncounterFx {
         }
         ctx.globalAlpha = 1;
       }
-      // placa: nome + nível com a borda da raridade (1500–2600 ms)
-      if (t >= T_LAND) {
+      // placa: nome + nível com a borda da raridade (1500–2600 ms); no v2 ela é da camada de nomes (targetplate.ts)
+      if (t >= T_LAND && !this.opts.v2) {
         const wp = posOf(f.id) ?? f.at;
         const text = `${f.name.toUpperCase()} NV.${f.level}`;
         const w = pixelTextWidth(text, 1) + 6;
@@ -271,6 +283,16 @@ export class EncounterFx {
       ctx.fillRect(0, 0, cam.w, cam.h);
     }
   }
+}
+
+/**
+ * P8 v2: pílula escura (0,72) atrás do balão, 2 px de folga em volta (mundo ×3 ≈ 17×20 px de tela, a 18×22 da spec):
+ * o "!" fica legível mesmo sobre areia clara ou na névoa noturna (regra 0.5: texto sobre o mundo sempre com fundo).
+ */
+function drawAlertPill(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  ctx.fillStyle = "rgba(10, 12, 18, 0.72)";
+  ctx.fillRect(x - 1, y - 2, 13, 18);
+  ctx.fillRect(x - 2, y - 1, 15, 16);
 }
 
 /** Balão branco 11×14 com contorno escuro e "!" vermelho (lê em qualquer fundo, dia ou noite). */

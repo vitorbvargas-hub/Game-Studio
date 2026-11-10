@@ -176,6 +176,8 @@ export class WorldView {
   private swayRe?: RegExp;
   /** GS-012 (?encounters=1): apresentação do encontro (salto da grama, "!", placa, farfalhar). */
   encFx?: EncounterFx;
+  /** P8 (?hud=v2): entidades com placa de alvo na camada de nomes — sem rótulo comum nem barra de PV no mundo. */
+  plateIds?: Set<string>;
   /** Look v9: sprites cisalhados pelo vento (imagem × deslocamento × preset). */
   private sheared = new Map<string, HTMLCanvasElement>();
   /** Look v9: tiles de água montados neste quadro (orçamento por quadro, para não travar no 1º ciclo). */
@@ -1672,7 +1674,7 @@ export class WorldView {
     const x0 = Math.round(pos.x - this.camera.x);
     const top = Math.round(pos.y - this.camera.y - h.top);
     if (now < v.exclaimUntil && now >= v.exclaimUntil - EXCLAIM_MS) drawOutlinedText(ctx, "!", x0 - 1, top - 14, "#fee761");
-    if (!p.barVisible(v, now)) return;
+    if (!p.barVisible(v, now) || this.plateIds?.has(v.id)) return;
     const w = h.width;
     const bx = x0 - Math.floor(w / 2);
     const by = top - 3 - 3;
@@ -1689,6 +1691,22 @@ export class WorldView {
     }
     ctx.fillStyle = ratio > 0.5 ? "#63c74d" : ratio > 0.25 ? "#feae34" : "#e43b44";
     ctx.fillRect(bx + 1, by + 1, Math.max(hp > 0 ? 1 : 0, Math.round(inner * ratio)), 2);
+  }
+
+  /** P8 v2: ponto acima da cabeça de uma entidade (px lógicos de tela), onde a placa de alvo apoia a base. */
+  plateAnchor(p: Presenter, id: string, alpha: number, now: number): { x: number; y: number } | undefined {
+    const v = p.entities.get(id);
+    if (!v || (v.defeatedAt !== undefined && now > v.defeatedAt + 400)) return undefined;
+    const pos = this.posOf(p, v, alpha);
+    const off = this.combatOffset(v, p, now);
+    const jump = this.encFx?.entityOffset(v.id, now);
+    return { x: Math.round(pos.x - this.camera.x) + off.x, y: Math.round(pos.y - this.camera.y + (jump?.dy ?? 0) - this.headOffset(v).top) - 3 };
+  }
+
+  /** PV mostrado agora (com a animação de dano do presenter). */
+  hpShown(p: Presenter, id: string, now: number): { hp: number; maxHp: number; name: string; level: number; speciesId?: string } | undefined {
+    const v = p.entities.get(id);
+    return v && { hp: p.hpNow(v, now), maxHp: v.maxHp, name: v.name, level: v.level, speciesId: v.speciesId };
   }
 
   /** Altura (px) do topo da cabeça acima dos pés, para Tamers com sprite real ou placeholder. */
@@ -1710,7 +1728,7 @@ export class WorldView {
     for (const v of p.entities.values()) {
       if (v.defeatedAt !== undefined && now > v.defeatedAt + 400) continue;
       // GS-012: do salto da grama até a placa sumir, o nome fica na placa de raridade (encounterFx), não no rótulo
-      if (this.encFx?.hidesLabel(v.id, now)) continue;
+      if (this.encFx?.hidesLabel(v.id, now) || this.plateIds?.has(v.id)) continue;
       const pos = this.posOf(p, v, alpha);
       const x = Math.round(pos.x - cam.x);
       const y = Math.round(pos.y - cam.y);

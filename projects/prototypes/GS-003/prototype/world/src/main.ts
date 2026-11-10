@@ -51,7 +51,8 @@ import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, r
 import type { ScenePack } from "./assets/scene-tiles";
 import { dprLayout, REF_CHAR_PX } from "./render/scale";
 import { setSkipResampled } from "./render/anim";
-import { EncounterFx } from "./render/encounterFx";
+import { EncounterFx, T_END, T_FIGHT, T_LAND, T_PLATE } from "./render/encounterFx";
+import { drawTargetPlate, platesFor } from "./render/targetplate";
 import { ENCOUNTER_TABLES, periodOf } from "./sim/encounters/table";
 import { mountEncounterDebug } from "./ui/encdebug";
 import { hudVariantOf } from "./ui/hud-v2";
@@ -322,6 +323,7 @@ async function boot() {
         nameOf: (id) => sim.content.species[id]?.name ?? id,
         // NOVO do Digidex: espécie ainda não vista (o spawn do mesmo tick ainda não entrou no `seen`)
         isNew: (id) => !seen.has(id),
+        v2: HUD_V2,
       });
     const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
     // Os spawns saíram antes do save: atualiza a foto de quem mudou (parceira restaurada/evoluída).
@@ -901,10 +903,30 @@ async function boot() {
 
   // ---- nomes e níveis (camada nítida na resolução da tela) ----
   const lctx = labelCanvas.getContext("2d")!;
+  const rarityById = new Map<string, string>();
   const drawNameplates = (alpha: number, now: number) => {
     lctx.clearRect(0, 0, labelCanvas.width, labelCanvas.height);
     const m = labelMetrics(scale);
+    // P8 v2: a placa de alvo/identificação substitui o rótulo comum (e a barra de PV do mundo) do alvo da parceira
+    const plates = HUD_V2 ? currentPlates(now) : [];
+    if (HUD_V2) view().plateIds = new Set(plates.map((p) => p.id));
     drawLabels(lctx, layoutLabels(view().labels(cur.presenter, alpha, now), measureWith(lctx, m), scale, m), m);
+    const k = Math.max(1, Math.round(scale / cssPerLogical));
+    for (const pl of plates) {
+      const a = view().plateAnchor(cur.presenter, pl.id, alpha, now);
+      if (a) drawTargetPlate(lctx, pl, a.x * scale, a.y * scale, k);
+    }
+  };
+  /** Raridade de um selvagem: a do sorteio (wild_appear); senão a da entrada visível da tabela; senão comum. */
+  const rarityOf = (id: string, speciesId?: string): string =>
+    rarityById.get(id) ?? cur.sim.encounters?.table.entries.find((e) => e.speciesId === speciesId && e.mode !== "random")?.rarity ?? "common";
+  const currentPlates = (now: number) => {
+    const intro = view().encFx?.intro(now);
+    const tid = getEntity(cur.sim.state, player().partnerId)?.targetId;
+    const te = tid ? getEntity(cur.sim.state, tid) : undefined;
+    const shown = te && te.kind === "wild" ? view().hpShown(cur.presenter, te.id, now) : undefined;
+    const target = shown && te ? { id: te.id, name: shown.name, level: shown.level, hp: shown.hp, maxHp: shown.maxHp, rarity: rarityOf(te.id, shown.speciesId) } : undefined;
+    return platesFor(intro, target, { land: T_LAND, fight: T_FIGHT, fadeFrom: T_PLATE, end: T_END }, Math.floor(now / 120) % 2 === 0);
   };
 
   // ---- minimapa / coordenadas / qps (4 Hz) ----
@@ -957,6 +979,7 @@ async function boot() {
       }
       const evs = stepWorld(cur.sim, intents.splice(0));
       view().encFx?.onEvents(evs, now);
+      for (const ev of evs) if (ev.t === "wild_appear") rarityById.set(ev.id, ev.rarity);
       for (const ev of evs)
         if (ev.t === "wild_appear" && ev.random && ev.playerId === LOCAL_PLAYER) {
           const nm = cur.sim.content.species[ev.speciesId]?.name ?? ev.speciesId;
