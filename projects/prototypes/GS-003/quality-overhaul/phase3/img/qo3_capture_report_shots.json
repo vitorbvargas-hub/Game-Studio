@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-10T05:23:00.500Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p7_clareira_antes_v8_dia.png": {
+      "query": "&look=v8&dpr=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ]
+    },
+    "p7_clareira_antes_v8_dia_geral.png": {
+      "query": "&look=v8&dpr=1&zoom=1",
+      "time": "day",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ]
+    },
+    "p7_clareira_depois_v9p7_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ]
+    },
+    "p7_clareira_depois_v9p7_dia_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "day",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ]
+    },
+    "p7_clareira_antes_v8_noite.png": {
+      "query": "&look=v8&dpr=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ]
+    },
+    "p7_clareira_antes_v8_noite_geral.png": {
+      "query": "&look=v8&dpr=1&zoom=1",
+      "time": "night",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ]
+    },
+    "p7_clareira_depois_v9p7_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ]
+    },
+    "p7_clareira_depois_v9p7_noite_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "night",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ]
+    },
+    "p7_fg_ponte_tamer_atras.png": {
+      "tamerPx": [
+        819.2,
+        315.96
+      ],
+      "fgAlphaCovering": []
+    },
+    "p7_fg_bau_tamer_atras.png": {
+      "tamerPx": [
+        982.4,
+        607.16
+      ],
+      "fgAlphaCovering": []
+    }
+  },
+  "perf": [],
+  "encounter": {},
+  "video": {}
+}

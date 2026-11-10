@@ -178,21 +178,27 @@ describe("look v9 no renderer", () => {
     }
   });
 
-  it("o prop de primeiro plano fica translúcido quando o Tamer passa atrás dele", async () => {
+  it("primeiro plano: cobre pernas e cintura e fica opaco; só fica translúcido quando esconderia a cabeça (P7 headFrac)", async () => {
     const { sim, view, presenter } = await setup("v9");
-    const fg = sim.map.fgProps!.find((p) => p.key !== "fp8_reed_cluster")!;
-    // Tamer (só posição visual) logo acima do pé da moita: o sprite dela cobre as pernas dele
+    const fg = sim.map.fgProps!.find((p) => p.key === "fp8_fern")!;
+    const alphaOf = () => (view as unknown as { fgAlpha: Map<number, number> }).fgAlpha.get(sim.map.fgProps!.indexOf(fg)) ?? 1;
     const me = presenter.entities.get(LOCAL_PLAYER)!;
-    me.prev = { x: fg.x, y: fg.y - 6 };
-    me.cur = { x: fg.x, y: fg.y - 6 };
+    // Tamer (só posição visual) 8 px atrás do pé da samambaia (22 px): ela cobre pernas e cintura, não a cabeça → opaca
+    me.prev = me.cur = { x: fg.x, y: fg.y - 8 };
     view.update(presenter, 1, 0);
     view.follow({ x: fg.x, y: fg.y });
     for (let t = 0; t <= 1000; t += 16) view.render(presenter, 1, t);
-    const alpha = (view as unknown as { fgAlpha: Map<number, number> }).fgAlpha.get(sim.map.fgProps!.indexOf(fg));
-    expect(alpha).toBeCloseTo(v9Pack.look.foreground.behindAlpha, 2);
+    expect(alphaOf()).toBe(1);
+    // colado no pé dela: a moita chegaria ao rosto → translúcida
+    me.prev = me.cur = { x: fg.x, y: fg.y + 1 };
+    for (let t = 1000; t <= 2000; t += 16) {
+      view.update(presenter, 1, t);
+      view.render(presenter, 1, t);
+    }
+    expect(alphaOf()).toBeCloseTo(v9Pack.look.foreground.behindAlpha, 2);
     // longe dele, volta a opaco
     me.prev = me.cur = { x: fg.x, y: fg.y - 200 };
-    for (let t = 1000; t <= 2000; t += 16) {
+    for (let t = 2000; t <= 3000; t += 16) {
       view.update(presenter, 1, t);
       view.render(presenter, 1, t);
     }

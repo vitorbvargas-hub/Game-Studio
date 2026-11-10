@@ -155,6 +155,7 @@ const table = JSON.parse(readFileSync(join(ROOT, "src/data/encounters", `${ID}.j
 const p7 = composeClareira(tmj, { TS, prop, layer, solid, nearAny, paths, water, table });
 p7.ratioV8 = ratioV8;
 look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };
+look.foreground = { ...look.foreground, headFrac: 0.35 };
 outPack.look = look;
 
 tmj.properties = [...(tmj.properties ?? []).filter((p) => p.name !== "look"), { name: "look", type: "string", value: "v9" }];

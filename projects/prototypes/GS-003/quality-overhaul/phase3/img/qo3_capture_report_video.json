@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-10T05:10:28.109Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {},
+  "perf": [],
+  "encounter": {},
+  "video": {
+    "file": "p12_clareira_passeio_encontro.webm",
+    "natural": true,
+    "marks": [
+      {
+        "s": 10.9,
+        "label": "início: sul da clareira, trilha principal"
+      },
+      {
+        "s": 13.2,
+        "label": "baú atrás da moita (moldura de primeiro plano)"
+      },
+      {
+        "s": 15.8,
+        "label": "ponte do riacho com as molduras de primeiro plano"
+      },
+      {
+        "s": 22.6,
+        "label": "grama alta da clareira (área de encontro)"
+      },
+      {
+        "s": 33.1,
+        "label": "encontro aleatório (natural) — salto da grama"
+      },
+      {
+        "s": 33.4,
+        "label": "combate no mapa (mesmo sistema de sempre)"
+      },
+      {
+        "s": 37.1,
+        "label": "fim do combate"
+      }
+    ],
+    "encountersAfter": {
+      "steps": 61,
+      "rolls": 13,
+      "encounters": 1,
+      "empties": 0
+    },
+    "rewardsPaid": 1,
+    "size": [
+      1920,
+      1080
+    ]
+  }
+}

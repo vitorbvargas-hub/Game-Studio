@@ -490,7 +490,8 @@
     },
     "foreground": {
       "behindAlpha": 0.38,
-      "fadeMs": 120
+      "fadeMs": 120,
+      "headFrac": 0.35
     }
   }
 }

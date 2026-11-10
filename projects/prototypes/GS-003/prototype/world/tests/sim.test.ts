@@ -143,9 +143,11 @@ describe("WorldSim — combate no mapa", () => {
 describe("a animação não decide o dano", () => {
   it("o código da sim não importa render/, assets/, ui/ nem nada de DOM/Canvas", () => {
     const dir = join(__dirname, "../src/sim");
-    for (const f of readdirSync(dir)) {
+    // recursivo: src/sim/encounters (GS-012) também é sim e segue a mesma regra
+    for (const f of readdirSync(dir, { recursive: true }) as string[]) {
+      if (!/\.ts$/.test(f)) continue;
       const src = readFileSync(join(dir, f), "utf8");
-      expect(src, f).not.toMatch(/from\s+["']\.\.\/(render|assets|ui)\//);
+      expect(src, f).not.toMatch(/from\s+["'](\.\.\/)+(render|assets|ui)\//);
       expect(src, f).not.toMatch(/\b(document|window|HTMLCanvasElement|CanvasRenderingContext2D|requestAnimationFrame)\b/);
       expect(src, f).not.toMatch(/creature\.json|atlas|hitFrame/);
     }

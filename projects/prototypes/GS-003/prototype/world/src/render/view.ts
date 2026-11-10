@@ -20,6 +20,7 @@ import {
 } from "./anim";
 import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
 import { drawImpact, shakeOffset } from "./fx";
+import type { EncounterFx } from "./encounterFx";
 import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterComposeNoisy, waterFrame, waterMixFrom, waterNoiseFor, type Rect, type WaterMix } from "./life";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
@@ -171,6 +172,8 @@ export class WorldView {
   /** Look v9: opacidade atual de cada prop de primeiro plano (índice em map.fgProps). */
   private fgAlpha = new Map<number, number>();
   private swayRe?: RegExp;
+  /** GS-012 (?encounters=1): apresentação do encontro (salto da grama, "!", placa, farfalhar). */
+  encFx?: EncounterFx;
   /** Look v9: sprites cisalhados pelo vento (imagem × deslocamento × preset). */
   private sheared = new Map<string, HTMLCanvasElement>();
   /** Look v9: tiles de água montados neste quadro (orçamento por quadro, para não travar no 1º ciclo). */
@@ -441,6 +444,8 @@ export class WorldView {
     const visible: { v: VisualEntity; pos: Vec }[] = [];
     for (const v of p.entities.values()) {
       const pos = this.posOf(p, v, alpha);
+      // GS-012: o selvagem do encontro fica escondido na grama até o salto
+      if (this.encFx?.entityOffset(v.id, now)?.hidden) continue;
       if (inView(pos.x, pos.y)) visible.push({ v, pos });
     }
     // sombras (sempre sob a entidade, inclusive em ATTACK/HURT)
@@ -469,7 +474,12 @@ export class WorldView {
       }
       list.push({ y: pr.y, order: `p${pr.x}`, draw: tree ? () => this.blitWorld(tree.base) : () => this.drawProp(pr, now) });
     });
-    for (const { v, pos } of visible) list.push({ y: pos.y, order: v.id, draw: () => this.drawEntity(v, pos, p, now) });
+    for (const { v, pos } of visible) {
+      // salto da grama: o corpo sobe no arco; a sombra e a ordem de desenho ficam no chão
+      const jump = this.encFx?.entityOffset(v.id, now);
+      const at = jump?.dy ? { x: pos.x, y: pos.y + jump.dy } : pos;
+      list.push({ y: pos.y, order: v.id, draw: () => this.drawEntity(v, at, p, now) });
+    }
     list.sort((a, b) => a.y - b.y || (a.order < b.order ? -1 : 1));
     for (const d of list) d.draw();
     ctx.globalAlpha = 1;
@@ -488,6 +498,10 @@ export class WorldView {
       drawImpact(ctx, fx, Math.round(pos.x - cam.x + h.hit.x), Math.round(pos.y - cam.y + h.hit.y), now - fx.start);
     }
     for (const { v, pos } of visible) this.drawOverheads(v, pos, p, now);
+    if (this.encFx) {
+      const me = p.entities.get(p.localPlayerId);
+      this.encFx.draw(ctx, cam, now, (id) => (p.entities.get(id) ? this.posOf(p, p.entities.get(id)!, alpha) : undefined), me ? this.tamerTop(me) : 30);
+    }
     for (const f of p.floaters) {
       const t = (now - f.start) / f.durationMs;
       if (t < 0 || t >= 1) continue;
@@ -748,7 +762,11 @@ export class WorldView {
     this.lastFg = now;
     const watch: Rect[] = visible
       .filter(({ v }) => v.id === p.localPlayerId || v.id === p.localPartnerId)
-      .map(({ v, pos }) => ({ x0: pos.x - 7, x1: pos.x + 7, y0: pos.y - (v.kind === "player" ? this.tamerTop(v) : this.headOffset(v).top), y1: pos.y }));
+      .map(({ v, pos }) => {
+        const top = v.kind === "player" ? this.tamerTop(v) : this.headOffset(v).top;
+        // P7 (headFrac): só a cabeça conta; pernas e cintura escondidas pela moita não deixam ela translúcida
+        return { x0: pos.x - 7, x1: pos.x + 7, y0: pos.y - top, y1: cfg?.headFrac ? pos.y - top * (1 - cfg.headFrac) : pos.y };
+      });
     const cam = this.camera;
     const ctx = this.ctx;
     const sway = this.opts.look?.sway;
@@ -770,7 +788,7 @@ export class WorldView {
       if (a < 1) this.fgAlpha.set(i, a);
       else this.fgAlpha.delete(i);
       ctx.globalAlpha = a;
-      const s = re?.test(pr.key) ? swayOffset(pr.x, pr.y, now, sway!) : 0;
+      const s = (re?.test(pr.key) ? swayOffset(pr.x, pr.y, now, sway!) : 0) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0);
       this.drawSwayed(src.url, sx, sy, sw, sh, x - cam.x, y - cam.y, s, 2);
     });
     ctx.globalAlpha = 1;
@@ -859,7 +877,11 @@ export class WorldView {
     const idx = this.curveIndex();
     if (!idx) return;
     const ts = this.map.tileSize;
-    this.waterCells ??= [...idx.near].filter(([, cis]) => cis.some((ci) => idx.curves[ci].terrain === cfg.terrain)).map(([i]) => i);
+    // célula com detalhe de chão (a ponte, camada ground_detail) fica fora: a água animada não pode cobrir a ponte
+    const detail = this.map.tileLayers.filter((l) => l.name !== "ground");
+    this.waterCells ??= [...idx.near]
+      .filter(([i, cis]) => cis.some((ci) => idx.curves[ci].terrain === cfg.terrain) && !detail.some((l) => l.keys[i]))
+      .map(([i]) => i);
     const { frame, dx, dy } = waterFrame(now, cfg, ts);
     const cam = this.camera;
     this.waterBuilt = 0;
@@ -1168,7 +1190,7 @@ export class WorldView {
       const [px, py] = src.pivot ?? [Math.floor(sw / 2), sh - 1];
       const sway = this.opts.look?.sway;
       if (sway && (this.swayRe ??= new RegExp(sway.keys)).test(pr.key)) {
-        this.drawSwayed(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), swayOffset(pr.x, pr.y, now, sway), 2);
+        this.drawSwayed(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y), swayOffset(pr.x, pr.y, now, sway) + (this.encFx?.rustleAt(pr.x, pr.y, now) ?? 0), 2);
         return;
       }
       this.drawPreset(src.url, sx, sy, sw, sh, Math.round(pr.x - px - cam.x), Math.round(pr.y - py - cam.y));
@@ -1655,6 +1677,9 @@ export class WorldView {
     const localPartner = p.entities.get(p.localPartnerId);
     for (const v of p.entities.values()) {
       if (v.defeatedAt !== undefined && now > v.defeatedAt + 400) continue;
+      // GS-012: até o fim do salto da grama, o nome fica na placa de raridade (encounterFx), não no rótulo
+      const jump = this.encFx?.entityOffset(v.id, now);
+      if (jump?.hidden || jump?.dy) continue;
       const pos = this.posOf(p, v, alpha);
       const x = Math.round(pos.x - cam.x);
       const y = Math.round(pos.y - cam.y);

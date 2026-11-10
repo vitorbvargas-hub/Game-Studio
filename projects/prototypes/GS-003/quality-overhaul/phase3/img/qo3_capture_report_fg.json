@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-10T05:07:04.645Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p7_fg_ponte_tamer_atras.png": {
+      "tamerPx": [
+        819.2,
+        315.96
+      ],
+      "fgAlphaCovering": []
+    },
+    "p7_fg_bau_tamer_atras.png": {
+      "tamerPx": [
+        982.4,
+        607.16
+      ],
+      "fgAlphaCovering": []
+    }
+  },
+  "perf": [],
+  "encounter": {},
+  "video": {}
+}

@@ -7,7 +7,7 @@ import { describe, expect, it } from "vitest";
 // @ts-expect-error módulo .mjs do simulador (sem tipos)
 import * as engine from "../scripts/encounters/engine.mjs";
 import { INTRO_TICKS } from "../src/sim/encounters/authority";
-import { encounterCeiling, newRollState, step, type EncounterTable, type RollCtx } from "../src/sim/encounters/rules";
+import { encounterCeiling, newRollState, step, type RollCtx } from "../src/sim/encounters/rules";
 import { ENCOUNTER_TABLES, periodOf, validateTable } from "../src/sim/encounters/table";
 import { parseTiledMap } from "../src/sim/map";
 import { SUB } from "../src/sim/params";
@@ -188,7 +188,7 @@ describe("GS-012: encontro aleatório (passos 5 e 7)", () => {
     // recompensas: uma por chave paga, nenhuma repetida
     expect(new Set(sim.state.enc!.paid).size).toBe(sim.state.enc!.paid.length);
     // o selvagem aleatório nunca vira respawn: ao fim não sobra nenhum vivo além do que estiver em combate
-    expect(wilds(sim).filter((e) => e.encKey && !e.encounterId && !(e.introTicks ?? 0)).length).toBe(0);
+    expect(wilds(sim).filter((e) => e.encKey && !e.encounterId && !(e.introTicks ?? 0) && e.state !== "DEFEAT").length).toBe(0);
   });
 
   it("trilha, fora de área e parceira em combate não sorteiam; a carência inicial vale", () => {

@@ -116,6 +116,11 @@ export interface ForegroundCfg {
   behindAlpha: number;
   /** Tempo da transição de opacidade (ms). */
   fadeMs: number;
+  /**
+   * P7: só fica translúcido se cobrir a CABEÇA (esta fração de cima da altura da entidade). Moita que cobre pernas e
+   * cintura fica opaca: o Tamer "passa por trás" da vegetação. Ausente = qualquer sobreposição (fase 2).
+   */
+  headFrac?: number;
 }
 
 /**

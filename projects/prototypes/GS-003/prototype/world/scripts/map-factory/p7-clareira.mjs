@@ -123,15 +123,25 @@ export function composeClareira(tmj, h) {
   const others = below.filter((o) => !movers.includes(o));
   // bolsões: perto do totem/mirante (norte), da fonte de cura (leste) e da borda da mata junto ao vau (sudoeste)
   const POCKETS = [
-    { id: "totem-mirante", cx: 25.2 * TS, cy: 16.6 * TS, share: 0.38 },
-    { id: "fonte-cura", cx: 36.4 * TS, cy: 23.6 * TS, share: 0.36 },
-    { id: "vau-mata", cx: 21.6 * TS, cy: 27.2 * TS, share: 0.26 },
+    // em volta do totem, na ponta oeste do mirante (sem cristal sólido: o mirante é mirante, não vitrine)
+    { id: "totem-mirante", cx: 23.6 * TS, cy: 15.4 * TS, share: 0.32, solidOk: false },
+    { id: "fonte-cura", cx: 36.4 * TS, cy: 23.6 * TS, share: 0.38, solidOk: true },
+    { id: "vau-mata", cx: 21.6 * TS, cy: 27.2 * TS, share: 0.3, solidOk: true },
   ];
-  // cristais primeiro (núcleos), depois os cogumelos digitais, depois os bioluminescentes (satélites)
+  // cristais primeiro (núcleos), depois os cogumelos digitais, as flores e os bioluminescentes (satélites)
   const rank = (k) => (k === "fp8_data_crystal" ? 0 : k === "fp7_mushroom_digital" ? 1 : /flower/.test(k) ? 2 : 3);
   const order = [...movers].sort((a, b) => rank(prop(a, "key")) - rank(prop(b, "key")) || a.id - b.id);
   const quota = POCKETS.map((p) => Math.round(p.share * order.length));
   quota[quota.length - 1] = order.length - quota.slice(0, -1).reduce((s, v) => s + v, 0);
+  // os sólidos vão, alternando, para os bolsões que aceitam sólido; o resto completa as cotas na ordem
+  const assign = POCKETS.map(() => []);
+  const solidPockets = POCKETS.map((p, i) => (p.solidOk ? i : -1)).filter((i) => i >= 0);
+  let sp = 0;
+  for (const o of order.filter((o) => prop(o, "solid") === true)) assign[solidPockets[sp++ % solidPockets.length]].push(o);
+  for (const o of order.filter((o) => prop(o, "solid") !== true)) {
+    const i = assign.findIndex((a, k) => a.length < quota[k]);
+    assign[i < 0 ? assign.length - 1 : i].push(o);
+  }
   const placedGlow = [];
   const pois = (layer("poi")?.objects ?? []).map((o) => ({ x: o.x, y: o.y }));
   const okGlow = (x, y, solidProp) => {
@@ -144,12 +154,10 @@ export function composeClareira(tmj, h) {
     if (placedGlow.some((p) => Math.hypot(p.x - x, p.y - y) < (solidProp || p.solid ? 20 : 11))) return false;
     return true;
   };
-  let oi = 0;
   const pocketCounts = {};
   POCKETS.forEach((pk, pi) => {
     pocketCounts[pk.id] = 0;
-    for (let n = 0; n < quota[pi]; n++, oi++) {
-      const o = order[oi];
+    assign[pi].forEach((o, n) => {
       const isSolid = prop(o, "solid") === true;
       // núcleo perto do centro; satélites em anel crescente, ângulo por hash (sem simetria de relógio)
       let done = false;
@@ -174,7 +182,7 @@ export function composeClareira(tmj, h) {
         done = true;
       }
       if (!done) placedGlow.push({ x: o.x, y: o.y, solid: isSolid }); // fica onde estava (registrado no relatório)
-    }
+    });
   });
   report.recluster = {
     moved: movers.length,
@@ -220,15 +228,19 @@ export function composeClareira(tmj, h) {
   }
 
   // ---------- 3. molduras de primeiro plano (compostas, altura de cintura) ----------
-  // Os sprites do forest-v8-depth têm 22–26 px de altura; uma moita composta empilha 3 deles (a de trás 6–9 px mais
-  // alta) e chega a ~30 px acima do pé, o que cobre o Tamer (~30 px) até a cintura quando ele passa logo atrás.
+  // Altura OPACA dos sprites do forest-v8-depth: edge_cluster_a 18 px, fern 15, flowering_bush 22, edge_cluster_b 24.
+  // A moita composta junta 4 deles em 2 fileiras (~80 px de largura, ~26 px de altura): com o Tamer (~26 px opacos)
+  // andando na trilha ~10 px atrás do pé dela, cobre pernas e cintura. O look v9 só a deixa translúcida se cobrir a cabeça
+  // (foreground.headFrac), o que acontece quando ele encosta nela.
   const above = layer("objects_above");
   const fg = [];
   const COMPOSITE = {
     // [chave, dx, dy] em relação ao pé da moita (dy negativo = mais para trás/acima)
-    big: [["fp8_fern", -12, -8], ["fp8_flowering_bush", 12, -6], ["fp8_edge_cluster_a", 0, 0]],
-    bigB: [["fp8_flowering_bush", -14, -7], ["fp8_fern", 13, -9], ["fp8_edge_cluster_b", 0, 0]],
-    reeds: [["fp8_reed_cluster", -7, -5], ["fp8_reed_cluster", 7, -3], ["fp8_fern", 0, 0]],
+    // fileira de trás (desenhada primeiro): as moitas altas (22–24 px opacos) subidas 2–3 px → ~26 px acima do pé;
+    // fileira da frente: a moita baixa de borda (18 px) e samambaia (15 px) no pé
+    big: [["fp8_edge_cluster_b", 4, -3], ["fp8_flowering_bush", -18, -2], ["fp8_fern", 22, -1], ["fp8_edge_cluster_a", -2, 0]],
+    bigB: [["fp8_flowering_bush", 12, -3], ["fp8_edge_cluster_b", -10, -2], ["fp8_fern", -28, -1], ["fp8_edge_cluster_a", 6, 0]],
+    reeds: [["fp8_reed_cluster", -8, -3], ["fp8_reed_cluster", 7, -2], ["fp8_fern", -1, 0], ["fp8_reed_cluster", 15, 0]],
   };
   const addComposite = (kind, x, y, tag) => {
     for (const [key, dx, dy] of COMPOSITE[kind]) fg.push({ key, x: Math.round(x + dx), y: Math.round(y + dy), tag });

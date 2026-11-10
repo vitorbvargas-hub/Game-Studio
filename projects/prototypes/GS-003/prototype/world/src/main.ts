@@ -25,7 +25,7 @@ import { applyOpenedChests, arenaOf, interact, nearestInteraction, type Interact
 import { TICK_MS } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
-import { canEvolveNow, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld } from "./sim/world";
+import { canEvolveNow, encounterInspect, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld } from "./sim/world";
 import { autoEvolveTarget, isBranching, statusesOf } from "./sim/evolution";
 import { evolveChoiceHtml } from "./ui/evolve-ui";
 import "./style.css";
@@ -51,6 +51,9 @@ import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, r
 import type { ScenePack } from "./assets/scene-tiles";
 import { dprLayout, REF_CHAR_PX } from "./render/scale";
 import { setSkipResampled } from "./render/anim";
+import { EncounterFx } from "./render/encounterFx";
+import { ENCOUNTER_TABLES, periodOf } from "./sim/encounters/table";
+import { mountEncounterDebug } from "./ui/encdebug";
 
 
 const params = new URLSearchParams(location.search);
@@ -87,6 +90,14 @@ const CHAR_H_PCT = Math.min(25, Math.max(3, Number(params.get("charh") ?? 9) || 
 setSkipResampled(DPR_MODE);
 /** ?anim=v2 (Quality Overhaul, fase 2): controlador de animação v2 (src/render/animctl.ts), só na apresentação. */
 const ANIM_V2 = params.get("anim") === "v2";
+/**
+ * ?encounters=1 (GS-012 passos 5–7): encontros aleatórios na grama alta + 5 pontos visíveis no lugar das zonas de
+ * spawn, nos mapas com tabela (src/sim/encounters/table.ts). ?encdebug=1 liga também o painel de debug.
+ * ?weather=rain|fog|storm força o clima (não há sistema de clima; padrão "clear").
+ */
+const ENC_DEBUG = params.get("encdebug") === "1";
+const ENCOUNTERS = params.get("encounters") === "1" || ENC_DEBUG;
+const WEATHER = params.get("weather") ?? "clear";
 /** Resolução lógica mínima; a tela é preenchida com o maior fator inteiro que caiba. */
 const MIN_W = 400;
 const MIN_H = 240;
@@ -212,6 +223,10 @@ async function boot() {
   const auto = params.get("auto") === "1";
   // Relógio do jogo (?time=night|day|HH:MM força; ?timescale=N minutos de jogo por segundo real).
   const clock = new GameClock(clockFromParams(params, new Date()));
+  const clockT0 = performance.now();
+  /** Debug (?encdebug=1): horário forçado só para a tabela de encontros ("" = o do relógio). */
+  let encTimeOverride = "";
+  const encPeriod = () => encTimeOverride || periodOf(clock.phase(performance.now() - clockT0));
   // ?time= da URL manda; sem ele, vale a configuração salva (Configurações → Tempo do dia).
   if (!params.has("time") && settings.time !== "auto") clock.opts.forced = settings.time;
   const tamers = pickTamers(loadCharacterCatalog());
@@ -236,7 +251,14 @@ async function boot() {
   async function buildMap(mapId: string, start: string | undefined, carry?: SaveData): Promise<Live> {
     const def0 = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
     const def = def0 && withLook(def0, LOOK);
-    const opts = { auto, localName: look.name, start, ...(newStarter && !carry ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}) };
+    const encTable = ENCOUNTERS && def ? ENCOUNTER_TABLES[def.id] : undefined;
+    const opts = {
+      auto,
+      localName: look.name,
+      start,
+      ...(newStarter && !carry ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}),
+      ...(encTable ? { world: { encounters: encTable, env: { time: encPeriod(), weather: WEATHER } } } : {}),
+    };
     const { sim, events } = def ? createMapWorld(parseTiledMap(def.id, def.tmj), def.scene, SEED, opts) : createDefaultWorld(SEED, { auto });
     if (carry) {
       applySave(sim, LOCAL_PLAYER, carry);
@@ -285,6 +307,13 @@ async function boot() {
       fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
     });
     if (nightTiles) view.setNightTiles(nightTiles);
+    if (sim.encounters)
+      view.encFx = new EncounterFx({
+        localPlayerId: LOCAL_PLAYER,
+        nameOf: (id) => sim.content.species[id]?.name ?? id,
+        // NOVO do Digidex: espécie ainda não vista (o spawn do mesmo tick ainda não entrou no `seen`)
+        isNew: (id) => !seen.has(id),
+      });
     const presenter = new Presenter((id) => (id ? creatures[id]?.manifest : undefined), LOCAL_PLAYER);
     // Os spawns saíram antes do save: atualiza a foto de quem mudou (parceira restaurada/evoluída).
     for (const ev of events) {
@@ -336,6 +365,7 @@ async function boot() {
   }
   console.info(`Tamer ${look.name}: ${lookKey(look)} (preset v3)`);
   const intents: Intent[] = [];
+  let encEnvSent = "";
   const player = () => getPlayer(cur.sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
   const regionName = (d?: MapDef) => (d ? regionById(d.region)?.name ?? d.id : "Prado");
@@ -909,7 +939,20 @@ async function boot() {
       const dx = (keys.has("d") ? 1 : 0) - (keys.has("a") ? 1 : 0);
       const dy = (keys.has("s") ? 1 : 0) - (keys.has("w") ? 1 : 0);
       if ((dx || dy) && !traveling) intents.push({ t: "move_dir", playerId: LOCAL_PLAYER, dx, dy });
+      if (cur.sim.encounters) {
+        // a sim só sabe que horas são por aqui (determinismo): manda o período quando ele muda
+        const env = `${encPeriod()}|${WEATHER}`;
+        if (env !== encEnvSent) intents.push({ t: "set_env", playerId: LOCAL_PLAYER, time: encPeriod(), weather: WEATHER });
+        encEnvSent = env;
+      }
       const evs = stepWorld(cur.sim, intents.splice(0));
+      view().encFx?.onEvents(evs, now);
+      for (const ev of evs)
+        if (ev.t === "wild_appear" && ev.random && ev.playerId === LOCAL_PLAYER) {
+          const nm = cur.sim.content.species[ev.speciesId]?.name ?? ev.speciesId;
+          const rar = { common: "", uncommon: " (incomum)", rare: " (raro!)", very_rare: " (muito raro!!)" }[ev.rarity] ?? "";
+          hud.push(`Um ${nm} selvagem saltou da grama!${rar}`, ev.rarity === "very_rare" || ev.rarity === "rare" ? "gold" : "");
+        }
       cur.presenter.onTick(snapshot(cur.sim), evs, now);
       hud.onEvents(evs);
       trackSeen(evs);
@@ -925,7 +968,9 @@ async function boot() {
     const alpha = acc / TICK_MS;
     view().update(cur.presenter, alpha, now);
     const mePos = view().motionPos(LOCAL_PLAYER);
-    if (mePos) view().follow({ x: mePos.x, y: mePos.y + HUD_BOTTOM_PX / 2 / cssPerLogical }, now - lastFrame, view().shakeFor(cur.presenter, now));
+    // GS-012: durante o salto da grama a câmera puxa um pouco em direção ao selvagem (no lugar de zoom fracionário)
+    const encBias = view().encFx?.cameraBias(now, mePos) ?? { x: 0, y: 0 };
+    if (mePos) view().follow({ x: mePos.x + encBias.x, y: mePos.y + encBias.y + HUD_BOTTOM_PX / 2 / cssPerLogical }, now - lastFrame, view().shakeFor(cur.presenter, now));
     lastFrame = now;
     const elapsed = now - bootAt;
     view().nightMix = regionMode ? clock.nightMix(elapsed) : 0;
@@ -945,6 +990,15 @@ async function boot() {
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
+  if (ENC_DEBUG)
+    mountEncounterDebug(document.body, {
+      inspect: () => encounterInspect(cur.sim, LOCAL_PLAYER),
+      entries: () => (cur.sim.encounters?.table.entries ?? []).filter((e) => e.mode !== "visible").map((e) => ({ id: e.id, name: e.name, rarity: e.rarity })),
+      force: (entryId, rarity) => intents.push({ t: "enc_force", playerId: LOCAL_PLAYER, ...(entryId ? { entryId } : {}), ...(rarity ? { rarity } : {}) }),
+      setTime: (t) => {
+        encTimeOverride = t;
+      },
+    });
   // Depuração/capturas: o estado atual (cur muda na troca de mapa; os getters sempre leem o atual).
   Object.assign(window, {
     __gs003: {
@@ -964,6 +1018,9 @@ async function boot() {
       get scaleInfo() {
         return { scale, cssPerLogical, dpr: window.devicePixelRatio || 1, dprMode: DPR_MODE, logicalW: canvas.width, logicalH: canvas.height, charPct: CHAR_H_PCT };
       },
+      /** GS-012: estado dos encontros (painel de debug, capturas e o passeio automatizado). */
+      encounters: () => encounterInspect(cur.sim, LOCAL_PLAYER),
+      forceEncounter: (entryId?: string, rarity?: string) => intents.push({ t: "enc_force", playerId: LOCAL_PLAYER, ...(entryId ? { entryId } : {}), ...(rarity ? { rarity } : {}) }),
       /** Interações disparadas (Map Factory: placa, baú, cura, NPC, arena), para capturas e testes. */
       interactions,
       hud,
