@@ -1,0 +1,108 @@
+{
+  "palette": "ByteLine-18 (art/PIXEL_ART_DIRECTION.md §3) — hex idênticos, 0 cores novas nesta peça",
+  "panel_9slice": {
+    "size": [
+      96,
+      64
+    ],
+    "nine_slice": {
+      "left": 8,
+      "right": 8,
+      "top": 8,
+      "bottom": 8
+    }
+  },
+  "button": {
+    "size": [
+      64,
+      20
+    ],
+    "states": [
+      "normal",
+      "hover",
+      "pressed",
+      "locked"
+    ],
+    "nine_slice": {
+      "left": 5,
+      "right": 5,
+      "top": 5,
+      "bottom": 5
+    }
+  },
+  "icon_frame": {
+    "size": [
+      32,
+      32
+    ],
+    "tiers": {
+      "1": "common (steel)",
+      "2": "rare (cyan)",
+      "3": "legendary (amber)"
+    }
+  },
+  "bar_frame": {
+    "size": [
+      64,
+      12
+    ],
+    "fill_inset": {
+      "left": 2,
+      "right": 2,
+      "top": 2,
+      "bottom": 2
+    }
+  },
+  "bar_fill_hp": {
+    "size": [
+      60,
+      8
+    ],
+    "base_color": "volt #9df24a (ByteLine: HP cheia)",
+    "note": "engine deve tingir p/ blood #e8465f (ByteLine: HP crítica) quando valor baixo — não cozido na textura"
+  },
+  "bar_fill_xp": {
+    "size": [
+      60,
+      7
+    ],
+    "base_color": "cyan #3fe0d0"
+  },
+  "rarity_seal": {
+    "size": [
+      20,
+      20
+    ],
+    "tiers": [
+      "common",
+      "rare",
+      "legendary"
+    ]
+  },
+  "notification_badge": {
+    "size": [
+      16,
+      16
+    ],
+    "color": "magenta #e8459d (ByteLine: alerta de UI)"
+  },
+  "digivice_emblem": {
+    "size": [
+      24,
+      24
+    ]
+  },
+  "divider": {
+    "size": [
+      64,
+      6
+    ]
+  },
+  "hud_mockup": {
+    "size": [
+      320,
+      180
+    ],
+    "note": "resolução interna do projeto (PIXEL_ART_DIRECTION.md §2)"
+  }
+}
