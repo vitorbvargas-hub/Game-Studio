@@ -1,0 +1,17 @@
+{
+  "biome": "forest-v9-cliffs",
+  "layer": "original",
+  "assets": [
+    {
+      "group": "palette.json (reaproveitada de forest-v8-depth) + 16 cliff_top_blob + 4 variantes de face + 3 cantos + 1 rampa + 4 decalques",
+      "origin": "game-art, 100% pipeline local, 2026-11-10",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Canvas.js pixel matrix (fillEllipse/fillRect/fillPolygon/line/blendPixel) + a geometria compartilhada de autotile blob-16 (blob_autotile16.js, reaproveitada sem alteracao) + um novo primitivo local (wobbleProfile, random-walk clampado com \"chips\" ocasionais) para bordas/fraturas organicas, nao adicionado ao modulo compartilhado. Paleta: 100% reaproveitada de forest_v8_depth_palette.js (nenhum hex novo), que por sua vez e um deslocamento HSV documentado de forest_v4_palette.js. Sem geracao do PixelLab e sem arte de terceiros referenciada pixel a pixel.",
+      "styleReference": "docs/DRAKANTOS_VISUAL_STUDY.md + evidence/drakantos-video/t0150_estrada_carroca_lanterna.png (direcao de estilo -- falesia em camadas, raizes, musgo pendurado, contorno irregular -- citado por numero/descricao, nenhum pixel copiado do frame).",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- referencias de terceiros (Drakantos) informaram so a direcao de composicao/organicidade, per ADR-010/011 Secao 5, nao estes pixels especificos."
+    }
+  ],
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-art"
+}
