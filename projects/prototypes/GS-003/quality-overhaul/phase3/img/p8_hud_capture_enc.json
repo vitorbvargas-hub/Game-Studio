@@ -1,0 +1,206 @@
+{
+  "date": "2026-11-10T09:14:46.554Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p8_hud_v1_encontro_dia_1_alerta.png": {
+      "query": "",
+      "time": "day",
+      "msAfterRoll": 761,
+      "phase": "alerta",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_dia_2_placa.png": {
+      "query": "",
+      "time": "day",
+      "msAfterRoll": 1662,
+      "phase": "pouso",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_dia_3_combate.png": {
+      "query": "",
+      "time": "day",
+      "msAfterRoll": 2463,
+      "phase": "placa",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_dia_4_combate_barra.png": {
+      "query": "",
+      "time": "day",
+      "v2": false,
+      "tamerTier": null,
+      "partnerTier": null,
+      "partnerAffinity": null,
+      "moveKinds": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v1_encontro_noite_1_alerta.png": {
+      "query": "",
+      "time": "night",
+      "msAfterRoll": 760,
+      "phase": "alerta",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_noite_2_placa.png": {
+      "query": "",
+      "time": "night",
+      "msAfterRoll": 1662,
+      "phase": "pouso",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_noite_3_combate.png": {
+      "query": "",
+      "time": "night",
+      "msAfterRoll": 2463,
+      "phase": "placa",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v1_encontro_noite_4_combate_barra.png": {
+      "query": "",
+      "time": "night",
+      "v2": false,
+      "tamerTier": null,
+      "partnerTier": null,
+      "partnerAffinity": null,
+      "moveKinds": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_encontro_dia_1_alerta.png": {
+      "query": "&hud=v2",
+      "time": "day",
+      "msAfterRoll": 759,
+      "phase": "alerta",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v2_encontro_dia_2_placa.png": {
+      "query": "&hud=v2",
+      "time": "day",
+      "msAfterRoll": 1662,
+      "phase": "pouso",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": [
+        "rwild-6"
+      ]
+    },
+    "p8_hud_v2_encontro_dia_3_combate.png": {
+      "query": "&hud=v2",
+      "time": "day",
+      "msAfterRoll": 2464,
+      "phase": "placa",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": [
+        "rwild-6"
+      ]
+    },
+    "p8_hud_v2_encontro_dia_4_combate_barra.png": {
+      "query": "&hud=v2",
+      "time": "day",
+      "v2": true,
+      "tamerTier": "ok",
+      "partnerTier": "ok",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_encontro_noite_1_alerta.png": {
+      "query": "&hud=v2",
+      "time": "night",
+      "msAfterRoll": 762,
+      "phase": "alerta",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": []
+    },
+    "p8_hud_v2_encontro_noite_2_placa.png": {
+      "query": "&hud=v2",
+      "time": "night",
+      "msAfterRoll": 1661,
+      "phase": "pouso",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": [
+        "rwild-6"
+      ]
+    },
+    "p8_hud_v2_encontro_noite_3_combate.png": {
+      "query": "&hud=v2",
+      "time": "night",
+      "msAfterRoll": 2465,
+      "phase": "placa",
+      "rarity": "rare",
+      "name": "Goburimon",
+      "plateIds": [
+        "rwild-6"
+      ]
+    },
+    "p8_hud_v2_encontro_noite_4_combate_barra.png": {
+      "query": "&hud=v2",
+      "time": "night",
+      "v2": true,
+      "tamerTier": "ok",
+      "partnerTier": "warn",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    }
+  }
+}

@@ -1024,9 +1024,10 @@ async function boot() {
     if (HUD_V2) {
       // Tamer: a sim não dá dano ao Tamer hoje (PV sempre cheio); a Energia ainda não tem regra (só visual, cheia)
       const t = getEntity(cur.sim.state, player().tamerId);
-      const maxHp = t?.maxHp || 100;
-      const hp = TAMER_HP_FORCE !== undefined ? Math.round((maxHp * TAMER_HP_FORCE) / 100) : t?.hp ?? maxHp;
-      hud.updateTamer({ name: t?.name ?? "Tamer", level: hud.tamerProgress().level, hp, maxHp, energy: 1, maxEnergy: 1 });
+      // (?tamerhp força o percentual direto: o maxHp do Tamer na sim é simbólico e arredondar sobre ele zera a barra)
+      const real = t && t.maxHp > 0 ? { hp: t.hp, maxHp: t.maxHp } : { hp: 1, maxHp: 1 };
+      const v = TAMER_HP_FORCE !== undefined ? { hp: TAMER_HP_FORCE, maxHp: 100 } : real;
+      hud.updateTamer({ name: t?.name ?? "Tamer", level: hud.tamerProgress().level, ...v, energy: 1, maxEnergy: 1 });
     }
     requestAnimationFrame(frame);
   };

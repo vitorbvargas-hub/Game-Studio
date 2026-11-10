@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-10T09:16:14.413Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p8_hud_v1_dia.png": {
+      "query": "",
+      "time": "day",
+      "v2": false,
+      "tamerTier": null,
+      "partnerTier": null,
+      "partnerAffinity": null,
+      "moveKinds": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "p8_hud_v1_dia_barra.png": {
+      "of": "p8_hud_v1_dia.png",
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_dia.png": {
+      "query": "&hud=v2",
+      "time": "day",
+      "v2": true,
+      "tamerTier": "ok",
+      "partnerTier": "ok",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ]
+    },
+    "p8_hud_v2_dia_barra.png": {
+      "of": "p8_hud_v2_dia.png",
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v1_noite.png": {
+      "query": "",
+      "time": "night",
+      "v2": false,
+      "tamerTier": null,
+      "partnerTier": null,
+      "partnerAffinity": null,
+      "moveKinds": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "p8_hud_v1_noite_barra.png": {
+      "of": "p8_hud_v1_noite.png",
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_noite.png": {
+      "query": "&hud=v2",
+      "time": "night",
+      "v2": true,
+      "tamerTier": "ok",
+      "partnerTier": "ok",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ]
+    },
+    "p8_hud_v2_noite_barra.png": {
+      "of": "p8_hud_v2_noite.png",
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_tamer_warn_barra.png": {
+      "query": "&hud=v2&tamerhp=35",
+      "v2": true,
+      "tamerTier": "crit",
+      "partnerTier": "ok",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    },
+    "p8_hud_v2_tamer_crit_barra.png": {
+      "query": "&hud=v2&tamerhp=12",
+      "v2": true,
+      "tamerTier": "crit",
+      "partnerTier": "ok",
+      "partnerAffinity": "virus",
+      "moveKinds": [
+        "physical",
+        "special",
+        null,
+        null
+      ],
+      "clip": {
+        "x": 0,
+        "y": 880,
+        "width": 1920,
+        "height": 200
+      }
+    }
+  }
+}
