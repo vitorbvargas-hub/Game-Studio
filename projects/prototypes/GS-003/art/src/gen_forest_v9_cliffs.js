@@ -137,15 +137,50 @@ function stampRubble(c, cx, cy, d_, rnd, count) {
 // =========================================================================
 function cliffTopFg(c, x0, y0, w, h, _ramp, seed) {
   const rnd = rng(seed);
-  const top = d.cliffTop;
-  c.fillRect(x0, y0, x0 + w - 1, y0 + h - 1, top[1]);
-  for (let i = 0; i < Math.round(w * h * 0.12); i++) {
-    const px = x0 + Math.floor(rnd() * w), py = y0 + Math.floor(rnd() * h);
-    c.setPixel(px, py, rnd() < 0.5 ? top[0] : top[2]);
-  }
+  // r2 fix (QA P1-1, 2026-11-10): v2 filled the WHOLE top with d.cliffTop
+  // (a darkened/cooled copy of base.ground.stone -- literally rock), which
+  // is why the plateau read as a flat gray-purple stone slab even after
+  // the face got vegetation. The clearing's actual ground cover is grass,
+  // so an interior top tile (fully surrounded -- R=0 at every corner in
+  // blob_autotile16, 0% of cliffTopBg's grass shows through) must be
+  // grass-based on its own, not rely on bg peeking through corners. Base
+  // fill + speckle below mirrors groundBase() (same d.grass ramp as the
+  // forest floor everywhere else) so the plateau top matches the clearing
+  // instead of contrasting with it, and fg/bg no longer fight each other
+  // in blob corners -- that mismatch is what the dev report calls the
+  // visible "mancha verde retangular" (old stone fg meeting grass bg at a
+  // hard, differently-toned edge inside the same tile).
+  const g = d.grass;
+  c.fillRect(x0, y0, x0 + w - 1, y0 + h - 1, g[2]);
   for (let i = 0; i < 5; i++) {
-    const px = x0 + Math.floor(rnd() * w * 0.7), py = y0 + Math.floor(rnd() * h * 0.7);
-    c.setPixel(px, py, top[3]);
+    const cx = x0 + 3 + Math.floor(rnd() * Math.max(1, w - 6)), cy = y0 + 3 + Math.floor(rnd() * Math.max(1, h - 6));
+    c.fillEllipse(cx, cy, 4, 3, withAlpha(g[3], 120));
+  }
+  for (let i = 0; i < 40; i++) {
+    const bx = x0 + 1 + Math.floor(rnd() * (w - 2)), by = y0 + 1 + Math.floor(rnd() * (h - 3));
+    const lit = (bx + by) < 30;
+    const tone = lit ? pick(rnd, [g[4], g[3]]) : pick(rnd, [g[0], g[1]]);
+    c.setPixel(bx, by, tone);
+    if (rnd() < 0.5) c.setPixel(bx, by + 1, tone);
+  }
+  // worn-earth patches: packed dirt where feet/paws cross the lookout,
+  // 1-2 irregular blobs per tile (not a full stone sheet) -- the only
+  // "this sits on rock" cue left on the main surface, kept a minority so
+  // the top does not read as a slab again.
+  const dirtPatches = 1 + (rnd() < 0.35 ? 1 : 0);
+  for (let i = 0; i < dirtPatches; i++) {
+    const cx = x0 + 6 + Math.floor(rnd() * Math.max(1, w - 12)), cy = y0 + 6 + Math.floor(rnd() * Math.max(1, h - 12));
+    const rx = 3 + Math.floor(rnd() * 4), ry = 2 + Math.floor(rnd() * 3);
+    c.fillEllipse(cx, cy, rx, ry, d.dirt[1]);
+    c.fillEllipse(cx - 1, cy - 1, Math.max(1, rx - 2), Math.max(1, ry - 2), d.dirt[2]);
+    for (let p = 0; p < 6; p++) c.setPixel(cx + Math.round((rnd() - 0.5) * rx * 2), cy + Math.round((rnd() - 0.5) * ry * 2), d.dirt[0]);
+  }
+  // sparse pebbles poking through the turf -- minority presence, a nod to
+  // the rock underneath without dominating the read.
+  for (let i = 0; i < 3; i++) {
+    const px = x0 + Math.floor(rnd() * w), py = y0 + Math.floor(rnd() * h);
+    c.setPixel(px, py, d.stone[1]);
+    if (rnd() < 0.4) c.setPixel(px + 1, py, withAlpha(d.stone[0], 180));
   }
   // crumbling south edge: jittered moss/soil scatter, denser than v8, plus
   // a handful of grass blades poking past the edge (continues onto the
