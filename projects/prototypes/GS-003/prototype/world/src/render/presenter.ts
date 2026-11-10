@@ -94,6 +94,52 @@ export function evoFrame(evo: Pick<EvoFx, "start">, now: number): EvoFrame {
   return { phase: "done", t, show: "to", white: 0, aura: 0, flash: 0 };
 }
 
+// Troca de Digimon no mapa (feedback 1, item 7): quem sai vira silhueta branca e recua até o Tamer num
+// feixe de luz (some no fim); quem entra aparece no mesmo lugar como silhueta que se revela, com o estouro de impacto do seu
+// elemento (fx.drawImpact) e um anel no chão.
+export const SWAP_RECALL_MS = 420;
+export const SWAP_ENTER_MS = 520;
+export const SWAP_TOTAL_MS = SWAP_RECALL_MS + SWAP_ENTER_MS;
+
+export interface SwapFx {
+  start: number;
+  from: string;
+  to: string;
+  fromName: string;
+  toName: string;
+  /** Posição (px) do Tamer na troca: o que sai recua até ela. */
+  tamerAt: Vec;
+  /** A forma nova já foi revelada (speciesId/name trocados). */
+  revealed: boolean;
+}
+
+export interface SwapFrame {
+  phase: "recall" | "enter" | "done";
+  /** 0..1 dentro da fase. */
+  k: number;
+  show: "from" | "to";
+  white: number;
+  /** 0..1: quanto do caminho até o Tamer o que sai já andou. */
+  pull: number;
+  /** Opacidade do sprite (o que sai some no fim do recuo). */
+  alpha: number;
+}
+
+/** Quadro da troca no instante `now` (puro). */
+export function swapFrame(fx: Pick<SwapFx, "start">, now: number): SwapFrame {
+  const t = now - fx.start;
+  if (t < 0) return { phase: "recall", k: 0, show: "from", white: 0, pull: 0, alpha: 1 };
+  if (t < SWAP_RECALL_MS) {
+    const k = t / SWAP_RECALL_MS;
+    return { phase: "recall", k, show: "from", white: Math.min(1, k * 2.2), pull: k * k, alpha: k < 0.55 ? 1 : Math.max(0, 1 - (k - 0.55) / 0.45) };
+  }
+  if (t < SWAP_TOTAL_MS) {
+    const k = (t - SWAP_RECALL_MS) / SWAP_ENTER_MS;
+    return { phase: "enter", k, show: "to", white: Math.max(0, 1 - k * 1.6), pull: 0, alpha: Math.min(1, 0.35 + k * 2) };
+  }
+  return { phase: "done", k: 1, show: "to", white: 0, pull: 0, alpha: 1 };
+}
+
 export type VfxElement = "fire" | "frost" | "wind" | "light" | "bubble" | "spark";
 
 const VFX = vfxTable as { basicSkillId: string; default: VfxElement; species: Record<string, VfxElement> };
@@ -161,6 +207,8 @@ export interface VisualEntity {
   lvUpAt?: number;
   /** Digivolução em andamento (a entidade mostra a forma antiga até o clarão). */
   evo?: EvoFx;
+  /** Troca de Digimon em andamento (a forma que sai fica na tela até o fim do recuo). */
+  swap?: SwapFx;
 }
 
 export interface Floater {
@@ -279,7 +327,7 @@ export class Presenter {
       v.facing = s.facing;
       v.logicState = s.state;
       // Durante a digivolução a forma antiga fica na tela até o clarão (update() troca).
-      if (s.speciesId !== v.speciesId && !(v.evo && !v.evo.revealed)) {
+      if (s.speciesId !== v.speciesId && !(v.evo && !v.evo.revealed) && !(v.swap && !v.swap.revealed)) {
         prevNames.set(v.id, v.name);
         v.speciesId = s.speciesId;
         v.name = s.name;
@@ -349,6 +397,18 @@ export class Presenter {
         case "status":
           this.pending.push({ at: Math.max(now, this.hitTimeBySeq.get(ev.seq) ?? now), kind: "status", ev });
           break;
+        case "partner_swap": {
+          const v = this.entities.get(ev.id);
+          if (v) {
+            const toName = this.manifestOf(ev.to)?.name ?? v.name;
+            const fromName = this.manifestOf(ev.out.speciesId)?.name ?? ev.out.speciesId;
+            v.swap = { start: now, from: ev.out.speciesId, to: ev.to, fromName, toName, tamerAt: toPx(ev.tamerAt), revealed: false };
+            v.speciesId = ev.out.speciesId;
+            v.name = fromName;
+            v.evo = undefined;
+          }
+          break;
+        }
         case "evolve": {
           const v = this.entities.get(ev.id);
           if (v) {
@@ -437,6 +497,12 @@ export class Presenter {
         v.name = v.evo.toName;
       }
       if (v.evo?.revealed && now >= v.evo.start + EVO_FLASH_MS + EVO_BANNER_MS) v.evo = undefined;
+      if (v.swap && !v.swap.revealed && now >= v.swap.start + SWAP_RECALL_MS) {
+        v.swap.revealed = true;
+        v.speciesId = v.swap.to;
+        v.name = v.swap.toName;
+      }
+      if (v.swap?.revealed && now >= v.swap.start + SWAP_TOTAL_MS) v.swap = undefined;
       if (v.lvUpAt !== undefined && now > v.lvUpAt + LEVEL_UP_FX_MS) v.lvUpAt = undefined;
       if (v.attack && now > v.attack.start + Math.max(v.attack.durationMs, v.attack.hitAtMs + DAMAGE_GRACE_MS)) v.attack = undefined;
       if (v.hurt && now > v.hurt.start + HURT_VIS_MS) v.hurt = undefined;

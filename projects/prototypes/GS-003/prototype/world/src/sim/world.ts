@@ -22,6 +22,7 @@ import {
   validateSlots,
 } from "./moves";
 import { attackCooldownTicks, SUB, TICK_MS, WORLD } from "./params";
+import { EXPLORE, exploreTick } from "./explore";
 import { INTRO_TICKS, LocalEncounterAuthority, type EnvState, type VisibleZone } from "./encounters/authority";
 import { matches, type EncounterEntry, type EncounterTable } from "./encounters/rules";
 import type { WorldContent } from "./species";
@@ -533,7 +534,10 @@ export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
     const pe = getEntity(w, p.partnerId);
     if (p.autoEvolve && !pe?.evolveLockTicks) tryAutoEvolve(ctx, pe, p.evoPrefs);
   }
-  for (const p of w.players) p.dir = undefined;
+  for (const p of w.players) {
+    p.dir = undefined;
+    if (p.swapCd) p.swapCd--;
+  }
   const due = w.pendingSpawns.filter((s) => s.atTick <= w.tick);
   w.pendingSpawns = w.pendingSpawns.filter((s) => s.atTick > w.tick);
   for (const s of due) if (zoneActive(ctx, sim.map.spawns[s.zoneIndex])) spawnWild(ctx, sim.map.spawns[s.zoneIndex], s.zoneIndex);
@@ -553,13 +557,28 @@ function applyIntent(ctx: Ctx, it: Intent): void {
     case "move_to":
       tamer.dest = { x: it.x, y: it.y };
       tamer.stuckTicks = 0;
+      if (p.explore) takeOver(p);
       return;
     case "move_dir":
       p.dir = { x: Math.sign(it.dx), y: Math.sign(it.dy) };
       tamer.dest = undefined;
+      if (p.explore) takeOver(p);
       return;
     case "set_auto":
       p.auto = it.on;
+      if (!it.on && p.explore && p.autoExplore) {
+        p.explore = undefined;
+        tamer.dest = undefined;
+      }
+      return;
+    case "swap_partner":
+      return swapPartner(ctx, p, tamer, it, reject);
+    case "set_auto_explore":
+      p.autoExplore = it.on;
+      if (!it.on && p.explore) {
+        p.explore = undefined;
+        tamer.dest = undefined;
+      }
       return;
     case "set_auto_evolve":
       p.autoEvolve = it.on;
@@ -678,6 +697,7 @@ function thinkTamer(ctx: Ctx, e: Entity): void {
   const { w } = ctx;
   const p = w.players.find((x) => x.tamerId === e.id)!;
   if (p.bot) botBrain(ctx, e);
+  else if (p.auto && p.autoExplore && !(p.dir && (p.dir.x || p.dir.y))) explore(ctx, p, e);
   let moving = false;
   if (p.dir && (p.dir.x || p.dir.y)) {
     const diag = p.dir.x !== 0 && p.dir.y !== 0;
@@ -692,6 +712,77 @@ function thinkTamer(ctx: Ctx, e: Entity): void {
   setState(e, moving ? "WALK" : "IDLE", w.tick, ctx.ev);
   if (moving) pushTrail(e);
   if (ctx.auth && !p.bot) encounterStep(ctx, p, e);
+}
+
+/**
+ * Troca de Digimon (feedback 1, item 7): a entidade da parceira (mesmo id) vira a espécie da equipe/Box, mantendo a
+ * posição, o alvo e o encontro (a recompensa continua indo para a parceira do encontro, uma vez). Recusa durante a
+ * recarga, a derrota, a evolução e com a mesma espécie/nível já ativa.
+ */
+function swapPartner(ctx: Ctx, p: PlayerState, tamer: Entity, it: Extract<Intent, { t: "swap_partner" }>, reject: (r: string) => void): void {
+  const { w, c } = ctx;
+  const e = getEntity(w, p.partnerId);
+  const sp = c.species[it.speciesId];
+  if (!e || !sp) return reject("Digimon indisponível");
+  if ((p.swapCd ?? 0) > 0) return reject(`troca em recarga (${Math.ceil(p.swapCd! / 10)} s)`);
+  if (e.state === "DEFEAT") return reject("espere o Digimon se recuperar");
+  if ((e.evolveLockTicks ?? 0) > 0) return reject("espere a digivolução terminar");
+  if (e.speciesId === it.speciesId && e.level === it.level) return reject("esse Digimon já está ativo");
+  const out = { ...partnerSaveOf(e), hpPct: Math.round((e.hp / Math.max(1, e.maxHp)) * 100) };
+  const inCombat = !!e.encounterId || !!e.targetId || ["ENGAGE", "ATTACK", "HURT"].includes(e.state);
+  // golpe/dano em curso: a nova forma entra parada (o golpe já resolvido não muda)
+  if (e.state === "ATTACK") setState(e, e.targetId ? "ENGAGE" : "IDLE", w.tick, ctx.ev);
+  if (e.state === "HURT") setState(e, e.resumeState && e.resumeState !== "ATTACK" ? e.resumeState : "IDLE", w.tick, ctx.ev);
+  const level = Math.max(1, Math.min(c.balance.maxLevel, Math.floor(it.level)));
+  const lo = it.learned?.length ? undefined : initialLoadout(c.moves, it.speciesId, level);
+  e.speciesId = it.speciesId;
+  e.name = sp.name;
+  e.affinity = sp.affinity;
+  e.element = c.moves.speciesElement[it.speciesId] ?? "neutral";
+  e.radius = sp.radius;
+  e.level = level;
+  e.xp = Math.max(0, Math.floor(it.xp ?? 0));
+  const known = new Set((lo?.learned ?? it.learned!).filter((id) => c.moves.moves[id]));
+  e.learned = [...known];
+  const slots = lo?.moves ?? it.moves ?? [];
+  e.moves = [0, 1, 2, 3].map((i) => (slots[i] && known.has(slots[i]!) ? slots[i]! : null));
+  e.autoRules = lo ? defaultAutoRules(e.moves) : (it.autoRules ?? defaultAutoRules(e.moves)).filter((r) => known.has(r.moveId)).map((r) => ({ ...r }));
+  e.moveCd = {};
+  e.statuses = [];
+  e.queuedMove = undefined;
+  e.mp = 0;
+  applyStats(ctx, e, Math.max(1, Math.min(100, it.hpPct ?? 100)) / 100);
+  e.mp = e.maxMp;
+  if (inCombat) e.attackCd = Math.max(e.attackCd, WORLD.swapAttackDelayTicks);
+  const cdTicks = inCombat ? WORLD.swapCdCombatTicks : WORLD.swapCdTicks;
+  p.swapCd = cdTicks;
+  ctx.ev.push({ t: "partner_swap", tick: w.tick, playerId: p.id, id: e.id, out, to: e.speciesId, at: { x: e.x, y: e.y }, tamerAt: { x: tamer.x, y: tamer.y }, inCombat, cdTicks });
+  ctx.ev.push({ t: "spawn", tick: w.tick, entity: snapshotOf(e) });
+}
+
+/** O jogador mexeu (WASD/clique): o explorador espera EXPLORE.pauseTicks sem input antes de voltar a andar sozinho. */
+function takeOver(p: PlayerState): void {
+  p.explore!.pauseTicks = EXPLORE.pauseTicks;
+  p.explore!.path = [];
+  p.explore!.goal = undefined;
+}
+
+/** AUTO explorador (sim/explore.ts): decide o destino do Tamer; anuncia a mudança de modo para a UI. */
+function explore(ctx: Ctx, p: PlayerState, tamer: Entity): void {
+  const before = p.explore?.mode;
+  const partner = getEntity(ctx.w, p.partnerId);
+  const mode = exploreTick({
+    w: ctx.w,
+    map: ctx.map,
+    player: p,
+    tamer,
+    partner,
+    grassAt: ctx.auth ? (tx, ty) => !!ctx.auth!.areaAt(tx, ty) : undefined,
+    huntable: (t) => !!partner && huntable(t, partner),
+    healPoints: (ctx.map.interactables ?? []).filter((i) => i.kind === "heal_point").map((i) => i.pos),
+    interactRadius: Math.round(1.5 * SUB),
+  });
+  if (mode !== before) ctx.ev.push({ t: "explore_mode", tick: ctx.w.tick, playerId: p.id, mode });
 }
 
 /** Registra a posição do Tamer na trilha (um ponto a cada trailStep sub andados). */
@@ -853,14 +944,19 @@ function behind(owner: Entity, distance: number): Vec {
   return { x: owner.x - Math.round(Math.cos(a) * distance), y: owner.y - Math.round(Math.sin(a) * distance) };
 }
 
+/** Selvagem que o AUTO da parceira `e` aceita como alvo (sem olhar distância). */
+function huntable(t: Entity, e: Entity): boolean {
+  if (t.kind !== "wild" || !alive(t) || t.encounterId || t.state === "RETURN") return false;
+  // GS-012: o encontro de outro jogador e o selvagem ainda saindo da grama não são alvo do AUTO
+  if ((t.introTicks ?? 0) > 0 || (t.encOwner && t.encOwner !== e.ownerId)) return false;
+  return t.level <= e.level + WORLD.autoLevelMargin;
+}
+
 function findAutoTarget(ctx: Ctx, e: Entity, owner: Entity): Entity | undefined {
   let best: Entity | undefined;
   let bestD = Infinity;
   for (const t of ctx.w.entities) {
-    if (t.kind !== "wild" || !alive(t) || t.encounterId || t.state === "RETURN") continue;
-    // GS-012: o encontro de outro jogador e o selvagem ainda saindo da grama não são alvo do AUTO
-    if ((t.introTicks ?? 0) > 0 || (t.encOwner && t.encOwner !== e.ownerId)) continue;
-    if (t.level > e.level + WORLD.autoLevelMargin) continue;
+    if (!huntable(t, e)) continue;
     const d = dist(e, t);
     if (d > WORLD.aggroRadius || dist(owner, t) > WORLD.partnerLeash - 3 * SUB) continue;
     if (d < bestD) {

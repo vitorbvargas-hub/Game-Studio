@@ -33,6 +33,8 @@ export interface TeamMember {
   species: string;
   level: number;
   hpPct: number;
+  /** Estado completo de quem já foi a parceira ativa (troca de Digimon): XP, golpes e AUTO voltam com ele. */
+  partner?: PartnerSave;
 }
 
 export interface SaveData {

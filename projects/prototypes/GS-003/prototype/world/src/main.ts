@@ -25,7 +25,7 @@ import { applyOpenedChests, arenaOf, interact, nearestInteraction, type Interact
 import { TICK_MS } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
-import { canEvolveNow, encounterInspect, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld } from "./sim/world";
+import { canEvolveNow, encounterInspect, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld, type PartnerSave } from "./sim/world";
 import { autoEvolveTarget, isBranching, statusesOf } from "./sim/evolution";
 import { evolveChoiceHtml } from "./ui/evolve-ui";
 import "./style.css";
@@ -34,7 +34,7 @@ import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
 import { loadWorldContent } from "./sim/species";
 import { Panel } from "./ui/panel";
 import { worldMapHtml } from "./ui/worldmap";
-import { canTravel, DEFAULT_MAP, MAPS, mapOfRegion, regionById, withLook, type MapDef, type Progress } from "./world/regions";
+import { canTravel, DEFAULT_MAP, MAPS, regionById, travelTarget, withLook, type MapDef, type Progress } from "./world/regions";
 import { gradeTiles } from "./render/look";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
@@ -105,6 +105,12 @@ const WEATHER = params.get("weather") ?? "clear";
  * hotbar por categoria, placa de alvo por raridade e "!" com fundo, grama de encontro com vento 2×. Sem a flag, o
  * HUD atual. ?tamerhp=N (0–100, só com hud=v2) força o PV mostrado do Tamer para testar as 3 faixas da moldura.
  */
+/**
+ * AUTO explorador (feedback 1 do fundador, item 4): com o AUTO ligado o Tamer também anda pelo mapa, procura
+ * selvagens, entra na grama alta e luta, em loop (src/sim/explore.ts). Ligado por padrão nos mapas de região;
+ * ?autoexplorar=0 volta ao AUTO antigo (só luta). Uma tecla de movimento ou um clique pausam a exploração.
+ */
+const AUTO_EXPLORE = params.get("autoexplorar") !== "0";
 const HUD_VARIANT = hudVariantOf(params);
 const HUD_V2 = HUD_VARIANT === "v2";
 const TAMER_HP_FORCE = params.has("tamerhp") ? Math.max(0, Math.min(100, Number(params.get("tamerhp")) || 0)) : undefined;
@@ -377,6 +383,18 @@ async function boot() {
   }
   console.info(`Tamer ${look.name}: ${lookKey(look)} (preset v3)`);
   const intents: Intent[] = [];
+  const pushExplore = () => regionMode && intents.push({ t: "set_auto_explore", playerId: LOCAL_PLAYER, on: AUTO_EXPLORE });
+  pushExplore();
+  /** Mensagem do log ao mudar o modo do explorador (só as transições que o jogador precisa entender). */
+  const EXPLORE_MSG: Record<string, string> = {
+    grass: "AUTO: explorando a grama alta",
+    roam: "AUTO: explorando o mapa",
+    hunt: "AUTO: indo atrás de um Digimon selvagem",
+    heal: "AUTO: PV baixo, indo ao ponto de cura",
+    rest: "AUTO: PV baixo, descansando",
+    paused: "AUTO: você assumiu o controle (a exploração volta em 6 s parado)",
+  };
+  let exploreMode = "";
   let encEnvSent = "";
   const player = () => getPlayer(cur.sim.state, LOCAL_PLAYER)!;
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
@@ -469,6 +487,58 @@ async function boot() {
     }
   };
   trackSeen(cur.spawnEvents);
+
+  // ---- troca de Digimon (feedback 1, item 7): equipe (Shift+2..5 ou clique no retrato) e Box (duplo clique) ----
+  type TeamEntry = { species: string; level: number; hpPct?: number; partner?: PartnerSave };
+  /** De onde veio a troca pedida: ao confirmar (partner_swap), quem saiu ocupa esse lugar. */
+  let pendingSwap: { list: "team" | "box"; index: number } | undefined;
+  function swapTo(list: "team" | "box", index: number): void {
+    if (!hudScene || traveling) return;
+    const m = hudScene[list][index] as TeamEntry | undefined;
+    if (!m || !cur.sim.content.species[m.species]) return;
+    pendingSwap = { list, index };
+    const s = m.partner;
+    intents.push({
+      t: "swap_partner",
+      playerId: LOCAL_PLAYER,
+      speciesId: m.species,
+      level: m.level,
+      hpPct: "hpPct" in m && typeof m.hpPct === "number" ? Math.max(1, m.hpPct) : 100,
+      ...(s && s.speciesId === m.species ? { xp: s.xp, learned: s.learned, moves: s.moves, autoRules: s.autoRules } : {}),
+    });
+  }
+  const onSwapped = (ev: Extract<WorldEvent, { t: "partner_swap" }>) => {
+    if (ev.playerId !== LOCAL_PLAYER || !hudScene) return;
+    const at = pendingSwap;
+    pendingSwap = undefined;
+    const { hpPct, ...save } = ev.out;
+    const entry = { species: ev.out.speciesId, level: ev.out.level, hpPct, partner: save };
+    if (at?.list === "box") hudScene.box[at.index] = entry;
+    else if (at) hudScene.team[at.index] = entry;
+    else hudScene.team.push(entry);
+    const nm = (id: string) => cur.sim.content.species[id]?.name ?? id;
+    hud.push(`${nm(ev.out.speciesId)}, volte! Vai, ${nm(ev.to)}!${ev.inCombat ? " (troca em combate)" : ""}`, "gold");
+    if (hud.teamOpen) hud.openTeam();
+    persist();
+  };
+  // retrato da faixa da equipe: troca (o ativo continua abrindo a Equipe & Box)
+  hudRoot.addEventListener(
+    "click",
+    (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLElement>(".hud-team [data-slot]");
+      const m = b?.dataset.slot?.match(/^team(\d+)$/);
+      if (!m) return;
+      e.stopPropagation();
+      swapTo("team", Number(m[1]));
+    },
+    true,
+  );
+  // Equipe & Box: duplo clique num card troca por ele
+  hudRoot.addEventListener("dblclick", (e) => {
+    const c = (e.target as HTMLElement).closest<HTMLElement>("[data-pick]");
+    const m = c?.dataset.pick?.match(/^(team|box)(\d+)$/);
+    if (m) swapTo(m[1] as "team" | "box", Number(m[2]));
+  });
   const report = (r: OfflineReport, from: string) => {
     const partner = getEntity(cur.sim.state, player().partnerId)!;
     const tamerUp = hud.addTamerXp(r.xp);
@@ -510,6 +580,8 @@ async function boot() {
   fade.setAttribute("aria-hidden", "true");
   document.body.appendChild(fade);
   let traveling = false;
+  /** Último mapa visitado por região (o Mapa-múndi volta para ele, não para o primeiro mapa da região). */
+  const lastMapByRegion: Record<string, string> = cur.def ? { [cur.def.region]: cur.mapId } : {};
   /** Depois de chegar (ou de um aviso de bloqueio), o portal só arma de novo quando o Tamer sai de cima dele. */
   let portalArmed = false;
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -522,6 +594,8 @@ async function boot() {
     const carry = capture();
     const next = await buildMap(mapId, start, carry);
     cur = next;
+    if (cur.def) lastMapByRegion[cur.def.region] = cur.mapId;
+    pushExplore();
     resize();
     hud.setRegion(regionName(cur.def), cur.def?.route ?? "");
     hud.setMinimap(new Minimap(cur.sim.map, browserCanvasFactory));
@@ -804,7 +878,7 @@ async function boot() {
     if ((e.target as HTMLElement).closest("[data-arena]")) return openArena();
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-travel]");
     if (!b || b.disabled) return;
-    const dest = mapOfRegion(b.dataset.travel!);
+    const dest = travelTarget(b.dataset.travel!, lastMapByRegion);
     if (dest) void travel(dest.id, undefined);
   });
 
@@ -877,6 +951,12 @@ async function boot() {
       hud.closeTeam();
       for (const p of Object.values(panels)) p.close();
     }
+    // Shift+1..5: troca de Digimon pela posição na faixa da equipe (1 = o ativo); 1–4 sem Shift seguem nos golpes
+    const digit = /^Digit([1-5])$/.exec(e.code)?.[1];
+    if (e.shiftKey && digit && !e.repeat) {
+      if (digit !== "1") swapTo("team", Number(digit) - 2);
+      return;
+    }
     if (k >= "1" && k <= "4" && k.length === 1 && !e.repeat) intents.push({ t: "use_move", playerId: LOCAL_PLAYER, slot: Number(k) - 1 });
   });
   window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
@@ -944,6 +1024,8 @@ async function boot() {
       if (kind) dots.push({ x: v.cur.x, y: v.cur.y, kind });
     }
     hud.updateWorld(view().motionPos(LOCAL_PLAYER), dots, lastHudWorld ? (frames * 1000) / (now - lastHudWorld) : undefined);
+    // troca de Digimon em recarga: a faixa da equipe apaga os outros retratos até liberar
+    hudRoot.querySelector(".hud-team")?.classList.toggle("swap-cd", (player().swapCd ?? 0) > 0);
     if (regionMode) hud.setClock(clock.phase(now - bootAt), formatClock(clock.minutes(now - bootAt)));
     if (now - lastScreens > 1000) {
       lastScreens = now;
@@ -989,6 +1071,13 @@ async function boot() {
         }
       cur.presenter.onTick(snapshot(cur.sim), evs, now);
       hud.onEvents(evs);
+      for (const ev of evs) if (ev.t === "partner_swap") onSwapped(ev);
+      for (const ev of evs)
+        if (ev.t === "explore_mode" && ev.playerId === LOCAL_PLAYER && ev.mode !== exploreMode) {
+          // "fight" e "wait" só calam o anúncio; repetir "explorando" depois de cada luta poluiria o log
+          if (EXPLORE_MSG[ev.mode] && !(ev.mode === "grass" && exploreMode === "fight")) hud.push(EXPLORE_MSG[ev.mode], ev.mode === "heal" || ev.mode === "rest" ? "gold" : "");
+          exploreMode = ev.mode;
+        }
       trackSeen(evs);
       if (cur.def) trackEvents(quests, evs, LOCAL_PLAYER, cur.def.region);
       acc -= TICK_MS;

@@ -1,6 +1,8 @@
 // Tipos da autoridade do mundo (WORLD_COMBAT_VISUAL_SPEC.md §2 e §5).
 // Nada aqui conhece Canvas, DOM, manifests de animação ou assets.
 
+import type { ExploreState } from "./explore";
+
 export type Dir8 = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 export type LogicState = "IDLE" | "WALK" | "FOLLOW" | "ENGAGE" | "ATTACK" | "HURT" | "DEFEAT" | "RETURN";
 export type EntityKind = "player" | "partner" | "remote_player" | "remote_partner" | "wild" | "npc";
@@ -152,7 +154,14 @@ export type WorldEvent =
   /** GS-012: a grama mexeu sem nada sair (chance de nada) — só apresentação. */
   | { t: "grass_rustle"; tick: number; playerId: string; at: Vec }
   /** GS-012: o selvagem do encontro aleatório voltou para a grama (fim sem derrota) ou o ponto visível sumiu. */
-  | { t: "wild_leave"; tick: number; id: string; at: Vec };
+  | { t: "wild_leave"; tick: number; id: string; at: Vec }
+  /**
+   * Troca de Digimon confirmada: `out` é quem saiu (estado completo, para voltar à equipe), `to` a espécie que entrou.
+   * `tamerAt`: de onde o Tamer chamou (o que sai recua até ele). `cdTicks`: recarga até a próxima troca.
+   */
+  | { t: "partner_swap"; tick: number; playerId: string; id: string; out: { speciesId: string; level: number; xp: number; learned: string[]; moves: (string | null)[]; autoRules: AutoRule[]; hpPct: number }; to: string; at: Vec; tamerAt: Vec; inCombat: boolean; cdTicks: number }
+  /** AUTO explorador mudou de modo (só para a UI anunciar). */
+  | { t: "explore_mode"; tick: number; playerId: string; mode: string };
 
 /** Pedidos do jogador. A sim aceita ou recusa; o resultado chega como evento. */
 export type Intent =
@@ -161,6 +170,13 @@ export type Intent =
   | { t: "engage"; playerId: string; targetId: string }
   | { t: "flee"; playerId: string }
   | { t: "set_auto"; playerId: string; on: boolean }
+  /**
+   * Troca a parceira ativa por um Digimon da equipe/Box (feedback 1). `learned`/`moves`/`autoRules` ausentes = o kit
+   * padrão da espécie no nível. `hpPct` 0..100 (padrão 100). Vale em combate (a nova herda alvo e encontro).
+   */
+  | { t: "swap_partner"; playerId: string; speciesId: string; level: number; xp?: number; learned?: string[]; moves?: (string | null)[]; autoRules?: AutoRule[]; hpPct?: number }
+  /** AUTO explorador: com o AUTO ligado, o Tamer anda pelo mapa procurando selvagens e grama alta. */
+  | { t: "set_auto_explore"; playerId: string; on: boolean }
   /** Troca os 4 golpes ativos da parceira (só golpes aprendidos; null = slot vazio). */
   | { t: "set_moves"; playerId: string; slots: (string | null)[] }
   /** Lista de prioridade do AUTO (ordem + condição por golpe). */
@@ -262,6 +278,12 @@ export interface PlayerState {
   evoPrefs?: Record<string, string>;
   /** Multiplicador da XP das vitórias (modo de teste ?demo=evo). Ausente = 1. Não vai para o save. */
   xpMult?: number;
+  /** Troca de Digimon (feedback 1): ticks até a próxima troca ser aceita. */
+  swapCd?: number;
+  /** AUTO explorador (feedback 1): com o AUTO ligado, o Tamer também anda sozinho. Ausente = desligado. */
+  autoExplore?: boolean;
+  /** Estado do explorador (sim/explore.ts). */
+  explore?: ExploreState;
 }
 
 export interface Encounter {

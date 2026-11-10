@@ -82,6 +82,15 @@ export function mapOfRegion(regionId: string): MapDef | undefined {
   return Object.values(MAPS).find((m) => m.region === regionId);
 }
 
+/**
+ * Destino da viagem pelo Mapa-múndi: o último mapa visitado nessa região (uma região pode ter mais de um mapa,
+ * ex.: a Floresta Densa tem o forest-proof e a digimon-forest-01); sem histórico, o primeiro da região.
+ */
+export function travelTarget(regionId: string, lastByRegion: Record<string, string> = {}): MapDef | undefined {
+  const last = MAPS[lastByRegion[regionId] ?? ""];
+  return last && last.region === regionId ? last : mapOfRegion(regionId);
+}
+
 export interface Progress {
   /** Nível do Tamer (o `minLevel` das regras do GDD é do Tamer). */
   tamerLevel: number;

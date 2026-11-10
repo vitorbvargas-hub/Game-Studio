@@ -19,6 +19,7 @@ import {
   type Dir4,
 } from "./anim";
 import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
+import { standPose, standRemap } from "./standpose";
 import { drawImpact, shakeOffset } from "./fx";
 import type { EncounterFx } from "./encounterFx";
 import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterComposeNoisy, waterFrame, waterMixFrom, waterNoiseFor, type Rect, type SwayCfg, type WaterMix } from "./life";
@@ -26,7 +27,7 @@ import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from 
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
 import { drawOutlinedText, pixelTextWidth } from "./pixelfont";
-import { LEVEL_UP_FX_MS, EXCLAIM_MS, evoFrame, type EvoFrame, type Presenter, type VisualEntity } from "./presenter";
+import { LEVEL_UP_FX_MS, EXCLAIM_MS, elementOf, evoFrame, swapFrame, SWAP_ENTER_MS, type EvoFrame, type Presenter, type SwapFrame, type VisualEntity } from "./presenter";
 import type { VfxFrame } from "./vfx/archetypes";
 import { drawCast, type Cast, type SheetDrawer } from "./vfx/engine";
 import { ambientAt } from "./daynight";
@@ -153,6 +154,8 @@ export class WorldView {
   private shadows = new Map<string, HTMLCanvasElement>();
   private propImages = new Map<string, HTMLCanvasElement>();
   private tinted = new Map<string, HTMLCanvasElement>();
+  /** Pose parada (feedback 1, item 3): por visual, quadro de passada do idle → quadro de pés juntos. */
+  private stands = new Map<CreatureVisual, Map<string, string>>();
   private tamers: Record<string, ReturnType<typeof makeTamerFrames>>;
   /** Alpha atual de cada copa (índice do prop), suavizado para a transparência quando alguém passa por trás. */
   private canopyAlpha = new Map<number, number>();
@@ -1288,6 +1291,8 @@ export class WorldView {
       if (tv && this.images.get(tv.sheetUrl)) return this.drawSprite(tv, v, pos, p, now, this.opts.tamerTints?.[v.id]);
       return this.drawTamer(v, pos, now);
     }
+    const sw = v.swap ? swapFrame(v.swap, now) : undefined;
+    if (sw && sw.phase !== "done") return this.drawSwapping(v, pos, p, now, sw);
     const f = v.evo ? evoFrame(v.evo, now) : undefined;
     if (f && f.phase !== "wait" && f.phase !== "done") return this.drawEvolving(v, pos, p, now, f);
     const cv = this.visualOf(v);
@@ -1378,6 +1383,54 @@ export class WorldView {
     }
   }
 
+  /**
+   * Troca de Digimon (presenter.swapFrame): quem sai vira silhueta branca e recua até o Tamer por um feixe de luz,
+   * sumindo; quem entra aparece no mesmo lugar como silhueta que se revela, com anel no chão e o estouro de impacto
+   * do seu elemento (fx.drawImpact, o mesmo dos golpes).
+   */
+  private drawSwapping(v: VisualEntity, pos: Vec, p: Presenter, now: number, f: SwapFrame): void {
+    const sw = v.swap!;
+    const ctx = this.ctx;
+    const speciesId = f.show === "from" ? sw.from : sw.to;
+    const sv: VisualEntity = { ...v, speciesId };
+    const cv = this.creatures[speciesId];
+    const at = f.phase === "recall" ? { x: pos.x + (sw.tamerAt.x - pos.x) * f.pull, y: pos.y + (sw.tamerAt.y - pos.y) * f.pull } : pos;
+    const cx = Math.round(at.x - this.camera.x);
+    const cy = Math.round(at.y - this.camera.y);
+    const top = cv ? Math.round(this.headOffset(sv).top) : 24;
+    if (f.phase === "recall") {
+      // feixe: pontos de luz do corpo até o Tamer
+      const tx = Math.round(sw.tamerAt.x - this.camera.x);
+      const ty = Math.round(sw.tamerAt.y - this.camera.y) - 12;
+      const n = 10;
+      for (let i = 0; i < n; i++) {
+        const u = ((i / n + now / 260) % 1) * (1 - f.pull * 0.5) + f.pull * 0.5;
+        ctx.globalAlpha = Math.min(1, f.k * 2) * (1 - u * 0.6);
+        ctx.fillStyle = i % 3 ? "#ffffff" : "#2ce8f5";
+        const x = Math.round(cx + (tx - cx) * u);
+        const y = Math.round(cy - top / 2 + (ty - (cy - top / 2)) * u) - Math.round(Math.sin(u * Math.PI) * 6);
+        ctx.fillRect(x, y, i % 3 ? 1 : 2, i % 3 ? 1 : 2);
+      }
+      ctx.globalAlpha = Math.min(1, f.k * 1.5) * f.alpha;
+      const r = Math.round(6 + 6 * f.k);
+      this.pixelRing(cx, cy, r, Math.max(2, Math.round(r / 3)), "#2ce8f5");
+      ctx.globalAlpha = 1;
+    } else {
+      // entrada: anel que abre no chão + estouro do elemento da espécie nova
+      const r = Math.round(4 + 16 * f.k);
+      ctx.globalAlpha = Math.max(0, 1 - f.k);
+      this.pixelRing(cx, cy, r, Math.max(2, Math.round(r / 3)), "#fee761");
+      if (f.k < 0.5) this.pixelRing(cx, cy, Math.max(3, r - 5), Math.max(2, Math.round(r / 3) - 1), "#ffffff");
+      ctx.globalAlpha = 1;
+    }
+    if (cv) this.drawSprite(cv, sv, at, p, now, undefined, f.white, f.alpha);
+    else this.drawMissing(sv, at, p, now, f.white);
+    if (f.phase === "enter") {
+      const t = f.k * SWAP_ENTER_MS;
+      drawImpact(ctx, { targetId: v.id, start: 0, seq: Math.round(sw.start) % 997, crit: true, special: true, element: elementOf(sw.to), dir: { x: 0, y: -1 } }, cx, cy - Math.round(top / 2), t);
+    }
+  }
+
   /** Elipse cheia em linhas de 1 px (fillStyle já definido). */
   private pixelEllipse(cx: number, cy: number, rx: number, ry: number): void {
     for (let y = -ry; y <= ry; y++) {
@@ -1414,7 +1467,10 @@ export class WorldView {
     const m = cv.manifest;
     if (this.opts.animV2) {
       const r = this.ctlFrameOf(cv, v, p, now);
-      if (r) return { key: r.f.frames.frames[r.f.index]?.atlasKey ?? "", mirror: r.mirror, state: p.visualState(v, now), anim: r.f.anim, v2: r.f };
+      if (r) {
+        const k = r.f.frames.frames[r.f.index]?.atlasKey ?? "";
+        return { key: r.f.anim === "idle" ? this.standKey(cv, k) : k, mirror: r.mirror, state: p.visualState(v, now), anim: r.f.anim, v2: r.f };
+      }
     }
     const mo = this.motions.get(v.id) ?? newMotion(v.facing);
     const lt = p.localTime(v, now);
@@ -1433,11 +1489,42 @@ export class WorldView {
     else if (state === "ATTACK" && v.attack) fi = frameAt(anim, lt - v.attack.start, false);
     else if ((state === "HURT" || state === "DEFEAT") && v.hurt) fi = frameAt(anim, lt - v.hurt.start, false);
     else fi = frameAt(anim, lt + v.phase, choice.anim.loop);
-    return { key: frames[fi]?.atlasKey ?? "", mirror: face.mirror, state, anim: choice.name };
+    const key = frames[fi]?.atlasKey ?? "";
+    return { key: choice.name === "idle" ? this.standKey(cv, key) : key, mirror: face.mirror, state, anim: choice.name };
+  }
+
+  /**
+   * Parado: troca o quadro de passada do idle pelo de pés juntos da mesma direção (render/standpose.ts). O fallback
+   * por bbox lê os pixels da folha; enquanto ela não carregou, usa só o quadro neutro do walk / idle desenhado.
+   */
+  standKey(cv: CreatureVisual, key: string): string {
+    let map = this.stands.get(cv);
+    if (!map) {
+      const loaded = (k: string) => this.images.get(imageUrlOf(cv, k));
+      const ready = Object.keys(cv.atlas.frames).every((k) => loaded(k));
+      const alphaAt = (k: string) => {
+        const img = loaded(k);
+        const fr = cv.atlas.frames[k]?.frame;
+        if (!img || !fr) return undefined;
+        const c = this.makeCanvas(fr.w, fr.h);
+        const g = c.getContext("2d");
+        try {
+          g!.drawImage(img, fr.x, fr.y, fr.w, fr.h, 0, 0, fr.w, fr.h);
+          const d = g!.getImageData(0, 0, fr.w, fr.h).data;
+          return (x: number, y: number) => d[(y * fr.w + x) * 4 + 3];
+        } catch {
+          return undefined; // canvas de teste sem pixels: sem fallback por bbox
+        }
+      };
+      const sizeOf = (k: string) => cv.atlas.frames[k]?.frame;
+      map = standRemap(cv.manifest, standPose(cv.manifest, ready ? alphaAt : undefined, sizeOf));
+      if (ready) this.stands.set(cv, map);
+    }
+    return map.get(key) ?? key;
   }
 
   /** `white` 0..1: silhueta branca por cima do sprite (1 = só a silhueta: digivolução). */
-  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number, white = 0): void {
+  private drawSprite(cv: CreatureVisual, v: VisualEntity, pos: Vec, p: Presenter, now: number, tint?: number, white = 0, alphaMul = 1): void {
     const mo = this.motions.get(v.id);
     const { key, mirror, state, v2 } = this.frameFor(cv, v, p, now);
     const url = imageUrlOf(cv, key);
@@ -1467,7 +1554,7 @@ export class WorldView {
     const dx = Math.round(pos.x - this.camera.x - pivotX * S + off.x + lean);
     const dy = Math.round(pos.y - this.camera.y - pv.y * S + off.y + bob);
     const ctx = this.ctx;
-    const fade = state === "DEFEAT" && v.defeatedAt !== undefined ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1;
+    const fade = (state === "DEFEAT" && v.defeatedAt !== undefined ? Math.max(0, 1 - (now - v.defeatedAt) / DEFEAT_FADE_MS) : 1) * alphaMul;
     ctx.globalAlpha = fade;
     if (white < 1) this.blitEntity(`${url}|${tint ?? 0}|${key}`, img, fr, dx, dy, S, mirror);
     // Flash branco do impacto (alvo, durante o hit-stop) e brilho curto do atacante.

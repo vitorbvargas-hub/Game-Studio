@@ -600,6 +600,10 @@ body {
 .slot.empty {
   opacity: 0.4;
 }
+.hud-team.swap-cd .slot:not(.active):not(.empty) {
+  filter: grayscale(0.75) brightness(0.65);
+  cursor: wait;
+}
 .slot.active {
   border-color: var(--ui-gold);
   background: #232234;
@@ -1769,8 +1773,9 @@ body {
     #10141e;
   overflow: hidden;
 }
-.worldmap svg {
+.worldmap .wm-canvas > svg {
   position: absolute;
+  pointer-events: none;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -1793,6 +1798,13 @@ body {
   background: rgba(16, 19, 28, 0.92);
   border: 2px solid var(--ui-border-hi);
   border-radius: 7px;
+}
+.wm-node {
+  max-width: 172px;
+  z-index: 1;
+}
+.wm-node.here {
+  z-index: 2;
 }
 .wm-node b {
   font-size: 12.5px;
@@ -1838,6 +1850,24 @@ body {
   border-color: #3b4261 !important;
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.worldmap .wm-arena {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ui-gold);
+  background: rgba(16, 19, 28, 0.92);
+  border: 2px solid var(--ui-border-hi);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.worldmap .wm-arena:hover {
+  border-color: var(--ui-gold);
 }
 
 /* ---------- Digivice / Inventário / Missões / Configurações ---------- */

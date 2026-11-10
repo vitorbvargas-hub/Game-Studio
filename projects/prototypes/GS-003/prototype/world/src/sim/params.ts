@@ -50,6 +50,11 @@ export const WORLD = {
   wildStatMult: 0.8,
   baseXpByStage: { 1: 8, 2: 14, 3: 30, 4: 48, 5: 70 } as Record<number, number>,
   scanPerDefeat: 25,
+  /** Troca de Digimon: recarga (ticks) depois de trocar em combate / fora de combate. */
+  swapCdCombatTicks: 50,
+  swapCdTicks: 15,
+  /** Depois da troca em combate, a nova parceira espera este tanto antes do 1º golpe (ela acabou de entrar). */
+  swapAttackDelayTicks: 8,
   /** Ticks parada depois de evoluir (animação de digivolução no mapa: espera do level up + EVO_TOTAL_MS do presenter). */
   evolveLockTicks: 34,
 } as const;
