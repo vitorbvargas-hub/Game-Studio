@@ -146,7 +146,13 @@ export type WorldEvent =
   | { t: "level_up"; tick: number; id: string; level: number }
   | { t: "capture"; tick: number; ownerId: string; speciesId: string; pct: number; done: boolean }
   | { t: "encounter_end"; tick: number; encounterId: string; reason: "defeat" | "flee" | "leash" | "timeout" }
-  | { t: "intent_rejected"; tick: number; playerId: string; reason: string };
+  | { t: "intent_rejected"; tick: number; playerId: string; reason: string }
+  /** GS-012: um selvagem saltou da grama (aleatório) ou apareceu num ponto visível; `introMs` = duração do salto. */
+  | { t: "wild_appear"; tick: number; id: string; playerId?: string; entryId: string; speciesId: string; rarity: string; level: number; at: Vec; introMs: number; random: boolean }
+  /** GS-012: a grama mexeu sem nada sair (chance de nada) — só apresentação. */
+  | { t: "grass_rustle"; tick: number; playerId: string; at: Vec }
+  /** GS-012: o selvagem do encontro aleatório voltou para a grama (fim sem derrota) ou o ponto visível sumiu. */
+  | { t: "wild_leave"; tick: number; id: string; at: Vec };
 
 /** Pedidos do jogador. A sim aceita ou recusa; o resultado chega como evento. */
 export type Intent =
@@ -168,7 +174,11 @@ export type Intent =
   /** Liga/desliga a evolução automática (opção do AUTO): ao atingir o nível, evolui sozinha fora de combate. */
   | { t: "set_auto_evolve"; playerId: string; on: boolean }
   /** Recompensa em bits coletada numa tela (Missões); só valores positivos. */
-  | { t: "add_bits"; playerId: string; bits: number };
+  | { t: "add_bits"; playerId: string; bits: number }
+  /** GS-012: ambiente (período do dia e clima) vindo do relógio do jogo; só com encontros ligados. */
+  | { t: "set_env"; playerId: string; time?: string; weather?: string }
+  /** GS-012 debug (?encdebug=1): encontro aleatório já, ao lado do Tamer, com esta entrada ou raridade. */
+  | { t: "enc_force"; playerId: string; entryId?: string; rarity?: string };
 
 export interface Entity {
   id: string;
@@ -222,6 +232,16 @@ export interface Entity {
   trail?: Vec[];
   /** Parceira: ticks em que fica parada depois de evoluir (a animação de digivolução no mapa). */
   evolveLockTicks?: number;
+  /** GS-012: jogador dono (encontro aleatório e ponto visível individual); só ele luta com este selvagem. */
+  encOwner?: string;
+  /** GS-012: chave do encontro aleatório (idempotência da recompensa). */
+  encKey?: string;
+  /** GS-012: ticks restantes do salto da grama (não luta, não anda, não é alvo). */
+  introTicks?: number;
+  /** GS-012: entrada da tabela de encontros que criou este selvagem. */
+  entryId?: string;
+  /** GS-012: ponto visível com comportamento flee/chase — quem ele está vigiando. */
+  alertId?: string;
   removed: boolean;
 }
 
@@ -261,4 +281,6 @@ export interface WorldState {
   players: PlayerState[];
   encounters: Encounter[];
   pendingSpawns: { zoneIndex: number; atTick: number }[];
+  /** GS-012 (?encounters=1): estado da autoridade de encontros. Ausente = sistema desligado (comportamento antigo). */
+  enc?: import("./encounters/authority").EncWorldState;
 }

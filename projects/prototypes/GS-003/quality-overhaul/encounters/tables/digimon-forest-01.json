@@ -144,12 +144,12 @@
       "zoneRef": "clareira_central",
       "rect": {
         "x": 19,
-        "y": 14,
+        "y": 18,
         "w": 7,
         "h": 6
       },
       "rateMult": 1,
-      "_notes": "P7 (brief §4): cobre o vagar do Palmon visível (22,17); grama alta plantada pelo derive-look-v9 (P7), fora da trilha."
+      "_notes": "P7 (brief §4) com ajuste do game-dev [E]: o retângulo do brief (x19,y14,7×6) caía em mata e riacho sólidos em ~80% das células (BFS do v9); descido 4 tiles para o chão aberto a oeste da clareira (x19–25, y18–23), ainda ao lado do vagar do Palmon visível (22,17). Grama alta plantada pelo derive-look-v9 (P7), fora da trilha."
     },
     {
       "id": "clareira-corredor-grama",

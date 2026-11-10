@@ -7,7 +7,7 @@ import forestProofScene from "../data/scenes/forest-proof.scene.json";
 import { parseTiledMap, type TiledMap, type WorldMap } from "./map";
 import { loadWorldContent } from "./species";
 import type { WorldEvent } from "./types";
-import { createWorld, type PlayerSetup, type WorldSim } from "./world";
+import { createWorld, type PlayerSetup, type WorldOptions, type WorldSim } from "./world";
 
 export const LOCAL_PLAYER = "p1";
 export const BOT_PLAYER = "bot1";
@@ -61,6 +61,8 @@ export interface SceneOptions {
   partnerLevel?: number;
   /** Ponto de início do Tamer local (start do mapa: "from_praia" ao chegar pela borda); padrão = o da cena. */
   start?: string;
+  /** GS-012 (?encounters=1): tabela de encontros e ambiente inicial; ausente = spawn antigo. */
+  world?: WorldOptions;
 }
 
 export function scenePlayers(map: WorldMap, scene: SceneData, opts: SceneOptions = {}): PlayerSetup[] {
@@ -91,7 +93,7 @@ export function createForestProofWorld(seed: number, opts: SceneOptions = {}): {
  * mapas, só o Tamer local. A parceira sai da cena (ou de opts) e depois é sobrescrita pelo save (applySave).
  */
 export function createMapWorld(map: WorldMap, scene: boolean, seed: number, opts: SceneOptions = {}): { sim: WorldSim; events: WorldEvent[] } {
-  if (scene) return createWorld(map, loadWorldContent(), seed, scenePlayers(map, FOREST_PROOF_SCENE, opts));
+  if (scene) return createWorld(map, loadWorldContent(), seed, scenePlayers(map, FOREST_PROOF_SCENE, opts), opts.world);
   const me = FOREST_PROOF_SCENE.players.find((p) => p.id === LOCAL_PLAYER)!;
   const start = map.starts[opts.start ?? "player"] ?? map.starts.player;
   if (!start) throw new Error(`mapa ${map.id}: sem início`);
@@ -105,5 +107,5 @@ export function createMapWorld(map: WorldMap, scene: boolean, seed: number, opts
       auto: opts.auto ?? false,
       bot: false,
     },
-  ]);
+  ], opts.world);
 }

@@ -21,7 +21,9 @@ import {
   segmentDistance,
   validateSlots,
 } from "./moves";
-import { attackCooldownTicks, SUB, WORLD } from "./params";
+import { attackCooldownTicks, SUB, TICK_MS, WORLD } from "./params";
+import { INTRO_TICKS, LocalEncounterAuthority, type EnvState, type VisibleZone } from "./encounters/authority";
+import { matches, type EncounterEntry, type EncounterTable } from "./encounters/rules";
 import type { WorldContent } from "./species";
 import type { Dir8, Encounter, LogicState, Entity, EntitySnapshot, Intent, MoveDef, PlayerState, Vec, WorldEvent, WorldState } from "./types";
 
@@ -39,6 +41,15 @@ export interface WorldSim {
   state: WorldState;
   map: WorldMap;
   content: WorldContent;
+  /** GS-012 (?encounters=1): autoridade local dos encontros. Ausente = spawn antigo, sem encontros aleatórios. */
+  encounters?: LocalEncounterAuthority;
+}
+
+export interface WorldOptions {
+  /** Liga o GS-012: encontros aleatórios na grama + pontos visíveis no lugar das zonas de spawn do mapa. */
+  encounters?: EncounterTable;
+  /** Ambiente inicial (período do dia e clima). Padrão: dia, céu limpo. */
+  env?: EnvState;
 }
 
 /** Contexto de um passo da sim (exportado para a Arena reaproveitar o mesmo motor de combate). */
@@ -47,11 +58,20 @@ export interface Ctx {
   map: WorldMap;
   c: WorldContent;
   ev: WorldEvent[];
+  /** GS-012: presente só com encontros ligados. */
+  auth?: LocalEncounterAuthority;
 }
 
 // ---------- criação ----------
 
-export function createWorld(map: WorldMap, content: WorldContent, seed: number, players: PlayerSetup[]): { sim: WorldSim; events: WorldEvent[] } {
+export function createWorld(map: WorldMap, content: WorldContent, seed: number, players: PlayerSetup[], opts: WorldOptions = {}): { sim: WorldSim; events: WorldEvent[] } {
+  let auth: LocalEncounterAuthority | undefined;
+  if (opts.encounters) {
+    // GS-012 §2.6: os pontos visíveis da tabela SUBSTITUEM as zonas de spawn do mapa (31 vivos → até 6). Só com a flag.
+    auth = new LocalEncounterAuthority(opts.encounters, map);
+    map = { ...map, spawns: auth.zones };
+    auth = new LocalEncounterAuthority(opts.encounters, map);
+  }
   const state: WorldState = {
     tick: 0,
     rng: { rngState: seed >>> 0 },
@@ -62,9 +82,10 @@ export function createWorld(map: WorldMap, content: WorldContent, seed: number, 
     players: [],
     encounters: [],
     pendingSpawns: [],
+    ...(auth ? { enc: auth.newWorldState(opts.env ?? { time: "day", weather: "clear" }) } : {}),
   };
-  const sim: WorldSim = { state, map, content };
-  const ctx: Ctx = { w: state, map, c: content, ev: [] };
+  const sim: WorldSim = { state, map, content, ...(auth ? { encounters: auth } : {}) };
+  const ctx: Ctx = { w: state, map, c: content, ev: [], auth };
   for (const p of players) {
     const tamer = baseEntity(p.id, p.bot ? "remote_player" : "player", p.name, p.start);
     tamer.speed = WORLD.tamerSpeed;
@@ -80,6 +101,7 @@ export function createWorld(map: WorldMap, content: WorldContent, seed: number, 
     state.players.push({ id: p.id, tamerId: p.id, partnerId: partner.id, auto: p.auto, bits: 0, scans: {}, captured: [], bot: p.bot });
   }
   map.spawns.forEach((z, i) => {
+    if (!zoneActive(ctx, z)) return;
     for (let k = 0; k < z.count; k++) spawnWild(ctx, z, i);
   });
   // NPCs residentes (Map Factory): Digimon parados e não hostis; nenhum `think` os move e ninguém os ataca
@@ -187,7 +209,220 @@ function spawnWild(ctx: Ctx, z: SpawnZone, zoneIndex: number): void {
   e.speed = WORLD.wildSpeed;
   e.zoneIndex = zoneIndex;
   e.waitTicks = nextInt(w.rng, 5, 40);
+  const vz = z as Partial<VisibleZone>;
+  if (vz.entryId) {
+    e.entryId = vz.entryId;
+    // ponto individual (shared:false): só o jogador local vê/luta (os bots são "outros jogadores")
+    if (vz.individual) e.encOwner = w.players.find((p) => !p.bot)?.id;
+  }
   addEntity(ctx, e);
+}
+
+// ---------- GS-012: encontros ----------
+
+function zoneOf(ctx: Ctx, e: Entity): VisibleZone | undefined {
+  const z = e.zoneIndex !== undefined ? ctx.map.spawns[e.zoneIndex] : undefined;
+  return z && (z as VisibleZone).entryId ? (z as VisibleZone) : undefined;
+}
+
+/** Zona ativa no ambiente atual (ponto visível com `requires` de horário/clima); zona antiga: sempre. */
+function zoneActive(ctx: Ctx, z: SpawnZone): boolean {
+  const vz = z as Partial<VisibleZone>;
+  return !ctx.w.enc || !vz.requires || matches(vz.requires, ctx.w.enc.env);
+}
+
+/** O selvagem do encontro volta para a grama (some sem respawn) ou o ponto visível some fora do seu horário. */
+function leaveGrass(ctx: Ctx, e: Entity): void {
+  if (e.removed) return;
+  e.removed = true;
+  ctx.ev.push({ t: "despawn", tick: ctx.w.tick, id: e.id });
+  ctx.ev.push({ t: "wild_leave", tick: ctx.w.tick, id: e.id, at: { x: e.x, y: e.y } });
+}
+
+/** Ambiente mudou (set_env): pontos fora do horário somem (se livres), os que entraram no horário aparecem. */
+function refreshVisible(ctx: Ctx): void {
+  const { w, map } = ctx;
+  map.spawns.forEach((z, i) => {
+    const vz = z as Partial<VisibleZone>;
+    if (!vz.entryId) return;
+    const mine = w.entities.filter((e) => !e.removed && e.kind === "wild" && e.zoneIndex === i);
+    if (!zoneActive(ctx, z)) {
+      for (const e of mine) if (!e.encounterId && e.state !== "DEFEAT") leaveGrass(ctx, e);
+      w.pendingSpawns = w.pendingSpawns.filter((s) => s.zoneIndex !== i);
+      return;
+    }
+    const pending = w.pendingSpawns.filter((s) => s.zoneIndex === i).length;
+    // respawn "period": volta quando a fase muda; os de timer seguem o próprio relógio
+    for (let k = mine.length + (vz.respawnTicks === Number.POSITIVE_INFINITY ? 0 : pending); k < z.count; k++) spawnWild(ctx, z, i);
+  });
+}
+
+/** Bloqueios do teste por passo (tabela params.blockedWhen): parceira em combate/derrotada/evoluindo, salto tocando, portal perto. */
+function encounterBlocked(ctx: Ctx, playerId: string, tamer: Entity, partner: Entity | undefined): boolean {
+  const { w, map } = ctx;
+  if (!alive(partner) || partner.encounterId || partner.targetId || (partner.evolveLockTicks ?? 0) > 0) return true;
+  if (w.entities.some((e) => !e.removed && e.encOwner === playerId && (e.introTicks ?? 0) > 0)) return true;
+  const near = (ctx.auth!.table.params.nearPortalTiles ?? 0) * map.tileSize;
+  const px = (tamer.x / SUB) * map.tileSize;
+  const py = (tamer.y / SUB) * map.tileSize;
+  return map.portals.some((p) => px > p.x - near && px < p.x + p.w + near && py > p.y - near && py < p.y + p.h + near);
+}
+
+/** Tamer local pisou num tile: um teste da autoridade; encontro → o selvagem salta da grama ao lado. */
+function encounterStep(ctx: Ctx, p: PlayerState, tamer: Entity): void {
+  const auth = ctx.auth!;
+  const w = ctx.w;
+  const r = auth.rollOf(w, p.id);
+  const tile = Math.floor(tamer.y / SUB) * ctx.map.width + Math.floor(tamer.x / SUB);
+  if (tile === r.lastTile) return;
+  const first = r.lastTile === -1;
+  r.lastTile = tile;
+  if (first) return;
+  const partner = getEntity(w, p.partnerId);
+  const res = auth.onStep(w, p.id, tamer, partner, encounterBlocked(ctx, p.id, tamer, partner));
+  if (res.kind === "empty") ctx.ev.push({ t: "grass_rustle", tick: w.tick, playerId: p.id, at: frontOf(tamer) });
+  else if (res.kind === "encounter") spawnRandomWild(ctx, p, tamer, res.entry, res.level);
+}
+
+function frontOf(e: Entity): Vec {
+  const a = (DIRS.indexOf(e.facing) * Math.PI) / 4;
+  return { x: e.x + Math.round(Math.cos(a) * SUB), y: e.y + Math.round(Math.sin(a) * SUB) };
+}
+
+/**
+ * Cria o selvagem do encontro aleatório: individual (encOwner), a 1–2 tiles do Tamer, numa célula livre e alcançável
+ * (de preferência na mesma área de grama e à frente dele). Fica INTRO_TICKS saltando da grama; depois entra no
+ * combate do mapa (engage), o mesmo de sempre (recomendação A).
+ */
+function spawnRandomWild(ctx: Ctx, p: PlayerState, tamer: Entity, entry: EncounterEntry, level: number): Entity | undefined {
+  const { w, map } = ctx;
+  const auth = ctx.auth!;
+  const tx = Math.floor(tamer.x / SUB);
+  const ty = Math.floor(tamer.y / SUB);
+  const f = DIRS.indexOf(tamer.facing);
+  const fx = Math.round(Math.cos((f * Math.PI) / 4));
+  const fy = Math.round(Math.sin((f * Math.PI) / 4));
+  const tiers: { x: number; y: number }[][] = [[], [], []];
+  for (let dy = -2; dy <= 2; dy++)
+    for (let dx = -2; dx <= 2; dx++) {
+      if (!dx && !dy) continue;
+      const cx = (tx + dx) * SUB + SUB / 2;
+      const cy = (ty + dy) * SUB + SUB / 2;
+      if (isSolidAt(map, cx, cy) || !isReachableAt(map, cx, cy)) continue;
+      const grass = !!auth.areaAt(tx + dx, ty + dy);
+      const ahead = dx * fx + dy * fy >= 0;
+      tiers[grass && ahead ? 0 : grass ? 1 : 2].push({ x: cx, y: cy });
+    }
+  const tier = tiers.find((t) => t.length);
+  const pos = tier ? tier[nextInt(w.rng, 0, tier.length - 1)] : { x: tamer.x + SUB, y: tamer.y };
+  if (!ctx.c.species[entry.speciesId]) return undefined;
+  const e = makeCreature(ctx, `rwild-${++w.idSeq}`, "wild", entry.speciesId, level, pos);
+  e.speed = WORLD.wildSpeed;
+  e.encOwner = p.id;
+  e.encKey = `renc-${++w.enc!.seq}`;
+  e.entryId = entry.id;
+  e.introTicks = INTRO_TICKS;
+  e.facing = dirFromVector(tamer.x - pos.x, tamer.y - pos.y, "S");
+  addEntity(ctx, e);
+  ctx.ev.push({ t: "wild_appear", tick: w.tick, id: e.id, playerId: p.id, entryId: entry.id, speciesId: entry.speciesId, rarity: entry.rarity, level, at: { ...pos }, introMs: INTRO_TICKS * TICK_MS, random: true });
+  // a parceira vira para a grama
+  const partner = getEntity(w, p.partnerId);
+  if (partner) partner.facing = dirFromVector(pos.x - partner.x, pos.y - partner.y, partner.facing);
+  return e;
+}
+
+/** Fim do salto da grama: o selvagem e a parceira entram no combate do mapa; sem parceira livre, ele volta para a grama. */
+function endIntro(ctx: Ctx, e: Entity): void {
+  const { w } = ctx;
+  const p = getPlayer(w, e.encOwner!);
+  const partner = p && getEntity(w, p.partnerId);
+  if (!alive(partner) || partner.encounterId || !["IDLE", "FOLLOW", "WALK"].includes(partner.state)) {
+    leaveGrass(ctx, e);
+    return;
+  }
+  engage(ctx, partner, e);
+  engage(ctx, e, partner);
+}
+
+/** Jogadores (Tamer ou parceira) mais perto que `r` sub; ponto individual só enxerga o dono. */
+function nearestOf(ctx: Ctx, e: Entity, r: number, kinds: Entity["kind"][]): Entity | undefined {
+  let best: Entity | undefined;
+  let bestD = r;
+  for (const x of ctx.w.entities) {
+    if (!kinds.includes(x.kind) || !alive(x)) continue;
+    const owner = x.ownerId ?? x.id;
+    if (e.encOwner && owner !== e.encOwner) continue;
+    const d = dist(e, x);
+    if (d < bestD) {
+      best = x;
+      bestD = d;
+    }
+  }
+  return best;
+}
+
+/** Cérebro dos pontos visíveis fora de combate (flee/chase); devolve true se cuidou do tick. */
+function thinkVisible(ctx: Ctx, e: Entity, z: VisibleZone): boolean {
+  const { w } = ctx;
+  if (z.behavior === "flee") {
+    const th = nearestOf(ctx, e, e.alertId ? z.lose : z.detect, ["player", "partner", "remote_player", "remote_partner"]);
+    if (th) {
+      e.alertId = th.id;
+      const dx = e.x - th.x;
+      const dy = e.y - th.y;
+      const d = Math.hypot(dx, dy) || 1;
+      let to = { x: Math.round(e.x + (dx / d) * 2 * SUB), y: Math.round(e.y + (dy / d) * 2 * SUB) };
+      const hd = dist(to, e.home);
+      if (hd > WORLD.wildLeash - SUB) to = { x: Math.round(e.home.x + ((to.x - e.home.x) / hd) * (WORLD.wildLeash - SUB)), y: Math.round(e.home.y + ((to.y - e.home.y) / hd) * (WORLD.wildLeash - SUB)) };
+      if (e.state !== "WALK") setState(e, "WALK", w.tick, ctx.ev);
+      e.dest = undefined;
+      moveToward(ctx, e, to, WORLD.wildReturnSpeed);
+      return true;
+    }
+    if (e.alertId) {
+      e.alertId = undefined;
+      setState(e, "RETURN", w.tick, ctx.ev);
+      return true;
+    }
+    return false;
+  }
+  if (z.behavior === "chase") {
+    const pt = dist(e, e.home) < WORLD.wildLeash ? nearestOf(ctx, e, e.alertId ? z.lose : z.detect, ["partner", "remote_partner"]) : undefined;
+    if (pt && !pt.encounterId) {
+      e.alertId = pt.id;
+      if (dist(e, pt) <= attackRange(e, pt) + 2) {
+        if (["IDLE", "FOLLOW", "WALK"].includes(pt.state)) engage(ctx, pt, e);
+        engage(ctx, e, pt);
+        return true;
+      }
+      if (e.state !== "WALK") setState(e, "WALK", w.tick, ctx.ev);
+      e.dest = undefined;
+      moveToward(ctx, e, pt, WORLD.wildReturnSpeed);
+      return true;
+    }
+    if (e.alertId) {
+      e.alertId = undefined;
+      setState(e, "RETURN", w.tick, ctx.ev);
+      return true;
+    }
+  }
+  return false;
+}
+
+/** Painel de debug (?encdebug=1): estado da autoridade para o jogador. */
+export function encounterInspect(sim: WorldSim, playerId: string) {
+  const auth = sim.encounters;
+  const p = getPlayer(sim.state, playerId);
+  const tamer = p && getEntity(sim.state, p.tamerId);
+  if (!auth || !p || !tamer) return undefined;
+  const alive = sim.state.entities.filter((e) => !e.removed && e.kind === "wild");
+  return {
+    ...auth.inspect(sim.state, playerId, tamer, getEntity(sim.state, p.partnerId)),
+    wildAlive: alive.length,
+    visibleAlive: alive.filter((e) => e.zoneIndex !== undefined).length,
+    randomAlive: alive.filter((e) => e.encKey).length,
+    rewardsPaid: sim.state.enc!.paid.length,
+  };
 }
 
 // ---------- consultas ----------
@@ -281,7 +516,7 @@ export function tryMove(ctx: Ctx, e: Entity, mx: number, my: number): boolean {
 // ---------- passo ----------
 
 export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
-  const ctx: Ctx = { w: sim.state, map: sim.map, c: sim.content, ev: [] };
+  const ctx: Ctx = { w: sim.state, map: sim.map, c: sim.content, ev: [], auth: sim.encounters };
   const w = ctx.w;
   w.tick++;
   for (const it of intents) applyIntent(ctx, it);
@@ -301,7 +536,7 @@ export function stepWorld(sim: WorldSim, intents: Intent[]): WorldEvent[] {
   for (const p of w.players) p.dir = undefined;
   const due = w.pendingSpawns.filter((s) => s.atTick <= w.tick);
   w.pendingSpawns = w.pendingSpawns.filter((s) => s.atTick > w.tick);
-  for (const s of due) spawnWild(ctx, sim.map.spawns[s.zoneIndex], s.zoneIndex);
+  for (const s of due) if (zoneActive(ctx, sim.map.spawns[s.zoneIndex])) spawnWild(ctx, sim.map.spawns[s.zoneIndex], s.zoneIndex);
   w.entities = w.entities.filter((e) => !e.removed);
   return ctx.ev;
 }
@@ -332,6 +567,26 @@ function applyIntent(ctx: Ctx, it: Intent): void {
     case "add_bits":
       p.bits += Math.max(0, Math.floor(it.bits));
       return;
+    case "set_env": {
+      if (!w.enc) return;
+      const before = JSON.stringify(w.enc.env);
+      if (it.time) w.enc.env.time = it.time;
+      if (it.weather) w.enc.env.weather = it.weather;
+      if (JSON.stringify(w.enc.env) !== before) refreshVisible(ctx);
+      return;
+    }
+    case "enc_force": {
+      if (!ctx.auth || !w.enc) return reject("encontros desligados");
+      const partner = getEntity(w, p.partnerId);
+      if (encounterBlocked(ctx, p.id, tamer, partner)) return reject("encontro bloqueado agora (parceira ocupada ou salto tocando)");
+      w.enc.force[p.id] = { entryId: it.entryId, rarity: it.rarity };
+      const entry = ctx.auth.forced(w, p.id);
+      if (!entry) return reject("entrada/raridade sem candidatos");
+      spawnRandomWild(ctx, p, tamer, entry, nextInt(w.rng, entry.levels[0], entry.levels[1]));
+      const r = ctx.auth.rollOf(w, p.id);
+      r.encounters++;
+      return;
+    }
     case "set_moves": {
       const partner = getEntity(w, p.partnerId);
       if (!partner) return reject("parceira indisponível");
@@ -386,6 +641,8 @@ function applyIntent(ctx: Ctx, it: Intent): void {
       const t = getEntity(w, it.targetId);
       if (!alive(partner)) return reject("parceira fora de combate");
       if (!alive(t) || t.kind !== "wild") return reject("alvo inválido");
+      const why = ctx.auth?.canEngage(p.id, t);
+      if (why) return reject(why);
       if (t.encounterId && t.targetId !== partner.id && t.encounterId !== partner.encounterId) return reject("alvo já em combate");
       if (partner.targetId === t.id) return;
       if (partner.state === "ATTACK" || partner.state === "HURT" || partner.state === "RETURN") return reject("parceira ocupada");
@@ -434,6 +691,7 @@ function thinkTamer(ctx: Ctx, e: Entity): void {
   }
   setState(e, moving ? "WALK" : "IDLE", w.tick, ctx.ev);
   if (moving) pushTrail(e);
+  if (ctx.auth && !p.bot) encounterStep(ctx, p, e);
 }
 
 /** Registra a posição do Tamer na trilha (um ponto a cada trailStep sub andados). */
@@ -600,6 +858,8 @@ function findAutoTarget(ctx: Ctx, e: Entity, owner: Entity): Entity | undefined 
   let bestD = Infinity;
   for (const t of ctx.w.entities) {
     if (t.kind !== "wild" || !alive(t) || t.encounterId || t.state === "RETURN") continue;
+    // GS-012: o encontro de outro jogador e o selvagem ainda saindo da grama não são alvo do AUTO
+    if ((t.introTicks ?? 0) > 0 || (t.encOwner && t.encOwner !== e.ownerId)) continue;
     if (t.level > e.level + WORLD.autoLevelMargin) continue;
     const d = dist(e, t);
     if (d > WORLD.aggroRadius || dist(owner, t) > WORLD.partnerLeash - 3 * SUB) continue;
@@ -615,6 +875,14 @@ function thinkWild(ctx: Ctx, e: Entity): void {
   const { w, map } = ctx;
   tickCooldowns(ctx, e);
   if (timedStates(ctx, e)) return;
+  if ((e.introTicks ?? 0) > 0) {
+    // salto da grama: parado, sem luta; no último tick entra no combate
+    if (--e.introTicks! <= 0) {
+      e.introTicks = undefined;
+      endIntro(ctx, e);
+    }
+    return;
+  }
   if (e.state === "RETURN") {
     e.hp = Math.min(e.maxHp, e.hp + Math.max(1, Math.round(e.maxHp * WORLD.wildRegenPct)));
     if (moveToward(ctx, e, e.home, WORLD.wildReturnSpeed, 4) || e.stuckTicks > 10) {
@@ -651,6 +919,8 @@ function thinkWild(ctx: Ctx, e: Entity): void {
   }
   // Fora de combate: regenera devagar e vaga perto de casa.
   if (e.hp < e.maxHp) e.hp = Math.min(e.maxHp, e.hp + Math.max(1, Math.round(e.maxHp * WORLD.wildRegenPct)));
+  const vz = zoneOf(ctx, e);
+  if (vz && thinkVisible(ctx, e, vz)) return;
   if (e.state === "WALK" && e.dest) {
     if (moveToward(ctx, e, e.dest, e.speed) || e.stuckTicks > 3) {
       e.dest = undefined;
@@ -663,7 +933,12 @@ function thinkWild(ctx: Ctx, e: Entity): void {
     e.waitTicks--;
     return;
   }
-  const r = WORLD.wanderRadius;
+  // ponto visível: vaga no raio da tabela (idle = 0, fica parado); zona antiga: raio padrão
+  const r = vz ? vz.wander : WORLD.wanderRadius;
+  if (r <= 0) {
+    e.waitTicks = 20;
+    return;
+  }
   const d = { x: e.home.x + nextInt(w.rng, -r, r), y: e.home.y + nextInt(w.rng, -r, r) };
   if (isSolidAt(map, d.x, d.y)) {
     e.waitTicks = 5;
@@ -730,6 +1005,7 @@ function hostileTo(a: Entity, x: Entity): boolean {
   // Arena: lados explícitos (time A × time B), sem selvagens nem encontros.
   if (a.team !== undefined || x.team !== undefined) return a.team !== undefined && x.team !== undefined && a.team !== x.team;
   if (a.kind === "wild") return (x.kind === "partner" || x.kind === "remote_partner") && !!a.encounterId && x.encounterId === a.encounterId;
+  if (x.kind === "wild" && ((x.introTicks ?? 0) > 0 || (x.encOwner && x.encOwner !== a.ownerId))) return false;
   return x.kind === "wild" && (!x.encounterId || x.encounterId === a.encounterId) && x.state !== "RETURN";
 }
 
@@ -867,6 +1143,8 @@ function defeat(ctx: Ctx, t: Entity, by: Entity): void {
 function reward(ctx: Ctx, t: Entity, partner: Entity): void {
   const { w, c } = ctx;
   const p = getPlayer(w, partner.ownerId!)!;
+  // GS-012 §2.3: recompensa só da autoridade e uma vez por encontro (settle idempotente)
+  if (ctx.auth && !ctx.auth.claimReward(w, t.encKey ?? `vis:${t.id}`)) return;
   const sp = c.species[t.speciesId!];
   const xp = Math.round(enemyXp(WORLD.baseXpByStage[sp.stage] ?? 8, t.level) * Math.max(1, p.xpMult ?? 1));
   const bits = sp.stage * 2 + t.level;
@@ -1037,6 +1315,15 @@ function endEncounter(ctx: Ctx, enc: Encounter, reason: "defeat" | "flee" | "lea
     if (e.state === "HURT") e.resumeState = after;
     else if (e.state === "ENGAGE" || (e.kind === "wild" && (e.state === "IDLE" || e.state === "WALK"))) setState(e, after, w.tick, ctx.ev);
   }
+  if (ctx.auth) {
+    const owners = enc.members.map((id) => getEntity(w, id)).filter((e): e is Entity => !!e && (e.kind === "partner" || e.kind === "remote_partner")).map((e) => e.ownerId!);
+    ctx.auth.settle(w, enc.id, owners);
+    // o selvagem do encontro aleatório (perdeu, fugiu ou o tempo acabou) volta para a grama: some, sem respawn
+    for (const id of enc.members) {
+      const e = getEntity(w, id);
+      if (e?.encKey && alive(e)) leaveGrass(ctx, e);
+    }
+  }
 }
 
 function onDefeatTimeout(ctx: Ctx, e: Entity): void {
@@ -1044,7 +1331,11 @@ function onDefeatTimeout(ctx: Ctx, e: Entity): void {
   e.removed = true;
   ctx.ev.push({ t: "despawn", tick: w.tick, id: e.id });
   if (e.kind === "wild") {
-    if (e.zoneIndex !== undefined) w.pendingSpawns.push({ zoneIndex: e.zoneIndex, atTick: w.tick + WORLD.respawnTicks });
+    if (e.zoneIndex !== undefined) {
+      // ponto visível: respawn da tabela (timer em s; daily/never/period = não volta por timer)
+      const rt = zoneOf(ctx, e)?.respawnTicks ?? WORLD.respawnTicks;
+      if (Number.isFinite(rt)) w.pendingSpawns.push({ zoneIndex: e.zoneIndex, atTick: w.tick + rt });
+    }
     return;
   }
   // Parceira derrotada "renasce" junto ao Tamer como um spawn novo (mesmo id), com pouca vida.

@@ -179,6 +179,8 @@ export interface WorldMap {
    * Y-sort, que ficam translúcidos quando cobrem o jogador ou a parceira. Só apresentação: nunca sólidos.
    */
   fgProps?: MapProp[];
+  /** GS-012: áreas de encontro aleatório (camada `encounters`), em tiles. */
+  encounterAreas?: { id: string; terrain: string; rect: { x: number; y: number; w: number; h: number }; rateMult: number }[];
   /**
    * Células (1 = sim) alcançáveis andando (4 vizinhos, colisão) a partir dos inícios do mapa. Calculado no
    * carregamento (parseTiledMap); mapas montados em código ganham o cálculo na primeira consulta (reachableOf).
@@ -214,6 +216,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const decals: MapDecal[] = [];
   const fgProps: MapProp[] = [];
   const patches: MapPatch[] = [];
+  const encounterAreas: NonNullable<WorldMap["encounterAreas"]> = [];
   const tile = m.tilewidth;
   const toSub = (px: number) => Math.round((px / tile) * SUB);
   for (const layer of m.layers) {
@@ -313,6 +316,14 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
           seed: Number(prop(o.properties, "seed") ?? 1),
           cells: new Set(String(prop(o.properties, "cells") ?? "").split(",").filter(Boolean).map(Number)),
         });
+      } else if (cls === "encounter_area") {
+        // GS-012: área de encontro aleatório (camada `encounters`, gerada da tabela pelo derive-look-v9); em tiles
+        encounterAreas.push({
+          id: String(prop(o.properties, "areaId") ?? o.name ?? `area-${o.id}`),
+          terrain: String(prop(o.properties, "terrain") ?? "tall_grass"),
+          rect: { x: Math.floor(o.x / tile), y: Math.floor(o.y / tile), w: Math.round((o.width ?? tile) / tile), h: Math.round((o.height ?? tile) / tile) },
+          rateMult: Number(prop(o.properties, "rateMult") ?? 1),
+        });
       } else if (cls === "boss_arena") {
         arenas.push({ id: o.name || `arena-${o.id}`, boss: String(prop(o.properties, "boss") ?? ""), x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile });
       } else if (cls === "portal") {
@@ -321,7 +332,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     }
   }
   curves.sort((a, b) => a.z - b.z);
-  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}), ...(fgProps.length ? { fgProps } : {}) };
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}), ...(fgProps.length ? { fgProps } : {}), ...(encounterAreas.length ? { encounterAreas } : {}) };
   map.reachable = computeReachable(map);
   return map;
 }

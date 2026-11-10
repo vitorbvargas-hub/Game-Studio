@@ -87,21 +87,21 @@
     "nnCvAfter": 0.695
   },
   "tallGrass": {
-    "clareira-noroeste-grama": 14,
+    "clareira-noroeste-grama": 17,
     "clareira-corredor-grama": 15
   },
   "perimeter": {
-    "added": 18,
+    "added": 21,
     "byKey": {
-      "fp8_edge_cluster_a": 10,
-      "fp8_fern": 4,
-      "fp8_edge_cluster_b": 4
+      "fp8_edge_cluster_a": 11,
+      "fp8_fern": 5,
+      "fp8_edge_cluster_b": 5
     }
   },
   "ratio": {
     "cells": 720,
-    "open": 51,
-    "mass": 24,
+    "open": 50.7,
+    "mass": 24.3,
     "accent": 25
   },
   "ratioV8": {
