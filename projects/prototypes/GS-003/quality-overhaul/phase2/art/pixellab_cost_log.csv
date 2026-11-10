@@ -1,0 +1,8 @@
+timestamp,tool,step,direction,frames,generations_spent,balance_before,balance_after,job_id,notes
+2026-11-09T23:40Z,get_balance,baseline,-,-,0,26,26,-,saldo antes de iniciar a comparacao Guilmon (26 restantes / 14 usadas de 40 trial)
+2026-11-09T23:41Z,create_character,gera personagem 8-direcoes a partir da referencia S (rip),-,8 direcoes,1,26,25,a352b1de-3f4e-450d-b673-d19ab9dda336,v3+reference 32x40px; ceil(32*40*8/65536)=1; direcao SW nunca existiu no rip e sai nova aqui
+2026-11-09T23:45Z,animate_character,idle breathing+tail,south,4,1,25,24,b619defc-153e-42ed-8f4a-bffc9b4dbf80,v3 custom; canvas gerado 48x48; group df919228
+2026-11-09T23:48Z,animate_character,idle breathing+tail,south-west,4,1,24,23,d8481872-fb47-4d58-8a76-a7825c60104f,v3 custom; mesmo group df919228
+2026-11-09T23:50Z,animate_character,walking contact+weight,south,6,1,23,22,88283a7d-4b8d-4655-8096-f277751e1e97,v3 custom; group 52e05c07
+2026-11-09T23:52Z,animate_character,walking contact+weight,south-west,6,1,22,21,a4026440-bc88-4bd4-860d-d6e4cc9ed099,v3 custom; mesmo group 52e05c07
+2026-11-09T23:53Z,get_balance,final,-,-,0,21,21,-,saldo depois: 21 restantes / 19 usadas de 40 trial; total gasto nesta comparacao = 5 geracoes (teto autorizado = 6)

@@ -1,0 +1,55 @@
+{
+  "scope": "quality-overhaul/phase2/art — piloto comparativo Guilmon (idle+walk, S/SW), via (a) manual e via (b) PixelLab",
+  "layer": "official-fan-use",
+  "baseCharacter": "Guilmon",
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
+  "basis": [
+    {
+      "adr": "ADR-007-gs003-fan-game-pokemon-digimon.md",
+      "summary": "Fundador autoriza o GS-003 como fan game nao comercial usando monstros oficiais de Digimon (nomes, designs, linhas). Excecao explicita do fundador a regra geral de IP de terceiros do GOVERNANCE, valida so para o GS-003."
+    },
+    {
+      "adr": "ADR-009-gs003-idle-mmorpg-reset.md",
+      "summary": "Condicao 2 do ADR-007 revogada: sprites oficiais extraidos de jogos (rips, incl. Digimon World DS) liberados pelo fundador em todo o projeto e no git, camada official-fan-use. Estrategia: usar oficiais primeiro, substituir por arte propria aos poucos."
+    },
+    {
+      "adr": "ADR-010-gs003-referencia-visual-canonica.md",
+      "summary": "Reforca Digimon como identidade completa do produto (criaturas, evolucoes, personagens); nao usar Pokemon nem monstros genericos."
+    }
+  ],
+  "conditionsStillInForce": [
+    "Sem monetizacao de nenhum tipo (ADR-007)",
+    "Sem logos ou marcas oficiais em titulo/icone/divulgacao (ADR-007)",
+    "Publicacao exige aprovacao separada do fundador (ADR-007/009)",
+    "Conteudo em content pack trocavel, para uma futura versao com monstros originais reaproveitar o motor (ADR-007)",
+    "Substituir por arte propria (camada original) ao longo do projeto (ADR-009) — este piloto testa exatamente essa substituicao progressiva"
+  ],
+  "sourceAsset": {
+    "creatureId": "CREATURE-0003",
+    "path": "assets/GAME-ASSETS/01-creatures/CREATURE-0003/",
+    "sourceGame": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/)",
+    "ripper": "Sonicteam24",
+    "creditRequiredBySheet": true,
+    "framesUsed": [
+      "CREATURE-0003_walk_S_00.png (= walk_S_02.png, mesmo arquivo)",
+      "CREATURE-0003_walk_S_01.png",
+      "CREATURE-0003_walk_W_00.png (= walk_W_02.png, mesmo arquivo)",
+      "CREATURE-0003_walk_W_01.png"
+    ]
+  },
+  "pipelineA": {
+    "label": "a mao / local, pixelart_workbench, custo PixelLab = 0",
+    "technique": "composicao de pixels dos frames ja ripados (bob de respiracao, espelhamento de perna de contato, montagem de ciclo via draw/join); nenhum pixel novo gerado por IA",
+    "generationsSpent": 0
+  },
+  "pipelineB": {
+    "label": "PixelLab, teto autorizado de 6 geracoes para esta comparacao",
+    "technique": "create_character (v3 + reference image, a partir do frame S do rip) para obter as 8 direcoes reais, incl. a SUDOESTE nova que o rip nunca teve; animate_character (v3 custom) para idle e walk",
+    "generationsSpentActual": 5,
+    "costLog": "pixellab_cost_log.csv"
+  },
+  "note": "Credito obrigatorio em qualquer build/tela de creditos: Sonicteam24 (rip Digimon World DS, The Spriters Resource); © Bandai Namco. Pipeline (b) usa o frame S do proprio rip como reference_image, entao herda a mesma obrigacao de credito — nao e uma arte nova e independente, e uma rotacao/animacao derivada do rip.",
+  "verifiedBy": "game-art (papel GAME-ART-DIRECTOR, ADR-012)",
+  "verifiedAt": "2026-11-09"
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guilmon — comparação ao vivo (a) à mão vs (b) PixelLab</title>
+<style>
+  body { background:#1a1d2b; color:#eee; font-family: sans-serif; padding: 24px; }
+  h1 { font-size: 18px; }
+  .row { display:flex; align-items:center; gap:24px; margin-bottom:32px; border-bottom:1px solid #333; padding-bottom:24px; }
+  .cell { text-align:center; }
+  .cell img { image-rendering: pixelated; width: 192px; height: auto; background:#0e1018; border:1px solid #444; }
+  .label { font-size:13px; margin-top:6px; color:#aab; }
+  .clipname { width: 140px; font-weight:bold; }
+  small { color:#889; }
+</style>
+</head>
+<body>
+<h1>GS-003 — Guilmon, prova de qualidade (Fase 2): (a) à mão vs (b) PixelLab</h1>
+<p><small>GIFs nativos de cada pipeline, lado a lado, tocando ao vivo (sem merge em um arquivo único — a ferramenta de pixel art do estúdio compõe pranchas estáticas, não GIFs sincronizados; ver prancha_comparativa.png para a versão estática com todos os quadros).</small></p>
+
+<div class="row">
+  <div class="clipname">Idle — Sul</div>
+  <div class="cell"><img src="../pipeline-a/idle-s/idle_s.gif"><div class="label">(a) à mão — 4 quadros, bob de respiração ±1px, zero custo</div></div>
+  <div class="cell"><img src="../pipeline-b/idle-s/idle_s.gif"><div class="label">(b) PixelLab v3 — 4 quadros gerados, 1 geração</div></div>
+</div>
+
+<div class="row">
+  <div class="clipname">Walk — Sul</div>
+  <div class="cell"><img src="../pipeline-a/walk-s/walk_s.gif"><div class="label">(a) à mão — 6 quadros, contato alternado (pé espelhado), zero custo</div></div>
+  <div class="cell"><img src="../pipeline-b/walk-s/walk_s.gif"><div class="label">(b) PixelLab v3 — 6 quadros gerados, 1 geração</div></div>
+</div>
+
+<div class="row">
+  <div class="clipname">Idle — Sudoeste</div>
+  <div class="cell"><img src="../pipeline-a/idle-sw/idle_sw.gif"><div class="label">(a) à mão — reaproveita o sprite W do rip (sem ângulo SW real), mesmo bob</div></div>
+  <div class="cell"><img src="../pipeline-b/idle-sw/idle_sw.gif"><div class="label">(b) PixelLab v3 — ângulo SW novo, gerado por create_character+reference</div></div>
+</div>
+
+<div class="row">
+  <div class="clipname">Walk — Sudoeste</div>
+  <div class="cell"><img src="../pipeline-a/walk-sw/walk_sw.gif"><div class="label">(a) à mão — reaproveita o sprite W do rip, mesmo contato alternado</div></div>
+  <div class="cell"><img src="../pipeline-b/walk-sw/walk_sw.gif"><div class="label">(b) PixelLab v3 — ângulo SW novo, caminhada gerada</div></div>
+</div>
+
+</body>
+</html>
