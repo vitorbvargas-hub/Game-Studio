@@ -36,7 +36,7 @@ import { NIGHT_STEPS, nightFrame, nightStep } from "./nightgrade";
 import { buildCurveIndex, composeCurveOverlay, type CurveIndex } from "./curves";
 import { composePathTile, pathMask, type PathSmoothCfg } from "./pathsmooth";
 import { BOT_TAMER, LOCAL_TAMER, makeTamerFrames, TAMER_H, TAMER_PIVOT, TAMER_W } from "./tamer";
-import { ambientMix, drawDecals, drawParticles, drawPatches, drawPropShadows, flicker, fogAnchors, fogSprite, lightSprite, mapLights, type LightSource, type LookCfg } from "./look";
+import { ambientMix, drawDecals, featherAlpha, drawParticles, drawPatches, drawPropShadows, flicker, fogAnchors, fogSprite, lightSprite, mapLights, type LightSource, type LookCfg } from "./look";
 
 export const CHUNK_TILES = 16;
 
@@ -121,6 +121,8 @@ const WATER_BUILD_BUDGET = 6;
 const WATER_FRAME_BUDGET = 40;
 /** Feather da máscara das copas sobre as luzes do look (px de tela do mundo): fator de redução do buffer da máscara. */
 const CANOPY_FEATHER = 3;
+/** forest-v10: px da borda das manchas macro com o alfa em rampa (o PNG tem alfa encostado na borda). */
+const MACRO_FEATHER = 14;
 /** Pivô do frame 26×33 dos Tamers v3 (character.json), quando não há Tamer carregado para copiar. */
 const NPC_PIVOT = { x: 13, y: 32 };
 
@@ -156,6 +158,8 @@ export class WorldView {
   private shadows = new Map<string, HTMLCanvasElement>();
   private propImages = new Map<string, HTMLCanvasElement>();
   private tinted = new Map<string, HTMLCanvasElement>();
+  /** forest-v10: manchas macro com a borda do alfa suavizada (featherAlpha), por URL. */
+  private feathered = new Map<string, HTMLCanvasElement>();
   /** Pose parada (feedback 1, item 3): por visual, quadro de passada do idle → quadro de pés juntos. */
   private stands = new Map<CreatureVisual, Map<string, string>>();
   /** Capturas "antes": desliga a troca para o quadro de pés juntos (volta o idle de passada). */
@@ -240,6 +244,7 @@ export class WorldView {
   /** Invalida chunks do chão (ex.: tiles reais acabaram de carregar). */
   invalidateGround(): void {
     this.chunks.clear();
+    this.feathered.clear();
     this.smoothTiles.clear();
     this.curveTiles.clear();
     this.waterTiles.clear();
@@ -1032,39 +1037,53 @@ export class WorldView {
     c = this.makeCanvas(CHUNK_TILES * ts, CHUNK_TILES * ts);
     const g = c.getContext("2d")!;
     g.imageSmoothingEnabled = false;
-    for (let ty = 0; ty < CHUNK_TILES; ty++)
-      for (let tx = 0; tx < CHUNK_TILES; tx++) {
-        const mx = cx * CHUNK_TILES + tx;
-        const my = cy * CHUNK_TILES + ty;
-        if (mx >= this.map.width || my >= this.map.height) continue;
-        this.map.tileLayers.forEach((layer, li) => {
-          const key = layer.keys[my * this.map.width + mx];
-          // célula pintada por uma curva contínua: o chão de baixo no lugar do tile Wang (a faixa vem logo depois)
-          const own = li === 0 ? this.curveOwner(mx, my) : undefined;
-          const smooth = !own && key ? this.smoothTile(layer.keys, key, mx, my, set, night) : undefined;
-          if (own) this.drawTile(g, own.ground[(mx * 7 + my * 3) % own.ground.length], tx * ts, ty * ts, set);
-          else if (smooth) g.drawImage(smooth, tx * ts, ty * ts);
-          else if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
-          // a faixa das curvas fica sobre o chão e sob ground_detail (ponte)
-          const band = li === 0 ? this.curveTile(mx, my, set, night) : undefined;
-          if (band) g.drawImage(band, tx * ts, ty * ts);
-        });
-      }
-    // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
     const x0 = cx * CHUNK_TILES * ts;
     const y0 = cy * CHUNK_TILES * ts;
     const size = CHUNK_TILES * ts;
+    const imageOf = (key: string) => {
+      const src = set[key];
+      const img = src && this.images.get(src.url);
+      if (!img) return undefined;
+      return { img, w: src.rect?.[2] ?? img.width, h: src.rect?.[3] ?? img.height, rect: src.rect };
+    };
+    // passes (os tiles não passam da própria célula, então a ordem entre células não importa): 1) chão; 2) manchas
+    // macro do forest-v10, em px do mundo; 3) faixa das curvas (trilha/riacho) sobre o chão; 4) demais camadas
+    // (ground_detail: ponte, face do penhasco)
+    const eachCell = (fn: (mx: number, my: number, tx: number, ty: number) => void) => {
+      for (let ty = 0; ty < CHUNK_TILES; ty++)
+        for (let tx = 0; tx < CHUNK_TILES; tx++) {
+          const mx = cx * CHUNK_TILES + tx;
+          const my = cy * CHUNK_TILES + ty;
+          if (mx < this.map.width && my < this.map.height) fn(mx, my, tx, ty);
+        }
+    };
+    const drawLayerTile = (li: number, mx: number, my: number, tx: number, ty: number) => {
+      const layer = this.map.tileLayers[li];
+      const key = layer.keys[my * this.map.width + mx];
+      // célula pintada por uma curva contínua: o chão de baixo no lugar do tile Wang (a faixa vem depois)
+      const own = li === 0 ? this.curveOwner(mx, my) : undefined;
+      const smooth = !own && key ? this.smoothTile(layer.keys, key, mx, my, set, night) : undefined;
+      if (own) this.drawTile(g, own.ground[(mx * 7 + my * 3) % own.ground.length], tx * ts, ty * ts, set);
+      else if (smooth) g.drawImage(smooth, tx * ts, ty * ts);
+      else if (key) this.drawTile(g, animatedTileKey(key, now), tx * ts, ty * ts, set);
+    };
+    if (this.map.tileLayers.length) eachCell((mx, my, tx, ty) => drawLayerTile(0, mx, my, tx, ty));
+    if (this.map.macroOverlays?.length)
+      drawDecals(g, this.map.macroOverlays, x0, y0, size, (key) => {
+        const src = imageOf(key);
+        return src && { ...src, img: this.featheredOf(set[key].url, src.img, src.w, src.h), rect: undefined };
+      });
+    eachCell((mx, my, tx, ty) => {
+      const band = this.curveTile(mx, my, set, night);
+      if (band) g.drawImage(band, tx * ts, ty * ts);
+    });
+    for (let li = 1; li < this.map.tileLayers.length; li++) eachCell((mx, my, tx, ty) => drawLayerTile(li, mx, my, tx, ty));
+    // sombras das copas: decal no chão (fica sob tudo; pode atravessar a borda do chunk)
     const look = this.opts.look;
     if (look) {
       // look v8: lama roxa, decalques e sombra de contato dos props (estáticos: ficam no chunk)
       if (this.map.patches?.length) drawPatches(g, this.map.patches, x0, y0, size, ts, this.map.width, look);
-      if (this.map.decals?.length)
-        drawDecals(g, this.map.decals, x0, y0, size, (key) => {
-          const src = set[key];
-          const img = src && this.images.get(src.url);
-          if (!img) return undefined;
-          return { img, w: src.rect?.[2] ?? img.width, h: src.rect?.[3] ?? img.height, rect: src.rect };
-        });
+      if (this.map.decals?.length) drawDecals(g, this.map.decals, x0, y0, size, imageOf);
       // oclusão na base da face do penhasco: faixa escura em degraus logo abaixo (a face é a camada ground_detail)
       const det = this.map.tileLayers.find((l) => l.name === "ground_detail")?.keys;
       if (det) {
@@ -1097,6 +1116,20 @@ export class WorldView {
       if (img) g.drawImage(img, s.x - x0, s.y - y0);
     }
     this.chunks.set(key, c);
+    return c;
+  }
+
+  /** Cópia da mancha macro com a borda do alfa suavizada (MACRO_FEATHER px), feita uma vez por URL. */
+  private featheredOf(url: string, img: CanvasImageSource, w: number, h: number): HTMLCanvasElement {
+    const hit = this.feathered.get(url);
+    if (hit) return hit;
+    const c = this.makeCanvas(w, h);
+    const g = c.getContext("2d")!;
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, w, h);
+    featherAlpha(d.data, w, h, MACRO_FEATHER);
+    g.putImageData(d, 0, 0);
+    this.feathered.set(url, c);
     return c;
   }
 

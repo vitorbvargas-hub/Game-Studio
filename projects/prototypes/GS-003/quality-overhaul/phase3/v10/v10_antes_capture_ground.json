@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-10T20:26:23.040Z",
+  "base": "http://127.0.0.1:5190",
+  "tag": "antes",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v10_antes_chao_zoom_clareira-leste.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        39,
+        17,
+        48,
+        22
+      ],
+      "camera": {
+        "x": 1184,
+        "y": 693,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 0,
+        "width": 1152,
+        "height": 640
+      }
+    },
+    "v10_antes_chao_zoom_clareira-norte.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        5,
+        2,
+        12,
+        6
+      ],
+      "camera": {
+        "x": 96,
+        "y": 21,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 172,
+        "width": 896,
+        "height": 512
+      }
+    }
+  },
+  "ground": {
+    "clareira-leste": {
+      "seamPairs": 2707,
+      "innerPairs": 88113,
+      "seamMeanDiff": 9.34,
+      "innerMeanDiff": 17.22,
+      "ratio": 0.54
+    },
+    "clareira-norte": {
+      "seamPairs": 1431,
+      "innerPairs": 54861,
+      "seamMeanDiff": 16.78,
+      "innerMeanDiff": 24.94,
+      "ratio": 0.67
+    }
+  },
+  "perf": []
+}

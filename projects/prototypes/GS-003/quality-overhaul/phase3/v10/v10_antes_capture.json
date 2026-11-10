@@ -1,0 +1,309 @@
+{
+  "date": "2026-11-10T20:22:00.297Z",
+  "base": "http://127.0.0.1:5190",
+  "tag": "antes",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v10_antes_dia_jogo.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ],
+      "camera": {
+        "x": 624,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v10_antes_dia_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "day",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ],
+      "camera": {
+        "x": -64,
+        "y": 100,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v10_antes_noite_jogo.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ],
+      "camera": {
+        "x": 624,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v10_antes_noite_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "night",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ],
+      "camera": {
+        "x": -64,
+        "y": 100,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v10_antes_chao_zoom_clareira-leste.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        39,
+        17,
+        48,
+        22
+      ],
+      "camera": {
+        "x": 1184,
+        "y": 693,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 0,
+        "width": 1152,
+        "height": 640
+      }
+    },
+    "v10_antes_chao_zoom_clareira-norte.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        5,
+        2,
+        12,
+        6
+      ],
+      "camera": {
+        "x": 96,
+        "y": 21,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 172,
+        "width": 896,
+        "height": 512
+      }
+    }
+  },
+  "ground": {
+    "clareira-leste": {
+      "seamPairs": 5047,
+      "innerPairs": 171150,
+      "seamMeanDiff": null,
+      "innerMeanDiff": null,
+      "ratio": null
+    },
+    "clareira-norte": {
+      "seamPairs": 1431,
+      "innerPairs": 54861,
+      "seamMeanDiff": 17.08,
+      "innerMeanDiff": 24.89,
+      "ratio": 0.69
+    }
+  },
+  "perf": [
+    {
+      "framing": "jogo",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 929,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 7,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 3.6,
+        "p99": 4.4,
+        "mean": 1.483,
+        "max": 6.7
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.333,
+        "max": 16.8
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 2.5,
+        "p95": 4.6,
+        "p99": 5.6,
+        "mean": 2.79,
+        "max": 9.2
+      }
+    },
+    {
+      "framing": "jogo",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 929,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 5,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 7,
+        "p99": 8.8,
+        "mean": 2.807,
+        "max": 12.1
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.333,
+        "max": 16.8
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 4.3,
+        "p95": 6.3,
+        "p99": 7,
+        "mean": 4.42,
+        "max": 13.4
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 929,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 20.7,
+        "p99": 23.6,
+        "mean": 9.084,
+        "max": 28.4
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 50,
+        "p99": 50.1,
+        "mean": 18.722,
+        "max": 66.7
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 27.3,
+        "p95": 33.3,
+        "p99": 38.4,
+        "mean": 27.744,
+        "max": 66.1
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 929,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 23,
+        "p99": 25.4,
+        "mean": 10.147,
+        "max": 45.1
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 50,
+        "p99": 50.1,
+        "mean": 19.083,
+        "max": 66.7
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 29.9,
+        "p95": 38.9,
+        "p99": 45.4,
+        "mean": 30.918,
+        "max": 69.2
+      }
+    }
+  ]
+}

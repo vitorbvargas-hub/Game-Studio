@@ -481,7 +481,7 @@ export function ratio603010(tmj, h, B, withCells = false) {
     const k = String(prop(o, "key"));
     const tx = Math.floor(o.x / TS);
     const ty = Math.floor((o.y - 1) / TS);
-    if (/^fp4_tree_/.test(k)) for (let dy = -2; dy <= 0; dy++) for (let dx = -1; dx <= 1; dx++) tree.add(`${tx + dx},${ty + dy}`);
+    if (/^(fp4_tree_|fp10_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)$)/.test(k)) for (let dy = -2; dy <= 0; dy++) for (let dx = -1; dx <= 1; dx++) tree.add(`${tx + dx},${ty + dy}`);
     // moita grande de borda (48 px) = massa na sua célula e na de cima
     if (/^(fp8_edge_cluster_[ab]|fp7_bush_dense_secret)$/.test(k)) for (let dy = -1; dy <= 0; dy++) tree.add(`${tx},${ty + dy}`);
     if (ACC.test(k)) accent.add(`${tx},${ty}`);

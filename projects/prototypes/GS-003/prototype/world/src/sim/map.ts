@@ -173,6 +173,11 @@ export interface WorldMap {
   curves?: MapCurve[];
   /** Look v8: decalques de chão e manchas de solo (só apresentação; ausentes nos outros mapas). */
   decals?: MapDecal[];
+  /**
+   * forest-v10: manchas macro de matiz (camada `ground-macro-overlay`, objetos `macro`), sprites grandes e
+   * semitransparentes em px do MUNDO, desenhados entre o chão e a faixa das curvas. Só apresentação.
+   */
+  macroOverlays?: MapDecal[];
   patches?: MapPatch[];
   /**
    * Primeiro plano (camada `objects_above`, look v9): props desenhados POR CIMA das entidades e das copas, fora do
@@ -214,6 +219,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
   const arenas: MapArena[] = [];
   const curves: MapCurve[] = [];
   const decals: MapDecal[] = [];
+  const macroOverlays: MapDecal[] = [];
   const fgProps: MapProp[] = [];
   const patches: MapPatch[] = [];
   const encounterAreas: NonNullable<WorldMap["encounterAreas"]> = [];
@@ -304,6 +310,8 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
             return { x, y, w, h };
           }),
         });
+      } else if (cls === "macro") {
+        macroOverlays.push({ key: String(prop(o.properties, "key")), x: o.x, y: o.y, ...(prop(o.properties, "flip") === true ? { flip: true } : {}) });
       } else if (cls === "decal") {
         decals.push({ key: String(prop(o.properties, "key")), x: o.x, y: o.y, ...(prop(o.properties, "flip") === true ? { flip: true } : {}) });
       } else if (cls === "patch") {
@@ -332,7 +340,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
     }
   }
   curves.sort((a, b) => a.z - b.z);
-  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(patches.length ? { patches } : {}), ...(fgProps.length ? { fgProps } : {}), ...(encounterAreas.length ? { encounterAreas } : {}) };
+  const map: WorldMap = { id, width: m.width, height: m.height, tileSize: tile, tileLayers, solid, props, spawns, starts, portals, npcs, interactables, arenas, ...(curves.length ? { curves } : {}), ...(decals.length ? { decals } : {}), ...(macroOverlays.length ? { macroOverlays } : {}), ...(patches.length ? { patches } : {}), ...(fgProps.length ? { fgProps } : {}), ...(encounterAreas.length ? { encounterAreas } : {}) };
   map.reachable = computeReachable(map);
   return map;
 }

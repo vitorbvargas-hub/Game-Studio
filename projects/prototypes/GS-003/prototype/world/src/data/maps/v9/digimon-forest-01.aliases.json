@@ -21,13 +21,53 @@
       "alpha": 90,
       "baked": [
         "fp4_tree_palm_digital",
-        "fp4_tree_data_leaf"
+        "fp4_tree_data_leaf",
+        "fp10_tall_narrow_large",
+        "fp10_tall_narrow_small",
+        "fp10_wide_low_large",
+        "fp10_wide_low_small",
+        "fp10_leaning_large",
+        "fp10_leaning_small",
+        "fp10_ancient_thick_large",
+        "fp10_ancient_thick_small"
       ]
     },
     "topOffset": {
       "fp4_tree_palm_digital": [
         4,
         0
+      ],
+      "fp10_tall_narrow_large": [
+        0,
+        -2
+      ],
+      "fp10_tall_narrow_small": [
+        0,
+        -1
+      ],
+      "fp10_wide_low_large": [
+        0,
+        -2
+      ],
+      "fp10_wide_low_small": [
+        0,
+        -1
+      ],
+      "fp10_leaning_large": [
+        0,
+        -2
+      ],
+      "fp10_leaning_small": [
+        0,
+        -1
+      ],
+      "fp10_ancient_thick_large": [
+        0,
+        -1
+      ],
+      "fp10_ancient_thick_small": [
+        0,
+        -2
       ]
     }
   },
@@ -38,11 +78,15 @@
       "keepOwnDirt": true,
       "outside": "edge",
       "ground": [
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_1",
-        "fp8_ground_variant_2",
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_6"
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_7",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_4",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_5",
+        "fp10_ground_variant_0"
       ],
       "threshold": 0.62,
       "noise": 0.1,
@@ -53,11 +97,15 @@
       "full": "fp4_denseedge_w47_255",
       "outside": "fill",
       "ground": [
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_1",
-        "fp8_ground_variant_2",
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_6"
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_7",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_4",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_5",
+        "fp10_ground_variant_0"
       ],
       "threshold": 0.64,
       "noise": 0.1,
@@ -68,11 +116,15 @@
       "full": "fp7_wg_c16_15",
       "outside": "edge",
       "ground": [
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_1",
-        "fp8_ground_variant_2",
-        "fp8_ground_variant_0",
-        "fp8_ground_variant_6"
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_7",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_4",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_0",
+        "fp10_ground_variant_5",
+        "fp10_ground_variant_0"
       ],
       "threshold": 0.62,
       "noise": 0.1,
@@ -306,6 +358,11 @@
       "pack": "forest-v9-cliffs",
       "prefix": "fp9c_",
       "root": "map-factory"
+    },
+    {
+      "pack": "forest-v10-ground-trees",
+      "prefix": "fp10_",
+      "root": "map-factory"
     }
   ],
   "look": {
@@ -322,6 +379,28 @@
       "accentSaturationMul": 1,
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
+        {
+          "match": "^fp10_(ground_variant_|grass_dirt_blob_|macro_patch_)",
+          "saturationMul": 0.78,
+          "valueMul": 0.6
+        },
+        {
+          "match": "^fp10_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)_",
+          "saturationMul": 0.92,
+          "valueMul": 0.9,
+          "night": {
+            "saturationMul": 0.6,
+            "valueMul": 0.95,
+            "hueShift": 40,
+            "tint": "#5a62c8",
+            "tintMix": 0.45
+          }
+        },
+        {
+          "match": "^fp10_",
+          "saturationMul": 0.85,
+          "valueMul": 0.74
+        },
         {
           "match": "^fp9c_cliff_",
           "saturationMul": 0.8,

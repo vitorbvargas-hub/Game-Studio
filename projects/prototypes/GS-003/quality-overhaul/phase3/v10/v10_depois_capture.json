@@ -1,0 +1,340 @@
+{
+  "date": "2026-11-10T20:49:14.416Z",
+  "base": "http://127.0.0.1:5190",
+  "tag": "depois",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v10_depois_dia_jogo.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "day",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ],
+      "camera": {
+        "x": 624,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v10_depois_dia_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "day",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ],
+      "camera": {
+        "x": -64,
+        "y": 100,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v10_depois_noite_jogo.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "night",
+      "framing": "jogo (dpr=1)",
+      "tamerTile": [
+        29,
+        20
+      ],
+      "camera": {
+        "x": 624,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v10_depois_noite_geral.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "night",
+      "framing": "geral (zoom=1)",
+      "tamerTile": [
+        27,
+        18
+      ],
+      "camera": {
+        "x": -64,
+        "y": 100,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v10_depois_chao_zoom_clareira-leste.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        39,
+        17,
+        48,
+        22
+      ],
+      "camera": {
+        "x": 1184,
+        "y": 693,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 0,
+        "width": 1152,
+        "height": 640
+      }
+    },
+    "v10_depois_chao_zoom_clareira-norte.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        5,
+        2,
+        12,
+        6
+      ],
+      "camera": {
+        "x": 96,
+        "y": 21,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 256,
+        "y": 172,
+        "width": 896,
+        "height": 512
+      }
+    },
+    "v10_depois_chao_zoom_acampamento.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=4",
+      "time": "day",
+      "framing": "zoom no chão (zoom=4)",
+      "box": [
+        38,
+        23,
+        47,
+        30
+      ],
+      "camera": {
+        "x": 1216,
+        "y": 757,
+        "w": 480,
+        "h": 270
+      },
+      "scale": 4,
+      "clip": {
+        "x": 0,
+        "y": 0,
+        "width": 1152,
+        "height": 896
+      }
+    }
+  },
+  "ground": {
+    "clareira-leste": {
+      "seamPairs": 2707,
+      "innerPairs": 88113,
+      "seamMeanDiff": 15.55,
+      "innerMeanDiff": 17.81,
+      "ratio": 0.87
+    },
+    "clareira-norte": {
+      "seamPairs": 1431,
+      "innerPairs": 54861,
+      "seamMeanDiff": 19.1,
+      "innerMeanDiff": 24.44,
+      "ratio": 0.78
+    },
+    "acampamento": {
+      "seamPairs": 3793,
+      "innerPairs": 123699,
+      "seamMeanDiff": 15.39,
+      "innerMeanDiff": 18.28,
+      "ratio": 0.84
+    }
+  },
+  "perf": [
+    {
+      "framing": "jogo",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 7,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 3.2,
+        "p99": 4,
+        "mean": 1.418,
+        "max": 5.3
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.333,
+        "max": 16.8
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 2.7,
+        "p95": 5.9,
+        "p99": 7.2,
+        "mean": 3.344,
+        "max": 22.7
+      }
+    },
+    {
+      "framing": "jogo",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        640,
+        360
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 5,
+          "propsDrawn": 215,
+          "chunksDrawn": 4
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 5.5,
+        "p99": 8.9,
+        "mean": 2.213,
+        "max": 16.8
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 16.7,
+        "p99": 16.8,
+        "mean": 8.389,
+        "max": 33.4
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 3.1,
+        "p95": 4.7,
+        "p99": 5.9,
+        "mean": 3.293,
+        "max": 9.8
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "day",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.1,
+        "p95": 14.7,
+        "p99": 18.1,
+        "mean": 6.812,
+        "max": 26.2
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 33.4,
+        "p99": 33.4,
+        "mean": 12.611,
+        "max": 50
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 18.9,
+        "p95": 21.1,
+        "p99": 24,
+        "mean": 19.166,
+        "max": 33.1
+      }
+    },
+    {
+      "framing": "geral",
+      "time": "night",
+      "warmFrames": 120,
+      "canvas": [
+        1920,
+        1080
+      ],
+      "scene": {
+        "props": 880,
+        "decals": 962,
+        "fg": 46,
+        "stats": {
+          "entitiesDrawn": 8,
+          "propsDrawn": 807,
+          "chunksDrawn": 12
+        }
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 0.2,
+        "p95": 17.3,
+        "p99": 20.1,
+        "mean": 7.936,
+        "max": 30.3
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 0,
+        "p95": 33.4,
+        "p99": 33.4,
+        "mean": 13.721,
+        "max": 50
+      },
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 27,
+        "p95": 34.3,
+        "p99": 40.6,
+        "mean": 27.469,
+        "max": 49.9
+      }
+    }
+  ]
+}

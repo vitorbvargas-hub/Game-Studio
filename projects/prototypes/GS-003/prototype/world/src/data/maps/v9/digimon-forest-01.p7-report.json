@@ -139,5 +139,137 @@
       "25,18:root_vine_b",
       "27,18:root_vine_a"
     ]
+  },
+  "v10": {
+    "pack": "forest-v10-ground-trees",
+    "dirt": [
+      {
+        "tag": "fogueira",
+        "candidates": 9,
+        "cells": [
+          [
+            42,
+            25
+          ],
+          [
+            43,
+            25
+          ],
+          [
+            42,
+            26
+          ],
+          [
+            43,
+            26
+          ],
+          [
+            42,
+            27
+          ],
+          [
+            43,
+            27
+          ]
+        ]
+      },
+      {
+        "tag": "fonte-cura",
+        "candidates": 3,
+        "cells": []
+      }
+    ],
+    "ground": {
+      "cells": 646,
+      "byKey": {
+        "fp10_grass_dirt_blob_12": 1,
+        "fp10_grass_dirt_blob_13": 1,
+        "fp10_grass_dirt_blob_3": 1,
+        "fp10_grass_dirt_blob_6": 1,
+        "fp10_grass_dirt_blob_7": 1,
+        "fp10_grass_dirt_blob_9": 1,
+        "fp10_ground_variant_0": 362,
+        "fp10_ground_variant_1": 35,
+        "fp10_ground_variant_2": 34,
+        "fp10_ground_variant_3": 20,
+        "fp10_ground_variant_4": 36,
+        "fp10_ground_variant_5": 49,
+        "fp10_ground_variant_6": 52,
+        "fp10_ground_variant_7": 52
+      }
+    },
+    "macro": [
+      {
+        "key": "macro_patch_olive",
+        "px": [
+          979,
+          762
+        ],
+        "inClareira": true,
+        "flip": true
+      },
+      {
+        "key": "macro_patch_shade",
+        "px": [
+          776,
+          868
+        ],
+        "inClareira": true,
+        "flip": false
+      },
+      {
+        "key": "macro_patch_shade",
+        "px": [
+          1737,
+          625
+        ],
+        "inClareira": false,
+        "flip": false
+      },
+      {
+        "key": "macro_patch_shade",
+        "px": [
+          1410,
+          861
+        ],
+        "inClareira": false,
+        "flip": true
+      },
+      {
+        "key": "macro_patch_olive",
+        "px": [
+          225,
+          262
+        ],
+        "inClareira": false,
+        "flip": false
+      }
+    ],
+    "trees": {
+      "swapped": 49,
+      "byKey": {
+        "fp10_ancient_thick_large": 4,
+        "fp10_ancient_thick_small": 6,
+        "fp10_leaning_large": 8,
+        "fp10_leaning_small": 8,
+        "fp10_tall_narrow_large": 7,
+        "fp10_tall_narrow_small": 5,
+        "fp10_wide_low_large": 5,
+        "fp10_wide_low_small": 6
+      },
+      "keptDigital": 7
+    },
+    "decals": {
+      "leaf_litter_big": 11,
+      "root_exposed_mossy": 8,
+      "mossy_stone_cluster": 7,
+      "tuft_overlap_big": 7
+    }
+  },
+  "ratioV10": {
+    "cells": 720,
+    "open": 50.3,
+    "mass": 25,
+    "accent": 24.7
   }
 }

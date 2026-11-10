@@ -17,6 +17,12 @@ export interface GradeRule {
   /** Puxa a cor para `tint` (ex. pedra e terra roxo-acinzentadas do frame do vídeo), 0..1. */
   tint?: string;
   tintMix?: number;
+  /**
+   * Arte sem preset noturno (pacotes extras da Map Factory): valores próprios da noite, no lugar dos do dia. Sem
+   * isto a noite reaproveita a regra do dia com o valor suavizado. forest-v10: copas puxadas para o azul da noite do
+   * forest-v4, senão ficam verdes no meio da mata azul.
+   */
+  night?: Omit<GradeRule, "match" | "skip" | "night">;
 }
 
 export interface LightCfg {
@@ -108,12 +114,14 @@ export function gradeRuleFor(key: string, look: LookCfg): GradeRule | undefined 
  * Grade de cor em RGBA no lugar (palette.json renderPreset): HSV com saturação e valor multiplicados; os ~12% de
  * pixels mais claros (rim de luz) com os multiplicadores mais suaves; sombras empurradas para o azul/roxo.
  */
-export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule?: GradeRule, night = false): void {
+export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule0?: GradeRule, night = false): void {
   const g = look.grade;
+  const ownNight = night && !!rule0?.night;
+  const rule = ownNight ? { ...rule0!, ...rule0!.night } : rule0;
   const sMul = rule?.saturationMul ?? g.groundFoliageSaturationMul ?? 0.64;
   // à noite o pacote já é escuro: o grade mexe só um pouco no valor (senão escurece duas vezes)
   const vMul0 = rule?.valueMul ?? g.groundFoliageValueMul ?? 0.8;
-  const vMul = night ? 1 - (1 - vMul0) * 0.3 : vMul0;
+  const vMul = night && !ownNight ? 1 - (1 - vMul0) * 0.3 : vMul0;
   const tint = rule?.tint ? hexRgb(rule.tint).map((v) => v / 255) : undefined;
   const tMix = rule?.tintMix ?? 0;
   const rimS = rule ? Math.min(1, sMul * 1.25) : (g.rimHighlightSaturationMul ?? 0.88);
@@ -271,6 +279,22 @@ export function drawPatches(g: CanvasRenderingContext2D, patches: MapPatch[], x0
 }
 
 /** Decalques de chão (camada `decals`) que tocam o chunk, centrados no ponto, com flip horizontal. */
+/**
+ * forest-v10: as manchas macro chegam com alfa baixo (até ~50) encostado na borda do PNG; cortada ali, a mancha
+ * mostraria uma linha reta no chão. Multiplica o alfa por uma rampa suave (smoothstep) nos `f` px de cada borda.
+ */
+export function featherAlpha(data: Uint8ClampedArray, w: number, h: number, f: number): void {
+  if (f <= 0) return;
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const d = Math.min(x, y, w - 1 - x, h - 1 - y);
+      if (d >= f) continue;
+      const t = d / f;
+      const i = (y * w + x) * 4 + 3;
+      data[i] = Math.round(data[i] * t * t * (3 - 2 * t));
+    }
+}
+
 export function drawDecals(g: CanvasRenderingContext2D, decals: MapDecal[], x0: number, y0: number, size: number, imageOf: (key: string) => { img: CanvasImageSource; w: number; h: number; rect?: [number, number, number, number] } | undefined): void {
   for (const dc of decals) {
     const src = imageOf(dc.key);

@@ -9,6 +9,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { composeClareira, ratio603010, BOX } from "./p7-clareira.mjs";
+import { applyForestV10 } from "./v10-ground-trees.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const V8 = join(ROOT, "src/data/maps/v8");
@@ -232,6 +233,11 @@ if (kitTiles.size) {
   const cliffRule = look.grade.rules.find((r) => r.match === "^fp8_cliff_");
   if (cliffRule) look.grade.rules.unshift({ ...cliffRule, match: "^fp9c_cliff_" });
 }
+// ---------- forest-v10: chão tileável, manchas macro, terra batida, 4 espécies de árvore e decalques ----------
+// (art/map-factory/forest-v10-ground-trees/, game-art fc34af2 + 1fb06d1; ver v10-ground-trees.mjs)
+p7.v10 = applyForestV10(tmj, look, outPack, { TS, prop, layer, solid, nearAny, paths, water, table, artRoot: join(ROOT, "../../art/map-factory") });
+p7.ratioV10 = ratio603010(tmj, { TS, prop, layer, solid, nearAny, water }, { x0: BOX.x0 * TS, y0: BOX.y0 * TS, x1: (BOX.x1 + 1) * TS, y1: (BOX.y1 + 1) * TS });
+
 look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };
 look.foreground = { ...look.foreground, headFrac: 0.35 };
 outPack.look = look;
