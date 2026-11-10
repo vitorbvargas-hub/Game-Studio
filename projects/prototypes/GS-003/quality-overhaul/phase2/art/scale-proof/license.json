@@ -1,0 +1,49 @@
+{
+  "scope": "quality-overhaul/phase2/art/scale-proof — prova de escala Guilmon (idle+walk, S/SW) em resolucao nativa maior (~64px de corpo)",
+  "layer": "official-fan-use",
+  "baseCharacter": "Guilmon",
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
+  "basis": [
+    {
+      "adr": "ADR-007-gs003-fan-game-pokemon-digimon.md",
+      "summary": "Fundador autoriza o GS-003 como fan game nao comercial usando monstros oficiais de Digimon (nomes, designs, linhas). Excecao explicita do fundador a regra geral de IP de terceiros do GOVERNANCE, valida so para o GS-003."
+    },
+    {
+      "adr": "ADR-009-gs003-idle-mmorpg-reset.md",
+      "summary": "Condicao 2 do ADR-007 revogada: sprites oficiais extraidos de jogos (rips, incl. Digimon World DS) liberados pelo fundador em todo o projeto e no git, camada official-fan-use. Estrategia: usar oficiais primeiro, substituir por arte propria aos poucos."
+    },
+    {
+      "adr": "ADR-010-gs003-referencia-visual-canonica.md",
+      "summary": "Reforca Digimon como identidade completa do produto (criaturas, evolucoes, personagens); nao usar Pokemon nem monstros genericos."
+    },
+    {
+      "adr": "ADR-012-gs003-governanca-de-arte.md",
+      "summary": "GAME-ART-DIRECTOR (este agente) e quem decide direcao visual/escala; checklist de aprovacao obrigatoria antes de integrar (nao integrado aqui, ver README)."
+    }
+  ],
+  "conditionsStillInForce": [
+    "Sem monetizacao de nenhum tipo (ADR-007)",
+    "Sem logos ou marcas oficiais em titulo/icone/divulgacao (ADR-007)",
+    "Publicacao exige aprovacao separada do fundador (ADR-007/009)",
+    "Conteudo em content pack trocavel, para uma futura versao com monstros originais reaproveitar o motor (ADR-007)",
+    "Substituir por arte propria (camada original) ao longo do projeto (ADR-009)"
+  ],
+  "sourceAsset": {
+    "creatureId": "CREATURE-0003",
+    "path": "assets/GAME-ASSETS/01-creatures/CREATURE-0003/",
+    "sourceGame": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/)",
+    "ripper": "Sonicteam24",
+    "creditRequiredBySheet": true,
+    "frameUsedAsReference": "CREATURE-0003_walk_S_01.png (30x34px, pose de pe/idle do mapa), reescalado nearest-neighbor x2 (sem interpolacao, sem geracao) para 60x68px antes de servir de referencia ao PixelLab"
+  },
+  "pipelineB64": {
+    "label": "PixelLab, teto autorizado de 8 geracoes para esta prova de escala",
+    "technique": "create_character (v3 + reference image upscaled nearest x2, 60x68) para as 8 direcoes reais incl. SW nova; animate_character (mode=template, breathing-idle e walking, ai_freedom=0) para idle e walk, direcoes S e SW",
+    "generationsSpentActual": 5,
+    "costLog": "pixellab_cost_log.csv"
+  },
+  "note": "Credito obrigatorio em qualquer build/tela de creditos: Sonicteam24 (rip Digimon World DS, The Spriters Resource); © Bandai Namco. A referencia enviada ao PixelLab e um reescalonamento nearest-neighbor (sem IA, sem interpolacao) do proprio frame do rip, entao o resultado herda a mesma obrigacao de credito do rip original — nao e uma arte nova e independente, e uma rotacao/animacao/ampliacao de resolucao derivada do rip.",
+  "verifiedBy": "game-art (papel GAME-ART-DIRECTOR, ADR-012)",
+  "verifiedAt": "2026-11-10"
+}

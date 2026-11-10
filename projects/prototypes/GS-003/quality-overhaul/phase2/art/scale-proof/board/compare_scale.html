@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guilmon — prova de escala: rip nativo (~31px) vs PixelLab 64px</title>
+<style>
+  body { background:#1a1d2b; color:#eee; font-family: sans-serif; padding: 24px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; margin-top: 40px; border-top: 1px solid #333; padding-top: 16px; }
+  p, li { font-size: 13px; color: #bcd; line-height: 1.5; }
+  .board { image-rendering: pixelated; border: 1px solid #444; background:#0e1018; max-width: 100%; }
+  .row { display:flex; align-items:flex-end; gap: 24px; margin-bottom: 24px; }
+  .cell { text-align:center; }
+  .cell img { image-rendering: pixelated; display:block; background:#0e1018; border:1px solid #444; }
+  .label { font-size:12px; margin-top:6px; color:#aab; max-width: 180px; }
+  .dim { font-size: 11px; color: #789; }
+  code { color: #ffb; }
+  .SCALE4 img.px32 { width: 128px; height: 128px; }
+  .SCALE4 img.rip   { width: 120px; height: 136px; }
+  .SCALE4 img.new64 { width: 240px; height: 272px; }
+  .SCALE5 img.px32 { width: 160px; height: 160px; }
+  .SCALE5 img.rip   { width: 160px; height: 200px; }
+  .SCALE5 img.new64 { width: 300px; height: 340px; }
+</style>
+</head>
+<body>
+<h1>GS-003 — Guilmon, prova de escala nativa maior (64px) vs rip DS nativo (~31px)</h1>
+<p>Todas as imagens desta página usam o <b>mesmo multiplicador de pixel</b> (nearest-neighbor, <code>image-rendering: pixelated</code>) para cada grupo — não há reamostragem nem distorção de proporção: o que muda de tamanho na tela é exatamente o que muda de tamanho no jogo, na mesma razão. Tile = 32×32px (grid do mapa). Tamer = canvas 32×32px (corpo ~28px, `TAMER-0001`). Guilmon rip = 30×34px nativo do rip DS (`CREATURE-0003`). Guilmon 64 = 60×68px, gerado nesta prova (<code>create_character v3 + reference</code>, canvas definido pela própria referência enviada).</p>
+
+<h2>1. Prancha de proporção (estática, fator ×4)</h2>
+<p>Tile · Tamer · Guilmon atual (rip) · Guilmon 64 — base alinhada (pés no mesmo nível), gerada por <code>pixelart_workbench scale --by 4</code> + <code>join --as sheet</code>.</p>
+<img class="board" src="proportion_board.png">
+
+<h2>2. Mesma referência, fator ×5, com rótulos</h2>
+<div class="row SCALE5">
+  <div class="cell"><img class="px32" src="ref/tile_32px.png"><div class="label">Tile de mapa<br><span class="dim">32×32px</span></div></div>
+  <div class="cell"><img class="px32" src="ref/tamer_idle_32px.png"><div class="label">Tamer (jogador)<br><span class="dim">canvas 32×32px, corpo ~28px</span></div></div>
+  <div class="cell"><img class="rip" src="ref/guilmon_rip_idle_30x34.png"><div class="label">Guilmon atual (rip DS)<br><span class="dim">30×34px nativo</span></div></div>
+  <div class="cell"><img class="new64" src="../pipeline-b64/rotations/south.png"><div class="label"><b>Guilmon 64 (esta prova)</b><br><span class="dim">60×68px</span></div></div>
+</div>
+
+<h2>3. Idle e walk animados, S e SW — rip (atual) × 64px (esta prova)</h2>
+<p>GIFs nativos de cada lado, no fator ×5 (consistente com a seção 2) — a diferença de tamanho na tela é a diferença real de resolução nativa, não um efeito de CSS.</p>
+
+<div class="row SCALE5">
+  <div class="cell"><img class="rip" src="../pipeline-a/idle-s/idle_s.gif"><div class="label">Idle S — rip atual<br><span class="dim">canvas 32×40px</span></div></div>
+  <div class="cell"><img class="new64" src="../pipeline-b64/idle-s/idle_s.gif"><div class="label">Idle S — 64px<br><span class="dim">canvas 60×68px</span></div></div>
+</div>
+
+<div class="row SCALE5">
+  <div class="cell"><img class="rip" src="../pipeline-a/idle-sw/idle_sw.gif"><div class="label">Idle SW — rip atual<br><span class="dim">reaproveita W, sem ângulo SW real</span></div></div>
+  <div class="cell"><img class="new64" src="../pipeline-b64/idle-sw/idle_sw.gif"><div class="label">Idle SW — 64px<br><span class="dim">ângulo SW real, gerado</span></div></div>
+</div>
+
+<div class="row SCALE5">
+  <div class="cell"><img class="rip" src="../pipeline-a/walk-s/walk_s.gif"><div class="label">Walk S — rip atual<br><span class="dim">canvas 32×40px</span></div></div>
+  <div class="cell"><img class="new64" src="../pipeline-b64/walk-s/walk_s.gif"><div class="label">Walk S — 64px<br><span class="dim">canvas 60×68px</span></div></div>
+</div>
+
+<div class="row SCALE5">
+  <div class="cell"><img class="rip" src="../pipeline-a/walk-sw/walk_sw.gif"><div class="label">Walk SW — rip atual<br><span class="dim">reaproveita W, sem ângulo SW real</span></div></div>
+  <div class="cell"><img class="new64" src="../pipeline-b64/walk-sw/walk_sw.gif"><div class="label">Walk SW — 64px<br><span class="dim">ângulo SW real, gerado</span></div></div>
+</div>
+
+<h2>4. Leitura do diretor de arte</h2>
+<ul>
+<li>Na prancha de proporção (seção 1/2), o Guilmon 64 fica <b>visivelmente mais próximo da altura do Tamer</b> do que o rip atual — o rip hoje lê como "menor que o jogador" de um jeito que não corresponde à intenção de design (Guilmon é descrito como do tamanho de um cão grande/pequeno jacaré, não um filhote minúsculo); o 64px aproxima essa leitura sem ainda igualar o Tamer (que também deve subir de escala, ver `ART_DIRECTION_V2.md` §1.2).</li>
+<li>O ganho de legibilidade é real, não só "maior": no 64px dá pra ler separadamente o focinho, os dois olhos, as garras das quatro patas e a faixa clara do peito — no rip 30×34 esses elementos colapsam em poucos pixels e dependem de o jogador já saber o que está vendo.</li>
+<li>A animação (idle e walk) preserva peso e identidade nas duas direções testadas — ver `README.md` desta pasta para a avaliação quadro a quadro.</li>
+</ul>
+
+</body>
+</html>

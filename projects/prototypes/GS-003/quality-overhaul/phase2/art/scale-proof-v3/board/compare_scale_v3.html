@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guilmon — prova de escala v3: M1 (Pro Flash por texto) vs M2 (referência limpa), ambos 64px</title>
+<style>
+  body { background:#1a1d2b; color:#eee; font-family: sans-serif; padding: 24px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; margin-top: 40px; border-top: 1px solid #333; padding-top: 16px; }
+  p, li { font-size: 13px; color: #bcd; line-height: 1.5; }
+  .board { image-rendering: pixelated; border: 1px solid #444; background:#fff; max-width: 100%; }
+  .row { display:flex; align-items:flex-end; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .cell { text-align:center; }
+  .cell img { image-rendering: pixelated; display:block; background:#0e1018; border:1px solid #444; }
+  .label { font-size:12px; margin-top:6px; color:#aab; max-width: 210px; }
+  .dim { font-size: 11px; color: #789; }
+  code { color: #ffb; }
+  .SCALE4 img.px32 { width: 128px; height: 128px; }
+  .SCALE4 img.rip   { width: 120px; height: 136px; }
+  .SCALE4 img.g64   { width: 256px; height: 256px; }
+  .ok { color:#9f9; }
+  .mid { color:#fd9; }
+</style>
+</head>
+<body>
+<h1>GS-003 — Guilmon, prova de escala v3: M1 (Pro Flash por texto, 64×64) vs M2 (v3+referência limpa, 60×68)</h1>
+<p>Revisão do coordenador sobre a v2: o resultado ficou "30px dobrado" — 4 cores, blocos 2×2, olhos com 1-2 pixels, sem detalhe extra que justifique 64px. Causa: qualquer método ancorado no rip de 30×34 (como o M2, que usa esse frame como <code>reference_image</code> do <code>create_character(v3)</code>) herda o teto de informação do sprite original, por mais limpa que a referência esteja. Esta prova testa o M1 do backlog: <code>create_character_pro_flash</code> gerando o Guilmon <b>por descrição de texto</b>, sem nenhuma referência de pixels do rip — só um <code>style_image</code> do Tamer (com <code>color_palette=false</code>) para herdar o traço/sombreamento do jogo, não a paleta.</p>
+
+<h2>1. Prancha de proporção (estática, fator ×3) — tile · Tamer · rip · M2 (v2, 60×68) · M1 (v3, 64×64)</h2>
+<p>Base alinhada (pés no mesmo nível), nearest-neighbor ×3 puro-stdlib (<code>scripts/compose_board.py</code>, sem IA, sem custo).</p>
+<img class="board" src="proportion_board_v3.png">
+
+<h2>2. South lado a lado, fator ×4 — rip · M2 · M1</h2>
+<div class="row SCALE4">
+  <div class="cell"><img class="px32" src="ref/tile_32px.png"><div class="label">Tile de mapa<br><span class="dim">32×32px</span></div></div>
+  <div class="cell"><img class="px32" src="ref/tamer_idle_32px.png"><div class="label">Tamer (jogador)<br><span class="dim">32×32px — usado como style_image do M1 (outline/sombreamento, não a cor)</span></div></div>
+  <div class="cell"><img class="rip" src="ref/guilmon_rip_idle_30x34.png"><div class="label">Guilmon atual (rip DS)<br><span class="dim">30×34px nativo</span></div></div>
+  <div class="cell"><img class="g64" src="ref/guilmon_v2_m2_south_60x68.png"><div class="label mid"><b>Guilmon M2 (v2, ref. limpa)</b><br><span class="dim">60×68px — herda o teto de detalhe do rip 30×34 via create_character(v3, reference)</span></div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m1/rotations/south.png"><div class="label ok"><b>Guilmon M1 (v3, Pro Flash texto)</b><br><span class="dim">64×64px — sem referência de pixels do rip; sombreamento em 3-4 tons, olho com pupila, marcas e garras legíveis</span></div></div>
+</div>
+
+<h2>3. South-west genuíno (3/4, nunca existiu no rip) — M2 × M1</h2>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/guilmon_v2_m2_southwest_60x68.png"><div class="label mid">SW — M2 (v2, ref. limpa)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m1/rotations/south-west.png"><div class="label ok">SW — M1 (v3, Pro Flash texto)</div></div>
+</div>
+
+<h2>4. Idle e walk animados, direção S — M2 × M1</h2>
+<p>GIFs nativos, fator ×4 (CSS <code>image-rendering: pixelated</code>, sem reamostragem). Esta prova só cobriu S (teto de 8 gerações: 6 no personagem + 1 idle + 1 walk, sem sobra para SW animado).</p>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/guilmon_v2_m2_idle_s.gif"><div class="label mid">Idle S — M2 (v2)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m1/idle-s/idle_s.gif"><div class="label ok">Idle S — M1 (v3)</div></div>
+</div>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/guilmon_v2_m2_walk_s.gif"><div class="label mid">Walk S — M2 (v2)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m1/walk-s/walk_s.gif"><div class="label ok">Walk S — M1 (v3)</div></div>
+</div>
+
+<h2>5. Leitura do diretor de arte</h2>
+<ul>
+<li>O M1 é claramente superior em densidade de informação: south sai com 17 cores em clusters anatômicos reais (sombra do corpo, faixa do peito, garras, orelhas separadas da cabeça) contra os 4 cores planas do M2, que é literalmente o rip de 30px redesenhado em escala maior sem pixels novos.</li>
+<li>O south-west genuíno confirma o mesmo padrão: o M1 pinta uma pose 3/4 com gradiente de sombra ao longo do corpo e da cauda (31 cores), enquanto o M2 mantém o visual "upscale" plano.</li>
+<li>Identidade: cores (vermelho/creme/preto), orelhas pontudas, olho amarelo, marca escura no peito e cauda grossa batem com o design oficial do Guilmon nas 8 rotações e nos 10 quadros de animação gerados — sem deriva perceptível.</li>
+<li>Ver README.md §4 para o veredito completo, incluindo onde o resultado ainda fica genérico (a marca do peito não é o spiral/yin-yang canônico do "Digital Hazard", é uma aproximação).</li>
+</ul>
+
+</body>
+</html>
