@@ -1,0 +1,30 @@
+{
+  "creatureId": "CREATURE-0119",
+  "version": "1.0.0",
+  "layer": "original",
+  "officialRip": false,
+  "fanException": true,
+  "baseCharacter": "Gabumon",
+  "basis": "ADR-007 (fan game não comercial com monstros oficiais de Digimon) + ASSET_LICENSE_POLICY.md §4 (redesenho em camada 'original' sob a exceção, quando o estúdio opta por não usar o sprite oficial direto)",
+  "nonCommercial": true,
+  "noRip": true,
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation (nome e conceito do personagem, não os pixels)",
+  "restrictions": [
+    "ADR-007: fan game sem monetização de nenhum tipo, sem logo oficial, com aviso de fan game",
+    "Publicação exige aprovação separada do fundador",
+    "Criatura de teste/comparação -- não integrada ao roster principal nem substitui CREATURE-0009"
+  ],
+  "source": {
+    "type": "code-generated-pixel-art",
+    "scriptPath": "projects/prototypes/GS-003/quality-overhaul/phase2/art/gabumon-hand64/src/ (gabumon.js + canvas.js + png.js + generate.js + gif.js, copiados também em source/ deste diretório)",
+    "technique": "Canvas.js próprio (setPixel/ellipseShaded/polygon/line sobre um buffer RGBA bruto, PNG codificado à mão via zlib puro) -- sem create_image_*, sem create_character, sem animate_*, sem nenhuma ferramenta de geração do PixelLab MCP. pixelart_workbench foi usado só em modo leitura (inspect/crop) para medir a escala do Guilmon v3 de referência -- zero pixels do Gabumon final passaram por ele.",
+    "thirdPartyFileReferenced": false,
+    "visualReferenceConsulted": "CREATURE-0009/previews/map_walk_x4.png e battle_x2.png (rip oficial DW DS já presente no projeto, camada official-fan-use) vistos via view_image para silhueta/paleta geral (pelagem branca/azulada com listras roxas, chifre amarelo, capuz de pelo, patas amarelas) -- nenhum pixel copiado, traçado ou usado como init_image."
+  },
+  "credit": null,
+  "replacementStatus": "original",
+  "replacedFrom": null,
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-art",
+  "notes": "Não é um redesenho destinado a substituir CREATURE-0009 no jogo -- foi encomendado pelo fundador especificamente como prova de conceito 'à mão, zero IA/PixelLab' para comparar custo x qualidade contra o teste Guilmon v3 (PixelLab, phase2/art/scale-proof-v3-reanim, não integrado ao roster). Mesma camada/exceção que o exemplo Agumon do ASSET_LICENSE_POLICY.md §4."
+}

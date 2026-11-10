@@ -1,0 +1,17 @@
+{
+  "biome": "forest-v10-ground-trees",
+  "layer": "original",
+  "assets": [
+    {
+      "group": "palette.json (rampas reaproveitadas de v8 + 2 tints macro) + 10 ground variants (familia unica, tileavel) + 16 pecas de autotile grama<->terra + 2 overlays macro + 4 decalques grandes + 4 especies de arvore x 2 tamanhos (8 top + 8 base) + preview.png + before_after_20x12.png + tileability_check.png",
+      "origin": "game-art, 100% pipeline local, 2026-11-10",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Canvas.js pixel matrix (fillEllipse/fillRect/fillPolygon/line/blendPixel/fillCircle) + forest_v4_props.js paintCanopyPuffs()/rimDarken() reaproveitados sem alteracao + 2 primitivos novos locais (clumpBlades/groundClumpFill para textura de chao em clusters, addRimLightPass/addInnerShadowPass para volume de copa). Paleta 100% derivada de forest_v8_depth_palette.js (buildDepthRamps + shiftRamp/shiftColor), nenhum hex novo \"no olho\". Sem geracao do PixelLab e sem arte de terceiros referenciada pixel a pixel.",
+      "styleReference": "docs/DRAKANTOS_VISUAL_STUDY.md + evidence/drakantos-video/t0058_floresta_lama_roxa_fundador.png + t0560_floresta_tronco_caido.png (direcao de estilo -- tufos densos, folhas, raizes, manchas em 3-4 valores no chao; troncos grossos com raizes e copas com volume/luz de cima nas arvores -- citado por descricao, nenhum pixel copiado dos frames).",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- referencias de terceiros (Drakantos) informaram so a direcao de tecnica/composicao, per ADR-010/011 Secao 5, nao estes pixels especificos."
+    }
+  ],
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-art"
+}

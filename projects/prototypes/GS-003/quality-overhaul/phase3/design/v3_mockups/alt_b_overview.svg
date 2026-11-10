@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300" font-family="monospace" shape-rendering="crispEdges">
+  <rect width="420" height="300" fill="#0e1018"/>
+  <g stroke="#1c2030" stroke-width="1">
+    <path d="M0,20H420 M0,60H420 M0,100H420 M0,140H420 M0,180H420 M0,220H420 M0,260H420"/>
+    <path d="M20,0V300 M60,0V300 M100,0V300 M140,0V300 M180,0V300 M220,0V300 M260,0V300 M300,0V300 M340,0V300 M380,0V300"/>
+  </g>
+  <text x="8" y="14" fill="#8b93b0" font-size="10">HUD_IDENTITY_V3 — Alt B — ticker + Digivice Display + trilho de insígnias</text>
+
+  <!-- ticker full width, 18px -->
+  <rect x="8" y="24" width="404" height="18" fill="#0e101c" opacity="0.55"/>
+  <text x="212" y="37" fill="#9ad4ff" font-size="9" text-anchor="middle">Chefão Mundial disponível em 2h</text>
+  <text x="8" y="52" fill="#5a6177" font-size="7">ticker 18px, 1 linha, cicla 4s cada, some por completo sem novidade</text>
+
+  <!-- digivice display, 140x56 -->
+  <rect x="240" y="64" width="140" height="56" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+  <line x1="310" y1="64" x2="310" y2="120" stroke="#2b3047" stroke-width="1"/>
+  <circle cx="275" cy="92" r="6" fill="#fee761" stroke="#181425" stroke-width="1"/>
+  <text x="286" y="96" fill="#e6e9f2" font-size="11">1.240</text>
+  <circle cx="345" cy="92" r="18" fill="none" stroke="#2b3047" stroke-width="5"/>
+  <path d="M 345 74 A 18 18 0 1 1 332 103" fill="none" stroke="#8fe07a" stroke-width="5"/>
+  <text x="345" y="96" fill="#e6e9f2" font-size="9" text-anchor="middle">61%</text>
+  <text x="240" y="58" fill="#5a6177" font-size="8">Digivice Display 140×56 — 1 peça, 2 leituras (bits | Fonte dos Desejos)</text>
+
+  <!-- trilho vertical de 5 hexagonos -->
+  <g>
+    <!-- hex helper via polygon approx -->
+    <polygon points="360,132 374,140 374,156 360,164 346,156 346,140" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+    <text x="360" y="151" fill="#c77ad1" font-size="8" text-anchor="middle">GLD</text>
+    <circle cx="373" cy="134" r="5" fill="#e43b44"/>
+    <text x="373" y="137" fill="#fff" font-size="6" text-anchor="middle">2</text>
+  </g>
+  <g>
+    <polygon points="360,168 374,176 374,192 360,200 346,192 346,176" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+    <text x="360" y="187" fill="#9ad4ff" font-size="8" text-anchor="middle">COR</text>
+    <circle cx="373" cy="170" r="5" fill="#e43b44"/>
+    <text x="373" y="173" fill="#fff" font-size="6" text-anchor="middle">1</text>
+  </g>
+  <g>
+    <polygon points="360,204 374,212 374,228 360,236 346,228 346,212" fill="rgba(20,23,34,0.92)" stroke="#e8b84a" stroke-width="2"/>
+    <text x="360" y="223" fill="#e8b84a" font-size="8" text-anchor="middle">PAS</text>
+  </g>
+  <g>
+    <polygon points="360,240 374,248 374,264 360,272 346,264 346,248" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+    <text x="360" y="259" fill="#e43b44" font-size="8" text-anchor="middle">CHM</text>
+  </g>
+  <g>
+    <polygon points="360,276 374,284 374,284 360,292 346,284 346,284" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+  </g>
+  <text x="246" y="134" fill="#5a6177" font-size="8" text-anchor="end">trilho vertical</text>
+  <text x="246" y="146" fill="#5a6177" font-size="8" text-anchor="end">5 hexágonos 28px</text>
+  <text x="246" y="158" fill="#5a6177" font-size="8" text-anchor="end">clip-path, não quadrado</text>
+  <text x="246" y="170" fill="#5a6177" font-size="8" text-anchor="end">badge numérico = notificação</text>
+
+  <text x="8" y="290" fill="#5a6177" font-size="8">Sem gesto de abrir/fechar — cada hexágono abre seu Panel direto (menor risco de implementação que a Alt A).</text>
+</svg>

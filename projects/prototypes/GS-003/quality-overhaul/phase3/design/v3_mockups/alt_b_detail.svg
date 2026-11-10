@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200" font-family="monospace" shape-rendering="crispEdges">
+  <rect width="320" height="200" fill="#0e1018"/>
+  <g stroke="#1c2030" stroke-width="1">
+    <path d="M0,20H320 M0,60H320 M0,100H320 M0,140H320 M0,180H320"/>
+    <path d="M20,0V200 M60,0V200 M100,0V200 M140,0V200 M180,0V200 M220,0V200 M260,0V200 M300,0V200"/>
+  </g>
+  <text x="8" y="14" fill="#8b93b0" font-size="10">Alt B — zoom no Digivice Display (140×56, moldura nível 2 chanfrada)</text>
+
+  <path d="M 40 40 h 100 l 10 10 v 36 l -10 10 h -100 l -10 -10 v -36 z" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+  <line x1="110" y1="40" x2="110" y2="96" stroke="#2b3047" stroke-width="1"/>
+
+  <circle cx="68" cy="68" r="7" fill="#fee761" stroke="#181425" stroke-width="1"/>
+  <text x="80" y="72" fill="#e6e9f2" font-size="12">1.240</text>
+  <text x="40" y="112" fill="#5a6177" font-size="7">bits (lido do save, sem botão de loja — não existe moeda premium comprável)</text>
+
+  <circle cx="155" cy="68" r="24" fill="none" stroke="#2b3047" stroke-width="7"/>
+  <path d="M 155 44 A 24 24 0 1 1 134 81" fill="none" stroke="#8fe07a" stroke-width="7"/>
+  <text x="155" y="72" fill="#e6e9f2" font-size="11" text-anchor="middle" font-weight="bold">61%</text>
+  <text x="120" y="112" fill="#5a6177" font-size="7">anel 40px diâmetro, espessura 7px — mostrador, não etiqueta de texto</text>
+
+  <text x="8" y="150" fill="#5a6177" font-size="8">Ver PANELS_SPEC.md §4: a % é o medidor de sorte acumulada da Fonte dos Desejos,</text>
+  <text x="8" y="162" fill="#5a6177" font-size="8">não um número decorativo — sobe por vitória/tempo de jogo, reseta ao "fazer um pedido".</text>
+</svg>

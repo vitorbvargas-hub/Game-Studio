@@ -1,0 +1,315 @@
+{
+  "biome": "forest-v10-ground-trees",
+  "note": "Responde ao feedback do fundador na clareira v9 (branch quality-overhaul, p7_clareira_depois_v9p7_*_r2.png): chao \"fraco\" (verde chapado com rachaduras pretas finas + pontinhos) e arvores \"fracas\" (blobs de copa sem volume/tronco/silhueta). Substitui so os ground_variant_* e os props de arvore de forest-v8-depth -- decalques de chao, props emissores, clutter, cliff, NPCs e luzes de v8/v9 NAO sao tocados nem sobrescritos por este pacote (continuam a melhor fonte para esses itens). NAO integrado em prototype/world -- isso e trabalho de game-dev. 0 geracoes do PixelLab gastas -- pipeline 100% local Canvas.js.",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "ground-macro-overlay",
+    "ground-decal",
+    "decor",
+    "canopy-top"
+  ],
+  "palette": "Ver palette.json -- mesma rampa fria/escura de forest-v8-depth.",
+  "groundVariants": {
+    "note": "FIX r2 (QA do coordenador): a v1 alternava 3 familias de tom (A/B/sombra) POR CELULA com base nao-tileavel, o que criava um xadrez de 32px visivel em qualquer trecho grande. Agora: 10 variantes, TODAS a mesma familia GRASS_A (grama) ou dirt (terra) -- mesmo tom medio, mesma base tileavel (wrap-around nos 4 lados, ver groundClumpFill/dirtGrainFill em gen_forest_v10_ground_trees.js). A variacao vem SO do decalque interior (nunca mais de familia/blotch por tile). Continua NAO autotile para o chao SIMPLES -- espalhar por ruido/aleatorio.",
+    "files": [
+      {
+        "file": "tiles/ground_variant_0.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama densa, sem decalque",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_1.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + folhas caidas em grupo",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_2.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + raiz exposta com musgo",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_3.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + pedras com musgo (grupo de 3)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_4.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + trevo/flor esparsa",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_5.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + 1 pedra com musgo (sutil)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_6.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + folhas caidas (posicao alternativa)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_7.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "grass-A",
+        "decal": "grama + trevo esparso (sutil)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_8.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra/trilha (grao, sem rachadura)",
+        "tileable": true
+      },
+      {
+        "file": "tiles/ground_variant_9.png",
+        "collision": false,
+        "suggestedLayer": "ground",
+        "family": "dirt",
+        "decal": "terra + rachadura muda (tom terra, rara)",
+        "tileable": true
+      }
+    ]
+  },
+  "grassDirtTransition": {
+    "note": "FIX r2: substitui o seam diagonal reto do v1 por autotile blob-16, MESMA geometria compartilhada ja usada em path_blob/water_blob/cliff_top_blob (blob_autotile16.js, nao modificado) -- o arredondamento de canto do blob garante borda organica sem degrau quadrado entre pecas vizinhas (comprovado nesses 3 usos de producao). bitmask = N*1 + E*2 + S*4 + W*8, bit=1 quando a trilha de terra CONTINUA por aquele lado (celula vizinha tambem e trilha). Prova visual: tileability_check.png, secao \"AUTOTILE GRAMA<->TERRA\".",
+    "pattern": "16-tile blob",
+    "files": [
+      {
+        "file": "tiles/grass_dirt_blob_0.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_1.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_2.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_3.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_4.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_5.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_6.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_7.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_8.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_9.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_10.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_11.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_12.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_13.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_14.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      },
+      {
+        "file": "tiles/grass_dirt_blob_15.png",
+        "collision": false,
+        "suggestedLayer": "ground"
+      }
+    ]
+  },
+  "macroOverlays": {
+    "note": "FIX r2: a variacao de matiz em macro-escala pedida pelo fundador NUNCA MAIS e um tile cheio -- e um PNG grande (96-192px, aqui 176 e 140), semitransparente, com borda de lobulos organicos + dither de alpha (nao um circulo/retangulo liso, ver macroPatch() no gerador). O game-dev posiciona em PIXELS DO MUNDO (nao em celula de tile, nao precisa alinhar a grade), 2-4 por clareira grande, blended por cima da layer \"ground\" na nova layer \"ground-macro-overlay\" (abaixo de ground-decal/decor). Como a borda nunca cai numa linha de 32px, nao ha como formar xadrez.",
+    "files": [
+      {
+        "file": "overlays/macro_patch_olive.png",
+        "size": "176x176",
+        "tint": "GRASS_B (oliva quente)",
+        "note": "mancha macro alternativa -- cola por cima do chao uniforme"
+      },
+      {
+        "file": "overlays/macro_patch_shade.png",
+        "size": "140x140",
+        "tint": "GRASS_SHADE (poca fria)",
+        "note": "poca de sombra sob copa densa -- cola por cima do chao uniforme"
+      }
+    ]
+  },
+  "decals": {
+    "note": "Overlays transparentes, maiores/mais massudos que os de forest-v8-depth (que eram elipses pequenas ou pixel-crack) -- espalhar por ruido sobre QUALQUER chao, nao so os ground_variant_* novos.",
+    "files": [
+      {
+        "file": "decals/leaf_litter_big.png",
+        "size": "20x14",
+        "note": "grupo de 5-7 folhas sobrepostas, nao 1 elipse isolada"
+      },
+      {
+        "file": "decals/root_exposed_mossy.png",
+        "size": "22x12",
+        "note": "raiz arqueada saindo do solo com musgo no topo"
+      },
+      {
+        "file": "decals/mossy_stone_cluster.png",
+        "size": "22x14",
+        "note": "3 pedras com capa de musgo + realce + AO"
+      },
+      {
+        "file": "decals/tuft_overlap_big.png",
+        "size": "20x16",
+        "note": "tufo denso de 14 laminas, pra morder bordas grama<->terra"
+      }
+    ]
+  },
+  "trees": {
+    "note": "Substitui os troncos finos/copa-unica de forest-v4 props.js para a clareira v10: tronco grosso com raizes visiveis (paintTrunkThick), copa composta de 2-3 lobulos (nao 1 elipse), rim light explicito (luz de cima-esquerda) + sombra interna entre lobulos. base = tronco+raizes (colide, layer \"decor\", Y-sort pelo pe); top = copa (nao colide, layer \"canopy-top\", sempre desenhada por cima de qualquer entidade -- MESMA convencao de overlap de forest_v4_proof_scene.js: topY = footY - base.h - top.h + round(top.h*0.4)).",
+    "species": [
+      {
+        "kind": "tall_narrow",
+        "label": "ALTA/ESTREITA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/tall_narrow_small_base.png",
+            "top": "trees/tall_narrow_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/tall_narrow_large_base.png",
+            "top": "trees/tall_narrow_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "wide_low",
+        "label": "LARGA/BAIXA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/wide_low_small_base.png",
+            "top": "trees/wide_low_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/wide_low_large_base.png",
+            "top": "trees/wide_low_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "leaning",
+        "label": "TOMBADA/TORTA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/leaning_small_base.png",
+            "top": "trees/leaning_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/leaning_large_base.png",
+            "top": "trees/leaning_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      },
+      {
+        "kind": "ancient_thick",
+        "label": "GROSSA/RAIZES A MOSTRA",
+        "sizes": [
+          {
+            "size": "small",
+            "base": "trees/ancient_thick_small_base.png",
+            "top": "trees/ancient_thick_small_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          },
+          {
+            "size": "large",
+            "base": "trees/ancient_thick_large_base.png",
+            "top": "trees/ancient_thick_large_top.png",
+            "collision": true,
+            "overlapRule": "topY = footY - base.h - top.h + round(top.h * 0.4)"
+          }
+        ]
+      }
+    ]
+  }
+}
