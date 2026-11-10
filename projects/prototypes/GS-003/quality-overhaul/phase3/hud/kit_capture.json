@@ -1,0 +1,545 @@
+{
+  "date": "2026-11-10T21:00:42.151Z",
+  "base": "http://127.0.0.1:5191",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "wm_aberto_dia.png": {
+      "time": "day",
+      "mapId": "digimon-forest-01",
+      "pois": {
+        "vila_dos_bebes": "open",
+        "floresta_densa": "here",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "floresta_densa"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_praia_dia.png": {
+      "time": "day",
+      "mapId": "digimon-forest-01",
+      "pois": {
+        "vila_dos_bebes": "open",
+        "floresta_densa": "here",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "praia_dos_postes"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_bloqueada_montanha_dia.png": {
+      "time": "day",
+      "mapId": "digimon-forest-01",
+      "pois": {
+        "vila_dos_bebes": "open",
+        "floresta_densa": "here",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "montanha"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_na_vila_dia.png": {
+      "time": "day",
+      "mapId": "vila",
+      "pois": {
+        "vila_dos_bebes": "here",
+        "floresta_densa": "open",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "vila_dos_bebes"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_volta_floresta_dia.png": {
+      "time": "day",
+      "mapId": "digimon-forest-01",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "wm_aberto_noite.png": {
+      "time": "night",
+      "mapId": "digimon-forest-01",
+      "pois": {
+        "vila_dos_bebes": "open",
+        "floresta_densa": "here",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "floresta_densa"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_praia_noite.png": {
+      "time": "night",
+      "mapId": "digimon-forest-01",
+      "pois": {
+        "vila_dos_bebes": "open",
+        "floresta_densa": "here",
+        "praia_dos_postes": "open",
+        "montanha": "locked",
+        "deserto": "locked",
+        "zona_corrompida": "locked"
+      },
+      "shown": [
+        "praia_dos_postes"
+      ],
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": false
+    },
+    "wm_sem_flag_v1_dia.png": {
+      "time": "day",
+      "v2": false,
+      "wm2": false,
+      "hubOpen": false,
+      "bossPhase": null,
+      "pips": [],
+      "openPanels": [
+        "map"
+      ],
+      "oldTr": true
+    },
+    "kit_fechado_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_fechado_dia_canto.png": {
+      "seed": "progress",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_aberto_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_aberto_dia_canto.png": {
+      "seed": "progress",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_conquistas_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "kit_conquistas_exploracao_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "kit_conquistas_social_bloqueada_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "kit_bloqueado_guilda_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-guild"
+      ],
+      "oldTr": false
+    },
+    "kit_configuracoes_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "gear"
+      ],
+      "oldTr": false
+    },
+    "kit_chefe_1_disponivel_dia.png": {
+      "seed": "fresh",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "available",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "kit_fechado_chefe_ativo_dia_canto.png": {
+      "seed": "active",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_chefe_2_ativo_dia.png": {
+      "seed": "active",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "kit_chefe_3_recompensa_dia.png": {
+      "seed": "reward",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "reward",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "kit_chefe_4_recarga_dia.png": {
+      "seed": "cooldown",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "kit_fechado_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_fechado_noite_canto.png": {
+      "seed": "progress",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_aberto_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_aberto_noite_canto.png": {
+      "seed": "progress",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_conquistas_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "kit_configuracoes_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "gear"
+      ],
+      "oldTr": false
+    },
+    "kit_chefe_1_disponivel_noite.png": {
+      "seed": "fresh",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "available",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "kit_fechado_chefe_ativo_noite_canto.png": {
+      "seed": "active",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "kit_chefe_2_ativo_noite.png": {
+      "seed": "active",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    }
+  },
+  "worldmap": {
+    "travel": {
+      "from": "digimon-forest-01",
+      "toVila": "vila",
+      "vilaHere": "here",
+      "back": "digimon-forest-01"
+    }
+  },
+  "video": {
+    "file": "kit_digivice.webm",
+    "size": [
+      1280,
+      720
+    ],
+    "codec": "VP8",
+    "marks": [
+      {
+        "t": 9.1,
+        "m": "carregado"
+      },
+      {
+        "t": 10.6,
+        "m": "clique no hub: abre o arco"
+      },
+      {
+        "t": 18.4,
+        "m": "Conquistas: coletar"
+      },
+      {
+        "t": 22.2,
+        "m": "Esc fecha; H abre pelo teclado"
+      },
+      {
+        "t": 24.1,
+        "m": "Chefe Mundial: despertar"
+      },
+      {
+        "t": 25.4,
+        "m": "fecha o painel: arco do hub em vermelho (PV do chefe)"
+      },
+      {
+        "t": 27.9,
+        "m": "Configurações (O)"
+      },
+      {
+        "t": 30.7,
+        "m": "fim"
+      }
+    ]
+  }
+}
