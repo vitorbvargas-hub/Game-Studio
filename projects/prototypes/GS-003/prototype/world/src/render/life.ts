@@ -82,6 +82,37 @@ export function scrollPixels(src: Uint8ClampedArray, ts: number, dx: number, dy:
   return out;
 }
 
+/** Faixa de uma célula linear na textura da água: out = a + b·textura (b por pixel, igual nos 3 canais). */
+export interface WaterMix {
+  a: Uint8ClampedArray;
+  b: Float32Array;
+  /** Chave da textura da água (fill da curva). */
+  fill: string;
+}
+
+/** A e B a partir dos passes com textura 0 (`p0`) e 255 (`p255`). */
+export function waterMixFrom(p0: Uint8ClampedArray, p255: Uint8ClampedArray, fill: string): WaterMix {
+  const n = p0.length / 4;
+  const b = new Float32Array(n);
+  for (let i = 0; i < n; i++) b[i] = (p255[i * 4] - p0[i * 4]) / 255;
+  return { a: p0, b, fill };
+}
+
+/** Pixels da célula para uma textura (já deslocada). */
+export function waterCompose(m: WaterMix, tex: Uint8ClampedArray): Uint8ClampedArray {
+  const out = new Uint8ClampedArray(m.a.length);
+  const n = m.b.length;
+  for (let i = 0; i < n; i++) {
+    const j = i * 4;
+    const k = m.b[i];
+    out[j] = m.a[j] + k * tex[j];
+    out[j + 1] = m.a[j + 1] + k * tex[j + 1];
+    out[j + 2] = m.a[j + 2] + k * tex[j + 2];
+    out[j + 3] = m.a[j + 3];
+  }
+  return out;
+}
+
 export interface Rect {
   x0: number;
   y0: number;

@@ -1,0 +1,135 @@
+{
+  "map": "digimon-forest-01",
+  "date": "2026-11-10T04:26:43.359Z",
+  "method": {
+    "headless": true,
+    "note": "Ambiente headless (chrome-headless-shell, --disable-gpu: Canvas 2D rasterizado em software, sem vsync de monitor real). Não é medição de dispositivo de jogador; serve para comparar versões do mapa/renderer na mesma máquina.",
+    "window": [
+      1792,
+      1280
+    ],
+    "zoom": 1,
+    "hudHidden": true,
+    "seed": 7,
+    "auto": true,
+    "warmupFrames": 120,
+    "frames": 600,
+    "loop": "wrapper em requestAnimationFrame injetado antes do carregamento (Page.addScriptToEvaluateOnNewDocument): work = duração do callback do quadro (sim + render + rótulos + HUD); interval = diferença entre timestamps do rAF",
+    "renderRaster": "N chamadas síncronas de view.render(presenter, 0, now) + getImageData(0,0,1,1) no #world (força a rasterização)",
+    "command": "OUT=../../evidence/map-factory W=1792 H=1280 CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu ONLY=perf npm run shots:live"
+  },
+  "environment": {
+    "browser": "HeadlessChrome/153.0.8010.12",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+    "cpu": "AMD Ryzen 5 5500",
+    "cores": 12,
+    "memGB": 8,
+    "kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "node": "v24.19.0"
+  },
+  "runs": [
+    {
+      "time": "day",
+      "scene": {
+        "mapa": "digimon-forest-01",
+        "tiles": [
+          56,
+          40
+        ],
+        "props": 780,
+        "entidades": 32,
+        "selvagens": 29,
+        "jogadores": 0,
+        "canvasPx": [
+          1792,
+          1280
+        ]
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 16.7,
+        "p95": 27.7,
+        "p99": 30,
+        "mean": 18.873,
+        "max": 38.8,
+        "min": 15
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 33.3,
+        "p95": 33.4,
+        "p99": 50,
+        "mean": 31.499,
+        "max": 50.1,
+        "min": 16.5
+      },
+      "fpsAvg": 31.7,
+      "fpsPotentialFromWorkP50": 59.9,
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 24.5,
+        "p95": 27.1,
+        "p99": 31.2,
+        "mean": 24.646,
+        "max": 38.8,
+        "min": 22.2
+      },
+      "framesOver16_7ms": {
+        "loopWork": 320,
+        "renderRaster": 600
+      }
+    },
+    {
+      "time": "night",
+      "scene": {
+        "mapa": "digimon-forest-01",
+        "tiles": [
+          56,
+          40
+        ],
+        "props": 780,
+        "entidades": 33,
+        "selvagens": 30,
+        "jogadores": 0,
+        "canvasPx": [
+          1792,
+          1280
+        ]
+      },
+      "loopWorkMs": {
+        "n": 600,
+        "p50": 18.7,
+        "p95": 20.7,
+        "p99": 23.4,
+        "mean": 18.991,
+        "max": 34,
+        "min": 16.9
+      },
+      "loopIntervalMs": {
+        "n": 600,
+        "p50": 33.3,
+        "p95": 50,
+        "p99": 50,
+        "mean": 33.999,
+        "max": 50.1,
+        "min": 16.6
+      },
+      "fpsAvg": 29.4,
+      "fpsPotentialFromWorkP50": 53.5,
+      "renderRasterMs": {
+        "n": 600,
+        "p50": 27.1,
+        "p95": 30.6,
+        "p99": 35.4,
+        "mean": 27.344,
+        "max": 43.7,
+        "min": 24.7
+      },
+      "framesOver16_7ms": {
+        "loopWork": 600,
+        "renderRaster": 600
+      }
+    }
+  ],
+  "query": "&look=v9"
+}

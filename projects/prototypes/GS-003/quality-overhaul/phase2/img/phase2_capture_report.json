@@ -1,0 +1,215 @@
+{
+  "capturedAt": "2026-11-10T02:48:53.867Z",
+  "seed": 7,
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "p2_escala_antes_dpr1.png": {
+      "query": "&look=v8",
+      "dpr": 1,
+      "scaleInfo": {
+        "scale": 4,
+        "cssPerLogical": 4,
+        "dpr": 1,
+        "dprMode": false,
+        "logicalW": 480,
+        "logicalH": 270,
+        "charPct": 9
+      },
+      "physPerLogical": 4,
+      "charPctOfHeight": 11.1,
+      "pixelRunHistogram": {
+        "1": 1610,
+        "2": 104,
+        "3": 35,
+        "4": 1722,
+        "5": 7,
+        "6": 8,
+        "7": 6,
+        "8": 291,
+        "10": 1,
+        "11": 1,
+        "12": 206
+      }
+    },
+    "p2_escala_depois_dpr1.png": {
+      "query": "&look=v8&dpr=1",
+      "dpr": 1,
+      "scaleInfo": {
+        "scale": 3,
+        "cssPerLogical": 3,
+        "dpr": 1,
+        "dprMode": true,
+        "logicalW": 640,
+        "logicalH": 360,
+        "charPct": 9
+      },
+      "physPerLogical": 3,
+      "charPctOfHeight": 8.3,
+      "pixelRunHistogram": {
+        "1": 1126,
+        "2": 76,
+        "3": 1305,
+        "4": 10,
+        "5": 11,
+        "6": 215,
+        "7": 2,
+        "8": 9,
+        "9": 151,
+        "10": 2,
+        "12": 108
+      }
+    },
+    "p2_escala_antes_dpr125.png": {
+      "query": "&look=v8",
+      "dpr": 1.25,
+      "scaleInfo": {
+        "scale": 3,
+        "cssPerLogical": 3,
+        "dpr": 1.25,
+        "dprMode": false,
+        "logicalW": 512,
+        "logicalH": 288,
+        "charPct": 9
+      },
+      "physPerLogical": 3.75,
+      "charPctOfHeight": 10.4,
+      "pixelRunHistogram": {
+        "1": 1031,
+        "2": 404,
+        "3": 449,
+        "4": 1201,
+        "5": 15,
+        "6": 14,
+        "7": 127,
+        "8": 139,
+        "9": 1,
+        "10": 10,
+        "11": 123,
+        "12": 66
+      }
+    },
+    "p2_escala_depois_dpr125.png": {
+      "query": "&look=v8&dpr=1",
+      "dpr": 1.25,
+      "scaleInfo": {
+        "scale": 3,
+        "cssPerLogical": 2.4,
+        "dpr": 1.25,
+        "dprMode": true,
+        "logicalW": 640,
+        "logicalH": 360,
+        "charPct": 9
+      },
+      "physPerLogical": 3,
+      "charPctOfHeight": 8.3,
+      "pixelRunHistogram": {
+        "1": 1154,
+        "2": 63,
+        "3": 1312,
+        "4": 9,
+        "5": 9,
+        "6": 229,
+        "7": 2,
+        "8": 9,
+        "9": 155,
+        "10": 2,
+        "12": 99
+      }
+    }
+  },
+  "lightsV9": 13,
+  "foreground": {
+    "i": 1,
+    "x": 1143,
+    "y": 747,
+    "key": "fp8_flowering_bush",
+    "n": 19,
+    "alphaBehind": 0.38,
+    "alphaClear": 1,
+    "note": "QO2_PART=fg (rodada separada)"
+  },
+  "praiaMissing": [],
+  "animLog": [
+    "victory>walk",
+    "walk>turn",
+    "turn>attack",
+    "attack>idle",
+    "idle>hurt",
+    "hurt>idle",
+    "idle>attack",
+    "attack>idle",
+    "idle>victory",
+    "victory>idle",
+    "idle>turn",
+    "turn>walk",
+    "walk>attack",
+    "attack>hurt",
+    "hurt>idle",
+    "idle>skill"
+  ],
+  "animStates": [
+    {
+      "tag": "victory",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "hop"
+    },
+    {
+      "tag": "walk",
+      "anim": "walk",
+      "key": "CREATURE-0003_walk_N_00.png",
+      "procedural": null
+    },
+    {
+      "tag": "turn",
+      "anim": "walk",
+      "key": "CREATURE-0003_walk_W_00.png",
+      "procedural": "dip"
+    },
+    {
+      "tag": "attack-anticipation",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "lunge"
+    },
+    {
+      "tag": "attack-action",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "lunge"
+    },
+    {
+      "tag": "attack-impact",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "lunge"
+    },
+    {
+      "tag": "attack-recovery",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "lunge"
+    },
+    {
+      "tag": "idle",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "bob"
+    },
+    {
+      "tag": "hurt",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "knockback"
+    },
+    {
+      "tag": "skill-anticipation",
+      "anim": "idle",
+      "key": "CREATURE-0003_walk_W_01.png",
+      "procedural": "lunge"
+    }
+  ]
+}

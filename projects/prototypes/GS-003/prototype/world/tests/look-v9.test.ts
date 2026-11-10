@@ -9,7 +9,8 @@ import { loadSceneTiles, usedKeys, type ScenePack } from "../src/assets/scene-ti
 import v8Pack from "../src/data/maps/v8/digimon-forest-01.aliases.json";
 import v9Pack from "../src/data/maps/v9/digimon-forest-01.aliases.json";
 import { ImageStore, type CanvasFactory, type ImageLike } from "../src/render/images";
-import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterFrame } from "../src/render/life";
+import { buildCurveIndex, composeCurveOverlay } from "../src/render/curves";
+import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterFrame, waterMixFrom } from "../src/render/life";
 import { mapLights, type LookCfg } from "../src/render/look";
 import { Presenter } from "../src/render/presenter";
 import { WorldView } from "../src/render/view";
@@ -113,6 +114,31 @@ describe("vida do mapa (life.ts)", () => {
     expect([...out.slice(0, 4)]).toEqual([...src.slice(12, 16)]); // e (3,0) deu a volta
   });
 
+  it("água linear na textura: A + B·textura reproduz a composição direta (±2 de 255, arredondamento) nas células do riacho", () => {
+    const m = parseTiledMap(ID, withLook(MAPS[ID], "v9").tmj);
+    const keys = m.tileLayers[0].keys;
+    const idx = buildCurveIndex(m.curves!, m.width, m.height, m.tileSize, (i) => keys[i] ?? "");
+    const ts = m.tileSize;
+    // textura sintética com variação por pixel e uma "trilha" fixa
+    const tex = new Uint8ClampedArray(ts * ts * 4).map((_, i) => (i * 37) % 251);
+    const path = new Uint8ClampedArray(ts * ts * 4).fill(90);
+    const isWater = (ci: number) => idx.curves[ci].terrain === "water";
+    const cells = [...idx.near].filter(([, c]) => c.some(isWater)).map(([i]) => i);
+    expect(cells.length).toBeGreaterThan(50);
+    let worst = 0;
+    for (const i of cells.slice(0, 80)) {
+      const mx = i % m.width;
+      const my = Math.floor(i / m.width);
+      const direct = composeCurveOverlay(idx, mx, my, ts, m.width, (ci) => (isWater(ci) ? tex : path));
+      const p0 = composeCurveOverlay(idx, mx, my, ts, m.width, (ci) => (isWater(ci) ? new Uint8ClampedArray(ts * ts * 4) : path));
+      const p1 = composeCurveOverlay(idx, mx, my, ts, m.width, (ci) => (isWater(ci) ? new Uint8ClampedArray(ts * ts * 4).fill(255) : path));
+      if (!direct) continue;
+      const out = waterCompose(waterMixFrom(p0!, p1!, "x"), tex);
+      for (let j = 0; j < out.length; j++) worst = Math.max(worst, Math.abs(out[j] - direct[j]));
+    }
+    expect(worst).toBeLessThanOrEqual(2);
+  });
+
   it("primeiro plano: cobre o jogador → alvo translúcido, transição suave", () => {
     const r = { x0: 100, y0: 100, x1: 148, y1: 126 };
     expect(fgCovers(r, [{ x0: 110, x1: 124, y0: 90, y1: 120 }])).toBe(true);
@@ -137,7 +163,8 @@ describe("look v9 no renderer", () => {
       view.follow(at);
       const g = canvas.getContext("2d")!;
       const grab = (now: number) => {
-        (view as unknown as { drawGround(n: number): void }).drawGround(now);
+        // a montagem dos tiles de água tem orçamento por quadro: alguns quadros no mesmo instante enchem o cache
+        for (let k = 0; k < 20; k++) (view as unknown as { drawGround(n: number): void }).drawGround(now);
         return g.getImageData(Math.round(at.x - view.camera.x) - 8, Math.round(at.y - view.camera.y) - 4, 16, 8).data;
       };
       const a = grab(0);

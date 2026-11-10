@@ -5,7 +5,7 @@
 // Uso: npm run shots:live
 //   CHROME=/caminho/chrome-headless-shell   (padrão: ~/.cache/ms-playwright/chromium_headless_shell-*/…)
 //   CHROME_LIBS=/dir/com/libnss3…           (opcional: LD_LIBRARY_PATH extra, se o host não tiver as libs)
-//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|factory-v5|perf|evodemo|wargreymon
+//   SEED=7 W=1600 H=900 · QUERY="map=meadow" · ONLY=qo2 (Quality Overhaul fase 2, W=1920 H=1080)|geral|golpes|forest|daynight|v41|creator|offline|maps|screens|evolve|arena|factory|factory-full|factory-v3|factory-v4|factory-v5|perf|evodemo|wargreymon
 //   (perf: medição de frame-time no mapa inteiro, ver perf() — PERF_MAP, PERF_FRAMES, PERF_WARMUP) (creator inclui a escolha do inicial; STARTER=CREATURE-NNNN) · TIME=day|night · OUT=/outro/dir
 
 import { spawn } from "node:child_process";
@@ -148,6 +148,7 @@ async function main() {
     if (process.env.ONLY === "arena") return await arena(cdp);
     if (process.env.ONLY === "evodemo") return await evoDemo(cdp);
     if (process.env.ONLY === "wargreymon") return await warGreymon(cdp);
+    if (process.env.ONLY === "qo2") return await qoPhase2(cdp);
     // criador=0: as capturas do mundo pulam o criador de Tamer (usa o visual padrão)
     // TIME fixa a hora das capturas padrão (proof_live_*, moves_*): dia por padrão, comparável às capturas antigas;
     // TIME=night mostra a noite nas entidades. Sem isto o relógio do jogo começaria na hora local real.
@@ -1332,4 +1333,168 @@ async function arena(cdp) {
   await sleep(400);
   await cdp.shot("arena_historico.png");
   console.log("save:", await cdp.eval(`(() => { const d = JSON.parse(localStorage.getItem("gs003.world.save")).data; return JSON.stringify({ v: JSON.parse(localStorage.getItem("gs003.world.save")).v, rating: d.arena.rating, partidas: d.arena.history.map((h) => h.mode + ":" + h.result + (h.score ? " " + h.score : "")), box: d.box.length }); })()`));
+}
+
+/**
+ * Quality Overhaul, fase 2 (quality-overhaul/phase2/img, 1920×1080): escala antes/depois (?dpr=1) a DPR 1 e 1,25,
+ * look v8 × v9 (luzes, primeiro plano, água), Praia corrigida e o controlador ?anim=v2 (recortes + log de estados).
+ * Uso: W=1920 H=1080 CHROME_LIBS=… ONLY=qo2 npm run shots:live
+ */
+async function qoPhase2(cdp) {
+  const out = process.env.OUT ?? join(ROOT, "../../quality-overhaul/phase2/img");
+  mkdirSync(out, { recursive: true });
+  const ID = "digimon-forest-01";
+  const report = { capturedAt: new Date().toISOString(), seed: SEED, viewport: [W, H], shots: {} };
+  const shot = async (name, clip) => {
+    const r = await cdp.send("Page.captureScreenshot", clip ? { format: "png", clip } : { format: "png" });
+    writeFileSync(join(out, name), Buffer.from(r.data, "base64"));
+    console.log("ok", name);
+    return Buffer.from(r.data, "base64");
+  };
+  const metrics = (dpr) => cdp.send("Emulation.setDeviceMetricsOverride", { width: Math.round(W / dpr), height: Math.round(H / dpr), deviceScaleFactor: dpr, mobile: false });
+  const open = async (query, time = "day") => {
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=0&criador=0&novo=1&time=${time}&map=${ID}${query}` });
+    await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 60000, "o jogo iniciar");
+    await sleep(2500);
+  };
+  const tp = (tx, ty, dx = -1.3) =>
+    cdp.eval(`(() => { const g = window.__gs003, s = g.sim, SUB = 16; const p = s.state.players.find((q) => q.id === "p1"); p.auto = false;
+      const t = s.state.entities.find((e) => e.id === p.tamerId), pa = s.state.entities.find((e) => e.id === p.partnerId);
+      t.x = ${tx}; t.y = ${ty}; t.dest = undefined; t.trail = [{ x: t.x - 20, y: t.y }, { x: t.x, y: t.y }];
+      if (pa) { pa.x = t.x + ${dx} * SUB; pa.y = t.y; pa.targetId = undefined; pa.dest = undefined; }
+      return [t.x, t.y]; })()`);
+  const tpTile = (tx, ty, dx) => tp(tx * 16 + 8, ty * 16 + 8, dx);
+  const info = () => cdp.eval(`window.__gs003.scaleInfo`);
+  /** Larguras dos "pixels" na tela: comprimentos de corrida de cor igual, linha a linha, num recorte em volta do Tamer. */
+  const runs = async (png) => {
+    const at = await cdp.eval(`(() => { const g = window.__gs003, v = g.view, p = v.motionPos("p1"); const c = document.querySelector("#world");
+      const s = parseFloat(c.style.width) / c.width * devicePixelRatio; return { x: (p.x - v.camera.x) * s, y: (p.y - v.camera.y) * s, s }; })()`);
+    const { loadImage, createCanvas } = await import("@napi-rs/canvas");
+    const img = await loadImage(png);
+    const cw = Math.round(at.s * 40);
+    const ch = Math.round(at.s * 40);
+    const x0 = Math.max(0, Math.round(at.x - cw / 2));
+    const y0 = Math.max(0, Math.round(at.y - ch));
+    const c = createCanvas(img.width, img.height);
+    const g = c.getContext("2d");
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(x0, y0, Math.min(cw, img.width - x0), Math.min(ch, img.height - y0));
+    const hist = {};
+    for (let y = 0; y < d.height; y++) {
+      let run = 1;
+      for (let x = 1; x <= d.width; x++) {
+        const i = (y * d.width + x) * 4;
+        const j = i - 4;
+        const same = x < d.width && d.data[i] === d.data[j] && d.data[i + 1] === d.data[j + 1] && d.data[i + 2] === d.data[j + 2];
+        if (same) run++;
+        else {
+          if (run <= 12) hist[run] = (hist[run] ?? 0) + 1;
+          run = 1;
+        }
+      }
+    }
+    return hist;
+  };
+
+  const part = process.env.QO2_PART ?? "all";
+  if (part === "fg") return await qoForeground(cdp, out, shot, open, tp);
+  // 1) escala: antes (?look=v8, escala inteira em px CSS) × depois (?look=v8&dpr=1), a DPR 1 e a DPR 1,25 (Windows 125%)
+  for (const dpr of [1, 1.25]) {
+    await metrics(dpr);
+    for (const [tag, q] of [["antes", "&look=v8"], ["depois", "&look=v8&dpr=1"]]) {
+      await open(q);
+      await tpTile(30, 23, -1.6);
+      await sleep(1800);
+      const name = `p2_escala_${tag}_dpr${String(dpr).replace(".", "")}.png`;
+      const png = await shot(name);
+      const si = await info();
+      // no modo antigo `scale` é px CSS por px lógico: em px físicos = scale × dpr
+      const phys = si.dprMode ? si.scale : si.scale * dpr;
+      report.shots[name] = { query: q, dpr, scaleInfo: si, physPerLogical: phys, charPctOfHeight: +((100 * 30 * phys) / H).toFixed(1), pixelRunHistogram: await runs(png) };
+    }
+  }
+  await metrics(1);
+
+  // 2) look v8 × v9: noite na ponte do riacho (luzes) e dia na clareira
+  for (const time of ["night", "day"]) {
+    for (const lk of ["v8", "v9"]) {
+      await open(`&look=${lk}&dpr=1`, time);
+      await tpTile(28, 9, 1.3);
+      await shot(`p3_look_${lk}_${time === "night" ? "noite" : "dia"}_ponte.png`);
+    }
+  }
+  const lightCount = await cdp.eval(`window.__gs003.view.lookLights?.length ?? null`);
+  report.lightsV9 = lightCount;
+
+  // 3) v9: Tamer passando atrás de uma moita do primeiro plano (translúcida) e recorte da água correndo
+  report.foreground = await qoForeground(cdp, out, shot, open, tp);
+  const water = await cdp.eval(`(() => { const c = window.__gs003.sim.map.curves.find((c) => c.terrain === "water"); return c.points[Math.floor(c.points.length * 0.4)]; })()`);
+  await tp(Math.round(water.x / 2), Math.round(water.y / 2) - 40, 2.2);
+  await sleep(1500);
+  const wAt = await cdp.eval(`(() => { const v = window.__gs003.view; const c = document.querySelector("#world"); const s = parseFloat(c.style.width) / c.width; return { x: (${water.x} - v.camera.x) * s, y: (${water.y} - v.camera.y) * s }; })()`);
+  const clip = { x: Math.max(0, Math.round(wAt.x - 240)), y: Math.max(0, Math.round(wAt.y - 135)), width: 480, height: 270, scale: 1 };
+  for (let i = 0; i < 4; i++) {
+    await shot(`p3_v9_agua_quadro${i}.png`, clip);
+    await sleep(280);
+  }
+
+  // 4) Praia corrigida (antes: quality-overhaul/audit/img/03_hud_mapa_praia_placeholder.png)
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=0&criador=0&novo=1&time=day&map=praia` });
+  await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "praia"`, 60000, "a praia");
+  await sleep(2500);
+  await shot("p5_praia_depois.png");
+  report.praiaMissing = await cdp.eval(`(() => { const v = window.__gs003.view; const m = window.__gs003.sim.map; const keys = new Set(m.tileLayers.flatMap((l) => l.keys).filter(Boolean)); return [...keys].filter((k) => !v.tiles?.[k]); })()`);
+
+  // 5) ?anim=v2: AUTO ligado, recortes da parceira no golpe e o log de estados do controlador
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${PORT}/?seed=${SEED}&auto=1&criador=0&novo=1&time=day&map=${ID}&look=v9&dpr=1&anim=v2` });
+  await cdp.waitFor(`!!window.__gs003 && window.__gs003.mapId === "${ID}"`, 60000, "o jogo iniciar");
+  await sleep(2000);
+  const seen = new Set();
+  const states = [];
+  const t0 = Date.now();
+  let shots = 0;
+  while (Date.now() - t0 < 45000 && shots < 10) {
+    const st = await cdp.eval(`(() => { const g = window.__gs003, id = g.presenter.localPartnerId, c = g.view.animCtl(id), v = g.presenter.entities.get(id);
+      const cv = v && g.view.creatures?.[v.speciesId]; const f = cv ? g.view.frameFor(cv, v, g.presenter, performance.now()) : null;
+      const p = g.view.motionPos(id); const cnv = document.querySelector("#world"); const s = parseFloat(cnv.style.width) / cnv.width;
+      return c ? { state: c.state, phase: f?.v2?.phase ?? null, anim: f?.anim, key: f?.key, proc: f?.v2?.procedural ?? null, log: c.log, x: (p.x - g.view.camera.x) * s, y: (p.y - g.view.camera.y) * s } : null; })()`);
+    if (st) {
+      const tag = st.state + (st.phase ? `-${st.phase}` : "");
+      if (!seen.has(tag)) {
+        seen.add(tag);
+        states.push({ tag, anim: st.anim, key: st.key, procedural: st.proc });
+        await shot(`p4_anim_v2_${String(shots).padStart(2, "0")}_${tag}.png`, { x: Math.max(0, Math.round(st.x - 160)), y: Math.max(0, Math.round(st.y - 200)), width: 320, height: 240, scale: 1 });
+        shots++;
+      }
+      report.animLog = st.log;
+    }
+    await sleep(30);
+  }
+  report.animStates = states;
+  writeFileSync(join(out, "phase2_capture_report.json"), JSON.stringify(report, null, 2));
+  console.log("relatório:", join(out, "phase2_capture_report.json"));
+}
+
+/** Fase 2: Tamer atrás de uma moita do primeiro plano (translúcida) × ao lado dela (opaca), tela + recorte 2×. */
+async function qoForeground(cdp, out, shot, open, tp) {
+  await open(`&look=v9&dpr=1`, "day");
+  const fg = await cdp.eval(`(() => { const m = window.__gs003.sim.map; const i = Math.max(0, m.fgProps.findIndex((p) => p.key === "fp8_flowering_bush")); const f = m.fgProps[i]; return { i, x: f.x, y: f.y, key: f.key, n: m.fgProps.length }; })()`);
+  const crop = async () => {
+    const at = await cdp.eval(`(() => { const v = window.__gs003.view; const c = document.querySelector("#world"); const s = parseFloat(c.style.width) / c.width; return { x: (${fg.x} - v.camera.x) * s, y: (${fg.y} - v.camera.y) * s }; })()`);
+    return { x: Math.max(0, Math.round(at.x - 180)), y: Math.max(0, Math.round(at.y - 170)), width: 360, height: 220, scale: 2 };
+  };
+  // atrás: pés do Tamer 6 px acima do pé da moita (o sprite dela cobre as pernas dele)
+  await tp(Math.round(fg.x / 2), Math.round((fg.y - 6) / 2), -2.4);
+  await sleep(1600);
+  await shot("p3_v9_primeiro_plano_tamer_atras.png");
+  await shot("p3_v9_primeiro_plano_tamer_atras_zoom.png", await crop());
+  const a = await cdp.eval(`window.__gs003.view.fgAlpha?.get(${fg.i}) ?? 1`);
+  // ao lado: 40 px à esquerda, mesma linha (a moita volta a opaca)
+  await tp(Math.round((fg.x - 48) / 2), Math.round((fg.y - 40) / 2), -2.4);
+  await sleep(1600);
+  await shot("p3_v9_primeiro_plano_tamer_fora_zoom.png", await crop());
+  const b = await cdp.eval(`window.__gs003.view.fgAlpha?.get(${fg.i}) ?? 1`);
+  const res = { ...fg, alphaBehind: a, alphaClear: b };
+  console.log("primeiro plano:", JSON.stringify(res));
+  return res;
 }

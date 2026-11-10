@@ -20,7 +20,7 @@ import {
 } from "./anim";
 import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
 import { drawImpact, shakeOffset } from "./fx";
-import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterFrame, type Rect } from "./life";
+import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterFrame, waterMixFrom, type Rect, type WaterMix } from "./life";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
@@ -103,6 +103,10 @@ export interface TreeGeom {
   shadow?: { url?: string; x: number; y: number; w: number; h: number; rx?: number; ry?: number };
 }
 
+/** Look v9: no máximo isto de células de água preparadas por quadro (~0,5 ms cada; a tela enche em ~1 s). */
+const WATER_BUILD_BUDGET = 6;
+/** Look v9: no máximo isto de quadros de água novos (célula × quadro do ciclo) por quadro de tela. */
+const WATER_FRAME_BUDGET = 40;
 /** Feather da máscara das copas sobre as luzes do look (px de tela do mundo): fator de redução do buffer da máscara. */
 const CANOPY_FEATHER = 3;
 /** Pivô do frame 26×33 dos Tamers v3 (character.json), quando não há Tamer carregado para copiar. */
@@ -162,10 +166,18 @@ export class WorldView {
   private curveTiles = new Map<string, HTMLCanvasElement | null>();
   /** Look v9: faixa da água por célula × quadro do ciclo × preset, e as células com água. */
   private waterTiles = new Map<string, HTMLCanvasElement | null>();
+  private waterMixes = new Map<string, WaterMix | "empty">();
   private waterCells?: number[];
   /** Look v9: opacidade atual de cada prop de primeiro plano (índice em map.fgProps). */
   private fgAlpha = new Map<number, number>();
   private swayRe?: RegExp;
+  /** Look v9: sprites cisalhados pelo vento (imagem × deslocamento × preset). */
+  private sheared = new Map<string, HTMLCanvasElement>();
+  /** Look v9: tiles de água montados neste quadro (orçamento por quadro, para não travar no 1º ciclo). */
+  private waterBuilt = 0;
+  private waterFramesBuilt = 0;
+  /** Último tile de água desenhado por célula × preset (fallback fora do orçamento). */
+  private waterLast = new Map<string, HTMLCanvasElement>();
   private lastFg?: number;
   /** Look v8: luzes do mapa, sprites de luz em cache, âncoras e sprite da névoa, brilho dos vagalumes. */
   private lookLights?: LightSource[];
@@ -209,6 +221,9 @@ export class WorldView {
     this.smoothTiles.clear();
     this.curveTiles.clear();
     this.waterTiles.clear();
+    this.waterMixes.clear();
+    this.waterLast.clear();
+    this.sheared.clear();
     this.litTops.clear();
     this.propImages.clear();
     this.trees = undefined;
@@ -226,6 +241,10 @@ export class WorldView {
     this.nightUrls.clear();
     for (const [k, t] of Object.entries(this.tiles)) if (tiles[k] && tiles[k].url !== t.url) this.nightUrls.set(t.url, tiles[k].url);
     this.chunks.clear();
+    this.sheared.clear();
+    this.waterTiles.clear();
+    this.waterMixes.clear();
+    this.waterLast.clear();
   }
 
   /** Imagem de um URL do dia no preset pedido (cai no dia se não houver versão noturna carregada). */
@@ -687,13 +706,34 @@ export class WorldView {
     ctx.globalAlpha = 1;
   }
 
-  /** Sprite em faixas horizontais com o cisalhamento do vento (a de cima desloca `s`, a de baixo fica presa). */
+  /**
+   * Sprite com o cisalhamento do vento (a faixa de cima desloca `s`, a de baixo fica presa). O sprite cisalhado é
+   * montado uma vez por (imagem, s, preset) e cacheado: no quadro é 1 drawImage, como o sprite parado.
+   */
   private drawSwayed(url: string, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, s: number, bands: number, resolve?: (url: string, night: boolean) => CanvasImageSource | undefined): void {
     if (!s) return this.drawPreset(url, sx, sy, sw, sh, dx, dy, sw, sh, resolve);
+    const base = resolve ?? ((u: string, n: boolean) => this.presetImage(u, n));
+    const pad = Math.abs(s);
+    const w = sw + 2 * pad;
+    this.drawPreset(url, 0, 0, w, sh, dx - pad, dy, w, sh, (u, n) => this.shearedImage(u, n, sx, sy, sw, sh, s, bands, base, !!resolve));
+  }
+
+  private shearedImage(u: string, night: boolean, sx: number, sy: number, sw: number, sh: number, s: number, bands: number, base: (url: string, night: boolean) => CanvasImageSource | undefined, rim: boolean): HTMLCanvasElement | undefined {
+    const id = `${u}|${night ? 1 : 0}|${sx},${sy},${sw},${sh}|${s}|${bands}|${rim ? 1 : 0}`;
+    const hit = this.sheared.get(id);
+    if (hit) return hit;
+    const img = base(u, night);
+    if (!img) return undefined;
+    const pad = Math.abs(s);
+    const c = this.makeCanvas(sw + 2 * pad, sh);
+    const g = c.getContext("2d")!;
+    g.imageSmoothingEnabled = false;
     const shifts = bandShifts(s, bands);
     bandRows(sh, shifts.length).forEach(([y0, y1], i) => {
-      if (y1 > y0) this.drawPreset(url, sx, sy + y0, sw, y1 - y0, dx + shifts[i], dy + y0, sw, y1 - y0, resolve);
+      if (y1 > y0) g.drawImage(img, sx, sy + y0, sw, y1 - y0, pad + shifts[i], y0, sw, y1 - y0);
     });
+    this.sheared.set(id, c);
+    return c;
   }
 
   /**
@@ -822,6 +862,8 @@ export class WorldView {
     this.waterCells ??= [...idx.near].filter(([, cis]) => cis.some((ci) => idx.curves[ci].terrain === cfg.terrain)).map(([i]) => i);
     const { frame, dx, dy } = waterFrame(now, cfg, ts);
     const cam = this.camera;
+    this.waterBuilt = 0;
+    this.waterFramesBuilt = 0;
     const mix = this.nightTiles ? this.nightMix : 0;
     for (const i of this.waterCells) {
       const mx = i % this.map.width;
@@ -830,8 +872,11 @@ export class WorldView {
       const y = my * ts - cam.y;
       if (x < -ts || y < -ts || x > cam.w || y > cam.h) continue;
       for (const night of mix <= 0 ? [false] : mix >= 1 ? [true] : [false, true]) {
-        const c = this.waterTile(mx, my, frame, dx, dy, night);
+        // quadro novo fora do orçamento: repete o último quadro desta célula (ou fica a água parada do chunk)
+        const lk = `${i}|${night ? "n" : "d"}`;
+        const c = this.waterTile(mx, my, frame, dx, dy, night) ?? this.waterLast.get(lk);
         if (!c) continue;
+        this.waterLast.set(lk, c);
         this.ctx.globalAlpha = night && mix < 1 ? mix : 1;
         this.ctx.drawImage(c, x, y);
       }
@@ -843,29 +888,64 @@ export class WorldView {
     const id = `${mx},${my}|${frame}|${night ? "n" : "d"}`;
     const hit = this.waterTiles.get(id);
     if (hit !== undefined) return hit ?? undefined;
-    const idx = this.curveIndex()!;
     const ts = this.map.tileSize;
-    const set = night && this.nightTiles ? { ...this.tiles, ...this.nightTiles } : this.tiles;
-    const terrain = this.opts.look!.water!.terrain;
-    let missing = false;
-    const px = composeCurveOverlay(idx, mx, my, ts, this.map.width, (ci) => {
-      const src = set[idx.curves[ci].fill];
-      const d = this.pixelsOf(src?.url, src?.rect);
-      if (!d) missing = true;
-      return d && idx.curves[ci].terrain === terrain ? scrollPixels(d, ts, dx, dy) : d;
-    });
-    if (missing) return undefined;
+    if (this.waterFramesBuilt >= WATER_FRAME_BUDGET) return undefined;
+    const mix = this.waterMixOf(mx, my, night);
+    if (!mix) return undefined;
+    this.waterFramesBuilt++;
     let c: HTMLCanvasElement | null = null;
-    if (px) {
+    if (mix !== "empty") {
+      const set = night && this.nightTiles ? { ...this.tiles, ...this.nightTiles } : this.tiles;
+      const src = set[mix.fill];
+      const fill = this.pixelsOf(src?.url, src?.rect);
+      if (!fill) return undefined;
       c = this.makeCanvas(ts, ts);
       const g = c.getContext("2d")!;
       const data = g.createImageData(ts, ts);
-      data.data.set(px);
+      data.data.set(waterCompose(mix, scrollPixels(fill, ts, dx, dy)));
       g.putImageData(data, 0, 0);
     }
     this.waterTiles.set(id, c);
     return c ?? undefined;
   }
+
+  /**
+   * A faixa das curvas é linear na textura da água (espuma e vau são misturas): out = A + B·textura. Dois passes de
+   * composeCurveOverlay (textura 0 e 255) dão A e B uma vez por célula; cada quadro do ciclo vira uma mistura de
+   * ts² pixels. O passe caro tem orçamento por quadro (WATER_BUILD_BUDGET); sem ele a célula mostra a água parada.
+   */
+  private waterMixOf(mx: number, my: number, night: boolean): WaterMix | "empty" | undefined {
+    const id = `${mx},${my}|${night ? "n" : "d"}`;
+    const hit = this.waterMixes.get(id);
+    if (hit) return hit;
+    if (this.waterBuilt >= WATER_BUILD_BUDGET) return undefined;
+    const idx = this.curveIndex()!;
+    const ts = this.map.tileSize;
+    const set = night && this.nightTiles ? { ...this.tiles, ...this.nightTiles } : this.tiles;
+    const terrain = this.opts.look!.water!.terrain;
+    const flat = (v: number) => new Uint8ClampedArray(ts * ts * 4).fill(v);
+    let missing = false;
+    let fill = "";
+    const pass = (v: number) =>
+      composeCurveOverlay(idx, mx, my, ts, this.map.width, (ci) => {
+        if (idx.curves[ci].terrain === terrain) {
+          fill = idx.curves[ci].fill;
+          return flat(v);
+        }
+        const src = set[idx.curves[ci].fill];
+        const d = this.pixelsOf(src?.url, src?.rect);
+        if (!d) missing = true;
+        return d;
+      });
+    this.waterBuilt++;
+    const a = pass(0);
+    const b = pass(255);
+    if (missing) return undefined;
+    const mix: WaterMix | "empty" = a && b ? waterMixFrom(a, b, fill) : "empty";
+    this.waterMixes.set(id, mix);
+    return mix;
+  }
+
 
   /** Chunk de 16×16 tiles pré-renderizado. Tiles animados (água) geram uma versão por quadro. */
   private chunk(cx: number, cy: number, now: number, night = false): HTMLCanvasElement {
