@@ -1,0 +1,490 @@
+{
+  "idle": {
+    "S": [
+      {
+        "file": "idle-s/frame_000.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0.85,
+          "tailSway": 1.4,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-s/frame_001.png",
+        "pose": {
+          "bodyBob": 1.04,
+          "earSway": 1.5,
+          "tailSway": 1.17,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-s/frame_002.png",
+        "pose": {
+          "bodyBob": 1.04,
+          "earSway": 0.65,
+          "tailSway": -0.23,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-s/frame_003.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": -0.85,
+          "tailSway": -1.4,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-s/frame_004.png",
+        "pose": {
+          "bodyBob": -1.04,
+          "earSway": -1.5,
+          "tailSway": -1.17,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-s/frame_005.png",
+        "pose": {
+          "bodyBob": -1.04,
+          "earSway": -0.65,
+          "tailSway": 0.23,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      }
+    ],
+    "SW": [
+      {
+        "file": "idle-sw/frame_000.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0.85,
+          "tailSway": 1.4,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-sw/frame_001.png",
+        "pose": {
+          "bodyBob": 1.04,
+          "earSway": 1.5,
+          "tailSway": 1.17,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-sw/frame_002.png",
+        "pose": {
+          "bodyBob": 1.04,
+          "earSway": 0.65,
+          "tailSway": -0.23,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-sw/frame_003.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": -0.85,
+          "tailSway": -1.4,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-sw/frame_004.png",
+        "pose": {
+          "bodyBob": -1.04,
+          "earSway": -1.5,
+          "tailSway": -1.17,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "idle-sw/frame_005.png",
+        "pose": {
+          "bodyBob": -1.04,
+          "earSway": -0.65,
+          "tailSway": 0.23,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      }
+    ]
+  },
+  "walk": {
+    "S": [
+      {
+        "file": "walk-s/frame_000.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0,
+          "tailSway": 0.86,
+          "legL": {
+            "lift": 0,
+            "fwd": 3
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": -3
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_001.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": 0.57,
+          "tailSway": 1.2,
+          "legL": {
+            "lift": 1.56,
+            "fwd": 2.12
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": -2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_002.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0.8,
+          "tailSway": 0.84,
+          "legL": {
+            "lift": 2.2,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_003.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": 0.57,
+          "tailSway": -0.02,
+          "legL": {
+            "lift": 1.56,
+            "fwd": -2.12
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_004.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0,
+          "tailSway": -0.86,
+          "legL": {
+            "lift": 0,
+            "fwd": -3
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 3
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_005.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": -0.57,
+          "tailSway": -1.2,
+          "legL": {
+            "lift": 0,
+            "fwd": -2.12
+          },
+          "legR": {
+            "lift": 1.56,
+            "fwd": 2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_006.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": -0.8,
+          "tailSway": -0.84,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 2.2,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-s/frame_007.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": -0.57,
+          "tailSway": 0.02,
+          "legL": {
+            "lift": 0,
+            "fwd": 2.12
+          },
+          "legR": {
+            "lift": 1.56,
+            "fwd": -2.12
+          },
+          "blink": false
+        }
+      }
+    ],
+    "SW": [
+      {
+        "file": "walk-sw/frame_000.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0,
+          "tailSway": 0.86,
+          "legL": {
+            "lift": 0,
+            "fwd": 3
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": -3
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_001.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": 0.57,
+          "tailSway": 1.2,
+          "legL": {
+            "lift": 1.56,
+            "fwd": 2.12
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": -2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_002.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0.8,
+          "tailSway": 0.84,
+          "legL": {
+            "lift": 2.2,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_003.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": 0.57,
+          "tailSway": -0.02,
+          "legL": {
+            "lift": 1.56,
+            "fwd": -2.12
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_004.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": 0,
+          "tailSway": -0.86,
+          "legL": {
+            "lift": 0,
+            "fwd": -3
+          },
+          "legR": {
+            "lift": 0,
+            "fwd": 3
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_005.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": -0.57,
+          "tailSway": -1.2,
+          "legL": {
+            "lift": 0,
+            "fwd": -2.12
+          },
+          "legR": {
+            "lift": 1.56,
+            "fwd": 2.12
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_006.png",
+        "pose": {
+          "bodyBob": 0,
+          "earSway": -0.8,
+          "tailSway": -0.84,
+          "legL": {
+            "lift": 0,
+            "fwd": 0
+          },
+          "legR": {
+            "lift": 2.2,
+            "fwd": 0
+          },
+          "blink": false
+        }
+      },
+      {
+        "file": "walk-sw/frame_007.png",
+        "pose": {
+          "bodyBob": -1.1,
+          "earSway": -0.57,
+          "tailSway": 0.02,
+          "legL": {
+            "lift": 0,
+            "fwd": 2.12
+          },
+          "legR": {
+            "lift": 1.56,
+            "fwd": -2.12
+          },
+          "blink": false
+        }
+      }
+    ]
+  }
+}

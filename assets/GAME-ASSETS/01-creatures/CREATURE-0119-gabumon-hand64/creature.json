@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "previousVersions": [],
+  "id": "CREATURE-0119",
+  "name": "Gabumon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "data",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": {
+    "lineId": "gabumon",
+    "previous": "CREATURE-0008",
+    "next": ["CREATURE-0010"]
+  },
+  "evolutionRequirements": {},
+  "description": "Gabumon redesenhado à mão (pixel art por código, zero IA generativa, zero PixelLab) a 64x64, na MESMA escala/convenção do teste 'Guilmon v3' (PixelLab, phase2/art/scale-proof-v3-reanim): canvas 64x64, altura do corpo ~32px, pé fixo em y=49, paleta travada de 15 cores, outline preto 1px, luz vindo de cima-esquerda, 3-4 tons de sombreamento. Criado especificamente para a comparação lado a lado pedida pelo fundador (custo x qualidade, hand-drawn vs PixelLab) e para testar os dois Digimon na mesma equipe/jogo. NÃO substitui CREATURE-0009 (o Gabumon rip oficial em uso no jogo) nem está integrado ao roster principal.",
+  "dimensions": {
+    "frameW": 64,
+    "frameH": 64,
+    "tile": 64
+  },
+  "pivot": {
+    "x": 32,
+    "y": 49
+  },
+  "mapScale": 1,
+  "targetHeightPx": 32,
+  "nativeMapHeightPx": 32,
+  "nativeBattleHeightPx": 32,
+  "sizeNotes": "Escala de teste (64px canvas, corpo ~32-33px), igual à do experimento Guilmon v3 (phase2/art/scale-proof-v3-reanim/fixed, bbox medido {h:32, footY:47}), NÃO ao padrão tile:32 do resto de 01-creatures/ (ex. CREATURE-0009 usa tile 32, frameH ~34). Uso: comparação direta com o Guilmon v3; integração ao roster principal exigiria reexportar nessa outra escala.",
+  "hitbox": {
+    "x": 20,
+    "y": 17,
+    "w": 24,
+    "h": 32
+  },
+  "anchors": {
+    "head": { "x": 32, "y": 22 },
+    "hit": { "x": 32, "y": 33 },
+    "shadow": { "cx": 32, "cy": 49, "rx": 10, "ry": 4 }
+  },
+  "directions": {
+    "walk": { "drawn": ["S", "SW"], "mirrored": {} },
+    "idle": { "drawn": ["S", "SW"], "mirrored": {} }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_00.png" },
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_01.png" },
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_02.png" },
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_03.png" },
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_04.png" },
+        { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_05.png" }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_00.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_01.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_02.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_03.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_04.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_S_05.png" }
+        ],
+        "SW": [
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_00.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_01.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_02.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_03.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_04.png" },
+          { "durationMs": 220, "atlasKey": "CREATURE-0119_idle_SW_05.png" }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_00.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_01.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_02.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_03.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_04.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_05.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_06.png" },
+        { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_07.png" }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_00.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_01.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_02.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_03.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_04.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_05.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_06.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_S_07.png" }
+        ],
+        "SW": [
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_00.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_01.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_02.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_03.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_04.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_05.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_06.png" },
+          { "durationMs": 120, "atlasKey": "CREATURE-0119_walk_SW_07.png" }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 96,
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "original",
+    "sourceDescription": "Redesenho 100% autoral, gerado por código (art/src/{canvas,png,gabumon,generate,gif}.js, copiados em source/) com pixelart_workbench só para inspeção/medição — nenhuma chamada de criação de arte por IA, nenhuma ferramenta PixelLab de geração foi usada. Referência visual consultada (view_image, nunca traçada/copiada pixel a pixel): previews de CREATURE-0009 (rip oficial DW DS já no projeto) e a silhueta conhecida de Gabumon (pelagem de Garurumon, chifre amarelo, capuz de pelo)."
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "[E] Autoavaliação game-art (não é QA independente): bbox medido por script próprio (sem PIL/ImageMagick) em todos os 28 quadros — footY=49 estável em 100% dos quadros (0px de variação de pé, melhor que o teste Guilmon v3 que teve até 1px); altura do corpo 32-33px em todos os quadros (vs. alvo 32px do Guilmon v3 -- diferença máxima +3%).",
+    "[E] Paleta: 14 cores opacas únicas em TODOS os 28 quadros combinados (medido por script), dentro do teto de 15-18 pedido; outline 1px aplicado via autoOutline determinístico (vizinhança 4-direções), não por IA.",
+    "[H] Qualidade de desenho é propositalmente mais simples que o Guilmon v3 (PixelLab): sombreamento é 'toon' de 3-4 tons via produto escalar com elipses (sem pincelada de detalhe fino), braços são estáticos (não animados no walk), a view SW é um deslocamento/encolhimento paramétrico da view S (não um redesenho de perspectiva verdadeiro) -- ver veredito do diretor no REPORT.md.",
+    "Direções entregues: S e SW (walk e idle). W/E não foram feitas por tempo -- ver REPORT.md.",
+    "idle tem quadros de respiração reais (não é o quadro do meio do walk, ao contrário do padrão do rip oficial) -- frame_000 (fase 0) é o quadro 'parado, pés juntos, sem sway'.",
+    "rarity e element são provisórios [H], não combinados com game-design."
+  ]
+}
