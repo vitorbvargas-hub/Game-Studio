@@ -3864,7 +3864,7 @@ body {
   background: var(--ck-btn-locked) -58px -10px / 128px 40px no-repeat;
   image-rendering: pixelated;
 }
-/* cores dos botões do kit: "#hud button { color: inherit }" tem especificidade de id, então o seletor leva #hud */
+/* cores dos botões do kit: a regra "#hud button" (color: inherit) tem especificidade de id, então o seletor leva #hud */
 .hud-v2#hud .dg-cta {
   color: #eef2fb;
 }
