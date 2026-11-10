@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Guilmon — prova de escala v2: rip (~31px) vs v1 (nearest x2, ruidoso) vs v2 (referência limpa)</title>
+<style>
+  body { background:#1a1d2b; color:#eee; font-family: sans-serif; padding: 24px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; margin-top: 40px; border-top: 1px solid #333; padding-top: 16px; }
+  p, li { font-size: 13px; color: #bcd; line-height: 1.5; }
+  .board { image-rendering: pixelated; border: 1px solid #444; background:#0e1018; max-width: 100%; }
+  .row { display:flex; align-items:flex-end; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .cell { text-align:center; }
+  .cell img { image-rendering: pixelated; display:block; background:#0e1018; border:1px solid #444; }
+  .label { font-size:12px; margin-top:6px; color:#aab; max-width: 190px; }
+  .dim { font-size: 11px; color: #789; }
+  code { color: #ffb; }
+  .SCALE4 img.px32 { width: 128px; height: 128px; }
+  .SCALE4 img.rip   { width: 120px; height: 136px; }
+  .SCALE4 img.g64   { width: 240px; height: 272px; }
+  .ok { color:#9f9; }
+  .bad { color:#f99; }
+</style>
+</head>
+<body>
+<h1>GS-003 — Guilmon, prova de escala v2: por que o v1 (60×68) saiu ruidoso e como o v2 corrige</h1>
+<p>Revisão do coordenador (game-studio) sobre o piloto <code>ce83237</code>: na prancha de proporção, o Guilmon 60×68 do v1 saiu com manchas/preto salpicado, sem clusters de cor limpos — rosto e barriga perdiam leitura. Causa confirmada nesta prova: a referência enviada ao <code>create_character(v3)</code> era um <b>nearest-upscale ×2</b> do frame nativo de 30×34px do rip — e esse frame nativo já carregava dither/ruído de 1-2px por pixel (comum em sprites DS pequenos), invisível em 30px mas <b>amplificado em blocos 2×2 visíveis</b> em 60×68. O v3 mantém a direção <code>south</code> quase pixel-a-pixel igual à referência (confirmado: só 1 pixel de diferença entre a referência e o south do v1) — então o ruído da referência passa direto para o personagem, e contamina o "estilo" que o v3 usa para pintar as outras direções/animações.</p>
+
+<h2>1. Prancha de proporção (estática, fator ×3) — tile · Tamer · rip · v1 (ruidoso) · v2 (limpo)</h2>
+<p>Base alinhada (pés no mesmo nível), <code>pixelart_workbench scale --by 3</code> + <code>join --as sheet</code>, mesmo multiplicador em toda a prancha.</p>
+<img class="board" src="proportion_board_v2.png">
+
+<h2>2. South lado a lado, fator ×4 — rip · v1 · v2</h2>
+<div class="row SCALE4">
+  <div class="cell"><img class="px32" src="ref/tile_32px.png"><div class="label">Tile de mapa<br><span class="dim">32×32px</span></div></div>
+  <div class="cell"><img class="px32" src="ref/tamer_idle_32px.png"><div class="label">Tamer (jogador)<br><span class="dim">canvas 32×32px, usado como style_image em descartes de M1 — ver §5</span></div></div>
+  <div class="cell"><img class="rip" src="ref/guilmon_rip_idle_30x34.png"><div class="label">Guilmon atual (rip DS)<br><span class="dim">30×34px nativo</span></div></div>
+  <div class="cell"><img class="g64" src="ref/guilmon_v1_south_60x68.png"><div class="label bad"><b>Guilmon v1 (M2 antigo, com ruído)</b><br><span class="dim">60×68px — referência nearest×2 do frame nativo (que já tinha dither)</span></div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m2/rotations/south.png"><div class="label ok"><b>Guilmon v2 (M2 novo, limpo)</b><br><span class="dim">60×68px — referência redesenhada: repair + reduce_colors (4 cores) no 30×34 nativo, depois nearest×2</span></div></div>
+</div>
+
+<h2>3. Idle e walk animados, S e SW — v1 (ruidoso) × v2 (limpo)</h2>
+<p>GIFs nativos, fator ×4 (CSS <code>image-rendering: pixelated</code>, sem reamostragem).</p>
+
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/v1_idle_s.gif"><div class="label bad">Idle S — v1 (ruidoso)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m2/idle-s/idle_s.gif"><div class="label ok">Idle S — v2 (limpo)</div></div>
+</div>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/v1_idle_sw.gif"><div class="label bad">Idle SW — v1 (ruidoso)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m2/idle-sw/idle_sw.gif"><div class="label ok">Idle SW — v2 (limpo)</div></div>
+</div>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/v1_walk_s.gif"><div class="label bad">Walk S — v1 (ruidoso)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m2/walk-s/walk_s.gif"><div class="label ok">Walk S — v2 (limpo)</div></div>
+</div>
+<div class="row SCALE4">
+  <div class="cell"><img class="g64" src="ref/v1_walk_sw.gif"><div class="label bad">Walk SW — v1 (ruidoso)</div></div>
+  <div class="cell"><img class="g64" src="../pipeline-m2/walk-sw/walk_sw.gif"><div class="label ok">Walk SW — v2 (limpo)</div></div>
+</div>
+
+<h2>4. Leitura do diretor de arte</h2>
+<ul>
+<li>A hipótese do coordenador estava certa: a causa raiz era a referência (nearest ×2 de um frame nativo com dither), não a escala em si nem o <code>create_character(v3)</code> em si. Corrigir só a referência (sem trocar de ferramenta) resolveu o problema inteiro.</li>
+<li>No south (§2), a diferença é imediata: v1 tem pontos pretos/cinza salpicados por todo o corpo (mais visível na barriga e nas pernas), quebrando a leitura; v2 tem clusters de cor planos (vermelho claro/escuro, bege da barriga, contorno escuro de ~1px), rosto e barriga legíveis de novo.</li>
+<li>No south-west genuíno (gerado do zero pelo v3, nunca existiu no rip) a melhora é igualmente clara nos GIFs de idle/walk: v1 mantém o padrão de ruído em todos os quadros; v2 fica limpo em todos os quadros das 4 animações, sem deriva de identidade perceptível.</li>
+<li>Ver §5 para a decisão sobre M1 (Pro Flash por texto) — não foi gerado nesta prova por restrição de orçamento, documentado abaixo.</li>
+</ul>
+
+<h2>5. M1 (Pro Flash) — por que não foi gerado</h2>
+<p>Consulta gratuita a <code>get_pro_flash_capabilities(operation="character", width=64, height=64, n_directions=8)</code>: piso de <b>6 gerações</b> (5 pela imagem + 1 pelas rotações) só para o personagem, qualquer que seja o resultado — e o mesmo piso de 5 gerações vale para uma única imagem estática via <code>create_image_pro_flash</code>. Com o teto total de 8 gerações desta prova e a animação completa do vencedor custando 4 (S+SW × idle+walk), rodar M1 por completo (ou mesmo uma amostra estática) deixaria orçamento negativo ou cortaria a animação do método vencedor. Como o M2 já confirmou a hipótese e resolveu o problema a um custo quase nulo (~1,2 geração para personagem + limpeza, ante o piso de 5–6 do M1), priorizei entregar o M2 completo e documentar esta decisão em vez de gastar o teto em dois testes pela metade. Ver README.md §6 para os números exatos e a recomendação de um teste M1 dedicado (~6 gerações) numa sessão futura, se o fundador quiser a comparação completa.</p>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "scope": "quality-overhaul/phase2/art/scale-proof-v2 — prova de escala v2 do Guilmon (idle+walk, S/SW, ~60x68px), revisao do v1 (ce83237) que saiu ruidoso",
+  "layer": "official-fan-use",
+  "baseCharacter": "Guilmon",
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
+  "basis": [
+    {
+      "adr": "ADR-007-gs003-fan-game-pokemon-digimon.md",
+      "summary": "Fundador autoriza o GS-003 como fan game nao comercial usando monstros oficiais de Digimon (nomes, designs, linhas). Excecao explicita do fundador a regra geral de IP de terceiros do GOVERNANCE, valida so para o GS-003."
+    },
+    {
+      "adr": "ADR-009-gs003-idle-mmorpg-reset.md",
+      "summary": "Condicao 2 do ADR-007 revogada: sprites oficiais extraidos de jogos (rips, incl. Digimon World DS) liberados pelo fundador em todo o projeto e no git, camada official-fan-use."
+    },
+    {
+      "adr": "ADR-010-gs003-referencia-visual-canonica.md",
+      "summary": "Reforca Digimon como identidade completa do produto; nao usar Pokemon nem monstros genericos."
+    },
+    {
+      "adr": "ADR-012-gs003-governanca-de-arte.md",
+      "summary": "GAME-ART-DIRECTOR (este agente) e quem decide direcao visual/escala; revisao independente obrigatoria do game-qa antes de integrar (nao integrado aqui, ver README)."
+    }
+  ],
+  "conditionsStillInForce": [
+    "Sem monetizacao de nenhum tipo (ADR-007)",
+    "Sem logos ou marcas oficiais em titulo/icone/divulgacao (ADR-007)",
+    "Publicacao exige aprovacao separada do fundador (ADR-007/009)",
+    "Conteudo em content pack trocavel, para uma futura versao com monstros originais reaproveitar o motor (ADR-007)",
+    "Substituir por arte propria (camada original) ao longo do projeto (ADR-009)"
+  ],
+  "sourceAsset": {
+    "creatureId": "CREATURE-0003",
+    "path": "assets/GAME-ASSETS/01-creatures/CREATURE-0003/",
+    "sourceGame": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource (https://www.spriters-resource.com/ds_dsi/dgmnworldds/)",
+    "ripper": "Sonicteam24",
+    "creditRequiredBySheet": true,
+    "frameUsedAsReference": "CREATURE-0003_walk_S_01.png (30x34px, pose de pe/idle do mapa), o MESMO frame nativo do v1 (scale-proof/) — a diferenca desta prova e no tratamento antes do upscale, nao na origem"
+  },
+  "referenceCleanupPipeline": {
+    "label": "Correcao face ao v1 (que usava nearest-upscale x2 direto do frame nativo, sem limpeza)",
+    "problem": "O frame nativo 30x34 ja carrega dither/ruido de 1-2px por pixel (tipico de sprite DS pequeno); o nearest x2 do v1 amplifica cada pixel de ruido num bloco 2x2 visivel, e o create_character(v3) mantem a direcao south quase identica a referencia (confirmado: 1 pixel de diferenca entre referencia e resultado) -- entao o ruido passa direto para o personagem e contamina o estilo usado nas outras direcoes.",
+    "technique": "pixelart_workbench repair() no upload do nearest x2 do v1 -- detectou e desfez o proprio padrao de blocos 2x2 (regrid), devolvendo o sprite nativo 30x34 limpo (1 buraco corrigido); reduce_colors (duas passadas, 11->8->4 cores, 0.1 geracao cada) no nativo 30x34 para fundir os clusters de dither de 1-2px em regioes planas maiores; novo repair (score 98/100, nada a corrigir); nearest-upscale x2 local (scripts/nearest_upscale.py do v1, puro stdlib, sem custo) do resultado LIMPO para 60x68 -- mesma tecnica geometrica do v1 (sem IA, sem interpolacao), mas agora sobre uma fonte sem dither",
+    "generationsSpentOnCleanup": 0.2,
+    "filesInThisFolder": "reference/guilmon_S_clean_30x34.png (nativo limpo), reference/guilmon_S_ref_clean_2x.png (60x68, referencia final enviada ao create_character)"
+  },
+  "pipelineM2": {
+    "label": "PixelLab, teto autorizado de 8 geracoes para esta prova v2; gasto real 5.2",
+    "technique": "create_character (v3 + reference image LIMPA upscaled nearest x2, 60x68) para as 8 direcoes reais incl. SW nova; animate_character (mode=template, breathing-idle e walking, ai_freedom=0) para idle e walk, direcoes S e SW -- mesma receita de animacao do v1, so a referencia de entrada mudou",
+    "generationsSpentActual": 5.2,
+    "costLog": "pixellab_cost_log.csv"
+  },
+  "pipelineM1": {
+    "label": "Pro Flash por texto -- NAO executado nesta prova",
+    "reason": "get_pro_flash_capabilities(operation='character', width=64, height=64, n_directions=8), consulta gratuita, reportou piso de 6 geracoes so para o personagem (5 imagem + 1 rotacoes) e 5 geracoes para uma unica imagem estatica via create_image_pro_flash -- nao cabia no teto de 8 junto com a animacao completa (4 geracoes) do metodo vencedor. Ver README.md Secao 6."
+  },
+  "note": "Credito obrigatorio em qualquer build/tela de creditos: Sonicteam24 (rip Digimon World DS, The Spriters Resource); © Bandai Namco. A referencia enviada ao PixelLab nesta prova e uma LIMPEZA (pixel art determinista: repair + reduce_colors, sem geracao de pixels novos) seguida de reescalonamento nearest-neighbor (sem IA, sem interpolacao) do mesmo frame do rip usado no v1 -- herda a mesma obrigacao de credito do rip original.",
+  "verifiedBy": "game-art (papel GAME-ART-DIRECTOR, ADR-012)",
+  "verifiedAt": "2026-11-10"
+}
