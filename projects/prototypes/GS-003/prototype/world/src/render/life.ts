@@ -23,6 +23,92 @@ export interface WaterCfg {
   frameMs: number;
   /** Quadros do ciclo (o deslocamento dá a volta no tile em frames × stepPx). */
   frames: number;
+  /**
+   * P7: quebra a repetição da textura (que ladrilha a cada tile). Ruído contínuo no espaço do mundo, sem costura na
+   * borda das células: deslocamento de fase por pixel (0..phasePx, em escala `scale` px) e brilho que respira no ciclo.
+   */
+  noise?: WaterNoiseCfg;
+}
+
+export interface WaterNoiseCfg {
+  /** Deslocamento máximo de fase da textura (px de arte) em x e y. */
+  phasePx: [number, number];
+  /** Escala do ruído de fase (px de mundo por célula de ruído) em x e y. */
+  scale: [number, number];
+  /** Amplitude do brilho (0–255) que oscila no ciclo. */
+  shade: number;
+  seed: number;
+}
+
+function hashN(x: number, y: number, s: number): number {
+  let h = (Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263) + Math.imul(s | 0, 2147483647)) | 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177);
+  h ^= h >>> 16;
+  return (h >>> 0) / 4294967296;
+}
+
+/** Ruído de valor suave em [0, 1), contínuo no plano (o mesmo valor dos dois lados da borda de uma célula). */
+export function valueNoise(x: number, y: number, s: number): number {
+  const x0 = Math.floor(x);
+  const y0 = Math.floor(y);
+  const fx = x - x0;
+  const fy = y - y0;
+  const u = fx * fx * (3 - 2 * fx);
+  const v = fy * fy * (3 - 2 * fy);
+  const a = hashN(x0, y0, s);
+  const b = hashN(x0 + 1, y0, s);
+  const c = hashN(x0, y0 + 1, s);
+  const d = hashN(x0 + 1, y0 + 1, s);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+
+/** Campo de ruído de uma célula de água (fase e brilho por pixel), calculado uma vez por célula. */
+export interface WaterNoise {
+  ox: Uint8Array;
+  oy: Uint8Array;
+  /** Dois campos de brilho (−0,5..0,5) misturados pelo quadro do ciclo, que assim fecha sem salto. */
+  n1: Float32Array;
+  n2: Float32Array;
+}
+
+export function waterNoiseFor(mx: number, my: number, ts: number, cfg: WaterNoiseCfg): WaterNoise {
+  const n = ts * ts;
+  const out: WaterNoise = { ox: new Uint8Array(n), oy: new Uint8Array(n), n1: new Float32Array(n), n2: new Float32Array(n) };
+  for (let y = 0; y < ts; y++)
+    for (let x = 0; x < ts; x++) {
+      const wx = mx * ts + x;
+      const wy = my * ts + y;
+      const i = y * ts + x;
+      out.ox[i] = Math.min(cfg.phasePx[0], Math.floor(valueNoise(wx / cfg.scale[0], wy / cfg.scale[1], cfg.seed) * (cfg.phasePx[0] + 1)));
+      out.oy[i] = Math.min(cfg.phasePx[1], Math.floor(valueNoise(wx / cfg.scale[0], wy / cfg.scale[1], cfg.seed + 1) * (cfg.phasePx[1] + 1)));
+      out.n1[i] = valueNoise(wx / 9, wy / 6, cfg.seed + 2) - 0.5;
+      out.n2[i] = valueNoise(wx / 9, wy / 6, cfg.seed + 3) - 0.5;
+    }
+  return out;
+}
+
+/**
+ * Pixels da célula com a textura deslocada por (dx, dy) MAIS a fase do ruído por pixel, e o brilho do ciclo
+ * (`phase` em [0, 1)) somado só onde há água (peso b). Sem ruído é igual a waterCompose(m, scrollPixels(...)).
+ */
+export function waterComposeNoisy(m: WaterMix, src: Uint8ClampedArray, ts: number, dx: number, dy: number, nz: WaterNoise, shade: number, phase: number): Uint8ClampedArray {
+  const out = new Uint8ClampedArray(m.a.length);
+  const c = (1 + Math.cos(phase * Math.PI * 2)) / 2;
+  for (let y = 0; y < ts; y++)
+    for (let x = 0; x < ts; x++) {
+      const i = y * ts + x;
+      const j = i * 4;
+      const sx = (((x - dx - nz.ox[i]) % ts) + ts) % ts;
+      const sy = (((y - dy - nz.oy[i]) % ts) + ts) % ts;
+      const t = (sy * ts + sx) * 4;
+      const k = m.b[i];
+      const sh = k * shade * 2 * (nz.n1[i] * c + nz.n2[i] * (1 - c));
+      out[j] = m.a[j] + k * src[t] + sh;
+      out[j + 1] = m.a[j + 1] + k * src[t + 1] + sh;
+      out[j + 2] = m.a[j + 2] + k * src[t + 2] + sh;
+      out[j + 3] = m.a[j + 3];
+    }
+  return out;
 }
 
 export interface ForegroundCfg {
@@ -88,6 +174,8 @@ export interface WaterMix {
   b: Float32Array;
   /** Chave da textura da água (fill da curva). */
   fill: string;
+  /** P7: ruído da célula (fase e brilho), quando o look pede `water.noise`. */
+  noise?: WaterNoise;
 }
 
 /** A e B a partir dos passes com textura 0 (`p0`) e 255 (`p255`). */

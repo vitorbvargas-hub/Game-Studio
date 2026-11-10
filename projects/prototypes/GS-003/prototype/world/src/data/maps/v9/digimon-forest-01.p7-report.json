@@ -1,0 +1,113 @@
+{
+  "box": {
+    "x0": 12,
+    "y0": 6,
+    "x1": 41,
+    "y1": 29
+  },
+  "recluster": {
+    "moved": 46,
+    "byKey": {
+      "fp4_flower_cluster_white": 5,
+      "fp4_flower_cluster_purple": 7,
+      "fp4_flower_cluster_red": 5,
+      "fp7_flower_digital": 3,
+      "fp7_mushroom_digital": 4,
+      "fp4_mushroom_cluster": 1,
+      "fp8_data_crystal": 4,
+      "fp8_mushroom_bioluminescent": 17
+    },
+    "pockets": {
+      "totem-mirante": 17,
+      "fonte-cura": 17,
+      "vau-mata": 12
+    },
+    "clarkEvansBefore": 0.64,
+    "clarkEvansAfter": 0.376
+  },
+  "mud": [
+    {
+      "name": "lama-p7-vau",
+      "cells": 11
+    },
+    {
+      "name": "lama-p7-margem",
+      "cells": 4
+    }
+  ],
+  "frames": [
+    {
+      "tag": "ponte-oeste",
+      "placed": true,
+      "tile": [
+        25.63,
+        10.28
+      ]
+    },
+    {
+      "tag": "ponte-leste",
+      "placed": true,
+      "tile": [
+        30.25,
+        10.19
+      ]
+    },
+    {
+      "tag": "bau",
+      "placed": true,
+      "tile": [
+        31.5,
+        19.38
+      ]
+    },
+    {
+      "tag": "riacho-curva-1",
+      "placed": true,
+      "tile": [
+        24.97,
+        15.09
+      ]
+    },
+    {
+      "tag": "riacho-curva-2",
+      "placed": true,
+      "tile": [
+        21.75,
+        15.09
+      ]
+    }
+  ],
+  "fgSprites": 15,
+  "tufts": {
+    "before": 99,
+    "after": 66,
+    "clarkEvansBefore": 0.678,
+    "clarkEvansAfter": 0.723,
+    "nnCvBefore": 0.385,
+    "nnCvAfter": 0.695
+  },
+  "tallGrass": {
+    "clareira-noroeste-grama": 14,
+    "clareira-corredor-grama": 15
+  },
+  "perimeter": {
+    "added": 18,
+    "byKey": {
+      "fp8_edge_cluster_a": 10,
+      "fp8_fern": 4,
+      "fp8_edge_cluster_b": 4
+    }
+  },
+  "ratio": {
+    "cells": 720,
+    "open": 51,
+    "mass": 24,
+    "accent": 25
+  },
+  "ratioV8": {
+    "cells": 720,
+    "open": 55,
+    "mass": 21.4,
+    "accent": 23.6
+  }
+}

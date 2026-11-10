@@ -470,11 +470,23 @@
     "water": {
       "terrain": "water",
       "stepPx": [
-        2,
-        1
+        0,
+        2
       ],
       "frameMs": 140,
-      "frames": 16
+      "frames": 16,
+      "noise": {
+        "phasePx": [
+          7,
+          5
+        ],
+        "scale": [
+          26,
+          34
+        ],
+        "shade": 14,
+        "seed": 17
+      }
     },
     "foreground": {
       "behindAlpha": 0.38,

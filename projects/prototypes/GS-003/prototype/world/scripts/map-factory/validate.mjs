@@ -38,7 +38,7 @@ export function profileOf(m) {
 }
 
 /** Inícios (objetos `start`) em células. */
-function startsOf(m) {
+export function startsOf(m) {
   const T = m.tilewidth;
   return allObjects(m)
     .filter((o) => o.cls === "start")

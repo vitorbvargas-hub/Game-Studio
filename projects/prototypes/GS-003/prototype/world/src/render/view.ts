@@ -20,7 +20,7 @@ import {
 } from "./anim";
 import { ctlFrame, newCtl, stepCtl, type CtlFrame, type CtlInput, type CtlState } from "./animctl";
 import { drawImpact, shakeOffset } from "./fx";
-import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterFrame, waterMixFrom, type Rect, type WaterMix } from "./life";
+import { bandRows, bandShifts, fadeToward, fgCovers, scrollPixels, swayOffset, waterCompose, waterComposeNoisy, waterFrame, waterMixFrom, waterNoiseFor, type Rect, type WaterMix } from "./life";
 import { hueShifted, type CanvasFactory, type ImageLike, type ImageStore } from "./images";
 import type { EntityLabel } from "./labels";
 import { idleBob, lerpCamera, MOVING_PX_S, newMotion, stepMotion, walkFrameIndex, type MotionState } from "./motion";
@@ -902,7 +902,8 @@ export class WorldView {
       c = this.makeCanvas(ts, ts);
       const g = c.getContext("2d")!;
       const data = g.createImageData(ts, ts);
-      data.data.set(waterCompose(mix, scrollPixels(fill, ts, dx, dy)));
+      const nz = this.opts.look!.water!.noise;
+      data.data.set(mix.noise && nz ? waterComposeNoisy(mix, fill, ts, dx, dy, mix.noise, nz.shade, frame / this.opts.look!.water!.frames) : waterCompose(mix, scrollPixels(fill, ts, dx, dy)));
       g.putImageData(data, 0, 0);
     }
     this.waterTiles.set(id, c);
@@ -942,6 +943,8 @@ export class WorldView {
     const b = pass(255);
     if (missing) return undefined;
     const mix: WaterMix | "empty" = a && b ? waterMixFrom(a, b, fill) : "empty";
+    const nz = this.opts.look!.water!.noise;
+    if (mix !== "empty" && nz) mix.noise = waterNoiseFor(mx, my, ts, nz);
     this.waterMixes.set(id, mix);
     return mix;
   }

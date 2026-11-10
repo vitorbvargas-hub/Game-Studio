@@ -8,6 +8,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { composeClareira, ratio603010, BOX } from "./p7-clareira.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const V8 = join(ROOT, "src/data/maps/v8");
@@ -130,6 +131,9 @@ for (const c of water) {
   }
 }
 
+// referência do 60/30/10 antes do P7 (mesma caixa, mapa v8)
+const ratioV8 = ratio603010(tmj, { TS, prop, layer, solid, nearAny, water }, { x0: BOX.x0 * TS, y0: BOX.y0 * TS, x1: (BOX.x1 + 1) * TS, y1: (BOX.y1 + 1) * TS });
+
 let nextId = tmj.nextobjectid;
 const above = layer("objects_above");
 above.objects = placed.map((p) => ({
@@ -145,10 +149,20 @@ above.objects = placed.map((p) => ({
   ],
 }));
 tmj.nextobjectid = nextId;
+
+// ---------- P7: Clareira piloto recomposta (brief quality-overhaul/phase2/design/P7_CLAREIRA_BRIEF.md) ----------
+const table = JSON.parse(readFileSync(join(ROOT, "src/data/encounters", `${ID}.json`), "utf8"));
+const p7 = composeClareira(tmj, { TS, prop, layer, solid, nearAny, paths, water, table });
+p7.ratioV8 = ratioV8;
+look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };
+outPack.look = look;
+
 tmj.properties = [...(tmj.properties ?? []).filter((p) => p.name !== "look"), { name: "look", type: "string", value: "v9" }];
 
 mkdirSync(V9, { recursive: true });
 writeFileSync(join(V9, `${ID}.tmj.json`), JSON.stringify(tmj));
 writeFileSync(join(V9, `${ID}.aliases.json`), `${JSON.stringify(outPack, null, 2)}\n`);
+writeFileSync(join(V9, `${ID}.p7-report.json`), `${JSON.stringify(p7, null, 2)}\n`);
+console.log(`P7: ${JSON.stringify(p7)}`);
 const count = (pred) => placed.filter(pred).length;
 console.log(`v9: ${placed.length} props de primeiro plano (${count((p) => p.key !== "fp8_reed_cluster")} na trilha, ${count((p) => p.key === "fp8_reed_cluster")} juncos no riacho); luzes ${Object.keys(pack.look.lights).length} tipos → ${Object.keys(look.lights).length}`);

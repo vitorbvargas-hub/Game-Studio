@@ -51,11 +51,14 @@ describe("look v9: dados derivados do v8", () => {
     expect(readFileSync(join(ROOT, "src/data/maps/v9/digimon-forest-01.tmj.json"), "utf8")).toBe(before);
   });
 
-  it("v9 = v8 + objects_above; o resto do mapa é o mesmo", () => {
+  it("v9 = v8 + objects_above; fora da Clareira piloto (P7) o resto do mapa é o mesmo", () => {
     const m8 = parseTiledMap(ID, withLook(MAPS[ID], "v8").tmj);
     const m9 = parseTiledMap(ID, withLook(MAPS[ID], "v9").tmj);
-    expect(m9.props).toEqual(m8.props);
-    expect([...m9.solid]).toEqual([...m8.solid]);
+    // P7 recompõe só a caixa x12–41 × y6–29 (tests/p7-clareira.test.ts); fora dela os props são os mesmos
+    const out = (p: { x: number; y: number }) => p.x < 12 * 32 || p.x >= 42 * 32 || p.y < 6 * 32 || p.y >= 30 * 32;
+    expect(m9.props.filter(out)).toEqual(m8.props.filter(out));
+    const outCell = (i: number) => out({ x: (i % m8.width) * 32 + 16, y: Math.floor(i / m8.width) * 32 + 16 });
+    expect([...m9.solid].filter((_, i) => outCell(i))).toEqual([...m8.solid].filter((_, i) => outCell(i)));
     expect(m8.fgProps).toBeUndefined();
     expect(m9.fgProps!.length).toBeGreaterThanOrEqual(12);
     // primeiro plano nunca bloqueia e fica fora da lista do Y-sort
