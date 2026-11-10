@@ -1,0 +1,121 @@
+{
+  "image": "worldmap_v1.png",
+  "canvas": {
+    "width": 640,
+    "height": 360
+  },
+  "viewport_px": {
+    "x": 14,
+    "y": 30,
+    "width": 612,
+    "height": 316
+  },
+  "source_of_positions": "prototype/world/src/ui/worldmap.ts POS (%) — mesmos valores",
+  "regions": {
+    "vila_dos_bebes": {
+      "name_pt": "Vila Dos Bebes",
+      "pos_pct": [
+        13,
+        72
+      ],
+      "pos_px": [
+        93.6,
+        257.5
+      ],
+      "icon": "hub",
+      "demo_state": "here"
+    },
+    "floresta_densa": {
+      "name_pt": "Floresta Densa",
+      "pos_pct": [
+        33,
+        48
+      ],
+      "pos_px": [
+        216.0,
+        181.7
+      ],
+      "icon": "tree",
+      "demo_state": "open"
+    },
+    "praia_dos_postes": {
+      "name_pt": "Praia Dos Postes",
+      "pos_pct": [
+        56,
+        78
+      ],
+      "pos_px": [
+        356.7,
+        276.5
+      ],
+      "icon": "wave",
+      "demo_state": "locked"
+    },
+    "montanha": {
+      "name_pt": "Montanha",
+      "pos_pct": [
+        44,
+        18
+      ],
+      "pos_px": [
+        283.3,
+        86.9
+      ],
+      "icon": "peak",
+      "demo_state": "locked"
+    },
+    "deserto": {
+      "name_pt": "Deserto",
+      "pos_pct": [
+        72,
+        28
+      ],
+      "pos_px": [
+        454.6,
+        118.5
+      ],
+      "icon": "gear",
+      "demo_state": "locked"
+    },
+    "zona_corrompida": {
+      "name_pt": "Zona Corrompida",
+      "pos_pct": [
+        88,
+        62
+      ],
+      "pos_px": [
+        552.6,
+        225.9
+      ],
+      "icon": "skull",
+      "demo_state": "locked"
+    }
+  },
+  "routes": [
+    [
+      "floresta_densa",
+      "vila_dos_bebes"
+    ],
+    [
+      "floresta_densa",
+      "praia_dos_postes"
+    ],
+    [
+      "floresta_densa",
+      "montanha"
+    ],
+    [
+      "montanha",
+      "deserto"
+    ],
+    [
+      "deserto",
+      "zona_corrompida"
+    ]
+  ],
+  "poi_icon_sheet": "poi_icons.png",
+  "notes": [
+    "demo_state foi calculado com unlockState()/canTravel() de world/regions.ts para tamerLevel=1 e nenhum chefe derrotado (estado inicial de uma run nova).",
+    "Estados possíveis: here | open | locked (ver poi_icons.py draw_icon())."
+  ]
+}
