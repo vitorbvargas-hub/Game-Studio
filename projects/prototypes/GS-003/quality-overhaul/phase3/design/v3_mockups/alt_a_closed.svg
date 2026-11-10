@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="220" viewBox="0 0 380 220" font-family="monospace" shape-rendering="crispEdges">
+  <rect width="380" height="220" fill="#0e1018"/>
+  <!-- grid 4px, a cada 20px uma linha mais forte -->
+  <g stroke="#1c2030" stroke-width="1">
+    <path d="M0,20H380 M0,40H380 M0,60H380 M0,80H380 M0,100H380 M0,120H380 M0,140H380 M0,160H380 M0,180H380 M0,200H380"/>
+    <path d="M20,0V220 M60,0V220 M100,0V220 M140,0V220 M180,0V220 M220,0V220 M260,0V220 M300,0V220 M340,0V220"/>
+  </g>
+  <text x="8" y="14" fill="#8b93b0" font-size="10">HUD_IDENTITY_V3 — Alt A — estado FECHADO (canto superior direito)</text>
+
+  <!-- ribbon de topo, nivel 3, 20px altura, full width do crop -->
+  <rect x="140" y="28" width="220" height="20" fill="#0e101c" opacity="0.55"/>
+  <text x="330" y="42" fill="#e6e9f2" font-size="11" text-anchor="end">1.240</text>
+  <circle cx="340" cy="38" r="6" fill="#fee761" stroke="#181425" stroke-width="1"/>
+  <text x="348" y="42" fill="#8b93b0" font-size="9">bits</text>
+  <text x="145" y="42" fill="#5a6177" font-size="8">ribbon 20px · nível 3 · sem caixa própria</text>
+
+  <!-- hub fechado -->
+  <circle cx="300" cy="120" r="32" fill="rgba(20,23,34,0.92)" stroke="#2b3047" stroke-width="1"/>
+  <circle cx="300" cy="120" r="32" fill="none" stroke="#3b4261" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="300" y="124" fill="#e8b84a" font-size="16" text-anchor="middle" font-weight="bold">D</text>
+  <text x="300" y="100" fill="#5a6177" font-size="8" text-anchor="middle">64×64px</text>
+
+  <!-- pips de notificacao -->
+  <circle cx="300" cy="86" r="3" fill="#e8b84a"/>
+  <text x="312" y="84" fill="#8b93b0" font-size="7">pip · Correio não lido</text>
+  <circle cx="330" cy="104" r="3" fill="#e8b84a"/>
+  <text x="336" y="100" fill="#8b93b0" font-size="7">pip · Passe pronto</text>
+
+  <!-- arco de boss -->
+  <path d="M 300 90 A 30 30 0 0 1 328 108" fill="none" stroke="#e8b84a" stroke-width="2"/>
+  <text x="252" y="150" fill="#8b93b0" font-size="7" text-anchor="middle">arco de progresso</text>
+  <text x="252" y="160" fill="#8b93b0" font-size="7" text-anchor="middle">Chefe Mundial</text>
+  <text x="252" y="170" fill="#8b93b0" font-size="7" text-anchor="middle">(substitui "6h55" fixo)</text>
+
+  <text x="8" y="212" fill="#5a6177" font-size="8">Sem pip = sem novidade (nunca mostra "—" fixo). Clique no hub → estado aberto (alt_a_open.svg).</text>
+</svg>
