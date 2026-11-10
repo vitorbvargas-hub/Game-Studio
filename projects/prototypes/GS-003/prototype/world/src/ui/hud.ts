@@ -11,6 +11,7 @@ import type { AutoRule, EntitySnapshot, MoveDef, WorldEvent } from "../sim/types
 import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
+import { applyCircuitKit } from "./circuit-kit";
 import { Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
 import type { StorageLike } from "../save/save";
 import { affinityColor, hpPct, hpTier, MOVE_KIND_V2, tamerBlockHtml, type HudVariant, type TamerVitals } from "./hud-v2";
@@ -283,6 +284,7 @@ export class Hud {
     this.renderTamerXp();
     if (this.v2) {
       root.classList.add("hud-v2");
+      applyCircuitKit(root);
       this.partnerBox.classList.add("f1");
       this.partnerBox.insertAdjacentHTML("beforebegin", tamerBlockHtml({ name: sc.tamerName, level: this.tamerLevel, hp: 1, maxHp: 1, energy: 1, maxEnergy: 1 }));
       this.moveBar.classList.add("f1");

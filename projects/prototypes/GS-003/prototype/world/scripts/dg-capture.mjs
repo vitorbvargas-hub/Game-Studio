@@ -4,7 +4,9 @@
 //   PW_CORE=~/.npm/_npx/<hash>/node_modules/playwright-core/index.mjs \
 //   CHROME=~/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell \
 //   CHROME_LIBS=/tmp/chromelibs/root/usr/lib/x86_64-linux-gnu PLAYWRIGHT_BROWSERS_PATH=/tmp/pwb \
-//   node scripts/dg-capture.mjs [shots|video|all]
+//   node scripts/dg-capture.mjs [shots|video|worldmap|all]
+// PREFIX= troca o prefixo dos arquivos (padrão dg_; a rodada com o kit circuit-kit-v1 usa PREFIX=kit_).
+// "worldmap": mapa-múndi v2 (ilustração worldmap-v1) dia/noite, POI escolhido, viagem à Vila e volta (wm_*.png).
 // O estado do Digivice (chave separada do save, gs003.world.save.digivice) é semeado por addInitScript antes do
 // carregamento, para mostrar cada estado do Chefe Mundial sem esperar 10 min de jogo.
 // Saída: quality-overhaul/phase3/hud/dg_*.png, dg_capture.json, dg_digivice.webm.
@@ -21,6 +23,7 @@ const H = 1080;
 const ID = "digimon-forest-01";
 const KEY = "gs003.world.save.digivice";
 const WHAT = process.argv[2] ?? "all";
+const PREFIX = process.env.PREFIX ?? "dg_";
 mkdirSync(OUT, { recursive: true });
 
 const { chromium } = await import(process.env.PW_CORE);
@@ -62,8 +65,8 @@ async function newPage(seed, ctxOpts = {}) {
   return { ctx, page: await ctx.newPage() };
 }
 
-async function open(page, time) {
-  const url = `${BASE}/?map=${ID}&criador=0&novo=1&seed=7&auto=0&look=v9&dpr=1&anim=v2&encounters=1&hud=v2&time=${time}`;
+async function open(page, time, extra = "&hud=v2") {
+  const url = `${BASE}/?map=${ID}&criador=0&novo=1&seed=7&auto=0&look=v9&dpr=1&anim=v2&encounters=1${extra}&time=${time}`;
   for (let i = 0; ; i++) {
     try {
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
@@ -73,7 +76,7 @@ async function open(page, time) {
     }
   }
   await page.waitForFunction((id) => window.__gs003 && window.__gs003.mapId === id, ID, { timeout: 90000 });
-  await page.waitForSelector('[data-testid="dg-hub"]', { timeout: 30000 });
+  if (extra.includes("hud=v2")) await page.waitForSelector('[data-testid="dg-hub"]', { timeout: 30000 });
   await page.waitForTimeout(1800);
 }
 
@@ -87,7 +90,8 @@ const state = (page) =>
 
 /** Recorte do canto superior direito (o hub e o arco em tamanho real, sem escala). */
 const CORNER = { x: 1520, y: 0, width: 400, height: 300 };
-async function shot(page, name, meta, clip) {
+async function shot(page, name0, meta, clip) {
+  const name = name0.startsWith("dg_") ? PREFIX + name0.slice(3) : name0;
   await page.screenshot({ path: join(OUT, name), ...(clip ? { clip } : {}) });
   report.shots[name] = { ...meta, ...(clip ? { clip } : {}), ...(await state(page)) };
   console.log("ok", name);
@@ -204,13 +208,68 @@ async function video() {
   mark("fim");
   const v = page.video();
   await ctx.close();
-  await v.saveAs(join(OUT, "dg_digivice.webm"));
+  await v.saveAs(join(OUT, `${PREFIX}digivice.webm`));
   await v.delete();
   rmSync(dir, { recursive: true, force: true });
-  report.video = { file: "dg_digivice.webm", size: [1280, 720], codec: "VP8", marks };
+  report.video = { file: `${PREFIX}digivice.webm`, size: [1280, 720], codec: "VP8", marks };
 }
 
+async function worldmap() {
+  const wmState = (page) =>
+    page.evaluate(() => ({
+      mapId: window.__gs003.mapId,
+      pois: Object.fromEntries([...document.querySelectorAll(".wm2-poi")].map((b) => [b.dataset.wmPick, ["here", "open", "nomap", "locked"].find((c) => b.classList.contains(c))])),
+      shown: [...document.querySelectorAll(".wm2-detail")].filter((d) => !d.hidden).map((d) => d.dataset.region),
+    }));
+  report.worldmap = {};
+  for (const time of ["day", "night"]) {
+    const t = time === "day" ? "dia" : "noite";
+    const { ctx, page } = await newPage("progress");
+    await open(page, time);
+    await page.keyboard.press("m");
+    await page.waitForSelector(".wm2", { timeout: 10000 });
+    await page.waitForTimeout(700);
+    await shot(page, `wm_aberto_${t}.png`, { time, ...(await wmState(page)) });
+    await click(page, '[data-wm-pick="praia_dos_postes"]');
+    await page.waitForTimeout(300);
+    await shot(page, `wm_praia_${t}.png`, { time, ...(await wmState(page)) });
+    if (time === "day") {
+      await click(page, '[data-wm-pick="montanha"]');
+      await page.waitForTimeout(300);
+      await shot(page, `wm_bloqueada_montanha_${t}.png`, { time, ...(await wmState(page)) });
+      // viagem: Vila dos Bebês e volta para a Floresta pelo mesmo painel
+      const before = await wmState(page);
+      await click(page, '[data-wm-pick="vila_dos_bebes"]');
+      await click(page, '[data-travel="vila_dos_bebes"]');
+      await page.waitForFunction(() => window.__gs003.mapId === "vila", null, { timeout: 30000 });
+      await page.waitForTimeout(1500);
+      await page.keyboard.press("m");
+      await page.waitForSelector(".wm2", { timeout: 10000 });
+      await page.waitForTimeout(600);
+      const atVila = await wmState(page);
+      await shot(page, `wm_na_vila_${t}.png`, { time, ...atVila });
+      await click(page, '[data-wm-pick="floresta_densa"]');
+      await click(page, '[data-travel="floresta_densa"]');
+      await page.waitForFunction((id) => window.__gs003.mapId === id, ID, { timeout: 30000 });
+      await page.waitForTimeout(1200);
+      const back = await page.evaluate(() => window.__gs003.mapId);
+      report.worldmap.travel = { from: before.mapId, toVila: atVila.mapId, vilaHere: atVila.pois.vila_dos_bebes, back };
+      await shot(page, `wm_volta_floresta_${t}.png`, { time, mapId: back });
+    }
+    await ctx.close();
+  }
+  // referência: o mesmo painel sem a flag (grafo v1, inalterado)
+  const { ctx, page } = await newPage("fresh");
+  await open(page, "day", "");
+  await page.keyboard.press("m");
+  await page.waitForSelector(".worldmap", { timeout: 10000 });
+  await page.waitForTimeout(600);
+  await shot(page, "wm_sem_flag_v1_dia.png", { time: "day", v2: false, wm2: await page.evaluate(() => !!document.querySelector(".wm2")) });
+  await ctx.close();
+}
+
+if (WHAT === "worldmap" || WHAT === "all") await worldmap();
 if (WHAT === "shots" || WHAT === "all") await shots();
 if (WHAT === "video" || WHAT === "all") await video();
-writeFileSync(join(OUT, `dg_capture${WHAT === "all" ? "" : `_${WHAT}`}.json`), JSON.stringify(report, null, 2));
+writeFileSync(join(OUT, `${PREFIX}capture${WHAT === "all" ? "" : `_${WHAT}`}.json`), JSON.stringify(report, null, 2));
 await browser.close();

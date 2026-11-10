@@ -7,7 +7,7 @@
 // recompensas = o mesmo add_bits das Missões). O estado próprio (contadores das conquistas, janela do chefe, coletas)
 // vai para uma chave separada do save (`${SAVE_KEY}.digivice`), para não mexer no formato do save do mundo.
 // Sem servidor: o ranking do chefe mistura a sua linha com BOTS LOCAIS rotulados (decisão do fundador); nunca finge
-// jogadores reais. Arte provisória em CSS/SVG (o kit 9-slice vem do game-art).
+// jogadores reais. Arte: kit art/ui/circuit-kit-v1 (src/ui/circuit-kit.ts + style.css); o aro do hub segue em SVG.
 
 import achievementsJson from "../data/content/achievements.json";
 import { SAVE_KEY, type StorageLike } from "../save/save";
@@ -323,16 +323,12 @@ const pipXY = (hour: number) => {
   return { x: Math.round(32 + Math.cos(a) * RING_R), y: Math.round(32 + Math.sin(a) * RING_R) };
 };
 
-/** Emblema do hub: desenho próprio (tela chanfrada + traço de circuito), não o logotipo de nenhuma marca. */
+/** Hub: aro (trilho + arco do chefe) em SVG e, no centro, o emblema do kit circuit-kit-v1 (digivice_emblem.png, 2×). */
 const EMBLEM = `<svg class="dg-emblem" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" shape-rendering="crispEdges">
   <circle cx="32" cy="32" r="${RING_R}" class="dg-track"/>
   <circle cx="32" cy="32" r="${RING_R}" class="dg-bossarc" data-testid="dg-bossarc" transform="rotate(-90 32 32)" stroke-dasharray="0 ${RING_C.toFixed(2)}"/>
   <circle cx="32" cy="32" r="23" class="dg-face"/>
-  <path class="dg-trace" d="M14 32h6l3-3h4M50 32h-6l-3 3h-4M32 14v5M32 50v-5"/>
-  <path class="dg-screen" d="M25 24h14l3 3v10l-3 3H25l-3-3V27z"/>
-  <path class="dg-glyph" d="M28 28h5l3 4-3 4h-5zM30 30v4h2l1-2-1-2z"/>
-  <rect x="13" y="31" width="2" height="2" class="dg-node-dot"/><rect x="49" y="31" width="2" height="2" class="dg-node-dot"/>
-</svg>`;
+</svg><i class="dg-emblem-kit" aria-hidden="true"></i>`;
 
 /** Bloco do canto superior direito no v2 (substitui o .hud-tr). Mantém data-testid="coins" para o HUD atualizar. */
 export function digiviceHudHtml(): string {

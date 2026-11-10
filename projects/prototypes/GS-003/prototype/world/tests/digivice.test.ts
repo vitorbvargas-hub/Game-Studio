@@ -168,7 +168,7 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
     const block = css.slice(css.indexOf(".hud-v2 .dg {"));
     expect(block.length).toBeGreaterThan(1000);
     expect(css).toMatch(/prefers-reduced-motion[\s\S]*\.hud-v2 \.dg/);
-    expect(css).toMatch(/\.hud-v2 \.modal\.panel\s*\{[^}]*clip-path/); // Configurações e abas: moldura chanfrada
+    expect(css).toMatch(/\.hud-v2 \.modal\.panel\s*\{[^}]*border-image: var\(--ck-panel\)/); // Configurações e abas: panel_9slice do kit
   });
 });
 

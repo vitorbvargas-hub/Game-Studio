@@ -3564,7 +3564,8 @@ body {
    HUD Identity v3 — Alternativa A "Digivice Radial" (quality-overhaul/phase3/design/HUD_IDENTITY_V3.md §2) e
    abas P0 do PANELS_SPEC.md (Chefe Mundial, Conquistas, moldura de Configurações), atrás de ?hud=v2.
    Linguagem "circuito digital" (docs/DIGIMON_GAMES_STUDY.md, Next Order): molduras chanfradas, traços de circuito,
-   ciano/azul. Arte PROVISÓRIA em CSS/SVG; o kit 9-slice vem do game-art. Tudo escopado em .hud-v2.
+   ciano/azul. Peças do kit art/ui/circuit-kit-v1 (variáveis --ck-*, src/ui/circuit-kit.ts) como border-image em 2×;
+   o aro do hub segue em SVG. Tudo escopado em .hud-v2.
    ====================================================================================================== */
 .hud-v2 {
   --dg-cyan: #2ce8f5;
@@ -3572,12 +3573,6 @@ body {
   --dg-deep: #124e89;
   --dg-ink: rgba(8, 20, 34, 0.86);
   --dg-line: rgba(44, 232, 245, 0.55);
-  --chamfer8: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
-  /* traços de circuito: linhas finas + "pads" quadrados, só com gradientes (sem imagem) */
-  --dg-circuit: linear-gradient(90deg, transparent 0 12px, var(--dg-line) 12px 40px, transparent 40px) 0 6px / 100% 1px no-repeat,
-    linear-gradient(90deg, var(--dg-cyan), var(--dg-cyan)) 40px 4px / 4px 4px no-repeat,
-    linear-gradient(90deg, transparent 0 calc(100% - 52px), var(--dg-line) calc(100% - 52px) calc(100% - 12px), transparent 0) 0 calc(100% - 6px) / 100% 1px no-repeat,
-    linear-gradient(90deg, var(--dg-cyan), var(--dg-cyan)) calc(100% - 56px) calc(100% - 8px) / 4px 4px no-repeat;
 }
 .hud-v2 .dg {
   position: absolute;
@@ -3663,33 +3658,33 @@ body {
   stroke: var(--dg-cyan);
   stroke-width: 1.5;
 }
-.hud-v2 .dg-emblem .dg-trace {
-  fill: none;
-  stroke: var(--dg-blue);
-  stroke-width: 1.5;
+
+
+
+
+/* emblema do kit (digivice_emblem.png 24×24, 2×) no centro do aro */
+.hud-v2 .dg-emblem-kit {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 48px;
+  height: 48px;
+  background: var(--ck-emblem) center / 48px 48px no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  transition: filter 0.16s ease-out;
 }
-.hud-v2 .dg-emblem .dg-screen {
-  fill: #0b3b56;
-  stroke: var(--dg-cyan);
-  stroke-width: 1.5;
+.hud-v2 .dg.open .dg-emblem-kit {
+  filter: brightness(1.35);
 }
-.hud-v2 .dg-emblem .dg-glyph {
-  fill: var(--dg-cyan);
-  fill-rule: evenodd;
-}
-.hud-v2 .dg-emblem .dg-node-dot {
-  fill: var(--dg-cyan);
-}
-.hud-v2 .dg.open .dg-screen {
-  fill: #0f5878;
-}
+/* pip = notification_badge.png do kit (16×16, 1×), centrado na posição do relógio */
 .hud-v2 .dg-pip {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--ui-gold);
-  box-shadow: 0 0 0 1px #171a26, 0 0 4px rgba(232, 184, 74, 0.9);
-  transform: rotate(45deg);
+  width: 16px;
+  height: 16px;
+  margin: -5px 0 0 -5px;
+  background: var(--ck-badge) center / 16px 16px no-repeat;
+  image-rendering: pixelated;
   pointer-events: none;
 }
 .hud-v2 .dg-pip[hidden] {
@@ -3706,16 +3701,18 @@ body {
 }
 .hud-v2 .dg-node {
   position: absolute;
-  left: -17px;
-  top: -17px;
-  width: 34px;
-  height: 34px;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   padding: 0;
-  border: 2px solid var(--dg-cyan);
-  background: linear-gradient(160deg, rgba(18, 78, 137, 0.92), var(--dg-ink));
-  clip-path: var(--chamfer);
+  /* icon_frame_tier2_rare.png (32×32, cantos de 4 px) em 2× */
+  border: 8px solid transparent;
+  border-image: var(--ck-frame2) 4 / 8px stretch;
+  background: #1d2238 padding-box;
+  image-rendering: pixelated;
   opacity: 0;
   transform: translate(0, 0) scale(0.4);
   pointer-events: none;
@@ -3730,12 +3727,12 @@ body {
 .hud-v2 .dg-node:hover,
 .hud-v2 .dg-node:focus-visible {
   outline: none;
-  border-color: #b8f6ff;
-  background: linear-gradient(160deg, rgba(0, 153, 219, 0.95), rgba(10, 40, 66, 0.92));
+  border-image-source: var(--ck-frame3);
+  background-color: #2a3150;
 }
 .hud-v2 .dg-node.tier-P1,
 .hud-v2 .dg-node.tier-P2 {
-  border-color: #3b5470;
+  border-image-source: var(--ck-frame1);
   filter: saturate(0.35) brightness(0.8);
 }
 .hud-v2 .dg-node .dg-lock {
@@ -3750,11 +3747,11 @@ body {
 .hud-v2 .dg-node.has-news::after {
   content: "";
   position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 5px;
-  height: 5px;
-  background: var(--ui-gold);
+  top: -14px;
+  right: -14px;
+  width: 16px;
+  height: 16px;
+  background: var(--ck-badge) center / 16px 16px no-repeat;
 }
 .hud-v2 .dg-caption {
   /* rótulo do atalho sob o pé do arco (o atalho de baixo termina em 32 + ARC_RADIUS + 16 = 168 px) */
@@ -3793,25 +3790,32 @@ body {
 }
 
 /* Painéis no v2 (inclui Configurações — PANELS_SPEC §7: só a moldura): chanfro, borda ciano dupla, circuito */
+/* panel_9slice.png (96×64) em 2×: a faixa clara de cima (linhas 0–31) vira o cabeçalho, o resto é o corpo escuro.
+   Fatias 32/8/31/8 (topo inclui a faixa inteira; o meio é a linha 32, escura e uniforme) → 64/16/62/16 px. */
 .hud-v2 .modal.panel {
-  border: 0;
+  border: 16px solid transparent;
+  border-top-width: 16px;
   border-radius: 0;
-  clip-path: var(--chamfer8);
-  background: var(--dg-circuit), linear-gradient(180deg, rgba(12, 34, 56, 0.97), rgba(9, 14, 24, 0.97));
-  box-shadow: inset 0 0 0 2px var(--dg-cyan), inset 0 0 0 4px rgba(8, 20, 34, 0.9), inset 0 0 0 5px var(--dg-deep), 0 10px 40px rgba(0, 0, 0, 0.6);
+  border-image: var(--ck-panel) 32 8 31 8 fill / 64px 16px 62px 16px stretch;
+  image-rendering: pixelated;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
 }
 .hud-v2 .modal.panel header {
-  margin: 6px 6px 0;
-  border-bottom: 1px solid var(--dg-line);
-  background: linear-gradient(90deg, rgba(0, 153, 219, 0.35), transparent 70%);
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  height: 48px;
+  box-sizing: border-box;
+  margin: -16px 0 0;
+  padding: 16px 4px 0;
+  border: 0;
+  background: none;
 }
 .hud-v2 .modal.panel h2 {
   color: #d9fbff;
   text-shadow: 0 0 6px rgba(44, 232, 245, 0.45);
 }
 .hud-v2 .modal.panel .panel-body {
-  padding: 10px 16px 16px;
+  padding: 12px 4px 4px;
 }
 .hud-v2 .settings .st-row {
   border-color: rgba(44, 232, 245, 0.25);
@@ -3820,47 +3824,75 @@ body {
   width: min(640px, 94vw);
 }
 .hud-v2 .dg-frame {
-  border: 1px solid var(--dg-line);
-  background: rgba(8, 28, 46, 0.7);
-  clip-path: var(--chamfer);
+  border: 8px solid transparent;
+  border-image: var(--ck-frame1) 4 fill / 8px stretch;
+  image-rendering: pixelated;
 }
+/* botões: button_*.png (64×20, fatias de 5 px) em 2×, nos 4 estados do kit */
 .hud-v2 .dg-cta {
-  padding: 7px 18px;
-  border: 2px solid var(--dg-cyan);
-  background: linear-gradient(180deg, #0f6a98, #0b3b56);
-  color: #eaffff;
+  padding: 0 14px;
+  min-height: 40px;
+  border: 10px solid transparent;
+  border-image: var(--ck-btn) 5 fill / 10px stretch;
+  image-rendering: pixelated;
+  background: none;
+  color: #eef2fb;
   font-weight: bold;
   letter-spacing: 0.5px;
-  clip-path: var(--chamfer);
 }
-.hud-v2 .dg-cta:hover {
-  filter: brightness(1.2);
+.hud-v2 .dg-cta:hover,
+.hud-v2 .dg-cta:focus-visible {
+  border-image-source: var(--ck-btn-hover);
+  outline: none;
+}
+.hud-v2 .dg-cta:active {
+  border-image-source: var(--ck-btn-pressed);
+  color: #ffd27a;
+}
+.hud-v2 .dg-cta:disabled {
+  border-image-source: var(--ck-btn-locked);
+  border-image-slice: 5;
+  background: #15192a padding-box;
+  color: #6b7aa1;
+  cursor: not-allowed;
 }
 .hud-v2 .dg-cta.sm {
-  padding: 4px 10px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-width: 8px;
+  border-image-width: 8px;
   font-size: 12px;
 }
 .hud-v2 .dg-sub {
   margin: 14px 0 6px;
-  color: var(--dg-cyan);
+  padding-bottom: 10px;
+  color: #3fe0d0;
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  /* divider.png (64×6) em 2× sob o título */
+  border-bottom: 12px solid transparent;
+  border-image: var(--ck-divider) 0 24 6 24 / 0 48px 12px 48px stretch;
+  image-rendering: pixelated;
 }
 .hud-v2 .dg-empty {
   color: var(--ui-dim);
   font-size: 12px;
 }
+/* bar_frame.png (64×12, insets de 2 px) em 2×; o preenchimento é bar_fill_xp.png esticado */
 .hud-v2 .dg-bar {
   flex: 1;
-  height: 6px;
-  background: #0b1a2a;
-  border: 1px solid #1f4566;
+  height: 16px;
+  box-sizing: border-box;
+  border: 4px solid transparent;
+  border-image: var(--ck-bar) 2 fill / 4px stretch;
+  image-rendering: pixelated;
 }
 .hud-v2 .dg-bar i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--dg-blue), var(--dg-cyan));
+  background: var(--ck-bar-xp) 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
 }
 /* Chefe Mundial */
 .hud-v2 .wb-banner {
@@ -3872,11 +3904,14 @@ body {
 .hud-v2 .wb-portrait {
   width: 64px;
   height: 64px;
+  box-sizing: border-box;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle, rgba(228, 59, 68, 0.35), rgba(8, 20, 34, 0.9) 70%);
-  border: 2px solid var(--ui-red);
-  clip-path: var(--chamfer);
+  /* moldura lendária (icon_frame_tier3_legendary.png) para o chefão */
+  border: 8px solid transparent;
+  border-image: var(--ck-frame3) 4 / 8px stretch;
+  background: radial-gradient(circle, rgba(232, 70, 95, 0.35), #12121c 70%) padding-box;
+  image-rendering: pixelated;
 }
 .hud-v2 .wb-id {
   flex: 1;
@@ -3894,14 +3929,19 @@ body {
   font-size: 12px;
 }
 .hud-v2 .wb-hp {
-  height: 8px;
-  background: #1a0d12;
-  border: 1px solid #5a1f27;
+  height: 20px;
+  box-sizing: border-box;
+  border: 4px solid transparent;
+  border-image: var(--ck-bar) 2 fill / 4px stretch;
+  image-rendering: pixelated;
 }
+/* PV do chefão: bar_fill_hp.png tingido de blood (#e8465f) — o kit pede o tint em runtime para o crítico */
 .hud-v2 .wb-hp i {
   display: block;
   height: 100%;
-  background: repeating-linear-gradient(90deg, #ff6b73 0 6px, #e43b44 6px 7px);
+  background: linear-gradient(#e8465f, #e8465f), var(--ck-bar-hp) 0 0 / 100% 100%;
+  background-blend-mode: multiply;
+  image-rendering: pixelated;
   transition: width 0.3s ease-out;
 }
 .hud-v2 .wb-state {
@@ -4005,37 +4045,41 @@ body {
 }
 .hud-v2 .dg-tab {
   position: relative;
-  padding: 5px 12px;
+  padding: 0 10px;
+  min-height: 32px;
   font-size: 12px;
-  border: 1px solid #2b4a68;
-  background: rgba(8, 28, 46, 0.8);
-  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  border: 8px solid transparent;
+  border-image: var(--ck-btn) 5 fill / 8px stretch;
+  image-rendering: pixelated;
+  background: none;
 }
 .hud-v2 .dg-tab.on {
-  border-color: var(--dg-cyan);
-  color: var(--dg-cyan);
-  background: rgba(0, 153, 219, 0.28);
+  border-image-source: var(--ck-btn-pressed);
+  color: #ffd27a;
 }
 .hud-v2 .dg-tab.locked {
+  border-image-source: var(--ck-btn-locked);
+  border-image-slice: 5;
+  background: #15192a padding-box;
   color: var(--ui-dim);
 }
 .hud-v2 .dg-dot {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 5px;
-  height: 5px;
-  background: var(--ui-gold);
+  top: -14px;
+  right: -14px;
+  width: 16px;
+  height: 16px;
+  background: var(--ck-badge) center / 16px 16px no-repeat;
 }
 .hud-v2 .ach {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 10px;
+  padding: 2px 4px;
   margin-bottom: 4px;
-  border: 1px solid rgba(44, 232, 245, 0.22);
-  background: rgba(8, 28, 46, 0.55);
-  clip-path: var(--chamfer);
+  border: 8px solid transparent;
+  border-image: var(--ck-frame1) 4 fill / 8px stretch;
+  image-rendering: pixelated;
 }
 .hud-v2 .ach-main {
   flex: 1;
@@ -4071,8 +4115,10 @@ body {
   opacity: 0.6;
 }
 .hud-v2 .ach.complete {
-  border-color: var(--ui-gold);
-  background: linear-gradient(90deg, rgba(232, 184, 74, 0.16), rgba(8, 28, 46, 0.55));
+  border-image-source: var(--ck-frame3);
+}
+.hud-v2 .ach.claimed {
+  border-image-source: var(--ck-frame2);
 }
 .hud-v2 .ach.claimed .dg-bar i {
   background: var(--ui-green);
@@ -4090,7 +4136,9 @@ body {
   gap: 8px;
   padding: 26px 20px;
   text-align: center;
-  border: 1px dashed #3b5470;
+  border: 8px solid transparent;
+  border-image: var(--ck-frame1) 4 fill / 8px stretch;
+  image-rendering: pixelated;
 }
 .hud-v2 .dg-locked .ico {
   filter: grayscale(0.7);
@@ -4109,4 +4157,236 @@ body {
 .hud-v2 .dg-locked small {
   color: var(--ui-dim);
   font-size: 11px;
+}
+
+/* ======================================================================================================
+   Mapa-múndi v1 (art/map-factory/worldmap-v1) atrás de ?hud=v2: a ilustração com moldura de Digivice em 2×
+   (640×360 → 1280×720, encolhe junto com a tela), POIs de poi_icons.png (16×16, 2×) nas coordenadas do
+   worldmap.json e o painel lateral do destino. Escopado em .hud-v2 .wm2.
+   ====================================================================================================== */
+.hud-v2 .panel-wrap[data-panel="map"] .modal.panel {
+  width: min(1660px, 97vw);
+}
+.hud-v2 .wm2 {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.hud-v2 .wm2-map {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 1280px;
+}
+.hud-v2 .wm2-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 640 / 360;
+  max-height: calc(100vh - var(--bottom-h) - 210px);
+  background: var(--wm-art) center / 100% 100% no-repeat;
+  image-rendering: pixelated;
+}
+.hud-v2 .wm2-routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hud-v2 .wm2-routes line {
+  stroke: rgba(174, 187, 214, 0.35);
+  stroke-width: 2;
+  stroke-dasharray: 4 6;
+  vector-effect: non-scaling-stroke;
+}
+.hud-v2 .wm2-routes line.lit {
+  stroke: rgba(63, 224, 208, 0.85);
+}
+.hud-v2 .wm2-poi {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 6px solid transparent;
+  border-image: var(--ck-frame1) 4 / 6px stretch;
+  background: #12121c padding-box;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+.hud-v2 .wm2-glyph {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: var(--wm-poi) calc(var(--i) * -32px) calc(var(--row) * -32px) / 192px 64px no-repeat;
+  image-rendering: pixelated;
+}
+.hud-v2 .wm2-poi.open {
+  border-image-source: var(--ck-frame2);
+}
+.hud-v2 .wm2-poi.here {
+  border-image-source: var(--ck-frame3);
+  animation: wm2-here 0.9s ease-in-out infinite alternate;
+}
+.hud-v2 .wm2-poi.locked .wm2-glyph,
+.hud-v2 .wm2-poi.nomap .wm2-glyph {
+  filter: saturate(0.4) brightness(0.8);
+}
+.hud-v2 .wm2-poi.on,
+.hud-v2 .wm2-poi:hover,
+.hud-v2 .wm2-poi:focus-visible {
+  outline: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 6px rgba(63, 224, 208, 0.9));
+}
+.hud-v2 .wm2-name {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  padding: 1px 6px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  color: #eef2fb;
+  background: rgba(18, 18, 28, 0.85);
+  pointer-events: none;
+}
+.hud-v2 .wm2-poi.locked .wm2-name,
+.hud-v2 .wm2-poi.nomap .wm2-name {
+  color: #6b7aa1;
+}
+.hud-v2 .wm2-poi.here .wm2-name {
+  color: #ffd27a;
+}
+@keyframes wm2-here {
+  from {
+    filter: drop-shadow(0 0 2px rgba(255, 210, 122, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 8px rgba(255, 210, 122, 0.95));
+  }
+}
+.hud-v2 .wm2-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ui-dim);
+}
+.hud-v2 .wm2-legend span::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+  background: #3a4766;
+}
+.hud-v2 .wm2-legend .here::before {
+  background: #ffd27a;
+}
+.hud-v2 .wm2-legend .open::before {
+  background: #3fe0d0;
+}
+.hud-v2 .wm2-side {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hud-v2 .wm2-detail {
+  padding: 4px 6px 8px;
+  border: 8px solid transparent;
+  border-image: var(--ck-frame2) 4 fill / 8px stretch;
+  image-rendering: pixelated;
+}
+.hud-v2 .wm2-detail[hidden] {
+  display: none;
+}
+.hud-v2 .wm2-detail.locked,
+.hud-v2 .wm2-detail.nomap {
+  border-image-source: var(--ck-frame1);
+}
+.hud-v2 .wm2-detail.here {
+  border-image-source: var(--ck-frame3);
+}
+.hud-v2 .wm2-detail h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.hud-v2 .wm2-detail h4 {
+  margin: 10px 0 4px;
+  color: #3fe0d0;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hud-v2 .wm2-meta {
+  display: flex;
+  gap: 10px;
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .wm2-state {
+  display: inline-block;
+  margin-top: 6px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  color: #3fe0d0;
+}
+.hud-v2 .wm2-detail.here .wm2-state {
+  color: #ffd27a;
+}
+.hud-v2 .wm2-detail.locked .wm2-state {
+  color: #e8465f;
+}
+.hud-v2 .wm2-detail.nomap .wm2-state {
+  color: var(--ui-dim);
+}
+.hud-v2 .wm2-req {
+  margin: 0;
+  font-size: 12.5px;
+}
+.hud-v2 .wm2-req.met {
+  color: #9df24a;
+}
+.hud-v2 .wm2-req.unmet {
+  color: #f08a8f;
+}
+.hud-v2 .wm2-species {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 10px;
+  font-size: 12px;
+}
+.hud-v2 .wm2-species li {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+.hud-v2 .wm2-species small {
+  color: var(--ui-dim);
+}
+.hud-v2 .wm2-detail .dim {
+  margin: 0;
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .wm2-travel {
+  width: 100%;
+  margin-top: 12px;
+}
+.hud-v2 .wm2-side .wm-arena {
+  align-self: flex-start;
+}
+.hud-v2 .wm2-side .note {
+  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud-v2 .wm2-poi.here {
+    animation: none;
+  }
 }

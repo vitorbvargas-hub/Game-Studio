@@ -70,6 +70,9 @@ describe("P8 HUD v2 — DOM", () => {
     expect(root.querySelector(".hud-tr")).not.toBeNull();
     expect(root.querySelector(".dg, .dg-panel, [data-panel^='dg-']")).toBeNull();
     expect(hud.digivice).toBeUndefined();
+    // kit circuit-kit-v1: só com a flag
+    expect(root.style.getPropertyValue("--ck-panel")).toBe("");
+    expect(root.dataset.kit).toBeUndefined();
   });
 
   it("§4.1/§10.2: bloco Tamer à esquerda do parceiro, com PV e Energia; moldura muda nos 3 limiares", () => {
