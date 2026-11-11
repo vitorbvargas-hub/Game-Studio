@@ -16,7 +16,10 @@ Rode o servidor de dev na pasta `prototype/world` (`npx vite --port 5190`) e abr
 
 - O selo **"OFICIAL DS · Guilmon/Gabumon ×k (modo)"** aparece no HUD.
 - Sem `?mon=official` nada muda: o `?team=compare` (Guilmon PixelLab e Gabumon à mão) funciona como antes, com teste próprio, e o roster continua usando `CREATURE-0003/0009`.
-- Commits: `abdc228` (assets + script de recorte) e `ccc42f1` (flag, escala, testes). O commit das capturas, do relatório e do padrão `monscale=1` vem logo depois deste arquivo.
+- Commits:
+  - `abdc228`: assets + script de recorte.
+  - `ccc42f1`: flag, escala e testes.
+  - `de1f67f`: padrão `monscale=1`, capturas e este relatório.
 
 ## O que entrou
 
@@ -88,8 +91,13 @@ Medidas [E] em px lógicos: Tamer **30**, Guilmon oficial **31**, Gabumon oficia
 
 ## Verificação [E]
 
-- `npm test` (vitest): **48 arquivos, 453 testes verdes**, incluindo os 8 novos. Rodou no worktree compartilhado, com o trabalho em andamento do outro agente junto. O resultado do worktree limpo está no fim deste arquivo.
+- **Worktree limpo no commit `de1f67f`:**
+  - `npm test`: **47 arquivos, 447 testes verdes** (os 439 de antes + os 8 novos).
+  - `npm run build`: ok.
+  - `map:validate`: PASS.
+- **Worktree compartilhado** (com o trabalho em andamento do outro agente): 48 arquivos, 453 testes verdes.
 - `tsc --noEmit`: ok.
+- `sim.mjs --check` não rodei, porque a sim não foi alterada.
 - Os testes de `?team=compare` (feedback1) continuam verdes.
 
 ## Limitações
