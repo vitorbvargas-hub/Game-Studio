@@ -4,6 +4,40 @@ Branch `quality-overhaul`, servidor `http://127.0.0.1:5190/?map=digimon-forest-0
 
 Legenda: **[E]** = evidência (medida, teste ou captura deste trabalho, com o arquivo); **[H]** = hipótese ou julgamento meu.
 
+## Agora é o padrão (commit eb1f016)
+
+**URL para o fundador:** http://127.0.0.1:5190/?map=digimon-forest-01. Sem nenhuma flag, ela abre com tudo novo: look v9 + forest-v12, HUD v2 com o Digivice, mapa-múndi v2.1 (tecla M), Guilmon/Gabumon oficiais (monscale 1) e dpr=1. A prova de cada captura `v12_padrao_*` está em `v12_padrao_capture.json › state`, que registra `hudV2`, `digivice`, `lip`, `worldmapArt = worldmap_v2_1.png` e `dpr` como verdadeiros [E].
+
+| Para voltar ao antigo | Flag |
+|---|---|
+| HUD antigo, sem Digivice; mapa-múndi em grafo | `?hud=v1` |
+| Mapa base, sem look | `?look=base` (`?look=v8` também vale) |
+| Digimon PixelLab | `?mon=pixellab` |
+| Escala antiga, sem devicePixelRatio | `?dpr=0` |
+
+O look padrão vale só no `digimon-forest-01` (`MapDef.defaultLook`). Os outros mapas não têm variante de look.
+
+**Antes → depois.** No "antes", a mesma URL sem flags abria o mapa base, o HUD antigo, os Digimon PixelLab e a escala antiga. Era o que o fundador viu: "nada mudou e o Digivice sumiu". As capturas do "antes" são `v12_antes_*`: o look v9 do v11, com flags, servido do commit ab41fcf.
+
+| Vista | Antes (v11) | Depois, URL padrão |
+|---|---|---|
+| Geral, dia | `v12_antes_geral_dia.png` | `v12_padrao_geral_dia.png`, `v12_padrao_jogo_dia.png` |
+| Geral, noite | `v12_antes_geral_noite.png` | `v12_padrao_geral_noite.png`, `v12_padrao_jogo_noite.png` |
+| Mirante, dia / noite | `v12_antes_mirante_jogo_{dia,noite}.png` | `v12_padrao_mirante_{dia,noite}.png` |
+| Copas da borda, dia / noite | `v12_antes_copas_oeste_{dia,noite}.png` | `v12_padrao_copas_{dia,noite}.png` |
+| Mundi aberto, dia / noite | `v12_antes_mundi_aberto_{dia,noite}.png` (v1) | `v12_padrao_mundi_{dia,noite}.png` (v2.1) |
+| Digivice aberto, dia / noite | só com `?hud=v2` | `v12_padrao_digivice_{dia,noite}.png` |
+
+**URLs das capturas.** Todas em 1920×1080 e `deviceScaleFactor` 1, geradas por `scripts/v12-default-capture.mjs`. O prefixo é `?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0`, só para tornar a captura reproduzível:
+- jogo / mirante: `…&time=day|night`, com o Tamer em (28,20) / (25,20)
+- geral: `…&zoom=1&time=day|night`
+- copas: `…&zoom=2&time=day|night`, Tamer em (9,20)
+- mundi: `…&time=day|night` + tecla M; Digivice: `…&time=day|night` + clique no hub
+
+Gates depois da troca de padrão: 455 testes, `tsc`, build, `map:validate` 6/6 e `sim --check` ok.
+
+**Limitação:** os scripts de captura antigos que contavam com o padrão antigo agora recebem o padrão novo (`capture-live`, `p8-capture` e similares). Para reproduzir uma captura antiga, ponha `&hud=v1&look=base&mon=pixellab&dpr=0` na URL.
+
 ## Resumo
 
 - **Lip da borda norte do mirante:** ligado. As 8 células da fileira norte do topo ficaram assim: canto esquerdo, 6 retas e canto direito. As retas alternam entre as 3 variantes e nunca repetem a vizinha.

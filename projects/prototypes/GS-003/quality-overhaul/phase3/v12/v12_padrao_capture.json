@@ -1,0 +1,187 @@
+{
+  "date": "2026-11-11T09:48:47.266Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "url": "http://127.0.0.1:5190/?map=digimon-forest-01",
+  "shots": {
+    "v12_padrao_jogo_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "time": "day",
+      "framing": "visão de jogo na clareira (URL padrão, sem zoom)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_geral_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&zoom=1&time=day",
+      "time": "day",
+      "framing": "mapa inteiro (zoom=1)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_mirante_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "time": "day",
+      "framing": "mirante, visão de jogo (lip da borda norte)",
+      "tamerTile": [
+        25,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_copas_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&zoom=2&time=day",
+      "time": "day",
+      "framing": "borda oeste da mata (zoom=2): variantes de copa",
+      "tamerTile": [
+        9,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_mundi_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "time": "day",
+      "framing": "mapa-múndi v2.1 aberto (M)",
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": "worldmap_v2_1.png",
+        "dpr": true
+      }
+    },
+    "v12_padrao_digivice_dia.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "time": "day",
+      "framing": "Digivice aberto (clique no hub)",
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": "worldmap_v2_1.png",
+        "dpr": true
+      }
+    },
+    "v12_padrao_jogo_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=night",
+      "time": "night",
+      "framing": "visão de jogo na clareira (URL padrão, sem zoom)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_geral_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&zoom=1&time=night",
+      "time": "night",
+      "framing": "mapa inteiro (zoom=1)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_mirante_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=night",
+      "time": "night",
+      "framing": "mirante, visão de jogo (lip da borda norte)",
+      "tamerTile": [
+        25,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_copas_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&zoom=2&time=night",
+      "time": "night",
+      "framing": "borda oeste da mata (zoom=2): variantes de copa",
+      "tamerTile": [
+        9,
+        20
+      ],
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": null,
+        "dpr": true
+      }
+    },
+    "v12_padrao_mundi_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=night",
+      "time": "night",
+      "framing": "mapa-múndi v2.1 aberto (M)",
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": "worldmap_v2_1.png",
+        "dpr": true
+      }
+    },
+    "v12_padrao_digivice_noite.png": {
+      "url": "http://127.0.0.1:5190/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=night",
+      "time": "night",
+      "framing": "Digivice aberto (clique no hub)",
+      "state": {
+        "hudV2": true,
+        "digivice": true,
+        "lip": true,
+        "worldmapArt": "worldmap_v2_1.png",
+        "dpr": true
+      }
+    }
+  }
+}
