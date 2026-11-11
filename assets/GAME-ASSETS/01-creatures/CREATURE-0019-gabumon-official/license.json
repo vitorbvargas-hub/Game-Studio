@@ -1,0 +1,35 @@
+{
+  "creatureId": "CREATURE-0019",
+  "version": "1.0.0",
+  "layer": "official-fan-use",
+  "officialRip": true,
+  "fanException": false,
+  "baseCharacter": "Gabumon",
+  "basis": "ADR-009 §Licença (fundador, 2026-11-08: sprites oficiais liberados em todo o projeto) + decisão do fundador 2026-11-11 (fan game: Digimon iguais aos oficiais)",
+  "nonCommercial": true,
+  "noRip": false,
+  "copyright": "Digimon © Bandai Namco Entertainment Inc. / Toei Animation; Digimon World DS © Bandai Namco Games",
+  "restrictions": [
+    "ADR-007: fan game sem monetização de nenhum tipo, sem logo oficial, com aviso de fan game",
+    "Publicação exige aprovação separada do fundador",
+    "Visual do modo ?mon=official; a espécie da sim continua CREATURE-0009"
+  ],
+  "source": {
+    "type": "game-rip",
+    "game": "Digimon World DS (Nintendo DS)",
+    "site": "The Spriters Resource",
+    "sitePage": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+    "sheetFile": "10-source-files/dwds-sheets/gabumon.png",
+    "sha256": "746e0bda873f274568c8445fa90861d43348ecf2d98abdbf30b439a42e0c53cb",
+    "providedBy": "fundador",
+    "modifications": "chroma key do fundo; quadros da grade de mapa recortados e realinhados por translação inteira (pé fixo, x pela cabeça)"
+  },
+  "credit": {
+    "ripper": "redblueyellow",
+    "creditRequiredBySheet": false,
+    "creditTextOnSheet": "Ripped by redblueyellow. No credit needed.",
+    "site": "The Spriters Resource"
+  },
+  "verifiedAt": "2026-11-11",
+  "verifiedBy": "game-dev"
+}

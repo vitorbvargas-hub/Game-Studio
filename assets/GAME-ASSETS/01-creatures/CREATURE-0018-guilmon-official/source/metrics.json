@@ -1,0 +1,126 @@
+{
+  "sheet": "guilmon.png",
+  "region": [
+    0,
+    195,
+    240,
+    90
+  ],
+  "mergedLoosePixels": 0,
+  "frames": {
+    "CREATURE-0018_map_S_00.png": {
+      "sheetCell": 1,
+      "sheetRect": {
+        "x": 10,
+        "y": 205,
+        "w": 19,
+        "h": 31
+      },
+      "canvasRect": {
+        "x": 11,
+        "y": 3,
+        "w": 19,
+        "h": 31
+      },
+      "footY": 33,
+      "height": 31,
+      "registerDx": null,
+      "registerScore": null
+    },
+    "CREATURE-0018_map_S_01.png": {
+      "sheetCell": 2,
+      "sheetRect": {
+        "x": 34,
+        "y": 206,
+        "w": 23,
+        "h": 31
+      },
+      "canvasRect": {
+        "x": 10,
+        "y": 3,
+        "w": 23,
+        "h": 31
+      },
+      "footY": 33,
+      "height": 31,
+      "registerDx": -1,
+      "registerScore": 50
+    },
+    "CREATURE-0018_map_S_02.png": {
+      "sheetCell": 4,
+      "sheetRect": {
+        "x": 81,
+        "y": 205,
+        "w": 21,
+        "h": 29
+      },
+      "canvasRect": {
+        "x": 8,
+        "y": 5,
+        "w": 21,
+        "h": 29
+      },
+      "footY": 33,
+      "height": 29,
+      "registerDx": -3,
+      "registerScore": 31
+    },
+    "CREATURE-0018_map_W_00.png": {
+      "sheetCell": 5,
+      "sheetRect": {
+        "x": 118,
+        "y": 203,
+        "w": 21,
+        "h": 30
+      },
+      "canvasRect": {
+        "x": 10,
+        "y": 4,
+        "w": 21,
+        "h": 30
+      },
+      "footY": 33,
+      "height": 30,
+      "registerDx": null,
+      "registerScore": null
+    },
+    "CREATURE-0018_map_W_01.png": {
+      "sheetCell": 6,
+      "sheetRect": {
+        "x": 141,
+        "y": 205,
+        "w": 21,
+        "h": 28
+      },
+      "canvasRect": {
+        "x": 10,
+        "y": 6,
+        "w": 21,
+        "h": 28
+      },
+      "footY": 33,
+      "height": 28,
+      "registerDx": 0,
+      "registerScore": 111
+    },
+    "CREATURE-0018_map_W_02.png": {
+      "sheetCell": 8,
+      "sheetRect": {
+        "x": 187,
+        "y": 203,
+        "w": 22,
+        "h": 31
+      },
+      "canvasRect": {
+        "x": 9,
+        "y": 3,
+        "w": 22,
+        "h": 31
+      },
+      "footY": 33,
+      "height": 31,
+      "registerDx": -1,
+      "registerScore": 51
+    }
+  }
+}

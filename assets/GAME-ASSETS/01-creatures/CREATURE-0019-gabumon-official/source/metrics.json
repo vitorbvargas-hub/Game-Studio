@@ -1,0 +1,183 @@
+{
+  "sheet": "gabumon.png",
+  "region": [
+    305,
+    0,
+    107,
+    175
+  ],
+  "mergedLoosePixels": 0,
+  "frames": {
+    "CREATURE-0019_map_S_00.png": {
+      "sheetCell": 13,
+      "sheetRect": {
+        "x": 314,
+        "y": 142,
+        "w": 25,
+        "h": 29
+      },
+      "canvasRect": {
+        "x": 8,
+        "y": 5,
+        "w": 25,
+        "h": 29
+      },
+      "footY": 33,
+      "height": 29,
+      "registerDx": null,
+      "registerScore": null
+    },
+    "CREATURE-0019_map_S_01.png": {
+      "sheetCell": 14,
+      "sheetRect": {
+        "x": 348,
+        "y": 143,
+        "w": 27,
+        "h": 28
+      },
+      "canvasRect": {
+        "x": 8,
+        "y": 6,
+        "w": 27,
+        "h": 28
+      },
+      "footY": 33,
+      "height": 28,
+      "registerDx": 0,
+      "registerScore": 55
+    },
+    "CREATURE-0019_map_S_03.png": {
+      "sheetCell": 15,
+      "sheetRect": {
+        "x": 379,
+        "y": 140,
+        "w": 28,
+        "h": 32
+      },
+      "canvasRect": {
+        "x": 5,
+        "y": 2,
+        "w": 28,
+        "h": 32
+      },
+      "footY": 33,
+      "height": 32,
+      "registerDx": -3,
+      "registerScore": 49
+    },
+    "CREATURE-0019_map_SW_00.png": {
+      "sheetCell": 1,
+      "sheetRect": {
+        "x": 315,
+        "y": 4,
+        "w": 26,
+        "h": 29
+      },
+      "canvasRect": {
+        "x": 7,
+        "y": 5,
+        "w": 26,
+        "h": 29
+      },
+      "footY": 33,
+      "height": 29,
+      "registerDx": null,
+      "registerScore": null
+    },
+    "CREATURE-0019_map_SW_01.png": {
+      "sheetCell": 2,
+      "sheetRect": {
+        "x": 349,
+        "y": 5,
+        "w": 26,
+        "h": 28
+      },
+      "canvasRect": {
+        "x": 8,
+        "y": 6,
+        "w": 26,
+        "h": 28
+      },
+      "footY": 33,
+      "height": 28,
+      "registerDx": 1,
+      "registerScore": 57
+    },
+    "CREATURE-0019_map_SW_02.png": {
+      "sheetCell": 3,
+      "sheetRect": {
+        "x": 381,
+        "y": 5,
+        "w": 27,
+        "h": 29
+      },
+      "canvasRect": {
+        "x": 5,
+        "y": 5,
+        "w": 27,
+        "h": 29
+      },
+      "footY": 33,
+      "height": 29,
+      "registerDx": -2,
+      "registerScore": 187
+    },
+    "CREATURE-0019_map_NW_00.png": {
+      "sheetCell": 7,
+      "sheetRect": {
+        "x": 314,
+        "y": 70,
+        "w": 26,
+        "h": 30
+      },
+      "canvasRect": {
+        "x": 7,
+        "y": 4,
+        "w": 26,
+        "h": 30
+      },
+      "footY": 33,
+      "height": 30,
+      "registerDx": null,
+      "registerScore": null
+    },
+    "CREATURE-0019_map_NW_01.png": {
+      "sheetCell": 8,
+      "sheetRect": {
+        "x": 348,
+        "y": 71,
+        "w": 24,
+        "h": 31
+      },
+      "canvasRect": {
+        "x": 6,
+        "y": 3,
+        "w": 24,
+        "h": 31
+      },
+      "footY": 33,
+      "height": 31,
+      "registerDx": -1,
+      "registerScore": 83
+    },
+    "CREATURE-0019_map_NW_02.png": {
+      "sheetCell": 9,
+      "sheetRect": {
+        "x": 382,
+        "y": 71,
+        "w": 27,
+        "h": 29
+      },
+      "canvasRect": {
+        "x": 6,
+        "y": 5,
+        "w": 27,
+        "h": 29
+      },
+      "footY": 33,
+      "height": 29,
+      "registerDx": -1,
+      "registerScore": 59
+    }
+  }
+}

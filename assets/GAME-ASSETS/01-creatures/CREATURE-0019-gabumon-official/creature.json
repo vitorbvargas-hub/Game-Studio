@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 2,
+  "version": "1.0.0",
+  "previousVersions": [],
+  "id": "CREATURE-0019",
+  "name": "Gabumon",
+  "category": "digital-creature",
+  "rarity": "common",
+  "element": "data",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": {
+    "lineId": "gabumon",
+    "previous": null,
+    "next": []
+  },
+  "evolutionRequirements": {},
+  "description": "Gabumon com os sprites de MAPA oficiais do Digimon World DS, recortados direto da folha (sem redesenho nem reamostragem). Visual do modo ?mon=official para a espécie CREATURE-0009; não substitui CREATURE-0009 nem entra no roster.",
+  "dimensions": {
+    "frameW": 40,
+    "frameH": 36,
+    "tile": 32
+  },
+  "pivot": {
+    "x": 20,
+    "y": 34
+  },
+  "mapScale": 1,
+  "targetHeightPx": 29,
+  "nativeMapHeightPx": 29,
+  "sizeNotes": "Altura nativa do DS (parado, frente): 29 px. A escala de exibição vem de ?monscale=1|2|auto (src/save/official.ts); auto = inteiro que deixa a altura mais perto de 48–64 px.",
+  "hitbox": {
+    "x": 5,
+    "y": 2,
+    "w": 30,
+    "h": 32
+  },
+  "anchors": {
+    "head": {
+      "x": 20,
+      "y": 7
+    },
+    "hit": {
+      "x": 20,
+      "y": 18
+    },
+    "shadow": {
+      "cx": 20,
+      "cy": 33,
+      "rx": 10,
+      "ry": 4
+    }
+  },
+  "directions": {
+    "idle": {
+      "drawn": [
+        "S",
+        "SW",
+        "NW"
+      ],
+      "mirrored": {
+        "SE": "SW",
+        "NE": "NW"
+      },
+      "fallback": "nearest"
+    },
+    "walk": {
+      "drawn": [
+        "S",
+        "SW",
+        "NW"
+      ],
+      "mirrored": {
+        "SE": "SW",
+        "NE": "NW"
+      },
+      "fallback": "nearest"
+    },
+    "attack": {
+      "drawn": [
+        "S",
+        "SW",
+        "NW"
+      ],
+      "mirrored": {
+        "SE": "SW",
+        "NE": "NW"
+      },
+      "fallback": "nearest"
+    },
+    "hurt": {
+      "drawn": [
+        "S",
+        "SW",
+        "NW"
+      ],
+      "mirrored": {
+        "SE": "SW",
+        "NE": "NW"
+      },
+      "fallback": "nearest"
+    }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 600,
+          "atlasKey": "CREATURE-0019_map_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0019_map_S_00.png"
+          }
+        ],
+        "SW": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          }
+        ],
+        "NW": [
+          {
+            "durationMs": 600,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          }
+        ]
+      }
+    },
+    "walk": {
+      "loop": true,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0019_map_S_00.png"
+        },
+        {
+          "durationMs": 200,
+          "atlasKey": "CREATURE-0019_map_S_01.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 200,
+            "atlasKey": "CREATURE-0019_map_S_00.png"
+          },
+          {
+            "durationMs": 200,
+            "atlasKey": "CREATURE-0019_map_S_01.png"
+          }
+        ],
+        "SW": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_SW_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_SW_02.png"
+          }
+        ],
+        "NW": [
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_NW_01.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          },
+          {
+            "durationMs": 150,
+            "atlasKey": "CREATURE-0019_map_NW_02.png"
+          }
+        ]
+      }
+    },
+    "attack": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 180,
+          "atlasKey": "CREATURE-0019_map_S_00.png"
+        },
+        {
+          "durationMs": 160,
+          "atlasKey": "CREATURE-0019_map_S_03.png"
+        },
+        {
+          "durationMs": 60,
+          "atlasKey": "CREATURE-0019_map_S_00.png"
+        }
+      ],
+      "events": [
+        {
+          "frame": 1,
+          "name": "hitFrame"
+        }
+      ],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 180,
+            "atlasKey": "CREATURE-0019_map_S_00.png"
+          },
+          {
+            "durationMs": 160,
+            "atlasKey": "CREATURE-0019_map_S_03.png"
+          },
+          {
+            "durationMs": 60,
+            "atlasKey": "CREATURE-0019_map_S_00.png"
+          }
+        ],
+        "SW": [
+          {
+            "durationMs": 180,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          },
+          {
+            "durationMs": 160,
+            "atlasKey": "CREATURE-0019_map_SW_02.png"
+          },
+          {
+            "durationMs": 60,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          }
+        ],
+        "NW": [
+          {
+            "durationMs": 180,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          },
+          {
+            "durationMs": 160,
+            "atlasKey": "CREATURE-0019_map_NW_02.png"
+          },
+          {
+            "durationMs": 60,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          }
+        ]
+      }
+    },
+    "hurt": {
+      "loop": false,
+      "space": "map",
+      "frames": [
+        {
+          "durationMs": 220,
+          "atlasKey": "CREATURE-0019_map_S_00.png"
+        }
+      ],
+      "events": [],
+      "dirFrames": {
+        "S": [
+          {
+            "durationMs": 220,
+            "atlasKey": "CREATURE-0019_map_S_00.png"
+          }
+        ],
+        "SW": [
+          {
+            "durationMs": 220,
+            "atlasKey": "CREATURE-0019_map_SW_00.png"
+          }
+        ],
+        "NW": [
+          {
+            "durationMs": 220,
+            "atlasKey": "CREATURE-0019_map_NW_00.png"
+          }
+        ]
+      }
+    }
+  },
+  "walkSpeedPxPerSec": 160,
+  "anatomy": "biped",
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "walk",
+    "FOLLOW": "walk",
+    "ENGAGE": "walk",
+    "RETURN": "walk",
+    "ATTACK": "attack",
+    "HURT": "hurt",
+    "DEFEAT": "hurt"
+  },
+  "sprites": "./sprites/",
+  "assetOrigin": {
+    "layer": "official-fan-use",
+    "sourceDescription": "Folha Digimon World DS (gabumon.png) do The Spriters Resource, ripada por redblueyellow; enviada pelo fundador (10-source-files/dwds-sheets/). Só a grade de MAPA.",
+    "built": "prototype/world/scripts/build-official-mons.mjs (recorte + chroma key + translação inteira; nenhum pixel redesenhado ou reamostrado)"
+  },
+  "approvalStatus": "UNDER_REVIEW",
+  "qaNotes": [
+    "[E] Grade de mapa: 15 quadros; espelhos exatos na própria folha: #4=espelho(#1), #5=espelho(#2), #6=espelho(#3), #10=espelho(#7), #11=espelho(#8), #12=espelho(#9). Desenhadas: S, SW, NW; espelhadas: SE←SW, NE←NW.",
+    "[E] Sem vista de costas (N) no DS: N e as diagonais que faltam caem na desenhada mais próxima (fallback nearest).",
+    "attack/hurt: o DS não tem golpe nem dano no sprite de MAPA. attack = parado → passo/pose → parado, com o avanço procedural; hurt = quadro parado + flash/knockback procedurais. As poses de batalha (75–80 px) ficam em CREATURE-0003/0009 battle_*."
+  ]
+}
