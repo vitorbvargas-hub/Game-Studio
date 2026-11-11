@@ -1,0 +1,420 @@
+{
+  "biome": "forest-v12-plateau-night",
+  "note": "Pacote NOVO e paralelo a forest-v11-ground (nao sobrescrito, nao modificado) -- cobre as 2 pendencias de arte deixadas em V11_DEV.md: (1) a borda superior (norte) do plato do mirante, que hoje corta sem transicao no ultimo tile de grama; (2) uma versao NOTURNA PINTADA (nao so o tint uniforme de GradeRule.night) da terra batida Wang-47 e do topo do mirante. 0 geracoes do PixelLab gastas -- pipeline 100% local Canvas.js, mesmos primitivos/convencoes de v4..v11 (saldo PixelLab em 0,8, aguardando aprovacao do fundador -- nao usado aqui por decisao explicita do coordenador).",
+  "tile": 32,
+  "grid": {
+    "tileWidth": 32,
+    "tileHeight": 32
+  },
+  "layers": [
+    "ground",
+    "plateau-edge",
+    "decor"
+  ],
+  "palette": "Ver palette.json.",
+  "plateauEdgeLip": {
+    "note": "Substitui, na fileira do mirante_top_blob_* que fica mais distante da camera (northOpen: a celula acima NAO e plato), o tile por um destes 5 -- reta (3 variantes de seed, pra nao repetir identica numa fileira longa) ou canto externo esquerdo/direito (quando a celula a oeste/leste TAMBEM esta fora do plato, ou seja, e um canto convexo). Cada arquivo e um tile 32x32 COMPLETO (chao de grama igual ao mirante_top_blob_15 por baixo, pela mesma textura de preenchimento) com 3 camadas desenhadas por cima, nos 10px superiores: banda de sombra de contato (gradiente de alfa, mais escura junto a borda), tufos verticais de musgo/grama caindo por cima da borda (comprimento e posicao por seed, alguns \"pingando\" mais fundo que outros), e, nas pecas de canto, uma segunda banda de sombra na lateral externa (oeste no canto esquerdo, leste no direito). Drop-in: mesmo tamanho/grid/paleta de mirante_top_blob_*, troca so o arquivo na fileira norte.",
+    "files": {
+      "day": [
+        "lip/mirante_top_edge_straight_0.png",
+        "lip/mirante_top_edge_straight_1.png",
+        "lip/mirante_top_edge_straight_2.png",
+        "lip/mirante_top_edge_corner_outer_left.png",
+        "lip/mirante_top_edge_corner_outer_right.png"
+      ],
+      "night": [
+        "lip/night/mirante_top_edge_night_straight_0.png",
+        "lip/night/mirante_top_edge_night_straight_1.png",
+        "lip/night/mirante_top_edge_night_straight_2.png",
+        "lip/night/mirante_top_edge_night_corner_outer_left.png",
+        "lip/night/mirante_top_edge_night_corner_outer_right.png"
+      ]
+    },
+    "placementRule": "Para cada celula do mirante com a celula ao NORTE fora do plato (ou fora do mapa): se a celula a OESTE tambem esta fora do plato, usar corner_outer_left; se a celula a LESTE tambem esta fora, usar corner_outer_right; senao, uma das 3 variantes straight_N (por hash de posicao, igual ao espalhamento de ground_variant_*). Celulas cuja vizinha norte E plato continuam usando mirante_top_blob_* normalmente (nenhuma mudanca ali)."
+  },
+  "grassDirtTransitionNight": {
+    "note": "MESMA geometria/ruido de forest-v11-ground/tileset.json grassDirtTransition (blob_autotile47.js, mesmo seed por indice) -- so a paleta de preenchimento muda (ramps.grass/ramps.dirt/ramps.stone de `dn` em vez de `d`). Indices e bitmask IDENTICOS ao pacote v11 (mesma placementTable) -- um renderer que ja resolve o indice Wang-47 para o dia so precisa trocar o arquivo de origem por condicao dia/noite, usando o MESMO indice.",
+    "pattern": "47-tile Wang/blob, cantos internos (ver forest-v11-ground/tileset.json grassDirtTransition para a convencao completa de bitmask)",
+    "files": {
+      "day": "tiles/grass_dirt_wang47_<indice>.png (0..46, equivalente ao pacote v11 mas pintado aqui de novo pela mesma geometria -- usar o de v11 se ja integrado)",
+      "night": "tiles/night/grass_dirt_wang47_night_<indice>.png (0..46)"
+    },
+    "placementTable": [
+      {
+        "index": 0,
+        "edgeMask": 0,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_0.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_0.png"
+      },
+      {
+        "index": 1,
+        "edgeMask": 1,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_1.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_1.png"
+      },
+      {
+        "index": 2,
+        "edgeMask": 2,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_2.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_2.png"
+      },
+      {
+        "index": 3,
+        "edgeMask": 3,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_3.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_3.png"
+      },
+      {
+        "index": 4,
+        "edgeMask": 3,
+        "diagMask": 1,
+        "dayFile": "tiles/grass_dirt_wang47_4.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_4.png"
+      },
+      {
+        "index": 5,
+        "edgeMask": 4,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_5.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_5.png"
+      },
+      {
+        "index": 6,
+        "edgeMask": 5,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_6.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_6.png"
+      },
+      {
+        "index": 7,
+        "edgeMask": 6,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_7.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_7.png"
+      },
+      {
+        "index": 8,
+        "edgeMask": 6,
+        "diagMask": 2,
+        "dayFile": "tiles/grass_dirt_wang47_8.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_8.png"
+      },
+      {
+        "index": 9,
+        "edgeMask": 7,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_9.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_9.png"
+      },
+      {
+        "index": 10,
+        "edgeMask": 7,
+        "diagMask": 1,
+        "dayFile": "tiles/grass_dirt_wang47_10.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_10.png"
+      },
+      {
+        "index": 11,
+        "edgeMask": 7,
+        "diagMask": 2,
+        "dayFile": "tiles/grass_dirt_wang47_11.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_11.png"
+      },
+      {
+        "index": 12,
+        "edgeMask": 7,
+        "diagMask": 3,
+        "dayFile": "tiles/grass_dirt_wang47_12.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_12.png"
+      },
+      {
+        "index": 13,
+        "edgeMask": 8,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_13.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_13.png"
+      },
+      {
+        "index": 14,
+        "edgeMask": 9,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_14.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_14.png"
+      },
+      {
+        "index": 15,
+        "edgeMask": 9,
+        "diagMask": 8,
+        "dayFile": "tiles/grass_dirt_wang47_15.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_15.png"
+      },
+      {
+        "index": 16,
+        "edgeMask": 10,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_16.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_16.png"
+      },
+      {
+        "index": 17,
+        "edgeMask": 11,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_17.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_17.png"
+      },
+      {
+        "index": 18,
+        "edgeMask": 11,
+        "diagMask": 1,
+        "dayFile": "tiles/grass_dirt_wang47_18.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_18.png"
+      },
+      {
+        "index": 19,
+        "edgeMask": 11,
+        "diagMask": 8,
+        "dayFile": "tiles/grass_dirt_wang47_19.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_19.png"
+      },
+      {
+        "index": 20,
+        "edgeMask": 11,
+        "diagMask": 9,
+        "dayFile": "tiles/grass_dirt_wang47_20.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_20.png"
+      },
+      {
+        "index": 21,
+        "edgeMask": 12,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_21.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_21.png"
+      },
+      {
+        "index": 22,
+        "edgeMask": 12,
+        "diagMask": 4,
+        "dayFile": "tiles/grass_dirt_wang47_22.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_22.png"
+      },
+      {
+        "index": 23,
+        "edgeMask": 13,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_23.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_23.png"
+      },
+      {
+        "index": 24,
+        "edgeMask": 13,
+        "diagMask": 4,
+        "dayFile": "tiles/grass_dirt_wang47_24.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_24.png"
+      },
+      {
+        "index": 25,
+        "edgeMask": 13,
+        "diagMask": 8,
+        "dayFile": "tiles/grass_dirt_wang47_25.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_25.png"
+      },
+      {
+        "index": 26,
+        "edgeMask": 13,
+        "diagMask": 12,
+        "dayFile": "tiles/grass_dirt_wang47_26.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_26.png"
+      },
+      {
+        "index": 27,
+        "edgeMask": 14,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_27.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_27.png"
+      },
+      {
+        "index": 28,
+        "edgeMask": 14,
+        "diagMask": 2,
+        "dayFile": "tiles/grass_dirt_wang47_28.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_28.png"
+      },
+      {
+        "index": 29,
+        "edgeMask": 14,
+        "diagMask": 4,
+        "dayFile": "tiles/grass_dirt_wang47_29.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_29.png"
+      },
+      {
+        "index": 30,
+        "edgeMask": 14,
+        "diagMask": 6,
+        "dayFile": "tiles/grass_dirt_wang47_30.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_30.png"
+      },
+      {
+        "index": 31,
+        "edgeMask": 15,
+        "diagMask": 0,
+        "dayFile": "tiles/grass_dirt_wang47_31.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_31.png"
+      },
+      {
+        "index": 32,
+        "edgeMask": 15,
+        "diagMask": 1,
+        "dayFile": "tiles/grass_dirt_wang47_32.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_32.png"
+      },
+      {
+        "index": 33,
+        "edgeMask": 15,
+        "diagMask": 2,
+        "dayFile": "tiles/grass_dirt_wang47_33.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_33.png"
+      },
+      {
+        "index": 34,
+        "edgeMask": 15,
+        "diagMask": 3,
+        "dayFile": "tiles/grass_dirt_wang47_34.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_34.png"
+      },
+      {
+        "index": 35,
+        "edgeMask": 15,
+        "diagMask": 4,
+        "dayFile": "tiles/grass_dirt_wang47_35.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_35.png"
+      },
+      {
+        "index": 36,
+        "edgeMask": 15,
+        "diagMask": 5,
+        "dayFile": "tiles/grass_dirt_wang47_36.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_36.png"
+      },
+      {
+        "index": 37,
+        "edgeMask": 15,
+        "diagMask": 6,
+        "dayFile": "tiles/grass_dirt_wang47_37.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_37.png"
+      },
+      {
+        "index": 38,
+        "edgeMask": 15,
+        "diagMask": 7,
+        "dayFile": "tiles/grass_dirt_wang47_38.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_38.png"
+      },
+      {
+        "index": 39,
+        "edgeMask": 15,
+        "diagMask": 8,
+        "dayFile": "tiles/grass_dirt_wang47_39.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_39.png"
+      },
+      {
+        "index": 40,
+        "edgeMask": 15,
+        "diagMask": 9,
+        "dayFile": "tiles/grass_dirt_wang47_40.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_40.png"
+      },
+      {
+        "index": 41,
+        "edgeMask": 15,
+        "diagMask": 10,
+        "dayFile": "tiles/grass_dirt_wang47_41.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_41.png"
+      },
+      {
+        "index": 42,
+        "edgeMask": 15,
+        "diagMask": 11,
+        "dayFile": "tiles/grass_dirt_wang47_42.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_42.png"
+      },
+      {
+        "index": 43,
+        "edgeMask": 15,
+        "diagMask": 12,
+        "dayFile": "tiles/grass_dirt_wang47_43.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_43.png"
+      },
+      {
+        "index": 44,
+        "edgeMask": 15,
+        "diagMask": 13,
+        "dayFile": "tiles/grass_dirt_wang47_44.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_44.png"
+      },
+      {
+        "index": 45,
+        "edgeMask": 15,
+        "diagMask": 14,
+        "dayFile": "tiles/grass_dirt_wang47_45.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_45.png"
+      },
+      {
+        "index": 46,
+        "edgeMask": 15,
+        "diagMask": 15,
+        "dayFile": "tiles/grass_dirt_wang47_46.png",
+        "nightFile": "tiles/night/grass_dirt_wang47_night_46.png"
+      }
+    ]
+  },
+  "miranteTopNight": {
+    "note": "MESMA geometria blob-16 de forest-v11-ground/mirante_top_blob_* (blob_autotile16.js, nao modificado, mesmo bitmask de forest-v9-cliffs cliff_top_blob) -- pintada aqui com `dn` em vez de `d`. Um renderer que ja usa mirante_top_blob_<m> para o dia so troca o arquivo por mirante_top_blob_night_<m> na condicao noturna, mesmo indice m.",
+    "pattern": "16-tile blob, mesmo bitmask de forest-v9-cliffs cliff_top_blob / forest-v11-ground mirante_top_blob",
+    "files": {
+      "day": [
+        "mirante/mirante_top_blob_0.png",
+        "mirante/mirante_top_blob_1.png",
+        "mirante/mirante_top_blob_2.png",
+        "mirante/mirante_top_blob_3.png",
+        "mirante/mirante_top_blob_4.png",
+        "mirante/mirante_top_blob_5.png",
+        "mirante/mirante_top_blob_6.png",
+        "mirante/mirante_top_blob_7.png",
+        "mirante/mirante_top_blob_8.png",
+        "mirante/mirante_top_blob_9.png",
+        "mirante/mirante_top_blob_10.png",
+        "mirante/mirante_top_blob_11.png",
+        "mirante/mirante_top_blob_12.png",
+        "mirante/mirante_top_blob_13.png",
+        "mirante/mirante_top_blob_14.png",
+        "mirante/mirante_top_blob_15.png"
+      ],
+      "night": [
+        "mirante/night/mirante_top_blob_night_0.png",
+        "mirante/night/mirante_top_blob_night_1.png",
+        "mirante/night/mirante_top_blob_night_2.png",
+        "mirante/night/mirante_top_blob_night_3.png",
+        "mirante/night/mirante_top_blob_night_4.png",
+        "mirante/night/mirante_top_blob_night_5.png",
+        "mirante/night/mirante_top_blob_night_6.png",
+        "mirante/night/mirante_top_blob_night_7.png",
+        "mirante/night/mirante_top_blob_night_8.png",
+        "mirante/night/mirante_top_blob_night_9.png",
+        "mirante/night/mirante_top_blob_night_10.png",
+        "mirante/night/mirante_top_blob_night_11.png",
+        "mirante/night/mirante_top_blob_night_12.png",
+        "mirante/night/mirante_top_blob_night_13.png",
+        "mirante/night/mirante_top_blob_night_14.png",
+        "mirante/night/mirante_top_blob_night_15.png"
+      ]
+    }
+  },
+  "proof": {
+    "note": "before_after_20x12.png -- um mirante 10x6 (planta com reentrancia simetrica nos 2 cantos da frente, igual ao mirante_assembly_demo.png de v11) montado 2x: dia e noite, cada um usando a fileira norte com o lip novo (reta + os 2 cantos), o miolo com mirante_top_blob_* JA APROVADO de forest-v11-ground (lido do disco, nao redesenhado), 2 manchas de terra batida Wang-47 pintada (dia/noite) espalhadas no chao ao redor, e a face/rampa/cantos REAIS de forest-v9-cliffs por baixo (tambem lidos do disco). Escala 1:1 (32px por tile, \"escala de jogo\") -- sem zoom, pra julgar a leitura exatamente como aparece no jogo.",
+    "file": "before_after_20x12.png"
+  }
+}

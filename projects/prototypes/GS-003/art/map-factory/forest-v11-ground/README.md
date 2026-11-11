@@ -78,8 +78,12 @@ reescreve).
 5. **Topo do mirante** (`mirante/mirante_top_blob_0..15.png` + `mirante/mirante_assembly_demo.png`) —
    o `forest-v9-cliffs` ja tinha corrigido exatamente este problema no proprio pacote (sua rodada "r2" de
    QA documenta, no codigo-fonte, consertar "a plataforma lia como laje gray-purple stone... a mancha
-   verde retangular"), mas **nunca foi integrado em `prototype/world`** — e por isso que o coordenador
-   ainda ve a laje cinza hoje. Em vez de so apontar pra isso, este pacote entrega um topo PRONTO que casa
+   verde retangular"). **Correcao (game-dev, `V11_DEV.md`): o kit `forest-v9-cliffs` ja estava ligado
+   em `prototype/world` desde antes deste pacote** (`derive-look-v9` troca `fp8_cliff_*` por `fp9c_*`,
+   confirmado por `p7-report.cliffKit`) — a laje cinza que o coordenador via nao vinha de o kit estar
+   desconectado, e sim de duas coisas especificas: o topo `fp9c_cliff_top_blob_*` ja ligado levava uma
+   grade de cor de pedra (tint roxo-acinzentado) por cima, e uma fileira de grama do v8 sobrava no
+   `ground_detail` por cima do topo (a "faixa verde retangular"). Em vez de so apontar pra isso, este pacote entrega um topo PRONTO que casa
    com o penhasco ja aprovado (MESMA geometria blob-16 de `blob_autotile16.js`, MESMAS rampas
    `d.grass`/`d.dirt`/`d.stone`/`d.mossEdge` via `buildDepthRamps()`, 0 hex novo) e vai alem do que
    `forest-v9-cliffs` ja tinha: mais presenca de pedra (clusters com musgo/AO, respondendo literalmente
@@ -122,9 +126,10 @@ reescreve).
    pra arte futura), so nao e mais necessario pra ESTES 2 PNGs.
 5. **Mirante**: usar `mirante/mirante_top_blob_0..15` com o MESMO bitmask/posicionamento ja documentado
    em `forest-v9-cliffs/tileset.json` (bit S=0 -> colocar uma `cliff_face_*`/corner de v9-cliffs uma
-   celula abaixo) no lugar de onde o mirante hoje usa a laje cinza. Isto tambem e a oportunidade de
-   finalmente integrar `forest-v9-cliffs` (face/rampa/cantos), que ja existe no repo desde antes deste
-   pacote e nunca foi ligado.
+   celula abaixo) no lugar de onde o mirante hoje usa a laje cinza. **Correcao: `forest-v9-cliffs`
+   (face/rampa/cantos) ja estava ligado em `prototype/world` antes deste pacote** (ver "Veredito do
+   diretor" abaixo) — o que falta e so trocar o TOPO (item 5 acima) e tirar a fileira de grama residual
+   do v8, nao conectar o kit do zero.
 6. **Colisao**: como sempre, vem de `tileset.json` por arquivo — hitbox e trabalho do game-dev.
 
 ## Veredito do diretor
@@ -132,9 +137,13 @@ reescreve).
 Aprovo para integracao. Os 5 itens pedidos estao resolvidos na raiz, nao so cosmeticamente: o Wang-47 e
 uma mudanca estrutural real (256 vizinhancas de 8 celulas resolvidas em 47 pecas, nao um ajuste de
 textura), as copas noturnas sao a mesma arte aprovada numa paleta diferente (zero risco de regressao de
-silhueta), e o mirante finalmente ganha um topo organico pronto pra substituir a laje — a causa raiz
-real daquele problema especifico (o pacote certo, `forest-v9-cliffs`, nunca foi ligado) fica documentada
-pro game-dev agir. O chao com relevo e a melhora mais subjetiva das 5: o microsombra/realce por cluster
+silhueta), e o mirante finalmente ganha um topo organico pronto pra substituir a laje. **Correcao pos-integracao
+(game-dev, `V11_DEV.md`, 2026-11-10): `forest-v9-cliffs` ja estava ligado em `prototype/world` desde
+antes deste pacote** (`derive-look-v9` ja trocava `fp8_cliff_*` por `fp9c_*`, confirmado por
+`p7-report.cliffKit`) — a causa raiz real da laje cinza era o topo ja ligado levar uma grade de cor de
+pedra por cima mais uma fileira de grama do v8 sobrando no `ground_detail`, NAO o kit estar desconectado
+(a frase acima, escrita antes dessa integracao ser revisada, estava incorreta e fica corrigida aqui).
+O chao com relevo e a melhora mais subjetiva das 5: o microsombra/realce por cluster
 ajuda a leitura, mas ainda e volume sugerido por pixel solto, nao um sistema de luz/normal map de verdade
 (ver Limitacoes).
 

@@ -39,6 +39,80 @@ def save_png(path, width, height, pixels):
         f.write(png)
 
 
+def _paeth(a, b, c):
+    p = a + b - c
+    pa, pb, pc = abs(p - a), abs(p - b), abs(p - c)
+    if pa <= pb and pa <= pc:
+        return a
+    if pb <= pc:
+        return b
+    return c
+
+
+def load_png(path):
+    """Minimal reader for 8-bit RGBA, non-interlaced PNGs (what save_png and
+    this project's JS canvas.js both produce). Returns (width, height,
+    pixels) with pixels[y][x] = (r, g, b, a). Raises NotImplementedError for
+    any other bit depth/color type/interlacing."""
+    with open(path, "rb") as f:
+        data = f.read()
+    if data[:8] != b"\x89PNG\r\n\x1a\n":
+        raise ValueError("not a PNG file: %s" % path)
+    pos = 8
+    idat = bytearray()
+    width = height = bitdepth = colortype = None
+    while pos < len(data):
+        length = struct.unpack(">I", data[pos:pos + 4])[0]
+        tag = data[pos + 4:pos + 8]
+        chunk = data[pos + 8:pos + 8 + length]
+        if tag == b"IHDR":
+            width, height, bitdepth, colortype, comp, filt, inter = struct.unpack(">IIBBBBB", chunk)
+            if bitdepth != 8 or colortype != 6 or inter != 0:
+                raise NotImplementedError(
+                    "load_png only supports 8-bit RGBA non-interlaced PNGs (got bitdepth=%d colortype=%d interlace=%d)"
+                    % (bitdepth, colortype, inter)
+                )
+        elif tag == b"IDAT":
+            idat += chunk
+        elif tag == b"IEND":
+            break
+        pos += 8 + length + 4
+    raw = zlib.decompress(bytes(idat))
+    bpp = 4
+    stride = width * bpp
+    pixels = [[None] * width for _ in range(height)]
+    prev = bytearray(stride)
+    off = 0
+    for y in range(height):
+        ftype = raw[off]
+        off += 1
+        line = raw[off:off + stride]
+        off += stride
+        out = bytearray(stride)
+        for i in range(stride):
+            a = out[i - bpp] if i >= bpp else 0
+            b = prev[i]
+            c = prev[i - bpp] if i >= bpp else 0
+            if ftype == 0:
+                val = line[i]
+            elif ftype == 1:
+                val = (line[i] + a) & 0xFF
+            elif ftype == 2:
+                val = (line[i] + b) & 0xFF
+            elif ftype == 3:
+                val = (line[i] + ((a + b) >> 1)) & 0xFF
+            elif ftype == 4:
+                val = (line[i] + _paeth(a, b, c)) & 0xFF
+            else:
+                raise NotImplementedError("unsupported PNG filter type %d" % ftype)
+            out[i] = val
+        for x in range(width):
+            o = x * 4
+            pixels[y][x] = (out[o], out[o + 1], out[o + 2], out[o + 3])
+        prev = out
+    return width, height, pixels
+
+
 class Canvas:
     def __init__(self, width, height, bg=(0, 0, 0, 0)):
         self.w = width

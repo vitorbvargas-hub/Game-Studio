@@ -1,0 +1,26 @@
+{
+  "biome": "worldmap-v2_1",
+  "layer": "derived",
+  "assets": [
+    {
+      "group": "worldmap_v2_1.png + worldmap.json + before_after_worldmap.png",
+      "origin": "game-art, 100% pipeline local, 2026-11-10",
+      "layer": "derived",
+      "author": "game-art",
+      "technique": "Mesma geometria de ilha/regioes/rotas de worldmap-v1/generate_worldmap.py (control points, pos_pct, routes -- 0 reinventado), pintura reescrita: campo de elevacao fbm + sombreamento por inclinacao, fronteiras de bioma com mistura por ruido, oceano com profundidade por BFS a costa + espuma + correnteza, 0 icone de POI assado. Paleta: MESMA ByteLine-18 + rampas de forest-v8-depth ja usadas por worldmap-v1, 0 hex novo (so os 3 tons intermediarios de WATER_STOPS, que sao interpolacao linear dos 2 tons ja existentes cyanLt/cyanDk, nao escolha visual nova).",
+      "styleReference": "Nenhuma referencia de terceiros nova -- deriva de worldmap-v1 (ja com styleReference proprio em worldmap-v1/README.md Paleta) e da paleta ByteLine-18 do projeto.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- mesma base ja aplicada a worldmap-v1."
+    },
+    {
+      "group": "poi_icons.png + poi_icons.py",
+      "origin": "copia byte-a-byte de worldmap-v1/poi_icons.png (2026-11-09), nao modificado",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Ver worldmap-v1/README.md -- arquivo identico, so copiado pra este pacote para o worldmap.json ter um poi_icon_sheet local.",
+      "styleReference": "Ver worldmap-v1/README.md.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- heranca direta de worldmap-v1."
+    }
+  ],
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-art"
+}
