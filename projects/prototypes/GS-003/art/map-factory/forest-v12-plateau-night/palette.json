@@ -1,0 +1,57 @@
+{
+  "biome": "forest-v12-plateau-night",
+  "note": "0 hex novo. Dia reusa INTEGRALMENTE forest-v8-depth/buildDepthRamps() (a mesma `d` de forest-v11-ground). Noite e a MESMA formula de profundidade (shiftRamp com GF_SAT_MUL=0.64/GF_VAL_MUL=0.80/etc., copiada de forest_v8_depth_palette.js buildDepthRamps()) aplicada sobre forest_v4_palette.js GROUND_NIGHT/FOLIAGE_NIGHT (ja hand-picked e usada pela noite \"pintada\" de forest-v4) em vez da base GROUND_DAY/FOLIAGE_DAY -- so a base troca, a formula e identica. Diferenca para a abordagem de v11 (copas night/): aqui NAO e um recolor pixel-a-pixel de um PNG diurno ja pronto -- a MESMA geometria (blob-47/blob-16, blob_autotile47.js e blob_autotile16.js, nenhum dos dois modificado) e repintada do zero com a rampa noturna, como pedido explicitamente (\"versao noturna PINTADA\").",
+  "ramps": {
+    "grassDay": [
+      "#273f2b",
+      "#38583a",
+      "#51754b",
+      "#72935b",
+      "#95ad6d"
+    ],
+    "dirtDay": [
+      "#3f3025",
+      "#584531",
+      "#715b41",
+      "#8c7656"
+    ],
+    "stoneDay": [
+      "#474b54",
+      "#656b75",
+      "#8c9199"
+    ],
+    "mossDay": "#445838",
+    "mossEdgeDay": "#49643c",
+    "grassNight": [
+      "#181c29",
+      "#222a38",
+      "#2f384a",
+      "#404b60",
+      "#57627b"
+    ],
+    "dirtNight": [
+      "#201a27",
+      "#2e2538",
+      "#3d314a",
+      "#524362"
+    ],
+    "stoneNight": [
+      "#1e222e",
+      "#2c3143",
+      "#3f455d"
+    ],
+    "mossNight": "#2b3142",
+    "mossEdgeNight": "#2f354b",
+    "foliageNight": [
+      "#0e101a",
+      "#181c29",
+      "#222a38",
+      "#2f384a",
+      "#404b60",
+      "#57627b",
+      "#707b93",
+      "#a0b5d5"
+    ]
+  },
+  "source": "Dia: art/src/forest_v8_depth_palette.js buildDepthRamps(). Noite: MESMA funcao reimplementada localmente (buildNightDepthRamps() em gen_forest_v12_plateau_night.js) trocando a base de art/src/forest_v4_palette.js withPreset(true) para withPreset(false) (GROUND_NIGHT/FOLIAGE_NIGHT) -- os multiplicadores GF_SAT_MUL/GF_VAL_MUL/RIM_SAT_MUL/RIM_VAL_MUL sao os MESMOS 4 valores do dia, copiados do arquivo original."
+}

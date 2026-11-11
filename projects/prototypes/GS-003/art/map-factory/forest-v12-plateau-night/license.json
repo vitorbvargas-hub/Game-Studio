@@ -1,0 +1,27 @@
+{
+  "biome": "forest-v12-plateau-night",
+  "layer": "original",
+  "assets": [
+    {
+      "group": "5 pecas de lip (dia) + 5 pecas de lip (noite) + 47 pecas Wang-47 de terra batida noturna pintada + 16 pecas de mirante top noturno pintado + before_after_20x12.png + preview.png + tileability_check.png",
+      "origin": "game-art, 100% pipeline local, 2026-11-10",
+      "layer": "original",
+      "author": "game-art",
+      "technique": "Canvas.js pixel matrix, MESMOS primitivos e MESMAS geometrias de blob_autotile16.js/blob_autotile47.js ja usadas e aprovadas em forest-v9-cliffs/forest-v11-ground (nenhum modulo de autotile novo ou modificado) -- a unica logica nova deste pacote e o lip da borda superior (paintLip(), banda de sombra de contato + tufos de musgo/grama caindo, por cima da mesma textura de preenchimento do mirante top). Paleta 100% derivada de forest_v8_depth_palette.js (dia) e de uma reimplementacao local da MESMA formula sobre forest_v4_palette.js GROUND_NIGHT/FOLIAGE_NIGHT (noite) -- nenhum hex novo escolhido \"no olho\". Sem geracao do PixelLab (saldo 0,8, aguardando aprovacao do fundador) e sem arte de terceiros referenciada pixel a pixel.",
+      "styleReference": "Nenhuma referencia de terceiros nova -- continuidade direta de forest-v9-cliffs/forest-v11-ground (ja com styleReference proprio documentado nos respectivos license.json).",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- mesma base de ADR-010/011 Secao 5 ja aplicada aos pacotes anteriores desta familia (nenhuma referencia nova introduzida por este pacote)."
+    }
+    ,
+    {
+      "group": "canopy-edge-variety/ -- 16 flips (dia+noite) + 32 variantes de tom (dia+noite) + edge_row_proof_16x2.png",
+      "origin": "game-art, 100% pipeline local, 2026-11-10",
+      "layer": "derived",
+      "author": "game-art",
+      "technique": "Espelho horizontal e ajuste de valor (shade +-0.06/0.08, mesma funcao do pipeline) puro-pixel sobre PNGs ja aprovados de forest-v10-ground-trees/forest-v11-ground (pngw.load_png/save_png, sem PIL) -- 0 silhueta nova desenhada, 0 hex novo.",
+      "styleReference": "Nenhuma -- deriva 100% de arte ja aprovada e licenciada em forest-v10-ground-trees/license.json e forest-v11-ground/license.json.",
+      "license": "studio-original (GS-003 fan game, ADR-007/ADR-009) -- mesma base ja aplicada as copas de origem."
+    }
+  ],
+  "verifiedAt": "2026-11-10",
+  "verifiedBy": "game-art"
+}
