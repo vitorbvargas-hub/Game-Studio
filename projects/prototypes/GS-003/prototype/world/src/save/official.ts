@@ -1,4 +1,4 @@
-// Modo ?mon=official (decisão do fundador, 2026-11-11: fan game, os Digimon iguais aos oficiais): Guilmon e Gabumon
+// Modo ?mon=official — PADRÃO na branch quality-overhaul desde 2026-11-11; ?mon=pixellab volta ao visual PixelLab (decisão do fundador, 2026-11-11: fan game, os Digimon iguais aos oficiais): Guilmon e Gabumon
 // com os sprites de MAPA oficiais do Digimon World DS recortados direto da folha (CREATURE-0018-guilmon-official e
 // CREATURE-0019-gabumon-official, scripts/build-official-mons.mjs), em TODAS as entidades dessas espécies (parceira,
 // selvagens, modelos de captura). Só apresentação: a sim continua com CREATURE-0003/0009 (stats, golpes, elemento).
@@ -24,8 +24,9 @@ export type MonScaleMode = 1 | 2 | "auto";
 /** Faixa-alvo de altura do parceiro (ART_DIRECTION_V2 §1.5: 56–64 px de corpo; o pedido aceita 48–64). */
 export const AUTO_RANGE: readonly [number, number] = [48, 64];
 
+/** Visual oficial é o PADRÃO na branch quality-overhaul (2026-11-11); ?mon=pixellab volta ao visual PixelLab. */
 export function officialModeOf(params: URLSearchParams): boolean {
-  return params.get("mon") === "official";
+  return params.get("mon") !== "pixellab";
 }
 
 /**

@@ -29,10 +29,11 @@ async function alphaOf(path: string) {
 describe("?mon=official — sprites de mapa oficiais do DS", () => {
   const cat = loadCreatureCatalog();
 
-  it("flags: ?mon=official e ?monscale=1|2|auto (ausente/inválido → 1, a recomendada); não liga a comparação", () => {
+  it("flags: oficial é o padrão (?mon=pixellab desliga) e ?monscale=1|2|auto (ausente/inválido → 1, a recomendada); não liga a comparação", () => {
     expect(officialModeOf(new URLSearchParams("mon=official"))).toBe(true);
-    expect(officialModeOf(new URLSearchParams("mon=x"))).toBe(false);
-    expect(officialModeOf(new URLSearchParams(""))).toBe(false);
+    expect(officialModeOf(new URLSearchParams("mon=x"))).toBe(true);
+    expect(officialModeOf(new URLSearchParams(""))).toBe(true);
+    expect(officialModeOf(new URLSearchParams("mon=pixellab"))).toBe(false);
     expect(monScaleModeOf(new URLSearchParams("monscale=1"))).toBe(1);
     expect(monScaleModeOf(new URLSearchParams("monscale=2"))).toBe(2);
     expect(monScaleModeOf(new URLSearchParams("monscale=auto"))).toBe("auto");

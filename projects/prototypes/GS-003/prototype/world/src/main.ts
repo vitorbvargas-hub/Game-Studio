@@ -34,7 +34,7 @@ import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
 import { loadWorldContent } from "./sim/species";
 import { Panel } from "./ui/panel";
 import { worldMapHtml } from "./ui/worldmap";
-import { canTravel, DEFAULT_MAP, MAPS, regionById, travelTarget, withLook, type MapDef, type Progress } from "./world/regions";
+import { canTravel, DEFAULT_MAP, MAPS, lookFor, regionById, travelTarget, withLook, type MapDef, type Progress } from "./world/regions";
 import { boostEncGrass, gradeTiles } from "./render/look";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
@@ -83,16 +83,19 @@ const HUD_BOTTOM_PX = 96;
 const ZOOM_RAW = (params.get("zoom") ?? "").trim().toLowerCase();
 const ZOOM = /x$/.test(ZOOM_RAW) ? 0 : Math.max(0, Math.round(Number(ZOOM_RAW || 0)));
 const ZOOM_MUL = /x$/.test(ZOOM_RAW) ? Math.max(0.5, Number(ZOOM_RAW.slice(0, -1)) || 1) : undefined;
-/** ?look=v8: variante de look do mapa (luz, paleta, profundidade), quando o mapa tiver uma (regions.ts `looks`). */
+/**
+ * ?look=v8: variante de look do mapa (luz, paleta, profundidade), quando o mapa tiver uma (regions.ts `looks`).
+ * Sem ?look, o `defaultLook` do mapa (digimon-forest-01: v9); ?look=base força o mapa base.
+ */
 const LOOK = params.get("look");
 /** forest-v12: ?v12night=swap troca a peça noturna inteira em vez de misturar só os pixels de terra (comparação). */
 const V12_NIGHT_SWAP = params.get("v12night") === "swap";
 /**
- * ?dpr=1 (Quality Overhaul, fase 2): escala inteira em pixels FÍSICOS (devicePixelRatio), para os pixels saírem
+ * ?dpr=1 (Quality Overhaul, fase 2; padrão desde 2026-11-11, ?dpr=0 desliga): escala inteira em pixels FÍSICOS (devicePixelRatio), para os pixels saírem
  * iguais com o Windows em 125%/150%, e zoom alvo pela altura do personagem (`charScale`). ?charh=N muda o alvo
  * (% da altura da tela, padrão 9). ?zoom=N continua forçando a escala (agora em pixels físicos).
  */
-const DPR_MODE = params.get("dpr") === "1";
+const DPR_MODE = params.get("dpr") !== "0"; // padrão na branch quality-overhaul (2026-11-11); ?dpr=0 = escala antiga
 const CHAR_H_PCT = Math.min(25, Math.max(3, Number(params.get("charh") ?? 9) || 9));
 setSkipResampled(DPR_MODE);
 /** ?anim=v2 (Quality Overhaul, fase 2): controlador de animação v2 (src/render/animctl.ts), só na apresentação. */
@@ -106,9 +109,9 @@ const ENC_DEBUG = params.get("encdebug") === "1";
 const ENCOUNTERS = params.get("encounters") === "1" || ENC_DEBUG;
 const WEATHER = params.get("weather") ?? "clear";
 /**
- * ?hud=v2 (Quality Overhaul P8, só os itens P0 da spec): bloco do Tamer com PV/Energia, molduras nível 1 reativas,
- * hotbar por categoria, placa de alvo por raridade e "!" com fundo, grama de encontro com vento 2×. Sem a flag, o
- * HUD atual. ?tamerhp=N (0–100, só com hud=v2) força o PV mostrado do Tamer para testar as 3 faixas da moldura.
+ * HUD v2 (Quality Overhaul P8; PADRÃO na branch quality-overhaul desde 2026-11-11, ?hud=v1 volta ao antigo): bloco do Tamer com PV/Energia, molduras nível 1 reativas,
+ * hotbar por categoria, placa de alvo por raridade e "!" com fundo, grama de encontro com vento 2×. Com ?hud=v1, o
+ * HUD antigo. ?tamerhp=N (0–100, só com hud=v2) força o PV mostrado do Tamer para testar as 3 faixas da moldura.
  */
 /**
  * AUTO explorador (feedback 1 do fundador, item 4): com o AUTO ligado o Tamer também anda pelo mapa, procura
@@ -289,7 +292,7 @@ async function boot() {
    */
   async function buildMap(mapId: string, start: string | undefined, carry?: SaveData): Promise<Live> {
     const def0 = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
-    const def = def0 && withLook(def0, LOOK);
+    const def = def0 && withLook(def0, lookFor(def0, LOOK));
     const encTable = ENCOUNTERS && def ? ENCOUNTER_TABLES[def.id] : undefined;
     const opts = {
       auto,
@@ -748,7 +751,7 @@ async function boot() {
     }
   };
   const screenHtml = (id: string): string => {
-    if (id === "map") return worldMapHtml(cur.def?.region ?? "", progress());
+    if (id === "map") return worldMapHtml(cur.def?.region ?? "", progress(), HUD_VARIANT);
     if (id === "dex") return digiviceHtml(cur.sim.content, dexState(), dexSel);
     if (id === "inv") return inventoryHtml(inventory, player().bits);
     if (id === "quest") return questsHtml(questList());

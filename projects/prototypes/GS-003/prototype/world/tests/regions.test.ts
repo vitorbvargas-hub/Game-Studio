@@ -94,7 +94,7 @@ describe("desbloqueio (regions.json) e Mapa-múndi", () => {
 
   it("Mapa-múndi: as 6 regiões, 'Você está aqui', Viajar só nas liberadas com mapa", () => {
     const root = document.createElement("div");
-    root.innerHTML = worldMapHtml("floresta_densa", p(12));
+    root.innerHTML = worldMapHtml("floresta_densa", p(12), "v1");
     expect(root.querySelectorAll(".wm-node")).toHaveLength(REGIONS.length);
     expect(REGIONS.length).toBe(6);
     expect(root.querySelector('[data-region="floresta_densa"] [data-testid="wm-state"]')!.textContent).toBe("Você está aqui");
@@ -103,7 +103,7 @@ describe("desbloqueio (regions.json) e Mapa-múndi", () => {
     expect(root.querySelector<HTMLButtonElement>('[data-travel="vila_dos_bebes"]')!.disabled).toBe(false);
     expect(root.querySelector<HTMLButtonElement>('[data-travel="montanha"]')!.disabled).toBe(true);
     expect(root.querySelector('[data-region="montanha"] [data-testid="wm-state"]')!.textContent).toContain("Bloqueada");
-    root.innerHTML = worldMapHtml("floresta_densa", p(5));
+    root.innerHTML = worldMapHtml("floresta_densa", p(5), "v1");
     expect(root.querySelector<HTMLButtonElement>('[data-travel="praia_dos_postes"]')!.disabled).toBe(true);
   });
 
@@ -126,5 +126,18 @@ describe("desbloqueio (regions.json) e Mapa-múndi", () => {
     const v3 = JSON.stringify({ v: 3, savedAt: 1, game: "gs003-world", data: { tamer: {}, partner: { speciesId: "CREATURE-0003", level: 5, xp: 0, learned: [], moves: [], autoRules: [] }, starter: null } });
     const r = deserialize(v3);
     expect(r.ok && r.data.map).toBe("forest-proof");
+  });
+});
+
+describe("look padrão por mapa (branch quality-overhaul)", () => {
+  it("digimon-forest-01 abre no v9 sem ?look; ?look=base força o base; ?look=v8 segue valendo; outros mapas sem padrão", async () => {
+    const { MAPS, lookFor, withLook } = await import("../src/world/regions");
+    const f = MAPS["digimon-forest-01"];
+    expect(lookFor(f, null)).toBe("v9");
+    expect(withLook(f, lookFor(f, null)).tmj).toBe(f.looks!.v9.tmj);
+    expect(lookFor(f, "base")).toBeUndefined();
+    expect(withLook(f, lookFor(f, "base")).tmj).toBe(f.tmj);
+    expect(lookFor(f, "v8")).toBe("v8");
+    expect(lookFor(MAPS["forest-proof"], null)).toBeUndefined();
   });
 });

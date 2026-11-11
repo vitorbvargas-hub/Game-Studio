@@ -41,6 +41,14 @@ export interface MapDef {
   scene: boolean;
   /** Variantes de look (?look=v8): outro .tmj/.aliases com o mesmo id (src/data/maps/<look>/). */
   looks?: Record<string, { tmj: TiledMap; pack: ScenePack }>;
+  /** Look usado quando a URL não traz ?look= (?look=base força o mapa base). */
+  defaultLook?: string;
+}
+
+/** Look pedido na URL (?look=), ou o padrão do mapa quando ausente; "base" (ou um look que o mapa não tem) = base. */
+export function lookFor(def: MapDef, param: string | null | undefined): string | undefined {
+  const l = param ?? def.defaultLook;
+  return l && l !== "base" ? l : undefined;
 }
 
 /** O mapa no look pedido (ou o próprio, se ele não tiver essa variante). */
@@ -65,6 +73,8 @@ export const MAPS: Record<string, MapDef> = {
     // look v8 (profundidade, DRAKANTOS_VISUAL_STUDY.md): scripts/map-factory/briefs/digimon-forest-01.v8.build.json
     // look v9 (Quality Overhaul, fase 2) = v8 + primeiro plano, água correndo, vento e menos luzes:
     // scripts/map-factory/derive-look-v9.mjs
+    // padrão na branch quality-overhaul (2026-11-11): v9; ?look=base = mapa base, ?look=v8 = v8
+    defaultLook: "v9",
     looks: {
       v8: { tmj: digimonForest01V8Map as unknown as TiledMap, pack: digimonForest01V8Pack as unknown as ScenePack },
       v9: { tmj: digimonForest01V9Map as unknown as TiledMap, pack: digimonForest01V9Pack as unknown as ScenePack },

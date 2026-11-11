@@ -26,11 +26,12 @@ afterEach(() => {
 });
 
 describe("P8 HUD v2 — flag e faixas", () => {
-  it("?hud=v2 liga; qualquer outra coisa mantém o HUD atual", () => {
+  it("v2 é o padrão (branch quality-overhaul); só ?hud=v1 volta ao HUD antigo", () => {
     expect(hudVariantOf(new URLSearchParams("hud=v2"))).toBe("v2");
-    expect(hudVariantOf(new URLSearchParams(""))).toBe("v1");
-    expect(hudVariantOf(new URLSearchParams("hud=V2"))).toBe("v1");
-    expect(hudVariantOf(new URLSearchParams("hud=1"))).toBe("v1");
+    expect(hudVariantOf(new URLSearchParams(""))).toBe("v2");
+    expect(hudVariantOf(new URLSearchParams("hud=V2"))).toBe("v2");
+    expect(hudVariantOf(new URLSearchParams("hud=1"))).toBe("v2");
+    expect(hudVariantOf(new URLSearchParams("hud=v1"))).toBe("v1");
   });
 
   it("§2.1: limiares exatos ≥50 verde, 20–49 dourado, <20 vermelho", () => {

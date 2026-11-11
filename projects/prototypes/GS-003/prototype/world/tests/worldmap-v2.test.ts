@@ -25,8 +25,9 @@ function render(current: string, prog: Progress): HTMLElement {
 }
 
 describe("Mapa-múndi v2 (worldmap-v2_1)", () => {
-  it("sem a flag segue o grafo v1 (nos testes não há ?hud=v2 na URL)", () => {
-    const html = worldMapHtml("floresta_densa", p(12));
+  it("v2 (ilustração) é o padrão sem flag na URL; ?hud=v1 segue o grafo v1", () => {
+    expect(worldMapHtml("floresta_densa", p(12))).toContain("wm2");
+    const html = worldMapHtml("floresta_densa", p(12), "v1");
     expect(html).toMatch(/<div class="wm-canvas"><svg viewBox/);
     expect(html).not.toContain("wm2");
   });

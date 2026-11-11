@@ -9,9 +9,12 @@ import type { MoveType } from "../sim/types";
 
 export type HudVariant = "v1" | "v2";
 
-/** ?hud=v2 liga o HUD v2; qualquer outro valor (ou ausente) mantém o HUD atual. */
+/**
+ * HUD v2 é o PADRÃO na branch quality-overhaul (pedido do fundador, 2026-11-11: abrir já com tudo novo);
+ * ?hud=v1 volta ao HUD antigo. Qualquer outro valor (ou ausente) = v2.
+ */
 export function hudVariantOf(params: URLSearchParams): HudVariant {
-  return params.get("hud") === "v2" ? "v2" : "v1";
+  return params.get("hud") === "v1" ? "v1" : "v2";
 }
 
 export type HpTier = "ok" | "warn" | "crit";
