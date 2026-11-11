@@ -73,7 +73,7 @@ export const HUB_ITEMS: HubItem[] = [
   { id: "pass", label: "Passe de Temporada", icon: "star", tier: "P2", spec: "§3" },
   { id: "wish", label: "Fonte dos Desejos", icon: "gift", tier: "P1", spec: "§4" },
   { id: "boss", label: "Chefe Mundial", icon: "boss", tier: "P0", spec: "§5" },
-  { id: "trophy", label: "Conquistas", icon: "trophy", tier: "P0", spec: "§6" },
+  { id: "trophy", label: "Registros e descobertas", icon: "trophy", tier: "P0", spec: "§6" },
 ];
 
 /** Atalhos da grade inferior que, no v2, levam ao mesmo painel do hub. */
@@ -530,6 +530,13 @@ export interface DigiviceDeps {
   scanBase?: number;
   /** Aba visível = jogo ativo (tempo da Fonte). Padrão: document.visibilityState. */
   isActive?: () => boolean;
+  /**
+   * Digivice VI 1.0 (DIGIVICE_VI1_SPEC §2.3/§4.13): o nó trophy do anel (rótulo "Registros e descobertas") abre a seção "Registros e descobertas" do
+   * núcleo (uma sala só). Sem isto (testes do hub isolado) abre o painel próprio, como antes.
+   */
+  openRecords?: () => void;
+  /** O estado salvo mudou (o núcleo redesenha Atributos do Tamer / Registros se estiverem abertos). */
+  onChange?: () => void;
 }
 
 export class Digivice {
@@ -647,6 +654,10 @@ export class Digivice {
     const p = this.panels[id];
     if (!it || !p) return;
     this.close();
+    if (id === "trophy" && this.d.openRecords) {
+      this.closePanels();
+      return this.d.openRecords();
+    }
     // a janela do chefe pode ter vencido entre dois ticks: fecha antes de desenhar
     if (this.settle(this.now())) this.persist();
     if (id === "guild") this.guildView = "";
@@ -702,10 +713,32 @@ export class Digivice {
     return lockedHtml(HUB_ITEMS.find((x) => x.id === id)!);
   }
 
+  /** Conquistas (achievementsHtml) na aba atual — o núcleo usa isto na seção Registros e descobertas. */
+  achievementsHtml(): string {
+    return achievementsHtml(this.save, this.achTab);
+  }
+
+  /** Clique dentro das Conquistas (aba/coletar), venha do painel do hub ou do núcleo. Devolve se tratou. */
+  handleAchClick(e: Event): boolean {
+    const t = e.target as HTMLElement;
+    const tab = t.closest<HTMLElement>("[data-ach-tab]")?.dataset.achTab;
+    const claim = t.closest<HTMLElement>("[data-ach-claim]")?.dataset.achClaim;
+    if (tab) this.achTab = tab;
+    else if (claim) {
+      const bits = claimAchievement(this.save, claim);
+      if (!bits) return false;
+      this.d.grantBits?.(bits);
+      this.d.toast?.(`Conquista coletada: +${bits} bits`);
+    } else return false;
+    this.changed();
+    return true;
+  }
+
   private changed(): void {
     this.settle(this.now());
     this.persist();
     this.paint();
+    this.d.onChange?.();
     // a Guilda não redesenha sozinha com o formulário aberto (não apaga o que o jogador está digitando)
     for (const id of ["boss", "trophy", "mail", "pass", "wish", "guild"]) if (this.panels[id].isOpen && !(id === "guild" && this.guildView === "found")) this.panels[id].update(this.panelHtml(id));
   }
@@ -783,18 +816,7 @@ export class Digivice {
   }
 
   private onAchClick(e: Event): void {
-    const t = e.target as HTMLElement;
-    const tab = t.closest<HTMLElement>("[data-ach-tab]")?.dataset.achTab;
-    const claim = t.closest<HTMLElement>("[data-ach-claim]")?.dataset.achClaim;
-    if (tab) this.achTab = tab;
-    else if (claim) {
-      const bits = claimAchievement(this.save, claim);
-      if (!bits) return;
-      this.d.grantBits?.(bits);
-      this.d.toast?.(`Conquista coletada: +${bits} bits`);
-    } else return;
-    this.changed();
-    this.panels.trophy.update(this.panelHtml("trophy"));
+    if (this.handleAchClick(e)) this.panels.trophy.update(this.panelHtml("trophy"));
   }
 
   private onGuildClick(e: Event): void {

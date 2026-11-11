@@ -458,7 +458,9 @@ async function boot() {
       onSetMoves: (slots) => intents.push({ t: "set_moves", playerId: LOCAL_PLAYER, slots }),
       onSetAutoRules: (rules) => intents.push({ t: "set_auto_priority", playerId: LOCAL_PLAYER, rules }),
       // Com ramificação, "Evoluir" abre a escolha; com um caminho só, evolui direto (como antes).
-      onEvolve: () => (isBranching(cur.sim.content.moves, getEntity(cur.sim.state, player().partnerId)?.speciesId ?? "") ? openEvolve(true) : intents.push({ t: "evolve", playerId: LOCAL_PLAYER })),
+      // No v2 a escolha é a aba Evolução do núcleo do Digivice (DIGIVICE_VI1_SPEC §4.10), não um modal paralelo.
+      onEvolve: () => (isBranching(cur.sim.content.moves, getEntity(cur.sim.state, player().partnerId)?.speciesId ?? "") ? (hud.core ? hud.openCore("evo", { evoPrompt: true }) : openEvolve(true)) : intents.push({ t: "evolve", playerId: LOCAL_PLAYER })),
+      onEvolveTo: (to) => intents.push({ t: "evolve", playerId: LOCAL_PLAYER, to }),
       onSetEvoPref: (from, to) => intents.push({ t: "set_evo_pref", playerId: LOCAL_PLAYER, from, to }),
       onAutoEvolve: (on) => intents.push({ t: "set_auto_evolve", playerId: LOCAL_PLAYER, on }),
       onShortcut: (id) => openScreen(id),
@@ -496,6 +498,8 @@ async function boot() {
               },
             }
           : undefined,
+      // núcleo do Digivice (v2): Banco de dados = o mesmo bestiário do antigo modal "dex"; as funções vêm mais abaixo
+      dex: regionMode && HUD_VARIANT === "v2" ? { state: () => dexState(), paint: (r) => paintSprites(r) } : undefined,
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -805,6 +809,7 @@ async function boot() {
   };
   function openScreen(id: string): void {
     if (id === "arena") return openArena();
+    if (id === "dex" && hud.core) return hud.openCore("db");
     const p = (panels as Record<string, Panel>)[id];
     if (!p) return;
     for (const o of Object.values(panels)) if (o !== p) o.close();
@@ -861,6 +866,8 @@ async function boot() {
     const e = getEntity(cur.sim.state, player().partnerId);
     if (!e) return;
     const branching = isBranching(cur.sim.content.moves, e.speciesId!);
+    // v2: o gatilho continua, mas abre a aba Evolução do núcleo (que se redesenha sozinha com os requisitos)
+    if (hud.core && hud.coreOpen) return;
     if (panels.evolve.isOpen) {
       if (!branching) return panels.evolve.close();
       const key = evoKey(e);
@@ -876,6 +883,11 @@ async function boot() {
     if (!st.some((x) => x.eligible)) return;
     if (player().autoEvolve && autoEvolveTarget(st, player().evoPrefs?.[e.speciesId!])) return;
     if (evoDismissed === evoKey(e) || Object.values(panels).some((p) => p.isOpen) || hud.teamOpen) return;
+    if (hud.core) {
+      if (hud.digivice?.anyPanelOpen) return;
+      const key = evoKey(e);
+      return hud.openCore("evo", { evoPrompt: true, onClose: () => (evoDismissed = key) });
+    }
     openEvolve();
   };
   panels.dex.body.addEventListener("click", (e) => {
@@ -1037,7 +1049,8 @@ async function boot() {
     if ("wasd".includes(k) && k.length === 1) keys.add(k);
     if (k === "f") intents.push({ t: "flee", playerId: LOCAL_PLAYER });
     if (k === "e" && !e.repeat) hud.toggleTeam();
-    if (SCREEN_KEYS[k] && !e.repeat && regionMode && (panels as Record<string, Panel>)[SCREEN_KEYS[k]]) {
+    // V no v2 é do Hud (núcleo do Digivice, Banco de dados)
+    if (SCREEN_KEYS[k] && !e.repeat && regionMode && (panels as Record<string, Panel>)[SCREEN_KEYS[k]] && !(SCREEN_KEYS[k] === "dex" && hud.core)) {
       const p = (panels as Record<string, Panel>)[SCREEN_KEYS[k]];
       if (p.isOpen) p.close();
       else openScreen(SCREEN_KEYS[k]);

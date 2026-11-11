@@ -162,17 +162,18 @@ const STAT_ROWS: [keyof StatBlock, string, number][] = [
   ["spd", "Velocidade", 60],
 ];
 
-/** Aba "Ficha": retrato no anel de scanner, estágio/atributo, PV/XP, stats com barra, afinidades e a próxima forma. */
-export function holoCardHtml(content: WorldContent, s: HoloSubject): string {
+const bar = (v: number, max: number) => `<div class="dg-bar"><i style="width:${Math.max(0, Math.min(100, Math.round((v / Math.max(1, max)) * 100)))}%"></i></div>`;
+
+/**
+ * Digivice VI 1.0 §4.6 — Perfil do Digimon: retrato no anel de scanner, estágio/atributo, PV/XP e a próxima forma.
+ * Metade de cima da antiga ficha; a lógica de cálculo é a mesma (só a apresentação foi dividida em 2 blocos).
+ */
+export function holoProfileHtml(content: WorldContent, s: HoloSubject): string {
   const sp = content.species[s.speciesId];
   const aff = sp?.affinity ?? "free";
-  const m = affinityMatchups(content, aff);
   const own = pathStatuses(content.moves, s.speciesId, s.level, s.stats, (id) => !!content.species[id]);
   const best = own.map((st) => ({ st, pct: pathPct(st) })).sort((a, b) => b.pct - a.pct)[0];
-  const bar = (v: number, max: number) => `<div class="dg-bar"><i style="width:${Math.max(0, Math.min(100, Math.round((v / Math.max(1, max)) * 100)))}%"></i></div>`;
-  const stats = STAT_ROWS.map(([k, label, max]) => `<tr data-stat="${k}"><th>${label}</th><td>${s.stats[k]}</td><td>${bar(s.stats[k], max || Math.ceil(s.stats.hp * 1.2))}</td></tr>`).join("");
-  return `<div class="hc-card" data-testid="hc-card">
-    <div class="hc-head">
+  return `<div class="hc-head">
       <div class="hc-scan" data-testid="hc-scan"><i class="hc-sweep" aria-hidden="true"></i><i class="hc-grid" aria-hidden="true"></i>${sprite(s.speciesId, 96, "big")}</div>
       <div class="hc-id">
         <h3>${esc(s.name)} <span>Nv.${s.level}</span></h3>
@@ -181,21 +182,32 @@ export function holoCardHtml(content: WorldContent, s: HoloSubject): string {
         ${s.xp ? `<div class="hc-vit"><label>XP</label>${bar(s.xp.xp, s.xp.next)}<em>${s.xp.xp}/${s.xp.next}</em></div>` : ""}
       </div>
     </div>
-    <div class="dg-sub">Atributos</div>
+    <div class="dg-sub">Próxima evolução</div>
+    ${
+      best
+        ? `<button type="button" class="hc-next" data-hc-tab="tree" data-testid="hc-next">${ring(best.pct, best.st.eligible)}<span><b>${esc(content.species[best.st.path.to]?.name ?? best.st.path.to)}</b>${own.length > 1 ? ` <small>+${own.length - 1} caminho${own.length > 2 ? "s" : ""}</small>` : ""}<small>${best.st.eligible ? "pronta para evoluir" : `falta: ${esc(missingText(best.st.reqs))}`}</small></span><em>Ver árvore ›</em></button>`
+        : `<p class="note">Forma final nesta prova: sem caminho de evolução.</p>`
+    }`;
+}
+
+/** Digivice VI 1.0 §4.7 — Atributos do Digimon: PV/Ataque/Defesa/Velocidade com barra e as afinidades. */
+export function holoAttrsHtml(content: WorldContent, s: HoloSubject): string {
+  const aff = content.species[s.speciesId]?.affinity ?? "free";
+  const m = affinityMatchups(content, aff);
+  const stats = STAT_ROWS.map(([k, label, max]) => `<tr data-stat="${k}"><th>${label}</th><td>${s.stats[k]}</td><td>${bar(s.stats[k], max || Math.ceil(s.stats.hp * 1.2))}</td></tr>`).join("");
+  return `<div class="dg-sub">Atributos</div>
     <table class="hc-stats">${stats}</table>
     <div class="dg-sub">Afinidade · ${esc(AFFINITY_PT[aff] ?? aff)}</div>
     <dl class="hc-aff" data-testid="hc-aff">
       <dt>Bate forte em</dt><dd>${affList(m.strong)}</dd>
       <dt>Sofre mais de</dt><dd>${affList(m.weak)}</dd>
       <dt>Resiste a</dt><dd>${affList(m.resist)}</dd>
-    </dl>
-    <div class="dg-sub">Próxima evolução</div>
-    ${
-      best
-        ? `<button type="button" class="hc-next" data-hc-tab="tree" data-testid="hc-next">${ring(best.pct, best.st.eligible)}<span><b>${esc(content.species[best.st.path.to]?.name ?? best.st.path.to)}</b>${own.length > 1 ? ` <small>+${own.length - 1} caminho${own.length > 2 ? "s" : ""}</small>` : ""}<small>${best.st.eligible ? "pronta para evoluir" : `falta: ${esc(missingText(best.st.reqs))}`}</small></span><em>Ver árvore ›</em></button>`
-        : `<p class="note">Forma final nesta prova: sem caminho de evolução.</p>`
-    }
-  </div>`;
+    </dl>`;
+}
+
+/** Ficha completa (Perfil + Atributos) — a mesma ficha de antes, montada com os 2 blocos. */
+export function holoCardHtml(content: WorldContent, s: HoloSubject): string {
+  return `<div class="hc-card" data-testid="hc-card">${holoProfileHtml(content, s)}${holoAttrsHtml(content, s)}</div>`;
 }
 
 /** Coluna e linha da árvore: um nó ocupa até ~124×164 px (moldura 64 + nome + estágio + anel de 24 + o que falta em 2 linhas, ou o botão Evoluir). */
@@ -245,7 +257,7 @@ export function evoTreeHtml(content: WorldContent, s: HoloSubject): string {
         ${st ? `<div class="hc-prog">${ring(n.pct!, st.eligible)}</div>` : n.state === "current" ? `<div class="hc-prog"><em class="hc-here">VOCÊ</em></div>` : ""}
         ${st && !st.eligible ? `<small class="hc-miss" data-testid="hc-miss">${n.known ? `Falta: ${esc(miss)}` : "Indisponível"}</small>` : ""}
         ${pref ? `<small class="hc-pref">Preferido</small>` : ""}
-        ${st && st.eligible && n.state === "next" && s.canEvolve ? `<button type="button" class="dg-cta hc-evolve" data-act="evolve">Evoluir</button>` : ""}
+        ${st && st.eligible && n.state === "next" && s.canEvolve ? `<button type="button" class="dg-cta hc-evolve" data-evolve-to="${esc(n.id)}">Evoluir</button>` : ""}
         ${reqs ? `<div class="hc-tip" role="tooltip"><b>${esc(n.name)}</b>${reqs}${st?.path.source ? `<small>Ramo: ${esc(st.path.source)}</small>` : ""}${n.state === "ahead" ? `<small>Contra os atributos de hoje (referência).</small>` : ""}</div>` : ""}
       </div>`;
     })

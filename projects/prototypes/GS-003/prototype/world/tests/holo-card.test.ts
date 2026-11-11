@@ -94,23 +94,25 @@ describe("ficha holográfica — no HUD", () => {
     return { root, hud };
   };
 
-  it("v2: o retrato do parceiro abre a ficha; a aba Evolução troca para a árvore", () => {
+  it("v2: o retrato do parceiro abre o núcleo do Digivice em Digimon → Perfil; 'Ver árvore' leva à Evolução", () => {
     const { root, hud } = mount("v2");
     root.querySelector<HTMLElement>('[data-testid="partner"]')!.click();
-    expect(hud.holo!.isOpen).toBe(true);
-    const body = root.querySelector<HTMLElement>('[data-panel="holo"]')!;
+    expect(hud.core!.isOpen).toBe(true);
+    expect(hud.coreSection).toBe("mon-profile");
+    const body = root.querySelector<HTMLElement>('[data-panel="dvc"]')!;
     expect(body.querySelector('[data-testid="hc-card"]')).not.toBeNull();
-    body.querySelector<HTMLElement>('[data-testid="hc-tab-tree"]')!.click();
+    body.querySelector<HTMLElement>('[data-testid="hc-next"]')!.click();
+    expect(hud.coreSection).toBe("evo");
     expect(body.querySelector('[data-testid="hc-tree"]')).not.toBeNull();
     expect(body.querySelectorAll(".hc-node").length).toBeGreaterThan(2);
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
-    expect(hud.holo!.isOpen).toBe(false);
+    expect(hud.core!.isOpen).toBe(false);
   });
 
-  it("sem a flag não existe ficha nem retrato clicável", () => {
+  it("sem a flag não existe núcleo nem retrato clicável", () => {
     const { root, hud } = mount("v1");
-    expect(hud.holo).toBeUndefined();
-    expect(root.querySelector('[data-panel="holo"]')).toBeNull();
+    expect(hud.core).toBeUndefined();
+    expect(root.querySelector('[data-panel="dvc"]')).toBeNull();
     expect(root.querySelector(".opens-holo")).toBeNull();
   });
 });

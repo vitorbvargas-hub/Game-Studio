@@ -5207,3 +5207,219 @@ body {
     animation: none;
   }
 }
+
+/* ======================================================================================================
+   Digivice VI 1.0 — núcleo Tamer/Digimon (quality-overhaul/phase3/design/DIGIVICE_VI1_SPEC.md §4.1), só no v2.
+   Um modal com aba lateral (2 grupos com disclosure + seções soltas). Peças do circuit-kit-v1 já usadas no Digivice
+   (dg-tab/dg-locked/dg-frame/dg-cta); selecionado = botão pressionado dourado; pendente = button_locked + cadeado.
+   ====================================================================================================== */
+.hud-v2 .dvc-panel .modal.panel {
+  width: min(1040px, 96vw);
+}
+.hud-v2 .dvc-panel .panel-body {
+  max-height: min(720px, 78vh);
+}
+.hud-v2 .dvc {
+  display: grid;
+  grid-template-columns: 212px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  /* altura constante entre seções: o modal não "pula" ao trocar de aba */
+  min-height: 520px;
+}
+.hud-v2 .dvc-nav {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 10px;
+  border-right: 2px solid rgba(44, 232, 245, 0.25);
+}
+.hud-v2 .dvc-group,
+.hud-v2 .dvc-loose,
+.hud-v2 .dvc-gitems {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hud-v2 .dvc-loose {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 2px solid rgba(44, 232, 245, 0.18);
+}
+.hud-v2#hud .dvc-ghead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  background: none;
+  border: 0;
+  color: #3fe0d0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  text-align: left;
+}
+.hud-v2 .dvc-ghead i {
+  width: 10px;
+  font-style: normal;
+  color: #9fb3c8;
+}
+.hud-v2 .dvc-group.has-sel .dvc-ghead {
+  color: #ffd27a;
+}
+.hud-v2 .dvc-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 30px;
+  padding: 0 6px;
+  text-align: left;
+  font-size: 12px;
+}
+.hud-v2 .dvc-gitems .dvc-tab {
+  margin-left: 8px;
+  width: calc(100% - 8px);
+}
+.hud-v2 .dvc-tab span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hud-v2 .dvc-tab.on {
+  box-shadow: 0 0 0 1px var(--ui-gold);
+}
+.hud-v2 .dvc-tab .dg-dot {
+  position: static;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ui-gold);
+}
+.hud-v2 .dvc-lock {
+  flex: none;
+  width: 12px;
+  height: 14px;
+  background: var(--ck-btn-locked) -58px -10px / 128px 40px no-repeat;
+  image-rendering: pixelated;
+}
+.hud-v2 .dvc-main {
+  min-width: 0;
+}
+.hud-v2 .dvc-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.hud-v2 .dvc-title h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #d9fbff;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+.hud-v2 .dvc-title .tag {
+  color: var(--ui-dim);
+  font-size: 11px;
+}
+.hud-v2 .dvc-portrait {
+  flex: none;
+  width: 96px;
+  height: 96px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--dg-cyan);
+  clip-path: var(--chamfer);
+  background: repeating-linear-gradient(45deg, #1c2030 0 6px, #242a40 6px 12px);
+  color: var(--ui-dim);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.hud-v2 .dvc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.hud-v2 .dvc-reg th {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-weight: 400;
+}
+.hud-v2 .dvc-reg td {
+  text-align: right;
+  color: #ffd27a;
+  font-weight: 700;
+}
+.hud-v2 .dvc-pending .dvc-proposal {
+  color: #9fb3c8;
+  font-size: 12px;
+}
+.hud-v2 .dvc-skills .mslot {
+  cursor: default;
+}
+.hud-v2 .dvc-maplist {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hud-v2 .dvc-maplist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 2px solid rgba(44, 232, 245, 0.2);
+  background: rgba(13, 34, 56, 0.6);
+}
+.hud-v2 .dvc-maplist em {
+  width: 26px;
+  color: var(--ui-dim);
+  font-style: normal;
+}
+.hud-v2 .dvc-maplist span {
+  margin-left: auto;
+  color: var(--ui-dim);
+  font-size: 12px;
+}
+.hud-v2 .dvc-evo-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+}
+.hud-v2 .dvc-evo-prompt b {
+  color: #ffd27a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hud-v2 .dvc-evo-prompt small {
+  color: var(--ui-dim);
+}
+.hud-v2 .dvc-evo-prompt small.warn {
+  color: var(--ui-red, #e43b44);
+}
+.hud-v2 .dvc .dex .dx-body {
+  grid-template-columns: minmax(0, 1fr) 240px;
+}
+.hud-v2 .hud-tamer.opens-core {
+  cursor: pointer;
+}
+.hud-v2 .hud-tamer.opens-core:hover,
+.hud-v2 .hud-tamer.opens-core:focus-visible {
+  filter: brightness(1.2) drop-shadow(0 0 4px rgba(44, 232, 245, 0.7));
+}

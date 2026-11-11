@@ -1,6 +1,6 @@
 # Validação — test-meadow
 
-- **Data:** 2026-11-10T09:05:24.902Z
+- **Data:** 2026-11-11T14:12:55.437Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|

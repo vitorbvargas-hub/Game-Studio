@@ -141,7 +141,8 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
       dv.open();
       root.querySelector<HTMLElement>(`[data-dg="${it.id}"]`)!.click();
       expect(dv.isOpen).toBe(false);
-      const wrap = root.querySelector<HTMLElement>(`[data-panel="dg-${it.id}"]`)!;
+      // Digivice VI 1.0 §4.13: Conquistas abre Registros e descobertas no núcleo (uma sala só)
+      const wrap = root.querySelector<HTMLElement>(`[data-panel="${it.id === "trophy" ? "dvc" : `dg-${it.id}`}"]`)!;
       expect(wrap.classList.contains("open")).toBe(true);
       expect(root.querySelectorAll(".panel-wrap.open")).toHaveLength(1);
       expect(wrap.querySelector('[data-testid="dg-locked"]')).toBeNull();
@@ -157,7 +158,9 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
     btn.title = "Conquistas";
     root.querySelector(".hud-bottom")?.appendChild(btn);
     btn.click();
-    expect(root.querySelector<HTMLElement>('[data-panel="dg-trophy"]')!.classList.contains("open")).toBe(true);
+    expect(root.querySelector<HTMLElement>('[data-panel="dvc"]')!.classList.contains("open")).toBe(true);
+    expect(root.querySelector<HTMLElement>('[data-panel="dvc"] [data-testid="dvc"]')!.dataset.section).toBe("records");
+    expect(root.querySelector<HTMLElement>('[data-panel="dg-trophy"]')!.classList.contains("open")).toBe(false);
   });
 
   it("pips só com novidade real: nada a coletar = nenhum pip; conquista pronta acende o pip de Conquistas", () => {
@@ -324,7 +327,7 @@ describe("Conquistas v1 (PANELS_SPEC §6)", () => {
     hud.setTamerProgress(5, 0);
     hud.onEvents(reward());
     hud.digivice!.openPanel("trophy");
-    const body = () => root.querySelector<HTMLElement>('[data-panel="dg-trophy"] .panel-body')!;
+    const body = () => root.querySelector<HTMLElement>('[data-panel="dvc"] .panel-body')!;
     expect(body().querySelector('[data-testid="ach-count"]')!.textContent).toBe(`3/${ACHIEVEMENTS.length}`); // win_1 + map_2 (2 regiões) + tamer_5;
     body().querySelector<HTMLElement>('[data-ach-claim="win_1"]')!.click();
     expect(grants).toEqual([20]);

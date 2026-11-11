@@ -12,9 +12,12 @@ import { icon } from "./icons";
 import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
 import { applyCircuitKit } from "./circuit-kit";
-import { Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
+import { achievementViews, Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
 import type { QuestLike } from "./digivice-panels";
-import { holoPanelHtml, type HoloSubject, type HoloTab } from "./holo-card";
+import { evoTreeHtml, holoAttrsHtml, holoProfileHtml, type HoloSubject } from "./holo-card";
+import { coreHtml, coreItem, monSkillsHtml, recordsHtml, tamerAttrsHtml, tamerProfileHtml, type CoreGroup, type CoreSection, type RecordsTab } from "./digivice-core";
+import { digiviceHtml, type DexState } from "./screens";
+import { pathStatuses } from "../sim/evolution";
 import { Panel } from "./panel";
 import type { StorageLike } from "../save/save";
 import { affinityColor, hpPct, hpTier, MOVE_KIND_V2, tamerBlockHtml, type HudVariant, type TamerVitals } from "./hud-v2";
@@ -28,6 +31,8 @@ export interface HudCallbacks {
   onSetMoves?(slots: (string | null)[]): void;
   onSetAutoRules?(rules: AutoRule[]): void;
   onEvolve?(): void;
+  /** Digivice v2: "Evoluir" num nó da árvore de Evolução do núcleo (o alvo escolhido — vale para ramificações). */
+  onEvolveTo?(to: string): void;
   /** Preferência do Auto-evoluir numa ramificação (null = perguntar sempre). */
   onSetEvoPref?(from: string, to: string | null): void;
   /** Opção "Auto-evoluir" do AUTO. */
@@ -66,6 +71,8 @@ export interface HudOptions {
   variant?: HudVariant;
   /** HUD v2: onde o Digivice guarda o próprio estado (chave separada do save) e as espécies já escaneadas. */
   digivice?: { storage?: StorageLike; captured?: string[]; now?: () => number; quests?: () => QuestLike[]; scanBase?: number };
+  /** HUD v2: Banco de dados do núcleo do Digivice (bestiário do main e o pintor dos retratos [data-sp]). */
+  dex?: { state: () => DexState; paint: (root: HTMLElement) => void };
 }
 
 /** Atalhos da grade (2 × 6). Só "Equipe" abre algo nesta prova; o resto avisa "Em breve". */
@@ -79,7 +86,7 @@ export const SHORTCUTS: { id: string; label: string; icon: string; key?: string 
   { id: "arena", label: "Arena", icon: "trophy" },
   { id: "friends", label: "Amigos", icon: "friends" },
   { id: "guild", label: "Guilda", icon: "guild" },
-  { id: "trophy", label: "Conquistas", icon: "star" },
+  { id: "trophy", label: "Registros e descobertas", icon: "star" },
   { id: "mail", label: "Correio", icon: "mail" },
   { id: "gear", label: "Configurações", icon: "gear", key: "O" },
 ];
@@ -160,10 +167,18 @@ export class Hud {
   private region: { name: string; route: string };
   /** HUD v2 (?hud=v2): hub Digivice no lugar do .hud-tr. */
   readonly digivice?: Digivice;
-  /** HUD v2: ficha holográfica do parceiro + árvore de evolução (retrato do parceiro ou atalho do Digivice). */
-  readonly holo?: Panel;
-  private holoTab: HoloTab = "card";
-  private holoKey = "";
+  /**
+   * HUD v2 — núcleo do Digivice (DIGIVICE_VI1_SPEC §2): um só modal com Tamer/Digimon/Evolução/Vínculo/Banco de
+   * dados/Registros. Três portas, uma sala: V (Banco de dados), retrato do parceiro (Digimon) e bloco do Tamer.
+   */
+  readonly core?: Panel;
+  private coreSec: CoreSection = "mon-profile";
+  private coreKey = "";
+  private coreCollapsed = new Set<CoreGroup>();
+  private recTab: RecordsTab = "ach";
+  private dexSel?: string;
+  /** Aberto pelo gatilho de nível (a antiga "Digivolução disponível"): a aba Evolução ganha o aviso no topo. */
+  private evoPrompt = false;
 
   constructor(
     private readonly root: HTMLElement,
@@ -219,7 +234,7 @@ export class Hud {
         ${this.enabled("inv") ? `<button class="inv" data-short="inv" title="Inventário (I)">` : `<button class="inv" data-soon="Inventário" title="Inventário (em breve)">`}${icon("chest", 34)}<span>Inventário</span></button>
         <nav class="hud-menu">
           <button class="bag" data-soon="Bolsa" title="Bolsa">${icon("bag", 30)}</button>
-          <div class="grid">${SHORTCUTS.map((s) => { const on = s.id === "team" || this.enabled(s.id); return `<button data-short="${s.id}" ${on ? "" : 'aria-disabled="true"'} title="${s.label}${on && s.key ? ` (${s.key})` : on ? "" : " — em breve"}">${icon(s.icon, 20)}</button>`; }).join("")}</div>
+          <div class="grid">${SHORTCUTS.filter((s) => !(this.v2 && s.id === "evo")).map((s) => { const on = s.id === "team" || this.enabled(s.id); return `<button data-short="${s.id}" ${on ? "" : 'aria-disabled="true"'} title="${s.label}${on && s.key ? ` (${s.key})` : on ? "" : " — em breve"}">${icon(s.icon, 20)}</button>`; }).join("")}</div>
         </nav>
         <div class="hud-partner" data-testid="partner"></div>
         <div class="hud-team" data-testid="team"></div>
@@ -282,8 +297,12 @@ export class Hud {
         return this.digivice.openPanel(dg);
       }
       if (this.digivice && act === "digivice") return this.digivice.toggle();
+      if (this.core && short?.dataset.short === "dex" && this.enabled("dex")) {
+        this.closeTeam();
+        return this.openCore("db");
+      }
       if (this.digivice && short) this.digivice.closePanels();
-      if (this.holo && short) this.holo.close();
+      if (this.core && short) this.core.close();
       if (short?.dataset.short === "team") this.openTeam();
       else if (short && this.enabled(short.dataset.short!)) cb.onShortcut?.(short.dataset.short!);
       else if (short) this.toast(`${short.title.replace(/ — em breve$/, "")}: em breve`);
@@ -318,22 +337,30 @@ export class Hud {
         quests: opts.digivice?.quests,
         scanBase: opts.digivice?.scanBase,
         toast: (m) => this.toast(m),
+        openRecords: () => this.openCore("records"),
+        onChange: () => this.renderCore(),
       });
-      this.holo = new Panel(root, "holo", "Ficha do parceiro", "evo");
-      this.holo.wrap.classList.add("dg-panel", "holo-panel");
-      this.holo.body.addEventListener("click", (e) => {
-        const tab = (e.target as HTMLElement).closest<HTMLElement>("[data-hc-tab]")?.dataset.hcTab as HoloTab | undefined;
-        if (!tab || tab === this.holoTab) return;
-        this.holoTab = tab;
-        this.renderHolo(true);
-      });
-      // o retrato (o bloco inteiro do parceiro) abre a ficha
+      this.core = new Panel(root, "dvc", "Digivice", "dex");
+      this.core.wrap.classList.add("dg-panel", "dvc-panel");
+      this.core.body.addEventListener("click", (e) => this.onCoreClick(e, cb));
+      // porta 2: o retrato (o bloco inteiro do parceiro) abre o núcleo em Digimon → Perfil
       this.partnerBox.classList.add("opens-holo");
-      this.partnerBox.title = "Ficha do parceiro";
+      this.partnerBox.title = "Digivice · Digimon";
       this.partnerBox.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.openHolo();
+        this.openCore("mon-profile");
       });
+      // porta 3: o bloco do Tamer (antes sem ação) abre o núcleo em Tamer → Perfil
+      const tb = root.querySelector<HTMLElement>(".hud-tamer");
+      if (tb) {
+        tb.classList.add("opens-core");
+        tb.setAttribute("role", "button");
+        tb.tabIndex = 0;
+        tb.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.openCore("tamer-profile");
+        });
+      }
       this.bindDigiviceKeys();
     }
   }
@@ -342,20 +369,28 @@ export class Hud {
   private bindDigiviceKeys(): void {
     const dv = this.digivice!;
     window.addEventListener("keydown", (e) => {
+      // HUD desmontado (troca de mapa refaz o HUD; testes montam vários): não reage mais às teclas
+      if (!this.root.isConnected) return;
       if ((e.target as HTMLElement).closest?.("input, select, textarea")) return;
       if (document.querySelector(".arena:not([hidden])")) return;
       const k = e.key.toLowerCase();
       if (k === "escape") {
         dv.close();
         dv.closePanels();
-        this.holo?.close();
+        this.core?.close();
       } else if (k === "h" && !e.repeat) {
         if (dv.anyPanelOpen) dv.closePanels();
-        this.holo?.close();
+        this.core?.close();
         dv.toggle(true);
-      } else if ("mviqoe".includes(k) && k.length === 1) {
+      } else if (k === "v" && !e.repeat && this.enabled("dex")) {
+        // porta 1: V abre o núcleo no Banco de dados (o main não abre mais o modal "dex" próprio no v2)
+        dv.close();
         dv.closePanels();
-        this.holo?.close();
+        if (this.coreOpen && this.coreSec === "db") this.core?.close();
+        else this.openCore("db");
+      } else if ("miqoe".includes(k) && k.length === 1) {
+        dv.closePanels();
+        this.core?.close();
       }
     });
     document.addEventListener("pointerdown", (e) => {
@@ -387,28 +422,140 @@ export class Hud {
     };
   }
 
-  /** HUD v2: abre a ficha holográfica (fecha o hub, os painéis do Digivice, o Equipe & Box e as telas do main). */
-  openHolo(tab?: HoloTab): void {
-    if (!this.holo) return;
-    if (tab) this.holoTab = tab;
+  get coreOpen(): boolean {
+    return !!this.core?.isOpen;
+  }
+
+  /** Seção aberta (ou a última aberta) do núcleo. */
+  get coreSection(): CoreSection {
+    return this.coreSec;
+  }
+
+  /**
+   * HUD v2: abre o núcleo do Digivice numa seção (fecha o hub, os painéis do anel, o Equipe & Box e as telas do main).
+   * `evoPrompt` = aberto pelo gatilho de nível (aviso "Digivolução disponível" no topo da Evolução); `onClose` só desta vez.
+   */
+  openCore(sec?: CoreSection, o: { evoPrompt?: boolean; onClose?: () => void } = {}): void {
+    const core = this.core;
+    if (!core) return;
+    if (sec) this.coreSec = sec;
+    const g = coreItem(this.coreSec).group;
+    if (g) this.coreCollapsed.delete(g);
+    this.evoPrompt = !!o.evoPrompt;
     this.digivice?.close();
     this.digivice?.closePanels();
     this.closeTeam();
-    for (const w of this.root.querySelectorAll<HTMLElement>(".panel-wrap.open")) if (w !== this.holo.wrap) w.querySelector<HTMLElement>("[data-panel-close]")?.click();
-    this.holoKey = "";
-    this.holo.open("");
-    this.renderHolo(true);
+    for (const w of this.root.querySelectorAll<HTMLElement>(".panel-wrap.open")) if (w !== core.wrap) w.querySelector<HTMLElement>("[data-panel-close]")?.click();
+    this.coreKey = "";
+    core.open("", () => {
+      this.evoPrompt = false;
+      o.onClose?.();
+    });
+    this.renderCore(true);
   }
 
-  /** Redesenha a ficha se ela estiver aberta e algo mudou (nível, PV, XP, stats, preferências, aba). */
-  private renderHolo(force = false): void {
-    if (!this.holo?.isOpen) return;
+  closeCore(): void {
+    this.core?.close();
+  }
+
+  /** O que muda o conteúdo de cada seção (redesenha só quando muda: o painel não pisca a cada passo). */
+  private coreDataKey(sec: CoreSection): unknown {
+    const dv = this.digivice?.save;
+    if (sec === "tamer-profile") return [this.scene.tamerName, this.tamerLevel, this.tamerXp, this.partner?.name, this.partner?.level];
+    if (sec === "tamer-attrs") return dv && [dv.wins, dv.scans.length, dv.evolves, dv.maps.length, dv.bossAwakens, dv.bossDefeats];
+    if (sec === "records") return [this.recTab, dv && JSON.stringify([dv.claimed, dv.maps, dv.wins, dv.scans.length, dv.evolves, dv.tamerLevel, dv.bossDefeats, dv.guildJoined, dv.mailRead]), this.digivice?.achievementsHtml().length];
+    if (sec === "mon-skills") return [this.movesKey, this.partner?.speciesId];
+    if (sec === "db") return this.dexSel;
+    if (sec === "mon-profile" || sec === "mon-attrs" || sec === "evo") return [this.holoSubject(), this.evoPrompt];
+    return 0;
+  }
+
+  /** Corpo da seção, só com dados que o jogo já tem (DIGIVICE_VI1_SPEC §3.2). Seções pendentes: coreHtml cuida. */
+  private coreBody(sec: CoreSection): string {
     const s = this.holoSubject();
-    const key = JSON.stringify([this.holoTab, s]);
-    if (!force && key === this.holoKey) return;
-    this.holoKey = key;
-    this.holo.update(holoPanelHtml(this.content, s, this.holoTab));
-    this.holo.body.querySelectorAll<HTMLCanvasElement>("canvas[data-species]").forEach((c) => this.paint(c));
+    const noMon = `<p class="dg-empty">Sem parceiro ativo.</p>`;
+    switch (sec) {
+      case "tamer-profile":
+        return tamerProfileHtml({ name: this.scene.tamerName, level: this.tamerLevel, xp: this.tamerXp, next: this.tamerNext(), partner: s && { name: s.name, level: s.level } });
+      case "tamer-attrs":
+        return this.digivice ? tamerAttrsHtml(this.digivice.save) : "";
+      case "mon-profile":
+        return s ? `<div class="hc-card" data-testid="hc-card">${holoProfileHtml(this.content, s)}</div>` : noMon;
+      case "mon-attrs":
+        return s ? `<div class="hc-card" data-testid="hc-attrs">${holoAttrsHtml(this.content, s)}</div>` : noMon;
+      case "mon-skills":
+        return monSkillsHtml(this.content.moves, this.movesView && this.movesView.speciesId === this.partner?.speciesId ? this.movesView : undefined);
+      case "evo":
+        return s ? this.evoBanner(s) + evoTreeHtml(this.content, s) : noMon;
+      case "db":
+        return this.opts.dex ? digiviceHtml(this.content, this.opts.dex.state(), this.dexSel) : `<p class="dg-empty">O Banco de dados abre nos mapas de região.</p>`;
+      case "records": {
+        const dv = this.digivice;
+        if (!dv) return "";
+        return recordsHtml(dv.save, this.recTab, dv.achievementsHtml(), achievementViews(dv.save).some((a) => a.state === "complete"));
+      }
+      default:
+        return "";
+    }
+  }
+
+  /** Aviso do gatilho de nível (o que era o modal "Digivolução disponível"): mesmo dado da árvore, sem 2ª renderização. */
+  private evoBanner(s: HoloSubject): string {
+    if (!this.evoPrompt) return "";
+    const st = pathStatuses(this.content.moves, s.speciesId, s.level, s.stats, (id) => !!this.content.species[id]);
+    const n = st.filter((x) => x.eligible).length;
+    if (!n) return "";
+    const inCombat = !!this.movesView?.inCombat;
+    return `<div class="dvc-evo-prompt dg-frame" data-testid="dvc-evo-prompt"><b>Digivolução disponível</b><span>${esc(s.name)} ${n > 1 ? `pode seguir por ${n} caminhos — escolha um nó em 100% e toque em <em>Evoluir</em>. Com mais de um, quem escolhe é você.` : `já pode evoluir: toque em <em>Evoluir</em> no nó em 100%.`}</span>${inCombat ? `<small class="warn">Em combate: a evolução fica liberada quando a luta acabar.</small>` : ""}<small>Fechar = "agora não" (reabre se mudar o que está elegível).</small></div>`;
+  }
+
+  /** Redesenha o núcleo se ele estiver aberto e algo da seção mudou (ou `force`). */
+  renderCore(force = false): void {
+    const core = this.core;
+    if (!core?.isOpen) return;
+    const sec = this.coreSec;
+    const key = JSON.stringify([sec, [...this.coreCollapsed], this.coreDataKey(sec)]);
+    if (!force && key === this.coreKey) return;
+    this.coreKey = key;
+    const news = this.digivice ? { records: achievementViews(this.digivice.save).some((a) => a.state === "complete") } : {};
+    core.update(coreHtml(sec, this.coreBody(sec), this.coreCollapsed, news));
+    core.body.querySelectorAll<HTMLCanvasElement>("canvas[data-species]").forEach((c) => this.paint(c));
+    core.body.querySelectorAll<HTMLCanvasElement>("canvas[data-icon]").forEach((c) => this.icon(c, this.content.moves.moves[c.dataset.icon!]));
+    if (sec === "db") this.opts.dex?.paint(core.body);
+  }
+
+  private onCoreClick(e: Event, cb: HudCallbacks): void {
+    const t = e.target as HTMLElement;
+    const sec = t.closest<HTMLElement>("[data-core]")?.dataset.core as CoreSection | undefined;
+    const grp = t.closest<HTMLElement>("[data-core-group]")?.dataset.coreGroup as CoreGroup | undefined;
+    const tree = t.closest<HTMLElement>('[data-hc-tab="tree"]');
+    const to = t.closest<HTMLElement>("[data-evolve-to]")?.dataset.evolveTo;
+    const rec = t.closest<HTMLElement>("[data-rec-tab]")?.dataset.recTab as RecordsTab | undefined;
+    const dex = t.closest<HTMLElement>("[data-dex]")?.dataset.dex;
+    if (sec) {
+      this.coreSec = sec;
+      if (sec !== "evo") this.evoPrompt = false;
+    } else if (grp) {
+      if (this.coreCollapsed.has(grp)) this.coreCollapsed.delete(grp);
+      else this.coreCollapsed.add(grp);
+    } else if (tree) this.coreSec = "evo";
+    else if (to) {
+      this.evoPrompt = false;
+      if (cb.onEvolveTo) cb.onEvolveTo(to);
+      else cb.onEvolve?.();
+      return;
+    } else if (t.closest("[data-core-edit]")) {
+      // Habilidades é vitrine: a edição continua num lugar só (Equipe & Box → Golpes)
+      this.core?.close();
+      this.selected = "active";
+      this.tab = "moves";
+      this.swapping = undefined;
+      this.openTeam();
+      return;
+    } else if (rec) this.recTab = rec;
+    else if (dex) this.dexSel = dex;
+    else if (!(this.coreSec === "records" && this.digivice?.handleAchClick(e))) return;
+    this.renderCore(true);
   }
 
   /** P8 v2: bloco do Tamer (PV + Energia, moldura reativa). Sem a flag não faz nada. */
@@ -660,7 +807,7 @@ export class Hud {
     const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready, v.stats, v.evoPrefs]);
     if (key === this.movesKey) return;
     this.movesKey = key;
-    this.renderHolo();
+    this.renderCore();
     if (this.teamOpen && (this.tab === "moves" || this.selected === "active")) this.renderRight();
   }
 
@@ -724,6 +871,7 @@ export class Hud {
   private renderTamerXp(): void {
     this.tamerXpEl.querySelector("b")!.textContent = String(this.tamerLevel);
     this.tamerXpEl.querySelector<HTMLElement>(".bar i")!.style.width = `${Math.round((this.tamerXp / this.tamerNext()) * 100)}%`;
+    this.renderCore();
   }
 
   /** Moeda (faixa de bits do Digivice no v2, caixa .coins no v1). */
@@ -767,7 +915,7 @@ export class Hud {
     }
     this.partnerShown = { level: p.level, xp, pct: xpPct };
     if (this.v2) this.paintPartnerFrame(p);
-    this.renderHolo();
+    this.renderCore();
     this.renderTeam();
   }
 
