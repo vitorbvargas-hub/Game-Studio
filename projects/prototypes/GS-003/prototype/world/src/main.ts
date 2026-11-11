@@ -48,6 +48,7 @@ import { emptyArena, type ArenaSave } from "./save/arena-league";
 import vilaPack from "./data/maps/vila.aliases.json";
 import { DEMO_XP_MULT, demoModeOf, demoStorage, prepareDemo } from "./save/demo";
 import { COMPARE_SAVE_KEY, COMPARE_VISUALS, compareModeOf, compareShowcase, compareStorage, prepareCompare, withCompareVisuals } from "./save/compare";
+import { OFFICIAL_VISUALS, monScaleModeOf, officialModeOf, officialScales, officialShowcase, withOfficialVisuals } from "./save/official";
 import { PARTNER_SAVE_KEY, partnerParamOf, partnerStorage, preparePartnerTest, resolvePartnerSpecies } from "./save/partner";
 import type { ScenePack } from "./assets/scene-tiles";
 import { dprLayout, REF_CHAR_PX } from "./render/scale";
@@ -131,6 +132,13 @@ const PARTNER_RAW = partnerParamOf(params);
  * e comparar a arte (save separado; save/compare.ts).
  */
 const COMPARE = compareModeOf(params);
+
+/**
+ * ?mon=official: Guilmon e Gabumon com os sprites de mapa oficiais do DS (todas as entidades das duas espécies);
+ * ?monscale=1|2|auto escolhe a escala de exibição deles (save/official.ts). Só apresentação; o save não muda.
+ */
+const OFFICIAL = officialModeOf(params);
+const MON_SCALE = monScaleModeOf(params);
 
 /** ?criador=0 pula o criador de Tamer (capturas/testes) e usa o visual padrão. */
 const CREATOR = params.get("criador") !== "0";
@@ -233,7 +241,9 @@ async function boot() {
   const look = loaded.ok && params.get("criador") !== "1" ? loaded.data.tamer : await chooseLook(images, loaded.ok ? loaded.data.tamer : defaultLook());
   const creatures = loadCreatureCatalog();
   /** Catálogo dos retratos e dos tempos de golpe: no ?team=compare, Guilmon/Gabumon com a arte de comparação. */
-  const shown = COMPARE ? withCompareVisuals(creatures) : creatures;
+  // ?mon=official: Guilmon/Gabumon oficiais nos retratos e nos tempos de golpe (a comparação, se ligada, vence)
+  const shown = COMPARE ? withCompareVisuals(OFFICIAL ? withOfficialVisuals(creatures) : creatures) : OFFICIAL ? withOfficialVisuals(creatures) : creatures;
+  const officialScale = OFFICIAL ? officialScales(creatures, MON_SCALE) : undefined;
   // Jogo novo: depois do criador, escolhe o bebê inicial (nível 1). ?criador=0 pula as duas telas.
   // Com ?partner=, jogo novo pula a escolha do bebê: a parceira de teste entra no lugar (preparePartnerTest).
   const starter: string | null = loaded.ok ? loaded.data.starter : regionMode && COMPARE ? "CREATURE-0003" : regionMode && partnerSpecies ? partnerSpecies : regionMode && CREATOR ? await chooseStarter(images, creatures) : null;
@@ -321,6 +331,7 @@ async function boot() {
       unifiedScale: DPR_MODE,
       animV2: ANIM_V2,
       ...(COMPARE ? { partnerVisuals: COMPARE_VISUALS } : {}),
+      ...(OFFICIAL ? { officialVisuals: OFFICIAL_VISUALS, visualScale: officialScale } : {}),
       ...(HUD_V2 ? { encGrassSwayMul: 2 } : {}),
       sizeTable,
       tamers,
@@ -489,6 +500,17 @@ async function boot() {
     badge.textContent = "COMPARAÇÃO · Guilmon PixelLab × Gabumon à mão";
     hudRoot.appendChild(badge);
     hud.push("Comparação: Guilmon 64 px (PixelLab) e Gabumon 64 px (à mão). Shift+1/2 ou clique no retrato da equipe para trocar.", "gold");
+  }
+  if (OFFICIAL) {
+    // ?mon=official: só um selo (o save e a equipe não mudam); com ?team=compare os dois selos aparecem
+    const badge = document.createElement("div");
+    badge.className = "demo-badge";
+    badge.dataset.testid = "official-badge";
+    if (comparePrep) badge.style.bottom = "172px";
+    const k = Object.values(officialScale ?? {});
+    badge.title = "Guilmon e Gabumon com os sprites de mapa oficiais do Digimon World DS (fan game). ?monscale=1|2|auto troca a escala. Tire ?mon=official da URL para voltar.";
+    badge.textContent = `OFICIAL DS · Guilmon/Gabumon ×${[...new Set(k)].join("/") || "?"} (${MON_SCALE})`;
+    hudRoot.appendChild(badge);
   }
   if (loaded.ok) hud.setTamerProgress(loaded.data.tamerLevel, loaded.data.tamerXp);
 
@@ -882,6 +904,7 @@ async function boot() {
         creatureScale: CREATURE_SCALE,
         unifiedScale: DPR_MODE,
         animV2: ANIM_V2,
+        ...(OFFICIAL ? { officialVisuals: OFFICIAL_VISUALS, visualScale: officialScale } : {}),
         sizeTable,
         tamers,
         smoothing: SMOOTH,
@@ -1196,6 +1219,10 @@ async function boot() {
       openEvolve,
       /** ?team=compare (capturas): modelo parado do outro Digimon ao lado da parceira; null tira. */
       compareShowcase: (speciesId: string | null, dx?: number) => compareShowcase(cur.sim, LOCAL_PLAYER, speciesId, dx),
+      /** ?mon=official (capturas): modelo parado n com o visual oficial, dx/dy tiles da parceira; null tira todos. */
+      officialShowcase: (speciesId: string | null, dx?: number, n?: number, dy?: number) => officialShowcase(cur.sim, LOCAL_PLAYER, speciesId, dx, n, dy),
+      /** ?mon=official: escala de exibição por visual oficial (id → fator). */
+      officialScale,
       /** Capturas/testes: troca a parceira (espécie + nível, stats recalculados) sem passar pelo save. */
       setPartner(speciesId: string, level: number) {
         const e = getEntity(cur.sim.state, player().partnerId)!;

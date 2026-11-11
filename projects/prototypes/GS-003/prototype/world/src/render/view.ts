@@ -46,6 +46,13 @@ export const ENC_GRASS_RE = /^(fp4_tall_grass_|fp9_enc_grass_)/;
 export interface ViewOptions {
   /** ?team=compare: espécie → criatura de comparação, só para a parceira local (save/compare.ts). */
   partnerVisuals?: Record<string, string>;
+  /**
+   * ?mon=official: espécie → visual oficial recortado (save/official.ts), em todas as entidades da espécie (a
+   * comparação da parceira, se houver, tem prioridade) e sempre nos modelos `official-show-*` das capturas.
+   */
+  officialVisuals?: Record<string, string>;
+  /** ?monscale: fator inteiro de exibição por id de visual (multiplica a escala da criatura). */
+  visualScale?: Record<string, number>;
   /** Fator inteiro global aplicado aos sprites de criatura (DS nativo = 1). Multiplica o mapScale de cada manifest. */
   creatureScale: number;
   /**
@@ -1272,13 +1279,16 @@ export class WorldView {
     if (!v.speciesId) return undefined;
     // a parceira local e o "modelo" ao lado dela nas capturas da comparação (id compare-show)
     const alias = v.kind === "partner" || v.id === "compare-show" ? this.opts.partnerVisuals?.[v.speciesId] : undefined;
-    return (alias && this.creatures[alias]) || this.creatures[v.speciesId];
+    // ?mon=official: o visual oficial em toda entidade da espécie (inclusive os modelos official-show-* das capturas)
+    const official = this.opts.officialVisuals?.[v.speciesId];
+    return (alias && this.creatures[alias]) || (official && this.creatures[official]) || this.creatures[v.speciesId];
   }
 
   /** Escala inteira da criatura no mapa: global × mapScale do manifest (ou da tabela de tamanhos, se ligada). */
   private scaleOf(cv: CreatureVisual | undefined): number {
-    if (this.opts.unifiedScale) return this.opts.creatureScale;
-    return this.opts.creatureScale * (cv ? mapScaleOf(cv.manifest, this.opts.sizeTable) : 1);
+    const k = (cv && this.opts.visualScale?.[cv.manifest.id]) || 1;
+    if (this.opts.unifiedScale) return this.opts.creatureScale * k;
+    return this.opts.creatureScale * k * (cv ? mapScaleOf(cv.manifest, this.opts.sizeTable) : 1);
   }
 
   /** Deslocamento do golpe e do knockback em px (só visual: a posição lógica não muda). */
