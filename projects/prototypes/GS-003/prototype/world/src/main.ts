@@ -59,6 +59,7 @@ import { ENCOUNTER_TABLES, periodOf } from "./sim/encounters/table";
 import { mountEncounterDebug } from "./ui/encdebug";
 import { hudVariantOf } from "./ui/hud-v2";
 import { DIGIVICE_KEY } from "./ui/digivice";
+import { animV2Of, encountersOf } from "./save/flags";
 
 
 const params = new URLSearchParams(location.search);
@@ -98,15 +99,16 @@ const V12_NIGHT_SWAP = params.get("v12night") === "swap";
 const DPR_MODE = params.get("dpr") !== "0"; // padrão na branch quality-overhaul (2026-11-11); ?dpr=0 = escala antiga
 const CHAR_H_PCT = Math.min(25, Math.max(3, Number(params.get("charh") ?? 9) || 9));
 setSkipResampled(DPR_MODE);
-/** ?anim=v2 (Quality Overhaul, fase 2): controlador de animação v2 (src/render/animctl.ts), só na apresentação. */
-const ANIM_V2 = params.get("anim") === "v2";
+/** Controlador de animação v2 (Quality Overhaul, fase 2; PADRÃO desde 2026-11-11, ?anim=v1 volta), só na apresentação. */
+const ANIM_V2 = animV2Of(params);
 /**
- * ?encounters=1 (GS-012 passos 5–7): encontros aleatórios na grama alta + 5 pontos visíveis no lugar das zonas de
- * spawn, nos mapas com tabela (src/sim/encounters/table.ts). ?encdebug=1 liga também o painel de debug.
+ * Encontros GS-012 (passos 5–7; PADRÃO desde 2026-11-11, ?encounters=0 desliga): encontros aleatórios na grama alta
+ * + 5 pontos visíveis no lugar das zonas de spawn, nos mapas com tabela (src/sim/encounters/table.ts). ?encdebug=1
+ * liga também o painel de debug.
  * ?weather=rain|fog|storm força o clima (não há sistema de clima; padrão "clear").
  */
 const ENC_DEBUG = params.get("encdebug") === "1";
-const ENCOUNTERS = params.get("encounters") === "1" || ENC_DEBUG;
+const ENCOUNTERS = encountersOf(params);
 const WEATHER = params.get("weather") ?? "clear";
 /**
  * HUD v2 (Quality Overhaul P8; PADRÃO na branch quality-overhaul desde 2026-11-11, ?hud=v1 volta ao antigo): bloco do Tamer com PV/Energia, molduras nível 1 reativas,
