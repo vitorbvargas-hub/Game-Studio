@@ -57,7 +57,8 @@ describe("look v9: dados derivados do v8", () => {
     // P7 recompõe só a caixa x12–41 × y6–29 (tests/p7-clareira.test.ts); fora dela os props são os mesmos
     const out = (p: { x: number; y: number }) => p.x < 12 * 32 || p.x >= 42 * 32 || p.y < 6 * 32 || p.y >= 30 * 32;
     // forest-v11: as árvores comuns do v4 viram as do v10 no mapa todo (mesma posição e colisão, outra chave)
-    const v10tree = /^fp10_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)$/;
+    // forest-v12: as da borda da mata podem levar uma variante de copa (fp12_…_flip/_tone_dark/_tone_light)
+    const v10tree = /^fp1[02]_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)(_flip|_tone_dark|_tone_light)?$/;
     const common = /^fp4_tree_(?!palm_digital|data_leaf)/;
     const p8 = m8.props.filter(out);
     const p9 = m9.props.filter(out);

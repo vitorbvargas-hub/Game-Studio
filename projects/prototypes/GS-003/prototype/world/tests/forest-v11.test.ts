@@ -99,7 +99,8 @@ describe("forest-v11 no look v9", () => {
     const g = layerKeys("ground");
     const det = layerKeys("ground_detail");
     const W = m.width;
-    const top = g.flatMap((k, i) => (/^fp11_mirante_top_blob_\d+$/.test(k) ? [i] : []));
+    // forest-v12: a fileira norte do topo virou o lip (fp12_mirante_top_edge_*, tests/forest-v12.test.ts)
+    const top = g.flatMap((k, i) => (/^(fp11_mirante_top_blob_\d+|fp12_mirante_top_edge_\w+)$/.test(k) ? [i] : []));
     expect(top.length).toBe(24);
     expect(g.some((k) => /cliff_top_blob/.test(k))).toBe(false);
     for (const i of top) expect(det[i] ?? "", `(${i % W},${Math.floor(i / W)})`).toBe("");
@@ -109,7 +110,7 @@ describe("forest-v11 no look v9", () => {
       const x = i % W;
       const y = Math.floor(i / W);
       const mk = (has(x, y - 1) ? 1 : 0) | (has(x + 1, y) ? 2 : 0) | (has(x, y + 1) ? 4 : 0) | (has(x - 1, y) ? 8 : 0);
-      expect(g[i]).toBe(`fp11_mirante_top_blob_${mk}`);
+      if (g[i].startsWith("fp11_")) expect(g[i]).toBe(`fp11_mirante_top_blob_${mk}`);
     }
     // face, cantos e rampa: kit forest-v9-cliffs na linha de baixo
     const face = det.filter((k) => /^fp9c_cliff_(face_[a-d]|face_corner_outer_(left|right)|ramp)$/.test(k));

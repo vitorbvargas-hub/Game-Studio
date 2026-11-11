@@ -17,7 +17,7 @@ export const clsOf = (o) => o.class ?? o.type ?? "";
 export function gidTable(m) {
   const out = new Map();
   for (const ts of m.tilesets ?? [])
-    for (const t of ts.tiles ?? []) out.set(ts.firstgid + t.id, { key: String(prop(t.properties, "key") ?? `${ts.name}_${t.id}`), solid: prop(t.properties, "solid") === true, hasKey: prop(t.properties, "key") !== undefined });
+    for (const t of ts.tiles ?? []) out.set(ts.firstgid + t.id, { key: String(prop(t.properties, "key") ?? `${ts.name}_${t.id}`), solid: prop(t.properties, "solid") === true, hasKey: prop(t.properties, "key") !== undefined, ...(prop(t.properties, "autotile") !== undefined ? { autotile: String(prop(t.properties, "autotile")) } : {}) });
   return out;
 }
 

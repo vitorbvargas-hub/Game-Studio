@@ -15,14 +15,27 @@ import { globalTileFilter, loadMapFactoryPack, loadTileSources, type TileSource 
  * (ex. a ponte de 3 tiles vira 3 tiles de chão), '<prefix><chave>' → rect [x, y, w, h] de '<from>'.
  * `nightFor`: os PNGs das pastas night/ do pacote são o preset noturno das chaves '<nightFor><nome>' (de outro
  * pacote): forest-v11-ground/trees/night/<espécie>_<tamanho>_top.png é a copa noturna de fp10_<espécie>_<tamanho>.
+ * Pode ser uma lista de prefixos (forest-v12: a terra e o topo do mirante noturnos são de fp11_, o lip e as copas de
+ * borda de fp12_). O token `_night` do nome do arquivo sai (mirante_top_blob_night_3 → mirante_top_blob_3), e a noite
+ * só substitui chave que já existe de dia (nada de chave nova só à noite).
  */
 export interface ExtraPack {
   pack: string;
   prefix: string;
   root?: "map-factory" | "game-assets";
   crops?: Record<string, { from: string; rect: [number, number, number, number] }>;
-  nightFor?: string;
+  nightFor?: string | string[];
+  /**
+   * Chaves (regex na chave já com prefixo) em que a noite pintada não troca a imagem: só os pixels de terra vêm dela
+   * (`TileSource.nightEarth`) e a grama fica a do dia com a grade da noite. forest-v12: a rampa noturna do pacote é a
+   * do forest-v4 (azul-violeta), e o chão do look v9 à noite é arte do dia com grade; a troca inteira deixa a peça
+   * como um retângulo azul-escuro no meio da grama.
+   */
+  nightBlend?: string;
 }
+
+/** Nome de um PNG noturno sem o token `_night` (forest-v12: grass_dirt_wang47_night_5 → grass_dirt_wang47_5). */
+export const nightBaseName = (k: string): string => k.replace(/_night(?=_|$)/, "");
 
 export interface ScenePack {
   pack: string;
@@ -36,6 +49,11 @@ export interface ScenePack {
   extraPacks?: ExtraPack[];
   /** Look do mapa (ex. v8: grade, luzes, névoa, partículas; render/look.ts). Só nas variantes de look. */
   look?: LookCfg;
+  /**
+   * Chaves que apontam para outra chave já resolvida (depois do preset noturno): forest-v12 monta as copas de borda
+   * 'fp12_<espécie>_<tamanho>_flip' com '_top' = fp12_…_top_flip e '_base' = o tronco fp10_…_base.
+   */
+  keyAliases?: Record<string, string>;
 }
 
 export type Preset = "day" | "night";
@@ -84,7 +102,15 @@ export function extraPackTiles(cfg: ScenePack, load: (e: ExtraPack, preset: Pres
     for (const [k, c] of Object.entries(e.crops ?? {})) if (src[c.from]) out[e.prefix + k] = { url: src[c.from].url, rect: c.rect };
   }
   // preset noturno de chaves de outros pacotes: aplicado depois, vence a versão diurna
-  if (preset === "night") for (const e of cfg.extraPacks ?? []) if (e.nightFor) for (const [k, v] of Object.entries(load(e, "night"))) out[e.nightFor + k] = v;
+  if (preset === "night")
+    for (const e of cfg.extraPacks ?? [])
+      for (const p of e.nightFor === undefined ? [] : [e.nightFor].flat())
+        for (const [k, v] of Object.entries(load(e, "night"))) {
+          const key = p + nightBaseName(k);
+          if (!out[key]) continue;
+          out[key] = e.nightBlend && new RegExp(e.nightBlend).test(key) ? { ...out[key], nightEarth: v.url } : v;
+        }
+  for (const [k, from] of Object.entries(cfg.keyAliases ?? {})) if (out[from]) out[k] = out[from];
   return out;
 }
 

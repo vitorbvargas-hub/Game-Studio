@@ -11,6 +11,7 @@ import { fileURLToPath } from "node:url";
 import { composeClareira, ratio603010, BOX } from "./p7-clareira.mjs";
 import { applyForestV10 } from "./v10-ground-trees.mjs";
 import { applyForestV11 } from "./v11-ground.mjs";
+import { applyForestV12 } from "./v12-plateau-night.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const V8 = join(ROOT, "src/data/maps/v8");
@@ -243,6 +244,9 @@ p7.v10 = applyForestV10(tmj, look, outPack, { TS, prop, layer, solid, nearAny, p
 // ---------- forest-v11: chão com relevo, terra batida Wang-47, manchas corrigidas, copas noturnas, topo do mirante ----------
 // (art/map-factory/forest-v11-ground/, game-art 97a1fdb; ver v11-ground.mjs)
 p7.v11 = applyForestV11(tmj, look, outPack, { TS, prop, layer, solid, nearAny, paths, water, table, artRoot });
+// ---------- forest-v12: lip da borda norte do mirante, terra e topo noturnos pintados, variedade de copa na borda ----------
+// (art/map-factory/forest-v12-plateau-night/, game-art e506b0a; ver v12-plateau-night.mjs)
+p7.v12 = applyForestV12(tmj, look, outPack, { TS, prop, layer, artRoot });
 p7.ratioV10 = ratio603010(tmj, { TS, prop, layer, solid, nearAny, water }, { x0: BOX.x0 * TS, y0: BOX.y0 * TS, x1: (BOX.x1 + 1) * TS, y1: (BOX.y1 + 1) * TS });
 
 look.water = { ...look.water, stepPx: [0, 2], noise: { phasePx: [7, 5], scale: [26, 34], shade: 14, seed: 17 } };

@@ -4209,7 +4209,7 @@ body {
 }
 
 /* ======================================================================================================
-   Mapa-múndi v1 (art/map-factory/worldmap-v1) atrás de ?hud=v2: a ilustração com moldura de Digivice em 2×
+   Mapa-múndi (art/map-factory/worldmap-v2_1, antes worldmap-v1) atrás de ?hud=v2: a ilustração com moldura de Digivice em 2×
    (640×360 → 1280×720, encolhe junto com a tela), POIs de poi_icons.png (16×16, 2×) nas coordenadas do
    worldmap.json e o painel lateral do destino. Escopado em .hud-v2 .wm2.
    ====================================================================================================== */

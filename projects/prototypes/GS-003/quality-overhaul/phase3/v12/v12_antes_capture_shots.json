@@ -1,0 +1,164 @@
+{
+  "date": "2026-11-11T09:10:31.579Z",
+  "base": "http://127.0.0.1:5192",
+  "tag": "antes",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v12_antes_mirante_jogo_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "day",
+      "framing": "mirante de longe, visão de jogo (dpr=1)",
+      "tamerTile": [
+        25,
+        20
+      ],
+      "camera": {
+        "x": 496,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v12_antes_mirante_geral_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "day",
+      "framing": "mirante de longe, geral (zoom=1)",
+      "tamerTile": [
+        25,
+        17
+      ],
+      "camera": {
+        "x": -64,
+        "y": 68,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v12_antes_copas_oeste_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=2",
+      "time": "day",
+      "framing": "borda oeste da mata (zoom=2)",
+      "tamerTile": [
+        9,
+        20
+      ],
+      "camera": {
+        "x": 0,
+        "y": 410,
+        "w": 960,
+        "h": 540
+      }
+    },
+    "v12_antes_copas_sul_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=2",
+      "time": "day",
+      "framing": "borda sul da mata (zoom=2)",
+      "tamerTile": [
+        30,
+        36
+      ],
+      "camera": {
+        "x": 496,
+        "y": 740,
+        "w": 960,
+        "h": 540
+      }
+    },
+    "v12_antes_geral_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "day",
+      "framing": "mapa inteiro (zoom=1)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "camera": {
+        "x": -64,
+        "y": 164,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v12_antes_mirante_jogo_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1",
+      "time": "night",
+      "framing": "mirante de longe, visão de jogo (dpr=1)",
+      "tamerTile": [
+        25,
+        20
+      ],
+      "camera": {
+        "x": 496,
+        "y": 492,
+        "w": 640,
+        "h": 360
+      }
+    },
+    "v12_antes_mirante_geral_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "night",
+      "framing": "mirante de longe, geral (zoom=1)",
+      "tamerTile": [
+        25,
+        17
+      ],
+      "camera": {
+        "x": -64,
+        "y": 68,
+        "w": 1920,
+        "h": 1080
+      }
+    },
+    "v12_antes_copas_oeste_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=2",
+      "time": "night",
+      "framing": "borda oeste da mata (zoom=2)",
+      "tamerTile": [
+        9,
+        20
+      ],
+      "camera": {
+        "x": 0,
+        "y": 410,
+        "w": 960,
+        "h": 540
+      }
+    },
+    "v12_antes_copas_sul_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=2",
+      "time": "night",
+      "framing": "borda sul da mata (zoom=2)",
+      "tamerTile": [
+        30,
+        36
+      ],
+      "camera": {
+        "x": 496,
+        "y": 740,
+        "w": 960,
+        "h": 540
+      }
+    },
+    "v12_antes_geral_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&zoom=1",
+      "time": "night",
+      "framing": "mapa inteiro (zoom=1)",
+      "tamerTile": [
+        28,
+        20
+      ],
+      "camera": {
+        "x": -64,
+        "y": 164,
+        "w": 1920,
+        "h": 1080
+      }
+    }
+  },
+  "ground": {},
+  "worldmap": {},
+  "perf": []
+}

@@ -11,6 +11,11 @@ export interface TileSource {
   rect?: [number, number, number, number];
   /** Pés do prop em px dentro do recorte (props); tiles ignoram. */
   pivot?: [number, number];
+  /**
+   * Só no preset noturno: arte noturna pintada (mesma geometria) cujos pixels de TERRA substituem os da imagem `url`
+   * depois da grade (render/look.ts gradeTiles); a grama segue a da `url` com a grade da noite (forest-v12).
+   */
+  nightEarth?: string;
 }
 
 interface TilesetEntry {
@@ -83,9 +88,10 @@ export function countDwdsSources(src: Record<string, TileSource>): number {
  */
 /**
  * PNGs de prova do pacote (prancha, antes/depois, teste de tileabilidade, montagens de demonstração): não são peças
- * de produção e não entram no mapa de tiles (senão o jogo carregaria imagens de até 1200 px que nunca desenha).
+ * de produção e não entram no mapa de tiles (senão o jogo carregaria imagens de até 1200 px que nunca desenha). `_proof`:
+ * forest-v12 canopy-edge-variety/edge_row_proof_16x2.png.
  */
-export const PACK_PROOF_RE = /\/(preview|before_after[^/]*|tileability_check|[^/]*_demo|[^/]*_comparison)\.png$/i;
+export const PACK_PROOF_RE = /\/(preview|before_after[^/]*|tileability_check|[^/]*_demo|[^/]*_comparison|[^/]*_proof[^/]*)\.png$/i;
 
 /**
  * PNGs de um pacote da Map Factory, por nome de arquivo. `preset`: "day" (padrão) ignora as pastas night/;

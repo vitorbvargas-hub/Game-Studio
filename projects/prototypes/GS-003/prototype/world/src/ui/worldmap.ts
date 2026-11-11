@@ -1,11 +1,11 @@
 // Mapa-múndi (pt-BR): as 6 regiões do GDD num esquema de nós ligados pelas rotas (routesTo), com faixa de nível,
 // selvagens, estado (você está aqui / liberada / bloqueada e o motivo / sem mapa) e "Viajar" para as liberadas.
-// HUD v2 (?hud=v2): a ilustração art/map-factory/worldmap-v1 (moldura de Digivice) no lugar do grafo, com os POIs
+// HUD v2 (?hud=v2): a ilustração art/map-factory/worldmap-v2_1 (pintada, sem POI assado; moldura de Digivice) no lugar do grafo, com os POIs
 // dinâmicos (poi_icons.png) nas coordenadas do worldmap.json e um painel lateral com o destino escolhido.
 
-import worldmapArt from "../../../../art/map-factory/worldmap-v1/worldmap.json";
-import worldmapPng from "../../../../art/map-factory/worldmap-v1/worldmap_v1.png?url";
-import poiPng from "../../../../art/map-factory/worldmap-v1/poi_icons.png?url";
+import worldmapArt from "../../../../art/map-factory/worldmap-v2_1/worldmap.json";
+import worldmapPng from "../../../../art/map-factory/worldmap-v2_1/worldmap_v2_1.png?url";
+import poiPng from "../../../../art/map-factory/worldmap-v2_1/poi_icons.png?url";
 import { hudVariantOf, type HudVariant } from "./hud-v2";
 import { icon } from "./icons";
 import { canTravel, mapOfRegion, REGIONS, unlockState, type Progress, type RegionDef } from "../world/regions";
@@ -58,7 +58,7 @@ export function worldMapHtml(current: string, p: Progress, variant: HudVariant =
     </div>`;
 }
 
-// ---------------------------------------------------------------- v2: ilustração worldmap-v1
+// ---------------------------------------------------------------- v2: ilustração worldmap-v2_1
 
 interface ArtRegion {
   name_pt: string;

@@ -5,7 +5,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { usedKeys } from "../src/assets/scene-tiles";
+import { extraPackTiles, usedKeys, type ScenePack } from "../src/assets/scene-tiles";
 import report from "../src/data/maps/v9/digimon-forest-01.p7-report.json";
 import v9Pack from "../src/data/maps/v9/digimon-forest-01.aliases.json";
 import { gradeRuleFor, type LookCfg } from "../src/render/look";
@@ -75,23 +75,29 @@ describe("forest-v10 no look v9", () => {
 
   it("árvores do mapa todo: as comuns do v4 viraram as 4 espécies do v10 em 2 tamanhos, sólidas, com base e copa", () => {
     const m = m9();
-    const trees = m.props.filter((p) => /^fp(4_tree|10_(tall_narrow|wide_low|leaning|ancient_thick))_/.test(p.key));
-    const v10 = trees.filter((p) => p.key.startsWith("fp10_"));
+    const trees = m.props.filter((p) => /^fp(4_tree|1[02]_(tall_narrow|wide_low|leaning|ancient_thick))_/.test(p.key));
+    // forest-v12: as da borda da mata podem levar uma variante de copa (fp12_<espécie>_<tamanho>_<variante>, mesmo
+    // tronco); a silhueta (espécie + tamanho) é a do v10
+    const v10 = trees.filter((p) => /^fp1[02]_/.test(p.key));
+    const sil = (k: string) => k.replace(/^fp1[02]_/, "fp10_").replace(/_(flip|tone_dark|tone_light)$/, "");
     // forest-v11: a troca vale para o mapa inteiro; as digitais (palmeira e data_leaf) ficam todas, como acento Digimon
     expect(trees.filter((p) => p.key.startsWith("fp4_tree_")).every((p) => /palm_digital|data_leaf/.test(p.key))).toBe(true);
     expect(trees.filter((p) => p.key.startsWith("fp4_tree_")).length).toBe(report.v10.trees.keptDigital);
     expect(v10.length).toBe(report.v10.trees.swapped);
     expect(v10.filter((p) => !inBox(p)).length).toBeGreaterThan(300);
-    expect(new Set(v10.map((p) => p.key.replace(/^fp10_|_(large|small)$/g, ""))).size).toBe(4);
-    expect(new Set(v10.map((p) => p.key.replace(/^.*_/, "")))).toEqual(new Set(["large", "small"]));
+    expect(new Set(v10.map((p) => sil(p.key).replace(/^fp10_|_(large|small)$/g, ""))).size).toBe(4);
+    expect(new Set(v10.map((p) => sil(p.key).replace(/^.*_/, "")))).toEqual(new Set(["large", "small"]));
+    const tiles = extraPackTiles(v9Pack as unknown as ScenePack);
     for (const p of v10) {
       expect(p.solid, p.key).toBe(true);
-      expect(fileOf(`${p.key}_base`), p.key).toBeDefined();
-      expect(fileOf(`${p.key}_top`), p.key).toBeDefined();
+      expect(fileOf(`${sil(p.key)}_base`), p.key).toBeDefined();
+      expect(fileOf(`${sil(p.key)}_top`), p.key).toBeDefined();
+      expect(tiles[`${p.key}_base`], p.key).toBeDefined();
+      expect(tiles[`${p.key}_top`], p.key).toBeDefined();
     }
     // a mesma espécie+tamanho nunca se repete a menos de 80 px (o gerador tenta 96; na mata densa as 8 combinações não
     // bastam e ele fica com a repetição mais distante)
-    for (const a of v10) for (const b of v10) if (a !== b && Math.hypot(a.x - b.x, a.y - b.y) < 80) expect(a.key === b.key, `${a.key} @${a.x},${a.y}`).toBe(false);
+    for (const a of v10) for (const b of v10) if (a !== b && Math.hypot(a.x - b.x, a.y - b.y) < 80) expect(sil(a.key) === sil(b.key), `${a.key} @${a.x},${a.y}`).toBe(false);
     // copas com rim-light já pintado (o renderer não soma outro) e grade própria, mais leve que a dos props fp8_
     for (const k of new Set(v10.map((p) => p.key))) expect(v9Pack.trees.rimLight.baked).toContain(k);
     const look = v9Pack.look as unknown as LookCfg;

@@ -29,7 +29,29 @@
         "fp10_leaning_large",
         "fp10_leaning_small",
         "fp10_ancient_thick_large",
-        "fp10_ancient_thick_small"
+        "fp10_ancient_thick_small",
+        "fp12_tall_narrow_large_flip",
+        "fp12_tall_narrow_large_tone_dark",
+        "fp12_tall_narrow_large_tone_light",
+        "fp12_tall_narrow_small_flip",
+        "fp12_tall_narrow_small_tone_dark",
+        "fp12_tall_narrow_small_tone_light",
+        "fp12_wide_low_large_flip",
+        "fp12_wide_low_large_tone_dark",
+        "fp12_wide_low_large_tone_light",
+        "fp12_wide_low_small_flip",
+        "fp12_wide_low_small_tone_dark",
+        "fp12_wide_low_small_tone_light",
+        "fp12_leaning_large_tone_dark",
+        "fp12_leaning_large_tone_light",
+        "fp12_leaning_small_tone_dark",
+        "fp12_leaning_small_tone_light",
+        "fp12_ancient_thick_large_flip",
+        "fp12_ancient_thick_large_tone_dark",
+        "fp12_ancient_thick_large_tone_light",
+        "fp12_ancient_thick_small_flip",
+        "fp12_ancient_thick_small_tone_dark",
+        "fp12_ancient_thick_small_tone_light"
       ]
     },
     "topOffset": {
@@ -66,6 +88,94 @@
         -1
       ],
       "fp10_ancient_thick_small": [
+        0,
+        -2
+      ],
+      "fp12_tall_narrow_large_flip": [
+        0,
+        -2
+      ],
+      "fp12_tall_narrow_large_tone_dark": [
+        0,
+        -2
+      ],
+      "fp12_tall_narrow_large_tone_light": [
+        0,
+        -2
+      ],
+      "fp12_tall_narrow_small_flip": [
+        0,
+        -1
+      ],
+      "fp12_tall_narrow_small_tone_dark": [
+        0,
+        -1
+      ],
+      "fp12_tall_narrow_small_tone_light": [
+        0,
+        -1
+      ],
+      "fp12_wide_low_large_flip": [
+        0,
+        -2
+      ],
+      "fp12_wide_low_large_tone_dark": [
+        0,
+        -2
+      ],
+      "fp12_wide_low_large_tone_light": [
+        0,
+        -2
+      ],
+      "fp12_wide_low_small_flip": [
+        0,
+        -1
+      ],
+      "fp12_wide_low_small_tone_dark": [
+        0,
+        -1
+      ],
+      "fp12_wide_low_small_tone_light": [
+        0,
+        -1
+      ],
+      "fp12_leaning_large_tone_dark": [
+        0,
+        -2
+      ],
+      "fp12_leaning_large_tone_light": [
+        0,
+        -2
+      ],
+      "fp12_leaning_small_tone_dark": [
+        0,
+        -1
+      ],
+      "fp12_leaning_small_tone_light": [
+        0,
+        -1
+      ],
+      "fp12_ancient_thick_large_flip": [
+        0,
+        -1
+      ],
+      "fp12_ancient_thick_large_tone_dark": [
+        0,
+        -1
+      ],
+      "fp12_ancient_thick_large_tone_light": [
+        0,
+        -1
+      ],
+      "fp12_ancient_thick_small_flip": [
+        0,
+        -2
+      ],
+      "fp12_ancient_thick_small_tone_dark": [
+        0,
+        -2
+      ],
+      "fp12_ancient_thick_small_tone_light": [
         0,
         -2
       ]
@@ -369,6 +479,16 @@
       "prefix": "fp11_",
       "root": "map-factory",
       "nightFor": "fp10_"
+    },
+    {
+      "pack": "forest-v12-plateau-night",
+      "prefix": "fp12_",
+      "root": "map-factory",
+      "nightFor": [
+        "fp11_",
+        "fp12_"
+      ],
+      "nightBlend": "^(fp11_grass_dirt_wang47_|fp11_mirante_top_blob_|fp12_mirante_top_edge_)"
     }
   ],
   "look": {
@@ -386,6 +506,16 @@
       "scopeNote": "Apply only to ground/decor/foliage layers. Never multiply characters, UI, or this pack's emissive props/lights -- their saturation being untouched is the contrast the study asked for.",
       "rules": [
         {
+          "match": "^fp12_mirante_top_edge_",
+          "saturationMul": 0.78,
+          "valueMul": 0.6
+        },
+        {
+          "match": "^fp12_(tall_narrow|wide_low|leaning|ancient_thick)_(large|small)_",
+          "saturationMul": 0.92,
+          "valueMul": 0.9
+        },
+        {
           "match": "^fp11_grass_dirt_wang47_",
           "saturationMul": 0.78,
           "valueMul": 0.6,
@@ -393,13 +523,7 @@
             "saturationMul": 0.55,
             "valueMul": 0.74,
             "tint": "#5e4a62",
-            "tintMix": 0.28,
-            "night": {
-              "saturationMul": 0.45,
-              "valueMul": 0.72,
-              "tint": "#4a3c70",
-              "tintMix": 0.5
-            }
+            "tintMix": 0.28
           }
         },
         {
@@ -615,5 +739,51 @@
       "fadeMs": 120,
       "headFrac": 0.35
     }
+  },
+  "keyAliases": {
+    "fp12_tall_narrow_large_flip_top": "fp12_tall_narrow_large_top_flip",
+    "fp12_tall_narrow_large_flip_base": "fp10_tall_narrow_large_base",
+    "fp12_tall_narrow_large_tone_dark_top": "fp12_tall_narrow_large_top_tone_dark",
+    "fp12_tall_narrow_large_tone_dark_base": "fp10_tall_narrow_large_base",
+    "fp12_tall_narrow_large_tone_light_top": "fp12_tall_narrow_large_top_tone_light",
+    "fp12_tall_narrow_large_tone_light_base": "fp10_tall_narrow_large_base",
+    "fp12_tall_narrow_small_flip_top": "fp12_tall_narrow_small_top_flip",
+    "fp12_tall_narrow_small_flip_base": "fp10_tall_narrow_small_base",
+    "fp12_tall_narrow_small_tone_dark_top": "fp12_tall_narrow_small_top_tone_dark",
+    "fp12_tall_narrow_small_tone_dark_base": "fp10_tall_narrow_small_base",
+    "fp12_tall_narrow_small_tone_light_top": "fp12_tall_narrow_small_top_tone_light",
+    "fp12_tall_narrow_small_tone_light_base": "fp10_tall_narrow_small_base",
+    "fp12_wide_low_large_flip_top": "fp12_wide_low_large_top_flip",
+    "fp12_wide_low_large_flip_base": "fp10_wide_low_large_base",
+    "fp12_wide_low_large_tone_dark_top": "fp12_wide_low_large_top_tone_dark",
+    "fp12_wide_low_large_tone_dark_base": "fp10_wide_low_large_base",
+    "fp12_wide_low_large_tone_light_top": "fp12_wide_low_large_top_tone_light",
+    "fp12_wide_low_large_tone_light_base": "fp10_wide_low_large_base",
+    "fp12_wide_low_small_flip_top": "fp12_wide_low_small_top_flip",
+    "fp12_wide_low_small_flip_base": "fp10_wide_low_small_base",
+    "fp12_wide_low_small_tone_dark_top": "fp12_wide_low_small_top_tone_dark",
+    "fp12_wide_low_small_tone_dark_base": "fp10_wide_low_small_base",
+    "fp12_wide_low_small_tone_light_top": "fp12_wide_low_small_top_tone_light",
+    "fp12_wide_low_small_tone_light_base": "fp10_wide_low_small_base",
+    "fp12_leaning_large_tone_dark_top": "fp12_leaning_large_top_tone_dark",
+    "fp12_leaning_large_tone_dark_base": "fp10_leaning_large_base",
+    "fp12_leaning_large_tone_light_top": "fp12_leaning_large_top_tone_light",
+    "fp12_leaning_large_tone_light_base": "fp10_leaning_large_base",
+    "fp12_leaning_small_tone_dark_top": "fp12_leaning_small_top_tone_dark",
+    "fp12_leaning_small_tone_dark_base": "fp10_leaning_small_base",
+    "fp12_leaning_small_tone_light_top": "fp12_leaning_small_top_tone_light",
+    "fp12_leaning_small_tone_light_base": "fp10_leaning_small_base",
+    "fp12_ancient_thick_large_flip_top": "fp12_ancient_thick_large_top_flip",
+    "fp12_ancient_thick_large_flip_base": "fp10_ancient_thick_large_base",
+    "fp12_ancient_thick_large_tone_dark_top": "fp12_ancient_thick_large_top_tone_dark",
+    "fp12_ancient_thick_large_tone_dark_base": "fp10_ancient_thick_large_base",
+    "fp12_ancient_thick_large_tone_light_top": "fp12_ancient_thick_large_top_tone_light",
+    "fp12_ancient_thick_large_tone_light_base": "fp10_ancient_thick_large_base",
+    "fp12_ancient_thick_small_flip_top": "fp12_ancient_thick_small_top_flip",
+    "fp12_ancient_thick_small_flip_base": "fp10_ancient_thick_small_base",
+    "fp12_ancient_thick_small_tone_dark_top": "fp12_ancient_thick_small_top_tone_dark",
+    "fp12_ancient_thick_small_tone_dark_base": "fp10_ancient_thick_small_base",
+    "fp12_ancient_thick_small_tone_light_top": "fp12_ancient_thick_small_top_tone_light",
+    "fp12_ancient_thick_small_tone_light_base": "fp10_ancient_thick_small_base"
   }
 }

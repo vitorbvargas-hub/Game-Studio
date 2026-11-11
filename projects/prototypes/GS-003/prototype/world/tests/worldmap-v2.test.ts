@@ -1,9 +1,11 @@
 // @vitest-environment jsdom
-// Mapa-múndi v1 (art/map-factory/worldmap-v1) e kit circuit-kit-v1 atrás de ?hud=v2.
+// Mapa-múndi (art/map-factory/worldmap-v2_1, pintado; antes worldmap-v1) e kit circuit-kit-v1 atrás de ?hud=v2.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { describe, expect, it } from "vitest";
-import worldmapJson from "../../../art/map-factory/worldmap-v1/worldmap.json";
+import worldmapJson from "../../../art/map-factory/worldmap-v2_1/worldmap.json";
+import worldmapV1Json from "../../../art/map-factory/worldmap-v1/worldmap.json";
 import { loadWorldContent } from "../src/sim/species";
 import { FOREST_PROOF_SCENE } from "../src/sim/setup";
 import { CIRCUIT_KIT } from "../src/ui/circuit-kit";
@@ -22,7 +24,7 @@ function render(current: string, prog: Progress): HTMLElement {
   return root.querySelector<HTMLElement>(".wm2")!;
 }
 
-describe("Mapa-múndi v2 (worldmap-v1)", () => {
+describe("Mapa-múndi v2 (worldmap-v2_1)", () => {
   it("sem a flag segue o grafo v1 (nos testes não há ?hud=v2 na URL)", () => {
     const html = worldMapHtml("floresta_densa", p(12));
     expect(html).toMatch(/<div class="wm-canvas"><svg viewBox/);
@@ -31,8 +33,8 @@ describe("Mapa-múndi v2 (worldmap-v1)", () => {
 
   it("usa a ilustração e as coordenadas do worldmap.json; 1 POI por região com o glifo do tipo", () => {
     const wm = render("floresta_densa", p(12));
-    expect(wm.getAttribute("style")).toMatch(/--wm-art:url\('[^']*worldmap_v1\.png/);
-    expect(wm.getAttribute("style")).toMatch(/--wm-poi:url\('[^']*poi_icons\.png/);
+    expect(wm.getAttribute("style")).toMatch(/--wm-art:url\('[^']*worldmap-v2_1\/worldmap_v2_1\.png/);
+    expect(wm.getAttribute("style")).toMatch(/--wm-poi:url\('[^']*worldmap-v2_1\/poi_icons\.png/);
     const pois = wm.querySelectorAll<HTMLElement>(".wm2-poi");
     expect(pois).toHaveLength(REGIONS.length);
     const regs = worldmapJson.regions as Record<string, { pos_px: number[]; icon: string }>;
@@ -138,7 +140,7 @@ describe("kit circuit-kit-v1 no HUD v2", () => {
     expect(css).toMatch(/border-image: var\(--ck-panel\) 32 8 31 8 fill \/ 64px 16px 62px 16px/);
     expect(css).toMatch(/border-image: var\(--ck-btn\) 5 fill \/ 10px/);
     expect(css).toMatch(/border-image: var\(--ck-bar\) 2 fill \/ 4px/);
-    for (const f of ["worldmap_v1.png", "poi_icons.png", "worldmap.json"]) expect(existsSync(join(ART, "map-factory/worldmap-v1", f))).toBe(true);
+    for (const f of ["worldmap_v2_1.png", "poi_icons.png", "worldmap.json"]) expect(existsSync(join(ART, "map-factory/worldmap-v2_1", f))).toBe(true);
   });
 });
 
@@ -148,5 +150,48 @@ describe("kit: cores dos botões", () => {
     expect(css).toMatch(/#hud button \{[^}]*color: inherit/);
     expect(css).toMatch(/\.hud-v2#hud \.dg-cta:disabled,[^{]*\{[^}]*color: #6b7aa1/);
     expect(css).toMatch(/\.hud-v2 \.dg-cta:disabled::before \{[^}]*var\(--ck-btn-locked\)/);
+  });
+});
+
+describe("mapa-múndi v2.1 (pintado) no lugar do v1", () => {
+  it("mesmo schema, mesmas regiões, posições, ícones e rotas do v1; poi_icons.png igual byte a byte", () => {
+    const a = worldmapV1Json as unknown as { canvas: unknown; viewport_px: unknown; regions: Record<string, { pos_px: number[]; pos_pct: number[]; icon: string }>; routes: string[][] };
+    const b = worldmapJson as unknown as typeof a & { image: string };
+    expect(b.image).toBe("worldmap_v2_1.png");
+    expect(b.canvas).toEqual(a.canvas);
+    expect(b.viewport_px).toEqual(a.viewport_px);
+    expect(Object.keys(b.regions)).toEqual(Object.keys(a.regions));
+    for (const [id, r] of Object.entries(a.regions)) {
+      expect(b.regions[id].pos_px, id).toEqual(r.pos_px);
+      expect(b.regions[id].pos_pct, id).toEqual(r.pos_pct);
+      expect(b.regions[id].icon, id).toBe(r.icon);
+    }
+    expect(b.routes).toEqual(a.routes);
+    const poi = (v: string) => readFileSync(join(ART, `map-factory/${v}/poi_icons.png`));
+    expect(poi("worldmap-v2_1").equals(poi("worldmap-v1"))).toBe(true);
+  });
+
+  it("nenhum marcador assado sob o POI dinâmico: 0 pixel do anel claro do selo num quadrado de 24 px em cada região", async () => {
+    // o selo do v1 (poi_icons) tem anel/brilho nestes 2 tons; a área é a do POI dinâmico (48 px CSS = 24 px da arte)
+    const LIGHT = new Set(["174,187,214", "238,242,251"]);
+    const count = async (file: string) => {
+      const img = await loadImage(readFileSync(join(ART, "map-factory", file)));
+      const c = createCanvas(img.width, img.height);
+      const g = c.getContext("2d");
+      g.drawImage(img, 0, 0);
+      const d = g.getImageData(0, 0, img.width, img.height).data;
+      return Object.values(worldmapJson.regions as Record<string, { pos_px: number[] }>).map(({ pos_px: [px, py] }) => {
+        let n = 0;
+        for (let y = Math.round(py) - 12; y < Math.round(py) + 12; y++)
+          for (let x = Math.round(px) - 12; x < Math.round(px) + 12; x++) {
+            const i = (y * img.width + x) * 4;
+            if (LIGHT.has(`${d[i]},${d[i + 1]},${d[i + 2]}`)) n++;
+          }
+        return n;
+      });
+    };
+    // controle: o v1 tinha o selo assado em todas as 6 regiões
+    expect((await count("worldmap-v1/worldmap_v1.png")).every((n) => n > 20)).toBe(true);
+    expect(await count("worldmap-v2_1/worldmap_v2_1.png")).toEqual([0, 0, 0, 0, 0, 0]);
   });
 });

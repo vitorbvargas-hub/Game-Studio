@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-11T09:05:12.405Z",
+  "base": "http://127.0.0.1:5190",
+  "tag": "depois",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "v12_depois_mundi_aberto_dia.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&hud=v2",
+      "time": "day",
+      "art": "worldmap_v2_1.png"
+    },
+    "v12_depois_mundi_vila_dia.png": {
+      "time": "day",
+      "poi": {
+        "x": 297.25,
+        "y": 656.859375,
+        "w": 48,
+        "h": 48
+      },
+      "clip": {
+        "x": 201,
+        "y": 591,
+        "width": 240,
+        "height": 180
+      }
+    },
+    "v12_depois_mundi_sem-poi_dia.png": {
+      "time": "day",
+      "poisHidden": true
+    },
+    "v12_depois_mundi_vila_sem-poi_dia.png": {
+      "time": "day",
+      "poisHidden": true,
+      "clip": {
+        "x": 201,
+        "y": 591,
+        "width": 240,
+        "height": 180
+      }
+    },
+    "v12_depois_mundi_aberto_noite.png": {
+      "query": "&look=v9&dpr=1&anim=v2&encounters=1&hud=v2",
+      "time": "night",
+      "art": "worldmap_v2_1.png"
+    },
+    "v12_depois_mundi_vila_noite.png": {
+      "time": "night",
+      "poi": {
+        "x": 297.25,
+        "y": 656.859375,
+        "w": 48,
+        "h": 48
+      },
+      "clip": {
+        "x": 201,
+        "y": 591,
+        "width": 240,
+        "height": 180
+      }
+    },
+    "v12_depois_mundi_sem-poi_noite.png": {
+      "time": "night",
+      "poisHidden": true
+    },
+    "v12_depois_mundi_vila_sem-poi_noite.png": {
+      "time": "night",
+      "poisHidden": true,
+      "clip": {
+        "x": 201,
+        "y": 591,
+        "width": 240,
+        "height": 180
+      }
+    }
+  },
+  "ground": {},
+  "worldmap": {
+    "dia": {
+      "art": "worldmap_v2_1.png"
+    },
+    "noite": {
+      "art": "worldmap_v2_1.png"
+    }
+  },
+  "perf": []
+}

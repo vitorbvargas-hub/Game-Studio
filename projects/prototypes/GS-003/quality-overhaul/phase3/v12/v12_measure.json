@@ -1,0 +1,102 @@
+{
+ "dirtNight": {
+  "v11_dayTile_earthNight": {
+   "rgb": [
+    52,
+    45,
+    57
+   ],
+   "hue": 275,
+   "lum": 48
+  },
+  "v12_paintedNight": {
+   "rgb": [
+    44,
+    37,
+    53
+   ],
+   "hue": 266,
+   "lum": 41
+  },
+  "trail_paintedNight": {
+   "rgb": [
+    51,
+    43,
+    60
+   ],
+   "hue": 269,
+   "lum": 48
+  }
+ },
+ "miranteNight": {
+  "ground_v11_dayTile_nightGrade": {
+   "rgb": [
+    78,
+    105,
+    74
+   ],
+   "hue": 113,
+   "lum": 93
+  },
+  "lip_v12_paintedNight": {
+   "rgb": [
+    44,
+    49,
+    63
+   ],
+   "hue": 223,
+   "lum": 49
+  },
+  "lip_v12_dayTile_nightGrade": {
+   "rgb": [
+    70,
+    93,
+    68
+   ],
+   "hue": 115,
+   "lum": 83
+  },
+  "v11_dayTile_graded": {
+   "rgb": [
+    78,
+    103,
+    75
+   ],
+   "hue": 113,
+   "lum": 92
+  },
+  "v12_paintedNight": {
+   "rgb": [
+    48,
+    54,
+    68
+   ],
+   "hue": 223,
+   "lum": 54
+  },
+  "v11_dayTile_dayGrade": {
+   "rgb": [
+    54,
+    70,
+    53
+   ],
+   "hue": 117,
+   "lum": 63
+  }
+ },
+ "edge": {
+  "trees": 301,
+  "before": {
+   "distinct": 8,
+   "minPx": 93,
+   "medianPx": 118,
+   "under160": 269
+  },
+  "after": {
+   "distinct": 30,
+   "minPx": 94,
+   "medianPx": 320,
+   "under160": 36
+  }
+ }
+}

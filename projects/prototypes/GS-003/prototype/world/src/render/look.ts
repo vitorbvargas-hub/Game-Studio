@@ -107,6 +107,12 @@ function hsvToRgb(h: number, s: number, v: number): [number, number, number] {
   return [r + m, g + m, b + m];
 }
 
+/** Pixel de terra (matiz marrom/laranja, h < 45° ou ≥ 345°, saturação > 0,12): a `earth` da grade e o `nightEarth`. */
+export function isEarthPixel(r: number, g: number, b: number): boolean {
+  const [h, s] = rgbToHsv(r / 255, g / 255, b / 255);
+  return (h < 45 || h >= 345) && s > 0.12;
+}
+
 /** Regra de grade de uma chave (primeira que casa; nenhuma = o preset do palette.json). */
 export function gradeRuleFor(key: string, look: LookCfg): GradeRule | undefined {
   return look.grade.rules?.find((r) => new RegExp(r.match).test(key));
@@ -178,7 +184,7 @@ export function gradePixels(d: Uint8ClampedArray, look: LookCfg, rule?: GradeRul
     if (!d[i + 3]) continue;
     const rim = Math.max(d[i], d[i + 1], d[i + 2]) >= rimAt;
     let [h, s, v] = rgbToHsv(d[i] / 255, d[i + 1] / 255, d[i + 2] / 255);
-    const isEarth = !!earth && (h < 45 || h >= 345) && s > 0.12;
+    const isEarth = !!earth && (h < 45 || h >= 345) && s > 0.12; // = isEarthPixel
     if (isEarth) {
       s *= eS;
       v *= rim ? Math.min(1, eV * 1.15) : eV;
@@ -225,20 +231,32 @@ export function gradeTiles(tiles: Record<string, TileSource>, look: LookCfg, ima
       continue;
     }
     const rid = rule ? look.grade.rules!.indexOf(rule) : -1;
-    const id = `look:${look.id}:${rid}${night ? "n" : ""}:${src.url}`;
+    // noite com terra pintada (forest-v12): os pixels de terra da imagem do dia vêm da arte noturna, graduada igual
+    const earthImg = night && src.nightEarth ? images.get(src.nightEarth) : undefined;
+    const id = `look:${look.id}:${rid}${night ? "n" : ""}:${src.url}${earthImg ? `+earth:${src.nightEarth}` : ""}`;
     if (!done.has(id)) {
       if (!images.get(id)) {
         const c = make(img.width, img.height);
         const g = c.getContext("2d")!;
         g.drawImage(img, 0, 0);
         const data = g.getImageData(0, 0, img.width, img.height);
+        const raw = earthImg ? new Uint8ClampedArray(data.data) : undefined;
         gradePixels(data.data, look, rule, night);
+        if (earthImg && raw) {
+          g.clearRect(0, 0, img.width, img.height);
+          g.drawImage(earthImg, 0, 0);
+          const e = g.getImageData(0, 0, img.width, img.height);
+          gradePixels(e.data, look, rule, night);
+          for (let i = 0; i < raw.length; i += 4)
+            if (raw[i + 3] && isEarthPixel(raw[i], raw[i + 1], raw[i + 2])) for (let k = 0; k < 4; k++) data.data[i + k] = e.data[i + k];
+        }
         g.putImageData(data, 0, 0);
         images.put(id, c as unknown as ImageLike);
       }
       done.set(id, id);
     }
-    out[key] = { ...src, url: id };
+    const { nightEarth: _ne, ...rest } = src;
+    out[key] = { ...rest, url: id };
   }
   return out;
 }

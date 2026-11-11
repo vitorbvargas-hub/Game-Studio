@@ -285,7 +285,9 @@ export function validateMap(id, m, ctx = {}) {
     const g = gate("wang", "Máscaras de autotile coerentes entre vizinhos");
     let checked = 0;
     for (const l of tileLayers) {
-      const keyAt = (l.data ?? []).map((gidv) => (gidv && gids.has(gidv) ? gids.get(gidv).key : ""));
+      // `autotile`: peça decorada que ocupa o lugar de um membro da família (forest-v12: o lip da borda norte do
+      // mirante vale como o mirante_top_blob_<m> que substituiu), conferida com a máscara desse membro
+      const keyAt = (l.data ?? []).map((gidv) => (gidv && gids.has(gidv) ? (gids.get(gidv).autotile ?? gids.get(gidv).key) : ""));
       const fams = new Map();
       keyAt.forEach((k, i) => {
         const r = AUTOTILE_RE.exec(k);

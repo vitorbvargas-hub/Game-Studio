@@ -663,6 +663,64 @@
       "decals": 16
     }
   },
+  "v12": {
+    "pack": "forest-v12-plateau-night",
+    "lip": {
+      "cells": [
+        [
+          21,
+          15,
+          "corner_outer_left"
+        ],
+        [
+          22,
+          15,
+          "straight_1"
+        ],
+        [
+          23,
+          15,
+          "straight_2"
+        ],
+        [
+          24,
+          15,
+          "straight_1"
+        ],
+        [
+          25,
+          15,
+          "straight_2"
+        ],
+        [
+          26,
+          15,
+          "straight_0"
+        ],
+        [
+          27,
+          15,
+          "straight_1"
+        ],
+        [
+          28,
+          15,
+          "corner_outer_right"
+        ]
+      ],
+      "decalsMoved": 0
+    },
+    "edgeTrees": {
+      "band": 5,
+      "trees": 301,
+      "byVariant": {
+        "flip": 54,
+        "normal": 84,
+        "tone_dark": 82,
+        "tone_light": 81
+      }
+    }
+  },
   "ratioV10": {
     "cells": 720,
     "open": 50.3,

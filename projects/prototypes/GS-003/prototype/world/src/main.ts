@@ -85,6 +85,8 @@ const ZOOM = /x$/.test(ZOOM_RAW) ? 0 : Math.max(0, Math.round(Number(ZOOM_RAW ||
 const ZOOM_MUL = /x$/.test(ZOOM_RAW) ? Math.max(0.5, Number(ZOOM_RAW.slice(0, -1)) || 1) : undefined;
 /** ?look=v8: variante de look do mapa (luz, paleta, profundidade), quando o mapa tiver uma (regions.ts `looks`). */
 const LOOK = params.get("look");
+/** forest-v12: ?v12night=swap troca a peça noturna inteira em vez de misturar só os pixels de terra (comparação). */
+const V12_NIGHT_SWAP = params.get("v12night") === "swap";
 /**
  * ?dpr=1 (Quality Overhaul, fase 2): escala inteira em pixels FÍSICOS (devicePixelRatio), para os pixels saírem
  * iguais com o Windows em 125%/150%, e zoom alvo pela altura do personagem (`charScale`). ?charh=N muda o alvo
@@ -307,12 +309,14 @@ async function boot() {
     let nightTiles: typeof tiles | undefined;
     if (def) {
       const day = loadSceneTiles(def.pack, "day", usedKeys(sim.map), TILES_DWDS);
-      const night = loadSceneTiles(def.pack, "night", usedKeys(sim.map), TILES_DWDS);
+      // ?v12night=swap: a noite pintada do forest-v12 troca a peça inteira (sem a mistura só nos pixels de terra), para comparar
+      const nightPack = V12_NIGHT_SWAP ? { ...def.pack, extraPacks: def.pack.extraPacks?.map(({ nightBlend: _nb, ...e }) => e) } : def.pack;
+      const night = loadSceneTiles(nightPack, "night", usedKeys(sim.map), TILES_DWDS);
       tiles = day.tiles;
       nightTiles = night.tiles;
       console.info(`${def.id} · ${packSummary(def.pack, "day", day)} · ${packSummary(def.pack, "night", night)}`, day.missing, night.missing);
     }
-    const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].map((t) => t.url));
+    const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].flatMap((t) => (t.nightEarth ? [t.url, t.nightEarth] : [t.url])));
     if (tFailed.length) console.warn("tiles não carregados:", tFailed);
     // HUD v2: grama alta +10% de saturação sobre o grade dela (P8_HUD_V2_SPEC §8.3); sem a flag, o look do mapa como está
     const mapLook = HUD_V2 && def?.pack.look ? boostEncGrass(def.pack.look) : def?.pack.look;
