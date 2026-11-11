@@ -29,7 +29,10 @@ export interface HubItem {
   spec: string;
 }
 
-/** Ordem do mockup alt_a_open.svg: do pé do hub (abaixo) até a esquerda. */
+/**
+ * Ordem do mockup alt_a_open.svg: do pé do hub (abaixo) até a esquerda. São 6: um 7º atalho apertava o arco (vizinhos
+ * a ~38 px com ícones de 36) — a ficha holográfica do parceiro abre pelo retrato do parceiro, não daqui.
+ */
 export const HUB_ITEMS: HubItem[] = [
   { id: "guild", label: "Guilda", icon: "guild", tier: "P1", spec: "§1" },
   { id: "mail", label: "Correio", icon: "mail", tier: "P1", spec: "§2" },
@@ -42,18 +45,32 @@ export const HUB_ITEMS: HubItem[] = [
 /** Atalhos da grade inferior que, no v2, levam ao mesmo painel do hub. */
 export const SHORTCUT_TO_HUB: Record<string, string> = { guild: "guild", mail: "mail", trophy: "trophy" };
 
-/** Geometria do arco (HUD_IDENTITY_V3 §2.2, ajustada em tela: 72 e 112 px sobrepunham 6 ícones de 32 px em 90°). */
+/**
+ * Geometria do arco (HUD_IDENTITY_V3 §2.2). Um quarto de círculo de 90° (r 120) lia como diagonal/grade
+ * (QA_HUD_FB1_COMPARE §2 P1). Agora: o arco é CENTRADO NO HUB (o hub é o eixo do leque), abre 94°, de 90° (logo
+ * abaixo do hub) a 184° (à esquerda, na altura do hub, sem encostar na faixa de bits), r 140 — vizinhos a ~46 px —, e um trilho de circuito (SVG .dg-rail, ARC_RAIL_PAD graus além de cada ponta) liga os 6 ícones na mesma
+ * curva, para a leitura de "arco em volta do hub" não depender só da posição de caixas de 36 px.
+ */
 export const HUB_SIZE = 64;
-export const ARC_RADIUS = 120;
+export const ARC_RADIUS = 140;
 export const ARC_FROM = 90; // graus, y para baixo: 90 = logo abaixo do hub
-export const ARC_TO = 180; // 180 = à esquerda (abre para dentro da tela, nunca para fora)
+export const ARC_TO = 184; // 180 = à esquerda; 184 = 10 px acima do centro do hub (a faixa de bits fica acima)
+export const ARC_CX = 0;
+export const ARC_CY = 0;
+export const ARC_RAIL_PAD = 6;
 
-/** Posições (px, relativas ao centro do hub) de n ícones distribuídos de `from` a `to` graus. */
-export function arcLayout(n: number, r = ARC_RADIUS, from = ARC_FROM, to = ARC_TO): { x: number; y: number; deg: number }[] {
+/** Trilho do arco (path SVG em coordenadas relativas ao centro do hub): o mesmo círculo dos ícones, um pouco mais longo. */
+export function arcRailPath(r = ARC_RADIUS, from = ARC_FROM - ARC_RAIL_PAD, to = ARC_TO + ARC_RAIL_PAD): string {
+  const pt = (d: number) => [Math.cos((d * Math.PI) / 180) * r, Math.sin((d * Math.PI) / 180) * r].map((v) => v.toFixed(1)).join(" ");
+  return `M${pt(from)}A${r} ${r} 0 0 1 ${pt(to)}`;
+}
+
+/** Posições (px, relativas ao centro do hub) de n ícones distribuídos de `from` a `to` graus em volta de (cx, cy). */
+export function arcLayout(n: number, r = ARC_RADIUS, from = ARC_FROM, to = ARC_TO, cx = ARC_CX, cy = ARC_CY): { x: number; y: number; deg: number }[] {
   return Array.from({ length: n }, (_, i) => {
     const deg = n === 1 ? from : from + ((to - from) * i) / (n - 1);
     const a = (deg * Math.PI) / 180;
-    return { x: Math.round(Math.cos(a) * r), y: Math.round(Math.sin(a) * r), deg };
+    return { x: Math.round(cx + Math.cos(a) * r), y: Math.round(cy + Math.sin(a) * r), deg };
   });
 }
 
@@ -330,6 +347,9 @@ const EMBLEM = `<svg class="dg-emblem" viewBox="0 0 64 64" width="64" height="64
   <circle cx="32" cy="32" r="23" class="dg-face"/>
 </svg><i class="dg-emblem-kit" aria-hidden="true"></i>`;
 
+/** Caixa do SVG do trilho: do centro do hub (canto superior direito da caixa) até além do raio. */
+const RAIL_BOX = ARC_RADIUS + 24;
+
 /** Bloco do canto superior direito no v2 (substitui o .hud-tr). Mantém data-testid="coins" para o HUD atualizar. */
 export function digiviceHudHtml(): string {
   const pos = arcLayout(HUB_ITEMS.length);
@@ -346,6 +366,7 @@ export function digiviceHudHtml(): string {
   return `<div class="dg" data-testid="digivice">
     <div class="dg-ribbon" data-testid="dg-ribbon" title="Bits (moeda ganha jogando)">${icon("coin", 10)}<b data-testid="coins">0</b><span>bits</span></div>
     <div class="dg-hubwrap">
+      <svg class="dg-rail" viewBox="${-RAIL_BOX} ${-RAIL_BOX} ${2 * RAIL_BOX} ${2 * RAIL_BOX}" width="${2 * RAIL_BOX}" height="${2 * RAIL_BOX}" style="left:${HUB_SIZE / 2 - RAIL_BOX}px;top:${HUB_SIZE / 2 - RAIL_BOX}px" aria-hidden="true"><path d="${arcRailPath()}" class="dg-rail-glow"/><path d="${arcRailPath()}" class="dg-rail-line"/></svg>
       <div class="dg-arc" role="menu" aria-label="Atalhos do Digivice">${nodes}</div>
       <div class="dg-caption" data-testid="dg-caption" aria-hidden="true"></div>
       <button type="button" class="dg-hub" data-act="digivice" aria-expanded="false" aria-haspopup="menu" aria-label="Digivice (H)" title="Digivice (H)" data-testid="dg-hub">${EMBLEM}${pips}</button>

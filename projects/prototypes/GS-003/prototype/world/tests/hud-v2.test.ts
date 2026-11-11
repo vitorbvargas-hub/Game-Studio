@@ -171,3 +171,29 @@ describe("P8 HUD v2 — CSS (§10.1)", () => {
     expect(block).toMatch(/rgba\(228, 59, 68, 0\.6\)/);
   });
 });
+
+describe("P8 HUD v2 — grama alta +10% de saturação (§8.3 / critério 10.4)", () => {
+  it("boostEncGrass põe uma regra própria para as touceiras de encontro com saturationMul × 1,1; o resto do look não muda", async () => {
+    const { boostEncGrass, ENC_GRASS_KEYS, ENC_GRASS_SATURATION_BOOST, gradePixels, gradeRuleFor } = await import("../src/render/look");
+    const pack = (await import("../src/data/maps/v9/digimon-forest-01.aliases.json")).default as unknown as { look: import("../src/render/look").LookCfg };
+    const look = pack.look;
+    const boosted = boostEncGrass(look);
+    expect(ENC_GRASS_SATURATION_BOOST).toBe(1.1);
+    for (const prefix of ENC_GRASS_KEYS) {
+      const before = gradeRuleFor(`${prefix}a`, look);
+      if (before?.skip) continue;
+      const s0 = before?.saturationMul ?? look.grade.groundFoliageSaturationMul ?? 0.64;
+      expect(gradeRuleFor(`${prefix}a`, boosted)!.saturationMul).toBeCloseTo(s0 * 1.1, 2);
+    }
+    // outras chaves seguem a mesma regra de antes; o original não é tocado
+    for (const k of ["fp8_tuft", "fp11_ground_variant_a", "trees_oak_a"]) expect(gradeRuleFor(k, boosted)).toEqual(gradeRuleFor(k, look));
+    // num pixel verde da touceira, a saturação resultante sobe
+    const sat = (d: Uint8ClampedArray) => (Math.max(d[0], d[1], d[2]) - Math.min(d[0], d[1], d[2])) / Math.max(d[0], d[1], d[2]);
+    const px = () => new Uint8ClampedArray([70, 140, 60, 255, 60, 120, 50, 255]);
+    const a = px();
+    const b = px();
+    gradePixels(a, look, gradeRuleFor("fp9_enc_grass_a", look));
+    gradePixels(b, boosted, gradeRuleFor("fp9_enc_grass_a", boosted));
+    expect(sat(b)).toBeGreaterThan(sat(a));
+  });
+});

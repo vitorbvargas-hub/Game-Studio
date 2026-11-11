@@ -35,7 +35,7 @@ import { loadWorldContent } from "./sim/species";
 import { Panel } from "./ui/panel";
 import { worldMapHtml } from "./ui/worldmap";
 import { canTravel, DEFAULT_MAP, MAPS, regionById, travelTarget, withLook, type MapDef, type Progress } from "./world/regions";
-import { gradeTiles } from "./render/look";
+import { boostEncGrass, gradeTiles } from "./render/look";
 import { Minimap, type MinimapDot } from "./ui/minimap";
 import type { MovesView } from "./ui/moves-ui";
 import { loadSheetCatalog, sheetDrawer } from "./render/vfx/engine";
@@ -304,7 +304,8 @@ async function boot() {
     }
     const tFailed = await images.loadAll([...Object.values(tiles), ...Object.values(nightTiles ?? {})].map((t) => t.url));
     if (tFailed.length) console.warn("tiles não carregados:", tFailed);
-    const mapLook = def?.pack.look;
+    // HUD v2: grama alta +10% de saturação sobre o grade dela (P8_HUD_V2_SPEC §8.3); sem a flag, o look do mapa como está
+    const mapLook = HUD_V2 && def?.pack.look ? boostEncGrass(def.pack.look) : def?.pack.look;
     if (mapLook) {
       // look v8: grade de cor (palette.json) na arte do cenário; criaturas, UI e emissores ficam como estão
       tiles = gradeTiles(tiles, mapLook, images, browserCanvasFactory);

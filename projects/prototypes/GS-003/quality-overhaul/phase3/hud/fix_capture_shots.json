@@ -1,0 +1,328 @@
+{
+  "date": "2026-11-11T01:24:40.486Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "fix_fechado_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_fechado_dia_canto.png": {
+      "seed": "progress",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_aberto_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_aberto_dia_canto.png": {
+      "seed": "progress",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_conquistas_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "fix_conquistas_exploracao_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "fix_conquistas_social_bloqueada_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "fix_bloqueado_guilda_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-guild"
+      ],
+      "oldTr": false
+    },
+    "fix_configuracoes_dia.png": {
+      "seed": "progress",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "gear"
+      ],
+      "oldTr": false
+    },
+    "fix_chefe_1_disponivel_dia.png": {
+      "seed": "fresh",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "available",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "fix_fechado_chefe_ativo_dia_canto.png": {
+      "seed": "active",
+      "time": "day",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_chefe_2_ativo_dia.png": {
+      "seed": "active",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "fix_chefe_3_recompensa_dia.png": {
+      "seed": "reward",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "reward",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "fix_chefe_4_recarga_dia.png": {
+      "seed": "cooldown",
+      "time": "day",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "fix_fechado_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_fechado_noite_canto.png": {
+      "seed": "progress",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_aberto_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_aberto_noite_canto.png": {
+      "seed": "progress",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": true,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_conquistas_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-trophy"
+      ],
+      "oldTr": false
+    },
+    "fix_configuracoes_noite.png": {
+      "seed": "progress",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "cooldown",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "gear"
+      ],
+      "oldTr": false
+    },
+    "fix_chefe_1_disponivel_noite.png": {
+      "seed": "fresh",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "available",
+      "pips": [
+        "trophy",
+        "boss"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    },
+    "fix_fechado_chefe_ativo_noite_canto.png": {
+      "seed": "active",
+      "time": "night",
+      "clip": {
+        "x": 1520,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [],
+      "oldTr": false
+    },
+    "fix_chefe_2_ativo_noite.png": {
+      "seed": "active",
+      "time": "night",
+      "hubOpen": false,
+      "bossPhase": "active",
+      "pips": [
+        "trophy"
+      ],
+      "openPanels": [
+        "dg-boss"
+      ],
+      "oldTr": false
+    }
+  }
+}

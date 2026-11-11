@@ -112,6 +112,29 @@ export function gradeRuleFor(key: string, look: LookCfg): GradeRule | undefined 
   return look.grade.rules?.find((r) => new RegExp(r.match).test(key));
 }
 
+/** Touceiras de grama de encontro (mesmas chaves do ENC_GRASS_RE do view.ts; aqui para não importar o view). */
+export const ENC_GRASS_KEYS = ["fp9_enc_grass_", "fp4_tall_grass_"];
+
+/** +10% de saturação da grama alta sobre o grade que ela já tem (P8_HUD_V2_SPEC §8.3 / critério 10.4). */
+export const ENC_GRASS_SATURATION_BOOST = 1.1;
+
+/**
+ * Cópia do look com a saturação das touceiras de encontro multiplicada por `mul` (só o HUD v2 liga isto, no main).
+ * Para cada prefixo de ENC_GRASS_KEYS entra, NA FRENTE das regras, uma regra própria com os valores da regra que já
+ * valia para ele (ou do preset, se nenhuma) e `saturationMul` × mul. O resto do look não muda; o original não é tocado.
+ */
+export function boostEncGrass(look: LookCfg, mul = ENC_GRASS_SATURATION_BOOST): LookCfg {
+  const g = look.grade;
+  const extra: GradeRule[] = [];
+  for (const prefix of ENC_GRASS_KEYS) {
+    const base = gradeRuleFor(`${prefix}a`, look);
+    if (base?.skip) continue;
+    const s0 = base?.saturationMul ?? g.groundFoliageSaturationMul ?? 0.64;
+    extra.push({ ...(base ?? { valueMul: g.groundFoliageValueMul ?? 0.8 }), match: `^${prefix}`, saturationMul: Math.round(s0 * mul * 1000) / 1000 });
+  }
+  return { ...look, grade: { ...g, rules: [...extra, ...(g.rules ?? [])] } };
+}
+
 /**
  * Grade de cor em RGBA no lugar (palette.json renderPreset): HSV com saturação e valor multiplicados; os ~12% de
  * pixels mais claros (rim de luz) com os multiplicadores mais suaves; sombras empurradas para o azul/roxo.

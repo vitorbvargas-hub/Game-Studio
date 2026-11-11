@@ -1,0 +1,517 @@
+{
+  "date": "2026-11-11T01:23:25.668Z",
+  "base": "http://127.0.0.1:5190",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "shots": {
+    "hc_ficha_dia.png": {
+      "time": "day",
+      "tab": "card",
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_ficha_dia_painel.png": {
+      "time": "day",
+      "tab": "card",
+      "clip": {
+        "x": 516,
+        "y": 197,
+        "width": 888,
+        "height": 637
+      },
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_arvore_dia.png": {
+      "time": "day",
+      "tab": "tree",
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0002",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0003",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0004",
+          "state": "next",
+          "pct": "31"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_dia_painel.png": {
+      "time": "day",
+      "tab": "tree",
+      "clip": {
+        "x": 516,
+        "y": 330,
+        "width": 888,
+        "height": 371
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0002",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0003",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0004",
+          "state": "next",
+          "pct": "31"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_dia_tooltip.png": {
+      "time": "day",
+      "tab": "tree",
+      "hover": "CREATURE-0004",
+      "clip": {
+        "x": 516,
+        "y": 330,
+        "width": 888,
+        "height": 371
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0002",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0003",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0004",
+          "state": "next",
+          "pct": "31"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv10_dia.png": {
+      "time": "day",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 10,
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "62"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "67"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv10_dia_painel.png": {
+      "time": "day",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 10,
+      "clip": {
+        "x": 516,
+        "y": 244,
+        "width": 888,
+        "height": 543
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "62"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "67"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv10_dia_tooltip.png": {
+      "time": "day",
+      "tab": "tree",
+      "hover": "CREATURE-0007",
+      "clip": {
+        "x": 516,
+        "y": 244,
+        "width": 888,
+        "height": 543
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "62"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "67"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv20_dia.png": {
+      "time": "day",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 20,
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "100"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "100"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv20_dia_painel.png": {
+      "time": "day",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 20,
+      "clip": {
+        "x": 516,
+        "y": 244,
+        "width": 888,
+        "height": 543
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "100"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "100"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_ficha_ramo_nv20_dia_painel.png": {
+      "time": "day",
+      "tab": "card",
+      "partner": "CREATURE-0006",
+      "level": 20,
+      "clip": {
+        "x": 516,
+        "y": 190,
+        "width": 888,
+        "height": 652
+      },
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_tamer_barra_dia.png": {
+      "time": "day",
+      "clip": {
+        "x": 398,
+        "y": 853,
+        "width": 400,
+        "height": 361
+      },
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_ficha_noite.png": {
+      "time": "night",
+      "tab": "card",
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_ficha_noite_painel.png": {
+      "time": "night",
+      "tab": "card",
+      "clip": {
+        "x": 516,
+        "y": 197,
+        "width": 888,
+        "height": 637
+      },
+      "holoTab": "card",
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_arvore_noite.png": {
+      "time": "night",
+      "tab": "tree",
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0002",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0003",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0004",
+          "state": "next",
+          "pct": "31"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_noite_painel.png": {
+      "time": "night",
+      "tab": "tree",
+      "clip": {
+        "x": 516,
+        "y": 330,
+        "width": 888,
+        "height": 371
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0002",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0003",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0004",
+          "state": "next",
+          "pct": "31"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv20_noite.png": {
+      "time": "night",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 20,
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "100"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "100"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_arvore_ramo_nv20_noite_painel.png": {
+      "time": "night",
+      "tab": "tree",
+      "partner": "CREATURE-0006",
+      "level": 20,
+      "clip": {
+        "x": 516,
+        "y": 244,
+        "width": 888,
+        "height": 543
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "100"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "100"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_tamer_barra_noite.png": {
+      "time": "night",
+      "clip": {
+        "x": 398,
+        "y": 853,
+        "width": 400,
+        "height": 361
+      },
+      "holoTab": "tree",
+      "nodes": [
+        {
+          "id": "CREATURE-0005",
+          "state": "past",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0006",
+          "state": "current",
+          "pct": null
+        },
+        {
+          "id": "CREATURE-0007",
+          "state": "next",
+          "pct": "100"
+        },
+        {
+          "id": "SP-GEOGREYMON",
+          "state": "next",
+          "pct": "100"
+        }
+      ],
+      "tamerWidth": 120
+    },
+    "hc_grama_v1_dia.png": {
+      "time": "day",
+      "hud": "v1",
+      "holoTab": null,
+      "nodes": [],
+      "tamerWidth": null
+    },
+    "hc_grama_v1_dia_centro.png": {
+      "time": "day",
+      "hud": "v1",
+      "clip": {
+        "x": 660,
+        "y": 290,
+        "width": 600,
+        "height": 500
+      },
+      "holoTab": null,
+      "nodes": [],
+      "tamerWidth": null
+    },
+    "hc_grama_v2_dia.png": {
+      "time": "day",
+      "hud": "v2",
+      "holoTab": null,
+      "nodes": [],
+      "tamerWidth": 120
+    },
+    "hc_grama_v2_dia_centro.png": {
+      "time": "day",
+      "hud": "v2",
+      "clip": {
+        "x": 660,
+        "y": 290,
+        "width": 600,
+        "height": 500
+      },
+      "holoTab": null,
+      "nodes": [],
+      "tamerWidth": 120
+    }
+  }
+}

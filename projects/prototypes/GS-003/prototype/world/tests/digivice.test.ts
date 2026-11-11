@@ -11,7 +11,10 @@ import type { WorldEvent } from "../src/sim/types";
 import {
   ACHIEVEMENTS,
   achievementViews,
+  ARC_FROM,
+  ARC_TO,
   arcLayout,
+  arcRailPath,
   awakenBoss,
   BOSS_BOTS,
   BOSS_HP,
@@ -87,17 +90,27 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
     expect([...dg.querySelectorAll<HTMLElement>(".dg-node")].map((n) => n.tabIndex)).toEqual([-1, -1, -1, -1, -1, -1]);
   });
 
-  it("arco: 6 atalhos, raio fixo, do pé do hub até a esquerda (abre para dentro da tela)", () => {
+  it("arco: 6 atalhos num círculo CENTRADO NO HUB, do pé do hub até a esquerda, com trilho (QA_HUD_FB1_COMPARE P1)", () => {
     const pos = arcLayout(6);
     expect(pos).toHaveLength(6);
     for (const p of pos) {
-      expect(Math.hypot(p.x, p.y)).toBeGreaterThan(118);
-      expect(Math.hypot(p.x, p.y)).toBeLessThan(122);
+      expect(Math.hypot(p.x, p.y)).toBeGreaterThan(138);
+      expect(Math.hypot(p.x, p.y)).toBeLessThan(142);
       expect(p.x).toBeLessThanOrEqual(0); // nunca para a direita (fora da tela)
-      expect(p.y).toBeGreaterThanOrEqual(0); // nunca para cima (fora da tela)
+      expect(p.y).toBeGreaterThanOrEqual(-16); // no máximo na altura do hub: não sobe até a faixa de bits
     }
-    // vizinhos não se sobrepõem (ícone de 32 px + moldura)
-    for (let i = 1; i < pos.length; i++) expect(Math.hypot(pos[i].x - pos[i - 1].x, pos[i].y - pos[i - 1].y)).toBeGreaterThan(36);
+    // abre mais de 90° (o quarto de círculo lia como diagonal) e os vizinhos não se sobrepõem (caixa de 36 px)
+    expect(ARC_TO - ARC_FROM).toBeGreaterThan(90);
+    for (let i = 1; i < pos.length; i++) expect(Math.hypot(pos[i].x - pos[i - 1].x, pos[i].y - pos[i - 1].y)).toBeGreaterThan(42);
+    // flecha da curva: o meio do arco fica bem fora da corda entre as pontas (lê como curva, não como reta)
+    const [a, z] = [pos[0], pos[pos.length - 1]];
+    const mid = pos[Math.floor(pos.length / 2)];
+    const sag = Math.abs((z.x - a.x) * (a.y - mid.y) - (a.x - mid.x) * (z.y - a.y)) / Math.hypot(z.x - a.x, z.y - a.y);
+    expect(sag).toBeGreaterThan(35);
+    // trilho: mesmo raio, começa antes do 1º e termina depois do último atalho
+    expect(arcRailPath()).toMatch(/^M[-\d. ]+A140 140 0 0 1 [-\d. ]+$/);
+    const { root } = mount();
+    expect(root.querySelector(".dg-rail path")!.getAttribute("d")).toBe(arcRailPath());
     expect(HUB_ITEMS.map((i) => i.id)).toEqual(["guild", "mail", "pass", "wish", "boss", "trophy"]);
     expect(HUB_ITEMS.filter((i) => i.tier === "P0").map((i) => i.id)).toEqual(["boss", "trophy"]);
   });

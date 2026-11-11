@@ -13,6 +13,8 @@ import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
 import { applyCircuitKit } from "./circuit-kit";
 import { Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
+import { holoPanelHtml, type HoloSubject, type HoloTab } from "./holo-card";
+import { Panel } from "./panel";
 import type { StorageLike } from "../save/save";
 import { affinityColor, hpPct, hpTier, MOVE_KIND_V2, tamerBlockHtml, type HudVariant, type TamerVitals } from "./hud-v2";
 import { editRules, moveBarHtml, movesTabHtml, readOnlyView, rulesFor, updateMoveBar, type MovesView } from "./moves-ui";
@@ -151,6 +153,10 @@ export class Hud {
   private region: { name: string; route: string };
   /** HUD v2 (?hud=v2): hub Digivice no lugar do .hud-tr. */
   readonly digivice?: Digivice;
+  /** HUD v2: ficha holográfica do parceiro + árvore de evolução (retrato do parceiro ou atalho do Digivice). */
+  readonly holo?: Panel;
+  private holoTab: HoloTab = "card";
+  private holoKey = "";
 
   constructor(
     private readonly root: HTMLElement,
@@ -270,6 +276,7 @@ export class Hud {
       }
       if (this.digivice && act === "digivice") return this.digivice.toggle();
       if (this.digivice && short) this.digivice.closePanels();
+      if (this.holo && short) this.holo.close();
       if (short?.dataset.short === "team") this.openTeam();
       else if (short && this.enabled(short.dataset.short!)) cb.onShortcut?.(short.dataset.short!);
       else if (short) this.toast(`${short.title.replace(/ — em breve$/, "")}: em breve`);
@@ -300,6 +307,21 @@ export class Hud {
         grantBits: (bits) => cb.onGrantBits?.(bits),
         toast: (m) => this.toast(m),
       });
+      this.holo = new Panel(root, "holo", "Ficha do parceiro", "evo");
+      this.holo.wrap.classList.add("dg-panel", "holo-panel");
+      this.holo.body.addEventListener("click", (e) => {
+        const tab = (e.target as HTMLElement).closest<HTMLElement>("[data-hc-tab]")?.dataset.hcTab as HoloTab | undefined;
+        if (!tab || tab === this.holoTab) return;
+        this.holoTab = tab;
+        this.renderHolo(true);
+      });
+      // o retrato (o bloco inteiro do parceiro) abre a ficha
+      this.partnerBox.classList.add("opens-holo");
+      this.partnerBox.title = "Ficha do parceiro";
+      this.partnerBox.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.openHolo();
+      });
       this.bindDigiviceKeys();
     }
   }
@@ -314,10 +336,15 @@ export class Hud {
       if (k === "escape") {
         dv.close();
         dv.closePanels();
+        this.holo?.close();
       } else if (k === "h" && !e.repeat) {
         if (dv.anyPanelOpen) dv.closePanels();
+        this.holo?.close();
         dv.toggle(true);
-      } else if ("mviqoe".includes(k) && k.length === 1) dv.closePanels();
+      } else if ("mviqoe".includes(k) && k.length === 1) {
+        dv.closePanels();
+        this.holo?.close();
+      }
     });
     document.addEventListener("pointerdown", (e) => {
       if (dv.isOpen && !(e.target as HTMLElement).closest?.(".dg")) dv.close();
@@ -326,6 +353,50 @@ export class Hud {
 
   get v2(): boolean {
     return this.opts.variant === "v2";
+  }
+
+  /** Dados da ficha: snapshot do parceiro + stats reais da sim (MovesView) quando batem com a espécie. */
+  holoSubject(): HoloSubject | undefined {
+    const p = this.partner;
+    if (!p?.speciesId) return undefined;
+    const v = this.movesView?.speciesId === p.speciesId ? this.movesView : undefined;
+    const sp = this.content.species[p.speciesId];
+    const stats = v?.stats ?? (sp ? statsAtLevel(sp.base, sp.growth, p.level) : { hp: p.maxHp, atk: 0, def: 0, spd: 0 });
+    return {
+      speciesId: p.speciesId,
+      name: p.name,
+      level: p.level,
+      stats,
+      hp: p.hp,
+      maxHp: p.maxHp,
+      xp: this.partnerXp,
+      evoPrefs: v?.evoPrefs,
+      canEvolve: !!v?.evolve?.ready && !v.inCombat,
+    };
+  }
+
+  /** HUD v2: abre a ficha holográfica (fecha o hub, os painéis do Digivice, o Equipe & Box e as telas do main). */
+  openHolo(tab?: HoloTab): void {
+    if (!this.holo) return;
+    if (tab) this.holoTab = tab;
+    this.digivice?.close();
+    this.digivice?.closePanels();
+    this.closeTeam();
+    for (const w of this.root.querySelectorAll<HTMLElement>(".panel-wrap.open")) if (w !== this.holo.wrap) w.querySelector<HTMLElement>("[data-panel-close]")?.click();
+    this.holoKey = "";
+    this.holo.open("");
+    this.renderHolo(true);
+  }
+
+  /** Redesenha a ficha se ela estiver aberta e algo mudou (nível, PV, XP, stats, preferências, aba). */
+  private renderHolo(force = false): void {
+    if (!this.holo?.isOpen) return;
+    const s = this.holoSubject();
+    const key = JSON.stringify([this.holoTab, s]);
+    if (!force && key === this.holoKey) return;
+    this.holoKey = key;
+    this.holo.update(holoPanelHtml(this.content, s, this.holoTab));
+    this.holo.body.querySelectorAll<HTMLCanvasElement>("canvas[data-species]").forEach((c) => this.paint(c));
   }
 
   /** P8 v2: bloco do Tamer (PV + Energia, moldura reativa). Sem a flag não faz nada. */
@@ -577,6 +648,7 @@ export class Hud {
     const key = JSON.stringify([v.speciesId, v.level, v.learned, v.moves, v.autoRules, v.inCombat, v.evolve?.ready, v.stats, v.evoPrefs]);
     if (key === this.movesKey) return;
     this.movesKey = key;
+    this.renderHolo();
     if (this.teamOpen && (this.tab === "moves" || this.selected === "active")) this.renderRight();
   }
 
@@ -683,6 +755,7 @@ export class Hud {
     }
     this.partnerShown = { level: p.level, xp, pct: xpPct };
     if (this.v2) this.paintPartnerFrame(p);
+    this.renderHolo();
     this.renderTeam();
   }
 
