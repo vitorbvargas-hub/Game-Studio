@@ -1,0 +1,304 @@
+{
+  "date": "2026-11-11T09:11:59.471Z",
+  "base": "http://127.0.0.1:5196",
+  "shots": {
+    "om_clareira_dia_x1_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "day",
+      "monscale": "1",
+      "officialScale": {
+        "CREATURE-0018": 1,
+        "CREATURE-0019": 1
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_dia_x1.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_clareira_dia_x2_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "day",
+      "monscale": "2",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_dia_x2.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_clareira_dia_xauto_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "day",
+      "monscale": "auto",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_dia_xauto.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_clareira_noite_x1_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "night",
+      "monscale": "1",
+      "officialScale": {
+        "CREATURE-0018": 1,
+        "CREATURE-0019": 1
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_noite_x1.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_clareira_noite_x2_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "night",
+      "monscale": "2",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_noite_x2.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_clareira_noite_xauto_tela.png": {
+      "place": "clareira",
+      "tamerTile": [
+        27,
+        22
+      ],
+      "time": "night",
+      "monscale": "auto",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_clareira_noite_xauto.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_dia_x1_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "day",
+      "monscale": "1",
+      "officialScale": {
+        "CREATURE-0018": 1,
+        "CREATURE-0019": 1
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_dia_x1.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_dia_x2_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "day",
+      "monscale": "2",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_dia_x2.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_dia_xauto_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "day",
+      "monscale": "auto",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_dia_xauto.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_noite_x1_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "night",
+      "monscale": "1",
+      "officialScale": {
+        "CREATURE-0018": 1,
+        "CREATURE-0019": 1
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_noite_x1.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_noite_x2_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "night",
+      "monscale": "2",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_noite_x2.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    },
+    "om_vau_noite_xauto_tela.png": {
+      "place": "vau",
+      "tamerTile": [
+        14,
+        22
+      ],
+      "time": "night",
+      "monscale": "auto",
+      "officialScale": {
+        "CREATURE-0018": 2,
+        "CREATURE-0019": 2
+      },
+      "row": "Tamer · Guilmon PixelLab v3 · Guilmon oficial · Gabumon oficial · Gabumon à mão"
+    },
+    "om_vau_noite_xauto.png": {
+      "clip": {
+        "x": 894,
+        "y": 240,
+        "width": 996,
+        "height": 294
+      }
+    }
+  },
+  "gifs": {
+    "om_walk_guilmon_x2.gif": {
+      "frames": 105,
+      "size": [
+        224,
+        184
+      ],
+      "totalMs": 3677
+    },
+    "om_walk_gabumon_x2.gif": {
+      "frames": 75,
+      "size": [
+        224,
+        184
+      ],
+      "totalMs": 3771
+    },
+    "om_attack_guilmon_x2.gif": {
+      "frames": 48,
+      "size": [
+        360,
+        208
+      ],
+      "totalMs": 2636
+    },
+    "om_attack_gabumon_x2.gif": {
+      "frames": 46,
+      "size": [
+        360,
+        208
+      ],
+      "totalMs": 2600
+    }
+  }
+}

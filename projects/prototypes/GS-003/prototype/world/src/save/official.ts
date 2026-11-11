@@ -4,7 +4,7 @@
 // selvagens, modelos de captura). Só apresentação: a sim continua com CREATURE-0003/0009 (stats, golpes, elemento).
 //
 // ?monscale=1|2|auto escolhe a escala de exibição desses visuais (inteira, sem blur):
-//   1    nativa do DS (Guilmon 31 px, Gabumon 29 px de altura parado);
+//   1    nativa do DS (Guilmon 31 px, Gabumon 29 px de altura parado) — o padrão;
 //   2    ×2 inteira;
 //   auto o inteiro que deixa a altura parada mais perto da faixa 48–64 px (ART_DIRECTION_V2 §1.5) — hoje ×2 nos dois.
 // Combina com ?team=compare: aí a parceira e o compare-show seguem com a arte de comparação, e os modelos
@@ -28,10 +28,13 @@ export function officialModeOf(params: URLSearchParams): boolean {
   return params.get("mon") === "official";
 }
 
-/** ?monscale=1|2|auto; ausente ou inválido → auto. */
+/**
+ * ?monscale=1|2|auto; ausente ou inválido → 1, a escala recomendada (OFFICIAL_MONS_DEV.md): mesma densidade de pixel
+ * do Tamer (30 px) e do cenário, nas proporções do próprio DS. ×2/auto só quando o Tamer for para 56–64 px nativos.
+ */
 export function monScaleModeOf(params: URLSearchParams): MonScaleMode {
   const raw = params.get("monscale");
-  return raw === "1" ? 1 : raw === "2" ? 2 : "auto";
+  return raw === "2" ? 2 : raw === "auto" ? "auto" : 1;
 }
 
 /** Inteiro k ≥ 1 com a altura h·k mais perto de [lo, hi] (dentro = distância 0); empate → o menor k. */

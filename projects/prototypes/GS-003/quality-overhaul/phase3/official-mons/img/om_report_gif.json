@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-11T09:26:05.361Z",
+  "base": "http://127.0.0.1:5196",
+  "shots": {},
+  "gifs": {
+    "om_attack_gabumon_x2.gif": {
+      "frames": 84,
+      "size": [
+        528,
+        300
+      ],
+      "scale": "3× do canvas lógico (nearest)",
+      "totalMs": 3375
+    }
+  }
+}
