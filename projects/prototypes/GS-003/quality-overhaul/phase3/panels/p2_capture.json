@@ -1,0 +1,175 @@
+{
+  "date": "2026-11-11T10:19:29.655Z",
+  "base": "http://127.0.0.1:5191",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "defaultUrl": "http://127.0.0.1:5191/?map=digimon-forest-01",
+  "shots": {
+    "p2_digivice_aberto.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "hub aberto: 6 atalhos, nenhum com cadeado",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": null,
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_guilda.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Guilda sem guilda: Fundar + guildas-bot rotuladas 'simulada'",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-guild",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_guilda_fundada.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Guilda fundada: 1 membro (você), rota dominada e barra de contribuição",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-guild",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_correio.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Correio: carta de boas-vindas aberta (anexo: Potinho de Energia)",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-mail",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_passe.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Passe de Temporada, save novo (0 pontos, nada a coletar)",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-pass",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_passe_progresso.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Passe com 150 Pontos de Passe INJETADOS pelo script (= 3 diárias de 50 XP), nível 3",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-pass",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_fonte.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Fonte dos Desejos enchendo (save novo)",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-wish",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_fonte_pronta.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Fonte em 100% (INJETADO pelo script): pedido disponível",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-wish",
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_fonte_ativa.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "pedido feito: contador de 15 min, varredura ×1,5 na sim (scanMult)",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": "dg-wish",
+        "tamerLevel": 12,
+        "scanMult": 1.5
+      }
+    },
+    "p2_encontro_selvagem.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "encontro selvagem forçado ao lado do Tamer (GS-012 padrão), pontos visíveis no mapa",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": null,
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_pes_juntos.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "Tamer e parceira parados (idle v2: pés juntos)",
+      "state": {
+        "animV2": true,
+        "encounters": true,
+        "visibleWild": 5,
+        "locks": 0,
+        "lockedPanels": 0,
+        "openPanel": null,
+        "tamerLevel": 12,
+        "scanMult": 1
+      }
+    },
+    "p2_pes_juntos_zoom4x.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "what": "recorte 480×270 do centro de p2_pes_juntos (mesmo instante +1 quadro), ampliado 4× sem suavização"
+    }
+  },
+  "encounterForced": true,
+  "zoomCenter": [
+    900,
+    724
+  ],
+  "errors": []
+}
