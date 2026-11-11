@@ -52,6 +52,7 @@ export function mountEncounterDebug(root: HTMLElement, api: EncDebugApi): HTMLEl
       <div>área <b>${s.areaId ?? "—"}</b> · terreno <b>${s.terrain ?? "— (trilha/fora)"}</b></div>
       <div>chance deste passo <b>${pct(s.pStep * 100)}</b> · carência ${s.graceLeft} passos${s.readyInSec > 0 ? ` · intervalo ${s.readyInSec.toFixed(1)} s` : ""}</div>
       <div>passos ${s.counters.steps} · testes ${s.counters.rolls} · encontros ${s.counters.encounters} · farfalhar ${s.counters.empties}</div>
+      <div>varredura por vitória <b>${s.scanPerWin}%</b>${s.scanMult !== 1 ? ` (Fonte dos Desejos ×${String(s.scanMult).replace(".", ",")})` : ""}</div>
       <div>vivos: ${s.visibleAlive} visíveis (teto 6) · ${s.randomAlive} aleatório · recompensas pagas ${s.rewardsPaid}</div>
       <div style="margin-top:4px">raridade: ${rar || "—"} · nada (farfalhar) ${pct(s.emptyPct)} dos testes vencidos</div>
       <table style="width:100%;margin-top:4px;border-collapse:collapse">${s.pool

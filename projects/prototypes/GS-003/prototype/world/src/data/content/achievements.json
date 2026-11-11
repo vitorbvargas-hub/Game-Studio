@@ -1,23 +1,149 @@
 {
   "_comment": "Conquistas v1 (PANELS_SPEC.md §6, P0). Content pack: crescer a lista sem mexer na UI. `stat` lê só contadores alimentados por eventos que a sim JÁ emite (reward, capture done, evolve) ou por telas já existentes (troca de mapa via Hud.setRegion, nível do Tamer, painel do Chefe Mundial). Recompensas em bits, pelo mesmo intent add_bits das Missões. Números [H]: primeira proposta, não calibrada.",
   "categories": [
-    { "id": "combat", "label": "Combate" },
-    { "id": "exploration", "label": "Exploração" },
-    { "id": "collection", "label": "Coleção" },
-    { "id": "social", "label": "Social", "locked": "Guilda e Correio chegam no P1 (PANELS_SPEC.md §1–§2). Sem esses sistemas não há o que contar aqui." }
+    {
+      "id": "combat",
+      "label": "Combate"
+    },
+    {
+      "id": "exploration",
+      "label": "Exploração"
+    },
+    {
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "id": "social",
+      "label": "Social"
+    }
   ],
   "achievements": [
-    { "id": "win_1", "category": "combat", "title": "Primeira vitória", "description": "Vença 1 Digimon selvagem com a sua parceira.", "stat": "wins", "goal": 1, "rewardBits": 20 },
-    { "id": "win_10", "category": "combat", "title": "Caçador da rota", "description": "Vença 10 Digimon selvagens.", "stat": "wins", "goal": 10, "rewardBits": 60 },
-    { "id": "win_50", "category": "combat", "title": "Veterano do Digimundo", "description": "Vença 50 Digimon selvagens.", "stat": "wins", "goal": 50, "rewardBits": 200 },
-    { "id": "boss_awaken", "category": "combat", "title": "Chamado do Chefão", "description": "Desperte o Chefe Mundial uma vez.", "stat": "bossAwakens", "goal": 1, "rewardBits": 40 },
-    { "id": "boss_defeat", "category": "combat", "title": "Queda do Chefão", "description": "Participe de uma janela em que o Chefe Mundial cai.", "stat": "bossDefeats", "goal": 1, "rewardBits": 120 },
-    { "id": "map_2", "category": "exploration", "title": "Pé na estrada", "description": "Visite 2 mapas diferentes.", "stat": "maps", "goal": 2, "rewardBits": 30 },
-    { "id": "map_4", "category": "exploration", "title": "Cartógrafo", "description": "Visite 4 mapas diferentes.", "stat": "maps", "goal": 4, "rewardBits": 80 },
-    { "id": "tamer_5", "category": "exploration", "title": "Tamer em formação", "description": "Chegue ao nível 5 de Tamer.", "stat": "tamerLevel", "goal": 5, "rewardBits": 40 },
-    { "id": "tamer_10", "category": "exploration", "title": "Tamer experiente", "description": "Chegue ao nível 10 de Tamer.", "stat": "tamerLevel", "goal": 10, "rewardBits": 100 },
-    { "id": "scan_1", "category": "collection", "title": "Primeira varredura", "description": "Complete a varredura (100%) de 1 espécie.", "stat": "scans", "goal": 1, "rewardBits": 30 },
-    { "id": "scan_5", "category": "collection", "title": "Banco de dados", "description": "Complete a varredura de 5 espécies.", "stat": "scans", "goal": 5, "rewardBits": 120 },
-    { "id": "evolve_1", "category": "collection", "title": "Digivolução!", "description": "Faça a sua parceira digivolver uma vez.", "stat": "evolves", "goal": 1, "rewardBits": 50 }
+    {
+      "id": "win_1",
+      "category": "combat",
+      "title": "Primeira vitória",
+      "description": "Vença 1 Digimon selvagem com a sua parceira.",
+      "stat": "wins",
+      "goal": 1,
+      "rewardBits": 20
+    },
+    {
+      "id": "win_10",
+      "category": "combat",
+      "title": "Caçador da rota",
+      "description": "Vença 10 Digimon selvagens.",
+      "stat": "wins",
+      "goal": 10,
+      "rewardBits": 60
+    },
+    {
+      "id": "win_50",
+      "category": "combat",
+      "title": "Veterano do Digimundo",
+      "description": "Vença 50 Digimon selvagens.",
+      "stat": "wins",
+      "goal": 50,
+      "rewardBits": 200
+    },
+    {
+      "id": "boss_awaken",
+      "category": "combat",
+      "title": "Chamado do Chefão",
+      "description": "Desperte o Chefe Mundial uma vez.",
+      "stat": "bossAwakens",
+      "goal": 1,
+      "rewardBits": 40
+    },
+    {
+      "id": "boss_defeat",
+      "category": "combat",
+      "title": "Queda do Chefão",
+      "description": "Participe de uma janela em que o Chefe Mundial cai.",
+      "stat": "bossDefeats",
+      "goal": 1,
+      "rewardBits": 120
+    },
+    {
+      "id": "map_2",
+      "category": "exploration",
+      "title": "Pé na estrada",
+      "description": "Visite 2 mapas diferentes.",
+      "stat": "maps",
+      "goal": 2,
+      "rewardBits": 30
+    },
+    {
+      "id": "map_4",
+      "category": "exploration",
+      "title": "Cartógrafo",
+      "description": "Visite 4 mapas diferentes.",
+      "stat": "maps",
+      "goal": 4,
+      "rewardBits": 80
+    },
+    {
+      "id": "tamer_5",
+      "category": "exploration",
+      "title": "Tamer em formação",
+      "description": "Chegue ao nível 5 de Tamer.",
+      "stat": "tamerLevel",
+      "goal": 5,
+      "rewardBits": 40
+    },
+    {
+      "id": "tamer_10",
+      "category": "exploration",
+      "title": "Tamer experiente",
+      "description": "Chegue ao nível 10 de Tamer.",
+      "stat": "tamerLevel",
+      "goal": 10,
+      "rewardBits": 100
+    },
+    {
+      "id": "scan_1",
+      "category": "collection",
+      "title": "Primeira varredura",
+      "description": "Complete a varredura (100%) de 1 espécie.",
+      "stat": "scans",
+      "goal": 1,
+      "rewardBits": 30
+    },
+    {
+      "id": "scan_5",
+      "category": "collection",
+      "title": "Banco de dados",
+      "description": "Complete a varredura de 5 espécies.",
+      "stat": "scans",
+      "goal": 5,
+      "rewardBits": 120
+    },
+    {
+      "id": "evolve_1",
+      "category": "collection",
+      "title": "Digivolução!",
+      "description": "Faça a sua parceira digivolver uma vez.",
+      "stat": "evolves",
+      "goal": 1,
+      "rewardBits": 50
+    },
+    {
+      "id": "guild_join",
+      "category": "social",
+      "title": "Bandeira erguida",
+      "description": "Funde uma guilda ou entre em uma guilda simulada.",
+      "stat": "guildJoined",
+      "goal": 1,
+      "rewardBits": 40
+    },
+    {
+      "id": "mail_read_3",
+      "category": "social",
+      "title": "Caixa em dia",
+      "description": "Leia 3 cartas do Correio.",
+      "stat": "mailRead",
+      "goal": 3,
+      "rewardBits": 30
+    }
   ]
 }

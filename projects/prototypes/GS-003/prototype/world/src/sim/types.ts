@@ -191,6 +191,8 @@ export type Intent =
   | { t: "set_auto_evolve"; playerId: string; on: boolean }
   /** Recompensa em bits coletada numa tela (Missões); só valores positivos. */
   | { t: "add_bits"; playerId: string; bits: number }
+  /** Fonte dos Desejos (PANELS_SPEC §4): multiplicador do ganho de varredura por vitória (1 = normal; o pedido usa 1,5). */
+  | { t: "set_scan_mult"; playerId: string; mult: number }
   /** GS-012: ambiente (período do dia e clima) vindo do relógio do jogo; só com encontros ligados. */
   | { t: "set_env"; playerId: string; time?: string; weather?: string }
   /** GS-012 debug (?encdebug=1): encontro aleatório já, ao lado do Tamer, com esta entrada ou raridade. */
@@ -282,6 +284,8 @@ export interface PlayerState {
   swapCd?: number;
   /** AUTO explorador (feedback 1): com o AUTO ligado, o Tamer também anda sozinho. Ausente = desligado. */
   autoExplore?: boolean;
+  /** Fonte dos Desejos: multiplicador do ganho de varredura por vitória (o "modDados" do GDD §6.1). Ausente = 1. */
+  scanMult?: number;
   /** Estado do explorador (sim/explore.ts). */
   explore?: ExploreState;
 }

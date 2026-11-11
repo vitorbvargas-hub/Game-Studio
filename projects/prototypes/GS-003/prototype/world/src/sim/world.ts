@@ -423,6 +423,9 @@ export function encounterInspect(sim: WorldSim, playerId: string) {
     visibleAlive: alive.filter((e) => e.zoneIndex !== undefined).length,
     randomAlive: alive.filter((e) => e.encKey).length,
     rewardsPaid: sim.state.enc!.paid.length,
+    /** Varredura por vitória (%), já com o multiplicador da Fonte dos Desejos. */
+    scanPerWin: scanGain(p),
+    scanMult: p.scanMult ?? 1,
   };
 }
 
@@ -585,6 +588,10 @@ function applyIntent(ctx: Ctx, it: Intent): void {
       return;
     case "add_bits":
       p.bits += Math.max(0, Math.floor(it.bits));
+      return;
+    case "set_scan_mult":
+      p.scanMult = Math.max(1, Math.min(3, Number(it.mult) || 1));
+      if (p.scanMult === 1) delete p.scanMult;
       return;
     case "set_env": {
       if (!w.enc) return;
@@ -1251,12 +1258,15 @@ function reward(ctx: Ctx, t: Entity, partner: Entity): void {
   addXp(ctx, partner, xp);
   // Captura: placeholder por varredura (como o "scan" do protótipo idle). 100% registra a espécie.
   if (!p.captured.includes(sp.id)) {
-    const pct = Math.min(100, (p.scans[sp.id] ?? 0) + WORLD.scanPerDefeat);
+    const pct = Math.min(100, (p.scans[sp.id] ?? 0) + scanGain(p));
     p.scans[sp.id] = pct;
     if (pct >= 100) p.captured.push(sp.id);
     ctx.ev.push({ t: "capture", tick: w.tick, ownerId: p.id, speciesId: sp.id, pct, done: pct >= 100 });
   }
 }
+
+/** Ganho de varredura por vitória: o base de params × o multiplicador da Fonte dos Desejos (arredondado). */
+export const scanGain = (p: { scanMult?: number }): number => Math.round(WORLD.scanPerDefeat * (p.scanMult ?? 1));
 
 /** XP com as regras de nível do jogo: sobe quantos níveis couberem e libera os golpes do learnset a cada um. */
 function addXp(ctx: Ctx, partner: Entity, xp: number): void {

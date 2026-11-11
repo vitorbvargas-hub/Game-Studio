@@ -13,6 +13,7 @@ import type { Minimap, MinimapDot } from "./minimap";
 import { evolutionSectionHtml } from "./evolve-ui";
 import { applyCircuitKit } from "./circuit-kit";
 import { Digivice, digiviceHudHtml, regionKey, SHORTCUT_TO_HUB } from "./digivice";
+import type { QuestLike } from "./digivice-panels";
 import { holoPanelHtml, type HoloSubject, type HoloTab } from "./holo-card";
 import { Panel } from "./panel";
 import type { StorageLike } from "../save/save";
@@ -35,6 +36,12 @@ export interface HudCallbacks {
   onShortcut?(id: string): void;
   /** HUD v2 (Digivice): concede bits de uma recompensa coletada (Chefe Mundial, Conquistas) — o main vira add_bits. */
   onGrantBits?(bits: number): void;
+  /** HUD v2 (Correio): itens de um anexo para o inventário (mesmo caminho dos itens das Missões). */
+  onGrantItems?(items: Record<string, number>): void;
+  /** HUD v2 (Correio): coleta de uma missão pela chave (a mesma da aba Missões). Devolve se coletou. */
+  onClaimQuest?(claimKey: string): boolean;
+  /** HUD v2 (Fonte dos Desejos): multiplicador do ganho de varredura (intent set_scan_mult). */
+  onScanMult?(mult: number): void;
 }
 
 export interface HudScene {
@@ -58,7 +65,7 @@ export interface HudOptions {
   /** P8: "v2" liga o HUD v2 (?hud=v2: bloco do Tamer, molduras nível 1 reativas, hotbar por categoria). */
   variant?: HudVariant;
   /** HUD v2: onde o Digivice guarda o próprio estado (chave separada do save) e as espécies já escaneadas. */
-  digivice?: { storage?: StorageLike; captured?: string[]; now?: () => number };
+  digivice?: { storage?: StorageLike; captured?: string[]; now?: () => number; quests?: () => QuestLike[]; scanBase?: number };
 }
 
 /** Atalhos da grade (2 × 6). Só "Equipe" abre algo nesta prova; o resto avisa "Em breve". */
@@ -305,6 +312,11 @@ export class Hud {
         region: () => this.region,
         tamerLevel: () => this.tamerLevel,
         grantBits: (bits) => cb.onGrantBits?.(bits),
+        grantItems: (items) => cb.onGrantItems?.(items),
+        claimQuest: (key) => cb.onClaimQuest?.(key) ?? false,
+        setScanMult: (mult) => cb.onScanMult?.(mult),
+        quests: opts.digivice?.quests,
+        scanBase: opts.digivice?.scanBase,
         toast: (m) => this.toast(m),
       });
       this.holo = new Panel(root, "holo", "Ficha do parceiro", "evo");

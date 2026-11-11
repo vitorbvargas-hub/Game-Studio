@@ -133,22 +133,21 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
     expect(dv.isOpen).toBe(false);
   });
 
-  it("cada atalho abre um Panel e fecha o hub; P1/P2 abrem o estado bloqueado explicado (sem número falso)", () => {
+  it("cada atalho abre um Panel e fecha o hub; nenhum atalho está mais bloqueado (Guilda, Correio, Passe e Fonte têm tela)", () => {
     const { root, dv } = mount();
+    expect(root.querySelectorAll(".dg-lock")).toHaveLength(0);
     for (const it of HUB_ITEMS) {
+      expect(it.locked).toBeFalsy();
       dv.open();
       root.querySelector<HTMLElement>(`[data-dg="${it.id}"]`)!.click();
       expect(dv.isOpen).toBe(false);
       const wrap = root.querySelector<HTMLElement>(`[data-panel="dg-${it.id}"]`)!;
       expect(wrap.classList.contains("open")).toBe(true);
       expect(root.querySelectorAll(".panel-wrap.open")).toHaveLength(1);
-      if (it.tier !== "P0") {
-        const l = wrap.querySelector<HTMLElement>('[data-testid="dg-locked"]')!;
-        expect(l.dataset.tier).toBe(it.tier);
-        expect(l.textContent).toContain(`PANELS_SPEC.md ${it.spec}`);
-        expect(wrap.textContent).not.toMatch(/\d+%/);
-      }
+      expect(wrap.querySelector('[data-testid="dg-locked"]')).toBeNull();
+      expect(wrap.textContent).not.toMatch(/bloqueado nesta versão/i);
     }
+    dv.dispose();
   });
 
   it("atalhos antigos da grade (Guilda, Correio, Conquistas) levam ao mesmo painel do hub", () => {
@@ -164,7 +163,7 @@ describe("Digivice — hub e arco (HUD_IDENTITY_V3 §2)", () => {
   it("pips só com novidade real: nada a coletar = nenhum pip; conquista pronta acende o pip de Conquistas", () => {
     const s = emptyDigivice();
     s.boss.lastDay = "2026-11-10"; // cooldown: sem novidade do chefe
-    expect(hubPips(s, T0)).toEqual({ trophy: false, boss: false, mail: false });
+    expect(hubPips(s, T0)).toEqual({ trophy: false, boss: false, mail: false, wish: false, pass: false });
     trackDigivice(s, reward(), "p1", () => false, T0);
     expect(hubPips(s, T0).trophy).toBe(true);
     claimAchievement(s, "win_1");
@@ -281,7 +280,7 @@ describe("Conquistas v1 (PANELS_SPEC §6)", () => {
   it("lista vem do content pack; todo stat é alimentado por evento/tela que já existe", () => {
     expect(ACHIEVEMENTS.length).toBeGreaterThanOrEqual(10);
     expect(ACHIEVEMENTS.length).toBeLessThanOrEqual(15);
-    const known = new Set(["wins", "scans", "evolves", "maps", "tamerLevel", "bossAwakens", "bossDefeats"]);
+    const known = new Set(["wins", "scans", "evolves", "maps", "tamerLevel", "bossAwakens", "bossDefeats", "guildJoined", "mailRead"]); // os 2 últimos: ações dos painéis Guilda/Correio (PANELS_SPEC §6)
     for (const a of achievementsJson.achievements) {
       expect(known.has(a.stat), a.id).toBe(true);
       expect(a.rewardBits).toBeGreaterThan(0);
@@ -319,7 +318,7 @@ describe("Conquistas v1 (PANELS_SPEC §6)", () => {
     expect(claimAchievement(s, "win_10")).toBe(0);
   });
 
-  it("DOM: abas por categoria, contador, coletar → onGrantBits; Social bloqueada com motivo; mapas e nível contam", () => {
+  it("DOM: abas por categoria, contador, coletar → onGrantBits; Social conta Guilda/Correio; mapas e nível contam", () => {
     const { root, hud, grants } = mount();
     hud.setRegion("Vila dos Bebês", "Praça");
     hud.setTamerProgress(5, 0);
@@ -335,7 +334,8 @@ describe("Conquistas v1 (PANELS_SPEC §6)", () => {
     expect(body().querySelector<HTMLElement>('[data-ach="map_2"]')!.dataset.state).toBe("complete");
     expect(body().querySelector<HTMLElement>('[data-ach="tamer_5"]')!.dataset.state).toBe("complete");
     body().querySelector<HTMLElement>('[data-ach-tab="social"]')!.click();
-    expect(body().querySelector('[data-testid="ach-locked"]')).not.toBeNull();
+    expect(body().querySelector('[data-testid="ach-locked"]')).toBeNull();
+    expect(body().querySelector<HTMLElement>('[data-ach="guild_join"]')!.dataset.state).toBe("locked");
     hud.digivice!.dispose();
   });
 });

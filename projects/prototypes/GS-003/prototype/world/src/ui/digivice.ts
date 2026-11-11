@@ -15,6 +15,38 @@ import type { WorldEvent } from "../sim/types";
 import { REGIONS } from "../world/regions";
 import { icon } from "./icons";
 import { Panel } from "./panel";
+import {
+  addGuildXp,
+  addMail,
+  addPassPoints,
+  claimPassLevel,
+  emptyPanels,
+  ensureSeason,
+  ensureWelcome,
+  foundGuild,
+  guildHtml,
+  hasPending,
+  joinBotGuild,
+  leaveGuild,
+  mailHtml,
+  mailStaleQuests,
+  makeWish,
+  PASS_BOSS_BONUS,
+  passHtml,
+  passLevel,
+  passReward,
+  readMail,
+  rollSeason,
+  unreadCount,
+  WISH_MAX,
+  WISH_SCAN_MULT,
+  wishActive,
+  wishHtml,
+  wishOnPlay,
+  wishOnWin,
+  type PanelsSave,
+  type QuestLike,
+} from "./digivice-panels";
 
 export const DIGIVICE_KEY = `${SAVE_KEY}.digivice`;
 
@@ -24,9 +56,11 @@ export interface HubItem {
   id: string;
   label: string;
   icon: string;
-  /** Prioridade na PANELS_SPEC.md §8: só P0 tem tela funcional; P1/P2 abrem o estado "bloqueado" explicado. */
+  /** Prioridade na PANELS_SPEC.md §8 (histórico: P0 entrou primeiro; P1/P2 entraram na etapa P2 do Quality Overhaul). */
   tier: "P0" | "P1" | "P2";
   spec: string;
+  /** Atalho ainda sem tela (abre o estado "bloqueado" explicado). Nenhum hoje. */
+  locked?: boolean;
 }
 
 /**
@@ -94,9 +128,9 @@ export interface BossSave {
   pending?: { bits: number; defeated: boolean; dmg: number; day: string };
 }
 
-export type StatId = "wins" | "scans" | "evolves" | "maps" | "tamerLevel" | "bossAwakens" | "bossDefeats";
+export type StatId = "wins" | "scans" | "evolves" | "maps" | "tamerLevel" | "bossAwakens" | "bossDefeats" | "guildJoined" | "mailRead";
 
-export interface DigiviceSave {
+export interface DigiviceSave extends PanelsSave {
   v: 1;
   wins: number;
   scans: string[];
@@ -105,11 +139,14 @@ export interface DigiviceSave {
   tamerLevel: number;
   bossAwakens: number;
   bossDefeats: number;
+  /** Social (eventos de UI dos painéis Guilda/Correio): guildas fundadas/entradas e cartas lidas. */
+  guildJoined: number;
+  mailRead: number;
   claimed: string[];
   boss: BossSave;
 }
 
-export const emptyDigivice = (): DigiviceSave => ({ v: 1, wins: 0, scans: [], evolves: 0, maps: [], tamerLevel: 1, bossAwakens: 0, bossDefeats: 0, claimed: [], boss: {} });
+export const emptyDigivice = (): DigiviceSave => ({ v: 1, wins: 0, scans: [], evolves: 0, maps: [], tamerLevel: 1, bossAwakens: 0, bossDefeats: 0, guildJoined: 0, mailRead: 0, claimed: [], boss: {}, ...emptyPanels() });
 
 export function loadDigivice(storage: StorageLike | undefined): DigiviceSave {
   try {
@@ -117,7 +154,8 @@ export function loadDigivice(storage: StorageLike | undefined): DigiviceSave {
     if (!raw) return emptyDigivice();
     const d = JSON.parse(raw) as Partial<DigiviceSave>;
     if (d.v !== 1) return emptyDigivice();
-    return { ...emptyDigivice(), ...d, boss: { ...(d.boss ?? {}) } };
+    const base = emptyDigivice();
+    return { ...base, ...d, boss: { ...(d.boss ?? {}) }, wish: { ...base.wish, ...(d.wish ?? {}) } };
   } catch {
     return emptyDigivice();
   }
@@ -314,9 +352,16 @@ export function claimAchievement(s: DigiviceSave, id: string, defs: AchievementD
 }
 
 /** Pips do aro (HUD_IDENTITY_V3 §2.1): posições fixas, um por sistema com novidade REAL; nada = nenhum pip. */
-export function hubPips(s: DigiviceSave, now: number): { trophy: boolean; boss: boolean; mail: boolean } {
+export function hubPips(s: DigiviceSave, now: number): { trophy: boolean; boss: boolean; mail: boolean; wish: boolean; pass: boolean } {
   const ph = bossPhase(s, now);
-  return { trophy: achievementViews(s).some((a) => a.state === "complete"), boss: ph === "available" || ph === "reward", mail: false };
+  const lv = s.pass ? passLevel(s.pass) : 0;
+  return {
+    trophy: achievementViews(s).some((a) => a.state === "complete"),
+    boss: ph === "available" || ph === "reward",
+    mail: unreadCount(s) > 0,
+    wish: s.wish.pct >= WISH_MAX && !wishActive(s, now),
+    pass: !!s.pass && Array.from({ length: lv }, (_, i) => i + 1).some((n) => !s.pass!.claimed.includes(n) && !passReward(n).cosmetic),
+  };
 }
 
 // ---------------------------------------------------------------- HTML
@@ -334,7 +379,7 @@ export function clock(ms: number): string {
 
 const RING_R = 29;
 const RING_C = 2 * Math.PI * RING_R;
-const PIP_POS: Record<string, [number, number]> = { trophy: [10, 0], boss: [2, 0], mail: [6, 0] };
+const PIP_POS: Record<string, [number, number]> = { trophy: [10, 0], boss: [2, 0], mail: [6, 0], wish: [4, 0], pass: [8, 0] };
 const pipXY = (hour: number) => {
   const a = ((hour / 12) * 360 - 90) * (Math.PI / 180);
   return { x: Math.round(32 + Math.cos(a) * RING_R), y: Math.round(32 + Math.sin(a) * RING_R) };
@@ -355,7 +400,7 @@ export function digiviceHudHtml(): string {
   const pos = arcLayout(HUB_ITEMS.length);
   const nodes = HUB_ITEMS.map(
     (it, i) =>
-      `<button type="button" class="dg-node tier-${it.tier}" data-dg="${it.id}" role="menuitem" tabindex="-1" aria-label="${esc(it.label)}" title="${esc(it.label)}${it.tier === "P0" ? "" : " — bloqueado nesta versão"}" style="--x:${pos[i].x}px;--y:${pos[i].y}px;--i:${i}">${icon(it.icon, 18)}${it.tier === "P0" ? "" : '<i class="dg-lock" aria-hidden="true"></i>'}</button>`,
+      `<button type="button" class="dg-node tier-${it.tier}" data-dg="${it.id}" role="menuitem" tabindex="-1" aria-label="${esc(it.label)}" title="${esc(it.label)}${it.locked ? " — bloqueado nesta versão" : ""}" style="--x:${pos[i].x}px;--y:${pos[i].y}px;--i:${i}">${icon(it.icon, 18)}${it.locked ? '<i class="dg-lock" aria-hidden="true"></i>' : ""}</button>`,
   ).join("");
   const pips = Object.entries(PIP_POS)
     .map(([id, [h]]) => {
@@ -425,7 +470,7 @@ export function achievementsHtml(s: DigiviceSave, tab: string): string {
             const pct = Math.round((a.progress / a.goal) * 100);
             const btn = a.state === "claimed" ? `<span class="ach-ok" title="Coletado">✓</span>` : a.state === "complete" ? `<button class="dg-cta sm" data-ach-claim="${a.id}">Coletar</button>` : "";
             return `<div class="ach ${a.state}" data-ach="${a.id}" data-state="${a.state}">
-              <span class="ach-ico">${icon(a.category === "combat" ? "boss" : a.category === "collection" ? "dex" : "map", 20)}</span>
+              <span class="ach-ico">${icon(a.category === "combat" ? "boss" : a.category === "collection" ? "dex" : a.category === "social" ? "guild" : "map", 20)}</span>
               <div class="ach-main"><b>${esc(a.title)}</b><small>${esc(a.description)}</small>
                 <div class="row"><div class="dg-bar"><i style="width:${pct}%"></i></div><em>${a.progress}/${a.goal}</em><small class="dim">+${a.rewardBits} bits</small></div></div>
               ${btn}
@@ -437,11 +482,11 @@ export function achievementsHtml(s: DigiviceSave, tab: string): string {
     <div class="ach-head"><b data-testid="ach-count">${done}/${views.length}</b><span>desbloqueadas</span></div>
     <div class="dg-tabs" role="tablist">${tabs}</div>
     <div class="ach-list" data-testid="ach-list">${body}</div>
-    <p class="note">Contam só eventos que o jogo já registra: vitórias, varreduras completas, digivoluções, mapas visitados, nível do Tamer e o Chefe Mundial. Coletar usa o mesmo caminho de bits das Missões.</p>
+    <p class="note">Contam só eventos que o jogo já registra: vitórias, varreduras completas, digivoluções, mapas visitados, nível do Tamer, o Chefe Mundial e as ações nos painéis Guilda e Correio. Coletar usa o mesmo caminho de bits das Missões.</p>
   </div>`;
 }
 
-/** Estado "bloqueado" dos atalhos P1/P2 (PANELS_SPEC §8): explica o porquê, sem fingir um sistema que não existe. */
+/** Estado "bloqueado" de um atalho sem tela (PANELS_SPEC §8): explica o porquê, sem fingir um sistema que não existe. */
 export function lockedHtml(it: HubItem): string {
   const why: Record<string, string> = {
     guild: "Fundar uma guilda local ou entrar numa guilda-bot rotulada, com a disputa da rota. Exige o nível 5 de Tamer.",
@@ -473,6 +518,18 @@ export interface DigiviceDeps {
   grantBits?: (bits: number) => void;
   toast?: (msg: string) => void;
   now?: () => number;
+  /** Itens de uma recompensa (Correio) para o inventário — o mesmo caminho dos itens das Missões. */
+  grantItems?: (items: Record<string, number>) => void;
+  /** Coleta uma missão pela chave (anexo do Correio = a coleta da própria aba Missões). Devolve se coletou. */
+  claimQuest?: (claimKey: string) => boolean;
+  /** Missões atuais (marcos não coletados há 48 h viram carta). */
+  quests?: () => QuestLike[];
+  /** Fonte dos Desejos: liga/desliga o multiplicador de varredura na sim (intent set_scan_mult). */
+  setScanMult?: (mult: number) => void;
+  /** Varredura por vitória sem bônus (%), para a explicação da Fonte. */
+  scanBase?: number;
+  /** Aba visível = jogo ativo (tempo da Fonte). Padrão: document.visibilityState. */
+  isActive?: () => boolean;
 }
 
 export class Digivice {
@@ -485,6 +542,12 @@ export class Digivice {
   private partners = new Set<string>();
   private timer?: ReturnType<typeof setInterval>;
   private readonly now: () => number;
+  private lastTick: number;
+  private ticks = 0;
+  private mailSel?: string;
+  private guildView: "found" | "leave" | "" = "";
+  private guildDraft = { name: "", emblem: 0, error: "" };
+  private scanBoostOn = false;
 
   constructor(private readonly d: DigiviceDeps) {
     this.now = d.now ?? (() => Date.now());
@@ -503,13 +566,55 @@ export class Digivice {
     }
     this.panels.boss.body.addEventListener("click", (e) => this.onBossClick(e));
     this.panels.trophy.body.addEventListener("click", (e) => this.onAchClick(e));
+    this.panels.guild.body.addEventListener("click", (e) => this.onGuildClick(e));
+    this.panels.guild.body.addEventListener("input", (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.dataset.testid === "gd-name") this.guildDraft.name = t.value;
+    });
+    this.panels.mail.body.addEventListener("click", (e) => this.onMailClick(e));
+    this.panels.pass.body.addEventListener("click", (e) => this.onPassClick(e));
+    this.panels.wish.body.addEventListener("click", (e) => this.onWishClick(e));
     this.el.addEventListener("pointerover", (e) => this.hover(e));
     this.el.addEventListener("focusin", (e) => this.hover(e));
     this.el.addEventListener("pointerleave", () => (this.caption.textContent = ""));
-    settleBoss(this.save, this.now());
+    const t0 = this.now();
+    this.lastTick = t0;
+    // janela do chefe que fechou com o jogo fechado: a recompensa vai para o Correio (PANELS_SPEC §2)
+    this.settle(t0);
+    if (this.save.boss.pending) {
+      const p = this.save.boss.pending;
+      this.save.boss.pending = undefined;
+      addMail(this.save, { iconId: "boss", subject: `Chefe Mundial · ${p.defeated ? "derrotado" : "janela encerrada"}`, body: `A janela do Chefe Mundial fechou enquanto você estava fora. Sua contribuição: ${p.dmg} vitória(s). Participação = recompensa cheia.`, attachment: { bits: p.bits, rewardText: `+${p.bits} bits` }, ts: t0 });
+    }
+    ensureWelcome(this.save, t0);
+    ensureSeason(this.save, t0);
+    rollSeason(this.save, t0);
+    this.syncScanBoost(t0);
     this.persist();
     this.paint();
     this.timer = setInterval(() => this.tick(), 1000);
+  }
+
+  /** Fecha a janela do chefe se venceu; a participação rende o bônus fixo do Passe uma vez. */
+  private settle(now: number): boolean {
+    const had = !!this.save.boss.pending;
+    const done = settleBoss(this.save, now);
+    if (done && !had && this.save.boss.pending) addPassPoints(this.save, PASS_BOSS_BONUS);
+    return done;
+  }
+
+  /** Liga/desliga o multiplicador de varredura da Fonte na sim conforme a janela do pedido. */
+  private syncScanBoost(now: number): boolean {
+    const on = wishActive(this.save, now);
+    if (on === this.scanBoostOn) return false;
+    this.scanBoostOn = on;
+    this.d.setScanMult?.(on ? WISH_SCAN_MULT : 1);
+    return true;
+  }
+
+  /** Pontos de Passe = XP da missão diária coletada (PANELS_SPEC §3: 1:1, sem contador paralelo). */
+  noteDailyClaim(xp: number): void {
+    if (addPassPoints(this.save, xp)) this.changed();
   }
 
   get isOpen(): boolean {
@@ -543,7 +648,9 @@ export class Digivice {
     if (!it || !p) return;
     this.close();
     // a janela do chefe pode ter vencido entre dois ticks: fecha antes de desenhar
-    if (settleBoss(this.save, this.now())) this.persist();
+    if (this.settle(this.now())) this.persist();
+    if (id === "guild") this.guildView = "";
+    if (id === "mail") this.checkQuestMail();
     this.paint();
     for (const w of this.d.root.querySelectorAll<HTMLElement>(".panel-wrap.open")) if (w !== p.wrap) w.querySelector<HTMLElement>("[data-panel-close]")?.click();
     p.open(this.panelHtml(id));
@@ -559,7 +666,15 @@ export class Digivice {
 
   onEvents(events: WorldEvent[]): void {
     for (const ev of events) if (ev.t === "spawn" && ev.entity.ownerId === this.d.playerId && ev.entity.kind === "partner") this.partners.add(ev.entity.id);
-    if (trackDigivice(this.save, events, this.d.playerId, (id) => this.partners.has(id), this.now()) || settleBoss(this.save, this.now())) this.changed();
+    const now = this.now();
+    let extra = false;
+    for (const ev of events) {
+      if (ev.t !== "reward" || ev.ownerId !== this.d.playerId) continue;
+      // Guilda: XP da vitória na rota atual; Fonte: +1% por vitória confirmada (mesmo evento `reward`)
+      if (addGuildXp(this.save, this.d.region().route, ev.xp, now)) extra = true;
+      if (wishOnWin(this.save)) extra = true;
+    }
+    if (trackDigivice(this.save, events, this.d.playerId, (id) => this.partners.has(id), now) || this.settle(now) || extra) this.changed();
   }
 
   noteRegion(key: string): void {
@@ -575,24 +690,50 @@ export class Digivice {
   }
 
   private panelHtml(id: string): string {
-    if (id === "boss") return bossHtml(this.save, this.now(), this.d.region().name, this.d.tamerName());
+    const now = this.now();
+    const r = this.d.region();
+    if (id === "boss") return bossHtml(this.save, now, r.name, this.d.tamerName());
     if (id === "trophy") return achievementsHtml(this.save, this.achTab);
+    if (id === "guild")
+      return guildHtml(this.save, { tamerLevel: this.d.tamerLevel(), tamerName: this.d.tamerName(), regionName: r.name, route: r.route, now, view: this.guildView, draftName: this.guildDraft.name, draftEmblem: this.guildDraft.emblem, error: this.guildDraft.error });
+    if (id === "mail") return mailHtml(this.save, this.mailSel, now);
+    if (id === "pass") return passHtml(this.save, now);
+    if (id === "wish") return wishHtml(this.save, now, this.d.scanBase ?? 25);
     return lockedHtml(HUB_ITEMS.find((x) => x.id === id)!);
   }
 
   private changed(): void {
-    settleBoss(this.save, this.now());
+    this.settle(this.now());
     this.persist();
     this.paint();
-    for (const id of ["boss", "trophy"]) if (this.panels[id].isOpen) this.panels[id].update(this.panelHtml(id));
+    // a Guilda não redesenha sozinha com o formulário aberto (não apaga o que o jogador está digitando)
+    for (const id of ["boss", "trophy", "mail", "pass", "wish", "guild"]) if (this.panels[id].isOpen && !(id === "guild" && this.guildView === "found")) this.panels[id].update(this.panelHtml(id));
+  }
+
+  private checkQuestMail(): boolean {
+    const q = this.d.quests?.();
+    return !!q && mailStaleQuests(this.save, q, this.now()) > 0;
   }
 
   private tick(): void {
-    const settled = settleBoss(this.save, this.now());
-    if (settled) this.persist();
+    const now = this.now();
+    const dt = Math.max(0, Math.min(5000, now - this.lastTick));
+    this.lastTick = now;
+    this.ticks++;
+    const active = this.d.isActive ? this.d.isActive() : typeof document === "undefined" || document.visibilityState !== "hidden";
+    let dirty = this.settle(now);
+    if (active && wishOnPlay(this.save, dt)) dirty = true;
+    if (this.syncScanBoost(now) && !this.scanBoostOn) {
+      dirty = true;
+      this.d.toast?.("Fonte dos Desejos: o bônus de varredura acabou.");
+    }
+    if (this.ticks % 10 === 0 && this.checkQuestMail()) dirty = true;
+    if (rollSeason(this.save, now) > 0) dirty = true;
+    if (dirty || this.ticks % 15 === 0) this.persist();
     this.paint();
-    if (this.panels.boss.isOpen) this.panels.boss.update(this.panelHtml("boss"));
-    if (settled && this.panels.trophy.isOpen) this.panels.trophy.update(this.panelHtml("trophy"));
+    if (dirty) for (const id of ["trophy", "mail", "pass"]) if (this.panels[id].isOpen) this.panels[id].update(this.panelHtml(id));
+    for (const id of ["boss", "wish"]) if (this.panels[id].isOpen) this.panels[id].update(this.panelHtml(id));
+    if (this.panels.guild.isOpen && this.guildView === "" && this.ticks % 5 === 0) this.panels.guild.update(this.panelHtml("guild"));
   }
 
   private persist(): void {
@@ -623,7 +764,7 @@ export class Digivice {
     const n = (e.target as HTMLElement).closest<HTMLElement>("[data-dg]");
     if (!n || !this.isOpen) return;
     const it = HUB_ITEMS.find((x) => x.id === n.dataset.dg)!;
-    this.caption.textContent = it.tier === "P0" ? it.label : `${it.label} · bloqueado`;
+    this.caption.textContent = it.locked ? `${it.label} · bloqueado` : it.label;
   }
 
   private onBossClick(e: Event): void {
@@ -654,5 +795,93 @@ export class Digivice {
     } else return;
     this.changed();
     this.panels.trophy.update(this.panelHtml("trophy"));
+  }
+
+  private onGuildClick(e: Event): void {
+    const t = e.target as HTMLElement;
+    const act = t.closest<HTMLElement>("[data-gd]")?.dataset.gd;
+    const em = t.closest<HTMLElement>("[data-gd-emblem]")?.dataset.gdEmblem;
+    const join = t.closest<HTMLElement>("[data-gd-join]")?.dataset.gdJoin;
+    const now = this.now();
+    const r = this.d.region();
+    const lvl = this.d.tamerLevel();
+    this.guildDraft.error = "";
+    if (em !== undefined) {
+      this.guildDraft.emblem = Number(em);
+      const input = this.panels.guild.body.querySelector<HTMLInputElement>('[data-testid="gd-name"]');
+      if (input) this.guildDraft.name = input.value;
+    } else if (join) {
+      const err = joinBotGuild(this.save, r.name, join, lvl, now);
+      if (err) this.guildDraft.error = err;
+      else {
+        this.save.guildJoined++;
+        this.d.toast?.(`Você entrou em ${this.save.guild!.name} (guilda simulada).`);
+      }
+    } else if (act === "found" || act === "leave") this.guildView = act;
+    else if (act === "cancel") this.guildView = "";
+    else if (act === "create") {
+      const input = this.panels.guild.body.querySelector<HTMLInputElement>('[data-testid="gd-name"]');
+      const err = foundGuild(this.save, input?.value ?? this.guildDraft.name, this.guildDraft.emblem, lvl, now);
+      if (err) this.guildDraft.error = err;
+      else {
+        this.guildView = "";
+        this.guildDraft = { name: "", emblem: 0, error: "" };
+        this.save.guildJoined++;
+        this.d.toast?.(`Guilda ${this.save.guild!.name} fundada.`);
+      }
+    } else if (act === "leave-yes") {
+      leaveGuild(this.save);
+      this.guildView = "";
+    } else return;
+    this.persist();
+    this.paint();
+    this.panels.guild.update(this.panelHtml("guild"));
+    if (this.panels.trophy.isOpen) this.panels.trophy.update(this.panelHtml("trophy"));
+  }
+
+  private onMailClick(e: Event): void {
+    const t = e.target as HTMLElement;
+    const claim = t.closest<HTMLElement>("[data-ml-claim]")?.dataset.mlClaim;
+    const row = t.closest<HTMLElement>("[data-ml]")?.dataset.ml;
+    if (claim) {
+      const m = this.save.mail.find((x) => x.id === claim);
+      if (!m || !hasPending(m)) return;
+      const a = m.attachment!;
+      if (a.questKey) {
+        // mesma coleta da aba Missões; se a missão já foi coletada por lá, a carta só fecha
+        this.d.claimQuest?.(a.questKey);
+      } else {
+        if (a.bits) this.d.grantBits?.(a.bits);
+        if (a.itemId) this.d.grantItems?.({ [a.itemId]: a.qty ?? 1 });
+        if (a.crystals) this.save.crystals += a.crystals;
+        this.d.toast?.(`Correio: ${a.rewardText ?? "recompensa coletada"}`);
+      }
+      m.claimed = true;
+      m.read = true;
+    } else if (row) {
+      this.mailSel = row;
+      if (readMail(this.save, row)) this.save.mailRead++;
+    } else return;
+    this.changed();
+    this.panels.mail.update(this.panelHtml("mail"));
+  }
+
+  private onPassClick(e: Event): void {
+    const lv = Number((e.target as HTMLElement).closest<HTMLElement>("[data-ps-claim]")?.dataset.psClaim);
+    if (!lv) return;
+    const r = claimPassLevel(this.save, lv);
+    if (!r) return;
+    if (r.bits) this.d.grantBits?.(r.bits);
+    this.d.toast?.(`Passe nível ${lv}: ${r.bits ? `+${r.bits} bits` : `+${r.crystals} Cristais Digitais`}`);
+    this.changed();
+  }
+
+  private onWishClick(e: Event): void {
+    if (!(e.target as HTMLElement).closest('[data-wf="wish"]')) return;
+    const now = this.now();
+    if (!makeWish(this.save, now)) return;
+    this.syncScanBoost(now);
+    this.d.toast?.("Pedido feito! +50% de varredura por 15 minutos.");
+    this.changed();
   }
 }

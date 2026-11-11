@@ -22,7 +22,7 @@ import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
 import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
 import { applyOpenedChests, arenaOf, interact, nearestInteraction, type InteractResult } from "./sim/interact";
-import { TICK_MS } from "./sim/params";
+import { TICK_MS, WORLD } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
 import type { Intent, WorldEvent } from "./sim/types";
 import { canEvolveNow, encounterInspect, getEntity, getPlayer, restorePartner, snapshot, snapshotOf, stepWorld, type PartnerSave } from "./sim/world";
@@ -467,6 +467,10 @@ async function boot() {
         intents.push({ t: "add_bits", playerId: LOCAL_PLAYER, bits });
         setTimeout(persist, 150);
       },
+      // Correio do Digivice: itens e missões pelo mesmo caminho das Missões; Fonte dos Desejos: bônus de varredura
+      onGrantItems: (items) => grantReward(0, items),
+      onClaimQuest: (key) => claimQuest(key),
+      onScanMult: (mult) => intents.push({ t: "set_scan_mult", playerId: LOCAL_PLAYER, mult }),
     },
     player().auto,
     {
@@ -476,7 +480,22 @@ async function boot() {
       moveIcon: drawMoveIcon,
       shortcuts: regionMode ? ["map", "dex", "inv", "quest", "gear", "arena"] : [],
       variant: HUD_VARIANT,
-      digivice: HUD_VARIANT === "v2" ? { storage, captured: player().captured } : undefined,
+      digivice:
+        HUD_VARIANT === "v2"
+          ? {
+              storage,
+              captured: player().captured,
+              scanBase: WORLD.scanPerDefeat,
+              // questList é declarado mais abaixo: até lá (carga inicial) não há missões para o Correio
+              quests: () => {
+                try {
+                  return questList();
+                } catch {
+                  return [];
+                }
+              },
+            }
+          : undefined,
     },
   );
   hud.onEvents(cur.spawnEvents);
@@ -739,6 +758,31 @@ async function boot() {
   const dexState = () => ({ seen: [...seen], scans: player().scans, captured: player().captured });
   const questList = () =>
     questViews(quests, { regionId: cur.def?.region ?? "", regionName: regionName(cur.def), scans: player().scans, captured: player().captured, hasPartner: !!getEntity(cur.sim.state, player().partnerId) });
+  /** Recompensa (Missões e Correio do Digivice): bits pelo add_bits e itens do economy.json para o inventário. */
+  function grantReward(bits: number, items: Record<string, number>): void {
+    if (bits > 0) intents.push({ t: "add_bits", playerId: LOCAL_PLAYER, bits });
+    const known = new Set(Object.values(economyJson.items).flat().map((i) => i.id));
+    for (const [it, n] of Object.entries(items)) if (known.has(it) && n > 0) inventory[it] = (inventory[it] ?? 0) + n;
+    setTimeout(() => {
+      refreshScreens();
+      persist();
+    }, 150);
+  }
+  /** Coleta de uma missão (aba Missões ou anexo do Correio): um único caminho. Devolve se coletou. */
+  function claimQuest(claimKey: string): boolean {
+    const q = questList().find((x) => x.claimKey === claimKey);
+    if (!q || q.claimed || q.progress < q.goal || !q.trackable) return false;
+    quests.claimed.push(q.claimKey);
+    // itens da recompensa que existem no economy.json entram no inventário
+    const src = [...QUESTS.mainQuestLine.chapters, ...QUESTS.dailyQuestPool, ...QUESTS.collectionMilestones].find((x) => x.id === q.id);
+    const reward = (src?.reward ?? null) as { items?: string[]; xp?: number } | null;
+    grantReward(q.rewardBits, Object.fromEntries((reward?.items ?? []).map((it) => [it, 1])));
+    // Passe de Temporada: Pontos de Passe = XP da missão diária coletada (PANELS_SPEC §3)
+    if (q.kind === "daily" && reward?.xp) hud.digivice?.noteDailyClaim(reward.xp);
+    hud.toast(`Missão concluída: +${q.rewardText}`);
+    return true;
+  }
+
   /** Retratos dos cards ([data-sp]); quem não foi visto vira silhueta. */
   const paintSprites = (root: HTMLElement) => {
     for (const c of root.querySelectorAll<HTMLCanvasElement>("canvas[data-sp]")) {
@@ -844,19 +888,7 @@ async function boot() {
   panels.quest.body.addEventListener("click", (e) => {
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-claim]");
     if (!b || b.disabled) return;
-    const q = questList().find((x) => x.claimKey === b.dataset.claim);
-    if (!q || q.claimed || q.progress < q.goal || !q.trackable) return;
-    quests.claimed.push(q.claimKey);
-    if (q.rewardBits) intents.push({ t: "add_bits", playerId: LOCAL_PLAYER, bits: q.rewardBits });
-    // itens da recompensa que existem no economy.json entram no inventário
-    const known = new Set(Object.values(economyJson.items).flat().map((i) => i.id));
-    const src = [...QUESTS.mainQuestLine.chapters, ...QUESTS.dailyQuestPool, ...QUESTS.collectionMilestones].find((x) => x.id === q.id);
-    for (const it of (src?.reward as { items?: string[] } | null)?.items ?? []) if (known.has(it)) inventory[it] = (inventory[it] ?? 0) + 1;
-    hud.toast(`Missão concluída: +${q.rewardText}`);
-    setTimeout(() => {
-      refreshScreens();
-      persist();
-    }, 150);
+    claimQuest(b.dataset.claim ?? "");
   });
   panels.gear.body.addEventListener("click", (e) => {
     const t = e.target as HTMLElement;
