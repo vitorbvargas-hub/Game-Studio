@@ -1,0 +1,397 @@
+{
+  "date": "2026-11-11T14:14:07.569Z",
+  "base": "http://127.0.0.1:5191",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "defaultUrl": "http://127.0.0.1:5191/?map=digimon-forest-01",
+  "shots": {
+    "dv_tamer_perfil.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "clique no bloco TAMER da barra inferior",
+      "what": "Tamer · Perfil (nome/nível/XP = hud.tamerProgress)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "tamer-profile",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_tamer_atributos.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Tamer · Atributos = registro de atividade do DigiviceSave (jogo real, AUTO ~35 s)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "tamer-attrs",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_tamer_poderes.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Tamer · Poderes — P2, aguardando aprovação de regra (sem número)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "tamer-powers",
+        "pendingBlocks": 1,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_tamer_talentos.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Tamer · Árvore de talentos — P2, aguardando aprovação de regra",
+      "state": {
+        "openPanel": "dvc",
+        "section": "tamer-talents",
+        "pendingBlocks": 1,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_digimon_perfil.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "clique no retrato do parceiro",
+      "what": "Digimon · Perfil (antiga ficha holográfica, metade de cima)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "mon-profile",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_digimon_atributos.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Digimon · Atributos (PV/ATQ/DEF/VEL + afinidades)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "mon-attrs",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_digimon_habilidades.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Digimon · Habilidades — somente leitura + 'Editar em Equipe & Box'",
+      "state": {
+        "openPanel": "dvc",
+        "section": "mon-skills",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_digimon_talentos.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Digimon · Árvore de talentos — P2, aguardando aprovação de regra",
+      "state": {
+        "openPanel": "dvc",
+        "section": "mon-talents",
+        "pendingBlocks": 1,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_evolucao.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Evolução unificada (árvore com %; sem atalho 'evo' na grade)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "evo",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_vinculo.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "aba lateral",
+      "what": "Vínculo — estado bloqueado honesto (sem barras)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "bond",
+        "pendingBlocks": 1,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_banco_dados.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "tecla V (atalho 'Digivice' da grade)",
+      "what": "Banco de dados (o bestiário de antes, agora seção do núcleo)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "db",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_registros_conquistas.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "nó Conquistas do anel (Alt A)",
+      "what": "Registros e descobertas · Conquistas",
+      "state": {
+        "openPanel": "dvc",
+        "section": "records",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_registros_mapas.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "sub-aba",
+      "what": "Registros e descobertas · Mapas visitados (DigiviceSave.maps)",
+      "state": {
+        "openPanel": "dvc",
+        "section": "records",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_nav_recolhida.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "disclosure ▸ nos 2 grupos",
+      "what": "aba lateral com Tamer/Digimon recolhidos",
+      "state": {
+        "openPanel": "dvc",
+        "section": "records",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_anel_externo.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "hub",
+      "what": "anel externo inalterado: Guilda/Correio/Passe/Fonte/Chefe/Conquistas; grade inferior sem 'evo'",
+      "state": {
+        "openPanel": null,
+        "section": "records",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    },
+    "dv_evolucao_gatilho.png": {
+      "url": "http://127.0.0.1:5191/?map=digimon-forest-01&criador=0&novo=1&seed=7&auto=0&time=day",
+      "door": "gatilho automático (checkEvolve)",
+      "what": "parceira de TESTE CREATURE-0006 Nv.40 (setPartner): aviso 'Digivolução disponível' + árvore",
+      "state": {
+        "openPanel": "dvc",
+        "section": "evo",
+        "pendingBlocks": 0,
+        "barsInPending": 0,
+        "evoShortcutInGrid": false,
+        "tamer": {
+          "level": 12,
+          "xp": 44
+        },
+        "activity": {
+          "wins": 2,
+          "scans": 0,
+          "evolves": 0,
+          "maps": 1,
+          "bossAwakens": 0,
+          "bossDefeats": 0
+        }
+      }
+    }
+  },
+  "evoTriggerOpenedByItself": true,
+  "errors": []
+}
