@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "task": "GS-013",
+    "generatedAt": "2026-11-10",
+    "generatedBy": "game-research (subagent)",
+    "method": "Derivado de ADR-009 (shared/decisions/ADR-009-gs003-idle-mmorpg-reset.md) secao Licenca + secao 10 do briefing 18_gs013_sprite_recovery.md. Nenhuma nova pesquisa de licenca feita nesta rodada; isto formaliza em JSON o que ja estava decidido em prosa."
+  },
+  "rightsLayers": {
+    "official-fan-use": {
+      "description": "Sprites oficiais extraidos (rip) de jogos Digimon (DW DS/Dawn/Dusk e demais plataformas do manifesto Spriters Resource), liberados pelo fundador para uso em fan game nao comercial.",
+      "basis": "Decisao do fundador em 2026-11-08 (ADR-009): \"vamos fazer fan games, pode usar as sprites oficiais, em todos locais\".",
+      "conditions": [
+        "Nao ha monetizacao do jogo (ADR-007).",
+        "Nenhum logo oficial da Bandai/Namco/Toei usado.",
+        "Aviso de fan game obrigatorio em qualquer apresentacao publica.",
+        "Publicacao (fora deste workspace de desenvolvimento) exige aprovacao SEPARADA do fundador, mesmo com este rights layer.",
+        "Credito do ripper/fonte preservado no registro do asset (campo 'credit' no catalogo)."
+      ],
+      "appliesTo": "Todas as 33 especies em uso extraidas via The Spriters Resource + as 22 especies do rip E-M-B-E-R.",
+      "evidence": "E"
+    },
+    "reference-only": {
+      "description": "Material consultado apenas como leitura/estudo (texto de README, press kit, wiki), sem nenhum arquivo de imagem copiado para o repositorio.",
+      "basis": "ADR-007 (regra geral do estudio: referencia nunca e asset).",
+      "conditions": [
+        "Nenhum arquivo binario (imagem/sprite) copiado.",
+        "Usado so para decisao de arquitetura/pipeline, nao para asset final."
+      ],
+      "appliesTo": "Digimon World Sprite Manager (SRC-05, README lido, ferramenta nao executada).",
+      "evidence": "E"
+    },
+    "licensed-open": {
+      "description": "Reservado para fontes com licenca aberta explicita e verificada (ex.: CC0, MIT, CC-BY) quando encontradas.",
+      "basis": "Secao 10 do briefing GS-013.",
+      "conditions": [
+        "Verificar o texto exato da licenca na fonte antes de marcar este layer, nao assumir por o repositorio ser publico."
+      ],
+      "appliesTo": "Nenhuma fonte desta entrega se qualifica ainda; nenhum dos 9 links do briefing teve licenca aberta explicita confirmada.",
+      "evidence": "H"
+    },
+    "unknown-pending": {
+      "description": "Direitos nao verificados porque a fonte ainda nao foi investigada nesta tarefa.",
+      "basis": "Secao 10 do briefing: 'nao assumir que um repositorio publico autoriza uso comercial'.",
+      "conditions": [
+        "Nao integrar nenhum arquivo destas fontes ao catalogo principal (integrated_species) antes de classificar os direitos."
+      ],
+      "appliesTo": "SRC-06 (kaisadilla), SRC-07 (DIM), SRC-08 (Pendulum DB), SRC-09 (Aderek), SRC-10 (Vital Bracelet VB repo).",
+      "evidence": "H"
+    },
+    "original": {
+      "description": "Asset produzido pelo proprio estudio (PixelLab ou pixel art manual), sem base em rip de jogo.",
+      "basis": "ADR-009: usar oficiais primeiro, substituir aos poucos por arte propria.",
+      "conditions": [
+        "Nenhuma."
+      ],
+      "appliesTo": "CREATURE-0001 (criatura-piloto) e CREATURE-0119 (Gabumon a mao, SEGURADO por decisao do coordenador em 2026-11-10).",
+      "evidence": "E"
+    }
+  },
+  "perSourceSummary": [
+    {
+      "sourceId": "SRC-01",
+      "rightsLayer": "official-fan-use"
+    },
+    {
+      "sourceId": "SRC-02",
+      "rightsLayer": "official-fan-use"
+    },
+    {
+      "sourceId": "SRC-03",
+      "rightsLayer": "official-fan-use"
+    },
+    {
+      "sourceId": "SRC-04",
+      "rightsLayer": "official-fan-use"
+    },
+    {
+      "sourceId": "SRC-05",
+      "rightsLayer": "reference-only"
+    },
+    {
+      "sourceId": "SRC-06",
+      "rightsLayer": "unknown-pending"
+    },
+    {
+      "sourceId": "SRC-07",
+      "rightsLayer": "unknown-pending"
+    },
+    {
+      "sourceId": "SRC-08",
+      "rightsLayer": "unknown-pending"
+    },
+    {
+      "sourceId": "SRC-09",
+      "rightsLayer": "unknown-pending"
+    },
+    {
+      "sourceId": "SRC-10",
+      "rightsLayer": "unknown-pending"
+    }
+  ]
+}

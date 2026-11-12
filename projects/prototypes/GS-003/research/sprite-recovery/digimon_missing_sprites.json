@@ -1,0 +1,91 @@
+{
+  "_meta": {
+    "task": "GS-013",
+    "generatedAt": "2026-11-10",
+    "generatedBy": "game-research (subagent)",
+    "method": "Cruzamento entre o roster real do jogo (prototype/world/src/data/world-species.json, 34 especies) e digimon_sprite_catalog.json. Secao 'corrections' documenta 1 achado desta sessao: verificacao LOCAL (sem novo fetch) de alias de nome que mudou uma especie de 'sem recurso' para 'recurso existe, precisa de split'.",
+    "evidenceFiles": [
+      "projects/prototypes/GS-003/prototype/world/src/data/world-species.json",
+      "projects/prototypes/GS-003/research/sprite-recovery/digimon_sprite_catalog.json"
+    ]
+  },
+  "corrections": [
+    {
+      "species": "Drimogemon",
+      "previousStatus": "NENHUM_RECURSO_ENCONTRADO (contagem inicial do _meta do catalogo: inUseSpeciesTotallyMissing=1)",
+      "correctedStatus": "RECURSO_ENCONTRADO_PRECISA_EXTRACAO",
+      "finding": "Drimogemon = nome JP de 'Digmon' (nome EN/ocidental, fusao Armadillomon+Digivice Armor). O manifesto do Spriters Resource nao lista 'Drimogemon' isoladamente, mas lista 2 folhas combinadas: 'Submarimon & Digmon' (Digimon World 3, PS1) e 'Digmon & Submarimon' (Digimon Adventure 02: Digital Partner, WonderSwan). Ambas ja estao baixadas em assets/GAME-ASSETS/10-source-files/spriters-resource/.",
+      "files": [
+        "assets/GAME-ASSETS/10-source-files/spriters-resource/digiworld3__arrow-drop-down__Submarimon-Digmon__187608.png (86057 bytes)",
+        "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonadventure02digitalpartner__arrow-drop-down__Digmon-Submarimon__483658.png (7314 bytes)"
+      ],
+      "nextStep": "Recortar manualmente a parte de Digmon/Drimogemon de cada folha combinada (nao ha folha so-dele no manifesto atual); avaliar qual das 2 tem melhor qualidade/mais frames antes de integrar como CREATURE novo.",
+      "evidence": "E",
+      "evidenceNote": "Arquivos confirmados no disco via 'ls -la' nesta sessao; conteudo visual dos PNGs nao foi aberto/inspecionado ainda (pendente de recorte)."
+    }
+  ],
+  "trulyMissing": [],
+  "partialCoverage": {
+    "description": "Especies com apenas 1 pose/direcao (idle ou idle-de-batalha) via E-M-B-E-R, sem walk/attack/hurt e sem as outras 7 direcoes, e sem fonte melhor catalogada ainda no manifesto do Spriters Resource.",
+    "classification": "APENAS_SPRITE_ESTATICO (secao 7 do briefing)",
+    "species": [
+      {
+        "name": "Renamon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      },
+      {
+        "name": "Terriermon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      },
+      {
+        "name": "Wormmon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      },
+      {
+        "name": "Hawkmon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      },
+      {
+        "name": "Impmon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      },
+      {
+        "name": "Lopmon",
+        "inUseInGame": false,
+        "animationsAvailable": [
+          "idle (1 frame, 1 direcao)"
+        ],
+        "source": "E-M-B-E-R (rip oficial)"
+      }
+    ],
+    "note": "Nenhuma dessas 6 esta no roster atual do jogo (world-species.json); sao candidatas de reserva para expansao futura do roster (ja tem pelo menos sprite estatico oficial, melhor que nada caso sejam adicionadas)."
+  },
+  "notYetInvestigatedSources": [
+    "kaisadilla/digimon-sprite-collection",
+    "DIM Modifier Resources",
+    "Pendulum Color Sprite Database",
+    "Aderek Digimon Database",
+    "kongtaehun/digimon-assets-VB"
+  ],
+  "note_mapAssets": "Recursos de mapas/tilesets/vegetacao (secao 11 do briefing) ainda NAO foram catalogados nesta rodada - 63 folhas de background ja identificadas no manifesto do Spriters Resource (ver digimon_sprite_catalog.json._meta.counts.mapBackgroundSheetsInManifest), mas sem catalogo separado proprio ainda. Pendente para proxima fase."
+}

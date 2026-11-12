@@ -1,0 +1,496 @@
+{
+  "meta": {
+    "generated": "2026-11-08",
+    "updated": "2026-11-08",
+    "generated_by": "game-research subagent (GS-003 Prioridade Zero)",
+    "scope": "Inventário de fontes específicas de Digimon, conforme ADR-009 e docs 03/04 do briefing GS-003.",
+    "quality_rubric_source": "doc 05 (module2_asset_discovery_engine.md): visual 25 + tecnica 20 + animacoes 20 + compat_jogo 15 + licenciamento 20 = 100. <70 nao aprova automatico. Licenca incompativel = REJECTED independente da nota.",
+    "legal_note": "[E]=evidencia com fonte/data, [H]=hipotese. ATUALIZACAO 2026-11-08 (mensagem do fundador): ADR-007 regra 2 REVOGADA; ADR-009 secao Licenca atualizada. Sprites OFICIAIS (rips de DW DS, Dawn, Dusk e outros jogos/devices oficiais) estao LIBERADOS em todo o projeto, inclusive no git, para o fan game nao comercial GS-003. Camada de licenca para essas fontes passa a ser 'official-fan-use'. Rips oficiais animados sao agora a fonte PREFERIDA quando tiverem a melhor cobertura de animacao disponivel. O ban anterior do 'Full Color Dot Sprites' (With the Will/AngelOfHope) tinha base legal exatamente na regra agora revogada - deixa de se aplicar, tratado igual aos demais rips. Credito do ripper e da fonte original deve constar em toda entrada que usa essas fontes, e em CREDITS.md quando integrado ao jogo."
+  },
+  "sources": [
+    {
+      "id": "ember-wtw-fullcolor",
+      "name": "E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites (GitHub)",
+      "url": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites",
+      "checked": "2026-11-08",
+      "type": "sprite oficial animado (rip de jogo, preservado via thread da comunidade)",
+      "accessible": true,
+      "evidence": "[E] README do repo: 'Credits to AngelOfHope from With the Will... Game official sprites only... property of Digimon and Bandai Namco Entertainment Inc... not legally owned by the contributors'. Origem declarada: thread 'Digimon Sprite Animation Thread' de AngelOfHope em withthewill.net, que por sua vez compila rips reais de jogos Digimon (DW DS/Dawn/Dusk e outros) - confirmado no próprio thread ('All of the sprites were ripped from the game... so they ARE the correct sprites').",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08 pelo fundador (ADR-007 regra 2 revogada; ADR-009 sec. Licenca). Uso permitido em todo o projeto, inclusive git, para o fan game não comercial GS-003. O ban anterior do coordenador tinha base legal na regra agora revogada e deixa de se aplicar.",
+      "credits": "[E] Ripper/compilador original: AngelOfHope, thread 'Digimon Sprite Animation Thread' em withthewill.net (contribuições também de Garmmon, Night_Shade, Sci, Inpu e outros citados no próprio thread). Preservação/catalogação atual no GitHub: usuário E-M-B-E-R. Registrar os dois níveis de crédito em CREDITS.md sempre que um sprite desta fonte for integrado ao jogo.",
+      "animation_scope": "[E] Confirmado na thread original (withthewill.net post #6, 2010): 1 GIF animado por Digimon/estágio, cobrindo pose/idle único. A própria comunidade pediu explicitamente 'NO attack animations'. Não há walk, attack ou sleep separados - apenas uma pose animada por arquivo. Por isso, apesar de ser agora a fonte preferida (licenciamento liberado + única com as 4 linhas-alvo completas), a pontuação de qualidade fica limitada pelo componente de Animações (só idle) e não atinge o threshold de 70 para aprovação automática.",
+      "coverage_checked": "in-training, rookie, champion, ultimate, mega (pastas confirmadas via GitHub API)",
+      "sample_downloaded": false,
+      "sample_download_attempted": "2026-11-08 - tentativa via exec/curl falhou: egress proxy do sandbox bloqueia github.com/raw.githubusercontent.com por completo (CONNECT tunnel 403), mesmo com a licença liberada. Requer download manual pelo fundador/operador ou ajuste de allowlist do proxy para concluir a amostragem."
+    },
+    {
+      "id": "digimonworldspritemanager",
+      "name": "netraular/DigimonWorldSpriteManager (GitHub, ferramenta local)",
+      "url": "https://github.com/netraular/DigimonWorldSpriteManager",
+      "checked": "2026-11-08",
+      "type": "ferramenta - baixa rip oficial do jogo real",
+      "accessible": true,
+      "evidence": "[E] README: baixa ~320 sheets de 'The Spriters Resource' (https://www.spriters-resource.com/ds_dsi/dgmnworldds/) para raw_sheets/ local. 'The Digimon World DS sprites are © Bandai/Namco'. Produz walk (4 direções isométricas SW/SE/NW/NE), idle (1 pose) e sleep (1 pose) por criatura. Sem slot de attack.",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08 (ADR-007 regra 2 revogada). Rip real do jogo DW DS, uso permitido em todo o projeto incl. git, para fan game não comercial. É a única fonte com walk e sleep reais - torna-se PRIORITÁRIA para produção, sujeita a crédito do ripper original.",
+      "credits": "[E] Rip original: comunidade de 'The Spriters Resource' (https://www.spriters-resource.com/ds_dsi/dgmnworldds/), (c) Bandai/Namco. Ferramenta de extração/organização: netraular (GitHub, DigimonWorldSpriteManager). Registrar ambos em CREDITS.md ao integrar.",
+      "animation_scope": "[E] walk (4 direções iso), idle (1), sleep (1). Sem attack. Perspectiva isométrica, não top-down puro - compatibilidade com top-down 3/4 do GS-003 é parcial, precisa de reprojeção/ajuste.",
+      "dimensions_note": "[E] Documentação cita células de sprite tipicamente ~32px (ex.: 'needs 33, not the 32 of its tallest box'), variável por sheet.",
+      "coverage_checked": "ferramenta/pipeline, não uma lista por Digimon (não executada nesta sessão - requer Python local)",
+      "sample_downloaded": false
+    },
+    {
+      "id": "kaisadilla-collection",
+      "name": "kaisadilla/digimon-sprite-collection (GitHub)",
+      "url": "https://github.com/kaisadilla/digimon-sprite-collection",
+      "checked": "2026-11-08",
+      "type": "agregador de rips oficiais de múltiplos jogos/dispositivos",
+      "accessible": true,
+      "evidence": "[E] Repo é código-fonte de app web com sprites em public/img/sprites/digimon/, organizados por origem: adventure_02, adventure_02_ow (overworld), bandai, championship, d_project, digivice_dtector, digivice_tall, digivice_window, dm_ver_s, monster_s, story, story_ow, toei, vital_bracelet, vpet, xros_loader. Pasta adventure_02_ow confirmada com agumon.png, airdramon.png, angemon.png, betamon.png, togemon.gif. Nenhum arquivo LICENSE no repo.",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08 pelo fundador. Rips oficiais de jogos/devices Bandai/Toei, uso agora permitido no GS-003. Ressalva: o agregador não declara ripper/fonte por arquivo individual - registrar como 'kaisadilla/digimon-sprite-collection (agregador)' em CREDITS.md até melhor rastreio por arquivo.",
+      "credits": "[E] Compilador: usuário GitHub kaisadilla. Origem de cada sprite (jogo/device específico) não individualizada no repo - requer inspeção arquivo a arquivo para crédito preciso.",
+      "animation_scope": "[H] Não verificado por Digimon individualmente nesta sessão - amostra da pasta adventure_02_ow sugere cobertura parcial e desigual (só 5 arquivos vistos). Requer paginação adicional.",
+      "coverage_checked": "estrutura de pastas confirmada; conteúdo por Digimon NÃO totalmente verificado",
+      "sample_downloaded": false
+    },
+    {
+      "id": "aderekart-repo",
+      "name": "AderekArt/aderekart.github.io (GitHub) / aderekart.github.io (site)",
+      "url": "https://aderekart.github.io / https://github.com/AderekArt/aderekart.github.io",
+      "checked": "2026-11-08",
+      "type": "agregador pessoal (SPA) + planilha CSV + zip de sprites VB",
+      "accessible": true,
+      "evidence": "[E] Repo contém Sprites/, alternative/, img/, imgs/, reference/, digimons.csv, digis-vb.zip, vários .html. Site é SPA; conteúdo renderizado via JS, não extraível por fetch simples. Mesmo autor do DIM Modifier.",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08. Sem LICENSE/termos declarados no site, mas cobertos pela liberação geral de rips oficiais do fundador. Mesma ressalva do kaisadilla: crédito por arquivo individual não rastreável sem inspeção do zip/csv.",
+      "credits": "[E] Compilador: AderekArt. Crédito por sprite individual requer abrir digimons.csv/digis-vb.zip (não feito nesta sessão).",
+      "animation_scope": "[H] não verificado - conteúdo é predominantemente visual/SPA, não extraível por texto nesta sessão.",
+      "coverage_checked": "estrutura de pastas do repo confirmada; conteúdo por Digimon não verificado",
+      "sample_downloaded": false
+    },
+    {
+      "id": "dim-modifier",
+      "name": "DIM Modifier (dim.digitallink.games)",
+      "url": "https://dim.digitallink.games/resources?category=digimon",
+      "checked": "2026-11-08",
+      "type": "ferramenta web (SPA) para editar DIM cards do Vital Bracelet",
+      "accessible": "parcial - SPA requer JS/browser automation, não é extraível por web_fetch/API simples",
+      "evidence": "[E] Via busca (DuckDuckGo cache) e post do autor no X (@AderekArt): 'DIM Modifier Web Studio... 946 official Digimon sprites + community libraries... program DIM cards & BE Memories'. Mesmo autor do aderekart.github.io.",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08. Sprites oficiais do Vital Bracelet, uso agora permitido para o fan game. Ressalva: ferramenta foi feita para modding do próprio brinquedo, não para extração em lote de assets de jogo - acesso aos arquivos individuais ainda requer browser automation.",
+      "credits": "[H] Provável mesma origem/ripper do aderekart.github.io (mesmo autor, AderekArt) - não confirmado por falta de acesso ao conteúdo real do SPA.",
+      "animation_scope": "[H] não verificado - provavelmente sprites de 1-2 frames (padrão Vital Bracelet, ver kongtaehun abaixo), sem acesso direto nesta sessão.",
+      "coverage_checked": "não verificável sem browser automation nesta sessão",
+      "sample_downloaded": false,
+      "limitation": "SPA client-side; web_fetch retornou apenas o shell HTML em todas as rotas tentadas. Requer ferramenta de browser automation para extrair conteúdo real."
+    },
+    {
+      "id": "kongtaehun-vb",
+      "name": "kongtaehun/digimon-assets-VB (GitHub)",
+      "url": "https://github.com/kongtaehun/digimon-assets-VB",
+      "checked": "2026-11-08",
+      "type": "dados estruturados + sprites oficiais do Vital Bracelet (VBDM/VBBE)",
+      "accessible": true,
+      "evidence": "[E] README: 8 categorias, 51 DIM cards, 861 aparições de Digimon (623 IDs únicos), 1725 GIFs de sprite + 837 JPGs de ilustração. Estrutura: dim.json + digitama.gif + sprites/<id>/frame1.gif + frame2.gif + artwork.jpg - animação de 2 frames, sem walk/attack/sleep distintos.",
+      "license_status": "official-fan-use - LIBERADO em 2026-11-08. Official-rip (Vital Bracelet), uso não-comercial já declarado pelo compilador e agora também coberto pela liberação do fundador.",
+      "credits": "[E] Compilação: usuário GitHub kongtaehun. Dados de origem: humulos.com, wikimon.net, digimon.net (KR). Direitos: Bandai Co., Ltd., Akiyoshi Hongo, Toei Animation Co., Ltd.",
+      "animation_scope": "[E] Apenas 2 frames por Digimon (bob/idle simples), sem walk, attack ou sleep. Resolução típica de pet virtual (pequena, não confirmada em px).",
+      "coverage_checked": "estrutura confirmada via README; biblioteca Python/JS disponível para query (não executada nesta sessão)",
+      "sample_downloaded": false
+    },
+    {
+      "id": "cinzadeneve-itch",
+      "name": "CinzadeNeve (itch.io)",
+      "url": "https://cinzadeneve.itch.io",
+      "checked": "2026-11-08",
+      "type": "fan-made, pago por item",
+      "accessible": true,
+      "evidence": "[E] Catálogo com ~35 produtos individuais, ex.: YukimiBotamon, Gazimon, Suzumon, Nyokimon, Yokomon, Nyaromon, Botamon, Elecmon, Wankomon, Hyemon, etc. Páginas verificadas (Botamon, Elecmon) declaram: 'in the style of the Digimon World DS game... Note: the sprite in the file contains only the idle animation', tag 'No AI', preço mínimo USD 1-1.50 por item.",
+      "license_status": "[H] Fan-made, não afetado pela liberação de rips oficiais (é uma fonte independente). Provável licença padrão itch.io de uso após compra - requer verificação da seção de licença completa de cada página antes de aprovar.",
+      "credits": "[E] Autora: CinzadeNeve (itch.io).",
+      "animation_scope": "[E] Confirmado 'apenas idle' nos 2 itens verificados - sem walk/attack/sleep.",
+      "coverage_checked": "Agumon/Gabumon/Patamon/Guilmon NÃO aparecem nominalmente no catálogo. Cobre vários outros rookies comuns (Elecmon, Gazimon, Yokomon, Botamon-line).",
+      "sample_downloaded": false
+    },
+    {
+      "id": "digimon-pixels",
+      "name": "Digimon Pixels (thejeneral.wixsite.com/dgmnpixels)",
+      "url": "https://thejeneral.wixsite.com/dgmnpixels",
+      "checked": "2026-11-08 (pesquisa de sessão anterior, reaproveitada)",
+      "type": "fan-made, galeria por era/artista",
+      "accessible": true,
+      "evidence": "[E, herdado de art/FAN_SPRITE_SOURCES.md] Página 'About': 'All art found in this gallery are free to use on your own website, projects, etc.! ... Credit... would be very much appreciated' (crédito pedido, não obrigatório).",
+      "license_status": "UNDER_REVIEW - fan-made, não afetado pela liberação de rips oficiais. Uso livre declarado, sem cláusula comercial/não-comercial explícita.",
+      "credits": "[H] Múltiplos artistas por galeria/era (Fenrir, ShuriTogemon, DigiStarDBZ, Burai e outros) - crédito específico por Digimon não confirmado nesta sessão.",
+      "animation_scope": "[H] Convenção observada: pose única/GIF idle simples, sem categoria de 'battle'/'attack'/'walk cycle' visível.",
+      "coverage_checked": "Agumon, Gabumon, Patamon, Greymon, Garurumon, Angemon, Devimon = alta probabilidade [H]; Koromon/Tsunomon/Tokomon = baixa probabilidade [H]. Guilmon não avaliado.",
+      "sample_downloaded": false
+    },
+    {
+      "id": "withthewill-thread",
+      "name": "With the Will - Digimon Sprite Animation Thread (AngelOfHope)",
+      "url": "https://withthewill.net/threads/digimon-sprite-animation-thread-read-first-post-fully-working.10472/",
+      "checked": "2026-11-08",
+      "type": "thread de fórum - origem do sprite preservado no E-M-B-E-R",
+      "accessible": true,
+      "evidence": "[E] Thread original (2010) confirma: cada Digimon = 1 sprite animado (idle/pose), regra explícita da comunidade de NÃO incluir animações de ataque. Posts confirmam origem em rip de jogo ('All of the sprites were ripped from the game Kryten so they ARE the correct sprites').",
+      "license_status": "official-fan-use - mesma base do E-M-B-E-R (id ember-wtw-fullcolor); liberado em 2026-11-08 junto com os demais rips oficiais.",
+      "credits": "[E] Ver campo credits da fonte ember-wtw-fullcolor (mesma origem).",
+      "animation_scope": "[E] 1 pose/idle por Digimon, sem attack (banido pela própria comunidade), sem walk/sleep documentados.",
+      "coverage_checked": "thread textual revisada; não é uma galeria de imagens diretamente indexável",
+      "sample_downloaded": false
+    }
+  ],
+  "digimon": [
+    {
+      "name": "Gigimon", "stage": "in-training", "evolution_line": "Guilmon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "perspective_compatible_topdown34": "[H] parcial - pose única frontal, não full 4-dir",
+          "origin_license": "official-fan-use (rip oficial liberado 2026-11-08 pelo fundador)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] in-training/Gigimon.gif confirmado via GitHub. Fonte preferida (única com a linha Guilmon completa), mas <70 por cobrir só idle - requer plano de produção para walk/attack/sleep." }
+      ]
+    },
+    {
+      "name": "Guilmon", "stage": "rookie", "evolution_line": "Guilmon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] rookie/Guilmon.gif confirmado via GitHub API." }
+      ]
+    },
+    {
+      "name": "Growlmon", "stage": "champion", "evolution_line": "Guilmon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] champion/Growlmon.gif confirmado via listagem GitHub." }
+      ]
+    },
+    {
+      "name": "WarGrowlmon", "stage": "ultimate", "evolution_line": "Guilmon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] ultimate/WarGrowlmon.gif confirmado via GitHub API (contents), size 13823 bytes." }
+      ]
+    },
+    {
+      "name": "Dukemon (Gallantmon)", "stage": "mega", "evolution_line": "Guilmon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] mega/Dukemon.gif e mega/DukemonCM.gif (Crimson Mode) confirmados. Linha Guilmon completa (5 estágios) nesta fonte agora liberada." }
+      ]
+    },
+    {
+      "name": "Botamon", "stage": "baby/in-training", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] in-training/Botamon.gif confirmado." },
+        { "source_id": "cinzadeneve-itch", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado (idle only)", "directions": 1,
+          "origin_license": "fan-made, pago (USD 1), licença completa não verificada",
+          "credits": "CinzadeNeve (itch.io)",
+          "quality_score": 55, "status": "UNDER_REVIEW",
+          "notes": "[E] https://cinzadeneve.itch.io/botamon confirma pacote pago com PNG + GIF idle-only, tag 'No AI'." }
+      ]
+    },
+    {
+      "name": "Koromon", "stage": "in-training", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] in-training/Koromon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "Agumon", "stage": "rookie", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW",
+          "notes": "[E] rookie/Agumon.gif, BlackAgumon.gif, DotAgumon.gif, ToyAgumon.gif, ToyAgumonBlack.gif, YukiAgumon.gif - várias variantes confirmadas." },
+        { "source_id": "kaisadilla-collection", "sprite_available": true, "idle": "não verificado", "walk": "não verificado", "attack": "não verificado", "sleep": "não verificado",
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": "não verificado",
+          "origin_license": "official-fan-use (liberado 2026-11-08) - rip oficial, crédito por arquivo não individualizado",
+          "credits": "agregador kaisadilla; origem do jogo não individualizada",
+          "quality_score": 48, "status": "UNDER_REVIEW",
+          "notes": "[E] public/img/sprites/digimon/adventure_02_ow/agumon.png confirmado existente." },
+        { "source_id": "digimon-pixels", "sprite_available": "[H] provável", "idle": "[H] provável", "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "fan-made, uso livre com crédito pedido (não obrigatório)",
+          "credits": "[H] artista não identificado especificamente",
+          "quality_score": 45, "status": "UNDER_REVIEW",
+          "notes": "[H] Protagonista de Adventure, alta chance de estar na galeria 'Adventure' do site, não confirmado por inspeção visual." }
+      ]
+    },
+    {
+      "name": "Greymon", "stage": "champion", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] champion/Greymon.gif, GeoGreymon.gif confirmados." }
+      ]
+    },
+    {
+      "name": "MetalGreymon", "stage": "ultimate", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] ultimate/MetalGreymon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "WarGreymon", "stage": "mega", "evolution_line": "Agumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] mega/WarGreymon.gif confirmado via GitHub blob." }
+      ]
+    },
+    {
+      "name": "Tsunomon", "stage": "in-training", "evolution_line": "Gabumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] in-training/Tsunomon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "Gabumon", "stage": "rookie", "evolution_line": "Gabumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Gabumon.gif confirmado." },
+        { "source_id": "digimon-pixels", "sprite_available": "[H] provável", "idle": "[H] provável", "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "fan-made, uso livre com crédito pedido",
+          "credits": "[H] não identificado especificamente",
+          "quality_score": 45, "status": "UNDER_REVIEW",
+          "notes": "[E herdado] Happy Galgomon changelog cita Gabumon nominalmente com Matt Ishida (Adventure 2020)." }
+      ]
+    },
+    {
+      "name": "Garurumon", "stage": "champion", "evolution_line": "Gabumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] champion/Garurumon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "WereGarurumon", "stage": "ultimate", "evolution_line": "Gabumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] ultimate/WereGarurumon.gif confirmado via GitHub API, size 9681 bytes." }
+      ]
+    },
+    {
+      "name": "MetalGarurumon", "stage": "mega", "evolution_line": "Gabumon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] mega/MetalGarurumon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "Poyomon", "stage": "baby/in-training", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] in-training/Poyomon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "Tokomon", "stage": "in-training", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] in-training/Tokomon.gif confirmado." }
+      ]
+    },
+    {
+      "name": "Patamon", "stage": "rookie", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Patamon.gif confirmado." },
+        { "source_id": "kaisadilla-collection", "sprite_available": "[H] não confirmado nominalmente", "idle": "não verificado", "walk": "não verificado", "attack": "não verificado", "sleep": "não verificado",
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": "não verificado",
+          "origin_license": "official-fan-use (liberado 2026-11-08) - rip oficial",
+          "credits": "agregador kaisadilla",
+          "quality_score": 30, "status": "DISCOVERED",
+          "notes": "[H] pasta adventure_02_ow confirmada com angemon.png (champion), Patamon rookie em si não visto nominalmente na amostra capturada." },
+        { "source_id": "digimon-pixels", "sprite_available": "[H] provável", "idle": "[H] provável", "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "fan-made, uso livre com crédito pedido",
+          "credits": "[H] não identificado especificamente",
+          "quality_score": 45, "status": "UNDER_REVIEW",
+          "notes": "[E herdado] Happy Galgomon changelog cita Patamon nominalmente com T.K. (Adventure 02)." }
+      ]
+    },
+    {
+      "name": "Angemon", "stage": "champion", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] champion/Angemon.gif confirmado." },
+        { "source_id": "kaisadilla-collection", "sprite_available": true, "idle": "não verificado", "walk": "não verificado", "attack": "não verificado", "sleep": "não verificado",
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": "não verificado",
+          "origin_license": "official-fan-use (liberado 2026-11-08) - rip oficial",
+          "credits": "agregador kaisadilla",
+          "quality_score": 48, "status": "UNDER_REVIEW",
+          "notes": "[E] public/img/sprites/digimon/adventure_02_ow/angemon.png confirmado existente." }
+      ]
+    },
+    {
+      "name": "HolyAngemon (MagnaAngemon)", "stage": "ultimate", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] ultimate/HolyAngemon.gif confirmado (dub US = MagnaAngemon)." }
+      ]
+    },
+    {
+      "name": "Seraphimon", "stage": "mega", "evolution_line": "Patamon",
+      "entries": [
+        { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+          "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+          "origin_license": "official-fan-use (liberado 2026-11-08)",
+          "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+          "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] mega/Seraphimon.gif confirmado via GitHub blob." }
+      ]
+    },
+    {
+      "name": "Tentomon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Tentomon.gif confirmado." } ]
+    },
+    {
+      "name": "Palmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Palmon.gif confirmado." } ]
+    },
+    {
+      "name": "Biyomon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Biyomon.gif confirmado." } ]
+    },
+    {
+      "name": "Gomamon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Gomamon.gif confirmado." } ]
+    },
+    {
+      "name": "Renamon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Renamon.gif confirmado." } ]
+    },
+    {
+      "name": "Terriermon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Terriermon.gif confirmado." } ]
+    },
+    {
+      "name": "Wormmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Wormmon.gif confirmado." } ]
+    },
+    {
+      "name": "Hawkmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Hawkmon.gif confirmado." } ]
+    },
+    {
+      "name": "Impmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Impmon.gif confirmado." } ]
+    },
+    {
+      "name": "Lopmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "ember-wtw-fullcolor", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "official-fan-use (liberado 2026-11-08)", "credits": "AngelOfHope (With the Will) / preservação E-M-B-E-R",
+        "quality_score": 68, "status": "UNDER_REVIEW", "notes": "[E] rookie/Lopmon.gif confirmado." } ]
+    },
+    {
+      "name": "Elecmon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "cinzadeneve-itch", "sprite_available": true, "idle": true, "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado (idle only)", "directions": 1,
+        "origin_license": "fan-made, pago (USD 1.50), licença completa não verificada", "credits": "CinzadeNeve (itch.io)",
+        "quality_score": 55, "status": "UNDER_REVIEW", "notes": "[E] https://cinzadeneve.itch.io/elecmon confirma PNG+GIF idle-only, tag 'No AI'." } ]
+    },
+    {
+      "name": "Gazimon", "stage": "rookie", "evolution_line": "selvagem comum",
+      "entries": [ { "source_id": "cinzadeneve-itch", "sprite_available": true, "idle": "[H] provável (mesmo padrão dos outros itens)", "walk": false, "attack": false, "sleep": false,
+        "dimensions": "não verificado", "frame_count": "não verificado", "directions": 1,
+        "origin_license": "fan-made, pago, licença completa não verificada", "credits": "CinzadeNeve (itch.io)",
+        "quality_score": 50, "status": "UNDER_REVIEW", "notes": "[E] Listado no catálogo cinzadeneve.itch.io/gazimon; página individual não aberta nesta rodada." } ]
+    }
+  ]
+}

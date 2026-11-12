@@ -1,0 +1,92 @@
+{
+  "project": "GS-003 — Digi Forest v13 (GBA Clean)",
+  "generatedAt": "2026-11-11",
+  "notes": "Todos os assets abaixo seguem a paleta travada DigiForest v13 (ver PIXELLAB_TOOLS_PLAN.md). Pivot/colisão são recomendações do produtor [H], a confirmar pelo game-dev na integração real (fora do escopo desta entrega).",
+  "tilesets": [
+    {
+      "file": "tilesets/tileset_grass_dirt_32px.png",
+      "pixellabId": "729a6425-5b0f-426e-affa-6018fe76491f",
+      "type": "topdown_wang_16",
+      "tileSizePx": 32,
+      "terrains": ["grass", "dirt_path"],
+      "baseTileIds": { "dirt_path": "4a147eea-847b-42e9-bf68-dec2ee51eb29", "grass": "096e5a29-1cf7-4eaa-bdfa-4f2d2d1b4e35" },
+      "walkable": { "grass": true, "dirt_path": true },
+      "use": "terreno base do mapa (zonas spawn_area, clareira_central, trilhas)"
+    },
+    {
+      "file": "tilesets/tileset_grass_water_32px.png",
+      "pixellabId": "0af1d2cb-b1a6-4ed4-9b87-e5f907c7dcce",
+      "type": "topdown_wang_16",
+      "tileSizePx": 32,
+      "terrains": ["grass (reused base)", "shallow_water"],
+      "baseTileIds": { "shallow_water": "f9ee08ab-e47c-4dea-a0d6-99abcc6da567", "grass": "096e5a29-1cf7-4eaa-bdfa-4f2d2d1b4e35" },
+      "transition": "pebbly sandy riverbank, size 0.25",
+      "walkable": { "shallow_water": false },
+      "use": "zona agua_riacho (Riacho Sereno em Z)"
+    },
+    {
+      "file": "tilesets/tileset_grass_tallgrass_32px.png",
+      "pixellabId": "288ffd83-0ba2-45fc-8a92-4e5bd25de0cc",
+      "type": "topdown_wang_16",
+      "tileSizePx": 32,
+      "terrains": ["grass (reused base)", "tall_encounter_grass"],
+      "baseTileIds": { "tall_encounter_grass": "d7f41f5e-19d9-4c41-a4df-7ecf6393f7c9", "grass": "096e5a29-1cf7-4eaa-bdfa-4f2d2d1b4e35" },
+      "walkable": { "tall_encounter_grass": true },
+      "use": "zona_concentracao (Capinzal dos Selvagens)"
+    },
+    {
+      "file": "tilesets/tileset_grass_plateau_32px.png",
+      "pixellabId": "f472b23d-4394-47f2-b4c7-b4dc05018326",
+      "type": "topdown_wang_25_transition",
+      "tileSizePx": 32,
+      "terrains": ["grass (reused base)", "raised_stone_plateau"],
+      "baseTileIds": { "grass": "096e5a29-1cf7-4eaa-bdfa-4f2d2d1b4e35", "raised_stone_plateau": "d6dc592f-1b9c-4f75-ac8c-9548def0f750" },
+      "transition": "mossy grey stone cliff face with exposed roots, size 0.5 (25 tiles, cliff spans 2 rows — ver metadata pattern_4x4)",
+      "walkable": { "raised_stone_plateau": true },
+      "use": "poi-mirante-clareira; a subida acessível usa o prop ramp_earth_wood num ponto do penhasco (a API não encadeia uma peça de rampa dedicada dentro do próprio Wang — ver PIXELLAB_TOOLS_PLAN.md)"
+    },
+    {
+      "file": "tilesets/path_tiles_trail_32px.png",
+      "pixellabId": "2669381c-8235-4181-8b61-17774494e8dc",
+      "type": "path_tiles_18config",
+      "tileSizePx": 32,
+      "charged_generations": 10,
+      "use": "rota_principal, rota_secundaria_pedras, rota_secundaria_riacho, rota_vau_pedras — trilha com retas/curvas/T/cruzamento/beco-sem-saída; ver get_tiles_pro para a mask de borda de cada tile_N"
+    }
+  ],
+  "props": [
+    { "name": "tree_canopy_big", "file": "props/tree_canopy_big.png", "pixellabId": "0bc74835-37cc-4177-8810-5e15c0c6cf67", "sizePx": "64x80", "pivot": "bottom-center (~x32,y76)", "collision": "small circle at trunk base only", "use": "árvore de copa grande, borda de mata e moldura de clareira" },
+    { "name": "tree_pine", "file": "props/tree_pine.png", "pixellabId": "a30d5fdd-8701-4539-9777-a7113253087c", "sizePx": "48x84", "pivot": "bottom-center", "collision": "small circle at trunk base only", "use": "pinheiro, variação de borda de mata" },
+    { "name": "tree_digital", "file": "props/tree_digital.png", "pixellabId": "a473c972-4ed7-468d-9bc9-e65f120befd8", "sizePx": "64x84", "pivot": "bottom-center", "collision": "small circle at trunk base only", "use": "árvore digital (veias ciano), identidade Mundo Digital, pontos de assinatura do bioma" },
+    { "name": "bush_dense", "file": "props/bush_dense.png", "pixellabId": "3acadf38-db63-4ce4-8a57-7185ddc490b9", "sizePx": "48x40", "pivot": "bottom-center", "collision": "full footprint", "use": "moita genérica de borda/decoração" },
+    { "name": "bush_dense_secret", "file": "props/bush_dense_secret.png", "pixellabId": "31681721-cad8-4d1c-bad0-656772af19cb", "sizePx": "56x44", "pivot": "bottom-center", "collision": "full footprint (empurrável/transponível — decisão do game-dev)", "use": "poi-entrada-secreta (Clareira Oculta)" },
+    { "name": "rock_small", "file": "props/rock_small.png", "pixellabId": "3b3ed635-9620-4281-9fab-bf1041b1304b", "sizePx": "32x24", "pivot": "bottom-center", "collision": "full footprint", "use": "campo_de_pedras, decoração geral" },
+    { "name": "rock_small_flat", "file": "props/rock_small_flat.png", "pixellabId": "357509e4-ac80-44e0-80c8-1802847da5d6", "sizePx": "40x16", "pivot": "bottom-center", "collision": "none (faixa central do vau deve ficar sem colisão — decisão do game-dev)", "use": "poi-vau-pedras (2ª travessia do riacho)" },
+    { "name": "mushroom_digital", "file": "props/mushroom_digital.png", "pixellabId": "26f9bda3-155c-4867-a771-1f2b43b901a9", "sizePx": "24x24", "pivot": "bottom-center", "collision": "none", "use": "decorAssets (clareira_oculta, zona_concentracao)" },
+    { "name": "flower_digital", "file": "props/flower_digital.png", "pixellabId": "19392daf-04e3-4759-aee5-625cd1ed6d3b", "sizePx": "20x20", "pivot": "bottom-center", "collision": "none", "use": "decorAssets (clareira_central, clareira_oculta, zona_concentracao)" },
+    { "name": "log_fallen", "file": "props/log_fallen.png", "pixellabId": "5fd441cb-bec8-4e87-99e6-516a842b3dc3", "sizePx": "64x24", "pivot": "bottom-center", "collision": "full footprint", "use": "decoração de mata/trilha" },
+    { "name": "bridge_wood", "file": "props/bridge_wood.png", "pixellabId": "36c96295-b86a-4c19-8ba9-deeb98c8e1c9", "sizePx": "96x48", "pivot": "bottom-center", "collision": "none (piso caminhável sobre a água)", "use": "poi-ponte-riacho (1ª travessia)" },
+    { "name": "sign_post", "file": "props/sign_post.png", "pixellabId": "6fb41f38-6130-4583-937e-3bff1d8c4e3f", "sizePx": "24x40", "pivot": "bottom-center", "collision": "full footprint", "use": "interact-placa-entrada, interact-placa-secreta" },
+    { "name": "lantern_post", "file": "props/lantern_post.png", "pixellabId": "c98a2e42-9e11-4464-9925-bbaf9bc8fb45", "sizePx": "24x48", "pivot": "bottom-center", "collision": "full footprint", "use": "poste de iluminação ao longo das trilhas/clareira" },
+    { "name": "heal_fountain_digital", "file": "props/heal_fountain_digital.png", "pixellabId": "6a9cf79c-a6a2-423a-83f2-9896ddf73dbd", "sizePx": "48x48", "pivot": "bottom-center", "collision": "full footprint", "animated": "ver anim/heal_fountain_glow (se concluída a tempo)", "use": "interact-fonte-cura" },
+    { "name": "data_crystal_cyan", "file": "props/data_crystal_cyan.png", "pixellabId": "0b38b530-7cda-4ffb-884c-e1af6086bee3", "sizePx": "24x32", "pivot": "bottom-center", "collision": "none", "animated": "ver anim/data_crystal_cyan_glow", "use": "cristal de dados, decoração/assinatura do bioma" },
+    { "name": "data_crystal_amber", "file": "props/data_crystal_amber.png", "pixellabId": "f08b6046-4e9e-4071-99fa-1f80b4083803", "sizePx": "24x32", "pivot": "bottom-center", "collision": "none", "use": "2ª variante de cristal de dados" },
+    { "name": "data_totem_pillar", "file": "props/data_totem_pillar.png", "pixellabId": "c84eb5a5-5bee-4c58-9f1e-a103ee60a8de", "sizePx": "32x64", "pivot": "bottom-center", "collision": "full footprint", "use": "totem/pilar de dados, marco de ruína" },
+    { "name": "ruin_piece_pillar", "file": "props/ruin_piece_pillar.png", "pixellabId": "0f272c4d-d598-4203-bb18-d4d4d165fb5b", "sizePx": "48x48", "pivot": "bottom-center", "collision": "full footprint", "use": "ruína digital leve #1" },
+    { "name": "ruin_piece_block", "file": "props/ruin_piece_block.png", "pixellabId": "55889fae-4d6a-4b1c-80df-be315e914d35", "sizePx": "48x40", "pivot": "bottom-center", "collision": "full footprint", "use": "ruína digital leve #2" },
+    { "name": "boss_portal_marker", "file": "props/boss_portal_marker.png", "pixellabId": "fd38bfb6-11ad-4e41-a7c8-19a422866ac2", "sizePx": "64x80", "pivot": "bottom-center", "collision": "none (decorativo) ou full footprint se usado como arco intransponível — decisão do game-dev", "use": "poi-entrada-covil / arena-kuwagamon (marco visual, sem a criatura)" },
+    { "name": "chest_closed", "file": "props/chest_closed.png", "pixellabId": "418fc529-75af-46bc-af56-88b9ea27c2ee", "sizePx": "32x32", "pivot": "bottom-center", "collision": "full footprint", "use": "interact-bau (estado fechado)" },
+    { "name": "chest_open", "file": "props/chest_open.png", "pixellabId": "SEE_STATE_b34c1198-f352-4548-9c2a-bbd04c83aea1", "sizePx": "32x32", "pivot": "bottom-center", "collision": "full footprint", "use": "interact-bau (2º estado, aberto) — mesmo objeto via create_object_state" },
+    { "name": "ramp_earth_wood", "file": "props/ramp_earth_wood.png", "pixellabId": "20af3703-82b3-476d-bd5a-a575e4d0baf2", "sizePx": "40x56", "pivot": "bottom-center", "collision": "walkable surface, no blocking collision", "use": "ponto de subida do poi-mirante-clareira (rampa dedicada, ver nota do tileset de platô)" }
+  ],
+  "animations": [
+    { "name": "campfire_flicker", "files": "anim/campfire_flicker/frame_000..008.png", "sourceObject": "5a744c77-d45d-4e5a-a009-47a9fb57e73f", "animationGroupId": "a5509002-44a2-4ee5-bbc3-d1f1ffc436d7", "frames": 9, "mode": "v3" },
+    { "name": "heal_fountain_glow", "files": "anim/heal_fountain_glow/frame_000..008.png", "sourceObject": "6a9cf79c-a6a2-423a-83f2-9896ddf73dbd", "animationGroupId": "762bda8b-f843-46d0-a244-bd8973448468", "frames": 9, "mode": "v3" },
+    { "name": "data_crystal_cyan_glow", "files": "anim/data_crystal_cyan_glow/frame_000..008.png", "sourceObject": "0b38b530-7cda-4ffb-884c-e1af6086bee3", "animationGroupId": "b4bbeb06-ac43-4141-b062-043169bd74bb", "frames": 9, "mode": "v3", "note": "terminou na fila compartilhada da conta após os demais itens desta entrega; baixada e organizada normalmente." }
+  ],
+  "mockups": [
+    { "name": "v13_mockup_clareira_day", "file": "mockups/v13_mockup_clareira_day.png", "size": "1920x1080", "source": "render Map Workshop (view_map, crop x9-23 y7-15) + Guilmon/Tamer oficiais DS, nearest-neighbor x4, sem interpolação" },
+    { "name": "v13_mockup_clareira_night", "file": "mockups/v13_mockup_clareira_night.png", "size": "1920x1080", "source": "mesma cena, grade noturna Style Bible §6 (saturação x0.64, valor x0.62, leve correção fria) aplicada só ao fundo, nunca aos sprites oficiais" },
+    { "name": "v13_mockup_overview_day", "file": "mockups/v13_mockup_overview_day.png", "size": "1920x1080 (letterbox lateral ~192px, mapa 1536px centralizado)", "source": "render Map Workshop do mapa de teste inteiro (24x19 cel, todas as 4 famílias de terreno + 29 props) + Guilmon/Tamer, nearest-neighbor x2" }
+  ]
+}

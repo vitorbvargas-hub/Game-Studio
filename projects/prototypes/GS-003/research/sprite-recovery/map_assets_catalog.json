@@ -1,0 +1,594 @@
+{
+  "_meta": {
+    "task": "GS-013",
+    "generatedAt": "2026-11-10",
+    "generatedBy": "game-research (subagent)",
+    "method": "Classificacao PROGRAMATICA (script Python, sem novo web_fetch) dos arquivos JA baixados em assets/GAME-ASSETS/10-source-files/spriters-resource/, separando por heuristica de nome (palavras-chave de lugar: forest/town/village/city/room/zone/house/cave/dungeon/mansion/coliseum/map/background etc.) e excluindo nomes que coincidem com especies de Digimon (ja catalogadas em digimon_sprite_catalog.json.spriters_resource_raw_index) e icones de UI (icon/save/menu/emoticon). Todos os arquivos listados aqui JA ESTAO NO DISCO - nenhum download novo foi necessario.",
+    "note_countDiscrepancy": "O _meta.counts.mapBackgroundSheetsInManifest do digimon_sprite_catalog.json (sessao anterior) registrava 63. Esta classificacao independente encontrou 76 arquivos de fundo/cenario/local (incluindo interiores de sala, que a contagem anterior pode ou nao ter incluido - o metodo exato da contagem de 63 nao ficou documentado). Registrando a divergencia em vez de forcar reconciliacao sem evidencia de qual criterio foi usado antes.",
+    "totalMapBackgroundFiles": 76,
+    "byGame": {
+      "dgmnworldds": 7,
+      "digibat": 1,
+      "digimondcb": 1,
+      "digimonworld2": 20,
+      "digimonworld": 33,
+      "digimonworlddigitalcardbattle": 4,
+      "digimonworldds2": 1,
+      "digitalmonsterdproject": 1,
+      "digiworld3": 3,
+      "vitalbraceletbe": 5
+    },
+    "totalBytes": 41390114,
+    "allFilesAlreadyOnDisk": true,
+    "localBasePath": "assets/GAME-ASSETS/10-source-files/spriters-resource/"
+  },
+  "rightsLayer": {
+    "value": "official-fan-use",
+    "basis": "Mesma base do digimon_asset_licenses.json: rip oficial do Spriters Resource, liberado pelo fundador em 2026-11-08 para fan game nao comercial. NAO usar mapas completos de jogos protegidos como asset final do jogo (regra explicita da secao 11 do briefing GS-013) - usar apenas como referencia de composicao/paleta ou para extrair elementos pequenos (arvore, pedra, objeto) de forma transformada.",
+    "evidence": "E"
+  },
+  "byGame": [
+    {
+      "gameSlug": "digimonworld",
+      "game": "Digimon World",
+      "platform": "PlayStation",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 33,
+      "totalBytes": 33857917,
+      "files": [
+        {
+          "label": "Amida-Forest-Day",
+          "file": "digimonworld__arrow-drop-down__Amida-Forest-Day__33028.png",
+          "bytes": 709193,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Amida-Forest-Day__33028.png"
+        },
+        {
+          "label": "Amida-Forest-Evening",
+          "file": "digimonworld__arrow-drop-down__Amida-Forest-Evening__33029.png",
+          "bytes": 678036,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Amida-Forest-Evening__33029.png"
+        },
+        {
+          "label": "Amida-Forest-Night",
+          "file": "digimonworld__arrow-drop-down__Amida-Forest-Night__33030.png",
+          "bytes": 547444,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Amida-Forest-Night__33030.png"
+        },
+        {
+          "label": "Beetleland-Kabuterimon-s-Room",
+          "file": "digimonworld__arrow-drop-down__Beetleland-Kabuterimon-s-Room__32161.png",
+          "bytes": 351120,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Beetleland-Kabuterimon-s-Room__32161.png"
+        },
+        {
+          "label": "Beetleland-Kuwagamon-s-Room",
+          "file": "digimonworld__arrow-drop-down__Beetleland-Kuwagamon-s-Room__32094.png",
+          "bytes": 377319,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Beetleland-Kuwagamon-s-Room__32094.png"
+        },
+        {
+          "label": "Factorial-Town-Control-Room",
+          "file": "digimonworld__arrow-drop-down__Factorial-Town-Control-Room__37922.png",
+          "bytes": 1874480,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Factorial-Town-Control-Room__37922.png"
+        },
+        {
+          "label": "File-City-100-Points-Day",
+          "file": "digimonworld__arrow-drop-down__File-City-100-Points-Day__33045.png",
+          "bytes": 1411782,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-100-Points-Day__33045.png"
+        },
+        {
+          "label": "File-City-100-Points-Evening",
+          "file": "digimonworld__arrow-drop-down__File-City-100-Points-Evening__33046.png",
+          "bytes": 1452529,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-100-Points-Evening__33046.png"
+        },
+        {
+          "label": "File-City-100-Points-Night",
+          "file": "digimonworld__arrow-drop-down__File-City-100-Points-Night__33047.png",
+          "bytes": 975376,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-100-Points-Night__33047.png"
+        },
+        {
+          "label": "File-City-Start-Day",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Day__32138.png",
+          "bytes": 792889,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Day__32138.png"
+        },
+        {
+          "label": "File-City-Start-Day",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Day__33042.png",
+          "bytes": 1500932,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Day__33042.png"
+        },
+        {
+          "label": "File-City-Start-Evening",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Evening__32139.png",
+          "bytes": 761939,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Evening__32139.png"
+        },
+        {
+          "label": "File-City-Start-Evening",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Evening__33043.png",
+          "bytes": 1535194,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Evening__33043.png"
+        },
+        {
+          "label": "File-City-Start-Night",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Night__32140.png",
+          "bytes": 608662,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Night__32140.png"
+        },
+        {
+          "label": "File-City-Start-Night",
+          "file": "digimonworld__arrow-drop-down__File-City-Start-Night__33044.png",
+          "bytes": 980513,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__File-City-Start-Night__33044.png"
+        },
+        {
+          "label": "Freezeland-Frigimon-s-House",
+          "file": "digimonworld__arrow-drop-down__Freezeland-Frigimon-s-House__31073.png",
+          "bytes": 85419,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Freezeland-Frigimon-s-House__31073.png"
+        },
+        {
+          "label": "Freezeland-Penguimon-s-Cave",
+          "file": "digimonworld__arrow-drop-down__Freezeland-Penguimon-s-Cave__32093.png",
+          "bytes": 240686,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Freezeland-Penguimon-s-Cave__32093.png"
+        },
+        {
+          "label": "Grey-Lord-s-Mansion-Dinning-Room",
+          "file": "digimonworld__arrow-drop-down__Grey-Lord-s-Mansion-Dinning-Room__32160.png",
+          "bytes": 126503,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Grey-Lord-s-Mansion-Dinning-Room__32160.png"
+        },
+        {
+          "label": "Jijimon-s-House",
+          "file": "digimonworld__arrow-drop-down__Jijimon-s-House__31070.png",
+          "bytes": 210895,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Jijimon-s-House__31070.png"
+        },
+        {
+          "label": "Jijimon-s-House-Beginning",
+          "file": "digimonworld__arrow-drop-down__Jijimon-s-House-Beginning__32088.png",
+          "bytes": 240918,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Jijimon-s-House-Beginning__32088.png"
+        },
+        {
+          "label": "Leomon-Ancestor-s-Cave",
+          "file": "digimonworld__arrow-drop-down__Leomon-Ancestor-s-Cave__32058.png",
+          "bytes": 467216,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Leomon-Ancestor-s-Cave__32058.png"
+        },
+        {
+          "label": "Native-Forest-Cap-Day",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Cap-Day__32151.png",
+          "bytes": 517252,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Cap-Day__32151.png"
+        },
+        {
+          "label": "Native-Forest-Cap-Evening",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Cap-Evening__32152.png",
+          "bytes": 515850,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Cap-Evening__32152.png"
+        },
+        {
+          "label": "Native-Forest-Cap-Night",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Cap-Night__32153.png",
+          "bytes": 341405,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Cap-Night__32153.png"
+        },
+        {
+          "label": "Native-Forest-Day",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Day__33025.png",
+          "bytes": 4191025,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Day__33025.png"
+        },
+        {
+          "label": "Native-Forest-Evening",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Evening__33026.png",
+          "bytes": 4168224,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Evening__33026.png"
+        },
+        {
+          "label": "Native-Forest-Night",
+          "file": "digimonworld__arrow-drop-down__Native-Forest-Night__33027.png",
+          "bytes": 2712089,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Native-Forest-Night__33027.png"
+        },
+        {
+          "label": "Residential-Area",
+          "file": "digimonworld__arrow-drop-down__Residential-Area__32057.png",
+          "bytes": 403455,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Residential-Area__32057.png"
+        },
+        {
+          "label": "Secret-Beach-Cave",
+          "file": "digimonworld__arrow-drop-down__Secret-Beach-Cave__32805.png",
+          "bytes": 669714,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Secret-Beach-Cave__32805.png"
+        },
+        {
+          "label": "Toy-Town-Day",
+          "file": "digimonworld__arrow-drop-down__Toy-Town-Day__32801.png",
+          "bytes": 432559,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Toy-Town-Day__32801.png"
+        },
+        {
+          "label": "Toy-Town-Evening",
+          "file": "digimonworld__arrow-drop-down__Toy-Town-Evening__32802.png",
+          "bytes": 433488,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Toy-Town-Evening__32802.png"
+        },
+        {
+          "label": "Toy-Town-Night",
+          "file": "digimonworld__arrow-drop-down__Toy-Town-Night__32803.png",
+          "bytes": 410358,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__Toy-Town-Night__32803.png"
+        },
+        {
+          "label": "World-Map-Custom",
+          "file": "digimonworld__arrow-drop-down__World-Map-Custom__32971.png",
+          "bytes": 3133453,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld__arrow-drop-down__World-Map-Custom__32971.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digimonworld2",
+      "game": "Digimon World 2",
+      "platform": "PlayStation",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 20,
+      "totalBytes": 3212961,
+      "files": [
+        {
+          "label": "Black-Sword-Tamers-Room",
+          "file": "digimonworld2__arrow-drop-down__Black-Sword-Tamers-Room__144688.png",
+          "bytes": 126458,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Black-Sword-Tamers-Room__144688.png"
+        },
+        {
+          "label": "Blue-Falcon-Tamers-Room",
+          "file": "digimonworld2__arrow-drop-down__Blue-Falcon-Tamers-Room__144670.png",
+          "bytes": 141946,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Blue-Falcon-Tamers-Room__144670.png"
+        },
+        {
+          "label": "Coliseum-Admission-Room",
+          "file": "digimonworld2__arrow-drop-down__Coliseum-Admission-Room__144694.png",
+          "bytes": 150914,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Coliseum-Admission-Room__144694.png"
+        },
+        {
+          "label": "Coliseum-Entrance",
+          "file": "digimonworld2__arrow-drop-down__Coliseum-Entrance__144693.png",
+          "bytes": 137024,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Coliseum-Entrance__144693.png"
+        },
+        {
+          "label": "Device-Dome-Entrance",
+          "file": "digimonworld2__arrow-drop-down__Device-Dome-Entrance__144800.png",
+          "bytes": 201408,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Device-Dome-Entrance__144800.png"
+        },
+        {
+          "label": "Device-Dome-Laboratory",
+          "file": "digimonworld2__arrow-drop-down__Device-Dome-Laboratory__144802.png",
+          "bytes": 160281,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Device-Dome-Laboratory__144802.png"
+        },
+        {
+          "label": "Device-Dome-Main-Lobby",
+          "file": "digimonworld2__arrow-drop-down__Device-Dome-Main-Lobby__144801.png",
+          "bytes": 168509,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Device-Dome-Main-Lobby__144801.png"
+        },
+        {
+          "label": "Device-Dome-Workshop",
+          "file": "digimonworld2__arrow-drop-down__Device-Dome-Workshop__144803.png",
+          "bytes": 164731,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Device-Dome-Workshop__144803.png"
+        },
+        {
+          "label": "Digi-Beetle-Factory-File-City",
+          "file": "digimonworld2__arrow-drop-down__Digi-Beetle-Factory-File-City__542663.png",
+          "bytes": 144000,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Digi-Beetle-Factory-File-City__542663.png"
+        },
+        {
+          "label": "GoldenHawk-Tamers-Room",
+          "file": "digimonworld2__arrow-drop-down__GoldenHawk-Tamers-Room__144665.png",
+          "bytes": 114074,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__GoldenHawk-Tamers-Room__144665.png"
+        },
+        {
+          "label": "Item-Shop-File-City",
+          "file": "digimonworld2__arrow-drop-down__Item-Shop-File-City__542671.png",
+          "bytes": 138847,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Item-Shop-File-City__542671.png"
+        },
+        {
+          "label": "Jijimon-s-House-File-City",
+          "file": "digimonworld2__arrow-drop-down__Jijimon-s-House-File-City__542673.png",
+          "bytes": 128522,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Jijimon-s-House-File-City__542673.png"
+        },
+        {
+          "label": "Main-Gate-Workshop",
+          "file": "digimonworld2__arrow-drop-down__Main-Gate-Workshop__144650.png",
+          "bytes": 157520,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Main-Gate-Workshop__144650.png"
+        },
+        {
+          "label": "Master-Gate-File-City",
+          "file": "digimonworld2__arrow-drop-down__Master-Gate-File-City__542675.png",
+          "bytes": 97124,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Master-Gate-File-City__542675.png"
+        },
+        {
+          "label": "Meditation-Dome-Entrance",
+          "file": "digimonworld2__arrow-drop-down__Meditation-Dome-Entrance__144804.png",
+          "bytes": 219773,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Meditation-Dome-Entrance__144804.png"
+        },
+        {
+          "label": "Meditation-Dome-Left-Room",
+          "file": "digimonworld2__arrow-drop-down__Meditation-Dome-Left-Room__144806.png",
+          "bytes": 145448,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Meditation-Dome-Left-Room__144806.png"
+        },
+        {
+          "label": "Meditation-Dome-Main-Lobby",
+          "file": "digimonworld2__arrow-drop-down__Meditation-Dome-Main-Lobby__144805.png",
+          "bytes": 195484,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Meditation-Dome-Main-Lobby__144805.png"
+        },
+        {
+          "label": "Meditation-Dome-Right-Room",
+          "file": "digimonworld2__arrow-drop-down__Meditation-Dome-Right-Room__144807.png",
+          "bytes": 148351,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Meditation-Dome-Right-Room__144807.png"
+        },
+        {
+          "label": "Shuttle-Point-Kernel-Zone",
+          "file": "digimonworld2__arrow-drop-down__Shuttle-Point-Kernel-Zone__542679.png",
+          "bytes": 98775,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Shuttle-Point-Kernel-Zone__542679.png"
+        },
+        {
+          "label": "Shuttle-Port-Directory-Continent",
+          "file": "digimonworld2__arrow-drop-down__Shuttle-Port-Directory-Continent__542677.png",
+          "bytes": 373772,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworld2__arrow-drop-down__Shuttle-Port-Directory-Continent__542677.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "dgmnworldds",
+      "game": "Digimon World DS",
+      "platform": "Nintendo DS",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 7,
+      "totalBytes": 1914717,
+      "files": [
+        {
+          "label": "Data-Forest-1",
+          "file": "dgmnworldds__arrow-drop-down__Data-Forest-1__508011.png",
+          "bytes": 286146,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Data-Forest-1__508011.png"
+        },
+        {
+          "label": "Data-Forest-2",
+          "file": "dgmnworldds__arrow-drop-down__Data-Forest-2__508012.png",
+          "bytes": 268283,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Data-Forest-2__508012.png"
+        },
+        {
+          "label": "Data-Forest-3",
+          "file": "dgmnworldds__arrow-drop-down__Data-Forest-3__508013.png",
+          "bytes": 420244,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Data-Forest-3__508013.png"
+        },
+        {
+          "label": "Data-Forest-4",
+          "file": "dgmnworldds__arrow-drop-down__Data-Forest-4__508014.png",
+          "bytes": 420069,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Data-Forest-4__508014.png"
+        },
+        {
+          "label": "Data-Forest-5",
+          "file": "dgmnworldds__arrow-drop-down__Data-Forest-5__508015.png",
+          "bytes": 426846,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Data-Forest-5__508015.png"
+        },
+        {
+          "label": "Digimon-Farm-Shop-Inside",
+          "file": "dgmnworldds__arrow-drop-down__Digimon-Farm-Shop-Inside__20474.png",
+          "bytes": 42935,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Digimon-Farm-Shop-Inside__20474.png"
+        },
+        {
+          "label": "Union-Room",
+          "file": "dgmnworldds__arrow-drop-down__Union-Room__20473.png",
+          "bytes": 50194,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Union-Room__20473.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "vitalbraceletbe",
+      "game": "Vital Bracelet BE",
+      "platform": "LCD handheld",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 5,
+      "totalBytes": 449623,
+      "files": [
+        {
+          "label": "BEMemory-Backgrounds",
+          "file": "vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218135.png",
+          "bytes": 105470,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218135.png"
+        },
+        {
+          "label": "BEMemory-Backgrounds",
+          "file": "vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218136.png",
+          "bytes": 115299,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218136.png"
+        },
+        {
+          "label": "BEMemory-Backgrounds",
+          "file": "vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218137.png",
+          "bytes": 90690,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218137.png"
+        },
+        {
+          "label": "BEMemory-Backgrounds",
+          "file": "vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218138.png",
+          "bytes": 80499,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/vitalbraceletbe__arrow-drop-down__BEMemory-Backgrounds__218138.png"
+        },
+        {
+          "label": "Backgrounds",
+          "file": "vitalbraceletbe__arrow-drop-down__Backgrounds__482673.png",
+          "bytes": 57665,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/vitalbraceletbe__arrow-drop-down__Backgrounds__482673.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digimonworlddigitalcardbattle",
+      "game": "Digimon World: Digital Card Battle",
+      "platform": "PlayStation",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 4,
+      "totalBytes": 925034,
+      "files": [
+        {
+          "label": "Animated-Backgrounds",
+          "file": "digimonworlddigitalcardbattle__arrow-drop-down__Animated-Backgrounds__256718.png",
+          "bytes": 193240,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworlddigitalcardbattle__arrow-drop-down__Animated-Backgrounds__256718.png"
+        },
+        {
+          "label": "Factorial-Town",
+          "file": "digimonworlddigitalcardbattle__arrow-drop-down__Factorial-Town__187822.png",
+          "bytes": 382313,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworlddigitalcardbattle__arrow-drop-down__Factorial-Town__187822.png"
+        },
+        {
+          "label": "Scrolling-Backgrounds",
+          "file": "digimonworlddigitalcardbattle__arrow-drop-down__Scrolling-Backgrounds__256717.png",
+          "bytes": 83898,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworlddigitalcardbattle__arrow-drop-down__Scrolling-Backgrounds__256717.png"
+        },
+        {
+          "label": "Unwavering-Forest",
+          "file": "digimonworlddigitalcardbattle__arrow-drop-down__Unwavering-Forest__187814.png",
+          "bytes": 265583,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworlddigitalcardbattle__arrow-drop-down__Unwavering-Forest__187814.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digiworld3",
+      "game": "Digimon World 3",
+      "platform": "PlayStation",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 3,
+      "totalBytes": 579664,
+      "files": [
+        {
+          "label": "Chamber-Room",
+          "file": "digiworld3__arrow-drop-down__Chamber-Room__532523.png",
+          "bytes": 225183,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digiworld3__arrow-drop-down__Chamber-Room__532523.png"
+        },
+        {
+          "label": "City-Leaders-Dungeon-Bosses",
+          "file": "digiworld3__arrow-drop-down__City-Leaders-Dungeon-Bosses__187562.png",
+          "bytes": 155049,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digiworld3__arrow-drop-down__City-Leaders-Dungeon-Bosses__187562.png"
+        },
+        {
+          "label": "Login-Room",
+          "file": "digiworld3__arrow-drop-down__Login-Room__532524.png",
+          "bytes": 199432,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digiworld3__arrow-drop-down__Login-Room__532524.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digibat",
+      "game": "Digimon Battle (DigiBat 1)",
+      "platform": "Game Boy Advance",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 1,
+      "totalBytes": 71924,
+      "files": [
+        {
+          "label": "Toy-Town",
+          "file": "digibat__arrow-drop-down__Toy-Town__229053.png",
+          "bytes": 71924,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digibat__arrow-drop-down__Toy-Town__229053.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digimondcb",
+      "game": "Digimon World: Digital Card Battle",
+      "platform": "PlayStation",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 1,
+      "totalBytes": 259768,
+      "files": [
+        {
+          "label": "Scrolling-Backgrounds",
+          "file": "digimondcb__arrow-drop-down__Scrolling-Backgrounds__257109.png",
+          "bytes": 259768,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimondcb__arrow-drop-down__Scrolling-Backgrounds__257109.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digimonworldds2",
+      "game": "Digimon World Dawn / Digimon World Dusk",
+      "platform": "Nintendo DS",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 1,
+      "totalBytes": 15864,
+      "files": [
+        {
+          "label": "Mushroomon",
+          "file": "digimonworldds2__arrow-drop-down__Mushroomon__40914.png",
+          "bytes": 15864,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digimonworldds2__arrow-drop-down__Mushroomon__40914.png"
+        }
+      ]
+    },
+    {
+      "gameSlug": "digitalmonsterdproject",
+      "game": "Digital Monster: D-Project",
+      "platform": "WonderSwan/WSC",
+      "sourceSite": "https://www.spriters-resource.com/",
+      "fileCount": 1,
+      "totalBytes": 102642,
+      "files": [
+        {
+          "label": "World-Map",
+          "file": "digitalmonsterdproject__arrow-drop-down__World-Map__89571.png",
+          "bytes": 102642,
+          "localPath": "assets/GAME-ASSETS/10-source-files/spriters-resource/digitalmonsterdproject__arrow-drop-down__World-Map__89571.png"
+        }
+      ]
+    }
+  ],
+  "otherTilesetSourcesNotYetFetched": [
+    {
+      "note": "Nenhuma das 5 fontes PENDENTE investigadas nesta rodada (kaisadilla, DIM, DMC, Aderek, kongtaehun/VB) e uma fonte de TILESET de mapa - todas sao sobre sprites de Digimon (personagens), nao cenario. Para tileset de floresta/caverna/cidade/praia dedicado (fora do que o Spriters Resource ja deu como screenshot de fundo), nenhuma fonte nova foi encontrada nesta rodada.",
+      "evidence": "H"
+    }
+  ]
+}

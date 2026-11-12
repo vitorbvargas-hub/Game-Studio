@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "task": "GS-013",
+    "generatedAt": "2026-11-10",
+    "generatedBy": "game-research (subagent, retomada pos-limite-de-uso)",
+    "method": "Consolidacao das fontes ja investigadas nas sessoes 2026-11-08/09/10 (ADR-009, PROJECT_LOG, digimon_sprite_catalog.json) + classificacao de status. Nenhum novo web_fetch/web_search foi feito nesta rodada para nao repetir trabalho e por restricao de orcamento; apenas 1 verificacao LOCAL de alias (Drimogemon=Digmon) no manifesto ja baixado, que corrigiu uma lacuna. ATUALIZACAO 2026-11-10 (apos reset do limite ~12h): as 5 fontes PENDENTE foram investigadas via web_fetch (api.github.com para os 2 repos GitHub, web_fetch direto nas 3 paginas). Datas de fetch: 2026-11-10."
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "name": "The Spriters Resource - Digimon World DS",
+      "url": "https://www.spriters-resource.com/ds_dsi/dgmnworldds/",
+      "status": "INTEGRATED",
+      "whatWasObtained": "Manifesto completo baixado (sessao 2026-11-08) com todas as folhas de sprite listadas; sheets individuais ja salvos localmente em assets/GAME-ASSETS/10-source-files/spriters-resource/.",
+      "evidence": "E",
+      "evidenceNote": "Arquivos PNG/GIF confirmados no disco via `ls`; contagem de bytes verificada nesta sessao."
+    },
+    {
+      "id": "SRC-02",
+      "name": "The Spriters Resource - Digimon World Dawn/Dusk",
+      "url": "https://www.spriters-resource.com/ds_dsi/digimonworldds2/",
+      "status": "INTEGRATED",
+      "whatWasObtained": "Incluido no mesmo manifesto consolidado (digimonworldds2__... nos nomes de arquivo); folhas adicionais por especie.",
+      "evidence": "E",
+      "evidenceNote": "Mesma base de evidencia do SRC-01."
+    },
+    {
+      "id": "SRC-03",
+      "name": "The Spriters Resource - outros jogos Digimon (achados dentro do mesmo dominio, nao limitados aos 2 links do briefing)",
+      "url": "https://www.spriters-resource.com/ (dominio geral; sub-paginas: digiworld3 [PS1], digibat [GBA], digimonmedley [WSC], digimontamersbattlespiritver15 [WSC], digimonadventure02digitalpartner [WSC], vitalbraceletbe [LCD], digimonbattleonline [PC/Browser])",
+      "status": "INTEGRATED_PARCIAL",
+      "whatWasObtained": "O manifesto consolidado (871 nomes de especie/variante, 1074 folhas, 63 backgrounds de mapa) cobre essas 7 plataformas adicionais alem das 2 do briefing. Cada entrada de especie no spriters_resource_raw_index lista todas as plataformas onde ela aparece.",
+      "evidence": "E",
+      "evidenceNote": "Confirma o item 2 do briefing ('nao limitar a pesquisa a um jogo/geracao/console'); jogos cobertos: Digimon World 1/2/3 (parcial, so DW3 PS1 confirmado no manifesto), Digimon Battle (GBA), Digimon Medley, Digimon Tamers Battle Spirit, Digimon Adventure 02 Digital Partner, Vital Bracelet BE, Digimon Battle (Online)."
+    },
+    {
+      "id": "SRC-04",
+      "name": "E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites",
+      "url": "https://github.com/E-M-B-E-R/digimon-world-ds-dawn-dusk-animated-sprites",
+      "status": "INTEGRATED_PARCIAL",
+      "whatWasObtained": "22 especies com rip oficial em GIF (idle/pose de batalha, 1 direcao, 3-4 frames); 16 delas ja foram superadas por dados mais completos do SRC-01/02 (walk/attack/hurt, 6 direcoes); 6 permanecem so com esse rip idle-only (Renamon, Terriermon, Wormmon, Hawkmon, Impmon, Lopmon) - ver digimon_missing_sprites.json.",
+      "evidence": "E",
+      "evidenceNote": "Confirmado via api.github.com (blob sha verificado em sessao 2026-11-08); credito obrigatorio: AngelOfHope (ripper original) + E-M-B-E-R (preservacao)."
+    },
+    {
+      "id": "SRC-05",
+      "name": "Digimon World Sprite Manager (netraular)",
+      "url": "https://github.com/netraular/DigimonWorldSpriteManager",
+      "status": "AVALIADO_NAO_EXECUTADO",
+      "whatWasObtained": "Leitura do README (sessao 2026-11-08, ver ADR-009): ferramenta local que baixa ~320 folhas do DW DS do proprio Spriters Resource para pasta ignorada pelo git, uso pessoal. Nao executada nesta sessao nem na anterior.",
+      "evidence": "E",
+      "evidenceNote": "README le '(c) Bandai/Namco' explicitamente. Como o manifesto SRC-01 ja cobre DW DS por outra via (fetch direto do Spriters Resource), rodar esta ferramenta deixou de ser prioridade - reavaliar apenas se precisarmos do split automatico de frames que ela promete (secao 5 do briefing)."
+    },
+    {
+      "id": "SRC-06",
+      "name": "digimon-sprite-collection (kaisadilla)",
+      "url": "https://github.com/kaisadilla/digimon-sprite-collection",
+      "status": "INVESTIGADO_NAO_INTEGRAVEL_DIRETO",
+      "whatWasObtained": "E um APP VISUALIZADOR (React/webpack: babel.config.js, webpack.config.js, tsconfig.json, src/, nao um README descritivo - 404 em raw README.md, repo nao tem arquivo de licenca). As imagens ficam em public/img/sprites/digimon/<categoria>, com 15 categorias por fonte/dispositivo: adventure_02, adventure_02_ow (overworld), bandai, championship, d_project, digivice_dtector, digivice_tall, digivice_window, dm_ver_s, monster_s, story, story_ow (overworld), toei, vital_bracelet, vpet, xros_loader. A maioria (digivice_*, dm_ver_s, monster_s, vpet, vital_bracelet, xros_loader) sao sprites de brinquedo LCD/V-pet, tipicamente minusculos (1-bit, poucos frames) - mesma categoria da fonte SRC-10/VB, nao resolve o pedido de 48-64px multi-direcao. As pastas 'story'/'story_ow'/'adventure_02_ow' sao as unicas candidatas a sprite de overworld tipo DS/WonderSwan - mas o conteudo individual (resolucao exata, quadros) NAO foi aberto nesta sessao (so a estrutura de diretorios via GitHub Contents API); podem se sobrepor ao que o SRC-01/02/03 ja cobre (mesma geracao DS/WSC) sem trazer algo em escala maior.",
+      "evidence": "E",
+      "evidenceNote": "GitHub API, 2026-11-10 10:12-10:13 UTC: api.github.com/repos/kaisadilla/digimon-sprite-collection (owner, description 'A collection of all sprites found anywhere', license: null, size 3159KB), /contents/ (raiz), /contents/public, /contents/public/img, /contents/public/img/sprites, /contents/public/img/sprites/digimon (15 subpastas listadas). raw.githubusercontent.com/.../main/README.md retornou 404 (nao existe README na raiz).",
+      "license": "Repositorio sem arquivo LICENSE (campo 'license': null na API). Codigo do app provavelmente aberto (e um projeto React simples), mas os SPRITES em si sao arte/rip de jogos oficiais da Bandai - mesma logica do SRC-01/04: tratar como official-fan-use NO MAXIMO, nunca como licenca aberta, e so apos abrir os arquivos individuais para confirmar fonte/credito."
+    },
+    {
+      "id": "SRC-07",
+      "name": "DIM Modifier Resources",
+      "url": "https://dim.digitallink.games/resources?category=digimon",
+      "status": "BLOQUEADO_SPA",
+      "whatWasObtained": null,
+      "evidence": "E",
+      "evidenceNote": "web_fetch em https://dim.digitallink.games/resources?category=digimon (2026-11-10 10:12 UTC) retornou status 200 mas so o <title>'DIM Modifier'</title> - corpo da pagina vazio (12 bytes de HTML cru). E uma SPA renderizada por JavaScript; web_fetch nao executa JS, so le HTML estatico. Nao foi possivel ver resolucao, quadros, direcoes ou licenca. Precisaria de navegador real (browser tool) para abrir, fora do escopo desta chamada."
+    },
+    {
+      "id": "SRC-08",
+      "name": "Digimon / Pendulum Color Sprite Database",
+      "url": "https://dmc-sprite-database.vercel.app/",
+      "status": "BLOQUEADO_SPA",
+      "whatWasObtained": null,
+      "evidence": "E",
+      "evidenceNote": "web_fetch em https://dmc-sprite-database.vercel.app/ (2026-11-10 10:12 UTC) retornou status 200, titulo 'Pendulum Color Mod Sprite Database', e so o cabecalho de uma tabela ('Image & Name | Stage | Attribute | Type | Style | Source | Size | Author | Download') sem nenhuma linha de dados - SPA com dados carregados via JS/API apos o load inicial. A existencia de uma coluna 'Size' na tabela sugere que o site PROVAVELMENTE documenta resolucao por sprite, mas nao foi possivel ler nenhum valor real nesta sessao. Precisaria de navegador real."
+    },
+    {
+      "id": "SRC-09",
+      "name": "Aderek Digimon Database",
+      "url": "https://aderekart.github.io/",
+      "status": "BLOQUEADO_SPA",
+      "whatWasObtained": null,
+      "evidence": "E",
+      "evidenceNote": "web_fetch em https://aderekart.github.io/ (2026-11-10 10:12 UTC) retornou status 200, titulo 'Aderek - Digimon Database', corpo vazio (25 bytes de HTML cru) - SPA. Nao foi possivel confirmar se e arte fan-made autoral (como suspeitado antes) ou outra coisa. Precisaria de navegador real."
+    },
+    {
+      "id": "SRC-10",
+      "name": "Digimon Assets Vital Bracelet (kongtaehun)",
+      "url": "https://github.com/kongtaehun/digimon-assets-VB",
+      "status": "INVESTIGADO_CONFIRMADO_INADEQUADO_PARA_48_64PX",
+      "whatWasObtained": "README do repo (raw.githubusercontent.com, 2026-11-10) confirma: projeto 'Digimon Evolution Parsing' para a serie Vital Bracelet (VBDM/VBBE). Numeros declarados: 51 DIM cards, 861 aparicoes de Digimon (623 IDs unicos), 1.725 GIFs + 837 JPGs (~40MB total). Estrutura confirmada via GitHub Contents API: assets/data/<categoria>/<dim_id>/sprites/<digimon_id>/frame1.gif, frame2.gif, artwork.jpg - EXEMPLO REAL ABERTO (Gammamon): frame1.gif = 1.132 bytes, frame2.gif = 1.119 bytes (tamanho de arquivo tipico de sprite LCD monocromatico MUITO pequeno, nao de um sprite de 48-64px colorido). So 2 frames por Digimon (idle/animacao simples de relogio LCD), SEM direcoes (e um bichinho virtual de pulso, visto de frente so).",
+      "evidence": "E",
+      "evidenceNote": "api.github.com/repos/kongtaehun/digimon-assets-VB (license: null); raw.githubusercontent.com/.../main/README.md (8951 bytes nominal, lido via API contents com decode base64 parcial); /contents/assets/data/v/gamma/sprites/gamma (3 arquivos, tamanhos confirmados). CONCLUSAO: esta fonte NAO serve para a escala de 48-64px multi-direcao do piloto - e consistente com o veredito da pergunta-chave do relatorio.",
+      "license": "README cita explicitamente: 'Digimon, Digital Monster, Vital Bracelet, all related characters, and associated images are owned by Bandai Co., Ltd., Akiyoshi Hongo, and Toei Animation Co., Ltd. [...] This project is an unofficial, non-commercial fan compilation with no affiliation to the rights holders.' - mesma camada official-fan-use/fan-compilation das demais fontes Bandai, SEM ser uma licenca aberta."
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "ui_assets": [
+    {
+      "id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "name": "panel_tier2_rare",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "template",
+      "file": "panel_tier2_rare/panel_tier2_rare.png",
+      "size": {
+        "width": 256,
+        "height": 256
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a"
+    },
+    {
+      "id": "255889cf-7c53-4b52-9c63-1fa3503f3a47",
+      "name": "element 1",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "element",
+      "file": "panel_tier2_rare/elements/element_1.png",
+      "size": {
+        "width": 172,
+        "height": 92
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "nine_slice": {
+        "top": 10.0,
+        "left": 10.0,
+        "right": 10.0,
+        "bottom": 10.0
+      }
+    },
+    {
+      "id": "c367dd72-8e76-4cde-8c97-be5cecf6bd10",
+      "name": "Button",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "element",
+      "file": "panel_tier2_rare/elements/Button/Button.png",
+      "size": {
+        "width": 86,
+        "height": 38
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "nine_slice": {
+        "top": 8.0,
+        "left": 8.0,
+        "right": 8.0,
+        "bottom": 8.0
+      }
+    },
+    {
+      "id": "4e51fd2a-f631-4891-8117-5b78a320fbb3",
+      "name": "hover",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "state",
+      "file": "panel_tier2_rare/elements/Button/hover.png",
+      "size": {
+        "width": 81,
+        "height": 33
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "parent_id": "c367dd72-8e76-4cde-8c97-be5cecf6bd10"
+    },
+    {
+      "id": "c1f6e2eb-00e7-4f23-a4d9-9c05cdc72813",
+      "name": "pressed",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "state",
+      "file": "panel_tier2_rare/elements/Button/pressed.png",
+      "size": {
+        "width": 81,
+        "height": 33
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "parent_id": "c367dd72-8e76-4cde-8c97-be5cecf6bd10"
+    },
+    {
+      "id": "fa5f46b1-06cd-4ebb-949a-11a1e5061f64",
+      "name": "locked",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "state",
+      "file": "panel_tier2_rare/elements/Button/locked.png",
+      "size": {
+        "width": 81,
+        "height": 33
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "parent_id": "c367dd72-8e76-4cde-8c97-be5cecf6bd10"
+    },
+    {
+      "id": "3dda1aa9-00dc-49bb-a7ae-4ee160672b8c",
+      "name": "element 3",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "element",
+      "file": "panel_tier2_rare/elements/element_3.png",
+      "size": {
+        "width": 70,
+        "height": 30
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a"
+    },
+    {
+      "id": "9fc132fe-cfea-4ca2-bd6e-7a268ad1a1e5",
+      "name": "element 4",
+      "prompt": "GBA Clean RPG UI panel set in cyan/teal digital theme, rare tier: a beveled rectangular window frame with glowing cyan circuit-line corners, a small rectangular button, a short tab, and a horizontal health bar frame \u2014 flat solid colors, crisp single-color black outline, no gradients, no noise, dark navy background fill, matches a GBA-era pixel RPG HUD",
+      "kind": "element",
+      "file": "panel_tier2_rare/elements/element_4.png",
+      "size": {
+        "width": 166,
+        "height": 22
+      },
+      "group_id": "baf99477-81f7-43d7-a0d4-8606706c331a",
+      "nine_slice": {
+        "top": 8.0,
+        "left": 8.0,
+        "right": 8.0,
+        "bottom": 8.0
+      }
+    }
+  ]
+}

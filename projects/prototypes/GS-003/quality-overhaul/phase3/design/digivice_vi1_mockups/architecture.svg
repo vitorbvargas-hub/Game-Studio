@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" font-family="monospace" shape-rendering="crispEdges">
+  <rect width="860" height="420" fill="#0e1018"/>
+  <g stroke="#1c2030" stroke-width="1">
+    <path d="M0,40H860 M0,80H860 M0,120H860 M0,160H860 M0,200H860 M0,240H860 M0,280H860 M0,320H860 M0,360H860 M0,400H860"/>
+    <path d="M40,0V420 M120,0V420 M200,0V420 M280,0V420 M360,0V420 M440,0V420 M520,0V420 M600,0V420 M680,0V420 M760,0V420"/>
+  </g>
+  <text x="10" y="18" fill="#8b93b0" font-size="11">DIGIVICE_VI1_SPEC — arquitetura geral (1 objeto, 2 anéis, 3 portas, 0 abas duplicadas)</text>
+
+  <!-- anel social/eventos (Alt A, inalterado) -->
+  <text x="630" y="40" fill="#5a6177" font-size="9" text-anchor="middle">ANEL SOCIAL/EVENTOS (Alt A, inalterado)</text>
+  <circle cx="630" cy="90" r="32" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="630" y="94" fill="#e8b84a" font-size="14" text-anchor="middle" font-weight="bold">D</text>
+  <text x="630" y="60" fill="#5a6177" font-size="8" text-anchor="middle">hub 64px</text>
+  <g font-size="8" fill="#9ea7c2">
+    <circle cx="630" cy="150" r="12" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="1"/><text x="650" y="153">Guilda</text>
+    <circle cx="590" cy="175" r="12" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="1"/><text x="560" y="178" text-anchor="end">Correio</text>
+    <circle cx="560" cy="210" r="12" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="1"/><text x="530" y="213" text-anchor="end">Passe</text>
+    <circle cx="700" cy="150" r="12" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="1"/><text x="716" y="153">Fonte dos Desejos</text>
+    <circle cx="730" cy="180" r="12" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="1"/><text x="746" y="183">Chefe Mundial</text>
+    <circle cx="560" cy="245" r="12" fill="#2b2410" stroke="#e8b84a" stroke-width="1.5"/><text x="530" y="248" text-anchor="end" fill="#e8b84a">Registros e descobertas</text>
+  </g>
+  <text x="630" y="270" fill="#5a6177" font-size="8" text-anchor="middle">(renomeado de "Conquistas" — mesmo nó do arco, §2.3/§4.13)</text>
+  <text x="560" y="300" fill="#5a6177" font-size="8" text-anchor="middle">clique no hub / tecla H</text>
+  <path d="M600,110 L560,290" stroke="#3b4261" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
+
+  <!-- núcleo Tamer/Digimon (novo) -->
+  <text x="190" y="40" fill="#5a6177" font-size="9" text-anchor="middle">NÚCLEO TAMER/DIGIMON (novo, 1 Panel, aba lateral)</text>
+  <rect x="60" y="55" width="260" height="250" fill="rgba(20,23,34,0.92)" stroke="#3b4261" stroke-width="2"/>
+  <rect x="60" y="55" width="80" height="250" fill="rgba(14,16,24,0.6)" stroke="#2b3047" stroke-width="1"/>
+  <text x="100" y="72" fill="#8b93b0" font-size="8" text-anchor="middle">TAMER</text>
+  <text x="105" y="86" fill="#e8b84a" font-size="8">▾ Perfil</text>
+  <text x="105" y="98" fill="#6b7390" font-size="8">  Atributos</text>
+  <text x="105" y="110" fill="#6b7390" font-size="8">  Poderes 🔒</text>
+  <text x="105" y="122" fill="#6b7390" font-size="8">  Talentos 🔒</text>
+  <text x="100" y="140" fill="#8b93b0" font-size="8" text-anchor="middle">DIGIMON</text>
+  <text x="105" y="154" fill="#6b7390" font-size="8">  Perfil</text>
+  <text x="105" y="166" fill="#6b7390" font-size="8">  Atributos</text>
+  <text x="105" y="178" fill="#6b7390" font-size="8">  Habilidades</text>
+  <text x="105" y="190" fill="#6b7390" font-size="8">  Talentos 🔒</text>
+  <text x="105" y="210" fill="#6b7390" font-size="8">Evolução</text>
+  <text x="105" y="224" fill="#6b7390" font-size="8">Vínculo 🔒</text>
+  <text x="105" y="238" fill="#6b7390" font-size="8">Banco de dados</text>
+  <rect x="150" y="70" width="160" height="220" fill="none" stroke="#2b3047" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="230" y="180" fill="#5a6177" font-size="8" text-anchor="middle">corpo (Panel.update,</text>
+  <text x="230" y="192" fill="#5a6177" font-size="8" text-anchor="middle">troca de aba sem reabrir)</text>
+
+  <!-- 3 portas -->
+  <text x="190" y="325" fill="#5a6177" font-size="9" text-anchor="middle">3 PORTAS, 1 SALA (nenhum ícone novo na tela)</text>
+  <rect x="20" y="340" width="100" height="36" fill="none" stroke="#3b4261" stroke-width="1"/>
+  <text x="70" y="356" fill="#e6e9f2" font-size="8" text-anchor="middle">Tecla V /</text>
+  <text x="70" y="368" fill="#e6e9f2" font-size="8" text-anchor="middle">botão "dex"</text>
+  <text x="70" y="388" fill="#5a6177" font-size="7" text-anchor="middle">→ aba Banco de dados</text>
+
+  <rect x="130" y="340" width="100" height="36" fill="none" stroke="#3b4261" stroke-width="1"/>
+  <text x="180" y="356" fill="#e6e9f2" font-size="8" text-anchor="middle">Retrato do</text>
+  <text x="180" y="368" fill="#e6e9f2" font-size="8" text-anchor="middle">parceiro</text>
+  <text x="180" y="388" fill="#5a6177" font-size="7" text-anchor="middle">→ aba Digimon/Perfil</text>
+
+  <rect x="240" y="340" width="100" height="36" fill="none" stroke="#3b4261" stroke-width="1"/>
+  <text x="290" y="356" fill="#e6e9f2" font-size="8" text-anchor="middle">Bloco TAMER</text>
+  <text x="290" y="368" fill="#e6e9f2" font-size="8" text-anchor="middle">(barra inferior)</text>
+  <text x="290" y="388" fill="#5a6177" font-size="7" text-anchor="middle">→ aba Tamer/Perfil (único "onclick" novo)</text>
+
+  <path d="M70,340 L70,310" stroke="#3b4261" stroke-width="1"/>
+  <path d="M180,340 L180,310" stroke="#3b4261" stroke-width="1"/>
+  <path d="M290,340 L290,310" stroke="#3b4261" stroke-width="1"/>
+  <path d="M70,310 L190,305" stroke="#3b4261" stroke-width="1" fill="none"/>
+  <path d="M180,310 L190,305" stroke="#3b4261" stroke-width="1" fill="none"/>
+  <path d="M290,310 L190,305" stroke="#3b4261" stroke-width="1" fill="none"/>
+
+  <text x="10" y="412" fill="#5a6177" font-size="8">🔒 = bloqueado nesta versão (regra [H] pendente de aprovação, §3.1/§5 P2). Geometria do hub/arco: intocada (ARC_RADIUS/ARC_FROM/ARC_TO em ui/digivice.ts).</text>
+</svg>

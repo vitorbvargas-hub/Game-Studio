@@ -1,0 +1,118 @@
+{
+  "name": "UI v13 — GBA Clean Digivice interface",
+  "generated": "2026-11-11",
+  "style_anchor": "quality-overhaul/direction-v13/pixellab-test/pixen_clareira_ruinas_384x216.png",
+  "palette_family": {
+    "background_dark": ["#19172b", "#222f39", "#2a3742"],
+    "steel": ["#78818b", "#60697e", "#6d7685", "#aea79b"],
+    "bronze_tier1": ["#8e523e", "#9e6549", "#995a40", "#ac7049", "#d0a061"],
+    "green_digital": ["#2a5546", "#2b5d47", "#2c5a49", "#326848", "#46764b", "#5a864a", "#7aab43"],
+    "cyan_tier2": ["#2f6690", "#264c5a", "#123635", "#88d59b"],
+    "gold_tier3": ["#eddb84", "#f6e6b7", "#8c8843"],
+    "red_alert": ["#d4566f", "#4a2d3a", "#58353e", "#3c2434"],
+    "navy_accent": ["#2e3970", "#3f4261", "#4e5370"]
+  },
+  "hub": {
+    "description": "Digivice Radial hub (HUD_IDENTITY_V3 Alt A), top-right, closed state",
+    "states": {
+      "closed": "hub/hub_closed.png",
+      "notification": "hub/hub_notification.png (gold pip, lit when any ring node has news)",
+      "boss_active": "hub/hub_boss_active.png (red progress arc + red core glow while a World Boss window is open)"
+    },
+    "size": "96x96",
+    "usage": "place at canvas top-right, same spot as today's .hud-tr; click opens the 6-icon ring arc (not produced as art here — ring icons below slot onto the existing panel.ts arc positions, geometry untouched per HUD_IDENTITY_V3 §2.2)"
+  },
+  "icons_32px": {
+    "ring_anel_social": {
+      "guilda": "icons/icon_guilda.png",
+      "correio": "icons/icon_correio.png",
+      "passe": "icons/icon_passe.png",
+      "fonte": "icons/icon_fonte.png",
+      "chefe": "icons/icon_chefe.png",
+      "conquistas": "icons/icon_conquistas.png"
+    },
+    "nucleo_tamer_digimon": {
+      "tamer": "icons/icon_tamer.png",
+      "digimon": "icons/icon_digimon.png",
+      "evolucao": "icons/icon_evolucao.png",
+      "vinculo": "icons/icon_vinculo.png",
+      "banco": "icons/icon_banco.png",
+      "registros": "icons/icon_registros.png"
+    },
+    "move_bar_tipos": {
+      "attack": "icons/icon_move_attack.png",
+      "defend": "icons/icon_move_defend.png",
+      "special": "icons/icon_move_special.png",
+      "item": "icons/icon_move_item.png"
+    }
+  },
+  "panels_9slice": {
+    "tier1_common": {
+      "panel": { "file": "panels/panel_tier1.png", "size": [172, 92], "nine_slice": { "left": 10, "right": 10, "top": 10, "bottom": 10 } },
+      "button_normal": { "file": "buttons/button_tier1_normal.png", "size": [86, 38], "nine_slice": { "left": 8, "right": 8, "top": 8, "bottom": 8 } },
+      "button_hover": { "file": "buttons/button_tier1_hover.png", "size": [81, 33] },
+      "button_pressed": { "file": "buttons/button_tier1_pressed.png", "size": [81, 33] },
+      "button_locked": { "file": "buttons/button_tier1_locked.png", "size": [81, 33] },
+      "tab": { "file": "panels/tab_tier1.png", "size": [70, 30], "nine_slice": { "left": 8, "right": 8, "top": 8, "bottom": 8 } },
+      "bar_decorative": { "file": "bars/bar_frame_tier1.png", "size": [166, 22], "note": "decorative plank piece from the panel sheet, not the functional HP/XP bar (see bars.bar_frame_empty below)" }
+    },
+    "tier2_rare": {
+      "panel": { "file": "panels/panel_tier2.png", "size": [172, 92], "nine_slice": { "left": 10, "right": 10, "top": 10, "bottom": 10 } },
+      "button_normal": { "file": "buttons/button_tier2_normal.png", "size": [86, 38] },
+      "tab": { "file": "panels/tab_tier2.png", "size": [70, 30] },
+      "bar_decorative": { "file": "bars/bar_frame_tier2.png", "size": [166, 22] },
+      "button_states": "PENDING — only tier1 has hover/pressed/locked generated (budget scope cut, see UI_V13.md)"
+    },
+    "tier3_legendary": {
+      "panel": { "file": "panels/panel_tier3.png", "size": [172, 92], "nine_slice": { "left": 10, "right": 10, "top": 10, "bottom": 10 } },
+      "button_normal": { "file": "buttons/button_tier3_normal.png", "size": [86, 38] },
+      "tab": { "file": "panels/tab_tier3.png", "size": [70, 30] },
+      "bar_decorative": { "file": "bars/bar_frame_tier3.png", "size": [166, 22] },
+      "button_states": "PENDING — same cut as tier2"
+    }
+  },
+  "bars_functional_hp_xp_energy": {
+    "frame": { "file": "bars/bar_frame_empty.png", "size": [64, 16], "nine_slice_horizontal_only": { "left": 9, "right": 9 }, "inner_fill_area": { "x0": 10, "y0": 4, "height": 8 } },
+    "fill_hp": "bars/bar_fill_hp.png (green, tileable 56x16)",
+    "fill_xp": "bars/bar_fill_xp.png (cyan, tileable 56x16)",
+    "fill_energy": "bars/bar_fill_energy.png (indigo/navy, tileable 56x16)",
+    "usage": "stretch frame horizontally to target width via the horizontal-only 9-slice, then scale the matching fill texture to (fill_width, 8) and paste at (10,4) inside the frame — exact recipe in build_hud_components.py:make_bar()"
+  },
+  "slot_frame": {
+    "file": "hud/slot_frame.png",
+    "size": [48, 48],
+    "nine_slice": { "left": 8, "right": 8, "top": 8, "bottom": 8 },
+    "usage": "generic square icon/portrait slot — reused for Tamer portrait, Digimon portrait, team roster slots and move-bar slots"
+  },
+  "bottom_hud_composed": {
+    "tamer_block": { "file": "hud/tamer_block.png", "size": [188, 60], "contents": "portrait slot + name + level + XP bar" },
+    "digimon_block": { "file": "hud/digimon_block.png", "size": [224, 86], "contents": "portrait slot + name + level + HP bar + XP bar" },
+    "team_slots": { "file": "hud/team_slots.png", "size": [236, 36], "contents": "6x 36px slots, placeholder icon (no real creature art — out of this task's scope, see limitations)" },
+    "move_bar": { "file": "hud/move_bar.png", "size": [191, 44], "contents": "4x 44px slots with the 4 move-type icons" },
+    "combined_strip": { "file": "hud/bottom_hud_bar.png", "size": [889, 106], "note": "tamer+digimon+team+moves assembled on one panel_tier1 background strip, ready to drop at the bottom of the HUD or re-cut per block" }
+  },
+  "world_map_regions": {
+    "note": "icon_64 and icon_128 for every region share the same isometric floating-platform scene (generated once at 128px, the 64px is a nearest-neighbor downsample — no interpolation, Style Bible §1 regra 1) so the small map icon and the bigger destination-panel icon always match pixel-for-pixel in composition",
+    "vila_dos_bebes": { "small": "regions/region_vila_bebes_64.png", "large": "regions/region_vila_bebes_128.png" },
+    "floresta_densa": { "small": "regions/region_floresta_densa_64.png", "large": "regions/region_floresta_densa_128.png" },
+    "praia_dos_postes": { "small": "regions/region_praia_postes_64.png", "large": "regions/region_praia_postes_128.png" },
+    "montanha": { "small": "regions/region_montanha_64.png", "large": "regions/region_montanha_128.png" },
+    "deserto": { "small": "regions/region_deserto_64.png", "large": "regions/region_deserto_128.png" },
+    "zona_corrompida": { "small": "regions/region_zona_corrompida_64.png", "large": "regions/region_zona_corrompida_128.png" }
+  },
+  "font": {
+    "name": "Digivice GBA Clean",
+    "weight": "Regular",
+    "glyph_px": 16,
+    "atlas": "font/digivice_gba_clean_atlas.png",
+    "ttf": "font/DigiviceGBAClean-Regular.ttf",
+    "suspect_glyphs": 0,
+    "used_in_mockups": true
+  },
+  "mockups_1920x1080": {
+    "hud_overlay": "mockups/ui13_hud_overlay_clareira_1920x1080.png",
+    "digivice_tamer_open": "mockups/ui13_digivice_tamer_1920x1080.png",
+    "mapa_mundi": "mockups/ui13_mapa_mundi_1920x1080.png"
+  },
+  "not_integrated": "Nothing here was wired into workspaces/game-dev — this is art + a manifest + Pillow build scripts (build_hud_components.py, build_mockups.py) for game-dev to reuse or re-cut later. The game-dev worktree was only read (for the AGENTS.md note), never written."
+}

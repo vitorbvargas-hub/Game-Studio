@@ -1,0 +1,1252 @@
+{
+  "_meta": {
+    "task": "GS-013",
+    "generatedAt": "2026-11-10",
+    "generatedBy": "game-research (subagent)",
+    "method": "Consolidação de dados REAIS já extraídos em assets/GAME-ASSETS (sessões 2026-11-08/09 de game-dev/game-research) + manifest completo do The Spriters Resource (1074 folhas, 871 nomes de espécie/variante únicos) + fontes fan-made já investigadas (E-M-B-E-R). Nenhum download novo foi feito nesta sessão; verificações novas via web_fetch em api.github.com e nos próprios sites (ver digimon_asset_sources.json).",
+    "counts": {
+      "integratedSpeciesWithRealExtraction": 35,
+      "emberFanRipIdleOnlySpecies": 22,
+      "uniqueSpeciesNamesInSpritersResourceManifest": 850,
+      "totalSpriteSheetFilesInManifest": 1074,
+      "mapBackgroundSheetsInManifest": 63,
+      "inUseSpeciesTotal": 34,
+      "inUseSpeciesWithRealExtraction": 33,
+      "inUseSpeciesTotallyMissing": 1
+    }
+  },
+  "species": [
+    {
+      "name": "Criatura-piloto (nome provisório)",
+      "id": "CREATURE-0001",
+      "resolutionPx": {
+        "w": 48,
+        "h": 54
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        }
+      },
+      "directions": [
+        "S"
+      ],
+      "usableForGame": false
+    },
+    {
+      "name": "Gigimon",
+      "id": "CREATURE-0002",
+      "resolutionPx": {
+        "w": 24,
+        "h": 24
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_idle": {
+          "frameCount": 3,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Guilmon",
+      "id": "CREATURE-0003",
+      "resolutionPx": {
+        "w": 30,
+        "h": 34
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Growlmon",
+      "id": "CREATURE-0004",
+      "resolutionPx": {
+        "w": 40,
+        "h": 41
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Koromon",
+      "id": "CREATURE-0005",
+      "resolutionPx": {
+        "w": 28,
+        "h": 22
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Agumon",
+      "id": "CREATURE-0006",
+      "resolutionPx": {
+        "w": 30,
+        "h": 30
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Greymon",
+      "id": "CREATURE-0007",
+      "resolutionPx": {
+        "w": 40,
+        "h": 42
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Tsunomon",
+      "id": "CREATURE-0008",
+      "resolutionPx": {
+        "w": 22,
+        "h": 23
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Gabumon",
+      "id": "CREATURE-0009",
+      "resolutionPx": {
+        "w": 36,
+        "h": 34
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Garurumon",
+      "id": "CREATURE-0010",
+      "resolutionPx": {
+        "w": 38,
+        "h": 35
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Tokomon",
+      "id": "CREATURE-0011",
+      "resolutionPx": {
+        "w": 26,
+        "h": 26
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 4,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 2,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Patamon",
+      "id": "CREATURE-0012",
+      "resolutionPx": {
+        "w": 32,
+        "h": 27
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Angemon",
+      "id": "CREATURE-0013",
+      "resolutionPx": {
+        "w": 36,
+        "h": 43
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Dorimon",
+      "id": "CREATURE-0014",
+      "resolutionPx": {
+        "w": 17,
+        "h": 19
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_idle": {
+          "frameCount": 1,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "GeoGreymon",
+      "id": "CREATURE-0015",
+      "resolutionPx": {
+        "w": 34,
+        "h": 41
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "WarGreymon",
+      "id": "CREATURE-0016",
+      "resolutionPx": {
+        "w": 36,
+        "h": 46
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "attack": {
+          "frameCount": 3,
+          "loop": false
+        },
+        "hurt": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_idle": {
+          "frameCount": 4,
+          "loop": true
+        },
+        "battle_attack": {
+          "frameCount": 1,
+          "loop": false
+        },
+        "battle_hurt": {
+          "frameCount": 1,
+          "loop": false
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "SE",
+        "SW",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Dorumon",
+      "id": "CREATURE-0101",
+      "resolutionPx": {
+        "w": 28,
+        "h": 28
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Dorugamon",
+      "id": "CREATURE-0102",
+      "resolutionPx": {
+        "w": 37,
+        "h": 40
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "DoruGreymon",
+      "id": "CREATURE-0103",
+      "resolutionPx": {
+        "w": 36,
+        "h": 40
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Biyomon",
+      "id": "CREATURE-0104",
+      "resolutionPx": {
+        "w": 26,
+        "h": 29
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Gomamon",
+      "id": "CREATURE-0105",
+      "resolutionPx": {
+        "w": 27,
+        "h": 27
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Tentomon",
+      "id": "CREATURE-0106",
+      "resolutionPx": {
+        "w": 27,
+        "h": 28
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Palmon",
+      "id": "CREATURE-0107",
+      "resolutionPx": {
+        "w": 28,
+        "h": 31
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Betamon",
+      "id": "CREATURE-0108",
+      "resolutionPx": {
+        "w": 33,
+        "h": 27
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Gotsumon",
+      "id": "CREATURE-0109",
+      "resolutionPx": {
+        "w": 26,
+        "h": 32
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Numemon",
+      "id": "CREATURE-0110",
+      "resolutionPx": {
+        "w": 28,
+        "h": 24
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Floramon",
+      "id": "CREATURE-0111",
+      "resolutionPx": {
+        "w": 29,
+        "h": 29
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Hagurumon",
+      "id": "CREATURE-0112",
+      "resolutionPx": {
+        "w": 33,
+        "h": 27
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Crabmon",
+      "id": "CREATURE-0113",
+      "resolutionPx": {
+        "w": 35,
+        "h": 32
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Otamamon",
+      "id": "CREATURE-0114",
+      "resolutionPx": {
+        "w": 30,
+        "h": 23
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Goburimon",
+      "id": "CREATURE-0115",
+      "resolutionPx": {
+        "w": 35,
+        "h": 33
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Tanemon",
+      "id": "CREATURE-0116",
+      "resolutionPx": {
+        "w": 21,
+        "h": 22
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Lalamon",
+      "id": "CREATURE-0117",
+      "resolutionPx": {
+        "w": 22,
+        "h": 30
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 4,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Penguinmon",
+      "id": "CREATURE-0118",
+      "resolutionPx": {
+        "w": 32,
+        "h": 27
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 1,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 2,
+          "loop": true
+        }
+      },
+      "directions": [
+        "E",
+        "N",
+        "S",
+        "W"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Gabumon",
+      "id": "CREATURE-0119-gabumon-hand64",
+      "resolutionPx": {
+        "w": 64,
+        "h": 64
+      },
+      "animations": {
+        "idle": {
+          "frameCount": 6,
+          "loop": true
+        },
+        "walk": {
+          "frameCount": 8,
+          "loop": true
+        }
+      },
+      "directions": [
+        "S",
+        "SW"
+      ],
+      "usableForGame": true
+    },
+    {
+      "name": "Renamon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    },
+    {
+      "name": "Terriermon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    },
+    {
+      "name": "Wormmon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    },
+    {
+      "name": "Hawkmon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    },
+    {
+      "name": "Impmon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    },
+    {
+      "name": "Lopmon",
+      "id": null,
+      "resolutionPx": null,
+      "animations": {
+        "idle": {
+          "frameCount": "3-4 (poses únicas, não extraído em px nesta sessão)",
+          "loop": true
+        }
+      },
+      "directions": [
+        "S ou SW (apenas 1)"
+      ],
+      "usableForGame": false,
+      "note": "Só existe na fonte E-M-B-E-R (idle); não foi importado para GAME-ASSETS como os pilotos. Precisa de import ou é candidato a descarte em favor do rip DWDS completo (walk+idle já extraído para boa parte do roster selvagem)."
+    }
+  ]
+}
