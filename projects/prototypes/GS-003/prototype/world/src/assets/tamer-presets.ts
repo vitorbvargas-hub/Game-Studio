@@ -40,6 +40,10 @@ export interface TamerPreset {
   walk: Record<Dir4, { i: number; ms: number }[]>;
   /** Quadro parado por direção (índice de arquivo). */
   idle: Record<Dir4, { i: number; ms: number }>;
+  /** Tamers v13: idle animado (respiração, vários quadros) por direção; sem isto, o idle é o quadro único `idle`. */
+  idleAnim?: Record<Dir4, { i: number; ms: number }[]>;
+  /** Origem da arte (v13 = PixelLab 36×36, 2026-11; v3 = rips DS com recolor de cabelo). */
+  source?: "v13" | "v3";
 }
 
 /** Rótulos pt-BR (o character.json vem sem acento). */
@@ -59,6 +63,7 @@ const LABELS: Record<string, string> = {
 };
 const ACCESSORY_PT: Record<string, string> = { goggles: "Goggles", collar: "Gola alta", scarf: "Lenço", cap: "Boné", visor: "Viseira", glasses: "Óculos" };
 export const HAIR_PT: Record<string, string> = {
+  original: "Original",
   preto: "Preto",
   castanho: "Castanho",
   loiro: "Loiro",
@@ -136,12 +141,99 @@ export function buildPresets(manifests: Record<string, unknown>, pngs: Record<st
 
 let cache: TamerPreset[] | undefined;
 
-/** Presets do disco (glob do Vite: em dev, os arquivos do game-art são servidos como estão no disco). */
-export function loadPresets(): TamerPreset[] {
-  if (cache) return cache;
+/** tamer.json do import dos Tamers v13 (scripts/import-tamers-v13.mjs). */
+interface RawV13 {
+  id: string;
+  label: string;
+  frame: { w: number; h: number };
+  pivot: { x: number; y: number };
+  walkMs?: number;
+  idleMs?: number;
+  frames: { walk: Record<string, string[]>; idle: Record<string, string[]> };
+}
+
+/**
+ * Tamers v13 (art/tamers-v13/game/<id>/tamer.json, PixelLab 36×36, 8 direções desenhadas; o mundo usa S/N/W/E):
+ * walk de 6 quadros e idle (respiração) de 4. Sem variantes de cabelo: uma cor só, "original". Os quadros de cada
+ * direção ficam numa lista [walk..., idle...] (índices de arquivo, como no v3).
+ */
+export function buildPresetsV13(manifests: Record<string, unknown>, pngs: Record<string, string>): TamerPreset[] {
+  const out: TamerPreset[] = [];
+  for (const [p, raw] of Object.entries(manifests)) {
+    const c = raw as RawV13;
+    if (!c?.frames?.walk || !c.frames.idle) continue;
+    const root = dirOf(p);
+    const url = (rel: string) => pngs[`${root}/${rel}`];
+    const frames: HairOption["frames"] = {};
+    const walk = {} as TamerPreset["walk"];
+    const idle = {} as TamerPreset["idle"];
+    const idleAnim = {} as NonNullable<TamerPreset["idleAnim"]>;
+    let ok = true;
+    for (const d of DIRS4) {
+      const w = (c.frames.walk[d] ?? []).map(url);
+      const id = (c.frames.idle[d] ?? []).map(url);
+      if (!w.length || !id.length || !w.every(Boolean) || !id.every(Boolean)) {
+        ok = false;
+        break;
+      }
+      frames[d] = [...w, ...id] as string[];
+      walk[d] = w.map((_, i) => ({ i, ms: c.walkMs ?? 110 }));
+      idleAnim[d] = id.map((_, i) => ({ i: w.length + i, ms: c.idleMs ?? 260 }));
+      idle[d] = idleAnim[d][0];
+    }
+    if (!ok) continue;
+    out.push({
+      id: c.id,
+      label: c.label ?? LABELS[c.id] ?? c.id,
+      accessory: "",
+      defaultHair: "original",
+      hairs: [{ id: "original", hex: "#8a8f99", frames }],
+      frame: c.frame,
+      pivot: c.pivot,
+      walkSpeedPxPerSec: 150,
+      walk,
+      idle,
+      idleAnim,
+      source: "v13",
+    });
+  }
+  return out.sort((a, b) => a.id.localeCompare(b.id));
+}
+
+/** ?tamers=v3 volta aos Tamers v3 (rips DS com recolor de cabelo); padrão desde 2026-11-12 = v13. */
+export function tamerSetOf(search = typeof location === "undefined" ? "" : location.search): "v13" | "v3" {
+  return new URLSearchParams(search).get("tamers") === "v3" ? "v3" : "v13";
+}
+
+let forcedSet: "v13" | "v3" | undefined;
+/** Força o conjunto de Tamers (testes e capturas) e esvazia o cache de loadPresets. */
+export function useTamerSet(set: "v13" | "v3" | undefined): void {
+  forcedSet = set;
+  cache = undefined;
+}
+
+/** Presets v3 do disco (GAME-ASSETS/11-characters). */
+export function loadPresetsV3(): TamerPreset[] {
   const manifests = import.meta.glob("@game-assets/11-characters/TAMER-*/character.json", { eager: true, import: "default" });
   const pngs = import.meta.glob<string>("@game-assets/11-characters/TAMER-*/sprites/recolor_*/*.png", { eager: true, query: "?url", import: "default" });
-  return (cache = buildPresets(manifests, pngs));
+  return buildPresets(manifests, pngs).map((p) => ({ ...p, source: "v3" as const }));
+}
+
+/** Presets v13 do disco (art/tamers-v13/game). */
+export function loadPresetsV13(): TamerPreset[] {
+  const manifests = import.meta.glob("@gs003-art/tamers-v13/game/TAMER-*/tamer.json", { eager: true, import: "default" });
+  const pngs = import.meta.glob<string>("@gs003-art/tamers-v13/game/TAMER-*/{walk,idle}/*/*.png", { eager: true, query: "?url", import: "default" });
+  return buildPresetsV13(manifests, pngs);
+}
+
+/**
+ * Presets do disco (glob do Vite: em dev, os arquivos do game-art são servidos como estão no disco). Padrão: os 12
+ * Tamers v13 (preset 1 = Coragem, TAMER-0003); ?tamers=v3 ou disco sem v13 → os v3.
+ */
+export function loadPresets(): TamerPreset[] {
+  if (cache) return cache;
+  const v13 = (forcedSet ?? tamerSetOf()) === "v13" ? loadPresetsV13() : [];
+  return (cache = v13.length ? v13 : loadPresetsV3());
 }
 
 // ---------- nome ----------
@@ -311,7 +403,7 @@ export function presetVisual(look: TamerLook, presets: TamerPreset[] = loadPrese
   const idle: Record<string, AnimFrame[]> = {};
   for (const d of DIRS4) {
     walk[d] = p.walk[d].map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
-    idle[d] = [{ atlasKey: pick(d, p.idle[d].i), durationMs: p.idle[d].ms }];
+    idle[d] = (p.idleAnim?.[d] ?? [p.idle[d]]).map((f) => ({ atlasKey: pick(d, f.i), durationMs: f.ms }));
   }
   const manifest: CreatureManifest = {
     id: `tamer:${lookKey(look)}`,

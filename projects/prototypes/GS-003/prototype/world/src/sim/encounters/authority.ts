@@ -212,7 +212,7 @@ export function visibleZonesOf(table: EncounterTable): VisibleZone[] {
       const v = e.visible!;
       const rs = v.respawn;
       return {
-        species: [e.speciesId],
+        species: e.speciesPool?.length ? [...e.speciesPool] : [e.speciesId],
         levelMin: e.levels[0],
         levelMax: e.levels[1],
         count: v.maxAlive,

@@ -2,12 +2,14 @@
 // quality-overhaul/encounters/tables/<mapa>.json; a cópia do jogo fica em src/data/encounters/ e um teste garante que
 // as duas são iguais. Mapas sem tabela continuam com o spawn antigo.
 
+import digiForestV15b from "../../data/encounters/digi-forest-v15b.json";
 import forest01 from "../../data/encounters/digimon-forest-01.json";
 import type { WorldContent } from "../species";
 import { PERIODS, RARITIES, WEATHERS, type EncounterTable } from "./rules";
 
 export const ENCOUNTER_TABLES: Record<string, EncounterTable> = {
   "digimon-forest-01": forest01 as unknown as EncounterTable,
+  "digi-forest-v15b": digiForestV15b as unknown as EncounterTable,
 };
 
 /** Mesmas regras do `scripts/encounters/sim.mjs --check`, contra as espécies carregadas. Lista de erros (vazia = ok). */
@@ -21,6 +23,7 @@ export function validateTable(t: EncounterTable, content: WorldContent): string[
     if (ids.has(e.id)) errs.push(`entrada repetida ${e.id}`);
     ids.add(e.id);
     if (!content.species[e.speciesId]) errs.push(`${e.id}: espécie ${e.speciesId} não existe`);
+    for (const sp of e.speciesPool ?? []) if (!content.species[sp]) errs.push(`${e.id}: espécie ${sp} (pool) não existe`);
     if (!RARITIES.includes(e.rarity)) errs.push(`${e.id}: raridade ${e.rarity}`);
     if (e.levels[0] > e.levels[1]) errs.push(`${e.id}: níveis`);
     for (const tr of e.terrains ?? []) if (!terrains.has(tr)) errs.push(`${e.id}: terreno ${tr}`);

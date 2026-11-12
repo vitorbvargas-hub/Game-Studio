@@ -3,8 +3,10 @@
 
 import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { botLook, buildPresets, distinctHairs, defaultLook, DIRS4, loadPresets, lookKey, migrateLegacyLook, normalizeLook, presetVisual, randomLook } from "../src/assets/tamer-presets";
+import { useTamerSet, botLook, buildPresets, distinctHairs, defaultLook, DIRS4, loadPresets, lookKey, migrateLegacyLook, normalizeLook, presetVisual, randomLook } from "../src/assets/tamer-presets";
 import { deserialize, SAVE_VERSION } from "../src/save/save";
+// Tamers v3 (cores de cabelo); os v13 (padrão desde 2026-11-12) estão em v15-integration.test.ts
+useTamerSet("v3");
 
 const urlToPath = (url: string) => {
   const u = decodeURIComponent(url.split("?")[0]);

@@ -1,0 +1,15 @@
+{
+  "TAMER-0003": {"label": "Coragem", "role": "anchor", "character_id": "8c4f8358-aa69-41cc-9637-105717d15392", "walk_group": "fc518fc4-1e99-43ba-ba5a-402fe4d95ccf", "idle_group": "1f636dcc-cf2e-430d-a29e-4ef667414d23"},
+  "TAMER-0004": {"label": "Amizade", "character_id": "86f136f9-97f5-470b-ab1c-2c7a2dbe75f1"},
+  "TAMER-0005": {"label": "Amor", "character_id": "48f30b1e-2e11-4bae-b2f1-78ddfab240c5"},
+  "TAMER-0006": {"label": "Determinacao", "character_id": "10d2c4c4-d7ee-48c9-a5d5-6209afa9c0c9"},
+  "TAMER-0007": {"label": "Esperanca", "character_id": "5e2571a5-2939-4acc-8ba7-722d0b9f33d8"},
+  "TAMER-0008": {"label": "Vinculo", "character_id": "7804eed5-6c69-4285-a2c8-78d742597b35"},
+  "TAMER-0009": {"label": "Raposa", "character_id": "6dae1f0d-064a-433d-a482-daf08bc35f1b"},
+  "TAMER-0010": {"label": "Vento", "character_id": "e689d32a-b15c-437b-b833-c60daa41045b"},
+  "TAMER-0011": {"label": "Chama", "character_id": "d4cc9b64-1272-4dc1-8811-8a6d6bc4e493"},
+  "TAMER-0012": {"label": "Vanguarda", "character_id": "8e71adf1-7746-4a21-9bcc-ad2db9326584"},
+  "TAMER-0013": {"label": "Xeno", "character_id": "7d8c347f-78ac-44c6-9936-b81cbae2e9d2"},
+  "TAMER-0014": {"label": "Furia", "character_id": "225e5361-3139-4b06-8372-231614251a5a"},
+  "_rejected_attempt1_chibi": "d2a4a0bb-e3e6-4562-88db-cbbd05ca306b"
+}

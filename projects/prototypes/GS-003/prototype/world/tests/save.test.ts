@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { defaultLook } from "../src/assets/tamer-presets";
+import { defaultLook, useTamerSet } from "../src/assets/tamer-presets";
+// estes testes são dos Tamers v3 (cores de cabelo); os v13 (padrão desde 2026-11-12) estão em v15-integration.test.ts
+useTamerSet("v3");
 import { applyOffline, applySave, captureSave, offlineSeed } from "../src/save/offline";
 import { deserialize, loadFromStorage, SAVE_KEY, SAVE_VERSION, saveToStorage, serialize, type SaveData, type StorageLike } from "../src/save/save";
 import { createForestProofWorld, LOCAL_PLAYER } from "../src/sim/setup";

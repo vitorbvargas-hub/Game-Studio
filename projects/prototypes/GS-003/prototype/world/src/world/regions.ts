@@ -2,6 +2,8 @@
 // região está liberada (regra `unlock` do JSON) e o texto do motivo em pt-BR. Puro: sem DOM, sem sim.
 
 import regionsJson from "../data/content/regions.json";
+import digiForestV15bPack from "../data/maps/digi-forest-v15b.aliases.json";
+import digiForestV15bMap from "../data/maps/digi-forest-v15b.tmj.json";
 import digimonForest01Pack from "../data/maps/digimon-forest-01.aliases.json";
 import digimonForest01Map from "../data/maps/digimon-forest-01.tmj.json";
 import digimonForest01V8Pack from "../data/maps/v8/digimon-forest-01.aliases.json";
@@ -58,6 +60,17 @@ export function withLook(def: MapDef, look: string | null | undefined): MapDef {
 }
 
 export const MAPS: Record<string, MapDef> = {
+  // Digi Forest v15b (PixelLab 1bb07708…, importado por scripts/import-pixellab-map.mjs): mapa inicial padrão desde
+  // 2026-11-12 e o destino da Floresta Densa no Mapa-múndi (mapOfRegion pega o primeiro da região). Os outros mapas
+  // continuam por ?map=<id>.
+  "digi-forest-v15b": {
+    id: "digi-forest-v15b",
+    region: "floresta_densa",
+    route: "Digi Forest",
+    tmj: digiForestV15bMap as unknown as TiledMap,
+    pack: digiForestV15bPack as unknown as ScenePack,
+    scene: false,
+  },
   "forest-proof": { id: "forest-proof", region: "floresta_densa", route: "Rota 3", tmj: forestProofMap as unknown as TiledMap, pack: forestProofPack as ScenePack, scene: true },
   praia: { id: "praia", region: "praia_dos_postes", route: "Rota 4", tmj: praiaMap as unknown as TiledMap, pack: praiaPack as unknown as ScenePack, scene: false },
   vila: { id: "vila", region: "vila_dos_bebes", route: "Zona segura", tmj: vilaMap as unknown as TiledMap, pack: vilaPack as unknown as ScenePack, scene: false },
@@ -82,7 +95,7 @@ export const MAPS: Record<string, MapDef> = {
   },
 };
 
-export const DEFAULT_MAP = "forest-proof";
+export const DEFAULT_MAP = "digi-forest-v15b";
 
 export function regionById(id: string): RegionDef | undefined {
   return REGIONS.find((r) => r.id === id);

@@ -74,10 +74,12 @@ describe("mapa-múndi", () => {
   });
 
   it("viajar para a região volta ao último mapa visitado nela (não ao primeiro da região)", () => {
-    expect(travelTarget("floresta_densa")!.id).toBe("forest-proof");
+    // desde 2026-11-12 o primeiro mapa da Floresta Densa é a Digi Forest v15b
+    expect(travelTarget("floresta_densa")!.id).toBe("digi-forest-v15b");
     expect(travelTarget("floresta_densa", { floresta_densa: "digimon-forest-01" })!.id).toBe("digimon-forest-01");
+    expect(travelTarget("floresta_densa", { floresta_densa: "forest-proof" })!.id).toBe("forest-proof");
     // histórico inválido (mapa de outra região) é ignorado
-    expect(travelTarget("floresta_densa", { floresta_densa: "vila" })!.id).toBe("forest-proof");
+    expect(travelTarget("floresta_densa", { floresta_densa: "vila" })!.id).toBe("digi-forest-v15b");
     expect(MAPS["digimon-forest-01"].region).toBe("floresta_densa");
   });
 });

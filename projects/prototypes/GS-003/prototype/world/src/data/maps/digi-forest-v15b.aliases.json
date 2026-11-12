@@ -1,0 +1,251 @@
+{
+  "_doc": "Digi Forest v15b (PixelLab 1bb07708-b46e-4e52-9cd1-f92dd86a11fe) → art/map-factory/digi-forest-v15b/, gerado por scripts/import-pixellab-map.mjs. Chão = terrain.png recortado por célula (v15_t_<i>); objetos com pé (pivô) do groundBounds; cachoeira e brilho animados; água por deslocamento; filtro cartoon assado na arte (sat +40%, água +15%, contraste +15%).",
+  "pack": "pixellab-none",
+  "prefix": "plx_",
+  "extraPacks": [
+    {
+      "pack": "digi-forest-v15b",
+      "prefix": "v15_",
+      "grid": {
+        "from": "terrain",
+        "cols": 48,
+        "rows": 36,
+        "size": 32,
+        "key": "t_"
+      },
+      "pivots": {
+        "waterfall": [
+          64,
+          120
+        ],
+        "bridge_wood": [
+          44,
+          40
+        ],
+        "river_stone_cluster": [
+          21,
+          25
+        ],
+        "data_totem_pillar": [
+          16,
+          56
+        ],
+        "shadow_oval_small_flat": [
+          14,
+          12
+        ],
+        "ruin_piece_pillar": [
+          25,
+          37
+        ],
+        "ruin_piece_block": [
+          24,
+          32
+        ],
+        "lantern_post": [
+          12,
+          41
+        ],
+        "data_crystal_cyan": [
+          12,
+          25
+        ],
+        "mushroom_digital": [
+          13,
+          20
+        ],
+        "ground_flower_patch_small": [
+          12,
+          18
+        ],
+        "boss_portal_marker": [
+          32,
+          62
+        ],
+        "shadow_oval_large_flat": [
+          28,
+          24
+        ],
+        "sign_post": [
+          12,
+          30
+        ],
+        "campfire": [
+          17,
+          26
+        ],
+        "log_fallen": [
+          31,
+          21
+        ],
+        "tree_canopy_broadleaf_v2": [
+          32,
+          75
+        ],
+        "tree_dark_conifer_v2": [
+          28,
+          70
+        ],
+        "tree_canopy_big": [
+          33,
+          63
+        ],
+        "tree_canopy_edge_wide": [
+          48,
+          66
+        ],
+        "tallgrass_tuft_b": [
+          14,
+          21
+        ],
+        "waterfall_f00": [
+          64,
+          120
+        ],
+        "waterfall_f01": [
+          64,
+          120
+        ],
+        "waterfall_f02": [
+          64,
+          120
+        ],
+        "waterfall_f03": [
+          64,
+          120
+        ],
+        "waterfall_f04": [
+          64,
+          120
+        ],
+        "waterfall_f05": [
+          64,
+          120
+        ],
+        "waterfall_f06": [
+          64,
+          120
+        ],
+        "waterfall_f07": [
+          64,
+          120
+        ],
+        "waterfall_f08": [
+          64,
+          120
+        ]
+      }
+    }
+  ],
+  "animProps": {
+    "v15_waterfall": {
+      "frames": [
+        "v15_waterfall_f00",
+        "v15_waterfall_f01",
+        "v15_waterfall_f02",
+        "v15_waterfall_f03",
+        "v15_waterfall_f04",
+        "v15_waterfall_f05",
+        "v15_waterfall_f06",
+        "v15_waterfall_f07",
+        "v15_waterfall_f08"
+      ],
+      "frameMs": 110
+    }
+  },
+  "waterAnim": {
+    "tile": "v15_water_tile",
+    "alpha": 0.55,
+    "pxPerSec": 6,
+    "inset": 5,
+    "glints": 0.12
+  },
+  "look": {
+    "id": "v15b",
+    "doc": "Digi Forest v15b: sem regrade da arte (o filtro cartoon já vem assado); dia/noite pelo ambiente, luzes nos props digitais e no fogo, sombra oval do motor sob árvores e personagens.",
+    "zoomMul": 1.5,
+    "grade": {
+      "rules": [
+        {
+          "match": ".*",
+          "skip": true
+        }
+      ]
+    },
+    "lights": {
+      "v15_lantern_post": {
+        "color": "#ffb347",
+        "radius": 44,
+        "intensity": 0.75,
+        "oy": -36
+      },
+      "v15_campfire": {
+        "color": "#ff7a33",
+        "radius": 46,
+        "intensity": 0.9,
+        "oy": -8
+      },
+      "v15_data_crystal_cyan": {
+        "color": "#7df0ff",
+        "radius": 34,
+        "intensity": 0.6,
+        "oy": -14
+      },
+      "v15_data_totem_pillar": {
+        "color": "#7df0ff",
+        "radius": 52,
+        "intensity": 0.7,
+        "oy": -48
+      },
+      "v15_boss_portal_marker": {
+        "color": "#7df0ff",
+        "radius": 64,
+        "intensity": 0.8,
+        "oy": -36
+      },
+      "v15_mushroom_digital": {
+        "color": "#7df0ff",
+        "radius": 22,
+        "intensity": 0.45,
+        "oy": -8
+      }
+    },
+    "fireKeys": [
+      "v15_lantern_post",
+      "v15_campfire"
+    ],
+    "canopyMask": 0,
+    "playerLight": {
+      "color": "#ffd59a",
+      "radius": 48,
+      "intensity": 0.38
+    },
+    "ambient": {
+      "day": {
+        "multiply": "#ffffff",
+        "tint": "#fff2c8",
+        "tintAlpha": 0.03,
+        "vignette": 0.16,
+        "lightScale": 0.35
+      },
+      "night": {
+        "multiply": "#6f78c8",
+        "tint": "#070a2c",
+        "tintAlpha": 0.18,
+        "vignette": 0.55,
+        "lightScale": 1
+      }
+    },
+    "shadows": {
+      "color": "#0a1a12",
+      "entityAlpha": 0.42,
+      "propAlpha": 0.34,
+      "skip": "^v15_(tallgrass|ground_flower|river_shimmer|waterfall|boss_portal|mushroom)"
+    },
+    "particles": {
+      "fireflies": 0.5,
+      "dust": 0.3,
+      "leaves": 0.25
+    }
+  }
+}

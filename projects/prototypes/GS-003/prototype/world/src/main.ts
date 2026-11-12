@@ -20,7 +20,8 @@ import { drawLabels, labelMetrics, layoutLabels, measureWith } from "./render/la
 import { makePortraitFn, makeSpriteFn } from "./render/portrait";
 import { Presenter } from "./render/presenter";
 import { WorldView } from "./render/view";
-import { parseTiledMap, portalAt, pxToSub, subToPx } from "./sim/map";
+import { closeMap, parseTiledMap, portalAt, pxToSub, subToPx, WORLDMAP_PORTAL } from "./sim/map";
+import { rosterOf, rosterSpawns, rosterTable } from "./sim/encounters/roster";
 import { applyOpenedChests, arenaOf, interact, nearestInteraction, type InteractResult } from "./sim/interact";
 import { TICK_MS, WORLD } from "./sim/params";
 import { createDefaultWorld, createMapWorld, FOREST_PROOF_SCENE, LOCAL_PLAYER } from "./sim/setup";
@@ -33,7 +34,7 @@ import { Hud, type HudScene } from "./ui/hud";
 import { STARTER_LEVEL, StarterPicker } from "./ui/starter";
 import { loadWorldContent } from "./sim/species";
 import { Panel } from "./ui/panel";
-import { worldMapHtml } from "./ui/worldmap";
+import { setWorldmapTravel, worldMapHtml } from "./ui/worldmap";
 import { canTravel, DEFAULT_MAP, MAPS, lookFor, regionById, travelTarget, withLook, type MapDef, type Progress } from "./world/regions";
 import { boostEncGrass, gradeTiles } from "./render/look";
 import { Minimap, type MinimapDot } from "./ui/minimap";
@@ -295,7 +296,10 @@ async function boot() {
   async function buildMap(mapId: string, start: string | undefined, carry?: SaveData): Promise<Live> {
     const def0 = regionMode ? MAPS[mapId] ?? MAPS[DEFAULT_MAP] : undefined;
     const def = def0 && withLook(def0, lookFor(def0, LOOK));
-    const encTable = ENCOUNTERS && def ? ENCOUNTER_TABLES[def.id] : undefined;
+    // regra (c) de 2026-11-12: qualquer Digimon do roster atual (espécies com visual) em qualquer mapa
+    const roster = rosterOf(loadWorldContent(), (id) => !!creatures[id]);
+    const baseTable = ENCOUNTERS && def ? ENCOUNTER_TABLES[def.id] : undefined;
+    const encTable = baseTable && rosterTable(baseTable, roster);
     const opts = {
       auto,
       localName: look.name,
@@ -303,7 +307,10 @@ async function boot() {
       ...(newStarter && !carry ? { partnerSpecies: starter!, partnerLevel: STARTER_LEVEL } : {}),
       ...(encTable ? { world: { encounters: encTable, env: { time: encPeriod(), weather: WEATHER } } } : {}),
     };
-    const { sim, events } = def ? createMapWorld(parseTiledMap(def.id, def.tmj), def.scene, SEED, opts) : createDefaultWorld(SEED, { auto });
+    // regra (a): mapa fechado (sem saída de borda; o portal do mapa abre o Mapa-múndi)
+    const closed = def ? closeMap(parseTiledMap(def.id, def.tmj)) : undefined;
+    const worldMap = closed && !encTable ? { ...closed, spawns: rosterSpawns(closed.spawns, roster) } : closed;
+    const { sim, events } = def && worldMap ? createMapWorld(worldMap, def.scene, SEED, opts) : createDefaultWorld(SEED, { auto });
     if (carry) {
       applySave(sim, LOCAL_PLAYER, carry);
       if (auto) getPlayer(sim.state, LOCAL_PLAYER)!.auto = true;
@@ -354,6 +361,8 @@ async function boot() {
           : def?.pack.trees,
       look: mapLook,
       smoothAutotile: def?.pack.smoothAutotile,
+      animProps: def?.pack.animProps,
+      waterAnim: def?.pack.waterAnim,
       fxSheets: fxSheets.length ? sheetDrawer(fxSheets, (url) => images.get(url) as CanvasImageSource | undefined) : undefined,
     });
     if (nightTiles) view.setNightTiles(nightTiles);
@@ -705,6 +714,11 @@ async function boot() {
     }
     if (!portalArmed) return;
     portalArmed = false;
+    if (p.to === WORLDMAP_PORTAL) {
+      // teleporte: o Mapa-múndi abre com "Viajar" ligado (pelo HUD ele é só consulta)
+      openScreen("map", true);
+      return;
+    }
     const dest = MAPS[p.to];
     const t = dest ? canTravel(dest.region, progress()) : { ok: false, reason: "Destino sem mapa" };
     if (!t.ok) hud.toast(`${dest ? regionName(dest) : p.to}: ${t.reason}`);
@@ -807,8 +821,9 @@ async function boot() {
     if (id === "quest") return questsHtml(questList());
     return settingsHtml({ auto: player().auto, autoEvolve: !!player().autoEvolve, time: settings.time, confirmReset });
   };
-  function openScreen(id: string): void {
+  function openScreen(id: string, viaPortal = false): void {
     if (id === "arena") return openArena();
+    if (id === "map") setWorldmapTravel(viaPortal || params.get("teleporte") === "livre");
     if (id === "dex" && hud.core) return hud.openCore("db");
     const p = (panels as Record<string, Panel>)[id];
     if (!p) return;
@@ -986,7 +1001,7 @@ async function boot() {
     const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-travel]");
     if (!b || b.disabled) return;
     const dest = travelTarget(b.dataset.travel!, lastMapByRegion);
-    if (dest) void travel(dest.id, undefined);
+    if (dest) void travel(dest.id, "from_worldmap");
   });
 
   // ---- escala inteira pixel-perfect ----

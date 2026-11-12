@@ -32,6 +32,13 @@ export interface ExtraPack {
    * como um retângulo azul-escuro no meio da grama.
    */
   nightBlend?: string;
+  /**
+   * Recorte em grade de um PNG grande do pacote (import do PixelLab: o chão inteiro num terrain.png): a célula i
+   * (linha a linha) vira a chave '<prefix><key><i>' → rect [x, y, size, size] de '<from>'.
+   */
+  grid?: { from: string; cols: number; rows: number; size: number; key: string };
+  /** Pé (pivô em px dentro do PNG) por nome de arquivo do pacote: props cujo pé não é o centro da última linha. */
+  pivots?: Record<string, [number, number]>;
 }
 
 /** Nome de um PNG noturno sem o token `_night` (forest-v12: grass_dirt_wang47_night_5 → grass_dirt_wang47_5). */
@@ -54,6 +61,14 @@ export interface ScenePack {
    * 'fp12_<espécie>_<tamanho>_flip' com '_top' = fp12_…_top_flip e '_base' = o tronco fp10_…_base.
    */
   keyAliases?: Record<string, string>;
+  /** Props animados (import do PixelLab: cachoeira, brilho do rio): chave do prop → quadros (chaves) e ms por quadro. */
+  animProps?: Record<string, { frames: string[]; frameMs: number }>;
+  /**
+   * Água animada por deslocamento (import do PixelLab): por cima das células de água (as sólidas cuja chave de chão
+   * é do pacote), o tile de água pura `tile` desliza `pxPerSec` com alfa `alpha`, recuado `inset` px nos lados que
+   * dão para a margem (a borda pintada do autotile fica parada).
+   */
+  waterAnim?: { tile: string; alpha: number; pxPerSec: number; inset: number; glints?: number };
 }
 
 export type Preset = "day" | "night";
@@ -100,6 +115,11 @@ export function extraPackTiles(cfg: ScenePack, load: (e: ExtraPack, preset: Pres
     const src = load(e, "day");
     for (const [k, v] of Object.entries(src)) out[e.prefix + k] = v;
     for (const [k, c] of Object.entries(e.crops ?? {})) if (src[c.from]) out[e.prefix + k] = { url: src[c.from].url, rect: c.rect };
+    for (const [k, pv] of Object.entries(e.pivots ?? {})) if (out[e.prefix + k]) out[e.prefix + k] = { ...out[e.prefix + k], pivot: pv };
+    const gr = e.grid;
+    if (gr && src[gr.from])
+      for (let i = 0; i < gr.cols * gr.rows; i++)
+        out[`${e.prefix}${gr.key}${i}`] = { url: src[gr.from].url, rect: [(i % gr.cols) * gr.size, Math.floor(i / gr.cols) * gr.size, gr.size, gr.size] };
   }
   // preset noturno de chaves de outros pacotes: aplicado depois, vence a versão diurna
   if (preset === "night")

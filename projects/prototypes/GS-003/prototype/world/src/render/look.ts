@@ -63,7 +63,8 @@ export interface LookCfg {
   playerLight?: LightCfg;
   ambient: { day: AmbientCfg; night: AmbientCfg };
   trees?: { rimLight?: { day: string; night: string; alpha: number }; castShadow?: { day: string; dayAlpha: number; night: string; nightAlpha: number } };
-  shadows?: { color: string; entityAlpha: number; propAlpha: number };
+  /** `skip`: regex de chaves de prop sem sombra de contato (tufos, flores, brilhos: import do PixelLab). */
+  shadows?: { color: string; entityAlpha: number; propAlpha: number; skip?: string };
   fog?: { color: string; dayAlpha: number; nightAlpha: number; every?: number };
   particles?: { fireflies?: number; dust?: number; leaves?: number };
   mud?: { dark: string; mid: string; light: string; rim: string };
@@ -367,7 +368,9 @@ export function fillPixelEllipse(g: CanvasRenderingContext2D, cx: number, cy: nu
 export function drawPropShadows(g: CanvasRenderingContext2D, props: MapProp[], x0: number, y0: number, size: number, look: LookCfg, sizeOf: (p: MapProp) => { w: number; tree: boolean } | undefined): void {
   const sh = look.shadows ?? { color: "#0a0812", entityAlpha: 0.42, propAlpha: 0.36 };
   g.fillStyle = sh.color;
+  const skip = sh.skip ? new RegExp(sh.skip) : undefined;
   for (const p of props) {
+    if (skip?.test(p.key)) continue;
     if (p.x < x0 - 64 || p.x > x0 + size + 64 || p.y < y0 - 16 || p.y > y0 + size + 16) continue;
     const s = sizeOf(p);
     if (!s) continue;

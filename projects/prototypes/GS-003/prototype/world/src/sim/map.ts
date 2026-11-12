@@ -123,6 +123,8 @@ export interface MapPortal {
   h: number;
   to: string;
   toStart: string;
+  /** Portal do mapa-múndi (`to: "@worldmap"`): false = o mapa já tem arte do portal (o motor não desenha marcador). */
+  marker?: boolean;
 }
 
 /** NPC residente (camada `npcs`, Map Factory): Digimon parado, não hostil. Posição em sub-tiles. */
@@ -335,7 +337,7 @@ export function parseTiledMap(id: string, m: TiledMap): WorldMap {
       } else if (cls === "boss_arena") {
         arenas.push({ id: o.name || `arena-${o.id}`, boss: String(prop(o.properties, "boss") ?? ""), x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile });
       } else if (cls === "portal") {
-        portals.push({ name: o.name ?? "", x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile, to: String(prop(o.properties, "to")), toStart: String(prop(o.properties, "toStart") ?? "player") });
+        portals.push({ name: o.name ?? "", x: o.x, y: o.y, w: o.width ?? tile, h: o.height ?? tile, to: String(prop(o.properties, "to")), toStart: String(prop(o.properties, "toStart") ?? "player"), ...(prop(o.properties, "marker") === false ? { marker: false } : {}) });
       }
     }
   }
@@ -405,6 +407,28 @@ export function reachableCellsOf(map: WorldMap, z: SpawnZone): number[] {
   const out: number[] = [];
   for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (r[y * map.width + x] && !map.solid[y * map.width + x]) out.push(y * map.width + x);
   return out;
+}
+
+/** Destino especial de portal: abre o Mapa-múndi (regra dos mapas fechados, 2026-11-12). */
+export const WORLDMAP_PORTAL = "@worldmap";
+
+/**
+ * Mapas fechados (regra do fundador, 2026-11-12): troca de mapa só pelo teleporte do Mapa-múndi. Saem todas as
+ * saídas de borda (portais para outro mapa); o portal do mapa (`@worldmap`) fica. Mapa sem portal do mapa-múndi ganha
+ * um no início do Tamer (`player`), 1 célula, com marcador desenhado pelo motor. Devolve um mapa novo (não muta).
+ */
+export function closeMap(map: WorldMap): WorldMap {
+  const keep = map.portals.filter((p) => p.to === WORLDMAP_PORTAL);
+  if (!keep.length) {
+    const s = map.starts.player ?? Object.values(map.starts)[0];
+    if (s) {
+      const t = map.tileSize;
+      const tx = Math.floor(s.x / SUB);
+      const ty = Math.floor(s.y / SUB);
+      keep.push({ name: "portal-mapa-mundi", x: tx * t, y: ty * t, w: t, h: t, to: WORLDMAP_PORTAL, toStart: "player" });
+    }
+  }
+  return { ...map, portals: keep };
 }
 
 /** Sólido no ponto (sub-tiles). Fora do mapa conta como sólido. */

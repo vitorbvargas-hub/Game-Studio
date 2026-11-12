@@ -349,6 +349,14 @@ export function validateMap(id, m, ctx = {}) {
         fail(g, `portal '${p.name}' sem 'to'`);
         continue;
       }
+      // mapas fechados (regra de 2026-11-12): o portal do Mapa-múndi não leva a um mapa; só precisa ficar em célula livre
+      if (to === "@worldmap") {
+        const sg = solidGrid(m).solid;
+        const cx = Math.floor((p.x + (p.width ?? T) / 2) / T);
+        const cy = Math.floor((p.y + (p.height ?? T) / 2) / T);
+        if (sg[cy * W + cx]) fail(g, `portal '${p.name}' (Mapa-múndi) em célula bloqueada`);
+        continue;
+      }
       const touchesEdge = p.x <= 0 || p.y <= 0 || p.x + (p.width ?? T) >= W * T || p.y + (p.height ?? T) >= H * T;
       if (!touchesEdge) warn(g, `portal '${p.name}' não encosta na borda do mapa`);
       const dest = ctx.maps?.[to];

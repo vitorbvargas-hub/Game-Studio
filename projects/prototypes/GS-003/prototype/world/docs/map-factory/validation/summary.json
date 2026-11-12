@@ -1,7 +1,22 @@
 {
-  "date": "2026-11-11T14:12:55.437Z",
+  "date": "2026-11-12T15:04:59.118Z",
   "ok": true,
   "maps": [
+    {
+      "map": "digi-forest-v15b",
+      "ok": true,
+      "profile": "legacy",
+      "gates": {
+        "layers": "pass",
+        "tile_ids": "pass",
+        "asset_keys": "pass",
+        "reach": "pass",
+        "placement": "pass",
+        "wang": "pass",
+        "species": "pass",
+        "portals": "pass"
+      }
+    },
     {
       "map": "digimon-forest-01",
       "ok": true,

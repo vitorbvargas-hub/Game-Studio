@@ -47,6 +47,8 @@ export interface EncounterEntry {
   modifiers?: { when: Cond; weightMult: number }[];
   shared?: boolean;
   visible?: VisibleDef;
+  /** Ponto visível com sorteio de espécie (regra c, roster.ts): a zona escolhe entre estas a cada spawn. */
+  speciesPool?: string[];
 }
 
 export interface EncounterArea {

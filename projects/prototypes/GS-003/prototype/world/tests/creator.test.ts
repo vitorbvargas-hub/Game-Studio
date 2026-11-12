@@ -1,6 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { previewPose, PREVIEW_FRAME_MS, PREVIEW_TURN_MS, TamerCreator } from "../src/ui/creator";
+import { useTamerSet } from "../src/assets/tamer-presets";
+// criador com os Tamers v3 (8 cores de cabelo); o v13 (padrão desde 2026-11-12) é testado em v15-integration.test.ts
+useTamerSet("v3");
 
 afterEach(() => {
   document.body.innerHTML = "";

@@ -28,6 +28,10 @@ export function extraPackFiles(e) {
   const files = new Map();
   for (const [k, f] of out) files.set(e.prefix + k, { path: f });
   for (const [k, c] of Object.entries(e.crops ?? {})) if (out.has(c.from)) files.set(e.prefix + k, { path: out.get(c.from), rect: c.rect });
+  // recorte em grade (import do PixelLab: o chão inteiro num PNG), mesma regra de scene-tiles.ts
+  const g = e.grid;
+  if (g && out.has(g.from))
+    for (let i = 0; i < g.cols * g.rows; i++) files.set(`${e.prefix}${g.key}${i}`, { path: out.get(g.from), rect: [(i % g.cols) * g.size, Math.floor(i / g.cols) * g.size, g.size, g.size] });
   return files;
 }
 

@@ -83,7 +83,7 @@ export class TamerCreator {
               <legend>Personagem <i>${this.presets.length}</i></legend>
               <div class="cr-presets">${this.presets
                 .map(
-                  (p) => `<button type="button" class="cr-preset" data-preset="${esc(p.id)}" aria-pressed="false" title="${esc(`${p.label} · ${p.accessory}`)}">
+                  (p) => `<button type="button" class="cr-preset" data-preset="${esc(p.id)}" aria-pressed="false" title="${esc([p.label, p.accessory].filter(Boolean).join(" · "))}">
                     <canvas class="cr-portrait" data-portrait="${esc(p.id)}" width="24" height="20"></canvas>
                     <canvas class="cr-sprite" data-sprite="${esc(p.id)}" width="${PREVIEW_W}" height="${PREVIEW_H}"></canvas>
                     <b>${esc(p.label)}</b>
@@ -171,7 +171,7 @@ export class TamerCreator {
     if (!check.ok) err.textContent = NAME_ERRORS[check.error];
     this.el.querySelector<HTMLButtonElement>('[data-act="confirm"]')!.disabled = !check.ok;
     this.el.querySelector('[data-testid="cr-nameplate"]')!.textContent = check.name || "—";
-    this.el.querySelector('[data-testid="cr-summary"]')!.textContent = p ? `${p.label} · ${p.accessory} · cabelo ${(HAIR_PT[this.look.hair] ?? this.look.hair).toLowerCase()}` : "";
+    this.el.querySelector('[data-testid="cr-summary"]')!.textContent = p ? [p.label, p.accessory, `cabelo ${(HAIR_PT[this.look.hair] ?? this.look.hair).toLowerCase()}`].filter(Boolean).join(" · ") : "";
     this.paint(this.t0 ? performance.now() - this.t0 : 0);
   }
 

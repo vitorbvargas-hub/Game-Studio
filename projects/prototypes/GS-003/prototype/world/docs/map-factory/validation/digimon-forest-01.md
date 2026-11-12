@@ -1,6 +1,6 @@
 # Validação — digimon-forest-01
 
-- **Data:** 2026-11-11T14:12:55.437Z
+- **Data:** 2026-11-12T15:04:59.118Z
 
 | Mapa | Perfil | layers | tile_ids | asset_keys | reach | placement | wang | species | portals | Resultado |
 |---|---|---|---|---|---|---|---|---|---|---|

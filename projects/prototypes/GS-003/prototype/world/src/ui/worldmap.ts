@@ -20,6 +20,19 @@ const POS: Record<string, [number, number]> = {
   zona_corrompida: [88, 62],
 };
 
+/**
+ * Mapas fechados (regra do fundador, 2026-11-12): só se viaja pelo teleporte. O main liga isto ao abrir o Mapa-múndi
+ * pelo portal do mapa e desliga ao abrir pelo HUD (atalho M / botão): aí o mapa é só consulta, com "Viajar" desligado.
+ */
+let travelOn = true;
+export function setWorldmapTravel(on: boolean): void {
+  travelOn = on;
+}
+export function worldmapTravelOn(): boolean {
+  return travelOn;
+}
+const PORTAL_NOTE = "Para viajar, vá até o portal de teleporte do mapa.";
+
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 
 /** Sem variante explícita, segue a flag da URL (o main chama sem ela; nos testes não há ?hud=v2 → v1). */
@@ -48,13 +61,13 @@ export function worldMapHtml(current: string, p: Progress, variant: HudVariant =
       <b>${esc(r.name)}</b>
       <small>Nv.${r.levelRange[0]}–${r.levelRange[1]}${r.safeZone ? " · zona segura" : ` · ${r.wildSpecies.length} espécies`}</small>
       <em data-testid="wm-state">${esc(label)}</em>
-      ${here ? "" : `<button type="button" data-travel="${r.id}" ${t.ok ? "" : "disabled"}>Viajar</button>`}
+      ${here ? "" : `<button type="button" data-travel="${r.id}" ${t.ok && travelOn ? "" : "disabled"}>Viajar</button>`}
     </div>`;
   }).join("");
   return `<div class="worldmap">
       <div class="wm-canvas"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${svg}</svg>${nodes}</div>
       <button type="button" class="wm-arena" data-arena title="Arena PvP local (oponente fantasma)">${icon("trophy", 14)} Arena</button>
-      <p class="note">Viagem entre regiões liberadas (regra do GDD: nível do Tamer e chefes). Também dá para trocar de mapa pelas saídas na borda. Montanha, Deserto e Zona Corrompida ainda não têm mapa nesta prova.</p>
+      <p class="note">${travelOn ? "Teleporte entre regiões liberadas (regra do GDD: nível do Tamer e chefes). Os mapas são fechados: só se troca de mapa por aqui." : PORTAL_NOTE} Montanha, Deserto e Zona Corrompida ainda não têm mapa nesta prova.</p>
     </div>`;
 }
 
@@ -122,7 +135,7 @@ function detailHtml(r: RegionDef, current: string, p: Progress, on: boolean): st
       <p class="wm2-req ${met ? "met" : "unmet"}" data-testid="wm-req">${met && req !== "Nenhum" ? "✓ " : ""}${esc(req)}</p>
       <h4>Selvagens</h4>
       ${species}
-      ${state === "here" ? "" : `<button type="button" class="dg-cta wm2-travel" data-travel="${r.id}" ${t.ok ? "" : "disabled"}>Viajar</button>`}
+      ${state === "here" ? "" : `<button type="button" class="dg-cta wm2-travel" data-travel="${r.id}" ${t.ok && travelOn ? "" : "disabled"}>Viajar</button>`}
     </div>`;
 }
 
@@ -155,7 +168,7 @@ export function worldMapV2Html(current: string, p: Progress): string {
       <aside class="wm2-side" data-testid="wm2-side">
         ${details}
         <button type="button" class="wm-arena" data-arena title="Arena PvP local (oponente fantasma)">${icon("trophy", 14)} Arena</button>
-        <p class="note">Viagem entre regiões liberadas (nível do Tamer e chefes). As saídas na borda do mapa também trocam de região. Montanha, Deserto e Zona Corrompida ainda não têm mapa nesta prova.</p>
+        <p class="note">${travelOn ? "Teleporte entre regiões liberadas (nível do Tamer e chefes). Os mapas são fechados: só se troca de mapa por aqui." : PORTAL_NOTE} Montanha, Deserto e Zona Corrompida ainda não têm mapa nesta prova.</p>
       </aside>
     </div>`;
 }

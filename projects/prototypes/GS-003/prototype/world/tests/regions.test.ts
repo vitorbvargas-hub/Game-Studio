@@ -17,8 +17,12 @@ const parsed = Object.fromEntries(Object.values(MAPS).map((d) => [d.id, parseTil
 
 describe("mapas por região e saídas (troca de mapa)", () => {
   it("floresta, praia e vila: toda saída leva a um mapa que existe, num início que existe e não é sólido", () => {
-    expect(Object.keys(MAPS).sort()).toEqual(["digimon-forest-01", "forest-proof", "praia", "vila"]);
+    expect(Object.keys(MAPS).sort()).toEqual(["digi-forest-v15b", "digimon-forest-01", "forest-proof", "praia", "vila"]);
+    // (as saídas de borda continuam no .tmj, mas o jogo as remove: closeMap, regra dos mapas fechados de 2026-11-12;
+    // a v15b importada do PixelLab já vem só com o portal do Mapa-múndi)
+    expect(parsed["digi-forest-v15b"].portals.map((p) => p.to)).toEqual(["@worldmap"]);
     for (const m of Object.values(parsed)) {
+      if (m.id === "digi-forest-v15b") continue;
       expect(m.portals.length, m.id).toBeGreaterThan(0);
       for (const p of m.portals) {
         const dest = parsed[p.to];

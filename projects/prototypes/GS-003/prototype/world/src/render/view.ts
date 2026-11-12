@@ -41,7 +41,7 @@ import { ambientMix, drawDecals, drawParticles, drawPatches, drawPropShadows, fl
 export const CHUNK_TILES = 16;
 
 /** Touceiras da grama de encontro (GS-012): a de P4 e a dedicada da rodada 2 da fase 3. */
-export const ENC_GRASS_RE = /^(fp4_tall_grass_|fp9_enc_grass_)/;
+export const ENC_GRASS_RE = /^(fp4_tall_grass_|fp9_enc_grass_|v15_tallgrass_)/;
 
 export interface ViewOptions {
   /** ?team=compare: espécie → criatura de comparação, só para a parceira local (save/compare.ts). */
@@ -92,6 +92,10 @@ export interface ViewOptions {
   look?: LookCfg;
   /** Desenho extra logo acima do chão e abaixo das entidades (Arena: arquibancada e linhas do campo). */
   underlay?: (ctx: CanvasRenderingContext2D, camera: Camera, now: number) => void;
+  /** Props animados (import do PixelLab): chave do prop → quadros (chaves de tile) e ms por quadro. */
+  animProps?: Record<string, { frames: string[]; frameMs: number }>;
+  /** Água animada por deslocamento sobre as células de água (import do PixelLab; ScenePack.waterAnim). */
+  waterAnim?: { tile: string; alpha: number; pxPerSec: number; inset: number; glints?: number };
 }
 
 /** Árvores em 2 sprites (forest-v4) + luz do forest-v4.1 (sombra projetada, rim-light, ajuste fino da copa). */
@@ -921,6 +925,106 @@ export class WorldView {
       }
     this.stats.chunksDrawn = n;
     if (this.opts.look?.water) this.drawWater(now);
+    if (this.opts.waterAnim) this.drawWaterScroll(now);
+    this.drawPortalMarkers(now);
+  }
+
+  /** Células de água (sólidas no tile do chão, não por prop) e os lados delas que dão para terra (bits N=1 E=2 S=4 W=8). */
+  private waterScrollCells?: { i: number; shore: number }[];
+
+  /**
+   * Água do import do PixelLab: o tile de água pura desliza por cima das células de água (deslocamento de UV com
+   * volta no tile), em alfa parcial e recuado nos lados de margem, para a borda pintada do autotile ficar parada.
+   */
+  private drawWaterScroll(now: number): void {
+    const cfg = this.opts.waterAnim!;
+    const src = this.tiles[cfg.tile];
+    const img = src && this.images.get(src.url);
+    if (!img) return;
+    const { width: W, height: H, tileSize: ts } = this.map;
+    if (!this.waterScrollCells) {
+      // água = célula sólida pelo tile do chão (não por prop): no import do PixelLab só a água tem tile sólido
+      const byProp = new Set(this.map.props.filter((p) => p.solid).map((p) => Math.floor((p.y - 1) / ts) * W + Math.floor(p.x / ts)));
+      const isW = (x: number, y: number) => this.map.solid[y * W + x] === 1 && !byProp.has(y * W + x);
+      const water = (x: number, y: number) => x < 0 || y < 0 || x >= W || y >= H || isW(x, y);
+      this.waterScrollCells = [];
+      for (let y = 0; y < H; y++)
+        for (let x = 0; x < W; x++)
+          if (isW(x, y))
+            this.waterScrollCells.push({ i: y * W + x, shore: (water(x, y - 1) ? 0 : 1) | (water(x + 1, y) ? 0 : 2) | (water(x, y + 1) ? 0 : 4) | (water(x - 1, y) ? 0 : 8) });
+    }
+    const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];
+    const t = now / 1000;
+    const ox = Math.floor(t * cfg.pxPerSec) % sw;
+    const oy = Math.floor(t * cfg.pxPerSec * 0.5) % sh;
+    const cam = this.camera;
+    const ctx = this.ctx;
+    ctx.globalAlpha = cfg.alpha;
+    for (const { i, shore } of this.waterScrollCells) {
+      const x = (i % W) * ts - cam.x;
+      const y = Math.floor(i / W) * ts - cam.y;
+      if (x < -ts || y < -ts || x > cam.w || y > cam.h) continue;
+      const n = shore & 1 ? cfg.inset : 0;
+      const e = shore & 2 ? cfg.inset : 0;
+      const s = shore & 4 ? cfg.inset : 0;
+      const w = shore & 8 ? cfg.inset : 0;
+      // retângulo de destino [w, ts-e) × [n, ts-s), textura deslocada (ox, oy) com volta: até 4 pedaços
+      for (const [dx0, dx1, tx0] of [[w, ts - e, 0], [w, ts - e, ts]] as const)
+        for (const [dy0, dy1, ty0] of [[n, ts - s, 0], [n, ts - s, ts]] as const) {
+          const ax0 = Math.max(dx0, tx0 - ox);
+          const ax1 = Math.min(dx1, tx0 - ox + sw);
+          const ay0 = Math.max(dy0, ty0 - oy);
+          const ay1 = Math.min(dy1, ty0 - oy + sh);
+          if (ax1 <= ax0 || ay1 <= ay0) continue;
+          ctx.drawImage(img, sx + ax0 - (tx0 - ox), sy + ay0 - (ty0 - oy), ax1 - ax0, ay1 - ay0, x + ax0, y + ay0, ax1 - ax0, ay1 - ay0);
+        }
+      // brilhos: uma fração `glints` das células pisca um reflexo de 3 px (cruz), cada uma na sua fase
+      const h = (Math.imul(i + 1, 2654435761) >>> 0) / 4294967296;
+      if (cfg.glints && h < cfg.glints) {
+        const ph = (t * 0.9 + h * 53) % 2.4;
+        if (ph < 0.6) {
+          const gx = x + 8 + Math.floor(h * 977) % 16;
+          const gy = y + 8 + Math.floor(h * 6151) % 16;
+          ctx.globalAlpha = 0.85 * Math.sin((ph / 0.6) * Math.PI);
+          ctx.fillStyle = "#f4ffff";
+          ctx.fillRect(gx - 1, gy, 3, 1);
+          ctx.fillRect(gx, gy - 1, 1, 3);
+          ctx.globalAlpha = cfg.alpha;
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /**
+   * Regra dos mapas fechados: o portal do mapa-múndi (portal `@worldmap`) sem arte própria ganha um marcador
+   * desenhado pelo motor (anel de dados pulsando) no retângulo dele.
+   */
+  private drawPortalMarkers(now: number): void {
+    const cam = this.camera;
+    const ctx = this.ctx;
+    for (const p of this.map.portals) {
+      if (p.to !== "@worldmap" || p.marker === false) continue;
+      const cx = Math.round(p.x + p.w / 2 - cam.x);
+      const cy = Math.round(p.y + p.h / 2 - cam.y);
+      if (cx < -40 || cy < -40 || cx > cam.w + 40 || cy > cam.h + 40) continue;
+      const k = 0.5 + 0.5 * Math.sin(now / 320);
+      const rx = Math.max(10, Math.round(p.w / 2));
+      const ry = Math.max(5, Math.round(rx * 0.45));
+      ctx.save();
+      ctx.globalAlpha = 0.35 + 0.25 * k;
+      ctx.fillStyle = "#1fd8ff";
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.9;
+      ctx.strokeStyle = "#c8fbff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx - 2 + Math.round(2 * k), ry - 1 + Math.round(k), 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 
   /**
@@ -1248,9 +1352,17 @@ export class WorldView {
     this.blitEntity(`npc|${src.url}`, img, fr, dx, dy, S, false);
   }
 
+  /** Chave do quadro atual de um prop animado (fase pela posição, para dois iguais não piscarem juntos). */
+  private propFrameKey(pr: MapProp, now: number): string {
+    const a = this.opts.animProps?.[pr.key];
+    if (!a?.frames.length) return pr.key;
+    const k = a.frames[Math.floor((now + ((pr.x * 7 + pr.y * 13) % 997)) / a.frameMs) % a.frames.length];
+    return this.tiles[k] ? k : pr.key;
+  }
+
   private drawProp(pr: MapProp, now = 0): void {
     const cam = this.camera;
-    const src = this.tiles[pr.key];
+    const src = this.tiles[this.propFrameKey(pr, now)];
     const img = src && this.images.get(src.url);
     if (img) {
       const [sx, sy, sw, sh] = src.rect ?? [0, 0, img.width, img.height];

@@ -1,0 +1,144 @@
+{
+ "id": "TAMER-0010",
+ "label": "Vento",
+ "characterId": "e689d32a-b15c-437b-b833-c60daa41045b",
+ "source": "PixelLab (tamers-v13)",
+ "frame": {
+  "w": 36,
+  "h": 36
+ },
+ "pivot": {
+  "x": 18,
+  "y": 34
+ },
+ "walkMs": 110,
+ "idleMs": 260,
+ "rotations": {
+  "S": "rotations/S.png",
+  "SE": "rotations/SE.png",
+  "E": "rotations/E.png",
+  "NE": "rotations/NE.png",
+  "N": "rotations/N.png",
+  "NW": "rotations/NW.png",
+  "W": "rotations/W.png",
+  "SW": "rotations/SW.png"
+ },
+ "frames": {
+  "walk": {
+   "S": [
+    "walk/S/frame_000.png",
+    "walk/S/frame_001.png",
+    "walk/S/frame_002.png",
+    "walk/S/frame_003.png",
+    "walk/S/frame_004.png",
+    "walk/S/frame_005.png"
+   ],
+   "SW": [
+    "walk/SW/frame_000.png",
+    "walk/SW/frame_001.png",
+    "walk/SW/frame_002.png",
+    "walk/SW/frame_003.png",
+    "walk/SW/frame_004.png",
+    "walk/SW/frame_005.png"
+   ],
+   "SE": [
+    "walk/SE/frame_000.png",
+    "walk/SE/frame_001.png",
+    "walk/SE/frame_002.png",
+    "walk/SE/frame_003.png",
+    "walk/SE/frame_004.png",
+    "walk/SE/frame_005.png"
+   ],
+   "W": [
+    "walk/W/frame_000.png",
+    "walk/W/frame_001.png",
+    "walk/W/frame_002.png",
+    "walk/W/frame_003.png",
+    "walk/W/frame_004.png",
+    "walk/W/frame_005.png"
+   ],
+   "N": [
+    "walk/N/frame_000.png",
+    "walk/N/frame_001.png",
+    "walk/N/frame_002.png",
+    "walk/N/frame_003.png",
+    "walk/N/frame_004.png",
+    "walk/N/frame_005.png"
+   ],
+   "NW": [
+    "walk/NW/frame_000.png",
+    "walk/NW/frame_001.png",
+    "walk/NW/frame_002.png",
+    "walk/NW/frame_003.png",
+    "walk/NW/frame_004.png",
+    "walk/NW/frame_005.png"
+   ],
+   "E": [
+    "walk/E/frame_000.png",
+    "walk/E/frame_001.png",
+    "walk/E/frame_002.png",
+    "walk/E/frame_003.png",
+    "walk/E/frame_004.png",
+    "walk/E/frame_005.png"
+   ],
+   "NE": [
+    "walk/NE/frame_000.png",
+    "walk/NE/frame_001.png",
+    "walk/NE/frame_002.png",
+    "walk/NE/frame_003.png",
+    "walk/NE/frame_004.png",
+    "walk/NE/frame_005.png"
+   ]
+  },
+  "idle": {
+   "NE": [
+    "idle/NE/frame_000.png",
+    "idle/NE/frame_001.png",
+    "idle/NE/frame_002.png",
+    "idle/NE/frame_003.png"
+   ],
+   "SE": [
+    "idle/SE/frame_000.png",
+    "idle/SE/frame_001.png",
+    "idle/SE/frame_002.png",
+    "idle/SE/frame_003.png"
+   ],
+   "NW": [
+    "idle/NW/frame_000.png",
+    "idle/NW/frame_001.png",
+    "idle/NW/frame_002.png",
+    "idle/NW/frame_003.png"
+   ],
+   "S": [
+    "idle/S/frame_000.png",
+    "idle/S/frame_001.png",
+    "idle/S/frame_002.png",
+    "idle/S/frame_003.png"
+   ],
+   "N": [
+    "idle/N/frame_000.png",
+    "idle/N/frame_001.png",
+    "idle/N/frame_002.png",
+    "idle/N/frame_003.png"
+   ],
+   "SW": [
+    "idle/SW/frame_000.png",
+    "idle/SW/frame_001.png",
+    "idle/SW/frame_002.png",
+    "idle/SW/frame_003.png"
+   ],
+   "E": [
+    "idle/E/frame_000.png",
+    "idle/E/frame_001.png",
+    "idle/E/frame_002.png",
+    "idle/E/frame_003.png"
+   ],
+   "W": [
+    "idle/W/frame_000.png",
+    "idle/W/frame_001.png",
+    "idle/W/frame_002.png",
+    "idle/W/frame_003.png"
+   ]
+  }
+ }
+}
