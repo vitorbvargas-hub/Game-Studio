@@ -1,0 +1,440 @@
+{
+ "date": "2026-11-12T15:09:49.820Z",
+ "url": "http://127.0.0.1:5191/",
+ "viewport": [
+  1920,
+  1080
+ ],
+ "shots": {
+  "v15_00_criador_tamers_v13.png": {
+   "note": "criador com os 12 presets v13 (padrão Coragem)",
+   "state": null
+  },
+  "v15_01_mapa_dia.png": {
+   "note": "entrada sul, dia",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     24,
+     35
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @12,17 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @44,13 forte-santuario",
+     "Growlmon Nv.12 @36,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 1,
+      "rolls": 0,
+      "encounters": 0,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_02_tamer_andando_no_mato.png": {
+   "note": "andando para oeste dentro do mato da entrada sul",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     20,
+     30
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @12,17 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @44,13 forte-santuario",
+     "Growlmon Nv.12 @38,22 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": "mato-entrada-sul-a-0",
+     "terrain": "tall_grass",
+     "pStep": 0.17,
+     "counters": {
+      "steps": 5,
+      "rolls": 0,
+      "encounters": 0,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_03_encontro.png": {
+   "note": "encontro no mato (4817 ms de caminhada contando a captura anterior)",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     21,
+     30
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @9,14 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @45,14 forte-santuario",
+     "Growlmon Nv.12 @38,24 forte-santuario-sul",
+     "Otamamon Nv.3 @23,31 roster-creature-0114"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": "mato-entrada-sul-a-0",
+     "terrain": "tall_grass",
+     "pStep": 0.17,
+     "counters": {
+      "steps": 16,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_03b_encontro_luta.png": {
+   "note": "combate do encontro",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     21,
+     30
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 HURT",
+    "wild": [
+     "Growlmon Nv.16 @9,15 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @44,14 forte-santuario",
+     "Growlmon Nv.12 @38,22 forte-santuario-sul",
+     "Otamamon Nv.3 @23,31 roster-creature-0114"
+    ],
+    "inEncounter": 1,
+    "enc": {
+     "area": "mato-entrada-sul-a-0",
+     "terrain": "tall_grass",
+     "pStep": 0.17,
+     "counters": {
+      "steps": 16,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_04_digimon_forte_clareira.png": {
+   "note": "forte visível: Growlmon Nv.16 (forte-clareira-oeste)",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     14,
+     17
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @12,19 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,11 forte-margem-rio",
+     "Numemon Nv.11 @42,16 forte-santuario",
+     "Growlmon Nv.12 @38,22 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 17,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_05_mapa_noite.png": {
+   "note": "margem oeste do rio e ponte, noite",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     21,
+     17
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 1,
+    "phase": "Noite",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @8,17 forte-clareira-oeste",
+     "WarGreymon Nv.10 @20,12 forte-margem-rio",
+     "Numemon Nv.11 @45,15 forte-santuario",
+     "Growlmon Nv.12 @35,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 18,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_05b_noite_fogueira.png": {
+   "note": "clareira oeste com a fogueira, noite",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     14,
+     16
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 1,
+    "phase": "Noite",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @7,16 forte-clareira-oeste",
+     "WarGreymon Nv.10 @20,12 forte-margem-rio",
+     "Numemon Nv.11 @46,15 forte-santuario",
+     "Growlmon Nv.12 @37,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 19,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_06_cachoeira_dia.png": {
+   "note": "lago e cachoeira animada, dia",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     34,
+     8
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @8,15 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @45,14 forte-santuario",
+     "Growlmon Nv.12 @37,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 20,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": false,
+    "travelEnabled": 0
+   }
+  },
+  "v15_07_mapa_mundi_pelo_portal.png": {
+   "note": "Mapa-múndi aberto pelo portal: Viajar ligado",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     43,
+     6
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @9,15 forte-clareira-oeste",
+     "WarGreymon Nv.10 @21,12 forte-margem-rio",
+     "Numemon Nv.11 @42,15 forte-santuario",
+     "Growlmon Nv.12 @38,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 25,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": true,
+    "travelEnabled": 2
+   }
+  },
+  "v15_08_mapa_mundi_pelo_hud.png": {
+   "note": "Mapa-múndi pelo HUD: só consulta (Viajar desligado)",
+   "state": {
+    "mapId": "digi-forest-v15b",
+    "tile": [
+     43,
+     6
+    ],
+    "tamerVisual": "tamer:TAMER-0003|original",
+    "tamerFrame": {
+     "frameW": 36,
+     "frameH": 36,
+     "tile": 32
+    },
+    "night": 0,
+    "phase": "Dia",
+    "partner": "Koromon Nv.1 IDLE",
+    "wild": [
+     "Growlmon Nv.16 @9,16 forte-clareira-oeste",
+     "WarGreymon Nv.10 @20,12 forte-margem-rio",
+     "Numemon Nv.11 @41,15 forte-santuario",
+     "Growlmon Nv.12 @38,21 forte-santuario-sul"
+    ],
+    "inEncounter": 0,
+    "enc": {
+     "area": null,
+     "terrain": null,
+     "pStep": 0,
+     "counters": {
+      "steps": 25,
+      "rolls": 7,
+      "encounters": 1,
+      "empties": 0
+     }
+    },
+    "worldmapOpen": true,
+    "travelEnabled": 0
+   }
+  }
+ },
+ "consoleErrors": [],
+ "pageErrors": [],
+ "encounterAfterMs": 4817,
+ "strongVisible": [
+  {
+   "x": 11,
+   "y": 17,
+   "name": "Growlmon",
+   "level": 16,
+   "entry": "forte-clareira-oeste"
+  },
+  {
+   "x": 21,
+   "y": 11,
+   "name": "WarGreymon",
+   "level": 10,
+   "entry": "forte-margem-rio"
+  },
+  {
+   "x": 42,
+   "y": 16,
+   "name": "Numemon",
+   "level": 11,
+   "entry": "forte-santuario"
+  },
+  {
+   "x": 38,
+   "y": 22,
+   "name": "Growlmon",
+   "level": 12,
+   "entry": "forte-santuario-sul"
+  }
+ ],
+ "hudWorldmap": 0
+}
