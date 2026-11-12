@@ -1,0 +1,1055 @@
+{
+  "Guilmon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/guilmon.png",
+    "ok": true,
+    "sheet_size": [
+      349,
+      391
+    ],
+    "n_blobs_total": 17,
+    "n_candidates": 9,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 4,
+    "cluster_heights": [
+      75,
+      75,
+      76,
+      76
+    ],
+    "walk_height_px": 76,
+    "low_confidence": false,
+    "name": "Guilmon"
+  },
+  "Growlmon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/growlmon.png",
+    "ok": true,
+    "sheet_size": [
+      299,
+      440
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 11,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 11,
+    "cluster_heights": [
+      35,
+      35,
+      36,
+      36,
+      36,
+      37,
+      37,
+      38,
+      38,
+      38,
+      38
+    ],
+    "walk_height_px": 37,
+    "low_confidence": false,
+    "name": "Growlmon"
+  },
+  "Koromon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/koromon.png",
+    "ok": true,
+    "sheet_size": [
+      187,
+      204
+    ],
+    "n_blobs_total": 13,
+    "n_candidates": 11,
+    "n_portraits_dropped": 2,
+    "cluster_member_count": 7,
+    "cluster_heights": [
+      15,
+      15,
+      17,
+      17,
+      18,
+      19,
+      19
+    ],
+    "walk_height_px": 17,
+    "low_confidence": false,
+    "name": "Koromon"
+  },
+  "Agumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/agumon.png",
+    "ok": true,
+    "sheet_size": [
+      352,
+      144
+    ],
+    "n_blobs_total": 17,
+    "n_candidates": 10,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 10,
+    "cluster_heights": [
+      24,
+      24,
+      24,
+      25,
+      26,
+      26,
+      26,
+      27,
+      27,
+      27
+    ],
+    "walk_height_px": 26,
+    "low_confidence": false,
+    "name": "Agumon"
+  },
+  "Greymon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/greymon.png",
+    "ok": true,
+    "sheet_size": [
+      346,
+      387
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 10,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 9,
+    "cluster_heights": [
+      36,
+      36,
+      37,
+      37,
+      37,
+      38,
+      38,
+      39,
+      40
+    ],
+    "walk_height_px": 37,
+    "low_confidence": false,
+    "name": "Greymon"
+  },
+  "Tsunomon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/tsunomon.png",
+    "ok": true,
+    "sheet_size": [
+      218,
+      180
+    ],
+    "n_blobs_total": 12,
+    "n_candidates": 11,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      23,
+      23,
+      24,
+      24,
+      26
+    ],
+    "walk_height_px": 24,
+    "low_confidence": false,
+    "name": "Tsunomon"
+  },
+  "Gabumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/gabumon.png",
+    "ok": true,
+    "sheet_size": [
+      412,
+      203
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 19,
+    "n_portraits_dropped": 2,
+    "cluster_member_count": 16,
+    "cluster_heights": [
+      28,
+      28,
+      28,
+      28,
+      29,
+      29,
+      29,
+      29,
+      29,
+      29,
+      29,
+      30,
+      30,
+      31,
+      31,
+      32
+    ],
+    "walk_height_px": 29,
+    "low_confidence": false,
+    "name": "Gabumon"
+  },
+  "Garurumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/garurumon.png",
+    "ok": true,
+    "sheet_size": [
+      313,
+      294
+    ],
+    "n_blobs_total": 10,
+    "n_candidates": 2,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      28
+    ],
+    "walk_height_px": 28,
+    "low_confidence": true,
+    "name": "Garurumon"
+  },
+  "Tokomon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/tokomon.png",
+    "ok": true,
+    "sheet_size": [
+      400,
+      450
+    ],
+    "n_blobs_total": 20,
+    "n_candidates": 15,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 4,
+    "cluster_heights": [
+      19,
+      19,
+      19,
+      21
+    ],
+    "walk_height_px": 19,
+    "low_confidence": false,
+    "name": "Tokomon"
+  },
+  "Patamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/patamon.png",
+    "ok": true,
+    "sheet_size": [
+      355,
+      134
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 12,
+    "n_portraits_dropped": 2,
+    "cluster_member_count": 8,
+    "cluster_heights": [
+      21,
+      21,
+      21,
+      22,
+      23,
+      23,
+      24,
+      24
+    ],
+    "walk_height_px": 23,
+    "low_confidence": false,
+    "name": "Patamon"
+  },
+  "Angemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/dwds-sheets/angemon.png",
+    "ok": true,
+    "sheet_size": [
+      312,
+      425
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 11,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      32,
+      35,
+      35,
+      36,
+      36
+    ],
+    "walk_height_px": 35,
+    "low_confidence": false,
+    "name": "Angemon"
+  },
+  "WarGrowlmon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__WarGrowlmon__48670.png",
+    "ok": false,
+    "reason": "no candidate blobs after portrait split",
+    "sheet_size": [
+      583,
+      172
+    ],
+    "n_blobs_total": 6,
+    "name": "WarGrowlmon"
+  },
+  "Gallantmon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Gallantmon__48623.png",
+    "ok": true,
+    "sheet_size": [
+      749,
+      172
+    ],
+    "n_blobs_total": 10,
+    "n_candidates": 2,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      27
+    ],
+    "walk_height_px": 27,
+    "low_confidence": true,
+    "name": "Gallantmon"
+  },
+  "MetalGreymon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__MetalGreymon__48322.png",
+    "ok": true,
+    "sheet_size": [
+      395,
+      432
+    ],
+    "n_blobs_total": 14,
+    "n_candidates": 7,
+    "n_portraits_dropped": 7,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      32,
+      34,
+      34,
+      36,
+      36
+    ],
+    "walk_height_px": 34,
+    "low_confidence": false,
+    "name": "MetalGreymon"
+  },
+  "WarGreymon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__WarGreymon__48613.png",
+    "ok": true,
+    "sheet_size": [
+      408,
+      518
+    ],
+    "n_blobs_total": 19,
+    "n_candidates": 11,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      36,
+      36,
+      37,
+      39,
+      39
+    ],
+    "walk_height_px": 37,
+    "low_confidence": false,
+    "name": "WarGreymon"
+  },
+  "WereGarurumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__WereGarurumon__48684.png",
+    "ok": true,
+    "sheet_size": [
+      406,
+      326
+    ],
+    "n_blobs_total": 11,
+    "n_candidates": 2,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      24
+    ],
+    "walk_height_px": 24,
+    "low_confidence": true,
+    "name": "WereGarurumon"
+  },
+  "MetalGarurumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__MetalGarurumon__48720.png",
+    "ok": true,
+    "sheet_size": [
+      411,
+      469
+    ],
+    "n_blobs_total": 11,
+    "n_candidates": 5,
+    "n_portraits_dropped": 2,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      24
+    ],
+    "walk_height_px": 24,
+    "low_confidence": true,
+    "name": "MetalGarurumon"
+  },
+  "MagnaAngemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__MagnaAngemon__48701.png",
+    "ok": true,
+    "sheet_size": [
+      402,
+      388
+    ],
+    "n_blobs_total": 20,
+    "n_candidates": 9,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 6,
+    "cluster_heights": [
+      37,
+      37,
+      38,
+      39,
+      39,
+      40
+    ],
+    "walk_height_px": 39,
+    "low_confidence": false,
+    "name": "MagnaAngemon"
+  },
+  "Seraphimon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Seraphimon__48694.png",
+    "ok": true,
+    "sheet_size": [
+      506,
+      334
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 16,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      33,
+      36,
+      36,
+      37,
+      37,
+      38,
+      38,
+      39,
+      39,
+      39,
+      39,
+      39,
+      39,
+      40,
+      40
+    ],
+    "walk_height_px": 39,
+    "low_confidence": false,
+    "name": "Seraphimon"
+  },
+  "Numemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Numemon__48598.png",
+    "ok": true,
+    "sheet_size": [
+      362,
+      230
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 20,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      22,
+      22,
+      22,
+      22,
+      23,
+      23,
+      23,
+      23,
+      23,
+      23,
+      23,
+      23,
+      23,
+      24,
+      25
+    ],
+    "walk_height_px": 23,
+    "low_confidence": false,
+    "name": "Numemon"
+  },
+  "Gizamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Gizamon__48584.png",
+    "ok": true,
+    "sheet_size": [
+      310,
+      261
+    ],
+    "n_blobs_total": 11,
+    "n_candidates": 7,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      24
+    ],
+    "walk_height_px": 24,
+    "low_confidence": true,
+    "name": "Gizamon"
+  },
+  "Betamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Betamon__48421.png",
+    "ok": true,
+    "sheet_size": [
+      381,
+      137
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 12,
+    "n_portraits_dropped": 2,
+    "cluster_member_count": 9,
+    "cluster_heights": [
+      23,
+      24,
+      24,
+      24,
+      24,
+      25,
+      25,
+      26,
+      27
+    ],
+    "walk_height_px": 24,
+    "low_confidence": false,
+    "name": "Betamon"
+  },
+  "Goburimon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Goburimon__48522.png",
+    "ok": true,
+    "sheet_size": [
+      363,
+      191
+    ],
+    "n_blobs_total": 10,
+    "n_candidates": 4,
+    "n_portraits_dropped": 3,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      27
+    ],
+    "walk_height_px": 27,
+    "low_confidence": true,
+    "name": "Goburimon"
+  },
+  "Vegiemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Vegiemon__48440.png",
+    "ok": true,
+    "sheet_size": [
+      406,
+      230
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 20,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      24,
+      26,
+      26,
+      27,
+      27,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28
+    ],
+    "walk_height_px": 28,
+    "low_confidence": false,
+    "name": "Vegiemon"
+  },
+  "Floramon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Floramon__48316.png",
+    "ok": true,
+    "sheet_size": [
+      415,
+      229
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 20,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 16,
+    "cluster_heights": [
+      25,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28
+    ],
+    "walk_height_px": 27,
+    "low_confidence": false,
+    "name": "Floramon"
+  },
+  "Gotsumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Gotsumon__48428.png",
+    "ok": true,
+    "sheet_size": [
+      362,
+      133
+    ],
+    "n_blobs_total": 10,
+    "n_candidates": 3,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 3,
+    "cluster_heights": [
+      25,
+      28,
+      29
+    ],
+    "walk_height_px": 28,
+    "low_confidence": true,
+    "name": "Gotsumon"
+  },
+  "Otamamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Otamamon__48426.png",
+    "ok": true,
+    "sheet_size": [
+      367,
+      127
+    ],
+    "n_blobs_total": 13,
+    "n_candidates": 10,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      20,
+      20,
+      22,
+      22,
+      23
+    ],
+    "walk_height_px": 22,
+    "low_confidence": false,
+    "name": "Otamamon"
+  },
+  "Bakemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Bakemon__48533.png",
+    "ok": true,
+    "sheet_size": [
+      309,
+      202
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 20,
+    "n_portraits_dropped": 1,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      21,
+      21,
+      22,
+      22,
+      22,
+      22,
+      22,
+      22,
+      22,
+      22,
+      22,
+      22,
+      23,
+      23,
+      25
+    ],
+    "walk_height_px": 22,
+    "low_confidence": false,
+    "name": "Bakemon"
+  },
+  "Kuwagamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Kuwagamon__41254.png",
+    "ok": true,
+    "sheet_size": [
+      599,
+      334
+    ],
+    "n_blobs_total": 15,
+    "n_candidates": 10,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 6,
+    "cluster_heights": [
+      37,
+      38,
+      38,
+      40,
+      40,
+      40
+    ],
+    "walk_height_px": 40,
+    "low_confidence": false,
+    "name": "Kuwagamon"
+  },
+  "Monzaemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Monzaemon__41256.png",
+    "ok": true,
+    "sheet_size": [
+      600,
+      358
+    ],
+    "n_blobs_total": 21,
+    "n_candidates": 16,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      35,
+      35,
+      36,
+      36,
+      36,
+      37,
+      37,
+      37,
+      37,
+      37,
+      38,
+      38,
+      38,
+      38,
+      38
+    ],
+    "walk_height_px": 37,
+    "low_confidence": false,
+    "name": "Monzaemon"
+  },
+  "Sukamon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Sukamon__48548.png",
+    "ok": true,
+    "sheet_size": [
+      402,
+      356
+    ],
+    "n_blobs_total": 23,
+    "n_candidates": 16,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 7,
+    "cluster_heights": [
+      20,
+      21,
+      21,
+      22,
+      22,
+      23,
+      23
+    ],
+    "walk_height_px": 22,
+    "low_confidence": false,
+    "name": "Sukamon"
+  },
+  "Gekomon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Gekomon__41250.png",
+    "ok": true,
+    "sheet_size": [
+      275,
+      230
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 12,
+    "n_portraits_dropped": 3,
+    "cluster_member_count": 10,
+    "cluster_heights": [
+      25,
+      26,
+      26,
+      26,
+      26,
+      27,
+      27,
+      27,
+      28,
+      28
+    ],
+    "walk_height_px": 27,
+    "low_confidence": false,
+    "name": "Gekomon"
+  },
+  "Hagurumon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Hagurumon__48317.png",
+    "ok": true,
+    "sheet_size": [
+      413,
+      193
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 21,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 14,
+    "cluster_heights": [
+      22,
+      22,
+      23,
+      23,
+      23,
+      23,
+      23,
+      23,
+      24,
+      24,
+      25,
+      25,
+      26,
+      26
+    ],
+    "walk_height_px": 23,
+    "low_confidence": false,
+    "name": "Hagurumon"
+  },
+  "Divermon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Divermon__48540.png",
+    "ok": true,
+    "sheet_size": [
+      408,
+      230
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 15,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 7,
+    "cluster_heights": [
+      28,
+      28,
+      28,
+      28,
+      29,
+      29,
+      30
+    ],
+    "walk_height_px": 28,
+    "low_confidence": false,
+    "name": "Divermon"
+  },
+  "Kamemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Kamemon__48718.png",
+    "ok": true,
+    "sheet_size": [
+      310,
+      276
+    ],
+    "n_blobs_total": 11,
+    "n_candidates": 7,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 1,
+    "cluster_heights": [
+      24
+    ],
+    "walk_height_px": 24,
+    "low_confidence": true,
+    "name": "Kamemon"
+  },
+  "Dracmon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Dracmon__48610.png",
+    "ok": true,
+    "sheet_size": [
+      314,
+      260
+    ],
+    "n_blobs_total": 11,
+    "n_candidates": 7,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 4,
+    "cluster_heights": [
+      65,
+      65,
+      66,
+      66
+    ],
+    "walk_height_px": 66,
+    "low_confidence": false,
+    "name": "Dracmon"
+  },
+  "Mamemon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Mamemon__48627.png",
+    "ok": true,
+    "sheet_size": [
+      316,
+      229
+    ],
+    "n_blobs_total": 22,
+    "n_candidates": 21,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 15,
+    "cluster_heights": [
+      10,
+      10,
+      11,
+      11,
+      11,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "walk_height_px": 12,
+    "low_confidence": false,
+    "name": "Mamemon"
+  },
+  "Raremon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Raremon__48600.png",
+    "ok": true,
+    "sheet_size": [
+      503,
+      334
+    ],
+    "n_blobs_total": 16,
+    "n_candidates": 8,
+    "n_portraits_dropped": 5,
+    "cluster_member_count": 5,
+    "cluster_heights": [
+      32,
+      32,
+      33,
+      33,
+      33
+    ],
+    "walk_height_px": 33,
+    "low_confidence": false,
+    "name": "Raremon"
+  },
+  "Airdramon": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Airdramon__48330.png",
+    "ok": true,
+    "sheet_size": [
+      400,
+      386
+    ],
+    "n_blobs_total": 23,
+    "n_candidates": 19,
+    "n_portraits_dropped": 4,
+    "cluster_member_count": 16,
+    "cluster_heights": [
+      33,
+      35,
+      35,
+      35,
+      36,
+      36,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37
+    ],
+    "walk_height_px": 37,
+    "low_confidence": false,
+    "name": "Airdramon"
+  },
+  "Hero_Tamer_baseline": {
+    "path": "/home/openclaw/projects/GameStudio/assets/GAME-ASSETS/10-source-files/spriters-resource/dgmnworldds__arrow-drop-down__Hero__48323.png",
+    "ok": true,
+    "sheet_size": [
+      328,
+      626
+    ],
+    "n_blobs_total": 97,
+    "n_candidates": 96,
+    "n_portraits_dropped": 0,
+    "cluster_member_count": 85,
+    "cluster_heights": [
+      20,
+      22,
+      23,
+      24,
+      24,
+      24,
+      24,
+      24,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      25,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      26,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      28,
+      29,
+      29
+    ],
+    "walk_height_px": 26,
+    "low_confidence": false,
+    "name": "Hero_Tamer_baseline"
+  }
+}

@@ -31,6 +31,12 @@ A pasta `projects/prototypes/GS-003/evidence/idledex-canonical/` reúne a evidê
 - Não abandonar a perspectiva e a composição da imagem canônica: visão de cima, tiles, vegetação densa, copas grandes, grama alta, flores, clareiras, nomes e níveis sobre as entidades e HUD inferior.
 - **Nada de produção em massa e nenhuma mudança de arquitetura** antes que o fundador valide a **prova visual**.
 
+## Decisões 2026-11-09
+
+- **Arena PvP (GS-006):** o fundador aprovou o manual 1v1 em melhor de 3, no formato do vídeo de referência (LMB = golpe básico, mais os 4 slots), e o automático 3v3 com gambits. Os atributos não são normalizados por padrão; a normalização fica opcional e visível. Por enquanto o protótipo é local, contra um oponente "fantasma". O servidor exige aprovação à parte. Especificação: `docs/PVP_ARENA_SPEC.md`.
+- **Arte:** o fundador autorizou fazer o ORÇAMENTO de tileset premium, PixelLab e freelancer, sem comprar. A compra exige aprovação.
+- **Lição registrada:** a arte desenhada do zero pelos agentes (árvores, Gigimon, areia) ficou abaixo do nível pedido em várias tentativas. Daqui em diante, a preferência é: sprite oficial, depois asset profissional, depois arte própria.
+
 ## Prova visual exigida antes de escalar
 
 Mapa de floresta com a composição da referência:

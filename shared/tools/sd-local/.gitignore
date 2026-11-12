@@ -1,0 +1,14 @@
+# Nunca versionar runtime, venv nem pesos de modelo
+ComfyUI/
+.venv/
+.tools/
+models/
+*.safetensors
+*.ckpt
+*.pt
+*.bin
+logs/
+*.log
+install.log.attempt*
+samples/raw/
+__pycache__/

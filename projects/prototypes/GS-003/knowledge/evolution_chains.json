@@ -1,0 +1,3071 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-11-09",
+  "lines": [
+    {
+      "line_id": "agumon",
+      "line_name": "Koromon -> Agumon -> Greymon -> MetalGreymon -> WarGreymon",
+      "games": {
+        "dw1": {
+          "game_label": "Digimon World (PS1, 1999)",
+          "digimon": [
+            {
+              "name": "Koromon",
+              "stage": "In-Training",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Agumon",
+                  "requirement": "pendente — a página do Agumon na Digimon World Wiki (Fandom) traz um bloco de dados 'Pre-Evolution' associado a Koromon com valores: Cuidado (erros) ≥0, Peso 10-20, e um conjunto de 'stats-alvo' (HP 1000, MP 500, Ofensiva 100, Defesa 50, Velocidade 50, Inteligência 50). Não foi possível confirmar no texto da fonte se esses valores-alvo descrevem de fato a transição Koromon→Agumon ou se há erro de preenchimento do template (os números são incomuns para uma evolução Baby→Rookie). Registrado como hipótese de baixa confiança, não como requisito confirmado.",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "baixa",
+              "source_url": "https://digimonworld.fandom.com/wiki/Agumon_(Digimon_World)",
+              "source_name": "Digimon World Wiki (Fandom) — página 'Agumon (Digimon World)', seção Pre-Evolution",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Existência de Koromon confirmada pela frase da própria página do Agumon: \"it is available to be obtained as a partner by evolving Koromon\". [H] Requisito exato é hipótese de baixa confiança (ver campo requirement)."
+            },
+            {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "attribute": "Vaccine",
+              "evolves_from": "Koromon",
+              "evolves_to": [
+                {
+                  "target": "Greymon",
+                  "requirement": "pendente — a seção 'Evolution' da própria página do Agumon lista Greymon como evolução, mas todos os campos de stats-alvo do bloco de dados estão em branco na fonte (nenhum requisito numérico foi publicado).",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimonworld.fandom.com/wiki/Agumon_(Digimon_World)",
+              "source_name": "Digimon World Wiki (Fandom) — página 'Agumon (Digimon World)'",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Rookie, Vaccine, Partner, recrutável na Native Forest (800HP) — confirmado no texto. [E] Trivia da página confirma tipo Vaccine permite acesso ao 'Ice Sanctuary'. alternate=true pois a própria página lista Greymon como uma entre possíveis evoluções de Champion sem excluir outras (texto não enumera as demais explicitamente, mas o sistema do jogo é conhecido por ter múltiplos caminhos; marcado alternate=true por precaução, já que a fonte não afirma que Greymon é a única evolução possível)."
+            },
+            {
+              "name": "Greymon",
+              "stage": "Champion",
+              "attribute": "pendente",
+              "evolves_from": "Agumon",
+              "evolves_to": [
+                {
+                  "target": "MetalGreymon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "baixa",
+              "source_url": "https://digimonworld.fandom.com/wiki/Evolution_(Digimon_World)",
+              "source_name": "Digimon World Wiki (Fandom) — página hub 'Evolution (Digimon World)', seção Champion",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Greymon está listado na seção '==Champion==' da página hub de evoluções do jogo, com evolves_from=Agumon confirmado pelo campo 'Digimon' do template. [H] Nenhum stat-alvo foi preenchido na fonte; requisito e caminho(s) para MetalGreymon não puderam ser verificados. Nenhuma página dedicada 'Greymon (Digimon World)' existe nesta wiki (confirmado por busca)."
+            },
+            {
+              "name": "MetalGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [
+                {
+                  "target": "WarGreymon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MetalGreymon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Bloqueio de acesso: busca na API do digimonworld.fandom.com não retornou página 'MetalGreymon (Digimon World)' nem ocorrências relevantes. GameFAQs e StrategyWiki ficaram inacessíveis (ver general_notes). Isso não significa que MetalGreymon esteja ausente do jogo — apenas que sua presença/requisitos não puderam ser confirmados pelas fontes exigidas."
+            },
+            {
+              "name": "WarGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para WarGreymon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Mesmo bloqueio de fonte descrito para MetalGreymon. Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+            }
+          ]
+        },
+        "next_order": {
+          "game_label": "Digimon World: Next Order",
+          "digimon": [
+            {
+              "name": "Koromon",
+              "stage": "Training II (In-Training)",
+              "attribute": "Free",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Agumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "ToyAgumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Agumon (Black)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Veemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Shoutmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Koromon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "attribute": "Vaccine",
+              "evolves_from": "Koromon",
+              "evolves_to": [
+                {
+                  "target": "Greymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Tyrannomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Meramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Greymon (Blue)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Numemon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Geremon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Agumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Greymon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Agumon (também a partir de ToyAgumon, Shoutmon)",
+              "evolves_to": [
+                {
+                  "target": "MetalGreymon (Vaccine)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "MetalGreymon (Blue)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "WarGrowlmon (Orange)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Greymon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Greymon (também a partir de GoldVeedramon, Growlmon (Orange))",
+              "evolves_to": [
+                {
+                  "target": "WarGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "ShineGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "KaiserGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Alphamon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/MetalGreymon_(Vaccine)",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09",
+              "notes": "No wiki, a página 'MetalGreymon' é um redirecionamento de desambiguação; o conteúdo citado é da página de variante 'MetalGreymon (Vaccine)', que é a variante relevante para esta linha (Agumon Vaccine)."
+            },
+            {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "attribute": "Vaccine",
+              "evolves_from": "MetalGreymon (Vaccine) (também a partir de MetalTyrannomon, Megadramon, WarGrowlmon (Orange))",
+              "evolves_to": [
+                {
+                  "target": "Omegamon",
+                  "requirement": "DNA Digivolve com MetalGarurumon (texto da fonte não detalha requisitos numéricos)",
+                  "alternate": false
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Mesma condição acima (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/WarGreymon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "cyber_sleuth": {
+          "game_label": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+          "digimon": [
+            {
+              "name": "Koromon",
+              "stage": "Training 2",
+              "attribute": "Free",
+              "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+              "evolves_to": [
+                {
+                  "target": "Agumon",
+                  "requirement": "Level 9, ATK 30, CAM 10%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/koromon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "attribute": "Vaccine",
+              "evolves_from": "Koromon",
+              "evolves_to": [
+                {
+                  "target": "Greymon",
+                  "requirement": "Level 16, ATK 55, CAM 50%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/agumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Greymon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Agumon",
+              "evolves_to": [
+                {
+                  "target": "MetalGreymon",
+                  "requirement": "Level 30, ATK 100, HP 350, CAM 50%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/greymon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Greymon",
+              "evolves_to": [
+                {
+                  "target": "WarGreymon",
+                  "requirement": "Level 55, ATK 160, DEF 130, HP 1700, ABI 20, CAM 80%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/metalgreymon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "attribute": "Vaccine",
+              "evolves_from": "MetalGreymon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/wargreymon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional (ex.: DNA digivolution) não verificada, fora do escopo pedido",
+              "element_type": "Fire"
+            }
+          ]
+        },
+        "dmo": {
+          "game_label": "Digimon Masters Online",
+          "digimon": [
+            {
+              "name": "Koromon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Agumon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/koromon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Agumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Koromon",
+              "evolves_to": [
+                {
+                  "target": "Greymon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/agumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Greymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Agumon",
+              "evolves_to": [
+                {
+                  "target": "MetalGreymon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/greymon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MetalGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Greymon",
+              "evolves_to": [
+                {
+                  "target": "WarGreymon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/metalgreymon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "WarGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "MetalGreymon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/wargreymon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "dawn_dusk": {
+          "game_label": "Digimon World: Dawn & Dusk",
+          "digimon": [
+            {
+              "name": "Koromon",
+              "stage": "In-Training",
+              "attribute": "Dragon",
+              "evolves_from": [],
+              "evolves_to": [
+                {
+                  "target": "Agumon",
+                  "requirement": "LV 7",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Koromon"
+                  ],
+                  "requirement": "LV 7"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Greymon",
+                  "requirement": "LV 18, Dragon EXP 280+",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "GeoGreymon",
+                  "requirement": "LV 20, Friendship 60%+, Defense 90+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "GeoGreymon é um caminho de Champion alternativo (fora desta linha, mas registrado por constar na mesma célula de evolução de Agumon).",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Greymon",
+              "stage": "Champion",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Agumon"
+                  ],
+                  "requirement": "LV 18, Dragon EXP 280+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "MetalGreymon",
+                  "requirement": "LV 34, Friendship 70%+, Dragon EXP 3000+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Greymon"
+                  ],
+                  "requirement": "LV 34, Friendship 70%+, Dragon EXP 3000+"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "RaptorDramon/Reptiledramon",
+                    "Tankmon"
+                  ],
+                  "requirement": "LV 30+, Dragon EXP 2000+, Attack 200+",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "WarGreymon",
+                  "requirement": "LV 52, Friendship 90%+, gotAgumon",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "MetalGreymon"
+                  ],
+                  "requirement": "LV 52, Friendship 90%+, gotAgumon (precisa já ter obtido/amigado um Agumon)"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Mametyramon",
+                    "Flamedramon"
+                  ],
+                  "requirement": "LV 47+, Dragon EXP 10000+, Attack 300+",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "line_id": "gabumon",
+      "line_name": "Tsunomon -> Gabumon -> Garurumon -> WereGarurumon -> MetalGarurumon",
+      "games": {
+        "dw1": {
+          "game_label": "Digimon World (PS1, 1999)",
+          "digimon": [
+            {
+              "name": "Tsunomon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Gabumon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página dedicada para Tsunomon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Nenhuma página 'Tsunomon (Digimon World)' encontrada via busca na API do digimonworld.fandom.com. Presença no jogo não confirmada nem negada pelas fontes exigidas."
+            },
+            {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "pendente",
+              "evolves_to": [
+                {
+                  "target": "Garurumon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimonworld.fandom.com/wiki/Gabumon_(Digimon_World)",
+              "source_name": "Digimon World Wiki (Fandom) — página 'Gabumon (Digimon World)'",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página confirma Nível Rookie, Tipo Data, Partner=Yes (Gabumon é um dos dois parceiros iniciais, opção 'Night'). [H] Todo o restante da página (Informação, Recrutamento, Moveset, Evolução, Curiosidades) está marcado como 'To be added' na fonte — nenhum dado de evolução foi publicado, incluindo evolves_from, que não é mencionado no texto (diferente da página do Agumon, que cita Koromon explicitamente)."
+            },
+            {
+              "name": "Garurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Gabumon",
+              "evolves_to": [
+                {
+                  "target": "WereGarurumon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Garurumon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] evolves_from=Gabumon é inferência razoável pela linha solicitada, não confirmada textualmente por nenhuma das 3 fontes (nenhuma página dedicada encontrada)."
+            },
+            {
+              "name": "WereGarurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [
+                {
+                  "target": "MetalGarurumon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para WereGarurumon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+            },
+            {
+              "name": "MetalGarurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MetalGarurumon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+            }
+          ]
+        },
+        "next_order": {
+          "game_label": "Digimon World: Next Order",
+          "digimon": [
+            {
+              "name": "Tsunomon",
+              "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+              "attribute": "pendente",
+              "evolves_from": "Punimon",
+              "evolves_to": [
+                {
+                  "target": "Gabumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Gaomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Psychemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Gabumon (Black)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Gumdramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Tsunomon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "Tsunomon",
+              "evolves_to": [
+                {
+                  "target": "Garurumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "BlackGarurumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "GaoGamon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Seadramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Numemon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Geremon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Gabumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Gabumon (também a partir de Gaomon)",
+              "evolves_to": [
+                {
+                  "target": "WereGarurumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "GrapLeomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "MachGaogamon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Garurumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Garurumon (também a partir de Kyubimon, Gaogamon)",
+              "evolves_to": [
+                {
+                  "target": "MetalGarurumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Jijimon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "MagnaGarurumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Leopardmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/WereGarurumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "attribute": "Data",
+              "evolves_from": "WereGarurumon (também a partir de MachGaogamon, MetalMamemon, Datamon)",
+              "evolves_to": [
+                {
+                  "target": "Omegamon",
+                  "requirement": "DNA Digivolve com WarGreymon (texto da fonte não detalha requisitos numéricos)",
+                  "alternate": false
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Mesma condição acima (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/MetalGarurumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "cyber_sleuth": {
+          "game_label": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+          "digimon": [
+            {
+              "name": "Tsunomon",
+              "stage": "Training 2",
+              "attribute": "Free",
+              "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+              "evolves_to": [
+                {
+                  "target": "Gabumon",
+                  "requirement": "Level 7, ATK 20, HP 75, SPD 20",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/tsunomon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Earth"
+            },
+            {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "Tsunomon",
+              "evolves_to": [
+                {
+                  "target": "Garurumon",
+                  "requirement": "Level 15, SPD 50, CAM 25%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gabumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Gabumon",
+              "evolves_to": [
+                {
+                  "target": "WereGarurumon",
+                  "requirement": "Level 28, ATK 90, SPD 85, CAM 50%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/garurumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Garurumon",
+              "evolves_to": [
+                {
+                  "target": "MetalGarurumon",
+                  "requirement": "Level 55, ATK 130, DEF 120, SPD 150, ABI 20, CAM 80%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/weregarurumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Earth"
+            },
+            {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "attribute": "Data",
+              "evolves_from": "WereGarurumon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/metalgarurumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional não verificada, fora do escopo pedido",
+              "element_type": "Water"
+            }
+          ]
+        },
+        "dmo": {
+          "game_label": "Digimon Masters Online",
+          "digimon": [
+            {
+              "name": "Tsunomon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Gabumon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/tsunomon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Gabumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Tsunomon",
+              "evolves_to": [
+                {
+                  "target": "Garurumon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/gabumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Garurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Gabumon",
+              "evolves_to": [
+                {
+                  "target": "WereGarurumon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/garurumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "WereGarurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Garurumon",
+              "evolves_to": [
+                {
+                  "target": "MetalGarurumon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/weregarurumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MetalGarurumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "WereGarurumon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/metalgarurumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "dawn_dusk": {
+          "game_label": "Digimon World: Dawn & Dusk",
+          "digimon": [
+            {
+              "name": "Tsunomon",
+              "stage": "In-Training",
+              "attribute": "Beast",
+              "evolves_from": [],
+              "evolves_to": [
+                {
+                  "target": "Gabumon",
+                  "requirement": "LV 8",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "Na tabela geral de Digivolution, o mesmo bloco de Tsunomon também lista ramos alternativos para Goburimon/Minotarumon/Nanimon, mas a página individual de Gabumon confirma Tsunomon como único Digivolution direto listado.",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Tsunomon"
+                  ],
+                  "requirement": "LV 8"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Garurumon",
+                  "requirement": "LV 19, Friendship 60%+, Attack 100+",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "Jungle Mojyamon (JMojyamon)",
+                  "requirement": "LV 17, Beast EXP 350+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Gabumon"
+                  ],
+                  "requirement": "LV 19, Friendship 60%+, Attack 100+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "WarGarurumon(Blue)",
+                  "requirement": "LV 35, Speed 170+, Beast EXP 4500+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Garurumon"
+                  ],
+                  "requirement": "LV 35, Speed 170+, Beast EXP 4500+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "MetalGarurumon",
+                  "requirement": "LV 52, Friendship 90%+, gotGabumon (precisa já ter obtido/amigado um Gabumon)",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] O nome exato usado nas páginas de perfil individuais do StrategyWiki para este estágio é 'WarGarurumon(Blue)' (existe também um 'WarGarurumon(Black)' alternativo, vindo de um ramo diferente de Gabumon via Goburimon/Ogremon). A página de DNA Digivolution do mesmo wiki, porém, usa literalmente o nome 'WereGarurumon' como ingrediente da fusão de Vikemon — ou seja, a própria fonte é inconsistente entre 'WarGarurumon' e 'WereGarurumon' para este Digimon. Tratamos como a mesma entidade pedida pelo usuário, mas a confiança no nome exibido em jogo foi reduzida para 'media' por essa inconsistência da fonte.",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "WereGarurumon / WarGarurumon(Blue)"
+                  ],
+                  "requirement": "LV 52, Friendship 90%+, gotGabumon"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Mammothmon",
+                    "MetalMamemon"
+                  ],
+                  "requirement": "LV 47+, Beast EXP 10000+, Speed 300+",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "line_id": "patamon",
+      "line_name": "Tokomon -> Patamon -> Angemon -> MagnaAngemon -> Seraphimon",
+      "games": {
+        "dw1": {
+          "game_label": "Digimon World (PS1, 1999)",
+          "digimon": [
+            {
+              "name": "Tokomon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Patamon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página dedicada para Tokomon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Busca por 'Tokomon' na API do digimonworld.fandom.com só retornou a página não relacionada 'Poyomon (Digimon World)' (correspondência de texto, não de nome). Nenhuma página 'Tokomon (Digimon World)' existe."
+            },
+            {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [
+                {
+                  "target": "Angemon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimonworld.fandom.com/wiki/Patamon_(Digimon_World)",
+              "source_name": "Digimon World Wiki (Fandom) — página 'Patamon (Digimon World)'",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página confirma Nível Rookie, Partner=Yes. Campo Tipo (Type) está em branco na fonte — não é possível afirmar Vaccine/Data/Virus. [H] Todo o restante da página está 'To be added'; evolves_from e requisitos de evolução não publicados."
+            },
+            {
+              "name": "Angemon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Patamon",
+              "evolves_to": [
+                {
+                  "target": "MagnaAngemon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Angemon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] evolves_from=Patamon é inferência pela linha solicitada, não confirmada textualmente. Nenhuma página 'Angemon (Digimon World)' encontrada."
+            },
+            {
+              "name": "MagnaAngemon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [
+                {
+                  "target": "Seraphimon",
+                  "requirement": "pendente",
+                  "alternate": "pendente"
+                }
+              ],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MagnaAngemon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+            },
+            {
+              "name": "Seraphimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "pendente",
+              "evolves_to": [],
+              "status": "pendente",
+              "confidence": "baixa",
+              "source_url": "",
+              "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Seraphimon em Digimon World (PS1)",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+            }
+          ]
+        },
+        "next_order": {
+          "game_label": "Digimon World: Next Order",
+          "digimon": [
+            {
+              "name": "Tokomon",
+              "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+              "attribute": "pendente",
+              "evolves_from": "Poyomon",
+              "evolves_to": [
+                {
+                  "target": "Patamon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Biyomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Tsukaimon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Hackmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Lucemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Tokomon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "Tokomon",
+              "evolves_to": [
+                {
+                  "target": "Angemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Piddomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Growlmon (Orange)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Veedramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Numemon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Geremon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Patamon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Angemon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Patamon (também a partir de Terriermon)",
+              "evolves_to": [
+                {
+                  "target": "MagnaAngemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "BlueMeramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Taomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Angemon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Angemon (também a partir de Wizardmon, Sorcermon)",
+              "evolves_to": [
+                {
+                  "target": "Seraphimon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Cherubimon (Good)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Jesmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "MarineAngemon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/MagnaAngemon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "attribute": "Vaccine",
+              "evolves_from": "MagnaAngemon (também a partir de Monzaemon, Lucemon Chaos Mode)",
+              "evolves_to": [
+                {
+                  "target": "Imperialdramon Fighter Mode",
+                  "requirement": "DNA Digivolve com Imperialdramon Dragon Mode (texto da fonte não detalha requisitos numéricos)",
+                  "alternate": false
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Mesma condição acima (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Seraphimon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "cyber_sleuth": {
+          "game_label": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+          "digimon": [
+            {
+              "name": "Tokomon",
+              "stage": "Training 2",
+              "attribute": "Free",
+              "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+              "evolves_to": [
+                {
+                  "target": "Patamon",
+                  "requirement": "Level 7, INT 20, SPD 20, CAM 10%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/tokomon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Neutral"
+            },
+            {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "Tokomon",
+              "evolves_to": [
+                {
+                  "target": "Angemon",
+                  "requirement": "Level 16, ATK 5, INT 40",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/patamon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Wind"
+            },
+            {
+              "name": "Angemon",
+              "stage": "Champion",
+              "attribute": "Vaccine",
+              "evolves_from": "Patamon",
+              "evolves_to": [
+                {
+                  "target": "MagnaAngemon",
+                  "requirement": "Level 30, INT 80, SP 80, ABI 10",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/angemon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Light"
+            },
+            {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "attribute": "Vaccine",
+              "evolves_from": "Angemon",
+              "evolves_to": [
+                {
+                  "target": "Seraphimon",
+                  "requirement": "Level 55, DEF 130, INT 150, SP 130, ABI 40",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/magnaangemon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Light"
+            },
+            {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "attribute": "Vaccine",
+              "evolves_from": "MagnaAngemon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/seraphimon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página marca explicitamente 'Final form.' (não há digivolução além de Seraphimon)",
+              "element_type": "Light"
+            }
+          ]
+        },
+        "dmo": {
+          "game_label": "Digimon Masters Online",
+          "digimon": [
+            {
+              "name": "Tokomon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/tokomon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Patamon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Angemon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/patamon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Angemon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Patamon",
+              "evolves_to": [
+                {
+                  "target": "MagnaAngemon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/angemon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "MagnaAngemon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Angemon",
+              "evolves_to": [
+                {
+                  "target": "Seraphimon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/magnaangemon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Seraphimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "MagnaAngemon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/seraphimon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "dawn_dusk": {
+          "game_label": "Digimon World: Dawn & Dusk",
+          "digimon": [
+            {
+              "name": "Tokomon",
+              "stage": "In-Training",
+              "attribute": "Bird",
+              "evolves_from": [],
+              "evolves_to": [
+                {
+                  "target": "Patamon",
+                  "requirement": "LV 8, Friendship 50%+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Bird"
+            },
+            {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "attribute": "Bird",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Tokomon"
+                  ],
+                  "requirement": "LV 8, Friendship 50%+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Angemon",
+                  "requirement": "LV 19, Friendship 70%+, Holy EXP 300+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "Única rota de Champion listada para Patamon (sem alternativa).",
+              "game_variant": null,
+              "family_species": "Bird"
+            },
+            {
+              "name": "Angemon",
+              "stage": "Champion",
+              "attribute": "Holy",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Patamon"
+                  ],
+                  "requirement": "LV 19, Friendship 70%+, Holy EXP 300+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "MagnaAngemon",
+                  "requirement": "LV 34, Spirit 160+, Holy EXP 3100+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Holy"
+            },
+            {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "attribute": "Holy",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Angemon"
+                  ],
+                  "requirement": "LV 34, Spirit 160+, Holy EXP 3100+"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Starmon",
+                    "Clockmon"
+                  ],
+                  "requirement": "LV 30+, Holy EXP 5000+, Spirit 190+",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Seraphimon",
+                  "requirement": "LV 66, Spirit 380+, Holy EXP 77777+",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "SL Angemon",
+                  "requirement": "LV 48, Attack 250+, Machine EXP 8500+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "notes": "[H] 'SL Angemon' é o nome exibido literalmente na tabela de Digivolution e na lista da página Mega do StrategyWiki; não encontramos confirmação separada do nome completo (possivelmente 'SlashAngemon', que aparece na página de DNA Digivolution como Mega distinto obtido apenas por fusão de Giromon+Kyukimon+Pixiemon — mas essa entrada de DNA não cita MagnaAngemon como ingrediente, então a relação entre 'SL Angemon' (via evolução normal de MagnaAngemon) e 'SlashAngemon' (via DNA) não pôde ser confirmada como a mesma entidade).",
+              "game_variant": null,
+              "family_species": "Holy"
+            },
+            {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "attribute": "Holy",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "MagnaAngemon"
+                  ],
+                  "requirement": "LV 66, Spirit 380+, Holy EXP 77777+"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "BlackRapidmon",
+                    "Rapidmon"
+                  ],
+                  "requirement": "pendente (fonte não especifica estatísticas separadas para esta combinação)",
+                  "alternate": true
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Shakkoumon",
+                    "Parrotmon"
+                  ],
+                  "requirement": "LV 61+, Holy EXP 50000+, Must have befriended Seraphimon (precisa já ter amigado um Seraphimon)",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Holy"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "line_id": "guilmon",
+      "line_name": "Gigimon -> Guilmon -> Growlmon -> WarGrowlmon -> Gallantmon",
+      "games": {
+        "dw1": {
+          "game_label": "Digimon World (PS1, 1999)",
+          "digimon": [
+            {
+              "name": "Gigimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API cobrindo toda a franquia de jogos Digimon World)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Busca por 'Gigimon' na API do digimonworld.fandom.com (que cobre todos os jogos Digimon World, não só o de 1999) retornou zero resultados — nenhuma página, nem mesmo em jogos posteriores. [H] Consistente com conhecimento de fundo de que Guilmon e sua linha estrearam em Digimon Tamers (2001), mídia posterior ao lançamento de Digimon World PS1 (1999); portanto não poderiam estar no elenco original do jogo."
+            },
+            {
+              "name": "Guilmon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Gigimon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Busca por 'Guilmon' na API do digimonworld.fandom.com retornou apenas páginas não relacionadas (Digimon World 4, Agumon, Digimon Care, Sukamon) — nenhuma página própria de Guilmon em nenhum jogo da franquia Digimon World. [H] Confirma a hipótese do solicitante: Guilmon é de mídia posterior (Tamers, 2001) e não existe em Digimon World PS1 (1999)."
+            },
+            {
+              "name": "Growlmon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Guilmon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Zero resultados de busca na API para 'Growlmon' em toda a wiki (todos os jogos Digimon World)."
+            },
+            {
+              "name": "WarGrowlmon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Growlmon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'WarGrowlmon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            },
+            {
+              "name": "Gallantmon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "WarGrowlmon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'Gallantmon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            }
+          ]
+        },
+        "next_order": {
+          "game_label": "Digimon World: Next Order",
+          "digimon": [
+            {
+              "name": "Gigimon",
+              "stage": "Training II (In-Training)",
+              "attribute": "pendente (fonte diz apenas 'Neutral type', sem afirmar explicitamente 'Free')",
+              "evolves_from": "Jyarimon",
+              "evolves_to": [
+                {
+                  "target": "Guilmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Goblimon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Solarmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Gotsumon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Shoutmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Gigimon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Guilmon",
+              "stage": "Rookie (nível geral confirmado no infobox da página, |level=Rookie; não reafirmado literalmente na seção de Next Order)",
+              "attribute": "Virus",
+              "evolves_from": "Gigimon",
+              "evolves_to": [
+                {
+                  "target": "Growlmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Growlmon (Orange)",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Tyrannomon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "RedVeedramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Numemon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Geremon",
+                  "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Guilmon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order' + infobox geral",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "attribute": "Virus",
+              "evolves_from": "Guilmon (também a partir de BlackAgumon, Shoutmon)",
+              "evolves_to": [
+                {
+                  "target": "WarGrowlmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "BlackWarGrowlmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "SkullGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Growlmon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "attribute": "Virus",
+              "evolves_from": "Growlmon (também a partir de Tyrannomon, RedVeedramon)",
+              "evolves_to": [
+                {
+                  "target": "Gallantmon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "ShineGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "Leviamon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "KaiserGreymon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Medidor de cocô no máximo (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/WarGrowlmon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "attribute": "Virus",
+              "evolves_from": "WarGrowlmon (também a partir de Agunimon)",
+              "evolves_to": [
+                {
+                  "target": "Gallantmon Crimson Mode",
+                  "requirement": "DNA Digivolve com um dos: Dynasmon, UlforceVeedramon, Alphamon, Kentaurosmon, ChaosGallantmon, Examon ou Jesmon (texto da fonte não detalha requisitos numéricos)",
+                  "alternate": false
+                },
+                {
+                  "target": "PlatinumSukamon",
+                  "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)",
+                  "alternate": true
+                },
+                {
+                  "target": "Sukamon",
+                  "requirement": "Mesma condição acima (texto da fonte)",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://digimon.fandom.com/wiki/Gallantmon",
+              "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "cyber_sleuth": {
+          "game_label": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+          "digimon": [
+            {
+              "name": "Gigimon",
+              "stage": "N/A",
+              "attribute": "N/A",
+              "evolves_from": "N/A",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gigimon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+              "accessed_date": "2026-11-09",
+              "game_variant": "não encontrado em nenhuma das duas versões nesta fonte",
+              "element_type": "N/A"
+            },
+            {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "attribute": "Virus",
+              "evolves_from": "not_in_game (Gigimon não existe em Cyber Sleuth / Hacker's Memory; Guilmon aparentemente começa direto no estágio Rookie nestes jogos, sem forma Training 2 confirmada)",
+              "evolves_to": [
+                {
+                  "target": "Growlmon",
+                  "requirement": "Level 15, ATK 50, SPD 20",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/guilmon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "attribute": "Virus",
+              "evolves_from": "Guilmon",
+              "evolves_to": [
+                {
+                  "target": "WarGrowlmon",
+                  "requirement": "Level 30, ATK 105, SPD 75",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/growlmon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "attribute": "Virus",
+              "evolves_from": "Growlmon",
+              "evolves_to": [
+                {
+                  "target": "Gallantmon",
+                  "requirement": "Level 60, ATK 140, DEF 140, INT 140, ABI 80, CAM 50%",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/wargrowlmon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "attribute": "Virus",
+              "evolves_from": "WarGrowlmon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gallantmon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional (ex.: Crimson Mode) não verificada, fora do escopo pedido",
+              "element_type": "Light"
+            }
+          ]
+        },
+        "dmo": {
+          "game_label": "Digimon Masters Online",
+          "digimon": [
+            {
+              "name": "Gigimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/gigimon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Growlmon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/guilmon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Growlmon",
+              "stage": "pendente",
+              "attribute": "Virus",
+              "evolves_from": "Guilmon",
+              "evolves_to": [
+                {
+                  "target": "WarGrowlmon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/growlmon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "WarGrowlmon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Growlmon",
+              "evolves_to": [
+                {
+                  "target": "Gallantmon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/wargrowlmon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Gallantmon",
+              "stage": "pendente",
+              "attribute": "Virus",
+              "evolves_from": "WarGrowlmon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/gallantmon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            }
+          ]
+        },
+        "dawn_dusk": {
+          "game_label": "Digimon World: Dawn & Dusk",
+          "digimon": [
+            {
+              "name": "Gigimon",
+              "stage": "In-Training",
+              "attribute": "Dragon",
+              "evolves_from": [],
+              "evolves_to": [
+                {
+                  "target": "Guilmon",
+                  "requirement": "LV 11, gotGuilmon (precisa já ter obtido/amigado um Guilmon)",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "O requisito 'gotGuilmon' para o próprio Gigimon evoluir em Guilmon é peculiar (exige já possuir um Guilmon previamente) — registrado literalmente como consta na fonte.",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Gigimon"
+                  ],
+                  "requirement": "LV 11, gotGuilmon"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Growlmon",
+                  "requirement": "LV 21, Attack 105+, gotGuilmon",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "Tyrannomon",
+                  "requirement": "LV 21, Dragon EXP 340+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Guilmon"
+                  ],
+                  "requirement": "LV 21, Attack 105+, gotGuilmon"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "WarGrowlmon",
+                  "requirement": "LV 36, Spirit 130+, Machine EXP 2100+",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "BlackWarGrowlmon",
+                  "requirement": "LV 40, Dark EXP 3600+, Machine EXP 3300+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Growlmon"
+                  ],
+                  "requirement": "LV 36, Spirit 130+, Machine EXP 2100+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Gallantmon",
+                  "requirement": "LV 60, Friendship 90%+, gotMegidramon (precisa já ter obtido/amigado um Megidramon)",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "Megidramon",
+                  "requirement": "LV 48, Dark EXP 9000+, gotGuilmon",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "notes": "Nenhuma rota de DNA Digivolution para WarGrowlmon foi encontrada na página de DNA Digivolution — apenas a rota normal a partir de Growlmon.",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "attribute": "Holy",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "WarGrowlmon"
+                  ],
+                  "requirement": "LV 60, Friendship 90%+, gotMegidramon"
+                }
+              ],
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Species de Gallantmon é Holy (não Dragon), mudando de atributo em relação ao resto da linha. Nenhuma rota de DNA Digivolution leva a Gallantmon (apenas 'Gallantmon Crimson Mode' usa Gallantmon como ingrediente, o que é uma forma posterior fora do pedido original).",
+              "game_variant": null,
+              "family_species": "Holy"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "line_id": "dorumon",
+      "line_name": "Dorimon -> Dorumon -> Dorugamon -> DoruGreymon -> Dorugoramon/ChaosDukemon",
+      "games": {
+        "dw1": {
+          "game_label": "Digimon World (PS1, 1999)",
+          "digimon": [
+            {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'Dorimon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing'). [H] Consistente com cronologia: a linha de Dorumon estreou em mídia posterior a 1999 (filme/Frontier), fora do elenco original de Digimon World PS1."
+            },
+            {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Dorimon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Busca por 'Dorumon' na API do digimonworld.fandom.com retornou apenas a página 'Digimon World 4' (jogo posterior), sem página própria em nenhum jogo da franquia. [H] Confirma a hipótese do solicitante de que Dorumon não existe em Digimon World PS1 (1999)."
+            },
+            {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Dorumon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'Dorugamon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            },
+            {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Dorugamon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'DoruGreymon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            },
+            {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "DoruGreymon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'Dorugoramon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            },
+            {
+              "name": "ChaosDukemon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "DoruGreymon",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "",
+              "source_name": "digimonworld.fandom.com (busca na API)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Página 'ChaosDukemon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+            }
+          ]
+        },
+        "next_order": {
+          "game_label": "Digimon World: Next Order",
+          "digimon": [
+            {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Dorimon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "A página geral do Dorimon no Digimon Wiki (digimon.fandom.com) não possui nenhuma seção '===Digimon World: Next Order===', e nenhuma menção a 'Next Order' aparece em todo o texto da página. A página principal de 'Digimon World: Next Order' (digimon.fandom.com) também não cita Dorimon/Doru. Sem evidência de presença no jogo."
+            },
+            {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Dorumon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "Mesma verificação: página geral do Dorumon sem seção 'Digimon World: Next Order' e sem nenhuma menção a 'Next Order' no corpo do texto."
+            },
+            {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Dorugamon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'."
+            },
+            {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/DoruGreymon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'."
+            },
+            {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/Dorugoramon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'."
+            },
+            {
+              "name": "ChaosDukemon (ChaosGallantmon)",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://digimon.fandom.com/wiki/ChaosGallantmon",
+              "source_name": "Digimon Wiki (digimon.fandom.com) - redirecionamento ChaosDukemon -> ChaosGallantmon, ausência de seção Next Order",
+              "accessed_date": "2026-11-09",
+              "notes": "A página 'ChaosDukemon' no Digimon Wiki redireciona para 'ChaosGallantmon' (nome usado em inglês nessa wiki). Nenhuma das duas formas aparece na página principal de 'Digimon World: Next Order' nem há seção dedicada ao jogo na página do próprio Digimon."
+            }
+          ]
+        },
+        "cyber_sleuth": {
+          "game_label": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+          "digimon": [
+            {
+              "name": "Dorimon",
+              "stage": "N/A",
+              "attribute": "N/A",
+              "evolves_from": "N/A",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorimon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+              "accessed_date": "2026-11-09",
+              "game_variant": "não encontrado em nenhuma das duas versões nesta fonte",
+              "element_type": "N/A"
+            },
+            {
+              "name": "Dorumon",
+              "stage": "Rookie",
+              "attribute": "Data",
+              "evolves_from": "not_in_game (Dorimon não existe em Cyber Sleuth / Hacker's Memory; Dorumon aparentemente começa direto no estágio Rookie nestes jogos, sem forma Training 2 confirmada)",
+              "evolves_to": [
+                {
+                  "target": "Dorugamon",
+                  "requirement": "Level 14, ATK 40, SPD 40",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorumon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Neutral"
+            },
+            {
+              "name": "Dorugamon",
+              "stage": "Champion",
+              "attribute": "Data",
+              "evolves_from": "Dorumon",
+              "evolves_to": [
+                {
+                  "target": "DoruGreymon",
+                  "requirement": "Level 30, ATK 95, DEF 75, HP 400",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugamon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Earth"
+            },
+            {
+              "name": "DoruGreymon",
+              "stage": "Ultimate",
+              "attribute": "Data",
+              "evolves_from": "Dorugamon",
+              "evolves_to": [
+                {
+                  "target": "Dorugoramon",
+                  "requirement": "Level 50, ATK 160, HP 1600, ABI 20",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugreymon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte",
+              "element_type": "Fire"
+            },
+            {
+              "name": "Dorugoramon",
+              "stage": "Mega",
+              "attribute": "Data",
+              "evolves_from": "DoruGreymon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugoramon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+              "accessed_date": "2026-11-09",
+              "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página marca explicitamente 'Final form.' (não há digivolução além de Dorugoramon nesta linha)",
+              "element_type": "Dark"
+            },
+            {
+              "name": "ChaosDukemon",
+              "stage": "N/A",
+              "attribute": "N/A",
+              "evolves_from": "N/A",
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "alta",
+              "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/chaosdukemon",
+              "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+              "accessed_date": "2026-11-09",
+              "game_variant": "não encontrado em nenhuma das duas versões nesta fonte; Dorugoramon é confirmado pela fonte como 'Final form.' da linha Dorumon, reforçando que ChaosDukemon não é um alvo de digivolução neste jogo",
+              "element_type": "N/A"
+            }
+          ]
+        },
+        "dmo": {
+          "game_label": "Digimon Masters Online",
+          "digimon": [
+            {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/dorimon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": null,
+              "evolves_to": [
+                {
+                  "target": "Dorugamon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/dorumon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Dorumon",
+              "evolves_to": [
+                {
+                  "target": "DoruGreymon",
+                  "requirement": "pendente",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/dorugamon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "Dorugamon",
+              "evolves_to": [
+                {
+                  "target": "Dorugoramon",
+                  "requirement": "pendente",
+                  "alternate": true
+                },
+                {
+                  "target": "ChaosGallantmon (ChaosDukemon)",
+                  "requirement": "pendente",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/dorugreymon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09",
+              "notes": "Pagina mostra bloco estruturado (Rank/Attribute/Element/Attacker Type/Family/Level needed/Requires/Can be ridden/Can be hatched/Available), mas os campos de texto vieram vazios ou com '-' na extracao; 'Can be ridden: sim', 'Can be hatched: nao', 'Available: sim' foram os unicos valores legiveis."
+            },
+            {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "DoruGreymon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "media",
+              "source_url": "https://dmokb.info/digimon/dorugoramon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09"
+            },
+            {
+              "name": "ChaosGallantmon (ChaosDukemon)",
+              "stage": "pendente",
+              "attribute": "pendente",
+              "evolves_from": "DoruGreymon",
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://dmokb.info/digimon/chaosgallantmon",
+              "source_name": "DMO Knowledge Base (dmokb.info)",
+              "accessed_date": "2026-11-09",
+              "notes": "Nome em jogo no DMO/dmokb.info e 'ChaosGallantmon' (slug nao existe em 'chaosdukemon'). O texto 'About' da fonte confirma explicitamente: 'ChaosGallantmon (カオスデュークモン ChaosDukemon)', ou seja ChaosDukemon e o nome romanizado japones do mesmo Digimon listado como ChaosGallantmon em DMO."
+            }
+          ]
+        },
+        "dawn_dusk": {
+          "game_label": "Digimon World: Dawn & Dusk",
+          "digimon": [
+            {
+              "name": "Dorimon",
+              "stage": "In-Training",
+              "attribute": "Beast",
+              "evolves_from": [],
+              "evolves_to": [
+                {
+                  "target": "Dorumon",
+                  "requirement": "LV 8, Beast EXP 100+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "Dorumon",
+              "stage": "Rookie",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Dorimon"
+                  ],
+                  "requirement": "LV 8, Beast EXP 100+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Dorugamon",
+                  "requirement": "LV 24, Attack 125+, Beast EXP 800+",
+                  "type": "normal",
+                  "alternate": true
+                },
+                {
+                  "target": "Drimogemon",
+                  "requirement": "LV 19, Attack 90+, Aptitude mínima 25+",
+                  "type": "normal",
+                  "alternate": true
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "Dorugamon",
+              "stage": "Champion",
+              "attribute": "Beast",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Dorumon"
+                  ],
+                  "requirement": "LV 24, Attack 125+, Beast EXP 800+"
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "DoruGreymon",
+                  "requirement": "LV 38, Dragon EXP 4800+, Machine EXP 3000+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Beast"
+            },
+            {
+              "name": "DoruGreymon",
+              "stage": "Ultimate",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "Dorugamon"
+                  ],
+                  "requirement": "LV 38, Dragon EXP 4800+, Machine EXP 3000+"
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Drimogemon",
+                    "NiseDrimogemon"
+                  ],
+                  "requirement": "LV 34+, Machine EXP 2500+, Dragon EXP 4500+ (requisito listado junto ao par abaixo)",
+                  "alternate": true
+                },
+                {
+                  "type": "dna",
+                  "source": [
+                    "Greymon",
+                    "Garurumon"
+                  ],
+                  "requirement": "LV 34+, Machine EXP 2500+, Dragon EXP 4500+",
+                  "alternate": true
+                }
+              ],
+              "evolves_to": [
+                {
+                  "target": "Dorugoramon",
+                  "requirement": "LV 54, Attack 265+, Species EXP 57000+",
+                  "type": "normal",
+                  "alternate": false
+                }
+              ],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] Species muda de Beast (Dorimon/Dorumon/Dorugamon) para Dragon a partir de DoruGreymon. A página de perfil individual de DoruGreymon lista apenas 'Dorugoramon' como evolução Mega, confirmando que não há caminho alternativo de Mega a partir desta linha além do DNA Digivolution listado acima.",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "Dorugoramon",
+              "stage": "Mega",
+              "attribute": "Dragon",
+              "evolves_from": [
+                {
+                  "type": "normal",
+                  "source": [
+                    "DoruGreymon"
+                  ],
+                  "requirement": "LV 54, Attack 265+, Species EXP 57000+"
+                }
+              ],
+              "evolves_to": [],
+              "status": "confirmed",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+              "accessed_date": "2026-11-09",
+              "game_variant": null,
+              "family_species": "Dragon"
+            },
+            {
+              "name": "ChaosDukemon",
+              "stage": "Mega",
+              "attribute": null,
+              "evolves_from": [],
+              "evolves_to": [],
+              "status": "not_in_game",
+              "confidence": "alta",
+              "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega",
+              "source_name": "StrategyWiki — Digimon World: Dawn and Dusk (lista completa de Mega + tabela de Digivolution + DNA Digivolution)",
+              "accessed_date": "2026-11-09",
+              "notes": "[E] 'ChaosDukemon' não aparece na lista dos 100 Digimon de Mega do StrategyWiki (sumário completo verificado), nem na tabela principal de Digivolution, nem na página de DNA Digivolution, nem como evolução listada no perfil individual de DoruGreymon (que lista apenas Dorugoramon). Conclusão: ChaosDukemon não existe em Digimon World: Dawn & Dusk; a evolução de Mega desta linha é apenas Dorugoramon.",
+              "game_variant": null,
+              "family_species": null
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "games": [
+    {
+      "game": "Digimon World (PS1, 1999)",
+      "attributes_used": ["Vaccine", "Data", "Virus", "Free"],
+      "attribute_advantage_rule": "pendente - nao encontrada formula de combate especifica do jogo nas fontes consultadas. [E] A Digimon Wiki (digimon.fandom.com) descreve a regra GERAL do franchise (nao especifica de Digimon World PS1): 'Virus is generally advantaged against Data, Data is advantaged against Vaccine and Vaccine is advantaged against Virus' (ciclo Vaccine>Virus>Data>Vaccine), mas tambem afirma que 'these attributes tend to not play a very important role in Digimon fights' e que um Digimon geralmente vence por nivel de evolucao/experiencia, nao por atributo.",
+      "elements_used": "pendente - nenhuma fonte consultada (digimonworld.fandom.com, digimon.fandom.com, strategywiki.org) documenta um sistema de elementos (fogo/agua/etc.) para o Digimon World original de 1999.",
+      "element_advantage_table": "pendente",
+      "combat_effect": "pendente - a pagina da strategywiki.org sobre o jogo (stub) e a digimonworld.fandom.com ('Digimon Types' e redirecionamentos de Vaccine/Virus/Data) nao contem tabela de dano ou bonus percentual. [E] O sistema de batalha documentado usa apenas stats (HP, MP, Offense, Defense, Speed, Brains) e comandos como 'Your Call'/'Retreat', sem mencao a bonus de atributo.",
+      "evolution_effect": "pendente - nao encontrada relacao entre atributo/elemento e digivolucao nas fontes consultadas. [H] Digivolucao parece depender de stats/cuidado (Care), nao de atributo.",
+      "sources": [
+        {
+          "claim": "Sistema de stats e batalha do Digimon World (PS1): HP, MP, Offensive, Defense, Speed, Brains; batalha baseada em comandos (Your Call, Retreat); sem mencao a bonus de atributo/elemento",
+          "url": "https://digimon.fandom.com/wiki/Digimon_World",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "digimonworld.fandom.com possui paginas 'Vaccine', 'Virus', 'Data' e 'Digimon Types', mas todas sao redirecionamentos/paginas vazias sem conteudo sobre regras de combate",
+          "url": "https://digimonworld.fandom.com/wiki/Digimon_Types",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "strategywiki.org/wiki/Digimon_World e um stub (sem secoes de Gameplay/Battle detalhadas); subpaginas existentes sao apenas Table of Contents, Controls, Characters, Walkthrough, Digimon, Items - nenhuma aborda atributo/elemento",
+          "url": "https://strategywiki.org/wiki/Digimon_World",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        },
+        {
+          "claim": "Regra geral do franchise (nao especifica de um jogo): os 5 atributos sao Data, Vaccine, Virus, Free e Variable; arranjo tipo pedra-papel-tesoura onde Virus vence Data, Data vence Vaccine e Vaccine vence Virus, mas atributos raramente decidem lutas no anime/jogos em geral",
+          "url": "https://digimon.fandom.com/wiki/Digimon_(creature)#Attribute",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        }
+      ]
+    },
+    {
+      "game": "Digimon World: Next Order",
+      "attributes_used": ["Vaccine", "Data", "Virus", "Free (provavelmente, por classificacao de especie)"],
+      "attribute_advantage_rule": "pendente - nenhuma fonte consultada (digimon.fandom.com, strategywiki.org, digimonworld.fandom.com) descreve explicitamente uma regra de vantagem de atributo em combate para este jogo.",
+      "elements_used": "pendente - nao encontrado sistema de elementos documentado para Next Order nas fontes consultadas.",
+      "element_advantage_table": "pendente",
+      "combat_effect": "pendente. [E] A unica descricao de gameplay encontrada (digimon.fandom.com) diz apenas: 'Battles take place using an AI battle system, with the Digimon fighting automatically and the player issuing strategic commands to them.' Nao ha mencao a bonus percentual de atributo/elemento.",
+      "evolution_effect": "pendente - nao encontrada relacao entre atributo/elemento e digivolucao nas fontes consultadas.",
+      "sources": [
+        {
+          "claim": "Descricao de gameplay de Next Order: batalha com IA e comandos estrategicos do jogador, sem mencao a atributo/elemento em combate",
+          "url": "https://digimon.fandom.com/wiki/Digimon_World:_Next_Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "strategywiki.org possui apenas pagina principal e Table of Contents para Next Order (Gameplay, Controls, Walkthrough, Achievements), sem subpagina dedicada a sistema de atributos/elementos",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Next_Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        },
+        {
+          "claim": "digimonworld.fandom.com possui uma pagina para 'Digimon World: Next Order' mas nao foi encontrado conteudo de combate/atributo acessivel via busca por 'attribute advantage' nesse wiki",
+          "url": "https://digimonworld.fandom.com/wiki/Digimon_World:_Next_Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa"
+        }
+      ]
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+      "attributes_used": ["Vaccine", "Data", "Virus", "Free"],
+      "attribute_advantage_rule": "[E] Vaccine forte contra Virus e fraco contra Data; Data forte contra Vaccine e fraco contra Virus; Virus forte contra Data e fraco contra Vaccine (ciclo fechado); Free nao tem vantagem nem desvantagem contra nenhum tipo.",
+      "elements_used": ["Fire", "Plant", "Water", "Electric", "Wind", "Earth", "Light", "Dark", "Neutral"],
+      "element_advantage_table": "[E] Fire forte vs Plant, fraco vs Water. Plant forte vs Water, fraco vs Fire. Water forte vs Fire, fraco vs Plant. Electric forte vs Wind, fraco vs Earth. Wind forte vs Earth, fraco vs Electric. Earth forte vs Electric, fraco vs Wind. Light forte vs Dark, fraco vs Dark (Light e Dark sao mutuamente fortes e fracos entre si). Dark forte vs Light, fraco vs Light. Neutral nao e forte nem fraco contra nada.",
+      "combat_effect": "[E] Citacao direta da wiki (digimon.fandom.com): 'A double advantage can be reached if a Digimon with a Type advantage uses a move with a Attribute advantage over another Digimon. The opposite happens if a Digimon with a Type disadvantage uses a move with an attribute disadvantage. For example, A Vaccine Digimon using a Fire Attribute attack will do x3 damage against a Digimon that is Virus/Plant, whilst using the same move against a Data type will do x0.5 damage. A Vaccine Digimon can boost their damage to 0.75% if they attack a Data Digimon with a move that is strong against the Data Digimon's Attribute, such as using a Fire Attribute attack against a Data/Plant Digimon. A Digimon attacking another Digimon with a Attribute Advantage will do x2 damage, or x1.25 if both Digimon are the same type, or if the Digimon is Free type.' [H] Nota de interpretacao: o trecho 'boost their damage to 0.75%' na fonte parece ser um erro de digitacao do editor da wiki (provavelmente deveria ser um multiplicador tipo x0.75 ou outro valor), mantido aqui como citacao literal por nao ter sido possivel confirmar o valor correto em outra fonte permitida. Em resumo os multiplicadores confirmados sao: tipo (Vaccine/Data/Virus) vantagem = x2 dano (ou x1.25 se mesmo tipo/Free); elemento (Fire/Water/etc.) vantagem = reforca ainda mais o multiplicador (dano total ate x3 quando tipo+elemento favoraveis simultaneamente, x0.5 quando ambos desfavoraveis).",
+      "evolution_effect": "pendente - a secao de Gameplay revisada (digimon.fandom.com) descreve requisitos de digivolucao baseados em nivel/stats (ABI, Digivolve/De-Digivolve), sem mencionar atributo ou elemento como requisito de evolucao.",
+      "sources": [
+        {
+          "claim": "Secao 'Attributes' e 'Types' completa do artigo de Cyber Sleuth, incluindo a formula de dano combinando Type (Vaccine/Data/Virus/Free) e Attribute (elemento)",
+          "url": "https://digimon.fandom.com/wiki/Digimon_Story:_Cyber_Sleuth#Gameplay",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Hacker's Memory usa o mesmo sistema de Cyber Sleuth ('The gameplay of Hacker's Memory is identical to its predecessor, with only a few balance changes'), sem alteracao nas regras de atributo/elemento",
+          "url": "https://digimon.fandom.com/wiki/Digimon_Story:_Cyber_Sleuth_-_Hacker%27s_Memory#Gameplay",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Confirmacao cruzada (fonte geral do franchise): Cyber Sleuth e Hacker's Memory incorporam o triangulo de atributos como mecanica principal, com dano dobrado contra o atributo que sao fortes e metade do dano recebido do atributo fraco; Free fica fora do triangulo (dano normal)",
+          "url": "https://digimon.fandom.com/wiki/Digimon_(creature)#Attribute",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        }
+      ]
+    },
+    {
+      "game": "Digimon Masters Online (DMO)",
+      "attributes_used": ["Data", "Vaccine", "Virus", "No Attribute (Free)", "Unknown (UK) Attribute"],
+      "attribute_advantage_rule": "[E] Data vence Vaccine e No Attribute. Virus vence Data e No Attribute. Vaccine vence Virus e No Attribute. Unknown Attribute vence todos os outros (Data, Vaccine, Virus e No Attribute). No Attribute nao tem vantagem contra nada.",
+      "elements_used": "[E] O jogo possui 11 'Elemental Attributes' (sistema separado do atributo Vaccine/Data/Virus), mas a pagina da DMO Knowledge Base consultada nao lista os 11 elementos especificos (pagina de sistema sem conteudo preenchido no momento da consulta).",
+      "element_advantage_table": "pendente - a pagina https://dmokb.info/systems/elemental-attributes existia mas estava sem conteudo preenchido ('This system page has no content yet') no momento da consulta; apenas texto generico foi recuperado.",
+      "combat_effect": "[E] Quando a 'Experience' de um atributo (Vaccine/Data/Virus) atinge 100%, concede bonus de 50% em dano normal de ataque e de skill contra um oponente em desvantagem de atributo. O mesmo texto de bonus de 50% aparece associado tambem aos 'Elemental Attributes', mas por ser um trecho de template repetido nas duas paginas da wiki, a aplicacao exata ao sistema elemental fica com confianca baixa. Para ganhar XP de atributo: um Digimon Vaccine precisa matar Digimons Virus; um Digimon Virus precisa matar Digimons Data; Digimons Data ganham XP de atributo ficando ao lado do jogador durante a devolucao de cascas de ovo quebradas a PawnChessmon. Digimons No Attribute nao tem como subir XP de atributo (bonus de roupas nao se aplica). Digimons Unknown (UK): XP fixo por estagio (Rookie 35%, Champion 45%, Ultimate 55%, Mega 65%, Burst Mode 75%), podendo passar de 100% apenas via bonus de roupas (aneis/colares/brincos, ate 68% adicional).",
+      "evolution_effect": "pendente - nao encontrada relacao direta entre atributo/elemento e requisitos de digivolucao (Jogress/Burst Mode/X-Antibody) nas paginas de sistema consultadas; esses sistemas de evolucao parecem depender de nivel, itens especificos e quests, nao do atributo.",
+      "sources": [
+        {
+          "claim": "Lista dos 5 atributos de Digimon no DMO e regra completa de vantagens (Data > Vaccine, Virus > Data, Vaccine > Virus, Unknown > todos, No Attribute sem vantagens)",
+          "url": "https://dmokb.info/systems/digimon-attributes",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Bonus de 50% em dano normal/skill ao atingir 100% de Experience no atributo contra oponente em desvantagem; regras de ganho de XP de atributo por tipo (Vaccine mata Virus, Virus mata Data, Data ganha parado); regras de XP fixo para Unknown Attribute e limite de bonus por roupas",
+          "url": "https://dmokb.info/systems/digimon-attributes",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Existencia de 11 'Elemental Attributes' como sistema separado dos atributos Vaccine/Data/Virus, pagina de sistema sem tabela de vantagens preenchida no momento da consulta",
+          "url": "https://dmokb.info/systems/elemental-attributes",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa"
+        },
+        {
+          "claim": "Pagina 'Digimon Table' (destinada a mostrar qual Digimon usar contra qual) e pagina 'Attacker Type' (4 tipos de atacante) existem na DMO KB mas estavam sem conteudo preenchido no momento da consulta",
+          "url": "https://dmokb.info/systems/digimon-table",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa"
+        }
+      ]
+    },
+    {
+      "game": "Digimon World: Dawn and Dusk (Dawn / Dusk)",
+      "attributes_used": "pendente - nao encontrada evidencia de que Dawn/Dusk usa o atributo classico Vaccine/Data/Virus/Free como mecanica de combate. [H] O jogo pode classificar Digimons com esses atributos apenas como dado de especie (como em outros jogos da franquia), mas nenhuma fonte consultada confirma isso ou sua funcao em batalha.",
+      "attribute_advantage_rule": "pendente (ver nota acima); busca direta por 'Vaccine Virus Data' dentro do namespace de Dawn and Dusk na strategywiki.org retornou 0 resultados.",
+      "elements_used": ["Fire", "Water", "Earth", "Wind", "Thunder", "Light", "Shadow", "Steel"],
+      "element_advantage_table": "[E] O jogo agrupa as 8 'Species' (Holy, Dragon, Aquan, Bird, Dark, Beast, Machine, InsectPlant) em dois grupos, 'Light Fang' e 'Night Claw', cada Species com um 'Main Attribute' e um 'Weak Attribute': Holy=Light(fraco:Shadow), Dragon=Fire(fraco:Earth), Aquan=Water(fraco:Steel), Bird=Wind(fraco:Thunder), Dark=Shadow(fraco:Light), Beast=Earth(fraco:Fire), Machine=Steel(fraco:Water), Insect/Plant=Thunder(fraco:Wind). Isso forma 4 pares opostos: Light<->Shadow, Fire<->Earth, Water<->Steel, Wind<->Thunder.",
+      "combat_effect": "pendente para bonus percentual de ataque. [E] O que foi encontrado e o efeito inverso (resistencia): Traits (habilidades passivas) como 'Fire Aura' (reduz dano de fogo em ate 20% no nivel maximo 'Flame Lord'), 'Water Aura'/'Rain Lord', 'Wind Aura'/'Wind Lord', 'LightningAura'/'ThunderLord' (reducao de ate 20%), e 'RainbowAura'/'RainbowLord' (reducao de dano nao-elemental em ate 20%) - essas sao reducoes de dano recebido via traits especificos do Digimon, nao um bonus de ataque baseado em vantagem elemental da tabela Main/Weak Attribute.",
+      "evolution_effect": "pendente - nao encontrada relacao entre elemento/atributo de Species e requisitos de digivolucao nas paginas consultadas (Digivolution, Champion, Ultimate, Mega); os requisitos de digivolucao parecem depender de stats, nivel e DNA Digivolution, nao do elemento.",
+      "sources": [
+        {
+          "claim": "Tabela completa de Main Attribute e Weak Attribute por Species (Light Fang: Holy/Dragon/Aquan/Bird; Night Claw: Dark/Beast/Machine/InsectPlant)",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Species_and_Attributes",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Lista de Traits que reduzem dano elemental recebido (Fire Aura/Flame Lord, Water Aura/Rain Lord, Wind Aura/Wind Lord, LightningAura/ThunderLord, RainbowAura/RainbowLord) em percentuais de 10% e 20%",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Traits",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Busca por 'Vaccine Virus Data' restrita ao conteudo de Dawn and Dusk na strategywiki.org nao retornou nenhum resultado, sugerindo que o atributo classico nao e mecanica central documentada nesta wiki para o jogo",
+          "url": "https://strategywiki.org/w/index.php?search=Vaccine+Virus+Data+Dawn+Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        },
+        {
+          "claim": "Pagina de Digivolucao do jogo descreve apenas numero de linhas de digivolucao (35) e requisitos por celula, sem mencionar atributo/elemento como requisito",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        }
+      ]
+    }
+  ]
+}

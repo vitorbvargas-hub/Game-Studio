@@ -1,0 +1,639 @@
+[
+  {
+    "phase": "creator",
+    "step": "contagem_opcoes",
+    "groups": {
+      "model": 2,
+      "skin": 3,
+      "hairCut": 7,
+      "hairColor": 8,
+      "outfit": 3,
+      "outfitColor": 7
+    }
+  },
+  {
+    "phase": "creator",
+    "step": "nome_vazio",
+    "disabled": true,
+    "errHidden": false
+  },
+  {
+    "phase": "creator",
+    "step": "nome_longo",
+    "maxLength": 14,
+    "valueLen": 22,
+    "value": "NomeMuitoLongoDemaisQA"
+  },
+  {
+    "phase": "creator",
+    "step": "aleatorio",
+    "rand1": "Modelo 1 · pele clara · Espetado preto · Tamer clássico verde",
+    "rand2": "Modelo 2 · pele clara · Curto branco · Tamer clássico marrom",
+    "mudou": true
+  },
+  {
+    "phase": "creator",
+    "step": "tamer_no_mundo",
+    "nome": "QA_Tester",
+    "existe": true
+  },
+  {
+    "phase": "movement",
+    "step": "wasd_d",
+    "p0": {
+      "x": 472,
+      "y": 424
+    },
+    "p1": {
+      "x": 522,
+      "y": 424
+    },
+    "moveu_x": true
+  },
+  {
+    "phase": "movement",
+    "step": "wasd_s",
+    "p1": {
+      "x": 522,
+      "y": 424
+    },
+    "p2": {
+      "x": 522,
+      "y": 469
+    },
+    "moveu_y": true
+  },
+  {
+    "phase": "movement",
+    "step": "clique_andar",
+    "destino": {
+      "x": 1119,
+      "y": 961
+    },
+    "antes": {
+      "x": 522,
+      "y": 469
+    },
+    "depois": {
+      "x": 560,
+      "y": 481
+    },
+    "aproximou": true
+  },
+  {
+    "phase": "movement",
+    "step": "colisao_longa",
+    "p3": {
+      "x": 560,
+      "y": 481
+    },
+    "p4": {
+      "x": 360,
+      "y": 481
+    },
+    "tileAtual": {
+      "tileSolid": true,
+      "x": 360,
+      "y": 481
+    }
+  },
+  {
+    "phase": "movement",
+    "step": "parceira_segue",
+    "distancia": 22,
+    "partnerState": "IDLE"
+  },
+  {
+    "phase": "movement",
+    "step": "copa_translucida",
+    "spot": {
+      "index": 820,
+      "x": 741,
+      "y": 1037.04
+    },
+    "alpha": 0.45,
+    "translucida": true
+  },
+  {
+    "phase": "combate",
+    "step": "teleporte_perto_selvagem",
+    "near": {
+      "id": "wild-4",
+      "speciesId": "CREATURE-0008",
+      "hp": 38,
+      "maxHp": 38
+    }
+  },
+  {
+    "phase": "combate",
+    "step": "engage",
+    "engaged": {
+      "state": "ATTACK",
+      "encounterId": "enc-2",
+      "targetId": "wild-4"
+    }
+  },
+  {
+    "phase": "combate",
+    "step": "dano_aplicado",
+    "wHpBefore": 38,
+    "afterHit": {
+      "hp": 9,
+      "maxHp": 38
+    }
+  },
+  {
+    "phase": "combate",
+    "step": "tecla_1_slot",
+    "beforeMove": {
+      "moves": [
+        "rock_breaker",
+        "pyro_sphere",
+        null,
+        null
+      ],
+      "mp": 13.04,
+      "cd": {
+        "rock_breaker": 38
+      }
+    },
+    "afterMove": {
+      "mp": 21.62,
+      "cd": {
+        "rock_breaker": 25
+      }
+    }
+  },
+  {
+    "phase": "combate",
+    "step": "hud_barra_golpes",
+    "hudBar": [
+      {
+        "key": "1",
+        "mp": "14",
+        "cd": "0.548",
+        "cdt": "3",
+        "cooling": true
+      },
+      {
+        "key": "2",
+        "mp": "16",
+        "cd": "0.000",
+        "cdt": "",
+        "cooling": false
+      },
+      {
+        "key": "3",
+        "mp": "",
+        "cd": "0.000",
+        "cdt": "",
+        "cooling": false
+      },
+      {
+        "key": "4",
+        "mp": "",
+        "cd": "0.000",
+        "cdt": "",
+        "cooling": false
+      }
+    ]
+  },
+  {
+    "phase": "combate",
+    "step": "derrota_xp",
+    "defeated": true,
+    "xpBefore": {
+      "xp": 8,
+      "level": 3,
+      "bits": 3
+    },
+    "xpAfter": {
+      "xp": 8,
+      "level": 3,
+      "bits": 3
+    },
+    "ganhouXp": false,
+    "ganhouBits": false
+  },
+  {
+    "phase": "combate",
+    "step": "fuga",
+    "fled": true,
+    "afterFlee": {
+      "state": "ATTACK"
+    }
+  },
+  {
+    "phase": "combate",
+    "step": "aprender_golpe",
+    "learn": {
+      "level": 3,
+      "xp": 19349
+    },
+    "learned": true,
+    "learnText": "Guilmon aprendeu Sharp Claws!Equipado no slot 3."
+  },
+  {
+    "phase": "combate",
+    "step": "trocar_slot",
+    "swapTarget": "air_fireball",
+    "moves_antes": [
+      "rock_breaker",
+      "pyro_sphere",
+      "sharp_claws",
+      "wild_scratch"
+    ],
+    "moves_depois": [
+      "air_fireball",
+      "pyro_sphere",
+      "sharp_claws",
+      "wild_scratch"
+    ],
+    "trocou": true
+  },
+  {
+    "phase": "combate",
+    "step": "auto_editor_prioridade",
+    "order1": [
+      "sharp_claws",
+      "pyro_sphere",
+      "wild_scratch",
+      "air_fireball"
+    ],
+    "rulesMid": [
+      {
+        "moveId": "sharp_claws",
+        "cond": "self_hp_below_pct",
+        "pct": 30,
+        "off": true
+      },
+      {
+        "moveId": "pyro_sphere",
+        "cond": "always"
+      },
+      {
+        "moveId": "wild_scratch",
+        "cond": "always"
+      },
+      {
+        "moveId": "air_fireball",
+        "cond": "always"
+      }
+    ],
+    "rulesReset": [
+      {
+        "moveId": "air_fireball",
+        "cond": "always"
+      },
+      {
+        "moveId": "pyro_sphere",
+        "cond": "always"
+      },
+      {
+        "moveId": "sharp_claws",
+        "cond": "always"
+      },
+      {
+        "moveId": "wild_scratch",
+        "cond": "always"
+      }
+    ]
+  },
+  {
+    "phase": "auto_evoluir",
+    "step": "auto_ataca_sozinho",
+    "autoAtaca": true
+  },
+  {
+    "phase": "auto_evoluir",
+    "step": "auto_evoluir_evolucao",
+    "autoEvoState": "LIG.",
+    "before": {
+      "speciesId": "CREATURE-0003",
+      "level": 15,
+      "moves": [
+        "rock_breaker",
+        "pyro_sphere",
+        null,
+        null
+      ],
+      "learned": [
+        "rock_breaker",
+        "pyro_sphere"
+      ]
+    },
+    "evolved": false,
+    "after": {
+      "speciesId": "CREATURE-0003",
+      "level": 15,
+      "moves": [
+        "rock_breaker",
+        "pyro_sphere",
+        null,
+        null
+      ],
+      "learned": [
+        "rock_breaker",
+        "pyro_sphere"
+      ]
+    },
+    "herdouGolpes": true
+  },
+  {
+    "phase": "save",
+    "step": "reload_mantem_estado",
+    "before": {
+      "x": 472,
+      "y": 424,
+      "speciesId": "CREATURE-0003",
+      "level": 5,
+      "xp": 9,
+      "bits": 4
+    },
+    "after": {
+      "x": 472,
+      "y": 424,
+      "speciesId": "CREATURE-0003",
+      "level": 5,
+      "xp": 18,
+      "bits": 8
+    },
+    "manteve": true
+  },
+  {
+    "phase": "save",
+    "error": "Error: CDP timeout: Runtime.evaluate"
+  },
+  {
+    "phase": "daynight",
+    "error": "Error: CDP timeout: Runtime.evaluate"
+  },
+  {
+    "phase": "hud",
+    "step": "atalhos",
+    "shortcuts": [
+      {
+        "id": "team",
+        "disabled": null,
+        "title": "Equipe & Box (E)"
+      },
+      {
+        "id": "dex",
+        "disabled": "true",
+        "title": "Digidex — em breve"
+      },
+      {
+        "id": "quest",
+        "disabled": "true",
+        "title": "Missões — em breve"
+      },
+      {
+        "id": "map",
+        "disabled": "true",
+        "title": "Mapa — em breve"
+      },
+      {
+        "id": "shop",
+        "disabled": "true",
+        "title": "Loja — em breve"
+      },
+      {
+        "id": "evo",
+        "disabled": "true",
+        "title": "Evolução — em breve"
+      },
+      {
+        "id": "arena",
+        "disabled": "true",
+        "title": "Arena — em breve"
+      },
+      {
+        "id": "friends",
+        "disabled": "true",
+        "title": "Amigos — em breve"
+      },
+      {
+        "id": "guild",
+        "disabled": "true",
+        "title": "Guilda — em breve"
+      },
+      {
+        "id": "trophy",
+        "disabled": "true",
+        "title": "Conquistas — em breve"
+      },
+      {
+        "id": "mail",
+        "disabled": "true",
+        "title": "Correio — em breve"
+      },
+      {
+        "id": "gear",
+        "disabled": "true",
+        "title": "Configurações — em breve"
+      }
+    ]
+  },
+  {
+    "phase": "hud",
+    "step": "modal_abrir_fechar",
+    "openByShort": true,
+    "closedByEsc": true,
+    "openByE": true,
+    "closedByX": true,
+    "openBySlot": true,
+    "closedByOutside": true
+  },
+  {
+    "phase": "hud",
+    "step": "textos_ptbr",
+    "suspeitosIngles": []
+  },
+  {
+    "phase": "desempenho",
+    "step": "fps_memoria",
+    "duracao_ms": 620920,
+    "amostras": [
+      {
+        "t": 1794186752532,
+        "fpsHud": "60 qps",
+        "entidades": 31,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186785475,
+        "fpsHud": "60 qps",
+        "entidades": 26,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186818185,
+        "fpsHud": "60 qps",
+        "entidades": 28,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186851000,
+        "fpsHud": "60 qps",
+        "entidades": 28,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186883816,
+        "fpsHud": "60 qps",
+        "entidades": 28,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186916598,
+        "fpsHud": "60 qps",
+        "entidades": 30,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186949457,
+        "fpsHud": "60 qps",
+        "entidades": 25,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794186982228,
+        "fpsHud": "60 qps",
+        "entidades": 26,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187015041,
+        "fpsHud": "60 qps",
+        "entidades": 27,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187047781,
+        "fpsHud": "60 qps",
+        "entidades": 27,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187080723,
+        "fpsHud": "60 qps",
+        "entidades": 27,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187113656,
+        "fpsHud": "60 qps",
+        "entidades": 28,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187143658,
+        "fpsHud": "60 qps",
+        "entidades": 28,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187176578,
+        "fpsHud": "60 qps",
+        "entidades": 30,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187209428,
+        "fpsHud": "60 qps",
+        "entidades": 27,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187242264,
+        "fpsHud": "60 qps",
+        "entidades": 25,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187275087,
+        "fpsHud": "60 qps",
+        "entidades": 27,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187307904,
+        "fpsHud": "60 qps",
+        "entidades": 26,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      },
+      {
+        "t": 1794187340666,
+        "fpsHud": "60 qps",
+        "entidades": 26,
+        "mem": {
+          "used": 18200000,
+          "total": 37300000
+        }
+      }
+    ]
+  },
+  {
+    "phase": "conformidade",
+    "step": "aviso_fan_game",
+    "disclaimer": "Fan game não comercial. Digimon © Bandai Namco. Sprites oficiais de DW DS (rip AngelOfHope / With the Will).",
+    "visivel": true,
+    "hosts_rede": [
+      "127.0.0.1:5192"
+    ]
+  }
+]

@@ -1,0 +1,555 @@
+{
+  "game": "Digimon World: Dawn & Dusk",
+  "source_access_method_note": "[E] strategywiki.org retorna 403/desafio Cloudflare 'Just a moment...' para fetch direto. web_search estava desabilitado nesta sessão. DuckDuckGo HTML bloqueou com captcha. archive.org/Wayback respondeu 429 (rate limit). Contornado usando o proxy leitor https://r.jina.ai/<url> sobre a MESMA URL do strategywiki.org (conteúdo idêntico ao site, apenas renderizado sem o desafio JS). Todas as páginas abaixo são strategywiki.org, acessadas via esse proxy em 2026-11-09.",
+  "abbreviation_legend_note": "[H] interpretação, com alta confiança: a tabela de Digivolution do StrategyWiki usa códigos curtos. LV=Nível mínimo; Friend/Friendship=% de amizade; ATK/DEF/SPT/SPD=Attack/Defense/Spirit/Speed (confirmado pelos blocos de stats de cada Digimon nas páginas de estágio, que usam Atk/Def/Spt/Spd/Apt por extenso); MinAPT=Aptitude mínima; DRG/BST/MAC/AQN/INS/BRD/HOL/DRK/EX = EXP acumulado contra a espécie/atributo correspondente (Dragon/Beast/Machine/Aquan/InsectPlant/Bird/Holy/Dark/Espécie-geral) — nome completo da mecânica não encontrado explicitamente nas páginas lidas, mas é consistente com o sistema de 'Species EXP' mencionado nas páginas de Mega/Ultimate; 'got X' / 'gotX' = exige já ter obtido/amigado o Digimon X (mecânica de desbloqueio por coleção, termo literal da wiki).",
+  "lines": [
+    {
+      "line_name": "Koromon → Agumon → Greymon → MetalGreymon → WarGreymon",
+      "digimon": [
+        {
+          "name": "Koromon",
+          "stage": "In-Training",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [],
+          "evolves_to": [
+            { "target": "Agumon", "requirement": "LV 7", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/In-Training#Koromon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Agumon",
+          "stage": "Rookie",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Koromon"], "requirement": "LV 7" }
+          ],
+          "evolves_to": [
+            { "target": "Greymon", "requirement": "LV 18, Dragon EXP 280+", "type": "normal", "alternate": true },
+            { "target": "GeoGreymon", "requirement": "LV 20, Friendship 60%+, Defense 90+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Rookie#Agumon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "GeoGreymon é um caminho de Champion alternativo (fora desta linha, mas registrado por constar na mesma célula de evolução de Agumon)."
+        },
+        {
+          "name": "Greymon",
+          "stage": "Champion",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Agumon"], "requirement": "LV 18, Dragon EXP 280+" }
+          ],
+          "evolves_to": [
+            { "target": "MetalGreymon", "requirement": "LV 34, Friendship 70%+, Dragon EXP 3000+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Champion#Greymon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "MetalGreymon",
+          "stage": "Ultimate",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Greymon"], "requirement": "LV 34, Friendship 70%+, Dragon EXP 3000+" },
+            { "type": "dna", "source": ["RaptorDramon/Reptiledramon", "Tankmon"], "requirement": "LV 30+, Dragon EXP 2000+, Attack 200+", "alternate": true }
+          ],
+          "evolves_to": [
+            { "target": "WarGreymon", "requirement": "LV 52, Friendship 90%+, gotAgumon", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Ultimate#MetalGreymon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "WarGreymon",
+          "stage": "Mega",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["MetalGreymon"], "requirement": "LV 52, Friendship 90%+, gotAgumon (precisa já ter obtido/amigado um Agumon)" },
+            { "type": "dna", "source": ["Mametyramon", "Flamedramon"], "requirement": "LV 47+, Dragon EXP 10000+, Attack 300+", "alternate": true }
+          ],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega#WarGreymon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        }
+      ]
+    },
+    {
+      "line_name": "Tsunomon → Gabumon → Garurumon → WereGarurumon → MetalGarurumon",
+      "digimon": [
+        {
+          "name": "Tsunomon",
+          "stage": "In-Training",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Attacker",
+          "evolves_from": [],
+          "evolves_to": [
+            { "target": "Gabumon", "requirement": "LV 8", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/In-Training#Tsunomon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "Na tabela geral de Digivolution, o mesmo bloco de Tsunomon também lista ramos alternativos para Goburimon/Minotarumon/Nanimon, mas a página individual de Gabumon confirma Tsunomon como único Digivolution direto listado."
+        },
+        {
+          "name": "Gabumon",
+          "stage": "Rookie",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Tsunomon"], "requirement": "LV 8" }
+          ],
+          "evolves_to": [
+            { "target": "Garurumon", "requirement": "LV 19, Friendship 60%+, Attack 100+", "type": "normal", "alternate": true },
+            { "target": "Jungle Mojyamon (JMojyamon)", "requirement": "LV 17, Beast EXP 350+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Rookie#Gabumon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Garurumon",
+          "stage": "Champion",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Attacker",
+          "evolves_from": [
+            { "type": "normal", "source": ["Gabumon"], "requirement": "LV 19, Friendship 60%+, Attack 100+" }
+          ],
+          "evolves_to": [
+            { "target": "WarGarurumon(Blue)", "requirement": "LV 35, Speed 170+, Beast EXP 4500+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Champion#Garurumon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "WereGarurumon",
+          "stage": "Ultimate",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Speed",
+          "evolves_from": [
+            { "type": "normal", "source": ["Garurumon"], "requirement": "LV 35, Speed 170+, Beast EXP 4500+" }
+          ],
+          "evolves_to": [
+            { "target": "MetalGarurumon", "requirement": "LV 52, Friendship 90%+, gotGabumon (precisa já ter obtido/amigado um Gabumon)", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Ultimate#WarGarurumon(Blue)",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "[E] O nome exato usado nas páginas de perfil individuais do StrategyWiki para este estágio é 'WarGarurumon(Blue)' (existe também um 'WarGarurumon(Black)' alternativo, vindo de um ramo diferente de Gabumon via Goburimon/Ogremon). A página de DNA Digivolution do mesmo wiki, porém, usa literalmente o nome 'WereGarurumon' como ingrediente da fusão de Vikemon — ou seja, a própria fonte é inconsistente entre 'WarGarurumon' e 'WereGarurumon' para este Digimon. Tratamos como a mesma entidade pedida pelo usuário, mas a confiança no nome exibido em jogo foi reduzida para 'media' por essa inconsistência da fonte."
+        },
+        {
+          "name": "MetalGarurumon",
+          "stage": "Mega",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["WereGarurumon / WarGarurumon(Blue)"], "requirement": "LV 52, Friendship 90%+, gotGabumon" },
+            { "type": "dna", "source": ["Mammothmon", "MetalMamemon"], "requirement": "LV 47+, Beast EXP 10000+, Speed 300+", "alternate": true }
+          ],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega#MetalGarurumon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        }
+      ]
+    },
+    {
+      "line_name": "Tokomon → Patamon → Angemon → MagnaAngemon → Seraphimon",
+      "digimon": [
+        {
+          "name": "Tokomon",
+          "stage": "In-Training",
+          "attribute": "Bird",
+          "family_species": "Bird",
+          "type_role": "Speed",
+          "evolves_from": [],
+          "evolves_to": [
+            { "target": "Patamon", "requirement": "LV 8, Friendship 50%+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/In-Training#Tokomon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Patamon",
+          "stage": "Rookie",
+          "attribute": "Bird",
+          "family_species": "Bird",
+          "type_role": "Speed",
+          "evolves_from": [
+            { "type": "normal", "source": ["Tokomon"], "requirement": "LV 8, Friendship 50%+" }
+          ],
+          "evolves_to": [
+            { "target": "Angemon", "requirement": "LV 19, Friendship 70%+, Holy EXP 300+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Rookie#Patamon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "Única rota de Champion listada para Patamon (sem alternativa)."
+        },
+        {
+          "name": "Angemon",
+          "stage": "Champion",
+          "attribute": "Holy",
+          "family_species": "Holy",
+          "type_role": "Technical",
+          "evolves_from": [
+            { "type": "normal", "source": ["Patamon"], "requirement": "LV 19, Friendship 70%+, Holy EXP 300+" }
+          ],
+          "evolves_to": [
+            { "target": "MagnaAngemon", "requirement": "LV 34, Spirit 160+, Holy EXP 3100+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Champion#Angemon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "MagnaAngemon",
+          "stage": "Ultimate",
+          "attribute": "Holy",
+          "family_species": "Holy",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Angemon"], "requirement": "LV 34, Spirit 160+, Holy EXP 3100+" },
+            { "type": "dna", "source": ["Starmon", "Clockmon"], "requirement": "LV 30+, Holy EXP 5000+, Spirit 190+", "alternate": true }
+          ],
+          "evolves_to": [
+            { "target": "Seraphimon", "requirement": "LV 66, Spirit 380+, Holy EXP 77777+", "type": "normal", "alternate": true },
+            { "target": "SL Angemon", "requirement": "LV 48, Attack 250+, Machine EXP 8500+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Ultimate#MagnaAngemon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "[H] 'SL Angemon' é o nome exibido literalmente na tabela de Digivolution e na lista da página Mega do StrategyWiki; não encontramos confirmação separada do nome completo (possivelmente 'SlashAngemon', que aparece na página de DNA Digivolution como Mega distinto obtido apenas por fusão de Giromon+Kyukimon+Pixiemon — mas essa entrada de DNA não cita MagnaAngemon como ingrediente, então a relação entre 'SL Angemon' (via evolução normal de MagnaAngemon) e 'SlashAngemon' (via DNA) não pôde ser confirmada como a mesma entidade)."
+        },
+        {
+          "name": "Seraphimon",
+          "stage": "Mega",
+          "attribute": "Holy",
+          "family_species": "Holy",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["MagnaAngemon"], "requirement": "LV 66, Spirit 380+, Holy EXP 77777+" },
+            { "type": "dna", "source": ["BlackRapidmon", "Rapidmon"], "requirement": "pendente (fonte não especifica estatísticas separadas para esta combinação)", "alternate": true },
+            { "type": "dna", "source": ["Shakkoumon", "Parrotmon"], "requirement": "LV 61+, Holy EXP 50000+, Must have befriended Seraphimon (precisa já ter amigado um Seraphimon)", "alternate": true }
+          ],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega#Seraphimon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        }
+      ]
+    },
+    {
+      "line_name": "Gigimon → Guilmon → Growlmon → WarGrowlmon → Gallantmon",
+      "digimon": [
+        {
+          "name": "Gigimon",
+          "stage": "In-Training",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Attacker",
+          "evolves_from": [],
+          "evolves_to": [
+            { "target": "Guilmon", "requirement": "LV 11, gotGuilmon (precisa já ter obtido/amigado um Guilmon)", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/In-Training#Gigimon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "O requisito 'gotGuilmon' para o próprio Gigimon evoluir em Guilmon é peculiar (exige já possuir um Guilmon previamente) — registrado literalmente como consta na fonte."
+        },
+        {
+          "name": "Guilmon",
+          "stage": "Rookie",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Attacker",
+          "evolves_from": [
+            { "type": "normal", "source": ["Gigimon"], "requirement": "LV 11, gotGuilmon" }
+          ],
+          "evolves_to": [
+            { "target": "Growlmon", "requirement": "LV 21, Attack 105+, gotGuilmon", "type": "normal", "alternate": true },
+            { "target": "Tyrannomon", "requirement": "LV 21, Dragon EXP 340+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Rookie#Guilmon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Growlmon",
+          "stage": "Champion",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Guilmon"], "requirement": "LV 21, Attack 105+, gotGuilmon" }
+          ],
+          "evolves_to": [
+            { "target": "WarGrowlmon", "requirement": "LV 36, Spirit 130+, Machine EXP 2100+", "type": "normal", "alternate": true },
+            { "target": "BlackWarGrowlmon", "requirement": "LV 40, Dark EXP 3600+, Machine EXP 3300+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Champion#Growlmon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "WarGrowlmon",
+          "stage": "Ultimate",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["Growlmon"], "requirement": "LV 36, Spirit 130+, Machine EXP 2100+" }
+          ],
+          "evolves_to": [
+            { "target": "Gallantmon", "requirement": "LV 60, Friendship 90%+, gotMegidramon (precisa já ter obtido/amigado um Megidramon)", "type": "normal", "alternate": true },
+            { "target": "Megidramon", "requirement": "LV 48, Dark EXP 9000+, gotGuilmon", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Ultimate#WarGrowlmon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "Nenhuma rota de DNA Digivolution para WarGrowlmon foi encontrada na página de DNA Digivolution — apenas a rota normal a partir de Growlmon."
+        },
+        {
+          "name": "Gallantmon",
+          "stage": "Mega",
+          "attribute": "Holy",
+          "family_species": "Holy",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["WarGrowlmon"], "requirement": "LV 60, Friendship 90%+, gotMegidramon" }
+          ],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega#Gallantmon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "[E] Species de Gallantmon é Holy (não Dragon), mudando de atributo em relação ao resto da linha. Nenhuma rota de DNA Digivolution leva a Gallantmon (apenas 'Gallantmon Crimson Mode' usa Gallantmon como ingrediente, o que é uma forma posterior fora do pedido original)."
+        }
+      ]
+    },
+    {
+      "line_name": "Dorimon → Dorumon → Dorugamon → DoruGreymon → (Dorugoramon ou ChaosDukemon)",
+      "digimon": [
+        {
+          "name": "Dorimon",
+          "stage": "In-Training",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "HPtype",
+          "evolves_from": [],
+          "evolves_to": [
+            { "target": "Dorumon", "requirement": "LV 8, Beast EXP 100+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/In-Training#Dorimon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Dorumon",
+          "stage": "Rookie",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Attacker",
+          "evolves_from": [
+            { "type": "normal", "source": ["Dorimon"], "requirement": "LV 8, Beast EXP 100+" }
+          ],
+          "evolves_to": [
+            { "target": "Dorugamon", "requirement": "LV 24, Attack 125+, Beast EXP 800+", "type": "normal", "alternate": true },
+            { "target": "Drimogemon", "requirement": "LV 19, Attack 90+, Aptitude mínima 25+", "type": "normal", "alternate": true }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Rookie#Dorumon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "Dorugamon",
+          "stage": "Champion",
+          "attribute": "Beast",
+          "family_species": "Beast",
+          "type_role": "Attacker",
+          "evolves_from": [
+            { "type": "normal", "source": ["Dorumon"], "requirement": "LV 24, Attack 125+, Beast EXP 800+" }
+          ],
+          "evolves_to": [
+            { "target": "DoruGreymon", "requirement": "LV 38, Dragon EXP 4800+, Machine EXP 3000+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Champion#Dorugamon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "DoruGreymon",
+          "stage": "Ultimate",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "HPtype",
+          "evolves_from": [
+            { "type": "normal", "source": ["Dorugamon"], "requirement": "LV 38, Dragon EXP 4800+, Machine EXP 3000+" },
+            { "type": "dna", "source": ["Drimogemon", "NiseDrimogemon"], "requirement": "LV 34+, Machine EXP 2500+, Dragon EXP 4500+ (requisito listado junto ao par abaixo)", "alternate": true },
+            { "type": "dna", "source": ["Greymon", "Garurumon"], "requirement": "LV 34+, Machine EXP 2500+, Dragon EXP 4500+", "alternate": true }
+          ],
+          "evolves_to": [
+            { "target": "Dorugoramon", "requirement": "LV 54, Attack 265+, Species EXP 57000+", "type": "normal", "alternate": false }
+          ],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Ultimate#DoruGreymon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk / DNA Digivolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null,
+          "note": "[E] Species muda de Beast (Dorimon/Dorumon/Dorugamon) para Dragon a partir de DoruGreymon. A página de perfil individual de DoruGreymon lista apenas 'Dorugoramon' como evolução Mega, confirmando que não há caminho alternativo de Mega a partir desta linha além do DNA Digivolution listado acima."
+        },
+        {
+          "name": "Dorugoramon",
+          "stage": "Mega",
+          "attribute": "Dragon",
+          "family_species": "Dragon",
+          "type_role": "Balance",
+          "evolves_from": [
+            { "type": "normal", "source": ["DoruGreymon"], "requirement": "LV 54, Attack 265+, Species EXP 57000+" }
+          ],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega#Dorugoramon",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": null
+        },
+        {
+          "name": "ChaosDukemon",
+          "stage": "Mega",
+          "attribute": null,
+          "family_species": null,
+          "type_role": null,
+          "evolves_from": [],
+          "evolves_to": [],
+          "source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Mega",
+          "species_source_url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+          "source_name": "StrategyWiki — Digimon World: Dawn and Dusk (lista completa de Mega + tabela de Digivolution + DNA Digivolution)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "not_in_game",
+          "not_in_game": true,
+          "game_variant": null,
+          "note": "[E] 'ChaosDukemon' não aparece na lista dos 100 Digimon de Mega do StrategyWiki (sumário completo verificado), nem na tabela principal de Digivolution, nem na página de DNA Digivolution, nem como evolução listada no perfil individual de DoruGreymon (que lista apenas Dorugoramon). Conclusão: ChaosDukemon não existe em Digimon World: Dawn & Dusk; a evolução de Mega desta linha é apenas Dorugoramon."
+        }
+      ]
+    }
+  ],
+  "general_notes": "[E] Fonte primária consultada: strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk e subpáginas /Digivolution, /DNA_Digivolution, /In-Training, /Rookie, /Champion, /Ultimate, /Mega — todas acessadas em 2026-11-09 via proxy leitor r.jina.ai sobre as mesmas URLs (o site bloqueia fetch direto com desafio Cloudflare). [E] Todos os 24 Digimon pedidos nas 5 linhas (exceto ChaosDukemon) foram confirmados como existentes no jogo, com requisitos de evolução extraídos literalmente da tabela de Digivolution e complementados pela tabela de DNA Digivolution quando havia caminho alternativo por fusão. [H] Não foi possível confirmar diferenças específicas Dawn vs. Dusk para estes 24 Digimon: nenhuma das páginas de estágio ou da tabela de Digivolution marcou qualquer um deles com tag '(Dawn)' ou '(Dusk)' (diferente de certas missões do walkthrough e das 'Species Quests', que são explicitamente divididas: Dawn = Holy/Dragon/Bird/Aquan; Dusk = Dark/Machine/InsectPlant/Beast). Isso sugere uma possível divisão de disponibilidade por atributo/espécie, mas como não há confirmação direta por Digimon individual nas páginas lidas, 'game_variant' foi deixado como null (não determinado) para todos os registros — isso é uma lacuna, não uma afirmação de que os Digimon são idênticos nas duas versões. [E] Confirmado: a linha 5 (Dorimon) tem Mega único = Dorugoramon; ChaosDukemon não existe neste jogo (marcado not_in_game). [H] Inconsistência da própria fonte: a página de DNA Digivolution usa o nome 'WereGarurumon' como ingrediente de uma fusão (Vikemon), enquanto as páginas de perfil individual (Champion/Ultimate) usam 'WarGarurumon(Blue)' e 'WarGarurumon(Black)' como nomes oficiais de estágio — tratado como a mesma entidade da linha 2, com confiança reduzida no nome exato exibido em jogo. [H] O nome 'SL Angemon' (evolução alternativa de MagnaAngemon) não pôde ser verificado como equivalente a 'SlashAngemon' da tabela de DNA Digivolution; mantido literal conforme a fonte."
+}

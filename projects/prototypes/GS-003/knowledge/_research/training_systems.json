@@ -1,0 +1,210 @@
+{
+  "research_meta": {
+    "date": "2026-11-09",
+    "method": "web_fetch direto + proxy de leitura (r.jina.ai) para contornar bloqueio Cloudflare de wikis Fandom; web_search indisponível no ambiente; DuckDuckGo HTML bloqueado por CAPTCHA; GameFAQs bloqueou todos os fetches (erro 400 'abuse from this hosting service').",
+    "blockers": [
+      "digimonworld.fandom.com respondeu com desafio Cloudflare ('Just a moment...') na maioria das tentativas, incluindo via proxy; apenas 3 páginas foram obtidas com sucesso antes do bloqueio se tornar consistente (Digimon_World, Training [página vazia], Digimon_World_(video_game) [página vazia]).",
+      "digimon.fandom.com (wiki geral) bloqueou 100% das tentativas (403/429, desafio Cloudflare) mesmo via proxy de leitura.",
+      "GameFAQs (gamefaqs.gamespot.com) bloqueou todas as tentativas com erro 400 'Request Blocked - abuse from this hosting service'.",
+      "web_search (ferramenta) retornou 'disabled or no provider available'.",
+      "https://html.duckduckgo.com/html/ retornou CAPTCHA ('Select all squares containing a duck'), tornando o fallback de busca inutilizável.",
+      "strategywiki.org/wiki/Digimon_Story:_Cyber_Sleuth existe mas está na categoria 'Guides at completion stage 0' - só tem o infobox, todos os links de capítulo/gameplay são redlinks (página não existe); não há conteúdo de treino escrito."
+    ]
+  },
+  "games": [
+    {
+      "game": "Digimon World (PS1)",
+      "training_mechanism": "[E] O jogo gira em torno de criar um único Digimon parceiro a partir de um ovo. Para criá-lo, o jogador deve treiná-lo, alimentá-lo, deixá-lo descansar e levá-lo ao banheiro. O treino é feito para aumentar os stats do Digimon e torná-lo mais forte em batalha. [H] Mecanismos específicos de treino (ex.: aparelhos de ginásio/gym) são amplamente conhecidos na comunidade, mas não foram confirmados nas fontes efetivamente acessadas nesta pesquisa (ver bloqueios); marcar como pendente até confirmação por fonte primária.",
+      "trainable_stats": ["pendente - nomes específicos de stats (HP/MP/Offense/Defense/Brains/Speed) não confirmados nas páginas acessadas antes do bloqueio"],
+      "stat_to_evolution_link": "[E] Criar o Digimon bem resulta no Rookie 'Digivolvindo' para uma forma Champion com stats melhores; não treinar ou cuidar bem dele faz ele Digivolver para Numemon, um Digimon Champion com stats e habilidades inferiores (evolução degenerada).",
+      "feeding": "[E] Alimentação é citada como uma das 4 ações obrigatórias de cuidado (treinar, alimentar, descansar, banheiro). Mecânica detalhada de fome/medidor não confirmada nas fontes acessadas - pendente.",
+      "sleep": "[E] Descanso ('rest') é citado como uma das ações de cuidado obrigatórias. Detalhes do sistema de sono (ciclos, consequências) não confirmados - pendente.",
+      "happiness": "pendente - não confirmado nas fontes acessadas antes do bloqueio",
+      "discipline": "pendente - não confirmado nas fontes acessadas antes do bloqueio",
+      "bond_affinity": "pendente - não confirmado nas fontes acessadas antes do bloqueio",
+      "risks": "[E] Risco confirmado: cuidado insuficiente/treino ruim causa evolução degenerada para Numemon (Champion inferior). [H] Riscos adicionais (doença, morte, regressão a ovo por fadiga) são de conhecimento comum sobre o jogo, mas não foram confirmados nas fontes efetivamente acessadas - pendente.",
+      "group_training": "[E] parcial: 'Mais Digimon trabalhando para a cidade tornarão o treino e outros aspectos do jogo muito mais fáceis' - sugere suporte social/infraestrutural ao treino, mas não um mecanismo de treino em grupo direto.",
+      "sources": [
+        {
+          "claim": "O jogo foca em criar um Digimon desde ovo até Rookie/Champion/Ultimate; treino aumenta stats; cuidado ruim leva a Numemon degenerado; jogador deve treinar/alimentar/descansar/levar ao banheiro.",
+          "url": "https://digimonworld.fandom.com/wiki/Digimon_World",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Página dedicada 'Training' no digimonworld.fandom.com não existe (sem conteúdo).",
+          "url": "https://digimonworld.fandom.com/wiki/Training",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        }
+      ]
+    },
+    {
+      "game": "Digimon World: Next Order",
+      "training_mechanism": "pendente - acesso bloqueado (ver research_meta.blockers)",
+      "trainable_stats": ["pendente - acesso bloqueado"],
+      "stat_to_evolution_link": "pendente - acesso bloqueado",
+      "feeding": "pendente - acesso bloqueado",
+      "sleep": "pendente - acesso bloqueado",
+      "happiness": "pendente - acesso bloqueado",
+      "discipline": "pendente - acesso bloqueado",
+      "bond_affinity": "pendente - acesso bloqueado",
+      "risks": "pendente - acesso bloqueado",
+      "group_training": "pendente - acesso bloqueado",
+      "sources": []
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+      "training_mechanism": "pendente - acesso bloqueado. strategywiki.org possui página do jogo, mas está classificada como 'Guides at completion stage 0': contém apenas o infobox (desenvolvedora, ano, plataformas); todos os links de capítulos/gameplay/treino são redlinks (conteúdo não escrito).",
+      "trainable_stats": ["pendente - acesso bloqueado"],
+      "stat_to_evolution_link": "pendente - acesso bloqueado",
+      "feeding": "pendente - acesso bloqueado",
+      "sleep": "pendente - acesso bloqueado",
+      "happiness": "pendente - acesso bloqueado",
+      "discipline": "pendente - acesso bloqueado",
+      "bond_affinity": "pendente - acesso bloqueado",
+      "risks": "pendente - acesso bloqueado",
+      "group_training": "pendente - acesso bloqueado",
+      "sources": [
+        {
+          "claim": "A página de Digimon Story: Cyber Sleuth no StrategyWiki existe apenas como esqueleto (infobox), categoria 'Guides at completion stage 0', sem texto de jogabilidade/treino.",
+          "url": "https://strategywiki.org/wiki/Digimon_Story:_Cyber_Sleuth",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        }
+      ]
+    },
+    {
+      "game": "Digimon Masters Online (DMO)",
+      "training_mechanism": "[E] DMO não usa um sistema de treino por exercícios/minigames como os jogos de criação clássicos. O 'fortalecimento' do Digimon ocorre via: (1) Nivelamento por EXP em batalha contra Digimon selvagens, quests diárias, dungeons e Monster Cards; (2) Hatching - chocar um Mercenary DigiEgg inserindo 'Data' (coletada de Digimon selvagens) em um Incubator, em 3 fases que podem falhar e destruir o ovo; (3) Breakthrough - sistema de 'joias' tipo gacha que rola estatísticas extras (upgrade por tentativas com Dice/Divine Format), consumindo recursos (ex.: 'T') e podendo falhar.",
+      "trainable_stats": ["HP", "DS (Digi-Soul, equivalente a SP/mana)", "AT (Attack)", "CT (provável Critical)", "DE (Defense)"],
+      "stat_to_evolution_link": "[E] Jogress (evolução que combina 2+ Digimon) herda atributos e stats-base do Digimon de menor nível envolvido. Variantes especiais (Apocalymon Psychic, Ogudomon) exigem que Digimon específicos atinjam nível 99 ou 100 antes de serem sacrificados/usados para a evolução - ou seja, nível mínimo é pré-requisito explícito para certas evoluções.",
+      "feeding": "pendente - não encontrado nas páginas de sistemas pesquisadas; DMO aparenta não ter medidor de fome para os Digimon do jogador, mas isso não foi explicitamente confirmado como ausência.",
+      "sleep": "pendente - não encontrado nas páginas de sistemas pesquisadas",
+      "happiness": "pendente - não encontrado nas páginas de sistemas pesquisadas",
+      "discipline": "pendente - não encontrado nas páginas de sistemas pesquisadas",
+      "bond_affinity": "[E] parcial: a descrição geral do jogo afirma que o Tamer (jogador) 'forja vínculos com Digimons individuais' para utilizar seus poderes - é uma descrição narrativa genérica, sem mecânica numérica de afinidade confirmada nas páginas de sistema pesquisadas.",
+      "risks": "[E] Durante o Hatching, cada fase de inserção de Data tem chance de falhar; se falhar, há chance do DigiEgg ser destruído junto com a Data já usada (perda total do progresso). [E] Usar um Digimon 'Variant' aumenta rapidamente a fadiga do Tamer (não do Digimon) - mecanismo de recurso limitante, não um risco de treino excessivo no Digimon em si.",
+      "group_training": "pendente - não encontrado explicitamente nas páginas de sistemas pesquisadas (o jogo permite grupos/parties para nivelar em dungeons, mas não há um sistema de 'treino em grupo' dedicado confirmado nas fontes).",
+      "sources": [
+        {
+          "claim": "Guia de nivelamento: EXP vem de mapas, quests diárias, dungeons (a partir do nível 90) e Monster Cards (a partir do nível 46); nivelar em outros Digimon aumenta o nível de skill; EXP de quest não aumenta nível de skill/atributo.",
+          "url": "https://dmokb.info/systems/level-up-guide",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Fórmula de stats: HP/AT/CT/DE = Size*Base+Stat; DS = Base+Stat. Exemplo numérico com UlforceVeedramon X.",
+          "url": "https://dmokb.info/systems/stat-formula",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Jogress herda atributos/stats-base do Digimon de menor nível envolvido na fusão.",
+          "url": "https://dmokb.info/systems/jogress",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Apocalymon (Psychic) exige treinar 4 Digimon específicos até nível 99 antes de sacrificá-los para obter os itens de evolução.",
+          "url": "https://dmokb.info/systems/apocalymon-psychic-system",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Ogudomon exige que os 7 Demon Lords atinjam nível 100 mais um item especial.",
+          "url": "https://dmokb.info/systems/ogudomon-system",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Usar Digimon Variant aumenta rapidamente a fadiga do Tamer.",
+          "url": "https://dmokb.info/systems/variant",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Hatching: inserir Data em 3+ fases num Incubator; cada fase pode falhar; falha pode destruir o DigiEgg e a Data usada.",
+          "url": "https://dmokb.info/systems/hatching",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Breakthrough é um sistema de 'joias' para rolar estatísticas extras no Digimon, com chances de upgrade e possibilidade de reset via 'Dives'.",
+          "url": "https://dmokb.info/systems/digimon-breakthrough",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Descrição geral: o Tamer forja vínculos com Digimons individuais para utilizar seus poderes.",
+          "url": "https://dmokb.info/systems/digimon",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        }
+      ]
+    },
+    {
+      "game": "Digimon World: Dawn & Dusk",
+      "training_mechanism": "[E] O treino ocorre na Digi-Farm (Digi-Farm), onde Digimon que não estão viajando com o jogador vivem e treinam automaticamente ao longo de 'ciclos de tempo'. A eficiência do treino é afetada por (1) BGM tocando na Digi-Farm, que beneficia ou prejudica o ganho conforme a espécie do Digimon, e (2) Terreno (Terrain) da Digi-Farm, que determina quanto de EXP de espécie (Dragon/Bird/Aquan/Holy/Dark/Beast/Machine/InsectPlant) o Digimon ganha por ciclo. Também existem 'farm goods' (itens de treino) que podem ser usados na fazenda e um sistema de upgrades de fazenda comprados em loja (capacidade de Digimon e de itens).",
+      "trainable_stats": ["HP (via item HPCoreChip/HPCoreChipD)", "MP (via item MPCoreChip/MPCoreChipD)", "Attack", "Defense", "Spirit", "Speed"],
+      "stat_to_evolution_link": "[E] Cada linha de Digimon precisa de certos tipos de EXP de espécie (Dragon/Bird/Aquan/Holy/Dark/Beast/Machine/InsectPlant) para Digivolver às formas mais distantes; colocar o Digimon numa Digi-Farm com terreno compatível facilita atingir esse requisito. Evoluções mais distantes também exigem alta amizade (friendship), além do EXP de espécie correto.",
+      "feeding": "[E] parcial: o 'Farm report' periódico menciona explicitamente 'produção e uso de comida' (food production and use) entre os itens reportados, confirmando que existe um sistema de comida associado à Digi-Farm. Mecânica detalhada de medidor de fome não foi detalhada no texto acessado - pendente.",
+      "sleep": "pendente - não encontrado nas páginas acessadas",
+      "happiness": "pendente - não encontrado nomeado como 'happiness'; o conceito mais próximo confirmado é 'friendship' (ver bond_affinity)",
+      "discipline": "pendente - não encontrado nas páginas acessadas",
+      "bond_affinity": "[E] Existe uma porcentagem de amizade (friendship) por Digimon na Digi-Farm. Se o Digimon for ignorado por muito tempo, a amizade cai; conversar com ele regularmente a aumenta. Essa amizade também é requisito para certas Digivoluções (ver stat_to_evolution_link).",
+      "risks": "[H] parcial: negligenciar o Digimon (não conversar) reduz a amizade, o que pode dificultar evoluções que exigem alta amizade - é um risco de sub-interação, não de treino excessivo. Nenhum risco explícito de treino excessivo (fadiga, doença, morte, regressão) foi encontrado nas fontes acessadas - pendente.",
+      "group_training": "pendente - múltiplos Digimon podem ocupar a mesma Digi-Farm, mas nenhum bônus ou mecânica de 'treino em grupo' foi confirmado nas páginas acessadas.",
+      "sources": [
+        {
+          "claim": "A Digi-Farm é onde Digimon que não estão viajando com o jogador vivem e treinam; é o único lugar para conversar com os Digimon que estão sendo criados.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "A BGM da Digi-Farm afeta a eficiência de treino conforme a espécie do Digimon (cada música beneficia algumas espécies e prejudica outras).",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "O terreno da Digi-Farm determina quanto de EXP base por tipo de espécie o Digimon ganha por ciclo de treino; EXP de tipos não relacionados à Digivolução ainda conta para o nível geral.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Linhas de Digimon precisam de EXP de espécie específica e alta amizade para Digivoluções mais distantes.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Conversar regularmente com o Digimon na Digi-Farm aumenta sua porcentagem de amizade; ignorá-lo por muito tempo a diminui.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "O relatório periódico da fazenda ('Farm report') inclui aumento de stats/nível, eventos, e 'produção e uso de comida'.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        },
+        {
+          "claim": "Lista de itens 'DigiFarm Goods' inclui Dumbbell, Super Punch, Pico Hammer (treino de ataque), Shield (defesa), Math Drill/Mag Square (treino de Spirit/inteligência), Stopwatch/Track Shoes/Glove (velocidade), HPCoreChip/MPCoreChip (HP/MP), e caps de espécie (DragonCap, AnimalCap, WaterCap, BirdCap, InsectCap, MechCap, DarkCap, HolyCap) usados nas Species Quests.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/DigiFarm_Goods",
+          "accessed_date": "2026-11-09",
+          "confidence": "media"
+        },
+        {
+          "claim": "Traits (habilidades fixas por Digimon, não resultado de treino) confirmam a existência dos stats Attack, Defense, Spirit e Speed, com bônus fixos de +5 a +30 dependendo do estágio de Digivolução.",
+          "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Traits",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta"
+        }
+      ]
+    }
+  ]
+}

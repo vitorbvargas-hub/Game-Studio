@@ -1,0 +1,1076 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-11-09",
+  "lines": [
+    {
+      "line_id": "agumon",
+      "line_name": "Koromon -> Agumon -> Greymon -> MetalGreymon -> WarGreymon",
+      "slots": [
+        {
+          "slot_index": 0,
+          "per_game": {
+            "dw1": {
+              "name": "Koromon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Koromon",
+              "stage": "Training II (In-Training)",
+              "status": "confirmed",
+              "attribute": "Free",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Koromon",
+              "stage": "Training 2",
+              "status": "confirmed",
+              "attribute": "Free",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Koromon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Koromon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 1,
+          "per_game": {
+            "dw1": {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Agumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Agumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 2,
+          "per_game": {
+            "dw1": {
+              "name": "Greymon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Greymon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Greymon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Greymon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Greymon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 3,
+          "per_game": {
+            "dw1": {
+              "name": "MetalGreymon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "MetalGreymon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "MetalGreymon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 4,
+          "per_game": {
+            "dw1": {
+              "name": "WarGreymon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "WarGreymon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "WarGreymon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "line_id": "gabumon",
+      "line_name": "Tsunomon -> Gabumon -> Garurumon -> WereGarurumon -> MetalGarurumon",
+      "slots": [
+        {
+          "slot_index": 0,
+          "per_game": {
+            "dw1": {
+              "name": "Tsunomon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Tsunomon",
+              "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Tsunomon",
+              "stage": "Training 2",
+              "status": "confirmed",
+              "attribute": "Free",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Tsunomon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Tsunomon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 1,
+          "per_game": {
+            "dw1": {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Gabumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Gabumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 2,
+          "per_game": {
+            "dw1": {
+              "name": "Garurumon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Garurumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Garurumon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 3,
+          "per_game": {
+            "dw1": {
+              "name": "WereGarurumon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "WereGarurumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "WereGarurumon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "media"
+            }
+          }
+        },
+        {
+          "slot_index": 4,
+          "per_game": {
+            "dw1": {
+              "name": "MetalGarurumon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "MetalGarurumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "MetalGarurumon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "line_id": "patamon",
+      "line_name": "Tokomon -> Patamon -> Angemon -> MagnaAngemon -> Seraphimon",
+      "slots": [
+        {
+          "slot_index": 0,
+          "per_game": {
+            "dw1": {
+              "name": "Tokomon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Tokomon",
+              "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Tokomon",
+              "stage": "Training 2",
+              "status": "confirmed",
+              "attribute": "Free",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Tokomon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Tokomon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "Bird",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 1,
+          "per_game": {
+            "dw1": {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Patamon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Patamon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Bird",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 2,
+          "per_game": {
+            "dw1": {
+              "name": "Angemon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Angemon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Angemon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Angemon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Angemon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Holy",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 3,
+          "per_game": {
+            "dw1": {
+              "name": "MagnaAngemon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "MagnaAngemon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "MagnaAngemon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Holy",
+              "confidence": "media"
+            }
+          }
+        },
+        {
+          "slot_index": 4,
+          "per_game": {
+            "dw1": {
+              "name": "Seraphimon",
+              "stage": "pendente",
+              "status": "pendente",
+              "attribute": "pendente",
+              "confidence": "baixa"
+            },
+            "next_order": {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Vaccine",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Seraphimon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Seraphimon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Holy",
+              "confidence": "alta"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "line_id": "guilmon",
+      "line_name": "Gigimon -> Guilmon -> Growlmon -> WarGrowlmon -> Gallantmon",
+      "slots": [
+        {
+          "slot_index": 0,
+          "per_game": {
+            "dw1": {
+              "name": "Gigimon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Gigimon",
+              "stage": "Training II (In-Training)",
+              "status": "confirmed",
+              "attribute": "pendente (fonte diz apenas 'Neutral type', sem afirmar explicitamente 'Free')",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Gigimon",
+              "stage": "N/A",
+              "status": "not_in_game",
+              "attribute": "N/A",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Gigimon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Gigimon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 1,
+          "per_game": {
+            "dw1": {
+              "name": "Guilmon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Guilmon",
+              "stage": "Rookie (nível geral confirmado no infobox da página, |level=Rookie; não reafirmado literalmente na seção de Next Order)",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Guilmon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 2,
+          "per_game": {
+            "dw1": {
+              "name": "Growlmon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Growlmon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Growlmon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 3,
+          "per_game": {
+            "dw1": {
+              "name": "WarGrowlmon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "WarGrowlmon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "WarGrowlmon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 4,
+          "per_game": {
+            "dw1": {
+              "name": "Gallantmon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "cyber_sleuth": {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Gallantmon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "Virus",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Gallantmon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Holy",
+              "confidence": "alta"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "line_id": "dorumon",
+      "line_name": "Dorimon -> Dorumon -> Dorugamon -> DoruGreymon -> Dorugoramon/ChaosDukemon",
+      "slots": [
+        {
+          "slot_index": 0,
+          "per_game": {
+            "dw1": {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Dorimon",
+              "stage": "N/A",
+              "status": "not_in_game",
+              "attribute": "N/A",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Dorimon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Dorimon",
+              "stage": "In-Training",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 1,
+          "per_game": {
+            "dw1": {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Dorumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Dorumon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Dorumon",
+              "stage": "Rookie",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 2,
+          "per_game": {
+            "dw1": {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Dorugamon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Dorugamon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "Dorugamon",
+              "stage": "Champion",
+              "status": "confirmed",
+              "attribute": "Beast",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 3,
+          "per_game": {
+            "dw1": {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "DoruGreymon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "DoruGreymon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "DoruGreymon",
+              "stage": "Ultimate",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 4,
+          "per_game": {
+            "dw1": {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "Dorugoramon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Data",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "Dorugoramon",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "dawn_dusk": {
+              "name": "Dorugoramon",
+              "stage": "Mega",
+              "status": "confirmed",
+              "attribute": "Dragon",
+              "confidence": "alta"
+            }
+          }
+        },
+        {
+          "slot_index": 5,
+          "per_game": {
+            "dw1": {
+              "name": "ChaosDukemon",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "next_order": {
+              "name": "ChaosDukemon (ChaosGallantmon)",
+              "stage": "pendente",
+              "status": "not_in_game",
+              "attribute": "pendente",
+              "confidence": "media"
+            },
+            "cyber_sleuth": {
+              "name": "ChaosDukemon",
+              "stage": "N/A",
+              "status": "not_in_game",
+              "attribute": "N/A",
+              "confidence": "alta"
+            },
+            "dmo": {
+              "name": "ChaosGallantmon (ChaosDukemon)",
+              "stage": "pendente",
+              "status": "confirmed",
+              "attribute": "pendente",
+              "confidence": "alta"
+            },
+            "dawn_dusk": {
+              "name": "ChaosDukemon",
+              "stage": "Mega",
+              "status": "not_in_game",
+              "attribute": null,
+              "confidence": "alta"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

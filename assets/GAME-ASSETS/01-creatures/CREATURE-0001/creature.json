@@ -1,0 +1,57 @@
+{
+  "id": "CREATURE-0001",
+  "name": "Criatura-piloto (nome provisório)",
+  "description": "Exemplo de manifest ligado à ficha visual piloto de calibração de escala/paleta (ver projects/prototypes/GS-003/docs/ART_STYLE_GUIDE.md §7). Réptil pequeno vermelho/creme, porte Rookie, inspirado na linguagem visual da imagem conceito do fundador (não é um redesenho de nenhum Digimon específico). Nome e identidade final de espécie ficam fora do escopo deste documento -- decisão de game design (GDD/GAME_CONCEPTS.md), não de direção de arte. Status NEEDS_CREATION: só existe a pose estática de calibração, nenhuma animação P0 completa foi produzida.",
+  "category": "original-creature",
+  "rarity": "common",
+  "element": "unknown",
+  "attributes": {},
+  "evolutionStage": "rookie",
+  "evolutionLine": { "lineId": null, "previous": null, "next": [] },
+  "evolutionRequirements": {},
+  "dimensions": { "frameW": 48, "frameH": 54, "tile": 32 },
+  "pivot": { "x": 24, "y": 53 },
+  "hitbox": { "x": 10.56, "y": 20.52, "w": 26.88, "h": 33.48 },
+  "anchors": {
+    "head": { "x": 24, "y": 3 },
+    "hit": { "x": 24, "y": 26 },
+    "shadow": { "cx": 24, "cy": 52, "rx": 16, "ry": 2 }
+  },
+  "directions": {
+    "idle": { "drawn": ["S"], "mirrored": {} },
+    "walk": { "drawn": [], "mirrored": {} }
+  },
+  "animations": {
+    "idle": {
+      "loop": true,
+      "fps": 2,
+      "frames": [
+        { "durationMs": 500, "atlasKey": "pilot_rookie_native_idle_01" }
+      ],
+      "events": []
+    }
+  },
+  "combatStates": {
+    "IDLE": "idle",
+    "WALK": "idle",
+    "FOLLOW": "idle",
+    "ENGAGE": "idle",
+    "ATTACK": "idle",
+    "HURT": "idle",
+    "DEFEAT": "idle",
+    "RETURN": "idle"
+  },
+  "sprites": "./sprites/",
+  "spritesheets": "./spritesheets/",
+  "assetOrigin": {
+    "layer": "original",
+    "sourceDescription": "Desenhado pixel a pixel por matriz de caracteres em art/src/pilot_model_sheet.js (ver source/), sem referência a nenhum arquivo/imagem de terceiro. Técnica escolhida porque a abordagem paramétrica anterior (fillEllipse/fillPolygon) foi reprovada pelo fundador -- ver ADR-009."
+  },
+  "approvalStatus": "NEEDS_CREATION",
+  "score": null,
+  "qaNotes": [
+    "Só o idle (1 frame estático) existe, e é um esboço de calibração, não um asset de produção (ver ASSET_QA_CHECKLIST.md -- este manifest não foi submetido ao checklist completo).",
+    "combatStates aponta tudo para 'idle' como placeholder -- walk/hurt/attack/defeat precisam ser produzidas e mapeadas antes de NEEDS_CREATION virar UNDER_REVIEW.",
+    "Identidade de espécie (nome, elemento, se é Digimon oficial ou original) está pendente do inventário de Prioridade Zero (docs/briefing/03_priority_zero_digimon_asset_research.md) -- este manifest não decide isso."
+  ]
+}

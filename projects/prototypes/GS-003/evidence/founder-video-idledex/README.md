@@ -1,0 +1,2 @@
+Vídeo do fundador (youtu.be/8a7yzDg6NDI, 80s) jogando IdleDex, 2026-11-08. Frames capturados pelo coordenador.
+Observações [E]: sprites de criatura pequenos (~30px) estilo PMD com asas/pernas animadas; Tamer ~30px com walk; tileset coeso (floresta noturna, árvores variadas, grama alta); HUD: minimapa, barra de inventário/ícones, faixa do time com HP, log de batalha, painéis laterais (evento, pesca, mega boss, passe), modais escuros com borda (Equipe & Box com ficha de stats, golpes, ações).

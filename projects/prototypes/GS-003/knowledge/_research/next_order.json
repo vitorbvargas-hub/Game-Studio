@@ -1,0 +1,472 @@
+{
+  "game": "Digimon World: Next Order",
+  "lines": [
+    {
+      "line_name": "Agumon (Koromon -> Agumon -> Greymon -> MetalGreymon -> WarGreymon)",
+      "digimon": [
+        {
+          "name": "Koromon",
+          "stage": "Training II (In-Training)",
+          "attribute": "Free",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Agumon", "requirement": "pendente", "alternate": true },
+            { "target": "ToyAgumon", "requirement": "pendente", "alternate": true },
+            { "target": "Agumon (Black)", "requirement": "pendente", "alternate": true },
+            { "target": "Veemon", "requirement": "pendente", "alternate": true },
+            { "target": "Shoutmon", "requirement": "pendente", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Koromon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Agumon",
+          "stage": "Rookie",
+          "attribute": "Vaccine",
+          "evolves_from": "Koromon",
+          "evolves_to": [
+            { "target": "Greymon", "requirement": "pendente", "alternate": true },
+            { "target": "Tyrannomon", "requirement": "pendente", "alternate": true },
+            { "target": "Meramon", "requirement": "pendente", "alternate": true },
+            { "target": "Greymon (Blue)", "requirement": "pendente", "alternate": true },
+            { "target": "Numemon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)", "alternate": true },
+            { "target": "Geremon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Agumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Greymon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "evolves_from": "Agumon (também a partir de ToyAgumon, Shoutmon)",
+          "evolves_to": [
+            { "target": "MetalGreymon (Vaccine)", "requirement": "pendente", "alternate": true },
+            { "target": "MetalGreymon (Blue)", "requirement": "pendente", "alternate": true },
+            { "target": "WarGrowlmon (Orange)", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Greymon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "MetalGreymon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "evolves_from": "Greymon (também a partir de GoldVeedramon, Growlmon (Orange))",
+          "evolves_to": [
+            { "target": "WarGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "ShineGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "KaiserGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "Alphamon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô ('poop gauge') no máximo (texto da fonte)", "alternate": true }
+          ],
+          "notes": "No wiki, a página 'MetalGreymon' é um redirecionamento de desambiguação; o conteúdo citado é da página de variante 'MetalGreymon (Vaccine)', que é a variante relevante para esta linha (Agumon Vaccine).",
+          "source_url": "https://digimon.fandom.com/wiki/MetalGreymon_(Vaccine)",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "WarGreymon",
+          "stage": "Mega",
+          "attribute": "Vaccine",
+          "evolves_from": "MetalGreymon (Vaccine) (também a partir de MetalTyrannomon, Megadramon, WarGrowlmon (Orange))",
+          "evolves_to": [
+            { "target": "Omegamon", "requirement": "DNA Digivolve com MetalGarurumon (texto da fonte não detalha requisitos numéricos)", "alternate": false },
+            { "target": "PlatinumSukamon", "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Mesma condição acima (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/WarGreymon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Gabumon (Tsunomon -> Gabumon -> Garurumon -> WereGarurumon -> MetalGarurumon)",
+      "digimon": [
+        {
+          "name": "Tsunomon",
+          "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+          "attribute": "pendente",
+          "evolves_from": "Punimon",
+          "evolves_to": [
+            { "target": "Gabumon", "requirement": "pendente", "alternate": true },
+            { "target": "Gaomon", "requirement": "pendente", "alternate": true },
+            { "target": "Psychemon", "requirement": "pendente", "alternate": true },
+            { "target": "Gabumon (Black)", "requirement": "pendente", "alternate": true },
+            { "target": "Gumdramon", "requirement": "pendente", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Tsunomon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Gabumon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "evolves_from": "Tsunomon",
+          "evolves_to": [
+            { "target": "Garurumon", "requirement": "pendente", "alternate": true },
+            { "target": "BlackGarurumon", "requirement": "pendente", "alternate": true },
+            { "target": "GaoGamon", "requirement": "pendente", "alternate": true },
+            { "target": "Seadramon", "requirement": "pendente", "alternate": true },
+            { "target": "Numemon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)", "alternate": true },
+            { "target": "Geremon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Gabumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Garurumon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "evolves_from": "Gabumon (também a partir de Gaomon)",
+          "evolves_to": [
+            { "target": "WereGarurumon", "requirement": "pendente", "alternate": true },
+            { "target": "GrapLeomon", "requirement": "pendente", "alternate": true },
+            { "target": "MachGaogamon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Garurumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "WereGarurumon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "evolves_from": "Garurumon (também a partir de Kyubimon, Gaogamon)",
+          "evolves_to": [
+            { "target": "MetalGarurumon", "requirement": "pendente", "alternate": true },
+            { "target": "Jijimon", "requirement": "pendente", "alternate": true },
+            { "target": "MagnaGarurumon", "requirement": "pendente", "alternate": true },
+            { "target": "Leopardmon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/WereGarurumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "MetalGarurumon",
+          "stage": "Mega",
+          "attribute": "Data",
+          "evolves_from": "WereGarurumon (também a partir de MachGaogamon, MetalMamemon, Datamon)",
+          "evolves_to": [
+            { "target": "Omegamon", "requirement": "DNA Digivolve com WarGreymon (texto da fonte não detalha requisitos numéricos)", "alternate": false },
+            { "target": "PlatinumSukamon", "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Mesma condição acima (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/MetalGarurumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Patamon (Tokomon -> Patamon -> Angemon -> MagnaAngemon -> Seraphimon)",
+      "digimon": [
+        {
+          "name": "Tokomon",
+          "stage": "Training II (In-Training, estágio não reafirmado explicitamente na seção de Next Order, mas é o estágio geral da espécie)",
+          "attribute": "pendente",
+          "evolves_from": "Poyomon",
+          "evolves_to": [
+            { "target": "Patamon", "requirement": "pendente", "alternate": true },
+            { "target": "Biyomon", "requirement": "pendente", "alternate": true },
+            { "target": "Tsukaimon", "requirement": "pendente", "alternate": true },
+            { "target": "Hackmon", "requirement": "pendente", "alternate": true },
+            { "target": "Lucemon", "requirement": "pendente", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Tokomon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Patamon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "evolves_from": "Tokomon",
+          "evolves_to": [
+            { "target": "Angemon", "requirement": "pendente", "alternate": true },
+            { "target": "Piddomon", "requirement": "pendente", "alternate": true },
+            { "target": "Growlmon (Orange)", "requirement": "pendente", "alternate": true },
+            { "target": "Veedramon", "requirement": "pendente", "alternate": true },
+            { "target": "Numemon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)", "alternate": true },
+            { "target": "Geremon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Patamon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Angemon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "evolves_from": "Patamon (também a partir de Terriermon)",
+          "evolves_to": [
+            { "target": "MagnaAngemon", "requirement": "pendente", "alternate": true },
+            { "target": "BlueMeramon", "requirement": "pendente", "alternate": true },
+            { "target": "Taomon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Angemon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "MagnaAngemon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "evolves_from": "Angemon (também a partir de Wizardmon, Sorcermon)",
+          "evolves_to": [
+            { "target": "Seraphimon", "requirement": "pendente", "alternate": true },
+            { "target": "Cherubimon (Good)", "requirement": "pendente", "alternate": true },
+            { "target": "Jesmon", "requirement": "pendente", "alternate": true },
+            { "target": "MarineAngemon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/MagnaAngemon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Seraphimon",
+          "stage": "Mega",
+          "attribute": "Vaccine",
+          "evolves_from": "MagnaAngemon (também a partir de Monzaemon, Lucemon Chaos Mode)",
+          "evolves_to": [
+            { "target": "Imperialdramon Fighter Mode", "requirement": "DNA Digivolve com Imperialdramon Dragon Mode (texto da fonte não detalha requisitos numéricos)", "alternate": false },
+            { "target": "PlatinumSukamon", "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Mesma condição acima (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Seraphimon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Guilmon (Gigimon -> Guilmon -> Growlmon -> WarGrowlmon -> Gallantmon)",
+      "digimon": [
+        {
+          "name": "Gigimon",
+          "stage": "Training II (In-Training)",
+          "attribute": "pendente (fonte diz apenas 'Neutral type', sem afirmar explicitamente 'Free')",
+          "evolves_from": "Jyarimon",
+          "evolves_to": [
+            { "target": "Guilmon", "requirement": "pendente", "alternate": true },
+            { "target": "Goblimon", "requirement": "pendente", "alternate": true },
+            { "target": "Solarmon", "requirement": "pendente", "alternate": true },
+            { "target": "Gotsumon", "requirement": "pendente", "alternate": true },
+            { "target": "Shoutmon", "requirement": "pendente", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Gigimon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Guilmon",
+          "stage": "Rookie (nível geral confirmado no infobox da página, |level=Rookie; não reafirmado literalmente na seção de Next Order)",
+          "attribute": "Virus",
+          "evolves_from": "Gigimon",
+          "evolves_to": [
+            { "target": "Growlmon", "requirement": "pendente", "alternate": true },
+            { "target": "Growlmon (Orange)", "requirement": "pendente", "alternate": true },
+            { "target": "Tyrannomon", "requirement": "pendente", "alternate": true },
+            { "target": "RedVeedramon", "requirement": "pendente", "alternate": true },
+            { "target": "Numemon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Ataque maior que Sabedoria (texto da fonte)", "alternate": true },
+            { "target": "Geremon", "requirement": "Falha nos requisitos de Champion antes dos 7 anos de idade, com Sabedoria maior que Ataque (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Guilmon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order' + infobox geral",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Growlmon",
+          "stage": "Champion",
+          "attribute": "Virus",
+          "evolves_from": "Guilmon (também a partir de BlackAgumon, Shoutmon)",
+          "evolves_to": [
+            { "target": "WarGrowlmon", "requirement": "pendente", "alternate": true },
+            { "target": "BlackWarGrowlmon", "requirement": "pendente", "alternate": true },
+            { "target": "SkullGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Growlmon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "WarGrowlmon",
+          "stage": "Ultimate",
+          "attribute": "Virus",
+          "evolves_from": "Growlmon (também a partir de Tyrannomon, RedVeedramon)",
+          "evolves_to": [
+            { "target": "Gallantmon", "requirement": "pendente", "alternate": true },
+            { "target": "ShineGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "Leviamon", "requirement": "pendente", "alternate": true },
+            { "target": "KaiserGreymon", "requirement": "pendente", "alternate": true },
+            { "target": "PlatinumSukamon", "requirement": "Medidor de cocô no máximo (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/WarGrowlmon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Gallantmon",
+          "stage": "Mega",
+          "attribute": "Virus",
+          "evolves_from": "WarGrowlmon (também a partir de Agunimon)",
+          "evolves_to": [
+            { "target": "Gallantmon Crimson Mode", "requirement": "DNA Digivolve com um dos: Dynasmon, UlforceVeedramon, Alphamon, Kentaurosmon, ChaosGallantmon, Examon ou Jesmon (texto da fonte não detalha requisitos numéricos)", "alternate": false },
+            { "target": "PlatinumSukamon", "requirement": "Mega não produz cocô normalmente; se o 'experimento de Piedmon' maximizar o medidor de cocô, digivolve para PlatinumSukamon ou Sukamon (texto da fonte)", "alternate": true },
+            { "target": "Sukamon", "requirement": "Mesma condição acima (texto da fonte)", "alternate": true }
+          ],
+          "source_url": "https://digimon.fandom.com/wiki/Gallantmon",
+          "source_name": "Digimon Wiki (digimon.fandom.com), seção 'Digimon World: Next Order'",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Dorumon (Dorimon -> Dorumon -> Dorugamon -> DoruGreymon -> Dorugoramon/ChaosDukemon)",
+      "digimon": [
+        {
+          "name": "Dorimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "A página geral do Dorimon no Digimon Wiki (digimon.fandom.com) não possui nenhuma seção '===Digimon World: Next Order===', e nenhuma menção a 'Next Order' aparece em todo o texto da página. A página principal de 'Digimon World: Next Order' (digimon.fandom.com) também não cita Dorimon/Doru. Sem evidência de presença no jogo.",
+          "source_url": "https://digimon.fandom.com/wiki/Dorimon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        },
+        {
+          "name": "Dorumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "Mesma verificação: página geral do Dorumon sem seção 'Digimon World: Next Order' e sem nenhuma menção a 'Next Order' no corpo do texto.",
+          "source_url": "https://digimon.fandom.com/wiki/Dorumon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        },
+        {
+          "name": "Dorugamon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'.",
+          "source_url": "https://digimon.fandom.com/wiki/Dorugamon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        },
+        {
+          "name": "DoruGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'.",
+          "source_url": "https://digimon.fandom.com/wiki/DoruGreymon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        },
+        {
+          "name": "Dorugoramon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "Mesma verificação: sem seção 'Digimon World: Next Order' e sem menção a 'Next Order'.",
+          "source_url": "https://digimon.fandom.com/wiki/Dorugoramon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        },
+        {
+          "name": "ChaosDukemon (ChaosGallantmon)",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "not_in_game": true,
+          "notes": "A página 'ChaosDukemon' no Digimon Wiki redireciona para 'ChaosGallantmon' (nome usado em inglês nessa wiki). Nenhuma das duas formas aparece na página principal de 'Digimon World: Next Order' nem há seção dedicada ao jogo na página do próprio Digimon.",
+          "source_url": "https://digimon.fandom.com/wiki/ChaosGallantmon",
+          "source_name": "Digimon Wiki (digimon.fandom.com) - redirecionamento ChaosDukemon -> ChaosGallantmon, ausência de seção Next Order",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game"
+        }
+      ]
+    }
+  ],
+  "general_notes": "[E] Tentativas de acesso direto às fontes pedidas originalmente (digimonworld.fandom.com, strategywiki.org, DuckDuckGo HTML, grindosaur.com) falharam nesta sessão: digimonworld.fandom.com e strategywiki.org retornaram desafio Cloudflare ('Just a moment...', HTTP 403) via web_fetch simples; DuckDuckGo HTML/lite exigiu captcha ('Select all squares containing a duck'); grindosaur.com também retornou Cloudflare 403. web_search estava desabilitado nesta sessão ('no provider available'). Como alternativa funcional, foi usada a API MediaWiki pública (api.php) do wiki maior e mais completo da franquia, digimon.fandom.com, que respondeu normalmente e contém, para cada espécie, uma subseção dedicada '===Digimon World: Next Order===' com atributo, estágio e listas de evolução (evolves_from/evolves_to) tal como descritas no corpo do artigo. [E] Essa fonte NÃO fornece números exatos de requisito (nível mínimo, ABI, Felicidade, Disciplina, Vínculo, itens) para cada salto de evolução dentro de Next Order — apenas os alvos possíveis de cada evolução e, quando aplicável, a regra genérica documentada: se o Rookie não atingir os requisitos de nenhum Champion antes dos 7 anos de idade, digivolve para Numemon (se Ataque > Sabedoria) ou Geremon (se Sabedoria > Ataque); e, em qualquer estágio, se o medidor de cocô atingir o máximo, digivolve para Sukamon (ou PlatinumSukamon a partir de Champion). Por isso quase todos os requirement individuais de evolves_to foram marcados 'pendente', exceto os que replicam literalmente essas duas regras gerais documentadas pela fonte. [H] Não foi possível confirmar nesta sessão se o site digimonworld.fandom.com (wiki específica de Digimon World) contém dados de requisito mais detalhados, pois o acesso foi bloqueado por Cloudflare em todas as tentativas; o mesmo vale para grindosaur.com, citado como referência de stats em uma das páginas consultadas. [E] A tentativa de consultar a página MediaWiki api.php de digimonworld.fandom.com funcionou (não bloqueada por Cloudflare), mas as páginas específicas de evolução (ex.: 'Agumon/Evolution') citadas pelo sistema de abas do próprio wiki retornaram 'missing' (não existem/estão vazias), e a página 'Greymon' simples também não existe nesse wiki sob esse nome. [E] A linha do Dorumon (Dorimon/Dorumon/Dorugamon/DoruGreymon/Dorugoramon/ChaosDukemon-ChaosGallantmon) não possui nenhuma seção ou menção a 'Digimon World: Next Order' nas páginas individuais da wiki consultada, nem aparece na página principal do jogo; portanto todos os 6 foram marcados not_in_game=true com confiança 'media' (ausência de evidência não é prova absoluta de ausência, mas é o máximo verificável com as fontes acessíveis nesta sessão)."
+}

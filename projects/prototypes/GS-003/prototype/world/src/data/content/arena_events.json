@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "_comment": "GDD_MMO_V1 §5. Arena é EVENTO do jogo (não modo permanente), por pedido do fundador. Regras de combate reaproveitam prototype/MODES_AND_ROADMAP.md §1-2 e o sistema de 4 slots de MOVE_SYSTEM.md — este arquivo só define disponibilidade/calendário/recompensa.",
+  "classic": {
+    "type": "pvp_async_team",
+    "availability": "sempre disponível para desafios (assíncrono, roda a sim existente contra o time de defesa salvo do oponente)",
+    "freeChallengesPerDay": 5,
+    "extraChallengeCostBits": 50,
+    "season": { "lengthDays": 14, "resetReward": "cosmético pela faixa final, sem vantagem de poder", "rankingType": "Elo/MMR simples" }
+  },
+  "battle": {
+    "type": "pvp_action_realtime",
+    "loadoutSource": "os 4 slots equipados do Digimon (MOVE_SYSTEM.md), cooldownTicks convertido para tempo real (1 tick = 100ms)",
+    "roundRules": { "koOrTimeoutSec": 90, "hpCarriesOverBetweenRounds": true, "bestOf": 3 },
+    "modes": [
+      { "id": "vs_ia_treino", "availability": "sempre disponível, 100% local", "sequencingOrder": 1 },
+      { "id": "pvp_async_replay", "availability": "exige Fase 3 (servidor)", "sequencingOrder": 2 },
+      { "id": "pvp_live", "availability": "exige Fase 5 (servidor + netcode)", "sequencingOrder": 3 }
+    ]
+  },
+  "calendar": [
+    { "event": "classica_desafios", "frequency": "sempre disponível" },
+    { "event": "classica_temporada", "frequency": "a cada 14 dias" },
+    { "event": "batalha_vs_ia", "frequency": "sempre disponível" },
+    { "event": "batalha_pvp_live", "frequency": "4x/semana [H]", "days": ["mon", "wed", "fri", "sun"], "timeRange": "19:00–22:00", "requiresPhase": "Fase 5" },
+    { "event": "world_boss_local", "frequency": "1x/dia de jogo, sob demanda" },
+    { "event": "world_boss_servidor", "frequency": "diária ou 2x/semana [H]", "timeRange": "20:00–21:00", "requiresPhase": "Fase 2+3" }
+  ],
+  "rewardsPolicy": "toda recompensa de Arena e World Boss é cosmética ou bits (ADR-007 condição 1) — nunca stat/poder"
+}

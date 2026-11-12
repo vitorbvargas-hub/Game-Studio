@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gs003-creature.schema.json",
+  "title": "GS-003 Creature Manifest",
+  "description": "Schema de creature.json, um por criatura em 01-creatures/CREATURE-NNNN/. Campos e nomes alinhados com projects/prototypes/GS-003/docs/SPRITE_SPECIFICATION.md, ANIMATION_STANDARD.md, ASSET_LICENSE_POLICY.md e WORLD_COMBAT_VISUAL_SPEC.md (game-dev) -- não renomear anchors/eventos sem atualizar os dois lados.",
+  "type": "object",
+  "required": [
+    "id", "name", "category", "rarity", "element", "evolutionStage",
+    "dimensions", "pivot", "hitbox", "anchors", "animations",
+    "combatStates", "assetOrigin", "approvalStatus"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^CREATURE-[0-9]{4}$", "description": "Mesmo valor do nome da pasta." },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "category": { "type": "string", "description": "Ex.: 'digital-creature', 'original-creature'." },
+    "rarity": { "type": "string", "enum": ["common", "uncommon", "rare", "epic", "legendary"] },
+    "element": { "type": "string", "description": "Ex.: 'fire', 'water', 'vaccine', 'virus', 'data' -- vocabulário do GDD, não fixado aqui." },
+    "attributes": {
+      "type": "object",
+      "description": "Atributos de combate base (HP, ataque, defesa, velocidade etc.) -- formato livre, validado pelo balance.json do game-dev, não por este schema.",
+      "additionalProperties": true
+    },
+    "evolutionStage": { "type": "string", "enum": ["baby", "rookie", "champion", "ultimate", "mega"] },
+    "evolutionLine": {
+      "type": "object",
+      "properties": {
+        "lineId": { "type": "string" },
+        "previous": { "type": ["string", "null"], "pattern": "^CREATURE-[0-9]{4}$" },
+        "next": { "type": "array", "items": { "type": "string", "pattern": "^CREATURE-[0-9]{4}$" } }
+      }
+    },
+    "evolutionRequirements": {
+      "type": "object",
+      "description": "Ex.: { level: 16, item: null, bondPct: 0 } -- formato livre, regra de gameplay fica no game-dev.",
+      "additionalProperties": true
+    },
+    "dimensions": {
+      "type": "object",
+      "required": ["frameW", "frameH", "tile"],
+      "properties": {
+        "frameW": { "type": "integer" },
+        "frameH": { "type": "integer" },
+        "tile": { "type": "integer", "const": 32, "description": "ART_STYLE_GUIDE.md §2." }
+      }
+    },
+    "pivot": {
+      "type": "object",
+      "required": ["x", "y"],
+      "description": "Pixel nos pés, origem do frame (SPRITE_SPECIFICATION.md §2).",
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "hitbox": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "description": "Relativo ao frame, não o frame inteiro (SPRITE_SPECIFICATION.md §3).",
+      "properties": {
+        "x": { "type": "number" }, "y": { "type": "number" },
+        "w": { "type": "number" }, "h": { "type": "number" }
+      }
+    },
+    "anchors": {
+      "type": "object",
+      "required": ["head", "hit", "shadow"],
+      "description": "Nomes fixos usados por WORLD_COMBAT_VISUAL_SPEC.md (barra de HP, efeito de golpe, sombra de contato).",
+      "properties": {
+        "head": { "$ref": "#/definitions/point" },
+        "hit": { "$ref": "#/definitions/point" },
+        "shadow": {
+          "type": "object",
+          "required": ["cx", "cy", "rx", "ry"],
+          "properties": {
+            "cx": { "type": "number" }, "cy": { "type": "number" },
+            "rx": { "type": "number" }, "ry": { "type": "number" }
+          }
+        },
+        "effect": { "$ref": "#/definitions/point", "description": "Opcional, P1/P2 (aura, item segurado)." }
+      }
+    },
+    "directions": {
+      "type": "object",
+      "description": "Por animação: quais das 8 direções (Dir8) têm arte própria vs. espelhada vs. não se aplica. SPRITE_SPECIFICATION.md §5.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "drawn": { "type": "array", "items": { "type": "string", "enum": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"] } },
+          "mirrored": {
+            "type": "object",
+            "description": "Direção -> direção-fonte espelhada via flipX. Ex.: { \"NW\": \"NE\", \"W\": \"E\", \"SW\": \"SE\" }.",
+            "additionalProperties": { "type": "string", "enum": ["S", "SE", "E", "NE", "N", "NW", "W", "SW"] }
+          }
+        }
+      }
+    },
+    "animations": {
+      "type": "object",
+      "description": "Chave = nome da animação (idle, walk, sleep, follow, hurt, attack, eat, happy, interact, special, defeat, evolve, dance, emotes, social, rare). Valores em ANIMATION_STANDARD.md.",
+      "additionalProperties": { "$ref": "#/definitions/animation" }
+    },
+    "combatStates": {
+      "type": "object",
+      "description": "Mapa dos 8 estados de WORLD_COMBAT_VISUAL_SPEC.md §3 para o nome de animação usado em cada um.",
+      "required": ["IDLE", "WALK", "FOLLOW", "ENGAGE", "ATTACK", "HURT", "DEFEAT", "RETURN"],
+      "properties": {
+        "IDLE": { "type": "string" }, "WALK": { "type": "string" }, "FOLLOW": { "type": "string" },
+        "ENGAGE": { "type": "string" }, "ATTACK": { "type": "string" }, "HURT": { "type": "string" },
+        "DEFEAT": { "type": "string" }, "RETURN": { "type": "string" }
+      }
+    },
+    "sprites": { "type": "string", "description": "Caminho relativo da pasta de PNGs individuais, normalmente './sprites/'." },
+    "spritesheets": { "type": "string", "description": "Caminho relativo do PNG empacotado + atlas JSON, normalmente './spritesheets/'." },
+    "assetOrigin": {
+      "type": "object",
+      "required": ["layer"],
+      "description": "Resumo de origem; o detalhe completo de licença vive em license.json (ASSET_LICENSE_POLICY.md).",
+      "properties": {
+        "layer": { "type": "string", "enum": ["official-fan-use", "reference", "private-prototype", "licensed", "original", "rejected"], "description": "official-fan-use adicionado 2026-11-08 (ASSET_LICENSE_POLICY.md §3) -- sprites oficiais DW DS/Dawn/Dusk/PMD Chunsoft liberados para este fan game não comercial." },
+        "sourceDescription": { "type": "string" }
+      }
+    },
+    "approvalStatus": {
+      "type": "string",
+      "enum": ["DISCOVERED", "UNDER_REVIEW", "APPROVED", "REJECTED", "NEEDS_CREATION", "INTEGRATED"]
+    },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "ASSET_QA_CHECKLIST.md / briefing 05_module2 (abaixo de 70 não aprova automaticamente)." },
+    "qaNotes": { "type": "array", "items": { "type": "string" } }
+  },
+  "definitions": {
+    "point": {
+      "type": "object",
+      "required": ["x", "y"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "animation": {
+      "type": "object",
+      "required": ["loop", "frames"],
+      "properties": {
+        "loop": { "type": "boolean" },
+        "fps": { "type": "number", "description": "Atalho quando todos os frames têm a mesma duração; omitir se usar durationMs por frame." },
+        "frames": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["durationMs"],
+            "properties": {
+              "durationMs": { "type": "integer", "minimum": 1 },
+              "atlasKey": { "type": "string", "description": "Chave do frame no atlas JSON (SPRITE_SPECIFICATION.md §6)." }
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "description": "Gatilhos visuais/áudio por índice de frame -- nunca decidem resultado de combate (WORLD_COMBAT_VISUAL_SPEC.md §8).",
+          "items": {
+            "type": "object",
+            "required": ["frame", "name"],
+            "properties": {
+              "frame": { "type": "integer", "minimum": 0 },
+              "name": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

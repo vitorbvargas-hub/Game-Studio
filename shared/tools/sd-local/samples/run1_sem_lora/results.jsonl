@@ -1,0 +1,4 @@
+{"out": "samples/potion.png", "seed": 101, "seconds": 22.09, "gen_res": [512, 512], "final_size": [32, 32], "vram_baseline_mib": 1180, "vram_peak_mib": 4391}
+{"out": "samples/chest.png", "seed": 202, "seconds": 4.03, "gen_res": [512, 512], "final_size": [32, 32], "vram_baseline_mib": 3431, "vram_peak_mib": 4329}
+{"out": "samples/grass_tile.png", "seed": 303, "seconds": 4.02, "gen_res": [512, 512], "final_size": [32, 32], "vram_baseline_mib": 3433, "vram_peak_mib": 4328}
+{"out": "samples/chibi_hero.png", "seed": 404, "seconds": 6.07, "gen_res": [512, 768], "final_size": [32, 48], "vram_baseline_mib": 3432, "vram_peak_mib": 4867}

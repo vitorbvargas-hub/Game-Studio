@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "_comment": "GDD_MMO_V1 §3. HP não se restaura entre andares (exceto itens de loot ou 1 ponto de cura fixo antes do chefe). Tudo [H], sem implementação de referência.",
+  "autoHeuristic": {
+    "beforeFloor": "se HP do time > 60%, escolhe a rota de mais loot; senão, a rota mais curta",
+    "beforeFinalBoss": "se HP do time < 15%, recua da instância; jogador pode desligar essa salvaguarda"
+  },
+  "groupRules": {
+    "maxPlayers": 4,
+    "hpSharing": "por jogador, não compartilhado",
+    "lootSharing": "por jogador, rolado individualmente, sem roubo de item",
+    "bossHpScaling": "+40% de HP por jogador adicional a partir do 2º; dano do chefe não escala",
+    "floorBranchDecision": "quem chegar primeiro à bifurcação decide, ou votação de maioria (detalhe de UI)"
+  },
+  "dungeons": [
+    {
+      "id": "cripta_das_raizes",
+      "name": "Cripta das Raízes",
+      "region": "floresta_densa",
+      "levelRange": [10, 18],
+      "floors": [
+        { "floor": 1, "encounters": [{ "speciesId": "CREATURE-0011", "count": 3 }] },
+        { "floor": 2, "encounters": [{ "speciesId": "CREATURE-0003", "count": 3 }], "environmentalDamagePct": 0 },
+        {
+          "floor": 3,
+          "branch": {
+            "routeA": { "name": "Câmara do Tesouro", "encounters": [{ "speciesId": "CREATURE-0003", "count": 4 }], "lootBonusPct": 50 },
+            "routeB": { "name": "Passagem Oculta", "encounters": [], "lootBonusPct": 0, "shortcut": true }
+          }
+        },
+        { "floor": 4, "encounters": [{ "speciesId": "CREATURE-0004", "count": 1, "role": "mini-boss" }], "onlyIfRoute": "routeA" },
+        {
+          "floor": 5,
+          "finalBoss": { "id": "BOSS-KUWAGAMON-ELITE", "baseId": "BOSS-KUWAGAMON", "name": "Kuwagamon Ancião", "level": 18, "variant": "elite" },
+          "healPointBeforeBoss": true
+        }
+      ],
+      "loot": { "bitsRange": [300, 600], "evolutionItemChance": 0.35, "rareItemChance": 0.08 }
+    },
+    {
+      "id": "ninho_de_engrenagens",
+      "name": "Ninho de Engrenagens",
+      "region": "deserto",
+      "levelRange": [35, 45],
+      "floors": [
+        { "floor": 1, "encounters": [{ "speciesId": "CREATURE-0010", "count": 3 }] },
+        { "floor": 2, "encounters": [{ "speciesId": "CREATURE-0013", "count": 3 }], "environmentalDamagePct": 5, "environmentalDamageNote": "armadilha fixa de 5% do HP máximo do time" },
+        { "floor": 3, "encounters": [{ "speciesId": "CREATURE-0010", "count": 2 }, { "speciesId": "CREATURE-0013", "count": 2 }] },
+        {
+          "floor": 4,
+          "branch": {
+            "routeA": { "name": "Sala das Engrenagens", "encounters": [{ "speciesId": "CREATURE-0013", "count": 4 }], "lootBonusPct": 50 },
+            "routeB": { "name": "Duto de Manutenção", "encounters": [], "lootBonusPct": 0, "shortcut": true }
+          }
+        },
+        { "floor": 5, "encounters": [{ "speciesId": "CREATURE-0010", "count": 2, "role": "guard" }], "onlyIfRoute": "routeA" },
+        {
+          "floor": 6,
+          "finalBoss": { "id": "BOSS-GUARDROMON-COMANDANTE", "baseId": "BOSS-GUARDROMON", "name": "Guardromon Comandante", "level": 45, "variant": "elite" },
+          "healPointBeforeBoss": true
+        }
+      ],
+      "loot": { "bitsRange": [800, 1400], "evolutionItemChance": 0.4, "rareItemChance": 0.12 }
+    }
+  ]
+}

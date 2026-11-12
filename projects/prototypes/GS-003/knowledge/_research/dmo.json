@@ -1,0 +1,383 @@
+{
+  "game": "Digimon Masters Online",
+  "lines": [
+    {
+      "line_name": "Agumon line (Koromon -> Agumon -> Greymon -> MetalGreymon -> WarGreymon)",
+      "digimon": [
+        {
+          "name": "Koromon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Agumon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/koromon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Agumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Koromon",
+          "evolves_to": [
+            { "target": "Greymon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/agumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Greymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Agumon",
+          "evolves_to": [
+            { "target": "MetalGreymon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/greymon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "MetalGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Greymon",
+          "evolves_to": [
+            { "target": "WarGreymon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/metalgreymon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "WarGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "MetalGreymon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/wargreymon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Gabumon line (Tsunomon -> Gabumon -> Garurumon -> WereGarurumon -> MetalGarurumon)",
+      "digimon": [
+        {
+          "name": "Tsunomon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Gabumon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/tsunomon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Gabumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Tsunomon",
+          "evolves_to": [
+            { "target": "Garurumon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/gabumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Garurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Gabumon",
+          "evolves_to": [
+            { "target": "WereGarurumon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/garurumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "WereGarurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Garurumon",
+          "evolves_to": [
+            { "target": "MetalGarurumon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/weregarurumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "MetalGarurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "WereGarurumon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/metalgarurumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Patamon line (Tokomon -> Patamon -> Angemon -> MagnaAngemon -> Seraphimon)",
+      "digimon": [
+        {
+          "name": "Tokomon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/tokomon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "not_in_game": true
+        },
+        {
+          "name": "Patamon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Angemon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/patamon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Angemon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Patamon",
+          "evolves_to": [
+            { "target": "MagnaAngemon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/angemon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "MagnaAngemon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Angemon",
+          "evolves_to": [
+            { "target": "Seraphimon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/magnaangemon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Seraphimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "MagnaAngemon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/seraphimon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Guilmon line (Gigimon -> Guilmon -> Growlmon -> WarGrowlmon -> Gallantmon)",
+      "digimon": [
+        {
+          "name": "Gigimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/gigimon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "not_in_game": true
+        },
+        {
+          "name": "Guilmon",
+          "stage": "Rookie",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Growlmon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/guilmon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "Growlmon",
+          "stage": "pendente",
+          "attribute": "Virus",
+          "evolves_from": "Guilmon",
+          "evolves_to": [
+            { "target": "WarGrowlmon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/growlmon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "WarGrowlmon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Growlmon",
+          "evolves_to": [
+            { "target": "Gallantmon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/wargrowlmon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Gallantmon",
+          "stage": "pendente",
+          "attribute": "Virus",
+          "evolves_from": "WarGrowlmon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/gallantmon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "line_name": "Dorumon line (Dorimon -> Dorumon -> Dorugamon -> DoruGreymon -> Dorugoramon/ChaosGallantmon(ChaosDukemon))",
+      "digimon": [
+        {
+          "name": "Dorimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/dorimon (404 - \"Digimon Not Found\"); https://dmokb.info/sitemap.xml (ausente)",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "not_in_game": true
+        },
+        {
+          "name": "Dorumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            { "target": "Dorugamon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/dorumon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "Dorugamon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Dorumon",
+          "evolves_to": [
+            { "target": "DoruGreymon", "requirement": "pendente", "alternate": false }
+          ],
+          "source_url": "https://dmokb.info/digimon/dorugamon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed"
+        },
+        {
+          "name": "DoruGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Dorugamon",
+          "evolves_to": [
+            { "target": "Dorugoramon", "requirement": "pendente", "alternate": true },
+            { "target": "ChaosGallantmon (ChaosDukemon)", "requirement": "pendente", "alternate": true }
+          ],
+          "source_url": "https://dmokb.info/digimon/dorugreymon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "notes": "Pagina mostra bloco estruturado (Rank/Attribute/Element/Attacker Type/Family/Level needed/Requires/Can be ridden/Can be hatched/Available), mas os campos de texto vieram vazios ou com '-' na extracao; 'Can be ridden: sim', 'Can be hatched: nao', 'Available: sim' foram os unicos valores legiveis."
+        },
+        {
+          "name": "Dorugoramon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "DoruGreymon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/dorugoramon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed"
+        },
+        {
+          "name": "ChaosGallantmon (ChaosDukemon)",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "DoruGreymon",
+          "evolves_to": [],
+          "source_url": "https://dmokb.info/digimon/chaosgallantmon",
+          "source_name": "DMO Knowledge Base (dmokb.info)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "notes": "Nome em jogo no DMO/dmokb.info e 'ChaosGallantmon' (slug nao existe em 'chaosdukemon'). O texto 'About' da fonte confirma explicitamente: 'ChaosGallantmon (カオスデュークモン ChaosDukemon)', ou seja ChaosDukemon e o nome romanizado japones do mesmo Digimon listado como ChaosGallantmon em DMO."
+        }
+      ]
+    }
+  ],
+  "general_notes": "[H] Limitacoes de ferramenta, nao do jogo em si, salvo onde indicado: (1) dmokb.info e um site Next.js cuja tabela/arvore de digivolucao (alvo + requisito exato: nivel, item, afinidade) e renderizada via JavaScript no cliente. A ferramenta web_fetch disponivel neste ambiente so extrai HTML estatico via Readability e NAO executa JavaScript, entao a secao de digivolucao nunca aparece no texto extraido, mesmo em paginas sem truncamento (confirmado em Agumon, Greymon, MetalGreymon, Dorugamon, DoruGreymon e outras). Por isso TODOS os campos 'requirement' ficaram 'pendente' - nao foi possivel confirmar nivel minimo, item de evolucao ou afinidade para nenhum Digimon desta pesquisa. (2) exec/curl neste ambiente esta bloqueado por um proxy (403 Forbidden ao tentar CONNECT), entao nao foi possivel baixar o HTML bruto por outra via para procurar dados embutidos (ex. JSON de hydration). (3) digidex.gg NAO e uma fonte de Digimon Masters Online: e um banco de dados do Digimon Card Game (TCG), com texto descritivo derivado de Wikimon/digi-api.com/digimoncard.io (confirmado na pagina inicial do proprio site) e paginas de 'card printings'. Foi descartado como fonte para este jogo. (4) A busca via https://html.duckduckgo.com/html/ e https://lite.duckduckgo.com/lite/ retornou bloqueio anti-bot (captcha 'select all squares containing a duck') em ambas as tentativas, portanto nao foi possivel usar DuckDuckGo como terceira fonte. [E] A existencia de cada Digimon no banco de dados do DMO (dmokb.info, que declara catalogar 606 Digimon do jogo) foi confirmada individualmente: (a) pagina individual retorna status 200 com titulo contendo o nome do Digimon (nao o titulo generico 'Digimon Not Found'); e (b) cruzamento com https://dmokb.info/sitemap.xml (arquivo completo de 171.363 caracteres, baixado em 2026-11-09), onde a URL /digimon/<slug> aparece listada. Tokomon, Gigimon e Dorimon NAO aparecem no sitemap (zero ocorrencias) e suas paginas individuais retornam 'Digimon Not Found' - por isso foram marcados not_in_game=true. Isso e evidencia de ausencia nesta fonte, nao uma confirmacao oficial da Bandai/produtora do DMO de que esses Digimon nunca existiram no jogo; pode refletir lacuna da propria base comunitaria dmokb.info (o site se descreve como 'Early Development', dados incompletos). [E] Dois atributos (Virus) e um estagio (Rookie, Guilmon) puderam ser confirmados porque apareceram explicitamente no texto descritivo 'About' de cada pagina (nao no quadro de estatisticas/digivolucao). [E] 'ChaosDukemon' foi confirmado presente no DMO sob o nome em ingles 'ChaosGallantmon', com a forma japonesa citada no proprio texto da fonte. Recomendacao: para obter os requisitos exatos de evolucao (nivel, item de Digivolution, afinidade), sera necessario acesso com renderizacao JavaScript (navegador) ao dmokb.info, ou uma fonte alternativa server-side-rendered, o que nao estava disponivel nas ferramentas desta sessao."
+}

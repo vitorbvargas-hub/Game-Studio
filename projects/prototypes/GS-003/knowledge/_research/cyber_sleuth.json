@@ -1,0 +1,506 @@
+{
+  "game": "Digimon Story: Cyber Sleuth / Hacker's Memory",
+  "lines": [
+    {
+      "line_name": "Koromon -> Agumon -> Greymon -> MetalGreymon -> WarGreymon",
+      "digimon": [
+        {
+          "name": "Koromon",
+          "stage": "Training 2",
+          "attribute": "Free",
+          "type": "Fire",
+          "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+          "evolves_to": [
+            {
+              "target": "Agumon",
+              "requirement": "Level 9, ATK 30, CAM 10%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/koromon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Agumon",
+          "stage": "Rookie",
+          "attribute": "Vaccine",
+          "type": "Fire",
+          "evolves_from": "Koromon",
+          "evolves_to": [
+            {
+              "target": "Greymon",
+              "requirement": "Level 16, ATK 55, CAM 50%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/agumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Greymon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "type": "Fire",
+          "evolves_from": "Agumon",
+          "evolves_to": [
+            {
+              "target": "MetalGreymon",
+              "requirement": "Level 30, ATK 100, HP 350, CAM 50%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/greymon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "MetalGreymon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "type": "Fire",
+          "evolves_from": "Greymon",
+          "evolves_to": [
+            {
+              "target": "WarGreymon",
+              "requirement": "Level 55, ATK 160, DEF 130, HP 1700, ABI 20, CAM 80%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/metalgreymon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "WarGreymon",
+          "stage": "Mega",
+          "attribute": "Vaccine",
+          "type": "Fire",
+          "evolves_from": "MetalGreymon",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/wargreymon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional (ex.: DNA digivolution) não verificada, fora do escopo pedido"
+        }
+      ]
+    },
+    {
+      "line_name": "Tsunomon -> Gabumon -> Garurumon -> WereGarurumon -> MetalGarurumon",
+      "digimon": [
+        {
+          "name": "Tsunomon",
+          "stage": "Training 2",
+          "attribute": "Free",
+          "type": "Earth",
+          "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+          "evolves_to": [
+            {
+              "target": "Gabumon",
+              "requirement": "Level 7, ATK 20, HP 75, SPD 20",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/tsunomon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Gabumon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "type": "Fire",
+          "evolves_from": "Tsunomon",
+          "evolves_to": [
+            {
+              "target": "Garurumon",
+              "requirement": "Level 15, SPD 50, CAM 25%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gabumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Garurumon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "type": "Fire",
+          "evolves_from": "Gabumon",
+          "evolves_to": [
+            {
+              "target": "WereGarurumon",
+              "requirement": "Level 28, ATK 90, SPD 85, CAM 50%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/garurumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "WereGarurumon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "type": "Earth",
+          "evolves_from": "Garurumon",
+          "evolves_to": [
+            {
+              "target": "MetalGarurumon",
+              "requirement": "Level 55, ATK 130, DEF 120, SPD 150, ABI 20, CAM 80%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/weregarurumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "MetalGarurumon",
+          "stage": "Mega",
+          "attribute": "Data",
+          "type": "Water",
+          "evolves_from": "WereGarurumon",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/metalgarurumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional não verificada, fora do escopo pedido"
+        }
+      ]
+    },
+    {
+      "line_name": "Tokomon -> Patamon -> Angemon -> MagnaAngemon -> Seraphimon",
+      "digimon": [
+        {
+          "name": "Tokomon",
+          "stage": "Training 2",
+          "attribute": "Free",
+          "type": "Neutral",
+          "evolves_from": "pendente (fora do escopo das 5 linhas solicitadas; não verificado)",
+          "evolves_to": [
+            {
+              "target": "Patamon",
+              "requirement": "Level 7, INT 20, SPD 20, CAM 10%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/tokomon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Patamon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "type": "Wind",
+          "evolves_from": "Tokomon",
+          "evolves_to": [
+            {
+              "target": "Angemon",
+              "requirement": "Level 16, ATK 5, INT 40",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/patamon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Angemon",
+          "stage": "Champion",
+          "attribute": "Vaccine",
+          "type": "Light",
+          "evolves_from": "Patamon",
+          "evolves_to": [
+            {
+              "target": "MagnaAngemon",
+              "requirement": "Level 30, INT 80, SP 80, ABI 10",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/angemon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "MagnaAngemon",
+          "stage": "Ultimate",
+          "attribute": "Vaccine",
+          "type": "Light",
+          "evolves_from": "Angemon",
+          "evolves_to": [
+            {
+              "target": "Seraphimon",
+              "requirement": "Level 55, DEF 130, INT 150, SP 130, ABI 40",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/magnaangemon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Seraphimon",
+          "stage": "Mega",
+          "attribute": "Vaccine",
+          "type": "Light",
+          "evolves_from": "MagnaAngemon",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/seraphimon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página marca explicitamente 'Final form.' (não há digivolução além de Seraphimon)"
+        }
+      ]
+    },
+    {
+      "line_name": "Gigimon -> Guilmon -> Growlmon -> WarGrowlmon -> Gallantmon",
+      "digimon": [
+        {
+          "name": "Gigimon",
+          "stage": "N/A",
+          "attribute": "N/A",
+          "type": "N/A",
+          "evolves_from": "N/A",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gigimon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "not_in_game",
+          "not_in_game": true,
+          "game_variant": "não encontrado em nenhuma das duas versões nesta fonte"
+        },
+        {
+          "name": "Guilmon",
+          "stage": "Rookie",
+          "attribute": "Virus",
+          "type": "Fire",
+          "evolves_from": "not_in_game (Gigimon não existe em Cyber Sleuth / Hacker's Memory; Guilmon aparentemente começa direto no estágio Rookie nestes jogos, sem forma Training 2 confirmada)",
+          "evolves_to": [
+            {
+              "target": "Growlmon",
+              "requirement": "Level 15, ATK 50, SPD 20",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/guilmon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Growlmon",
+          "stage": "Champion",
+          "attribute": "Virus",
+          "type": "Fire",
+          "evolves_from": "Guilmon",
+          "evolves_to": [
+            {
+              "target": "WarGrowlmon",
+              "requirement": "Level 30, ATK 105, SPD 75",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/growlmon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "WarGrowlmon",
+          "stage": "Ultimate",
+          "attribute": "Virus",
+          "type": "Fire",
+          "evolves_from": "Growlmon",
+          "evolves_to": [
+            {
+              "target": "Gallantmon",
+              "requirement": "Level 60, ATK 140, DEF 140, INT 140, ABI 80, CAM 50%",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/wargrowlmon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Gallantmon",
+          "stage": "Mega",
+          "attribute": "Virus",
+          "type": "Light",
+          "evolves_from": "WarGrowlmon",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/gallantmon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página não exibiu o marcador 'Final form.' usado em outros Mega, então pode existir evolução/fusão adicional (ex.: Crimson Mode) não verificada, fora do escopo pedido"
+        }
+      ]
+    },
+    {
+      "line_name": "Dorimon -> Dorumon -> Dorugamon -> DoruGreymon -> (Dorugoramon ou ChaosDukemon)",
+      "digimon": [
+        {
+          "name": "Dorimon",
+          "stage": "N/A",
+          "attribute": "N/A",
+          "type": "N/A",
+          "evolves_from": "N/A",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorimon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "not_in_game",
+          "not_in_game": true,
+          "game_variant": "não encontrado em nenhuma das duas versões nesta fonte"
+        },
+        {
+          "name": "Dorumon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "type": "Neutral",
+          "evolves_from": "not_in_game (Dorimon não existe em Cyber Sleuth / Hacker's Memory; Dorumon aparentemente começa direto no estágio Rookie nestes jogos, sem forma Training 2 confirmada)",
+          "evolves_to": [
+            {
+              "target": "Dorugamon",
+              "requirement": "Level 14, ATK 40, SPD 40",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorumon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Dorugamon",
+          "stage": "Champion",
+          "attribute": "Data",
+          "type": "Earth",
+          "evolves_from": "Dorumon",
+          "evolves_to": [
+            {
+              "target": "DoruGreymon",
+              "requirement": "Level 30, ATK 95, DEF 75, HP 400",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugamon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "DoruGreymon",
+          "stage": "Ultimate",
+          "attribute": "Data",
+          "type": "Fire",
+          "evolves_from": "Dorugamon",
+          "evolves_to": [
+            {
+              "target": "Dorugoramon",
+              "requirement": "Level 50, ATK 160, HP 1600, ABI 20",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugreymon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte"
+        },
+        {
+          "name": "Dorugoramon",
+          "stage": "Mega",
+          "attribute": "Data",
+          "type": "Dark",
+          "evolves_from": "DoruGreymon",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/dorugoramon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex, dados atribuídos pelo site a grindosaur)",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "confirmed",
+          "game_variant": "sem diferença relatada entre Cyber Sleuth e Hacker's Memory nesta fonte; a página marca explicitamente 'Final form.' (não há digivolução além de Dorugoramon nesta linha)"
+        },
+        {
+          "name": "ChaosDukemon",
+          "stage": "N/A",
+          "attribute": "N/A",
+          "type": "N/A",
+          "evolves_from": "N/A",
+          "evolves_to": [],
+          "source_url": "https://tamerdex.com/digimon-story-cyber-sleuth/digimon/chaosdukemon",
+          "source_name": "Tamerdex (Digimon Story: Cyber Sleuth Digidex) — página retornou 404",
+          "accessed_date": "2026-11-09",
+          "confidence": "alta",
+          "status": "not_in_game",
+          "not_in_game": true,
+          "game_variant": "não encontrado em nenhuma das duas versões nesta fonte; Dorugoramon é confirmado pela fonte como 'Final form.' da linha Dorumon, reforçando que ChaosDukemon não é um alvo de digivolução neste jogo"
+        }
+      ]
+    }
+  ],
+  "general_notes": "[E] Fontes acessadas em 2026-11-09: digimon.fandom.com ficou bloqueado por proteção Cloudflare (retornou apenas 'Just a moment...' / HTTP 403) em todas as tentativas desta sessão, não foi possível extrair dados dele. digidex.gg (verificado) é um banco de dados do Digimon Card Game (TCG), sem estatísticas ou requisitos de digivolução específicos de Cyber Sleuth/Hacker's Memory, então não foi usado para os requisitos. web_search estava desabilitado nesta sessão; o fallback sugerido via https://html.duckduckgo.com/html/ bloqueou o acesso com um desafio anti-bot ('Unfortunately, bots use DuckDuckGo too'). Como alternativa dentro do espírito da instrução (fontes estruturadas do próprio jogo), foi usado tamerdex.com, que mantém um Digidex dedicado a Digimon Story: Cyber Sleuth (incluindo Hacker's Memory) com níveis, stats e requisitos de digivolução; o próprio site declara que os dados vêm de 'grindosaur' (grindosaur.com, que ficou inacessível diretamente por proteção Cloudflare). Buscas via www.bing.com/search funcionaram para localizar tamerdex.com. [H] O widget de árvore de evolução do tamerdex (links nomeados 'Digivolves from'/'Digivolves to') é renderizado via JavaScript client-side e não pôde ser capturado pela extração estática de texto desta sessão; por isso, os nomes evolves_from/evolves_to foram reconstruídos cruzando o requisito exato exibido na página de CADA Digimon-alvo (seção 'How do I digivolve into X?') com a ordem canônica de linha fornecida pela tarefa e a progressão monotônica de nível/stats observada — o texto do requisito numérico em si tem confiança alta (citação direta da fonte), mas o vínculo nome-a-nome evolves_from/evolves_to é inferência de alta plausibilidade, não um link explicitamente renderizado nesta sessão. CAM = Camaraderie (%, vínculo com o Digimon); ABI = estatística ABI própria do jogo. Nenhuma diferença de requisito entre Cyber Sleuth e Hacker's Memory foi exposta pela fonte para nenhum dos Digimon pesquisados (o Digidex trata as 341 entradas como um conjunto único cobrindo os dois jogos); por isso todos os campos game_variant dizem 'sem diferença relatada'. Estágio 'Baby' da tarefa corresponde ao termo oficial do jogo 'Training 2' (não há estágio 'Training 1'/Baby I nas 5 linhas pedidas, pois todas começam em Training 2 ou diretamente em Rookie). Confirmado via 404 direto e via ausência na listagem completa de Training 2 do Guia de Digivolução: Gigimon, Dorimon e ChaosDukemon não existem em Digimon Story: Cyber Sleuth / Hacker's Memory (not_in_game=true). Dorugoramon é confirmado pela fonte como forma final ('Final form.') da linha Dorumon nestes jogos, assim como Seraphimon para a linha Patamon; WarGreymon, MetalGarurumon e Gallantmon não exibiram esse marcador, o que sugere evoluções adicionais (ex.: fusões DNA) não verificadas nesta pesquisa, por estarem fora do escopo das 5 linhas pedidas. Nenhum dado foi inventado; tudo que não pôde ser verificado foi marcado como 'pendente' ou 'not_in_game'."
+}

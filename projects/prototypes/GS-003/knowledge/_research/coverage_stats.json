@@ -1,0 +1,137 @@
+{
+  "agumon": {
+    "dw1": {
+      "confirmed": 3,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "next_order": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "cyber_sleuth": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "dmo": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "dawn_dusk": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    }
+  },
+  "gabumon": {
+    "dw1": {
+      "confirmed": 1,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "next_order": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "cyber_sleuth": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "dmo": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "dawn_dusk": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    }
+  },
+  "patamon": {
+    "dw1": {
+      "confirmed": 1,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "next_order": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "cyber_sleuth": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "dmo": {
+      "confirmed": 4,
+      "not_in_game": 1,
+      "total": 5
+    },
+    "dawn_dusk": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    }
+  },
+  "guilmon": {
+    "dw1": {
+      "confirmed": 0,
+      "not_in_game": 5,
+      "total": 5
+    },
+    "next_order": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    },
+    "cyber_sleuth": {
+      "confirmed": 4,
+      "not_in_game": 1,
+      "total": 5
+    },
+    "dmo": {
+      "confirmed": 4,
+      "not_in_game": 1,
+      "total": 5
+    },
+    "dawn_dusk": {
+      "confirmed": 5,
+      "not_in_game": 0,
+      "total": 5
+    }
+  },
+  "dorumon": {
+    "dw1": {
+      "confirmed": 0,
+      "not_in_game": 6,
+      "total": 6
+    },
+    "next_order": {
+      "confirmed": 0,
+      "not_in_game": 6,
+      "total": 6
+    },
+    "cyber_sleuth": {
+      "confirmed": 4,
+      "not_in_game": 2,
+      "total": 6
+    },
+    "dmo": {
+      "confirmed": 5,
+      "not_in_game": 1,
+      "total": 6
+    },
+    "dawn_dusk": {
+      "confirmed": 5,
+      "not_in_game": 1,
+      "total": 6
+    }
+  }
+}

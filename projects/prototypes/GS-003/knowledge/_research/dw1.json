@@ -1,0 +1,441 @@
+{
+  "game": "Digimon World (PS1)",
+  "lines": [
+    {
+      "line_name": "Koromon → Agumon → Greymon → MetalGreymon → WarGreymon",
+      "digimon": [
+        {
+          "name": "Koromon",
+          "stage": "In-Training",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            {
+              "target": "Agumon",
+              "requirement": "pendente — a página do Agumon na Digimon World Wiki (Fandom) traz um bloco de dados 'Pre-Evolution' associado a Koromon com valores: Cuidado (erros) ≥0, Peso 10-20, e um conjunto de 'stats-alvo' (HP 1000, MP 500, Ofensiva 100, Defesa 50, Velocidade 50, Inteligência 50). Não foi possível confirmar no texto da fonte se esses valores-alvo descrevem de fato a transição Koromon→Agumon ou se há erro de preenchimento do template (os números são incomuns para uma evolução Baby→Rookie). Registrado como hipótese de baixa confiança, não como requisito confirmado.",
+              "alternate": false
+            }
+          ],
+          "source_url": "https://digimonworld.fandom.com/wiki/Agumon_(Digimon_World)",
+          "source_name": "Digimon World Wiki (Fandom) — página 'Agumon (Digimon World)', seção Pre-Evolution",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "confirmed",
+          "notes": "[E] Existência de Koromon confirmada pela frase da própria página do Agumon: \"it is available to be obtained as a partner by evolving Koromon\". [H] Requisito exato é hipótese de baixa confiança (ver campo requirement)."
+        },
+        {
+          "name": "Agumon",
+          "stage": "Rookie",
+          "attribute": "Vaccine",
+          "evolves_from": "Koromon",
+          "evolves_to": [
+            {
+              "target": "Greymon",
+              "requirement": "pendente — a seção 'Evolution' da própria página do Agumon lista Greymon como evolução, mas todos os campos de stats-alvo do bloco de dados estão em branco na fonte (nenhum requisito numérico foi publicado).",
+              "alternate": true
+            }
+          ],
+          "source_url": "https://digimonworld.fandom.com/wiki/Agumon_(Digimon_World)",
+          "source_name": "Digimon World Wiki (Fandom) — página 'Agumon (Digimon World)'",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed",
+          "notes": "[E] Rookie, Vaccine, Partner, recrutável na Native Forest (800HP) — confirmado no texto. [E] Trivia da página confirma tipo Vaccine permite acesso ao 'Ice Sanctuary'. alternate=true pois a própria página lista Greymon como uma entre possíveis evoluções de Champion sem excluir outras (texto não enumera as demais explicitamente, mas o sistema do jogo é conhecido por ter múltiplos caminhos; marcado alternate=true por precaução, já que a fonte não afirma que Greymon é a única evolução possível)."
+        },
+        {
+          "name": "Greymon",
+          "stage": "Champion",
+          "attribute": "pendente",
+          "evolves_from": "Agumon",
+          "evolves_to": [
+            {
+              "target": "MetalGreymon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "https://digimonworld.fandom.com/wiki/Evolution_(Digimon_World)",
+          "source_name": "Digimon World Wiki (Fandom) — página hub 'Evolution (Digimon World)', seção Champion",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "confirmed",
+          "notes": "[E] Greymon está listado na seção '==Champion==' da página hub de evoluções do jogo, com evolves_from=Agumon confirmado pelo campo 'Digimon' do template. [H] Nenhum stat-alvo foi preenchido na fonte; requisito e caminho(s) para MetalGreymon não puderam ser verificados. Nenhuma página dedicada 'Greymon (Digimon World)' existe nesta wiki (confirmado por busca)."
+        },
+        {
+          "name": "MetalGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [
+            {
+              "target": "WarGreymon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MetalGreymon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Bloqueio de acesso: busca na API do digimonworld.fandom.com não retornou página 'MetalGreymon (Digimon World)' nem ocorrências relevantes. GameFAQs e StrategyWiki ficaram inacessíveis (ver general_notes). Isso não significa que MetalGreymon esteja ausente do jogo — apenas que sua presença/requisitos não puderam ser confirmados pelas fontes exigidas."
+        },
+        {
+          "name": "WarGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para WarGreymon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Mesmo bloqueio de fonte descrito para MetalGreymon. Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+        }
+      ]
+    },
+    {
+      "line_name": "Tsunomon → Gabumon → Garurumon → WereGarurumon → MetalGarurumon",
+      "digimon": [
+        {
+          "name": "Tsunomon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            {
+              "target": "Gabumon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página dedicada para Tsunomon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Nenhuma página 'Tsunomon (Digimon World)' encontrada via busca na API do digimonworld.fandom.com. Presença no jogo não confirmada nem negada pelas fontes exigidas."
+        },
+        {
+          "name": "Gabumon",
+          "stage": "Rookie",
+          "attribute": "Data",
+          "evolves_from": "pendente",
+          "evolves_to": [
+            {
+              "target": "Garurumon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "https://digimonworld.fandom.com/wiki/Gabumon_(Digimon_World)",
+          "source_name": "Digimon World Wiki (Fandom) — página 'Gabumon (Digimon World)'",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed",
+          "notes": "[E] Página confirma Nível Rookie, Tipo Data, Partner=Yes (Gabumon é um dos dois parceiros iniciais, opção 'Night'). [H] Todo o restante da página (Informação, Recrutamento, Moveset, Evolução, Curiosidades) está marcado como 'To be added' na fonte — nenhum dado de evolução foi publicado, incluindo evolves_from, que não é mencionado no texto (diferente da página do Agumon, que cita Koromon explicitamente)."
+        },
+        {
+          "name": "Garurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Gabumon",
+          "evolves_to": [
+            {
+              "target": "WereGarurumon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Garurumon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] evolves_from=Gabumon é inferência razoável pela linha solicitada, não confirmada textualmente por nenhuma das 3 fontes (nenhuma página dedicada encontrada)."
+        },
+        {
+          "name": "WereGarurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [
+            {
+              "target": "MetalGarurumon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para WereGarurumon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+        },
+        {
+          "name": "MetalGarurumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MetalGarurumon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+        }
+      ]
+    },
+    {
+      "line_name": "Tokomon → Patamon → Angemon → MagnaAngemon → Seraphimon",
+      "digimon": [
+        {
+          "name": "Tokomon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [
+            {
+              "target": "Patamon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página dedicada para Tokomon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Busca por 'Tokomon' na API do digimonworld.fandom.com só retornou a página não relacionada 'Poyomon (Digimon World)' (correspondência de texto, não de nome). Nenhuma página 'Tokomon (Digimon World)' existe."
+        },
+        {
+          "name": "Patamon",
+          "stage": "Rookie",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [
+            {
+              "target": "Angemon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "https://digimonworld.fandom.com/wiki/Patamon_(Digimon_World)",
+          "source_name": "Digimon World Wiki (Fandom) — página 'Patamon (Digimon World)'",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "confirmed",
+          "notes": "[E] Página confirma Nível Rookie, Partner=Yes. Campo Tipo (Type) está em branco na fonte — não é possível afirmar Vaccine/Data/Virus. [H] Todo o restante da página está 'To be added'; evolves_from e requisitos de evolução não publicados."
+        },
+        {
+          "name": "Angemon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Patamon",
+          "evolves_to": [
+            {
+              "target": "MagnaAngemon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Angemon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] evolves_from=Patamon é inferência pela linha solicitada, não confirmada textualmente. Nenhuma página 'Angemon (Digimon World)' encontrada."
+        },
+        {
+          "name": "MagnaAngemon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [
+            {
+              "target": "Seraphimon",
+              "requirement": "pendente",
+              "alternate": "pendente"
+            }
+          ],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para MagnaAngemon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+        },
+        {
+          "name": "Seraphimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "pendente",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "Nenhuma das 3 fontes mandatadas possui página ou dado dedicado para Seraphimon em Digimon World (PS1)",
+          "accessed_date": "2026-11-09",
+          "confidence": "baixa",
+          "status": "pendente",
+          "notes": "[H] Não confirmado nem como presente nem como ausente do jogo pelas fontes exigidas."
+        }
+      ]
+    },
+    {
+      "line_name": "Gigimon → Guilmon → Growlmon → WarGrowlmon → Gallantmon",
+      "digimon": [
+        {
+          "name": "Gigimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API cobrindo toda a franquia de jogos Digimon World)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Busca por 'Gigimon' na API do digimonworld.fandom.com (que cobre todos os jogos Digimon World, não só o de 1999) retornou zero resultados — nenhuma página, nem mesmo em jogos posteriores. [H] Consistente com conhecimento de fundo de que Guilmon e sua linha estrearam em Digimon Tamers (2001), mídia posterior ao lançamento de Digimon World PS1 (1999); portanto não poderiam estar no elenco original do jogo."
+        },
+        {
+          "name": "Guilmon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Gigimon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Busca por 'Guilmon' na API do digimonworld.fandom.com retornou apenas páginas não relacionadas (Digimon World 4, Agumon, Digimon Care, Sukamon) — nenhuma página própria de Guilmon em nenhum jogo da franquia Digimon World. [H] Confirma a hipótese do solicitante: Guilmon é de mídia posterior (Tamers, 2001) e não existe em Digimon World PS1 (1999)."
+        },
+        {
+          "name": "Growlmon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Guilmon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Zero resultados de busca na API para 'Growlmon' em toda a wiki (todos os jogos Digimon World)."
+        },
+        {
+          "name": "WarGrowlmon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Growlmon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'WarGrowlmon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        },
+        {
+          "name": "Gallantmon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "WarGrowlmon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'Gallantmon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        }
+      ]
+    },
+    {
+      "line_name": "Dorimon → Dorumon → Dorugamon → DoruGreymon → (Dorugoramon ou ChaosDukemon)",
+      "digimon": [
+        {
+          "name": "Dorimon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": null,
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'Dorimon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing'). [H] Consistente com cronologia: a linha de Dorumon estreou em mídia posterior a 1999 (filme/Frontier), fora do elenco original de Digimon World PS1."
+        },
+        {
+          "name": "Dorumon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Dorimon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Busca por 'Dorumon' na API do digimonworld.fandom.com retornou apenas a página 'Digimon World 4' (jogo posterior), sem página própria em nenhum jogo da franquia. [H] Confirma a hipótese do solicitante de que Dorumon não existe em Digimon World PS1 (1999)."
+        },
+        {
+          "name": "Dorugamon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Dorumon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'Dorugamon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        },
+        {
+          "name": "DoruGreymon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "Dorugamon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'DoruGreymon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        },
+        {
+          "name": "Dorugoramon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "DoruGreymon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'Dorugoramon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        },
+        {
+          "name": "ChaosDukemon",
+          "stage": "pendente",
+          "attribute": "pendente",
+          "evolves_from": "DoruGreymon",
+          "evolves_to": [],
+          "source_url": "",
+          "source_name": "digimonworld.fandom.com (busca na API)",
+          "accessed_date": "2026-11-09",
+          "confidence": "media",
+          "status": "not_in_game",
+          "notes": "[E] Página 'ChaosDukemon' inexistente na API do digimonworld.fandom.com (consulta direta por título retornou 'missing')."
+        }
+      ]
+    }
+  ],
+  "general_notes": "BLOQUEIOS DE ACESSO (importante): as 3 fontes mandatadas pela tarefa tiveram problemas severos de acesso via a ferramenta web_fetch padrão: (1) digimonworld.fandom.com — todas as páginas normais (/wiki/...) retornaram erro 403 com desafio Cloudflare ('Just a moment...'), em múltiplas tentativas e múltiplas páginas distintas; contornado usando o endpoint público da API MediaWiki do próprio site (api.php?action=query...), que não passa pelo desafio. (2) gamefaqs.gamespot.com — bloqueio 403 consistente em todas as tentativas (página principal, variações de URL, e até via proxy de leitura externo, que retornou explicitamente 'Due to abuse from this hosting service, all interactive traffic is blocked'); NENHUM conteúdo de GameFAQs pôde ser lido nesta pesquisa. (3) strategywiki.org — a página principal também bloqueou via web_fetch normal (403), mas foi acessada via sua própria API MediaWiki; o conteúdo revelado mostra que o guia de Digimon World (PS1) no StrategyWiki é um stub inacabado ({{stub}}, completion=0) e a subpágina 'Digimon World/Digimon' citada no índice NUNCA foi criada (link morto) — ou seja, StrategyWiki não possui absolutamente nenhum dado de digivolução para este jogo. Como resultado, a ÚNICA fonte das 3 que rendeu algum conteúdo factual utilizável foi a API do digimonworld.fandom.com, e mesmo assim de forma muito fragmentada: das 20 formas pesquisadas nas linhas 1-3, apenas Agumon, Gabumon e Patamon possuem páginas próprias nesta wiki, e mesmo essas são majoritariamente stubs ('To be added') com pouquíssimos dados de evolução reais (a maioria dos campos de stats-alvo está em branco na própria fonte). Nenhuma página dedicada foi encontrada para Koromon (apesar de citado em texto), Greymon (citado na página hub de evoluções, mas sem stats), MetalGreymon, WarGreymon, Tsunomon, Garurumon, WereGarurumon, MetalGarurumon, Tokomon, Angemon, MagnaAngemon ou Seraphimon — para esses, status='pendente' não implica ausência do jogo, apenas impossibilidade de confirmação pelas fontes exigidas dentro do tempo e acesso disponíveis. Já para as linhas 4 (Gigimon/Guilmon) e 5 (Dorimon/Dorumon), a ausência de QUALQUER página em toda a wiki do digimonworld.fandom.com (que cobre todos os jogos da franquia Digimon World, não apenas o de 1999) foi tratada como evidência mais forte de não-presença, corroborada pela cronologia de estreia desses Digimon em mídias posteriores a 1999 (Tamers/Frontier) — por isso status='not_in_game' para toda a linha 4 e toda a linha 5, com confiança 'media' (inferência por ausência + cronologia, não uma afirmação textual explícita de 'não está neste jogo'). Nenhum dado de requisito de evolução foi inventado; todos os campos 'pendente' refletem genuinamente a ausência de informação verificável nas 3 fontes designadas."
+}

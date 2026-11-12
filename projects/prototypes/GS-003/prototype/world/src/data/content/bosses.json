@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "_comment": "Catálogo de Digimon ainda não presentes em world-species.json: chefes de região, World Boss e moradores da Vila dos Bebês. 'evidence' aponta para sources. stage/attribute seguem nomenclatura japonesa do Wikimon (Adult=Champion-dub, Perfect=Ultimate-dub, Ultimate=Mega-dub). stats/level de jogo são [H], design novo.",
+  "sources": {
+    "wikimon:Kuwagamon": "https://wikimon.net/Kuwagamon",
+    "wikimon:Shellmon": "https://wikimon.net/Shellmon",
+    "wikimon:Tyrannomon": "https://wikimon.net/Tyrannomon",
+    "wikimon:Devimon": "https://wikimon.net/Devimon",
+    "wikimon:Guardromon": "https://wikimon.net/Guardromon",
+    "wikimon:VenomMyotismon": "https://wikimon.net/VenomMyotismon",
+    "wikimon:Elecmon": "https://wikimon.net/Elecmon",
+    "wikimon:PrimaryVillage": "https://wikimon.net/Primary_Village"
+  },
+  "regionBosses": [
+    {
+      "id": "BOSS-KUWAGAMON",
+      "name": "Kuwagamon",
+      "stage": "Adult",
+      "attribute": "Virus",
+      "type": "Insect",
+      "specialMove": "Scissor Arms",
+      "region": "floresta_densa",
+      "level": 15,
+      "evidence": "wikimon:Kuwagamon",
+      "verified": true,
+      "canonNote": "Golpes/aparência oficiais; HP, dano e level de jogo são [H]."
+    },
+    {
+      "id": "BOSS-SHELLMON",
+      "name": "Shellmon",
+      "stage": "Adult",
+      "attribute": null,
+      "attributeNote": "[H] não confirmado nesta sessão — web_fetch truncou antes da linha Attribute do Wikimon",
+      "type": "Mollusk",
+      "specialMove": "Hydro Pressure",
+      "region": "praia_dos_postes",
+      "level": 25,
+      "evidence": "wikimon:Shellmon",
+      "verified": true,
+      "canonNote": "Habitat (Net Ocean), comportamento e golpe especial confirmados; attribute e level numérico de jogo são [H]."
+    },
+    {
+      "id": "BOSS-TYRANNOMON",
+      "name": "Tyrannomon",
+      "stage": "Adult",
+      "attribute": null,
+      "attributeNote": "[H] não confirmado nesta sessão — web_fetch truncou antes da linha Attribute do Wikimon",
+      "type": "Dinosaur",
+      "specialMove": "Fire Breath",
+      "region": "montanha",
+      "level": 35,
+      "evidence": "wikimon:Tyrannomon",
+      "verified": true,
+      "canonNote": "Stage e golpe especial confirmados; attribute e level numérico de jogo são [H]."
+    },
+    {
+      "id": "BOSS-GUARDROMON",
+      "name": "Guardromon",
+      "stage": null,
+      "stageNote": "[H] comumente Adult/Champion-dub, não confirmado nesta sessão — web_fetch truncou antes da linha Level",
+      "attribute": null,
+      "type": "Machine",
+      "specialMove": null,
+      "specialMoveNote": "[H] não lido nesta sessão (texto cortado antes da lista de golpes)",
+      "region": "deserto",
+      "level": 45,
+      "evidence": "wikimon:Guardromon",
+      "verified": true,
+      "canonNote": "Origem oficial: guardião do firewall da Rede, corrompido por um hacker com vírus — reaproveitada como lore do chefe regional. Stage/attribute/golpe não confirmados nesta sessão."
+    },
+    {
+      "id": "BOSS-DEVIMON",
+      "name": "Devimon",
+      "stage": "Adult",
+      "attribute": "Virus",
+      "type": "Fallen Angel",
+      "field": "Dark Area",
+      "specialMove": "Death Claw",
+      "region": "zona_corrompida",
+      "level": 55,
+      "evidence": "wikimon:Devimon",
+      "verified": true,
+      "canonNote": "Oficialmente Adult (Champion-dub), não 'Mega' — o fundador citou Devimon como exemplo de chefão marcante, não de estágio evolutivo. Mantido como chefe de região, não como Mega World Boss."
+    }
+  ],
+  "megaWorldBosses": [
+    {
+      "id": "BOSS-VENOMMYOTISMON",
+      "name": "VenomMyotismon",
+      "stage": null,
+      "stageNote": "[H] comumente Ultimate(JP)/Mega(dub), não confirmado nesta sessão — web_fetch truncou antes da linha Level",
+      "attribute": null,
+      "evolvesFrom": "Myotismon",
+      "specialMove": "injects a destructive computer virus into the enemy Digimon",
+      "region": "zona_corrompida",
+      "level": 70,
+      "evidence": "wikimon:VenomMyotismon",
+      "verified": true,
+      "canonNote": "Descrito pelo Wikimon como 'a verdadeira forma evoluída do rei das trevas, Vamdemon [Myotismon]' — único Mega World Boss confirmado nesta entrega. Level numérico de jogo é [H]."
+    }
+  ],
+  "villageOfBeginnings": {
+    "evidence": "wikimon:PrimaryVillage",
+    "inhabitants": [
+      { "id": "NPC-BOTAMON", "name": "Botamon", "stage": "Baby I", "aggressive": false },
+      { "id": "NPC-PUNIMON", "name": "Punimon", "stage": "Baby I", "aggressive": false },
+      { "id": "NPC-POYOMON", "name": "Poyomon", "stage": "Baby I", "aggressive": false },
+      { "id": "NPC-YURAMON", "name": "Yuramon", "stage": "Baby I", "aggressive": false }
+    ],
+    "guardian": {
+      "id": "NPC-ELECMON",
+      "name": "Elecmon",
+      "stage": "Child",
+      "specialMove": "Sparkling Thunder",
+      "evidence": "wikimon:Elecmon",
+      "roleNote": "[H] papel de guardião/líder da vila é conhecimento geral da franquia (anime); a página oficial confirma apenas que Elecmon é morador da Vila dos Bebês, não que seja seu guardião formal."
+    }
+  }
+}

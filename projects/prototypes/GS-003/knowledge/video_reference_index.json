@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-11-09",
+  "method": "youtube.com/oembed (title, canal, thumbnail) + tentativa de leitura da página do vídeo para duração/capítulos. Nenhum vídeo foi assistido — timestamps e sistemas demonstrados ficam 'pendente' até revisão humana ou de um agente com acesso a transcrição/visão.",
+  "limitations": [
+    "youtube.com/oembed não retorna duração nem capítulos — apenas título, canal e thumbnail.",
+    "A extração de texto da página /watch (via web_fetch) não retornou conteúdo utilizável (página fortemente dependente de JavaScript) — duração ficou 'pendente' para todos os vídeos.",
+    "Links do tipo 'youtube.com/results?search_query=...' são PÁGINAS DE BUSCA, não vídeos específicos — marcados abaixo com video_type='busca_youtube', sem dados de oEmbed (não é um vídeo único).",
+    "Dois vídeos da lista original (Hacker's Memory Parte 1 e Parte 2) retornaram 404 no oEmbed — provavelmente removidos/privados; marcados video_type='indisponivel'."
+  ],
+  "videos": [
+    {
+      "game": "Digimon World: Next Order",
+      "url": "https://www.youtube.com/watch?v=ty4Jtsr6wsY",
+      "video_type": "video",
+      "title": "DIGIMON World Next Order - OPTIMAL PAIN (2025) - Episode 1.",
+      "channel": "MrW01FY",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "pendente — gameplay completo, episódio 1, segundo a lista de vídeos do briefing (11_video_library.md): exploração, cuidados e progressão inicial.",
+      "reliability": "media — canal de Let's Play dedicado a Digimon (MrW01FY), não oficial.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Next Order",
+      "url": "https://www.youtube.com/watch?v=mxtDQ_A3T_U",
+      "video_type": "video",
+      "title": "PS4「デジモンワールド -next 0rder- INTERNATIONAL EDITION」新着映像",
+      "channel": "Bandai Namco Entertainment",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Vídeo oficial da Bandai Namco (publisher do jogo) para a edição internacional de PS4. Título em japonês.",
+      "reliability": "alta — canal oficial do publisher.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Next Order",
+      "url": "https://www.youtube.com/playlist?list=PLt3R7_tP1xaGE4oM6q9yUHtTt8kcCyGsC",
+      "video_type": "playlist",
+      "title": "Digimon World Next Order (no commentary)",
+      "channel": "ahmad al-hemmaly",
+      "duration": "pendente (playlist, não um vídeo único)",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Playlist alternativa de gameplay sem narração, citada como referência extra no briefing.",
+      "reliability": "media — canal de fã.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Next Order",
+      "url": "https://www.youtube.com/results?search_query=MrW01FY+Digimon+World+Next+Order+guides",
+      "video_type": "busca_youtube",
+      "title": null,
+      "channel": null,
+      "duration": null,
+      "systems_shown": null,
+      "chapters": null,
+      "summary": "Não é um vídeo específico — é uma busca por guias de Next Order do canal MrW01FY. Precisa ser substituído por um vídeo individual numa próxima pesquisa.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World (PS1)",
+      "url": "https://www.youtube.com/playlist?list=PLTfQ_tgXp4KwMtfKMsfjygCN-rx_ZK5uM",
+      "video_type": "playlist",
+      "title": "Digimon World 1 Walkthrough guide",
+      "channel": "Lloyd L",
+      "duration": "pendente (playlist, não um vídeo único)",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Detonado completo do Digimon World original (PS1) em série de vídeos.",
+      "reliability": "media — canal de fã.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World (PS1)",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+PS1+longplay+full+gameplay",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por longplay/gameplay completo — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World (PS1)",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+PS1+evolution+guide+requirements",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de evolução/requisitos — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World (PS1)",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+PS1+Monzaemon+evolution+gameplay",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por gameplay de evolução para Monzaemon — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth",
+      "url": "https://www.youtube.com/watch?v=qyc16vrhHH8",
+      "video_type": "video",
+      "title": "Digimon Story Cyber Sleuth Complete Edition Part 1 Rookie Hacker / Detective Gameplay Walkthrough",
+      "channel": "HeroVoltsy",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Walkthrough completo, parte 1 — Complete Edition.",
+      "reliability": "media — canal de Let's Play dedicado.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth",
+      "url": "https://www.youtube.com/watch?v=Qs2W3PHX-Ik",
+      "video_type": "video",
+      "title": "Digimon Story Cyber Sleuth Complete Edition | Full Gameplay 7 Walkthrough No Commentary (2026)",
+      "channel": "Johnny With Gaming",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Gameplay completo sem comentários, publicado em 2026 (título indica atualização recente do canal).",
+      "reliability": "media — canal de Let's Play.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Story+Cyber+Sleuth+all+digivolutions",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por todas as evoluções em sequência — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth",
+      "url": "https://www.youtube.com/results?search_query=Cyber+Sleuth+digivolution+requirements+ABI+CAM+guide",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de requisitos de evolução (ABI/CAM) — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Cyber Sleuth",
+      "url": "https://www.youtube.com/results?search_query=Cyber+Sleuth+all+Digimon+special+attacks",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por habilidades/ataques especiais — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Hacker's Memory",
+      "url": "https://www.youtube.com/watch?v=Dr8HCDT1xu4",
+      "video_type": "indisponivel",
+      "title": null,
+      "channel": null,
+      "duration": null,
+      "systems_shown": null,
+      "chapters": null,
+      "summary": "oEmbed retornou 404 — vídeo provavelmente removido, privado ou com restrição de incorporação. Não foi possível confirmar título/canal nesta sessão.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Hacker's Memory",
+      "url": "https://www.youtube.com/watch?v=QwkV5itQ7nM",
+      "video_type": "indisponivel",
+      "title": null,
+      "channel": null,
+      "duration": null,
+      "systems_shown": null,
+      "chapters": null,
+      "summary": "oEmbed retornou 404 — mesma situação do vídeo anterior (Parte 2 do mesmo Let's Play).",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Hacker's Memory",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Story+Hackers+Memory+full+walkthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por detonado completo — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Hacker's Memory",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Story+Hackers+Memory+digivolution+guide",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de digivolução — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Re:Digitize Decode",
+      "url": "https://www.youtube.com/watch?v=3vUfLmqLRsc",
+      "video_type": "video",
+      "title": "Digimon World Re:Digitized Decode - Full Let's Play / Playthrough - Episode 1",
+      "channel": "MrW01FY",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Let's Play completo, episódio 1.",
+      "reliability": "media — canal de Let's Play dedicado a Digimon.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Re:Digitize Decode",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+ReDigitize+Decode+full+playthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por série completa — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Re:Digitize Decode",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+ReDigitize+Decode+training+evolution",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por treinamento e evolução — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Re:Digitize Decode",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+ReDigitize+Decode+official+gameplay+adventure+training",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por gameplay oficial de aventura/treinamento — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Masters Online",
+      "url": "https://flyicarusgames.com.br/playlists/gameplay-digimon-masters-online/",
+      "video_type": "pagina_playlist_externa",
+      "title": "Gameplay Digimon Masters Online - FlyIcarus Games",
+      "channel": "FlyIcarus Games",
+      "duration": "pendente (72 episódios na série, duração individual não extraída)",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Página curada (não-YouTube) que lista uma série de 72 episódios de gameplay de DMO em português, com o primeiro vídeo embutido: https://www.youtube.com/watch?v=yGHHI_QXr3M&list=PLsMFLek_APRQifdyWFVJxdUSuGO4f96No (vídeo 'Desbravando Silver Lake'). 4.968 visualizações registradas na página no momento do acesso.",
+      "reliability": "media — canal de fã em português, mas com curadoria de playlist dedicada.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Masters Online",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Masters+Online+gameplay+portugu%C3%AAs",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por gameplay em português — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Masters Online",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Masters+Online+evolution+guide+all+digimon",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de evolução/linhas evolutivas — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Masters Online",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Masters+Online+raid+dungeon+gameplay",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por combate/raids/dungeons — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Masters Online",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Masters+Online+PvP+gameplay",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por PvP — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Time Stranger",
+      "url": "https://www.youtube.com/watch?v=ERg9wlP-EzI",
+      "video_type": "video",
+      "title": "Digimon Story Time Stranger Preview – The Grand Digi-JRPG We've Been Waiting For",
+      "channel": "Noisy Pixel",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Preview editorial de um site de notícias de jogos, não um gameplay completo — contradiz a instrução do briefing de priorizar vídeos longos/gameplay real sobre trailers/previews.",
+      "reliability": "media — canal jornalístico de games, não gameplay direto do jogador.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Time Stranger",
+      "url": "https://www.youtube.com/watch?v=4uDG14og3oU",
+      "video_type": "video",
+      "title": "Digimon Story Time Stranger SGF 2025 Preview - Crash Course",
+      "channel": "Easy Allies",
+      "duration": "pendente",
+      "systems_shown": "pendente (não assistido)",
+      "chapters": "pendente (não assistido)",
+      "summary": "Preview de evento (Summer Game Fest 2025), canal de crítica de jogos — também um preview, não gameplay extenso de jogador.",
+      "reliability": "media — canal de crítica de games estabelecido, mas conteúdo é preview/cobertura de evento, não playthrough.",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Time Stranger",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Story+Time+Stranger+full+walkthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por walkthrough completo — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Story: Time Stranger",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Story+Time+Stranger+digivolution+guide",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de Digivolution — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Survive",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Survive+full+gameplay+walkthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por gameplay/walkthrough completo — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Survive",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Survive+all+evolutions+evolution+paths",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por todas as evoluções/caminhos — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon Survive",
+      "url": "https://www.youtube.com/results?search_query=Digimon+Survive+karma+evolution+guide",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por como escolhas/karma influenciam evoluções — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Dawn & Dusk",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+Dawn+full+walkthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por detonado de Dawn — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Dawn & Dusk",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+Dusk+full+walkthrough",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por detonado de Dusk — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Dawn & Dusk",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+Dawn+Dusk+evolution+guide+requirements",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por guia de evolução/requisitos — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    },
+    {
+      "game": "Digimon World: Dawn & Dusk",
+      "url": "https://www.youtube.com/results?search_query=Digimon+World+Dawn+Dusk+all+digivolutions",
+      "video_type": "busca_youtube",
+      "title": null, "channel": null, "duration": null, "systems_shown": null, "chapters": null,
+      "summary": "Busca por todas as linhas evolutivas — não é um vídeo específico.",
+      "reliability": "n/a",
+      "accessed_date": "2026-11-09"
+    }
+  ],
+  "coverage_summary": {
+    "videos_com_oembed_confirmado": 10,
+    "paginas_playlist_externas": 1,
+    "videos_indisponiveis_404": 2,
+    "links_que_sao_busca_nao_video": 22,
+    "nota": "Dos 9 jogos listados em 11_video_library.md, 6 têm pelo menos 1 vídeo específico verificado por oEmbed (Next Order, DW1-playlist, Cyber Sleuth, Hacker's Memory-indisponível, Re:Digitize Decode, Time Stranger). DMO só tem a página externa FlyIcarus. Digimon Survive e Dawn & Dusk NÃO têm nenhum vídeo específico na lista original — só buscas — portanto não há nenhum vídeo verificável para esses dois jogos nesta pesquisa."
+  }
+}

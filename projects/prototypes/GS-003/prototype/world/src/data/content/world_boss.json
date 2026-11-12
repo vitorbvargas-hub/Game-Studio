@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "_comment": "GDD_MMO_V1 §4. Versão local roda hoje (sem servidor); versão servidor exige Fase 2+3 do roadmap (GDD §8) e aprovação do fundador antes de infra paga.",
+  "local": {
+    "mode": "local_single_player",
+    "hpSource": "instância local do próprio jogador (não compartilhado de fato)",
+    "window": { "type": "on_demand", "cooldownHours": 24, "trigger": "botão 'Despertar o Chefão'" },
+    "contributionShare": 1.0,
+    "participationReward": "recompensa cheia (único contribuinte)",
+    "boss": "BOSS-VENOMMYOTISMON",
+    "bossHp": 50000,
+    "bossHpNote": "[H] não calibrado"
+  },
+  "server": {
+    "mode": "shared_server",
+    "requiresPhase": "Fase 2 + Fase 3 do roadmap (GDD_MMO_V1 §8) — exige aprovação do fundador antes de contratar hospedagem/BD",
+    "hpSource": "HP único por região, compartilhado por todos os jogadores online na região",
+    "window": { "type": "scheduled", "frequency": "diária ou 2x/semana [H]", "timeRange": "20:00–21:00 horário local [H]" },
+    "contributionRanking": {
+      "tiers": [
+        { "name": "top_1_pct", "rewardTier": "melhor cosmético + item raro garantido" },
+        { "name": "top_10_pct", "rewardTier": "cosmético + bits altos" },
+        { "name": "participacao", "minDamage": "piso pequeno [H]", "rewardTier": "bits + item comum garantidos" }
+      ]
+    },
+    "megaBossesByRegion": [
+      { "region": "zona_corrompida", "boss": "BOSS-VENOMMYOTISMON", "status": "confirmed" },
+      { "region": "floresta_densa", "boss": null, "status": "pending_research" },
+      { "region": "praia_dos_postes", "boss": null, "status": "pending_research" },
+      { "region": "montanha", "boss": null, "status": "pending_research" },
+      { "region": "deserto", "boss": null, "status": "pending_research" }
+    ]
+  }
+}

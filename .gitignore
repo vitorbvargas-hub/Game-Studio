@@ -35,3 +35,9 @@ coverage/
 .DS_Store
 # Agent workspaces are their own git repos
 workspaces/
+# GS-003 — reference/private-prototype asset layers never enter git
+# (ASSET_LICENSE_POLICY.md). Licensed/original assets stay tracked.
+projects/prototypes/GS-003/art/reference/
+projects/prototypes/GS-003/art/_private-prototype/
+assets/GAME-ASSETS/.reference-local/
+assets/GAME-ASSETS/.private-prototype/

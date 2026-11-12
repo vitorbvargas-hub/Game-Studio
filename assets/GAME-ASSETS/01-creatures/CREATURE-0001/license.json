@@ -1,0 +1,24 @@
+{
+  "creatureId": "CREATURE-0001",
+  "layer": "original",
+  "fanException": false,
+  "baseCharacter": null,
+  "basis": null,
+  "nonCommercial": true,
+  "noRip": true,
+  "restrictions": [
+    "ADR-007: projeto geral é fan game não comercial, sem monetização de nenhum tipo",
+    "Publicação exige aprovação separada do fundador"
+  ],
+  "source": {
+    "type": "code-generated-pixel-art",
+    "scriptPath": "projects/prototypes/GS-003/art/src/pilot_model_sheet.js",
+    "technique": "character-matrix (setPixel direto, sem fillEllipse/fillCircle/fillPolygon) -- ver ADR-009",
+    "thirdPartyFileReferenced": false
+  },
+  "credit": null,
+  "replacementStatus": "original",
+  "verifiedAt": "2026-11-08",
+  "verifiedBy": "game-art",
+  "notes": "Exemplo de license.json para o schema. Não é um asset de licença de terceiro -- camada 'original', sem exceção ADR-007 (não é redesenho de Digimon oficial). Se uma futura iteração desta criatura virar um redesenho de Digimon (prioridade do ADR-009), este arquivo precisa ganhar fanException:true, baseCharacter e basis:'ADR-007' (ver ASSET_LICENSE_POLICY.md §3)."
+}
