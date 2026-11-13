@@ -52,3 +52,4 @@ Retomada: leia este arquivo, depois `BRIEF_ETAPA5.md`. Baseline de git em `_evid
 - [x] Fase 1: commit c572b13 (Gate 1 conferido pelo coordenador: assemble --check 15/15, contexto citado nos 7 AGENTS, propriedade intelectual sem licença, fora de studio-alignment intacto)
 - [x] Fase 2: shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md, md5 6dcd4d40… igual à proposta; commit 0d13c70
 - [x] Fase 3: backups em _backup_implantacao/<agente>/ (ORIGINAL.md5 verificado com md5sum -c), aplicados AGENTS/SOUL, USER sem placeholder nos 6 e o do game-studio preservado (pré-commit 29c5bb2 só da diretiva já existente). Commits por workspace: studio daabaf5, research ed6e88c, design e89d7cf, art 966f4a8, dev 3384698, qa 216c0c7, growth c0e156c. IDENTITY.md intocado. Rollback: `git -C workspaces/<a> revert <hash>` ou copiar _backup_implantacao/<a>/*.md
+- [x] Fase 4: 7/7 aprovados nas críticas (_verificacao/RESUMO_GATE4.md). Gate 4 OK.
