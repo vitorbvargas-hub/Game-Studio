@@ -1,0 +1,72 @@
+[
+ {
+  "id": "tamer_a_cabelo_preto",
+  "categoria": "tamer",
+  "arquivo": "tamer/tamer_a_cabelo_preto/rotations/south.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    818,
+    768,
+    48,
+    77
+   ]
+  },
+  "processo": "remoção do fundo branco + redução por moda para 41 px de altura (fator 1.878) + paleta adaptativa de 14 cores com cada cor encaixada na P-iii quando a distância < 38 (redmean) + despeckle 2x; centralizado em 48x48 com pivô no pé",
+  "status": "S estático game-ready técnico; N/E/W e walk = LACUNA",
+  "pivo": {
+   "x": 23,
+   "y": 45
+  },
+  "paleta": "adaptativa→P-iii (encaixe <38)",
+  "aderencia_P-iii": {
+   "cores": 14,
+   "pct_px_ate_dist30": 33.2
+  },
+  "altura_conteudo_px": 41,
+  "largura_conteudo_px": 25,
+  "direcoes": [
+   "S"
+  ],
+  "walk": null
+ },
+ {
+  "id": "tamer_a_cabelo_azul",
+  "categoria": "tamer",
+  "arquivo": "tamer/tamer_a_cabelo_azul/rotations/south.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    581,
+    769,
+    44,
+    76
+   ]
+  },
+  "processo": "remoção do fundo branco + redução por moda para 41 px de altura (fator 1.854) + paleta adaptativa de 14 cores com cada cor encaixada na P-iii quando a distância < 38 (redmean) + despeckle 2x; centralizado em 48x48 com pivô no pé",
+  "status": "S estático game-ready técnico; N/E/W e walk = LACUNA",
+  "pivo": {
+   "x": 24,
+   "y": 45
+  },
+  "paleta": "adaptativa→P-iii (encaixe <38)",
+  "aderencia_P-iii": {
+   "cores": 13,
+   "pct_px_ate_dist30": 32.4
+  },
+  "altura_conteudo_px": 41,
+  "largura_conteudo_px": 24,
+  "direcoes": [
+   "S"
+  ],
+  "walk": null
+ }
+]

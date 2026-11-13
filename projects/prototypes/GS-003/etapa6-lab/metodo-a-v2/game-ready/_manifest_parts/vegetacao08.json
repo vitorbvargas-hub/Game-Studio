@@ -1,0 +1,106 @@
+[
+ {
+  "id": "arvore_grande_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_grande_01.png",
+  "w": 58,
+  "h": 70,
+  "quadros": 1,
+  "origem": {
+   "prancha": "08",
+   "arquivo": "07_Referencias_Originais/08_a_vibrant_pixel_art_rpg_game_mockup_composite_for.png",
+   "recorte_xywh": [
+    843,
+    846,
+    99,
+    122
+   ]
+  },
+  "processo": "remoção do fundo azul-escuro por flood-fill + redução por moda (fator 1.719 = escala do tileset da prancha 08, ~55 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real); arte (A) a avaliar",
+  "pivo": {
+   "x": 29,
+   "y": 69
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "tronco"
+ },
+ {
+  "id": "arvore_grande_moita",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_grande_moita.png",
+  "w": 55,
+  "h": 69,
+  "quadros": 1,
+  "origem": {
+   "prancha": "08",
+   "arquivo": "07_Referencias_Originais/08_a_vibrant_pixel_art_rpg_game_mockup_composite_for.png",
+   "recorte_xywh": [
+    944,
+    836,
+    94,
+    124
+   ]
+  },
+  "processo": "remoção do fundo azul-escuro por flood-fill + redução por moda (fator 1.719 = escala do tileset da prancha 08, ~55 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real); arte (A) a avaliar",
+  "pivo": {
+   "x": 27,
+   "y": 68
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "tronco"
+ },
+ {
+  "id": "arvore_grande_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_grande_02.png",
+  "w": 42,
+  "h": 59,
+  "quadros": 1,
+  "origem": {
+   "prancha": "08",
+   "arquivo": "07_Referencias_Originais/08_a_vibrant_pixel_art_rpg_game_mockup_composite_for.png",
+   "recorte_xywh": [
+    1036,
+    853,
+    68,
+    106
+   ]
+  },
+  "processo": "remoção do fundo azul-escuro por flood-fill + redução por moda (fator 1.719 = escala do tileset da prancha 08, ~55 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real); arte (A) a avaliar",
+  "pivo": {
+   "x": 21,
+   "y": 58
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "tronco"
+ },
+ {
+  "id": "arvore_grande_03",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_grande_03.png",
+  "w": 46,
+  "h": 59,
+  "quadros": 1,
+  "origem": {
+   "prancha": "08",
+   "arquivo": "07_Referencias_Originais/08_a_vibrant_pixel_art_rpg_game_mockup_composite_for.png",
+   "recorte_xywh": [
+    1111,
+    853,
+    78,
+    106
+   ]
+  },
+  "processo": "remoção do fundo azul-escuro por flood-fill + redução por moda (fator 1.719 = escala do tileset da prancha 08, ~55 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real); arte (A) a avaliar",
+  "pivo": {
+   "x": 23,
+   "y": 58
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "tronco"
+ }
+]

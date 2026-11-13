@@ -1,0 +1,184 @@
+{
+ "tile": 32,
+ "layout": "4x4, índice = linha*4+coluna = máscara corner/4",
+ "tiles": [
+  {
+   "indice": 0,
+   "cantos": {
+    "NW": "agua",
+    "NE": "agua",
+    "SW": "agua",
+    "SE": "agua"
+   },
+   "mascara_corner4": 0,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 1,
+   "cantos": {
+    "NW": "agua",
+    "NE": "agua",
+    "SW": "agua",
+    "SE": "grama"
+   },
+   "mascara_corner4": 1,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 2,
+   "cantos": {
+    "NW": "agua",
+    "NE": "agua",
+    "SW": "grama",
+    "SE": "agua"
+   },
+   "mascara_corner4": 2,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 3,
+   "cantos": {
+    "NW": "agua",
+    "NE": "agua",
+    "SW": "grama",
+    "SE": "grama"
+   },
+   "mascara_corner4": 3,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 4,
+   "cantos": {
+    "NW": "agua",
+    "NE": "grama",
+    "SW": "agua",
+    "SE": "agua"
+   },
+   "mascara_corner4": 4,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 5,
+   "cantos": {
+    "NW": "agua",
+    "NE": "grama",
+    "SW": "agua",
+    "SE": "grama"
+   },
+   "mascara_corner4": 5,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 6,
+   "cantos": {
+    "NW": "agua",
+    "NE": "grama",
+    "SW": "grama",
+    "SE": "agua"
+   },
+   "mascara_corner4": 6,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 7,
+   "cantos": {
+    "NW": "agua",
+    "NE": "grama",
+    "SW": "grama",
+    "SE": "grama"
+   },
+   "mascara_corner4": 7,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 8,
+   "cantos": {
+    "NW": "grama",
+    "NE": "agua",
+    "SW": "agua",
+    "SE": "agua"
+   },
+   "mascara_corner4": 8,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 9,
+   "cantos": {
+    "NW": "grama",
+    "NE": "agua",
+    "SW": "agua",
+    "SE": "grama"
+   },
+   "mascara_corner4": 9,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 10,
+   "cantos": {
+    "NW": "grama",
+    "NE": "agua",
+    "SW": "grama",
+    "SE": "agua"
+   },
+   "mascara_corner4": 10,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 11,
+   "cantos": {
+    "NW": "grama",
+    "NE": "agua",
+    "SW": "grama",
+    "SE": "grama"
+   },
+   "mascara_corner4": 11,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 12,
+   "cantos": {
+    "NW": "grama",
+    "NE": "grama",
+    "SW": "agua",
+    "SE": "agua"
+   },
+   "mascara_corner4": 12,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 13,
+   "cantos": {
+    "NW": "grama",
+    "NE": "grama",
+    "SW": "agua",
+    "SE": "grama"
+   },
+   "mascara_corner4": 13,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 14,
+   "cantos": {
+    "NW": "grama",
+    "NE": "grama",
+    "SW": "grama",
+    "SE": "agua"
+   },
+   "mascara_corner4": 14,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  },
+  {
+   "indice": 15,
+   "cantos": {
+    "NW": "grama",
+    "NE": "grama",
+    "SW": "grama",
+    "SE": "grama"
+   },
+   "mascara_corner4": 15,
+   "regra": "NW<<3 | NE<<2 | SW<<1 | SE; bit 1 = grama"
+  }
+ ],
+ "origem": "derivado procedural das texturas A (grama_01 + agua_a_base), NÃO existe na prancha",
+ "limitacao": "borda limpa (bilinear) nas costuras; ruído só no interior; margem = 1 px escuro (#273f2b) + 1 px #38583a do lado da grama, 1 px de espuma (#8ff0f0) do lado da água; sem perspectiva de barranco"
+}

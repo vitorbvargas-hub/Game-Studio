@@ -1,0 +1,674 @@
+[
+ {
+  "id": "grama_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    17,
+    440,
+    45,
+    41
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    63,
+    440,
+    43,
+    42
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    107,
+    440,
+    43,
+    41
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_04",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_04.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    151,
+    440,
+    42,
+    42
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_05",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_05.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    17,
+    483,
+    45,
+    42
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_06",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_06.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    63,
+    483,
+    43,
+    42
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "grama_07",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_07.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    107,
+    483,
+    43,
+    42
+   ]
+  },
+  "processo": "recorte interno (3px) + redução por moda para 32x32 + remoção de gradiente de baixa frequência (média móvel com wrap) + costura removida (mistura com cópia deslocada de meio tile nas bordas) + rampa de 4 verdes da P-ii por quantil + despeckle",
+  "status": "game-ready técnico; arte (A) a avaliar",
+  "paleta": "P-ii (rampa #3a5938 #51754b #72935b #95ad6d)"
+ },
+ {
+  "id": "terra_clareira",
+  "categoria": "terreno",
+  "arquivo": "terreno/terra_clareira.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    151,
+    483,
+    42,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; NÃO usar como trilha contínua (ADR cenário); só clareira pontual",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "grama_flores",
+  "categoria": "terreno",
+  "arquivo": "terreno/grama_flores.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    372,
+    526,
+    60,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; tile de canteiro com flores, centro recortado",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "terra_avermelhada_flores",
+  "categoria": "terreno",
+  "arquivo": "terreno/terra_avermelhada_flores.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    433,
+    526,
+    57,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; canteiro de terra com flores",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_face_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_face_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    18,
+    526,
+    43,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; face de desnível",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_face_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_face_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    62,
+    526,
+    44,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; face de desnível",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_face_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_face_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    108,
+    526,
+    44,
+    35
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; face de desnível",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_face_04",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_face_04.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    254,
+    526,
+    62,
+    36
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; face de desnível (célula larga, centro recortado)",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_caverna",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_caverna.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    206,
+    526,
+    45,
+    42
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; entrada de caverna na face do desnível",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "margem_agua_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/margem_agua_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    18,
+    570,
+    43,
+    38
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; borda superior: grama pendendo sobre a água (só esta orientação existe na prancha)",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "margem_agua_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/margem_agua_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    62,
+    570,
+    44,
+    38
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; idem, variação",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "margem_agua_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/margem_agua_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    158,
+    570,
+    44,
+    38
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; idem, variação",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "agua_estatica_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/agua_estatica_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    260,
+    571,
+    54,
+    33
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; água estática da prancha (base da animação)",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "agua_estatica_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/agua_estatica_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    318,
+    571,
+    52,
+    33
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; água estática",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "agua_estatica_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/agua_estatica_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    18,
+    609,
+    43,
+    36
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; água sob a margem",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "ponte_tabua_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/ponte_tabua_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    210,
+    610,
+    42,
+    35
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; tábua de ponte",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "ponte_tabua_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/ponte_tabua_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    260,
+    610,
+    52,
+    35
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; tábua de ponte",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "ponte_tabua_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/ponte_tabua_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    320,
+    610,
+    46,
+    35
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; tábua de ponte",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "ponte_tabua_04",
+  "categoria": "terreno",
+  "arquivo": "terreno/ponte_tabua_04.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    374,
+    610,
+    46,
+    35
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; tábua de ponte",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "desnivel_topo_grama_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/desnivel_topo_grama_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    229,
+    652,
+    48,
+    50
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; bloco grama+raízes (topo de desnível)",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "desnivel_topo_grama_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/desnivel_topo_grama_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    283,
+    652,
+    48,
+    50
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; idem",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "desnivel_topo_grama_03",
+  "categoria": "terreno",
+  "arquivo": "terreno/desnivel_topo_grama_03.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    335,
+    652,
+    52,
+    50
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; idem",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "desnivel_topo_grama_04",
+  "categoria": "terreno",
+  "arquivo": "terreno/desnivel_topo_grama_04.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    391,
+    652,
+    50,
+    50
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; idem",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "borda_mato_01",
+  "categoria": "terreno",
+  "arquivo": "terreno/borda_mato_01.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    372,
+    440,
+    60,
+    39
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; borda de mato (topo)",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "borda_mato_02",
+  "categoria": "terreno",
+  "arquivo": "terreno/borda_mato_02.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    433,
+    440,
+    58,
+    41
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; borda de mato/ledge",
+  "paleta": "P-ii ∪ P-iii"
+ },
+ {
+  "id": "penhasco_mato",
+  "categoria": "terreno",
+  "arquivo": "terreno/penhasco_mato.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    372,
+    482,
+    60,
+    43
+   ]
+  },
+  "processo": "recorte interno + redução por moda para 32 px de altura (centro recortado se mais largo) + quantização na união P-ii ∪ P-iii-sem-verdes (verdes só da P-ii; sem branco, exceto água) + despeckle",
+  "status": "game-ready técnico; penhasco com mato",
+  "paleta": "P-ii ∪ P-iii"
+ }
+]

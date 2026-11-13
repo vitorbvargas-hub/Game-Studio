@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0005",
+ "species": "koromon",
+ "source": "Método A (ChatGPT) koromon_retrato_A — pose única (frente (S)), parada; sem outras direções nem walk nesta fonte",
+ "file": "pose.png",
+ "w": 34,
+ "h": 25,
+ "pivot": {
+  "x": 17,
+  "y": 24
+ },
+ "anatomy": "blob",
+ "facing": "S",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

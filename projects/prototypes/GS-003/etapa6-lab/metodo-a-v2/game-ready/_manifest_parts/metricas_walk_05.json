@@ -1,0 +1,58 @@
+{
+ "agumon": {
+  "D10_walk_W_pct": 5.88,
+  "D10_walk_S_pct": 8.33,
+  "silhueta_xor_W_pct": [
+   12.8,
+   7.2,
+   6.2,
+   16.8
+  ],
+  "silhueta_xor_S_pct": [
+   7.3,
+   16.7,
+   14.8,
+   19.6
+  ],
+  "alturas_W": [
+   35,
+   33,
+   34,
+   33
+  ],
+  "alturas_S": [
+   34,
+   34,
+   36,
+   37
+  ]
+ },
+ "koromon": {
+  "D10_walk_W_pct": 0.0,
+  "D10_walk_S_pct": 0.0,
+  "silhueta_xor_W_pct": [
+   14.1,
+   14.1,
+   16.5,
+   16.1
+  ],
+  "silhueta_xor_S_pct": [
+   12.4,
+   11.2,
+   15.9,
+   10.4
+  ],
+  "alturas_W": [
+   24,
+   24,
+   24,
+   24
+  ],
+  "alturas_S": [
+   28,
+   28,
+   28,
+   28
+  ]
+ }
+}

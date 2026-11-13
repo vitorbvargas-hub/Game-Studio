@@ -1,0 +1,134 @@
+[
+ {
+  "id": "rio_a",
+  "categoria": "agua",
+  "arquivo": "agua/rio_a_32x32_8f.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 8,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    260,
+    571,
+    54,
+    33
+   ]
+  },
+  "processo": "tile de água da prancha reduzido por moda a 32x32, campo de luminância sem gradiente, costura removida, rampa ciano P-ii (#2bc4c4/#49c5fa/#8ff0f0); animação = mesmo algoritmo do motor (deslocamento com wrap, passo (0, 4) px, 8 quadros, loop exato)",
+  "status": "game-ready técnico; candidato a água do Link A",
+  "paleta": "P-ii (ciano aprovado)",
+  "frame_ms": 90,
+  "tile_estatico_para_shader": "agua/agua_a_base.png"
+ },
+ {
+  "id": "lago_a",
+  "categoria": "agua",
+  "arquivo": "agua/lago_a_32x32_8f.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 8,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    260,
+    571,
+    54,
+    33
+   ]
+  },
+  "processo": "tile de água da prancha reduzido por moda a 32x32, campo de luminância sem gradiente, costura removida, rampa ciano P-ii (#2bc4c4/#49c5fa/#8ff0f0); animação = mesmo algoritmo do motor (deslocamento com wrap, passo (4, 4) px, 8 quadros, loop exato)",
+  "status": "game-ready técnico; candidato a água do Link A",
+  "paleta": "P-ii (ciano aprovado)",
+  "frame_ms": 180,
+  "tile_estatico_para_shader": "agua/agua_a_base.png"
+ },
+ {
+  "id": "agua_a_base",
+  "categoria": "agua",
+  "arquivo": "agua/agua_a_base.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    260,
+    571,
+    54,
+    33
+   ]
+  },
+  "processo": "tile estático sem costura (base para o shader waterAnim do motor)",
+  "status": "game-ready técnico",
+  "paleta": "P-ii"
+ },
+ {
+  "id": "agua_a_base_var",
+  "categoria": "agua",
+  "arquivo": "agua/agua_a_base_var.png",
+  "w": 32,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    318,
+    571,
+    52,
+    33
+   ]
+  },
+  "processo": "variação do tile estático",
+  "status": "game-ready técnico",
+  "paleta": "P-ii"
+ },
+ {
+  "id": "cachoeira_a",
+  "categoria": "agua",
+  "arquivo": "agua/cachoeira_a_32x64_8f.png",
+  "w": 32,
+  "h": 64,
+  "quadros": 8,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    110,
+    557,
+    44,
+    88
+   ]
+  },
+  "processo": "cachoeira da prancha reduzida por moda a 32x64; corpo (linhas 6–45) com rampa ciano P-ii e rolagem vertical 4 px/quadro (loop exato em 8); borda superior estática; espuma (linhas 46–63) com tremor de 1 px alternado",
+  "status": "game-ready técnico; animação simples (rolagem), sem respingos desenhados",
+  "paleta": "P-ii (+ #0099db P-iii para profundidade)",
+  "frame_ms": 90
+ },
+ {
+  "id": "espuma_a",
+  "categoria": "agua",
+  "arquivo": "agua/espuma_a_32x16_8f.png",
+  "w": 32,
+  "h": 16,
+  "quadros": 8,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    110,
+    623,
+    44,
+    22
+   ]
+  },
+  "processo": "espuma da base da cachoeira, 32x16, oscilação horizontal ±1 px (8 quadros)",
+  "status": "game-ready técnico; animação mínima",
+  "paleta": "P-ii",
+  "frame_ms": 120
+ }
+]

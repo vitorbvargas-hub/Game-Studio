@@ -1,0 +1,17 @@
+{
+ "id": "tamer_a_cabelo_azul",
+ "label": "Tamer A — cabelo azul (preset 2 da prancha 06) [SÓ SUL — N/L/O e caminhada ausentes nas pranchas; placeholder estático]",
+ "source": "Método A (ChatGPT), recorte C5 game-art",
+ "rotations": {
+  "S": {
+   "file": "rotations/south.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 24,
+    "y": 45
+   }
+  }
+ },
+ "walk": {}
+}

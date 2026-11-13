@@ -1,0 +1,860 @@
+[
+ {
+  "id": "arvore_copa_redonda_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_copa_redonda_01.png",
+  "w": 47,
+  "h": 55,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    515,
+    443,
+    60,
+    74
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 23,
+   "y": 54
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "arvore_copa_redonda_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_copa_redonda_02.png",
+  "w": 47,
+  "h": 54,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    576,
+    445,
+    62,
+    71
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 23,
+   "y": 53
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "arvore_copa_redonda_03",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_copa_redonda_03.png",
+  "w": 46,
+  "h": 55,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    639,
+    443,
+    62,
+    72
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 23,
+   "y": 54
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "arvore_cerejeira",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arvore_cerejeira.png",
+  "w": 45,
+  "h": 52,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    702,
+    442,
+    58,
+    70
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 22,
+   "y": 51
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "pinheiro",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/pinheiro.png",
+  "w": 27,
+  "h": 51,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    763,
+    442,
+    35,
+    68
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 50
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "arbusto_florido",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arbusto_florido.png",
+  "w": 32,
+  "h": 25,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    522,
+    522,
+    42,
+    34
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 16,
+   "y": 24
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "arbusto_redondo_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arbusto_redondo_01.png",
+  "w": 31,
+  "h": 26,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    571,
+    522,
+    40,
+    34
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 15,
+   "y": 25
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "planta_flor_laranja_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/planta_flor_laranja_01.png",
+  "w": 25,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    620,
+    522,
+    33,
+    31
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "planta_flor_laranja_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/planta_flor_laranja_02.png",
+  "w": 27,
+  "h": 25,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    660,
+    521,
+    35,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 24
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "arbusto_redondo_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arbusto_redondo_02.png",
+  "w": 31,
+  "h": 27,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    703,
+    518,
+    40,
+    35
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 15,
+   "y": 26
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "arbusto_redondo_03",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/arbusto_redondo_03.png",
+  "w": 29,
+  "h": 27,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    750,
+    518,
+    38,
+    35
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 14,
+   "y": 26
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "tufo_grama_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/tufo_grama_01.png",
+  "w": 25,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    528,
+    562,
+    32,
+    29
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_vermelhas_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_vermelhas_01.png",
+  "w": 23,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    575,
+    562,
+    31,
+    29
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 11,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_amarelas_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_amarelas_01.png",
+  "w": 24,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    621,
+    560,
+    31,
+    31
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_rosa_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_rosa_01.png",
+  "w": 23,
+  "h": 25,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    663,
+    559,
+    31,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 11,
+   "y": 24
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_rosa_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_rosa_02.png",
+  "w": 29,
+  "h": 26,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    704,
+    558,
+    37,
+    33
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 14,
+   "y": 25
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_amarelas_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_amarelas_02.png",
+  "w": 27,
+  "h": 24,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    753,
+    559,
+    35,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 23
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "tufo_grama_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/tufo_grama_02.png",
+  "w": 28,
+  "h": 25,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    526,
+    596,
+    36,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 14,
+   "y": 24
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "tufo_grama_03",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/tufo_grama_03.png",
+  "w": 25,
+  "h": 24,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    573,
+    596,
+    33,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 23
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "tufo_grama_04",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/tufo_grama_04.png",
+  "w": 26,
+  "h": 24,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    618,
+    596,
+    34,
+    31
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 23
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_brancas",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_brancas.png",
+  "w": 25,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    662,
+    596,
+    33,
+    32
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_laranja",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_laranja.png",
+  "w": 27,
+  "h": 24,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    706,
+    597,
+    35,
+    31
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 23
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "flores_vermelhas_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/flores_vermelhas_02.png",
+  "w": 25,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    752,
+    597,
+    34,
+    31
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 12,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "pedra_musgo_01",
+  "categoria": "objetos",
+  "arquivo": "objetos/pedra_musgo_01.png",
+  "w": 30,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    527,
+    635,
+    39,
+    30
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 15,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "pedra_musgo_02",
+  "categoria": "objetos",
+  "arquivo": "objetos/pedra_musgo_02.png",
+  "w": 29,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    575,
+    635,
+    37,
+    30
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 14,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "pedra_ocre",
+  "categoria": "objetos",
+  "arquivo": "objetos/pedra_ocre.png",
+  "w": 30,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    621,
+    635,
+    41,
+    30
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 15,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "toco",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/toco.png",
+  "w": 36,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    672,
+    635,
+    47,
+    30
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 18,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "tronco_caido",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/tronco_caido.png",
+  "w": 40,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    734,
+    635,
+    52,
+    28
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 20,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "moita_01",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/moita_01.png",
+  "w": 34,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    523,
+    671,
+    44,
+    29
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 17,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "moita_02",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/moita_02.png",
+  "w": 27,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    576,
+    671,
+    36,
+    29
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 13,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "moita_03",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/moita_03.png",
+  "w": 31,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    625,
+    671,
+    40,
+    29
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 15,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "cogumelos",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/cogumelos.png",
+  "w": 29,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    683,
+    672,
+    39,
+    28
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 14,
+   "y": 21
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ },
+ {
+  "id": "moita_04",
+  "categoria": "vegetacao",
+  "arquivo": "vegetacao/moita_04.png",
+  "w": 34,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    738,
+    670,
+    47,
+    30
+   ]
+  },
+  "processo": "remoção do fundo branco por flood-fill da borda + redução por moda (fator 1.344 = escala do tileset da própria prancha, 43 px → 32) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); arte (A) a avaliar",
+  "pivo": {
+   "x": 17,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "nenhuma"
+ }
+]

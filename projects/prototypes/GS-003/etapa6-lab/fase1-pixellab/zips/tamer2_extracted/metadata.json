@@ -1,0 +1,36 @@
+{
+  "group_id": "f998cf6e-3e19-4697-b78c-9d8c6be21647",
+  "states": [
+    {
+      "character": {
+        "id": "1c1f6a8d-cd0c-4cb9-a8f5-91115847e96a",
+        "name": "Idle",
+        "prompt": "original human digital monster tamer character, same teenage body build as an explorer, long black hair tied in a ponytail, yellow sleeveless hoodie over striped long-sleeve shirt, dark-blue denim shorts, red fingerless gloves, small blue handheld digivice clipped to belt, purple sneakers, confident standing pose, facing forward, cheerful determined expression",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-11-13T14:26:40.987914+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-13T14:32:16.557277"
+}

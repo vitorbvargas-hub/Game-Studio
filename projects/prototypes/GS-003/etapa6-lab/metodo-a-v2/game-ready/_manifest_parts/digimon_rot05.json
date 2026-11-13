@@ -1,0 +1,306 @@
+[
+ {
+  "id": "agumon_rot05_west",
+  "categoria": "digimon",
+  "arquivo": "digimon/agumon/rotacoes_05/west.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    334,
+    263,
+    32,
+    37
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.00) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 48x48, pivô no pé",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 24,
+   "y": 45
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 35,
+  "largura_px": 28,
+  "mirroredFrom": null
+ },
+ {
+  "id": "agumon_rot05_south",
+  "categoria": "digimon",
+  "arquivo": "digimon/agumon/rotacoes_05/south.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    336,
+    307,
+    28,
+    35
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.00) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 48x48, pivô no pé",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 24,
+   "y": 45
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 34,
+  "largura_px": 28,
+  "mirroredFrom": null
+ },
+ {
+  "id": "agumon_rot05_east",
+  "categoria": "digimon",
+  "arquivo": "digimon/agumon/rotacoes_05/east.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    334,
+    263,
+    32,
+    37
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.00) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 48x48, pivô no pé — LESTE = ESPELHO do oeste (nenhum pixel novo)",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 24,
+   "y": 45
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 35,
+  "largura_px": 28,
+  "mirroredFrom": "west"
+ },
+ {
+  "id": "agumon_walk_west_candidato",
+  "categoria": "digimon",
+  "arquivo": "digimon/agumon/rotacoes_05/walk_west_candidato_4f.png",
+  "w": 48,
+  "h": 48,
+  "quadros": 4,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    [
+     334,
+     263,
+     32,
+     37
+    ],
+    [
+     377,
+     264,
+     26,
+     36
+    ],
+    [
+     414,
+     263,
+     31,
+     36
+    ],
+    [
+     459,
+     265,
+     29,
+     34
+    ]
+   ]
+  },
+  "processo": "4 quadros \"Andar\" da 1ª linha (perfil esquerdo) da prancha 05, mesmo tratamento",
+  "status": "NÃO game-ready como caminhada: ver métricas D10/diferença entre quadros",
+  "metricas": {
+   "D10_walk_W_pct": 5.88,
+   "D10_walk_S_pct": 8.33,
+   "silhueta_xor_W_pct": [
+    12.8,
+    7.2,
+    6.2,
+    16.8
+   ],
+   "silhueta_xor_S_pct": [
+    7.3,
+    16.7,
+    14.8,
+    19.6
+   ],
+   "alturas_W": [
+    35,
+    33,
+    34,
+    33
+   ],
+   "alturas_S": [
+    34,
+    34,
+    36,
+    37
+   ]
+  }
+ },
+ {
+  "id": "koromon_rot05_west",
+  "categoria": "digimon",
+  "arquivo": "digimon/koromon/rotacoes_05/west.png",
+  "w": 40,
+  "h": 40,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    336,
+    62,
+    30,
+    30
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.20) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 40x40, pivô no pé",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 20,
+   "y": 37
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 24,
+  "largura_px": 24,
+  "mirroredFrom": null
+ },
+ {
+  "id": "koromon_rot05_south",
+  "categoria": "digimon",
+  "arquivo": "digimon/koromon/rotacoes_05/south.png",
+  "w": 40,
+  "h": 40,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    338,
+    104,
+    26,
+    35
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.20) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 40x40, pivô no pé",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 19,
+   "y": 37
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 28,
+  "largura_px": 21,
+  "mirroredFrom": null
+ },
+ {
+  "id": "koromon_rot05_east",
+  "categoria": "digimon",
+  "arquivo": "digimon/koromon/rotacoes_05/east.png",
+  "w": 40,
+  "h": 40,
+  "quadros": 1,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    336,
+    62,
+    30,
+    30
+   ]
+  },
+  "processo": "quadro pequeno da prancha 05 (1:1 nativo, fator 1.20) + remoção de fundo + paleta adaptativa 16 cores→P-iii + despeckle; centralizado em 40x40, pivô no pé — LESTE = ESPELHO do oeste (nenhum pixel novo)",
+  "status": "rotação estática; sem NORTE na fonte (lacuna)",
+  "pivo": {
+   "x": 20,
+   "y": 37
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 24,
+  "largura_px": 24,
+  "mirroredFrom": "west"
+ },
+ {
+  "id": "koromon_walk_west_candidato",
+  "categoria": "digimon",
+  "arquivo": "digimon/koromon/rotacoes_05/walk_west_candidato_4f.png",
+  "w": 40,
+  "h": 40,
+  "quadros": 4,
+  "origem": {
+   "prancha": "05",
+   "arquivo": "07_Referencias_Originais/05_a_detailed_sprite_sheet_style_composite_on_a_dark.png",
+   "recorte_xywh": [
+    [
+     336,
+     62,
+     30,
+     30
+    ],
+    [
+     378,
+     62,
+     28,
+     30
+    ],
+    [
+     420,
+     62,
+     27,
+     29
+    ],
+    [
+     462,
+     62,
+     28,
+     30
+    ]
+   ]
+  },
+  "processo": "4 quadros \"Andar\" da 1ª linha (perfil esquerdo) da prancha 05, mesmo tratamento",
+  "status": "NÃO game-ready como caminhada: ver métricas D10/diferença entre quadros",
+  "metricas": {
+   "D10_walk_W_pct": 0.0,
+   "D10_walk_S_pct": 0.0,
+   "silhueta_xor_W_pct": [
+    14.1,
+    14.1,
+    16.5,
+    16.1
+   ],
+   "silhueta_xor_S_pct": [
+    12.4,
+    11.2,
+    15.9,
+    10.4
+   ],
+   "alturas_W": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "alturas_S": [
+    28,
+    28,
+    28,
+    28
+   ]
+  }
+ }
+]

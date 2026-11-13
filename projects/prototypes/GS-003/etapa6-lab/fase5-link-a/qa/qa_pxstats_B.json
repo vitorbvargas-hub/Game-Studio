@@ -1,0 +1,101 @@
+[
+ {
+  "f": "/tmp/qa_c5_b/campfire.png",
+  "W": 32,
+  "H": 32,
+  "opacos": 322,
+  "cores": 7,
+  "orfaos_pct": 9.3,
+  "corrida_media": 1.73,
+  "blocos2x2_pct": 15.2,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/data_totem_pillar.png",
+  "W": 32,
+  "H": 64,
+  "opacos": 764,
+  "cores": 8,
+  "orfaos_pct": 16.9,
+  "corrida_media": 1.5,
+  "blocos2x2_pct": 10.3,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/lantern_post.png",
+  "W": 24,
+  "H": 48,
+  "opacos": 242,
+  "cores": 5,
+  "orfaos_pct": 8.7,
+  "corrida_media": 1.46,
+  "blocos2x2_pct": 13.1,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/tallgrass_tuft_b.png",
+  "W": 28,
+  "H": 28,
+  "opacos": 200,
+  "cores": 6,
+  "orfaos_pct": 18.5,
+  "corrida_media": 1.27,
+  "blocos2x2_pct": 10.2,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/tree_canopy_big.png",
+  "W": 64,
+  "H": 80,
+  "opacos": 1357,
+  "cores": 11,
+  "orfaos_pct": 8.5,
+  "corrida_media": 2.47,
+  "blocos2x2_pct": 35,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/tree_canopy_broadleaf_v2.png",
+  "W": 64,
+  "H": 96,
+  "opacos": 1986,
+  "cores": 15,
+  "orfaos_pct": 23.3,
+  "corrida_media": 1.74,
+  "blocos2x2_pct": 21.2,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/tree_dark_conifer_v2.png",
+  "W": 56,
+  "H": 96,
+  "opacos": 689,
+  "cores": 10,
+  "orfaos_pct": 28.2,
+  "corrida_media": 1.35,
+  "blocos2x2_pct": 5.2,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "/tmp/qa_c5_b/waterfall_f00.png",
+  "W": 128,
+  "H": 128,
+  "opacos": 11296,
+  "cores": 55,
+  "orfaos_pct": 21,
+  "corrida_media": 1.51,
+  "blocos2x2_pct": 13.1,
+  "alfa_parcial": 0
+ },
+ {
+  "f": "lab-assets/b/tamer/p1/walk/E/frame_000.png",
+  "W": 44,
+  "H": 44,
+  "opacos": 350,
+  "cores": 38,
+  "orfaos_pct": 32,
+  "corrida_media": 1.33,
+  "blocos2x2_pct": 9.1,
+  "alfa_parcial": 0
+ }
+]

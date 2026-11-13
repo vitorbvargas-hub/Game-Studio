@@ -1,0 +1,782 @@
+[
+ {
+  "id": "antena_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/antena_digital.png",
+  "w": 33,
+  "h": 61,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1034,
+    446,
+    45,
+    80
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); estrutura digital (antena)",
+  "pivo": {
+   "x": 16,
+   "y": 60
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "terminal_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/terminal_digital.png",
+  "w": 30,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    977,
+    458,
+    41,
+    63
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); estrutura digital (terminal)",
+  "pivo": {
+   "x": 15,
+   "y": 47
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "poste_tocha",
+  "categoria": "objetos",
+  "arquivo": "objetos/poste_tocha.png",
+  "w": 16,
+  "h": 49,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    826,
+    541,
+    20,
+    66
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); poste/tocha",
+  "pivo": {
+   "x": 8,
+   "y": 48
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "bandeira",
+  "categoria": "objetos",
+  "arquivo": "objetos/bandeira.png",
+  "w": 34,
+  "h": 45,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    916,
+    546,
+    44,
+    59
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); bandeira com alvo (genérica)",
+  "pivo": {
+   "x": 17,
+   "y": 44
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "caixote",
+  "categoria": "objetos",
+  "arquivo": "objetos/caixote.png",
+  "w": 30,
+  "h": 33,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    973,
+    546,
+    39,
+    45
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); caixote de madeira",
+  "pivo": {
+   "x": 15,
+   "y": 32
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "portal_madeira",
+  "categoria": "objetos",
+  "arquivo": "objetos/portal_madeira.png",
+  "w": 53,
+  "h": 45,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1026,
+    539,
+    70,
+    59
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); pórtico/estrutura de madeira",
+  "pivo": {
+   "x": 26,
+   "y": 44
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "entrada_caverna",
+  "categoria": "objetos",
+  "arquivo": "objetos/entrada_caverna.png",
+  "w": 66,
+  "h": 49,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1107,
+    537,
+    89,
+    65
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); entrada de caverna",
+  "pivo": {
+   "x": 33,
+   "y": 48
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "placa_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/placa_digital.png",
+  "w": 23,
+  "h": 38,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    869,
+    554,
+    30,
+    50
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); placa com painel digital",
+  "pivo": {
+   "x": 11,
+   "y": 37
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cerca_01",
+  "categoria": "objetos",
+  "arquivo": "objetos/cerca_01.png",
+  "w": 70,
+  "h": 31,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    825,
+    622,
+    93,
+    42
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cerca de madeira / corrimão de ponte",
+  "pivo": {
+   "x": 35,
+   "y": 30
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cerca_02",
+  "categoria": "objetos",
+  "arquivo": "objetos/cerca_02.png",
+  "w": 70,
+  "h": 38,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    933,
+    612,
+    94,
+    50
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cerca de madeira",
+  "pivo": {
+   "x": 35,
+   "y": 37
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cerca_03",
+  "categoria": "objetos",
+  "arquivo": "objetos/cerca_03.png",
+  "w": 53,
+  "h": 30,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1041,
+    618,
+    70,
+    39
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cerca curta",
+  "pivo": {
+   "x": 26,
+   "y": 29
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "santuario_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/santuario_digital.png",
+  "w": 66,
+  "h": 66,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1111,
+    612,
+    86,
+    88
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); SANTUÁRIO: cristal digital em base de pedra",
+  "pivo": {
+   "x": 33,
+   "y": 65
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "mourao_01",
+  "categoria": "objetos",
+  "arquivo": "objetos/mourao_01.png",
+  "w": 17,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    994,
+    671,
+    22,
+    29
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); mourão",
+  "pivo": {
+   "x": 8,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "mourao_02",
+  "categoria": "objetos",
+  "arquivo": "objetos/mourao_02.png",
+  "w": 16,
+  "h": 23,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1020,
+    671,
+    22,
+    29
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); mourão",
+  "pivo": {
+   "x": 8,
+   "y": 22
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cerca_baixa",
+  "categoria": "objetos",
+  "arquivo": "objetos/cerca_baixa.png",
+  "w": 50,
+  "h": 19,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    912,
+    676,
+    68,
+    24
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cerca baixa",
+  "pivo": {
+   "x": 25,
+   "y": 18
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "bau",
+  "categoria": "objetos",
+  "arquivo": "objetos/bau.png",
+  "w": 31,
+  "h": 31,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1225,
+    446,
+    40,
+    41
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); baú",
+  "pivo": {
+   "x": 15,
+   "y": 30
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "caixa_dados_azul",
+  "categoria": "objetos",
+  "arquivo": "objetos/caixa_dados_azul.png",
+  "w": 28,
+  "h": 31,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1330,
+    449,
+    36,
+    41
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); caixa de dados",
+  "pivo": {
+   "x": 14,
+   "y": 30
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "dispositivo_dados",
+  "categoria": "objetos",
+  "arquivo": "objetos/dispositivo_dados.png",
+  "w": 29,
+  "h": 33,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1380,
+    445,
+    38,
+    43
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); dispositivo de dados",
+  "pivo": {
+   "x": 14,
+   "y": 32
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "terminal_dados",
+  "categoria": "objetos",
+  "arquivo": "objetos/terminal_dados.png",
+  "w": 26,
+  "h": 34,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1431,
+    446,
+    34,
+    44
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); terminal de dados",
+  "pivo": {
+   "x": 13,
+   "y": 33
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "placa_seta",
+  "categoria": "objetos",
+  "arquivo": "objetos/placa_seta.png",
+  "w": 33,
+  "h": 37,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1228,
+    503,
+    43,
+    49
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); placa com seta",
+  "pivo": {
+   "x": 16,
+   "y": 36
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "barril",
+  "categoria": "objetos",
+  "arquivo": "objetos/barril.png",
+  "w": 24,
+  "h": 30,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1285,
+    504,
+    31,
+    40
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); barril",
+  "pivo": {
+   "x": 12,
+   "y": 29
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "rolo_corda",
+  "categoria": "objetos",
+  "arquivo": "objetos/rolo_corda.png",
+  "w": 32,
+  "h": 26,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1377,
+    507,
+    42,
+    34
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); rolo de corda",
+  "pivo": {
+   "x": 16,
+   "y": 25
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cristal_dados",
+  "categoria": "objetos",
+  "arquivo": "objetos/cristal_dados.png",
+  "w": 24,
+  "h": 31,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1486,
+    503,
+    32,
+    41
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cristal de dados",
+  "pivo": {
+   "x": 12,
+   "y": 30
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "caixa_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/caixa_digital.png",
+  "w": 44,
+  "h": 46,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1289,
+    566,
+    58,
+    61
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); caixa digital (item/baú digital)",
+  "pivo": {
+   "x": 22,
+   "y": 45
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "digi_egg_06",
+  "categoria": "objetos",
+  "arquivo": "objetos/digi_egg_06.png",
+  "w": 30,
+  "h": 35,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1364,
+    572,
+    41,
+    48
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); Digi-Egg (objeto de cenário)",
+  "pivo": {
+   "x": 15,
+   "y": 34
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "capsula_dados",
+  "categoria": "objetos",
+  "arquivo": "objetos/capsula_dados.png",
+  "w": 30,
+  "h": 36,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    1232,
+    575,
+    39,
+    48
+   ]
+  },
+  "processo": "remoção de fundo (white) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cápsula de dados",
+  "pivo": {
+   "x": 15,
+   "y": 35
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "cabine_telefonica",
+  "categoria": "objetos",
+  "arquivo": "objetos/cabine_telefonica.png",
+  "w": 42,
+  "h": 67,
+  "quadros": 1,
+  "origem": {
+   "prancha": "03",
+   "arquivo": "07_Referencias_Originais/03_a_detailed_pixel_art_game_map_mockup_in_gba_style.png",
+   "recorte_xywh": [
+    178,
+    817,
+    58,
+    88
+   ]
+  },
+  "processo": "remoção de fundo (dark) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); cabine telefônica (referência de ambientação; só objeto)",
+  "pivo": {
+   "x": 21,
+   "y": 66
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "digi_egg_pedestal",
+  "categoria": "objetos",
+  "arquivo": "objetos/digi_egg_pedestal.png",
+  "w": 50,
+  "h": 48,
+  "quadros": 1,
+  "origem": {
+   "prancha": "03",
+   "arquivo": "07_Referencias_Originais/03_a_detailed_pixel_art_game_map_mockup_in_gba_style.png",
+   "recorte_xywh": [
+    251,
+    829,
+    70,
+    64
+   ]
+  },
+  "processo": "remoção de fundo (dark) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); Digi-Egg em pedestal",
+  "pivo": {
+   "x": 25,
+   "y": 47
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "marco_digital",
+  "categoria": "objetos",
+  "arquivo": "objetos/marco_digital.png",
+  "w": 46,
+  "h": 61,
+  "quadros": 1,
+  "origem": {
+   "prancha": "03",
+   "arquivo": "07_Referencias_Originais/03_a_detailed_pixel_art_game_map_mockup_in_gba_style.png",
+   "recorte_xywh": [
+    331,
+    819,
+    65,
+    82
+   ]
+  },
+  "processo": "remoção de fundo (dark) por flood-fill + redução por moda (fator 1.344) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); marco digital",
+  "pivo": {
+   "x": 23,
+   "y": 60
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ },
+ {
+  "id": "ponte_secao_corrimao",
+  "categoria": "objetos",
+  "arquivo": "objetos/ponte_secao_corrimao.png",
+  "w": 60,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "08",
+   "arquivo": "07_Referencias_Originais/08_a_vibrant_pixel_art_rpg_game_mockup_composite_for.png",
+   "recorte_xywh": [
+    963,
+    636,
+    100,
+    52
+   ]
+  },
+  "processo": "remoção de fundo (dark) por flood-fill + redução por moda (fator 1.719) + desfranja + quantização P-ii ∪ P-iii (verdes só da P-ii) + despeckle + trim",
+  "status": "game-ready técnico (alfa real, pivô na base); seção de ponte (2 tiles) com corrimão e postes",
+  "pivo": {
+   "x": 30,
+   "y": 31
+  },
+  "paleta": "P-ii ∪ P-iii",
+  "colisao_sugerida": "base"
+ }
+]

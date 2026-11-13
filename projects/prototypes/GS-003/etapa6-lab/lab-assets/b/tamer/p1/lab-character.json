@@ -1,0 +1,281 @@
+{
+ "id": "tamer-p1-v2",
+ "label": "Tamer Principal (PixelLab v2)",
+ "source": "lab-importer (M2, Etapa 6 C4 F2)",
+ "rotations": {
+  "S": {
+   "file": "rotations/S.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 28,
+    "y": 47
+   }
+  },
+  "N": {
+   "file": "rotations/N.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 28,
+    "y": 47
+   }
+  },
+  "W": {
+   "file": "rotations/W.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 25,
+    "y": 48
+   }
+  },
+  "E": {
+   "file": "rotations/E.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 30,
+    "y": 48
+   }
+  }
+ },
+ "walk": {
+  "S": {
+   "frames": [
+    {
+     "file": "walk/S/frame_000.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/S/frame_001.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 26,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/S/frame_002.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 26,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/S/frame_003.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 24,
+      "y": 37
+     }
+    },
+    {
+     "file": "walk/S/frame_004.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 18,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/S/frame_005.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 19,
+      "y": 39
+     }
+    }
+   ],
+   "ms": 110
+  },
+  "N": {
+   "frames": [
+    {
+     "file": "walk/N/frame_000.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 23,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/N/frame_001.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 24,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/N/frame_002.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 24,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/N/frame_003.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 20,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/N/frame_004.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 20,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/N/frame_005.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 20,
+      "y": 38
+     }
+    }
+   ],
+   "ms": 110
+  },
+  "W": {
+   "frames": [
+    {
+     "file": "walk/W/frame_000.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/W/frame_001.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 25,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/W/frame_002.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 27,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/W/frame_003.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 21,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/W/frame_004.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 17,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/W/frame_005.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 19,
+      "y": 38
+     }
+    }
+   ],
+   "ms": 110
+  },
+  "E": {
+   "frames": [
+    {
+     "file": "walk/E/frame_000.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 21,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/E/frame_001.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 19,
+      "y": 39
+     }
+    },
+    {
+     "file": "walk/E/frame_002.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 17,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/E/frame_003.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/E/frame_004.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 26,
+      "y": 38
+     }
+    },
+    {
+     "file": "walk/E/frame_005.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 24,
+      "y": 38
+     }
+    }
+   ],
+   "ms": 110
+  }
+ }
+}

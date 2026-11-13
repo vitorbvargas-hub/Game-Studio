@@ -283,3 +283,196 @@
 
 - Entregável: `REVISAO_QA_PRONTIDAO_C3.md` (novo).
 - **Para o próximo agente (`game-studio` → passo 7):** o orçamento PixelLab precisa ser recalculado antes da Solicitação 2 do portão obrigatório — o teto de 15 gerações não fecha com a composição atual (ver NC-1/NC-2). Recomendação: remover o item 2 (variação de preset) da rodada mínima (fecha em ~9 + reserva) ou levar ao fundador um teto revisado com os números corretos. Corrigir também a pendência crônica do Gabumon (NC-4) nesta rodada de consolidação.
+
+---
+
+## game-art (2026-11-13) — Etapa 6, Comando 4, Fase 1 (checkpoint 1, Método B)
+
+1. **Lido, nesta ordem (conforme instrução recebida):** `COMANDO_ETAPA6_C4_CORRECAO_SALDO_MINIMO_650.md` (regra financeira vigente, substitui o adendo revogado), `CONSUMO_PIXELLAB_ETAPA6.md`, `COMANDO_ETAPA6_C4_LAB_JOGAVEL.md`, `ADR_ETAPA6_DECISOES_FUNDADOR.md`, `ORCAMENTO_PIXEL_LAB_PILOTO_V1.md` (rev. 2, já corrigida pelo game-qa no passo 6 do Comando 3 — preco de `create_character_state` e a troca do Agumon para v3-texto), `ESPECIFICACAO_TAMER_PERSONALIZAVEL_V1.md`, `ESCALA_E5_POR_ESPECIE_V1.md`, `BRIEFING_UNICO_LAB_A_B_C.md` (§1/§2/§6.2), `COMPARATIVO_PALETAS_FLORESTA_V1.md`.
+2. **Saldo verificado antes de cada geração** (`get_balance`), nunca abaixo do piso de 650: 737,95 → 731,95 (3 personagens estáticos) → 726,95 (walk Tamer S/E/N + walk Agumon S/E) — sem drift em nenhuma checagem. **Gasto total: 11 gerações** (dentro do teto de 15 da rev. 2 e do checkpoint de ~30 do Comando 4). Log completo, linha a linha, em `CONSUMO_PIXELLAB_ETAPA6.md`.
+3. **Tileset grama/água (item 6): não gerado.** `list_topdown_tilesets` já tinha `a4ca04e4-eab6-42e3-9cbf-b155390b8e9b` (água rasa → grama verde-teal, 32px, high top-down, mesma família de cor da v15b) — reaproveitado, 0 gerações, economia de 1 geração sobre o planejado.
+4. **Produzido:** Tamer Original preset 1 (`32577b34-c43c-4e34-91b7-364140f1a4e2`, v3, 48x48px, 2 gens) e preset 2 (`1c1f6a8d-cd0c-4cb9-a8f5-91115847e96a`, v3, 48x48px, 2 gens — segundo personagem completo a partir de texto, não `create_character_state`, seguindo a correção de preço do game-qa); Agumon E5 Médio (`c9b4d538-fd4c-4b73-8d41-4e606b7c597d`, v3 a partir de texto, 40x40px, 2 gens); walk do Tamer preset 1 em S/E/N (`animate_character` template `walking`, 3 gens, grupo `3a21d838-864d-45ef-ae03-bbee79cec25c`) + W por `mirror_animation` (grátis); walk do Agumon em S/E (`animate_character` v3 custom, 2 gens, grupo `d7cc85cd-a6b0-47d8-80f9-32e1d4d93eac`) + W por `mirror_animation` (grátis).
+5. **Avaliação própria (autor, não revisor — AGENTS.md §6):** medi objetivamente (sem ferramenta paga, scripts novos em `workspaces/game-art/tools/`: `measure_fase1.py`, `techcheck_fase1.py`, `zoom_fase1.py`, `walkstrip_fase1.py`, `compose_fase1.py`, reaproveitando `pxpng.py` já existente) altura/largura de conteúdo opaco, % de pixels semitransparântes (halo) e variação do pé entre quadros (critério L4) de cada asset, inspecionei em zoom 4x nearest-neighbor, e compus os personagens novos sobre um recorte real da floresta v15b ao lado do Tamer v13/Agumon DS atuais, lado a lado. **Resultado: 0 reprovações, 0 retrabalhos** (nenhuma falha bloqueante) — 5 itens "candidato", 2 "candidato com ressalva" (Agumon: largura 34px acima do alvo de 27px e tom de olho mais ciano que verde; walk do Agumon: amplitude de movimento perceptivelmente baixa, 0px de variação de pé mas pouca alternância visual de perna). Ficha completa, por item, em `fase1-pixellab/AVALIACAO_FASE1.md`.
+6. **Entregáveis salvos** em `etapa6-lab/fase1-pixellab/`: ZIPs completos dos 3 personagens (rotações + animações), imagens 4x de inspeção, tiras de quadros do walk, 3 composições sobre a floresta v15b (novo isolado, atual isolado, lado a lado), e `AVALIACAO_FASE1.md`.
+7. **Nada proibido foi feito:** nenhum código do jogo (`qo`), Database ou configuração alterado; nenhuma integração no motor; nenhum commit, push, deploy ou publicação; nenhum outro agente acionado; nenhum item do elenco completo ou outro bioma produzido.
+
+### Status final (Fase 1, checkpoint 1 — CONCLUÍDO)
+
+- Entregáveis: `fase1-pixellab/AVALIACAO_FASE1.md`, `fase1-pixellab/zips/{tamer1,tamer2,agumon}.zip` (+ extraídos), `fase1-pixellab/zips/tileset_grama_agua.png`, `fase1-pixellab/zoom_*.png`, `fase1-pixellab/walkstrip_*.png`, `fase1-pixellab/composicao_*.png` e `comparacao_*.png`; `CONSUMO_PIXELLAB_ETAPA6.md` atualizado linha a linha (registros #1–#10 + fechamento do checkpoint).
+- **Saldo final: 726,95/2000** (gasto real = 11 gerações, igual ao estimado em cada etapa — nenhum desvio entre custo previsto e custo real). Piso de 650 respeitado com folga de 76,95.
+- **Para o próximo agente (`game-studio` → `game-qa`):** revisão independente obrigatória antes de qualquer homologação ou expansão do checkpoint (AGENTS.md §6, D4) — usar `AVALIACAO_FASE1.md` e os arquivos de evidência em `fase1-pixellab/` como ponto de partida. Decisões pendentes do fundador: paleta de trabalho (P-i/P-ii/P-iii, D5), alvo de altura definitivo do Tamer dentro de 36–50px (os 2 presets saíram em 45–46px, perto do teto, não nos 40px do alvo-teste), e se vale uma 2ª rodada dirigida para a amplitude de movimento do walk do Agumon.
+
+---
+
+## game-dev (2026-11-13) — Etapa 6, Comando 4, Fase 2 (RETOMADA) — preparação técnica dos 3 links
+
+**Início:** 15h05 (retomada; a execução anterior caiu sem produzir nada — sem worktree, sem este registro).
+
+1. Lido: `COMANDO_ETAPA6_C4_DECISOES_FASE2.md` (D11–D13, prevalece), `COMANDO_ETAPA6_C4_LAB_JOGAVEL.md` §3/§5, `COMANDO_ETAPA6_C4_ADENDO_AGUA_VIABILIDADE.md`, `ADR_ETAPA6_DECISOES_FUNDADOR.md`, `PLANO_TESTES_JOGAVEIS_A_B_C.md` (recomendação (b), M2/M1-lite), `BRIEFING_UNICO_LAB_A_B_C.md`, `ESCALA_E5_POR_ESPECIE_V1.md`, `fase1-pixellab/v2/REVISAO_QA_V2_VIABILIDADE.md`, `agua-v1/MANIFEST.json` + `AVALIACAO_AGUA_V1.md`. Confirmado: `qo` limpo em `3289e32`.
+2. **Git:** tag `pre-etapa6` criada em `3289e32` (já existia de uma tentativa anterior sem worktree). Worktree novo: `workspaces/game-dev/lab-etapa6`, branch `lab/etapa6`, a partir da tag.
+3. **Plano de execução** (ordem do comando): (a) M1-lite — recorte 40×30 do `digi-forest-v15b.tmj.json` (48×36) preservando rio/ponte/cachoeira/santuário; (b) M2 — importador genérico de personagem (rotações + walk por direção → manifesto com pivô no pé, generalizando `import-tamers-v13.mjs`); (c) config de build por variante (`VITE_LAB_VARIANT=a|b|c`, alias `@lab-assets` próprio, fora de `creatures.ts`); (d) Link B com Tamer P1 v2 + Agumon DS placeholder + água; (e) Links A/C como estrutura com placeholder; (f) 3 builds em portas próprias; (g) verificação (`tsc`, testes, `map:validate`) + capturas via Chromium headless (`~/.cache/ms-playwright`, disponível) adaptando `capture-live.mjs`.
+4. Próximo passo imediato: escrever o script de recorte do mapa e o importador de personagem.
+
+5. **M1-lite** (`scripts/lab/crop-lab-piloto.mjs`): recorte 40×30 de `digi-forest-v15b.tmj.json`, origem (4,6) — inclui o `start` do jogador, o portal do Mapa-múndi e a área de rio/ponte/cachoeira/santuário já usada por `agua-v1/MANIFEST.json`.
+6. **M2** (`scripts/lab/import-lab-character.mjs`): importador genérico (generaliza `import-tamers-v13.mjs`), mede pivo no pé de cada PNG sem assumir tamanho único — usado para importar o Tamer P1 v2 (rotação 56×56, walk 44×44, tamanhos propositalmente diferentes, D13) para `etapa6-lab/lab-assets/b/tamer/`.
+7. **Config de build por variante**: alias `@lab-assets` + `outDir` por `VITE_LAB_VARIANT` (vite.config.ts); `src/assets/lab-tamer.ts` (glob próprio, CreatureVisual schemaVersion 2 com atlas por quadro); `main.ts` com banner fixo, mapa/parceira/criador/encontros padrão de laboratório, override do Tamer local.
+8. **Bug encontrado e corrigido:** o alias `@lab-assets` calculado por caminho relativo ao `vite.config.ts` resolvia para dentro do próprio worktree `lab-etapa6` (que tem sua PRÓPRIA cópia isolada de `projects/prototypes/GS-003/etapa6-lab/`, por ser um git worktree), nunca encontrando os arquivos gravados na checkout raiz do GameStudio — corrigido com caminho absoluto. Detectado só depois de notar que Link A e Link B mostravam o MESMO Tamer nas capturas; confirmado com checksum + log de depuração antes de fechar.
+9. **Verificação:** `tsc --noEmit` sem erros; `vitest run` 496/496 (1 teste ajustado para o novo mapa); `qo` permaneceu limpo em `3289e32` o tempo todo.
+10. **3 builds gerados e servidos** (`dist-lab-a/b/c`, portas 5191/5192/5193 via `vite preview`), capturados com Chromium headless + CDP (`scripts/lab/capture-lab.mjs`), incluindo movimento real por teclado (WASD), teste de colisão e close-up do Tamer P1 v2 + Agumon DS lado a lado.
+11. Commit local único na branch `lab/etapa6`: `1f46309`. Nenhum push, nenhum deploy, nenhuma geração PixelLab.
+
+### Status final (Fase 2 — CONCLUÍDA)
+
+- Entregável: `FASE2_BUILDS_LAB.md` (novo) + `fase2-builds/*.png` (16 capturas + `capture-report.json`).
+- Link B: jogável (Tamer P1 v2 andando nas 4 direções, Agumon DS como parceira de teste, mapa-piloto com água animada herdada do motor, FPS 60 estável). Links A/C: estrutura pronta, placeholders marcados, nenhum asset inventado.
+- Para o próximo agente/coordenação: comandos exatos para subir os 3 servidores estão em `FASE2_BUILDS_LAB.md` §4; os 3 já estão rodando no momento desta entrega.
+
+**Se esta sessão cair:** retomar por aqui. `qo` continua limpo em `3289e32`, não tocado.
+
+---
+
+## game-dev (2026-11-13, mesmo dia) — ajuste do fundador após testar o Link B
+
+**Pedido:** o fundador testou o Link B e estranhou a ausência de criação de Tamer e de Digimon para lutar/evoluir. Esclarecimento do coordenador: "não implementar sistemas NOVOS" não significava desligar os já existentes — os 3 links deveriam ter a MESMA experiência do jogo real, só trocando a arte.
+
+1. **Encontros/combate:** `ENCOUNTER_TABLES` só tinha chave para `digi-forest-v15b`; o mapa do lab (`lab-piloto-v15b`) não tinha tabela = zero spawn mesmo com `?encounters=1`. Criado `src/sim/encounters/lab-table.ts` (`shiftEncounterTable`): reaproveita a MESMA tabela JSON do `digi-forest-v15b`, só deslocando coordenadas por -4,-6 (origem do recorte M1-lite) e descartando o que cai fora — sem duplicar dado. As 4 entradas "visível" (Digimon forte, `CREATURE-0007`) caíram todas dentro do recorte. `ENCOUNTERS` voltou ao padrão do jogo real (ligado, `?encounters=0` desliga).
+2. **Evolução:** nenhum código tocado (nunca tinha sido desligada); confirmado que `tests/evolution.test.ts` continua passando.
+3. **Criador de Tamer:** `CREATOR` voltou ao padrão do jogo real (ligado, `?criador=0` pula). `src/assets/lab-tamer.ts` reescrito para suportar MÚLTIPLOS personagens do laboratório (`listLabTamerPresets()` para a grade do criador, `loadLabTamerVisual(presetId)` para o visual de mundo do preset REALMENTE escolhido). Importado também o **Tamer P2 v2** (`63c61b01-...`, já baixado no Fase 1 via `export_asset`, **0 gerações novas**) sem walk — entra no criador identificado `[ESTÁTICO — sem caminhada, placeholder]`, nunca inventando movimento (D13).
+4. **Fluxo de save:** removido o modo de teste `?partner=` (que pulava a tela real); restaurado o fluxo real **criador → escolha do parceiro → mundo**, com o Agumon DS (D11) como PRÉ-SELEÇÃO da tela real (`?inicial=CREATURE-0005`, Koromon, a linha do Agumon — **bug corrigido**: a 1ª tentativa usou `CREATURE-0006`, o Agumon adulto, que não bate com nenhum item de `STARTERS[]`, que lista os BEBÊS; corrigido para o id do bebê).
+5. **Verificação:** `tsc --noEmit` sem erros; `vitest run` 496/496; `qo` continuou limpo em `3289e32`. Rebuild dos 3 (`dist-lab-a/b/c`), servidores reiniciados em 5191/5192/5193. Capturado via Chromium headless + CDP: criador do Link B (2 presets, P2 marcado), tela real "Escolha seu parceiro" (Koromon pré-selecionado), Tamer com o parceiro andando junto, e um combate real no mapa (via painel de debug `?encdebug=1`, só para esta verificação — Digimon selvagem `CREATURE-0113` causando 39 de dano no Koromon).
+6. Commit local na branch `lab/etapa6`: `a944e80`. Nenhuma geração PixelLab, nenhum push, nenhum deploy, `qo`/Database intocados.
+
+### Status final (ajuste — CONCLUÍDO)
+
+- Entregável atualizado: `FASE2_BUILDS_LAB.md` §10 (novo), capturas adicionais em `fase2-builds/`.
+- Os 3 servidores estão rodando (5191/5192/5193) com encontros, combate e criador ligados por padrão nos 3 links, igual ao jogo real.
+
+---
+
+## game-qa (2026-11-13) — Etapa 6, Comando 4, revisão independente do checkpoint 1 (Fase 1, PixelLab)
+
+1. **Leitura.**
+   - Documentos: C4 (`LAB_JOGAVEL`, `CORRECAO_SALDO_MINIMO_650` e o adendo revogado), ADR Etapa 6, rubrica, AJUSTES §6.2, E5 por espécie, especificação do Tamer e `CONSUMO_PIXELLAB_ETAPA6.md`.
+   - Material da fase: `fase1-pixellab/AVALIACAO_FASE1.md` e as evidências.
+2. **Medição sem geração.**
+   - `pixelart_workbench`: `inspect` e `score` dos 3 personagens e dos walks do Agumon.
+   - Script próprio `fase1-pixellab/qa_checkpoint1/qa_c4_measure.py`, saída em `medicao_qa_checkpoint1.json`. Mede bbox, topo livre, halo, aderência à P-ii, pixels azuis e amplitude de perna.
+   - Também: `get_balance` (726,95, confere), `get_topdown_tileset` e Wikimon.
+3. **Achados.**
+   - **Agumon reprovado:** crista pedida no próprio prompt, listras azuis de Greymon e faixas azuis nos braços. Dispara o impeditivo do C1 §7 e fica na banda 4 de fidelidade.
+   - **Tamer P1 reprovado como base:** o conjunto boné vermelho + jaqueta azul gera risco de semelhança com o protagonista de Pokémon. Há ainda 1 px de topo livre no canvas de 48.
+   - **Walk do Agumon:** a amplitude é graduada (perna no sul 32,7% contra 72,5% do Tamer), mas o walk herda a reprovação da espécie.
+   - **Escala:** a razão 0,83 Tamer/Agumon é coerente com E5.
+   - **Paleta:** a P-ii não comporta personagens (não tem cores quentes; até o Agumon DS oficial adere só 32%).
+   - **Tileset:** a água (`#3f84a8`) diverge da água da v15b.
+   - **Consumo:** confere. Desvio menor: o saldo foi registrado por lote, não por geração.
+4. **Retrabalho recomendado:** R1–R4 por 10–14 gerações; com os opcionais, até 17. O saldo previsto fica em ≥ 709,95, acima do piso de 650.
+5. **Fase 2:** pode começar só com estes assets como placeholder marcado. Recomendo fazer o retrabalho antes.
+6. Nada gerado, nenhum documento de outro autor alterado, nada commitado.
+
+### Status: CONCLUÍDO
+
+Entregável: `fase1-pixellab/REVISAO_QA_CHECKPOINT1.md`.
+
+## game-qa (2026-11-13) — Etapa 6, Comando 4, revisão independente do retrabalho v2 + viabilidade do PixelLab para Digimons
+
+1. **Leitura:** C4 aprovação do retrabalho (D7–D10), adendo água/viabilidade §3–§4, `REVISAO_QA_CHECKPOINT1.md`, `v2/AVALIACAO_V2.md`, `CONSUMO_PIXELLAB_ETAPA6.md` #11–#23.
+2. **Medição sem geração:**
+   - `get_balance` = 714,95 (confere);
+   - `get_character` dos 3 IDs;
+   - `pixelart_workbench` (`inspect` e `score`);
+   - `search_help` dos preços;
+   - Wikimon;
+   - script `workspaces/game-qa/tools/etapa6_c4_v2/qa_v2_measure.py`, com saída em `fase1-pixellab/v2/qa_v2/` (JSON + pranchas DS × v2 + tiras de walk a 6×).
+3. **Achados:**
+   - **Agumon v2 REPROVADO.** Cabeça esférica, focinho curto, barriga creme, matiz 25° contra 45° do DS, postura de mascote e garras vestigiais. O ponto do coordenador (parece Charmander) foi **confirmado**. Dispara o C1 §7 e o risco Pokémon. O walk N vira perfil e perde a cauda; o D10 de E/W dá 6,67%.
+   - **Tamer P1 v2 candidato.** O walk sai reprovado como definitivo: encolhe para 34–37 px (contra 41–42 na rotação, bloqueante 5) e o D10 do S dá 8,11%.
+   - **Tamer P2 v2:** candidato com ressalva.
+4. **Viabilidade:** **não viável por texto** (9 gerações, 0 Agumon aproveitável). Registrado: interromper as tentativas textuais da espécie. A rota híbrida (referência fiel + skeleton-v3) não foi validada.
+5. **Recomendação:**
+   - Agumon DS (`CREATURE-0006`) como placeholder;
+   - teste híbrido limitado (cerca de 4–5 gerações) só com autorização do fundador;
+   - Fase 2 técnica liberada com o Tamer P1 v2 e o walk marcado como placeholder.
+6. Nada gerado, nenhum documento de outro autor alterado, nada commitado.
+
+### Status: CONCLUÍDO
+
+Entregável: `fase1-pixellab/v2/REVISAO_QA_V2_VIABILIDADE.md`.
+
+---
+
+## game-art (2026-11-13) — Comando 4, adendo água animada (1º teste, `agua-v1/`)
+
+1. Lido `COMANDO_ETAPA6_C4_ADENDO_AGUA_VIABILIDADE.md` (§1,§2,§5), `COMPARATIVO_PALETAS_FLORESTA_V1.md`, `V15.md`/`V15B.md`, e (só leitura) o código de água do motor em `workspaces/game-dev/qo` (`render/life.ts`, `view.ts`, `assets/scene-tiles.ts`) — o motor já tem um shader de água por deslocamento de UV, pronto para ligar, e um slot para props animados (cachoeira/brilho) importados do PixelLab.
+2. Inventariada a conta antes de gerar qualquer coisa: cachoeira (`d715fd46`, 9 quadros, já posicionada), `river_shimmer` (`bfc4457f`, 9 quadros, já plantado 3×), `heal_fountain_digital` (`6a9cf79c`, 9 quadros, nunca usado — bate exatamente com o pedido de efeito digital perto do santuário). **Achado:** o tileset `a4ca04e4` (citado na linha 2 do `CONSUMO`) tem água num azul diferente (`#3f84a8`) do ciano real em produção (`#2bc4c4`, medido direto do render ao vivo do mapa `1bb07708` via `view_map`) — descartado como fonte de cor; usado o pixel real do mapa.
+3. Sem PIL/pip neste ambiente — escrito `workspaces/game-art/tools/gifenc.py` (encoder GIF89a puro Python); a 1ª versão foi rejeitada pelo decodificador real, corrigida a convencão de aumento de code size do LZW, revalidada decodificando cada entregável de volta.
+4. Rio e lago: porte 1:1 do algoritmo real do motor (`waterFrame`/`scrollPixels`) sobre o pixel de água real extraído do recorte ao vivo — 0 gerações. Transições (reta/curva): mesma técnica com máscara por cor sobre 2 recortes reais de margem. Cachoeira/espuma/efeito digital/brilho do lago: reaproveitados ou recortados dos objetos já existentes. GIF composto (36 quadros, 896×768) sobre o recorte real do mapa, com o Tamer Principal v2 (`6cd24249`) andando da margem oeste até atravessar a ponte (trajeto conferido célula a célula contra `get_map` antes de desenhar).
+5. `get_balance` antes/depois: **714,95/2000, sem variação — 0 gerações gastas** (teto da tarefa: 10). Registrado em `CONSUMO_PIXELLAB_ETAPA6.md` (linhas 24–26). Nada alterado no mapa, no jogo `qo`, na Database ou em configuração; nenhum commit; nenhum Digimon gerado; nenhum outro agente acionado.
+
+### Status: CONCLUÍDO
+
+Entregáveis: `etapa6-lab/agua-v1/` (rio, lago, cachoeira, espuma, transições, efeito digital, brilho do lago, GIF composto, `MANIFEST.json`, `AVALIACAO_AGUA_V1.md`). Para o fundador/coordenação: decidir onde plantar `efeito_digital_santuario` (não plantado no mapa); validação real de desempenho e Y-sort fica para a Fase 2, no build isolado do laboratório (`AVALIACAO_AGUA_V1.md` §3).
+
+---
+
+## game-dev (2026-11-13) — Etapa 6, Comando 5, integração do Link A (Método ChatGPT)
+
+1. Li C5, ADR, FASE2_BUILDS_LAB, LACUNAS_METODO_A, manifest game-ready (125), mapa_demo e pranchas 03/08.
+2. Layout: composição do mockup 03 adaptada a 40×30 (o mapa_demo é só esboço; o piloto do B é chão pintado sem grade de terreno). Gerador determinístico `scripts/lab/build-lab-a.mjs` → `lab-a-chatgpt.{tmj,aliases}` + `lab-assets/a/{art,tamer,digimon}` (72 assets A, só cópia/recorte/espelho).
+3. Motor: pacote `root:"lab-assets"`, `waterAnim.keys`, `lab-creatures.ts` (pose única), `lab-a.ts` (`?agua=b`, slot de save próprio), ramos só do Link A em `main.ts`; tabela de encontros = v15b com geometria nova.
+4. Verificação: tsc ok; vitest 503/503; map:validate (--no-write) PASS; 60,1 fps parado/andando; 0 erros de console; Link B antigo×novo = ruído de animação (8–464 px); qo limpo em 3289e32.
+5. Commits locais em lab/etapa6: `63351a5`, `f2d4e6e`. Sem push/deploy. 0 gerações PixelLab.
+6. Servidores: 5191 (A, build final), 5192 (B, rebuild — visual idêntico), 5193 (C, sem mudança). 5194 temporário encerrado.
+
+### Status: CONCLUÍDO
+
+Entregáveis: `FASE5_LINK_A.md`, `fase5-link-a/` (mapa completo, capturas, GIF 15,9 s, comparações A×B, integridade).
+Retomada: `node scripts/lab/build-lab-a.mjs` → `VITE_LAB_VARIANT=a npx vite build` → preview 5191 → `NO_PROXY=127.0.0.1 node scripts/lab/capture-lab-a.mjs`.
+
+---
+
+## game-qa (2026-11-13) — Etapa 6, Comando 5 §7, revisão crítica independente do Link A
+
+1. Li C5, ADR (D1–D13), rubrica rev. 2 + AJUSTES §6 (17 bloqueantes, 3 dimensões), LACUNAS_METODO_A, FASE5_LINK_A, FASE2_BUILDS_LAB e as capturas da fase 5.
+2. Ambiente: `qo` limpo em `3289e32` [E]; `lab/etapa6` HEAD `f2d4e6e`, limpo. O browser do OpenClaw bloqueou localhost, então usei Chromium headless + CDP com roteiro próprio (`workspaces/game-qa/tools/etapa6_c5/`).
+3. Medi:
+   - geometria real do `sim.map` (BFS, gargalos, becos);
+   - 16 testes de colisão com teclado real;
+   - Y-sort em 5 objetos;
+   - FPS: 60 em A, A `?agua=b` e B;
+   - integridade do B (antes × novo dentro do ruído; 0 PNG A no B; JS do B contém o mapa A);
+   - grade e ruído de pixel (sem blocos; 30–55% de órfãos na vegetação A);
+   - paleta (A ≈ P-ii 92–94%, B 34–38%);
+   - elenco A (Kunemon fora do bundle).
+4. Bloqueantes disparados no A:
+   - **9**: spawn forte a 6 células do início, com WarGreymon Nv.14 na tela de spawn;
+   - **13**: emenda da cachoeira.
+
+   O mapa fica reprovado na régua.
+5. Notas indicativas: **A 5,8** e **B 6,0**, ambos abaixo de 8. Conflito registrado para o fundador: o layout do A não é o traçado v15b, então o A × B mistura método e layout.
+6. Nada alterado no jogo, no lab, em assets ou em documentos alheios; 0 PixelLab; sem commit nem deploy. O servidor temporário na 5195 (B antigo) foi encerrado.
+
+### Status: CONCLUÍDO
+
+Entregável: `fase5-link-a/REVISAO_QA_LINK_A.md`; evidências próprias em `fase5-link-a/qa/`.
+
+## game-dev (2026-11-13) — C5 v2: correções do Link A após REVISAO_QA_LINK_A
+
+- Correções 1–6 do coordenador feitas só na variante A; commit local `8dc7a0f`. Fortes a 26/30/39/42 passos (BFS, com trava no build); cachoeira 64 px peça única; espuma contínua; ponte contínua; corrimão opaco no Y-sort; 14 células de margem andáveis; pedras no pé do penhasco; HUD do A sem selo/chat.
+- tsc ok · vitest 505/505 · map:validate PASS · B antes×novo 8 px (ruído) · qo limpo 3289e32 · 0 gerações · sem deploy. 5191 com build v2.
+- Evidências: `fase5-link-a/v2/` (GIF 2,4 MB). Relatório: `FASE5_LINK_A.md` §v2.
+
+### Status: CONCLUÍDO
+
+## game-qa (2026-11-13) — rechecagem do Link A v2 (`8dc7a0f`)
+
+- Bloqueantes 9 e 13 **resolvidos** [E]:
+  - pontos fortes a 26–42 passos BFS do spawn, todos a leste da ponte;
+  - cachoeira 64×64 sem emenda;
+  - espuma e ponte contínuas.
+- Corrimão opaco, com Y-sort correto; margens da água andáveis sem entrada na água; HUD do A sem selo nem chat; 60 qps.
+- Link B: igual ao da v1 dentro do ruído (42 px contra a captura antiga). `qo` limpo em `3289e32`.
+- Nota indicativa do A: **≈ 6,0**, sem bloqueante, mas abaixo do piso de 8 (C3 e C4 < 7).
+- Seção "Rechecagem v2" acrescentada em `fase5-link-a/REVISAO_QA_LINK_A.md`; evidências em `fase5-link-a/qa/v2/`.
+
+### Status: CONCLUÍDO

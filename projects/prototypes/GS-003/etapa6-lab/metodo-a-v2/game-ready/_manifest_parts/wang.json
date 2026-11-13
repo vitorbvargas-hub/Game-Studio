@@ -1,0 +1,24 @@
+[
+ {
+  "id": "transicao_grama_agua_wang16",
+  "categoria": "terreno",
+  "arquivo": "terreno/transicao_grama_agua_wang16.png",
+  "w": 128,
+  "h": 128,
+  "quadros": 1,
+  "origem": {
+   "prancha": "derivado",
+   "arquivo": "derivado",
+   "recorte_xywh": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "processo": "16 tiles por cantos (Wang corner) gerados por código a partir de grama_01 e agua_a_base: campo bilinear dos 4 cantos + ondulação periódica (período = 1 tile, contínua nas costuras) + limiar; margem e espuma de 1 px",
+  "status": "game-ready técnico (costuras exatas por construção); arte (A): transição simples, sem barranco",
+  "metadados": "terreno/transicao_grama_agua_wang16.json",
+  "origem_tipo": "DERIVADO PROCEDURAL (não é recorte de prancha)"
+ }
+]

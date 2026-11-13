@@ -108,3 +108,55 @@ Nada de:
   - o teto não é ultrapassado; se faltar orçamento, para e pede de novo;
   - integração e deploy só com autorização específica.
 - **Modelo:** o fundador pediu "portão obrigatório use sonnet". A partir daqui, os passos seguintes do Comando 3 rodam em **Sonnet 5**, o que substitui a indicação de Opus nos passos 3, 4 e 6.
+
+## Comando 4: aprovação do retrabalho do checkpoint 1 (fundador, 13/11), `COMANDO_ETAPA6_C4_APROVACAO_RETRABALHO_CP1.md`
+
+- **D7, retrabalho:**
+  - R1–R4 autorizados.
+  - R5 só se for necessário para manter a consistência entre os presets.
+  - R6 só se o recorte 12×10 mostrar costura na água.
+  - Não repetir os prompts que falharam.
+  - Gerar com Sonnet 5.
+- **D8, escala-alvo do laboratório:**
+  - Tamer com 40–42 px de conteúdo.
+  - Agumon com 33–35 px de altura e 26–29 px de largura.
+  - Margem superior adequada, pivô no pé e estabilidade entre quadros.
+  - Colisão inalterada.
+  - Esses valores **não** são definitivos para as outras espécies.
+- **D9, paletas:**
+  - **P-ii** para cenário e floresta.
+  - **P-iii** para personagens e Digimon.
+  - A paleta acomoda as cores **oficiais** das espécies; anatomia, marcas e cores oficiais não são alteradas para ganhar aderência. O histórico das 3 candidatas fica preservado em `COMPARATIVO_PALETAS_FLORESTA_V1.md`.
+  - Pendência: atualizar as regras de paleta do Style Bible.
+- **D10, medição de animação:**
+  - Fórmula: `variacao_percentual = 100 × (altura_max − altura_min) / mediana_alturas`, calculada pelo bbox opaco, sem sombra e sem efeitos.
+  - Limite de ≤ 5% por ciclo e direção na caminhada normal.
+  - Pivô, amplitude e alternância das pernas, anatomia, fluidez e deformação são avaliados à parte. **O número não substitui a avaliação visual.**
+- **Correções obrigatórias:**
+  - Agumon: tirar crista, nadadeira, losango e listras azuis; cabeça lisa; amarelo-alaranjado; olhos verdes; cauda curta; 3 garras brancas; walk perceptível nas 4 direções.
+  - Tamer: sem boné vermelho com jaqueta azul; identidade própria do DO, com cabelo visível, roupa de aventureiro e acessório digital discreto; nada de Pokémon nem de protagonistas de Digimon.
+- **Pedido do fundador:** entregar **imagens e vídeos curtos (GIF) dos personagens em movimento** junto com as notas do QA. A fidelidade e a caminhada também são julgadas visualmente.
+
+## Adendo C4 — água animada e viabilidade do PixelLab para Digimon (fundador, 13/11) — `COMANDO_ETAPA6_C4_ADENDO_AGUA_VIABILIDADE.md`
+- **Água animada é obrigatória no lab A/B/C.** Itens: rio em loop, lago com ondulação e reflexo, cachoeira com queda, espuma e respingos na base, transições animadas, efeitos digitais perto do santuário.
+  - Regras: reutilizar a v15b, manter a P-ii (ciano aprovado, nada de outro azul), pixel art 1:1 sem interpolação, loop sem corte, validação no motor.
+  - Homologação: movimento discreto e perceptível, sem aspecto de textura deslizando, sem costura, coerente entre os corpos d'água, sem quebrar ponte, margem ou colisão, sem queda relevante de FPS.
+  - O mapa aprovado não muda. Modelo: Sonnet 5.
+- **Viabilidade do PixelLab para Digimon:**
+  - Concluir o retrabalho do Agumon.
+  - Depois, o game-qa avalia de forma independente: anatomia, silhueta, cores e marcas, consistência entre direções, animação e créditos por asset aproveitável.
+  - **Sem produção em massa de Digimon no PixelLab.**
+  - Se o novo Agumon ainda mudar a identidade da espécie, **parar as tentativas textuais da espécie** e apresentar alternativas: sprites existentes com procedência, redesenho manual assistido, híbrido (sprite fiel + animação e acabamento em ferramenta) e PixelLab só para cenário, Tamer e ambiente. Nenhuma alternativa fica aprovada automaticamente.
+- **Orçamento:** piso de 650 mantido. Evitar geração paga quando houver alternativa gratuita de qualidade equivalente.
+
+## Decisões do fundador para a Fase 2 (13/11), em `COMANDO_ETAPA6_C4_DECISOES_FASE2.md`
+- **D11.** O Agumon DS é o **placeholder** dos protótipos jogáveis. Fica **encerrada** a geração do Agumon por texto no PixelLab. Os sprites v1 e v2 continuam guardados para comparação. O DS **não** está homologado como identidade definitiva.
+- **D12.** O teste com referência oficial no PixelLab, estimado em 4–5 gerações, foi **adiado**. Nada de arte oficial ou derivada vai para o serviço externo nesta etapa. A decisão será revista depois da comparação dos protótipos.
+- **D13.** A Fase 2 segue com o Tamer P1 v2 como candidato. A caminhada atual é **placeholder técnico** e deve ser corrigida depois dos builds e antes da homologação visual. **Não usar redimensionamento no motor para esconder inconsistência do asset.**
+- **Continuidade.**
+  - Retomada às 15h05, com Sonnet 5.
+  - Três builds isolados (A, B e C), começando pelo B.
+  - Jogo principal preservado no commit `3289e32`, sem tocar em saves, Database ou produção.
+  - Piso de 650 no PixelLab.
+  - Água animada incluída quando for viável.
+  - Comparação mantida com os conceitos do ChatGPT e com os sprites do DS.

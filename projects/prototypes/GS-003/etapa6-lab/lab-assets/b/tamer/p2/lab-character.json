@@ -1,0 +1,44 @@
+{
+ "id": "tamer-p2-v2",
+ "label": "Tamer P2 (laboratorio, placeholder sem caminhada)",
+ "source": "lab-importer (M2, Etapa 6 C4 F2)",
+ "rotations": {
+  "S": {
+   "file": "rotations/S.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 28,
+    "y": 48
+   }
+  },
+  "N": {
+   "file": "rotations/N.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 28,
+    "y": 48
+   }
+  },
+  "W": {
+   "file": "rotations/W.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 26,
+    "y": 48
+   }
+  },
+  "E": {
+   "file": "rotations/E.png",
+   "w": 56,
+   "h": 56,
+   "pivot": {
+    "x": 29,
+    "y": 48
+   }
+  }
+ },
+ "walk": {}
+}

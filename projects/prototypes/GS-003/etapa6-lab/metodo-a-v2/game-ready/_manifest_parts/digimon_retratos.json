@@ -1,0 +1,167 @@
+[
+ {
+  "id": "koromon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/koromon/koromon_retrato_A.png",
+  "w": 34,
+  "h": 25,
+  "quadros": 1,
+  "origem": {
+   "prancha": "04",
+   "arquivo": "07_Referencias_Originais/04_a_detailed_pixel_art_sprite_sheet_for_digimon_gba.png",
+   "recorte_xywh": [
+    150,
+    160,
+    178,
+    140
+   ]
+  },
+  "processo": "retrato grande do topo da prancha 04: remoção do fundo azul (inclui a elipse de sombra) + redução por moda até a altura E5 alvo (fator 4.391) + paleta adaptativa 18 cores encaixada na P-iii quando < 38 + despeckle 2x",
+  "status": "pose única (frente (S)), parada; sem outras direções nem walk nesta fonte",
+  "pivo": {
+   "x": 17,
+   "y": 24
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 25,
+  "largura_px": 34,
+  "alvo_E5_altura": 25,
+  "vista": "frente (S)",
+  "aderencia_P-iii": {
+   "cores": 18,
+   "pct_px_ate_dist30": 1.9
+  }
+ },
+ {
+  "id": "agumon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/agumon/agumon_retrato_A.png",
+  "w": 32,
+  "h": 34,
+  "quadros": 1,
+  "origem": {
+   "prancha": "04",
+   "arquivo": "07_Referencias_Originais/04_a_detailed_pixel_art_sprite_sheet_for_digimon_gba.png",
+   "recorte_xywh": [
+    430,
+    120,
+    165,
+    180
+   ]
+  },
+  "processo": "retrato grande do topo da prancha 04: remoção do fundo azul (inclui a elipse de sombra) + redução por moda até a altura E5 alvo (fator 4.500) + paleta adaptativa 18 cores encaixada na P-iii quando < 38 + despeckle 2x",
+  "status": "pose única (3/4 voltado para a esquerda (SO)), parada; sem outras direções nem walk nesta fonte",
+  "pivo": {
+   "x": 16,
+   "y": 33
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 34,
+  "largura_px": 32,
+  "alvo_E5_altura": 34,
+  "vista": "3/4 voltado para a esquerda (SO)",
+  "aderencia_P-iii": {
+   "cores": 17,
+   "pct_px_ate_dist30": 8.8
+  }
+ },
+ {
+  "id": "greymon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/greymon/greymon_retrato_A.png",
+  "w": 51,
+  "h": 52,
+  "quadros": 1,
+  "origem": {
+   "prancha": "04",
+   "arquivo": "07_Referencias_Originais/04_a_detailed_pixel_art_sprite_sheet_for_digimon_gba.png",
+   "recorte_xywh": [
+    672,
+    86,
+    212,
+    206
+   ]
+  },
+  "processo": "retrato grande do topo da prancha 04: remoção do fundo azul (inclui a elipse de sombra) + redução por moda até a altura E5 alvo (fator 3.898) + paleta adaptativa 18 cores encaixada na P-iii quando < 38 + despeckle 2x",
+  "status": "pose única (3/4 voltado para a esquerda (SO)), parada; sem outras direções nem walk nesta fonte",
+  "pivo": {
+   "x": 25,
+   "y": 51
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 52,
+  "largura_px": 51,
+  "alvo_E5_altura": 52,
+  "vista": "3/4 voltado para a esquerda (SO)",
+  "aderencia_P-iii": {
+   "cores": 18,
+   "pct_px_ate_dist30": 6.2
+  }
+ },
+ {
+  "id": "metalgreymon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/metalgreymon/metalgreymon_retrato_A.png",
+  "w": 73,
+  "h": 62,
+  "quadros": 1,
+  "origem": {
+   "prancha": "04",
+   "arquivo": "07_Referencias_Originais/04_a_detailed_pixel_art_sprite_sheet_for_digimon_gba.png",
+   "recorte_xywh": [
+    955,
+    88,
+    240,
+    209
+   ]
+  },
+  "processo": "retrato grande do topo da prancha 04: remoção do fundo azul (inclui a elipse de sombra) + redução por moda até a altura E5 alvo (fator 3.242) + paleta adaptativa 18 cores encaixada na P-iii quando < 38 + despeckle 2x",
+  "status": "pose única (3/4 voltado para a esquerda (SO)), parada; sem outras direções nem walk nesta fonte",
+  "pivo": {
+   "x": 36,
+   "y": 61
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 62,
+  "largura_px": 73,
+  "alvo_E5_altura": 62,
+  "vista": "3/4 voltado para a esquerda (SO)",
+  "aderencia_P-iii": {
+   "cores": 18,
+   "pct_px_ate_dist30": 10.3
+  }
+ },
+ {
+  "id": "wargreymon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/wargreymon/wargreymon_retrato_A.png",
+  "w": 78,
+  "h": 76,
+  "quadros": 1,
+  "origem": {
+   "prancha": "04",
+   "arquivo": "07_Referencias_Originais/04_a_detailed_pixel_art_sprite_sheet_for_digimon_gba.png",
+   "recorte_xywh": [
+    1265,
+    86,
+    228,
+    214
+   ]
+  },
+  "processo": "retrato grande do topo da prancha 04: remoção do fundo azul (inclui a elipse de sombra) + redução por moda até a altura E5 alvo (fator 2.805) + paleta adaptativa 18 cores encaixada na P-iii quando < 38 + despeckle 2x",
+  "status": "pose única (frente (S)), parada; sem outras direções nem walk nesta fonte",
+  "pivo": {
+   "x": 39,
+   "y": 75
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 76,
+  "largura_px": 78,
+  "alvo_E5_altura": 76,
+  "vista": "frente (S)",
+  "aderencia_P-iii": {
+   "cores": 18,
+   "pct_px_ate_dist30": 9.4
+  }
+ }
+]

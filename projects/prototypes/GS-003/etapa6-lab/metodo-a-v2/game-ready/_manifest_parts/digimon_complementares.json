@@ -1,0 +1,130 @@
+[
+ {
+  "id": "betamon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/betamon/betamon_retrato_A.png",
+  "w": 39,
+  "h": 32,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    607,
+    100,
+    107,
+    88
+   ]
+  },
+  "processo": "retrato do painel \"Digimons Principais\" da prancha 06: remoção do fundo branco + redução por moda até a altura E5 alvo (fator 2.719) + paleta adaptativa 16 cores→P-iii + despeckle 2x",
+  "status": "pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+  "pivo": {
+   "x": 19,
+   "y": 31
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 32,
+  "largura_px": 39,
+  "alvo_E5_altura": 32,
+  "aderencia_P-iii": {
+   "cores": 16,
+   "pct_px_ate_dist30": 5.6
+  }
+ },
+ {
+  "id": "kunemon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/kunemon/kunemon_retrato_A.png",
+  "w": 22,
+  "h": 22,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    755,
+    105,
+    85,
+    83
+   ]
+  },
+  "processo": "retrato do painel \"Digimons Principais\" da prancha 06: remoção do fundo branco + redução por moda até a altura E5 alvo (fator 3.812) + paleta adaptativa 16 cores→P-iii + despeckle 2x",
+  "status": "pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+  "pivo": {
+   "x": 11,
+   "y": 21
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 22,
+  "largura_px": 22,
+  "alvo_E5_altura": 22,
+  "aderencia_P-iii": {
+   "cores": 16,
+   "pct_px_ate_dist30": 8.2
+  }
+ },
+ {
+  "id": "palmon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/palmon/palmon_retrato_A.png",
+  "w": 31,
+  "h": 38,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    885,
+    93,
+    78,
+    96
+   ]
+  },
+  "processo": "retrato do painel \"Digimons Principais\" da prancha 06: remoção do fundo branco + redução por moda até a altura E5 alvo (fator 2.484) + paleta adaptativa 16 cores→P-iii + despeckle 2x",
+  "status": "pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+  "pivo": {
+   "x": 15,
+   "y": 37
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 38,
+  "largura_px": 31,
+  "alvo_E5_altura": 38,
+  "aderencia_P-iii": {
+   "cores": 16,
+   "pct_px_ate_dist30": 4.2
+  }
+ },
+ {
+  "id": "kuwagamon_retrato_A",
+  "categoria": "digimon",
+  "arquivo": "digimon/kuwagamon/kuwagamon_retrato_A.png",
+  "w": 68,
+  "h": 56,
+  "quadros": 1,
+  "origem": {
+   "prancha": "06",
+   "arquivo": "07_Referencias_Originais/06_a_large_detailed_sprite_sheet_assets_image_on_a_w.png",
+   "recorte_xywh": [
+    995,
+    93,
+    116,
+    97
+   ]
+  },
+  "processo": "retrato do painel \"Digimons Principais\" da prancha 06: remoção do fundo branco + redução por moda até a altura E5 alvo (fator 1.664) + paleta adaptativa 16 cores→P-iii + despeckle 2x",
+  "status": "pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+  "pivo": {
+   "x": 34,
+   "y": 55
+  },
+  "paleta": "adaptativa→P-iii",
+  "altura_px": 56,
+  "largura_px": 68,
+  "alvo_E5_altura": 56,
+  "aderencia_P-iii": {
+   "cores": 16,
+   "pct_px_ate_dist30": 15.1
+  }
+ }
+]

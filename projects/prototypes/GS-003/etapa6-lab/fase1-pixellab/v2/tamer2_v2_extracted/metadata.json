@@ -1,0 +1,36 @@
+{
+  "group_id": "247794e2-8254-4ba3-91d8-7809371b36c1",
+  "states": [
+    {
+      "character": {
+        "id": "63c61b01-a8b6-47d4-8c74-79af28363ec8",
+        "name": "Idle",
+        "prompt": "A young adventurer teenager, standing upright facing forward, same build and proportions as a companion character. Black hair tied back in a ponytail. Wearing a sleeveless yellow hooded vest over a horizontally striped shirt. Red fingerless gloves. Denim jean shorts. Purple sneakers. No cap, no goggles, no glasses. Confident friendly stance, original adventurer character design, not based on any existing cartoon character.",
+        "size": {
+          "width": 56,
+          "height": 56
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-11-13T14:58:00.854182+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-13T15:03:46.821954"
+}
