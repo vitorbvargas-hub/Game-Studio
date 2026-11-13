@@ -1,0 +1,112 @@
+== ./projects/active/GS-002-replydraft/app
+?? extension/src/content/
+?? shared/src/
+?? shared/test/
+b390bd3 Sprint 0: setup do monorepo (npm workspaces, TS, Vitest, Playwright, CI, .env.example)
+== .
+ M .gitignore
+ ? projects/active/GS-002-replydraft/app
+ M projects/prototypes/GS-003/quality-overhaul/PROJECT_LOG.md
+ M shared/decisions/ADR-007-gs003-fan-game-pokemon-digimon.md
+ M shared/decisions/ADR-010-gs003-referencia-visual-canonica.md
+?? assets/GAME-ASSETS/01-creatures/CREATURE-0001/
+?? assets/GAME-ASSETS/01-creatures/README.md
+?? assets/GAME-ASSETS/01-creatures/approved/
+?? assets/GAME-ASSETS/01-creatures/original/
+?? assets/GAME-ASSETS/01-creatures/reference/
+?? assets/GAME-ASSETS/02-animations/
+?? assets/GAME-ASSETS/04-effects/
+?? assets/GAME-ASSETS/05-ui/
+?? assets/GAME-ASSETS/06-audio/
+?? assets/GAME-ASSETS/07-manifests/
+?? assets/GAME-ASSETS/08-licenses/README.md
+?? assets/GAME-ASSETS/09-previews/README.md
+?? assets/GAME-ASSETS/09-previews/style-options/
+?? assets/GAME-ASSETS/10-source-files/battle-spirit-gba/
+?? assets/GAME-ASSETS/README.md
+?? assets/_backups/
+?? projects/prototypes/GS-003/database/
+?? projects/prototypes/GS-003/docs/briefing/ETAPA2_HOMOLOGACAO_BRIEF.md
+?? projects/prototypes/GS-003/evidence/digimon-games-videos/
+?? projects/prototypes/GS-003/evidence/drakantos-video/
+?? projects/prototypes/GS-003/evidence/founder-video-idledex/
+?? projects/prototypes/GS-003/evidence/idledex-canonical/
+?? projects/prototypes/GS-003/evidence/pvp-video-nVY9eDfpWtQ/
+?? projects/prototypes/GS-003/knowledge/DATA_QUALITY_REPORT.md
+?? projects/prototypes/GS-003/knowledge/DOCUMENTATION.md
+?? projects/prototypes/GS-003/knowledge/EVOLUTION_GRAPHS.md
+?? projects/prototypes/GS-003/knowledge/EVOLUTION_PROPOSAL.md
+?? projects/prototypes/GS-003/knowledge/SOURCE_REGISTRY.md
+?? projects/prototypes/GS-003/knowledge/_research/
+?? projects/prototypes/GS-003/knowledge/attributes_and_elements.json
+?? projects/prototypes/GS-003/knowledge/evolution_chains.json
+?? projects/prototypes/GS-003/knowledge/evolution_comparison_by_game.json
+?? projects/prototypes/GS-003/knowledge/evolution_graphs/
+?? projects/prototypes/GS-003/knowledge/evolution_requirements.json
+?? projects/prototypes/GS-003/knowledge/training_systems.json
+?? projects/prototypes/GS-003/knowledge/video_reference_index.json
+?? projects/prototypes/GS-003/prototype/qa/
+?? projects/prototypes/GS-003/prototype/world/src/data/content/arena_events.json
+?? projects/prototypes/GS-003/prototype/world/src/data/content/bosses.json
+?? projects/prototypes/GS-003/prototype/world/src/data/content/dungeons.json
+?? projects/prototypes/GS-003/prototype/world/src/data/content/world_boss.json
+?? projects/prototypes/GS-003/qa/ETAPA2_HOMOLOGACAO.md
+?? projects/prototypes/GS-003/qa/QA_WORLD_R1.md
+?? projects/prototypes/GS-003/qa/etapa2/
+?? projects/prototypes/GS-003/qa/raw-results.json
+?? projects/prototypes/GS-003/qa/screens/
+?? projects/prototypes/GS-003/quality-overhaul/git_status_pre_backup_2026-11-12.txt
+?? projects/prototypes/GS-003/quality-overhaul/phase3/qa/etapa2/
+?? projects/prototypes/GS-003/research/etapa3-imersao/
+?? projects/prototypes/GS-003/studio-alignment/
+?? projects/prototypes/GS-003/tools/size_research/
+?? projects/prototypes/GS-003/tools/upload_sink.py
+?? shared/decisions/ADR-008-gs003-visao-idledex-digimon.md
+?? shared/decisions/ADR-009-gs003-idle-mmorpg-reset.md
+?? shared/decisions/ADR-012-gs003-quality-first.md
+?? shared/decisions/ADR-013-gs003-equipe-com-parceiro-especial.md
+?? shared/tools/sd-local/.gitignore
+?? shared/tools/sd-local/INSTALL_REPORT.md
+?? shared/tools/sd-local/MODELS.md
+?? shared/tools/sd-local/README.md
+?? shared/tools/sd-local/models.log.attempt1
+?? shared/tools/sd-local/models.sha256
+?? shared/tools/sd-local/samples/
+?? shared/tools/sd-local/scripts/
+73db3e6 Digital Odyssey: ADR-014 e identidade nos READMEs/portfolio (GS-003 legado)
+== ./workspaces/game-design
+2ebd87f Studio identity and rules
+== ./workspaces/game-dev/qo
+3289e32 Digital Odyssey: nome oficial no titulo da aba, metadados e README (GS-003 segue como id legado; ADR-014)
+== ./workspaces/game-dev
+?? .gitignore
+?? .tmpref/
+?? DREAMS.md
+?? memory/
+?? tmp/
+?? tmp_dvv/
+57b47f6 Studio identity and rules
+== ./workspaces/game-art
+?? .review/
+?? .tmp_ninja/
+?? art/
+?? tmp_pt/
+dc6c21a Studio identity and rules
+== ./workspaces/game-research
+a3f7648 Studio identity and rules
+== ./workspaces/game-studio
+ M USER.md
+?? .openclaw-cli-images/
+?? DREAMS.md
+?? memory/
+?? review/
+?? tmp/
+?? tools/
+d29a51d Game Studio identity, soul, studio rules
+== ./workspaces/game-growth
+79efecd Studio identity and rules
+== ./workspaces/game-qa
+?? phase3_qa_GS003/
+?? scratch/
+?? tmp_view/
+76976b8 Studio identity and rules

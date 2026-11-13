@@ -1,0 +1,47 @@
+# find . -newer _evidence/.start_marker (marcador: 2026-11-12 23:03:21 -03), fora de studio-alignment/, sem node_modules — 2026-11-13T05:12:07-03:00
+./.git
+./.git/worktrees/qo
+./projects/active/GS-002-replydraft/app/.git
+./projects/prototypes/GS-003/quality-overhaul/PROJECT_LOG.md
+./shared/tools/sd-local/ComfyUI/.git
+./workspaces/game-art/.git
+./workspaces/game-design/.git
+./workspaces/game-dev
+./workspaces/game-dev/.git
+./workspaces/game-dev/DREAMS.md
+./workspaces/game-dev/memory/dreaming
+./workspaces/game-dev/memory/dreaming/deep
+./workspaces/game-dev/memory/dreaming/deep/2026-11-13.md
+./workspaces/game-dev/memory/dreaming/light
+./workspaces/game-dev/memory/dreaming/light/2026-11-13.md
+./workspaces/game-dev/memory/dreaming/rem
+./workspaces/game-dev/memory/dreaming/rem/2026-11-13.md
+./workspaces/game-growth/.git
+./workspaces/game-qa/.git
+./workspaces/game-research/.git
+./workspaces/game-studio
+./workspaces/game-studio/.git
+./workspaces/game-studio/DREAMS.md
+./workspaces/game-studio/memory/.dreams/session-corpus
+./workspaces/game-studio/memory/.dreams/session-corpus/2026-11-11.txt
+./workspaces/game-studio/memory/.dreams/session-corpus/2026-11-12.txt
+./workspaces/game-studio/memory/.dreams/session-corpus/2026-11-13.txt
+./workspaces/game-studio/memory/dreaming/light
+./workspaces/game-studio/memory/dreaming/light/2026-11-13.md
+./workspaces/game-studio/memory/dreaming/rem
+./workspaces/game-studio/memory/dreaming/rem/2026-11-13.md
+# fim
+
+# ATRIBUIÇÃO (análise do subagente da Etapa 5, 2026-11-13 ~05:13)
+# 1) ./.git, ./.git/worktrees/qo, */.git dos 7 workspaces, GS-002/app/.git, ComfyUI/.git
+#    -> só mtime de DIRETÓRIO, 05:09:43 e 05:12:07 = horário exato dos `git status` desta retomada
+#       (git atualiza o índice/lock ao consultar status). Nenhum commit, nenhum arquivo versionado mudou:
+#       `git log -1` igual ao BEFORE em todos os repos; diff BEFORE x AFTER das linhas de status = vazio.
+# 2) projects/prototypes/GS-003/quality-overhaul/PROJECT_LOG.md (05:10:07)
+#    -> NÃO foi esta sessão. Entrada "2026-11-13 05:0x local (cron diurno): verificação" anexada pelo cron
+#       diurno do game-studio. O arquivo já estava " M" (não commitado) no BEFORE.
+# 3) workspaces/game-dev/DREAMS.md, workspaces/game-studio/DREAMS.md, */memory/dreaming/*, memory/.dreams/*
+#    -> NÃO foi esta sessão. Automação de memória (dreaming) do OpenClaw, 05:10:27.
+# 4) workspaces/game-dev e workspaces/game-studio (diretórios) -> efeito de (3).
+# Conclusão: esta etapa escreveu apenas dentro de studio-alignment/. Nenhum código, config, workspace,
+# mapa, sprite, Database ou deploy foi alterado por ela.
