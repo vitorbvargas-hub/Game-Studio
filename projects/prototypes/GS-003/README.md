@@ -1,3 +1,5 @@
+> **Nome oficial: DIGITAL ODYSSEY — Um fangame de Digimon** (decisão do fundador, 2026-11-12, [ADR-014](../../../shared/decisions/ADR-014-gs003-renomeacao-digital-odyssey.md)). Este arquivo e os demais documentos históricos mantêm "GS-003", o identificador técnico legado, para rastreabilidade.
+
 # GS-003 — Discovery: idle de coleção de monstros (referências do fundador)
 
 Aberto em 2026-11-08 por pedido de Vitor Vargas. Estágio: DISCOVERY.

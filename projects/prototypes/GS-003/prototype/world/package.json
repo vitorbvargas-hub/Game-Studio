@@ -2,7 +2,7 @@
   "name": "gs003-world",
   "private": true,
   "version": "0.1.0",
-  "description": "GS-003 vertical slice — mundo em tilemap com combate no próprio mapa (Canvas 2D, sim autoritativa local)",
+  "description": "Digital Odyssey (GS-003, identificador legado) vertical slice — mundo em tilemap com combate no próprio mapa (Canvas 2D, sim autoritativa local)",
   "type": "module",
   "scripts": {
     "dev": "vite",

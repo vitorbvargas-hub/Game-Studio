@@ -54,6 +54,10 @@ Nenhum projeto morto ainda. Nenhuma oportunidade foi formalmente descartada — 
 
 Ver `portfolio/README.md`.
 
+## Atualização 2026-11-12: nome oficial do GS-003
+
+O GS-003 passa a se chamar oficialmente **Digital Odyssey — Um fangame de Digimon** ([ADR-014](../shared/decisions/ADR-014-gs003-renomeacao-digital-odyssey.md)). O código GS-003 segue como identificador legado (pastas, ids, rastreabilidade).
+
 ## Atualização 2026-11-08: GS-003
 | ID | Projeto | Estágio | Owner | Próxima decisão |
 |---|---|---|---|---|

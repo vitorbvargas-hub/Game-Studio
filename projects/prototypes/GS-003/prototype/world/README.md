@@ -1,3 +1,5 @@
+> **Nome oficial: DIGITAL ODYSSEY — Um fangame de Digimon** (decisão do fundador, 2026-11-12, ADR-014). "GS-003" continua como identificador técnico legado (pastas, ids, chaves de save, scripts).
+
 # GS-003 — mundo (vertical slice, Fase 5): combate no próprio mapa
 
 - **Autor:** game-dev · **Data:** 2026-11-08 (atualizado em 2026-11-09) · **Base:** ADR-009, `docs/WORLD_COMBAT_VISUAL_SPEC.md`, `docs/TECH_AUDIT.md` (Canvas 2D próprio), `docs/SPRITE_SPECIFICATION.md`, `docs/ANIMATION_STANDARD.md`.
