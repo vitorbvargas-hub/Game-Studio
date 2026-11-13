@@ -1,0 +1,152 @@
+{
+  "E1": {
+    "tamer_v13": {
+      "native_frame_px": "36x36",
+      "scale_factor": 1,
+      "scaled_frame_px": "36x36",
+      "content_height_px": 34,
+      "content_width_px": 24
+    },
+    "koromon": {
+      "native_frame_px": "28x22",
+      "scale_factor": 1,
+      "scaled_frame_px": "28x22",
+      "content_height_px": 17,
+      "content_width_px": 19
+    },
+    "agumon": {
+      "native_frame_px": "30x30",
+      "scale_factor": 1,
+      "scaled_frame_px": "30x30",
+      "content_height_px": 27,
+      "content_width_px": 20
+    },
+    "wargreymon": {
+      "native_frame_px": "36x46",
+      "scale_factor": 1,
+      "scaled_frame_px": "36x46",
+      "content_height_px": 36,
+      "content_width_px": 29
+    }
+  },
+  "E2": {
+    "tamer_v13": {
+      "native_frame_px": "36x36",
+      "scale_factor": 1,
+      "scaled_frame_px": "36x36",
+      "content_height_px": 34,
+      "content_width_px": 24
+    },
+    "koromon": {
+      "native_frame_px": "28x22",
+      "scale_factor": 1,
+      "scaled_frame_px": "28x22",
+      "content_height_px": 17,
+      "content_width_px": 19
+    },
+    "agumon": {
+      "native_frame_px": "30x30",
+      "scale_factor": 1,
+      "scaled_frame_px": "30x30",
+      "content_height_px": 27,
+      "content_width_px": 20
+    },
+    "wargreymon": {
+      "native_frame_px": "36x46",
+      "scale_factor": 2,
+      "scaled_frame_px": "72x92",
+      "content_height_px": 72,
+      "content_width_px": 58
+    }
+  },
+  "E3": {
+    "tamer_v13": {
+      "native_frame_px": "36x36",
+      "scale_factor": 2,
+      "scaled_frame_px": "72x72",
+      "content_height_px": 68,
+      "content_width_px": 48
+    },
+    "koromon": {
+      "native_frame_px": "28x22",
+      "scale_factor": 2,
+      "scaled_frame_px": "56x44",
+      "content_height_px": 34,
+      "content_width_px": 38
+    },
+    "agumon": {
+      "native_frame_px": "30x30",
+      "scale_factor": 2,
+      "scaled_frame_px": "60x60",
+      "content_height_px": 54,
+      "content_width_px": 40
+    },
+    "wargreymon": {
+      "native_frame_px": "36x46",
+      "scale_factor": 2,
+      "scaled_frame_px": "72x92",
+      "content_height_px": 72,
+      "content_width_px": 58
+    }
+  },
+  "E4": {
+    "tamer_v13": {
+      "native_frame_px": "36x36",
+      "scale_factor": 0.5,
+      "scaled_frame_px": "(decimado, nao redesenhado)",
+      "content_height_px": 17,
+      "content_width_px": 12
+    },
+    "koromon": {
+      "native_frame_px": "28x22",
+      "scale_factor": 0.5,
+      "scaled_frame_px": "(decimado, nao redesenhado)",
+      "content_height_px": 8,
+      "content_width_px": 9
+    },
+    "agumon": {
+      "native_frame_px": "30x30",
+      "scale_factor": 0.5,
+      "scaled_frame_px": "(decimado, nao redesenhado)",
+      "content_height_px": 13,
+      "content_width_px": 10
+    },
+    "wargreymon": {
+      "native_frame_px": "36x46",
+      "scale_factor": 0.5,
+      "scaled_frame_px": "(decimado, nao redesenhado)",
+      "content_height_px": 18,
+      "content_width_px": 14
+    }
+  },
+  "E5": {
+    "tamer_v13": {
+      "native_frame_px": "36x36",
+      "scale_factor": 1,
+      "scaled_frame_px": "36x36",
+      "content_height_px": 34,
+      "content_width_px": 24
+    },
+    "koromon": {
+      "native_frame_px": "28x22",
+      "scale_factor": 1,
+      "scaled_frame_px": "28x22",
+      "content_height_px": 17,
+      "content_width_px": 19
+    },
+    "agumon": {
+      "native_frame_px": "30x30",
+      "scale_factor": 1,
+      "scaled_frame_px": "30x30",
+      "content_height_px": 27,
+      "content_width_px": 20
+    },
+    "wargreymon": {
+      "native_frame_px": "36x46",
+      "scale_factor": 3,
+      "scaled_frame_px": "108x138",
+      "content_height_px": 108,
+      "content_width_px": 87
+    }
+  }
+}
