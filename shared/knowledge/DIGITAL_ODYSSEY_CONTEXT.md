@@ -1,6 +1,6 @@
 # DIGITAL ODYSSEY — contexto comum dos agentes
 
-> **Versão 1.0 · 2026-11-13** · Etapa 5, decisões do fundador de 2026-11-13 (`studio-alignment/COMANDO_IMPLANTACAO_ETAPA5.md`) · Dono: `game-studio` · Local: `~/projects/GameStudio/shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md`, citado pelo `AGENTS.md` dos 7 agentes.
+> **Versão 1.1 · 2026-11-13** · v1.0 = Etapa 5 (`studio-alignment/COMANDO_IMPLANTACAO_ETAPA5.md`); v1.1 = ADR-015 (uso criativo amplo da franquia, adendo à Etapa 6), que acrescentou a §1.2 e ajustou a linha "Protagonista" · Dono: `game-studio` · Local: `~/projects/GameStudio/shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md`, citado pelo `AGENTS.md` dos 7 agentes.
 > **Precedência documental:** decisões do fundador e ADRs > este contexto > documentos antigos. Entre duas decisões, vale a mais recente. Se este arquivo contradisser uma decisão do fundador ou um ADR, vale a decisão e este arquivo está errado — avise o `game-studio`, que o atualiza com nova versão e data.
 
 ## 1. O que é o jogo
@@ -15,7 +15,7 @@
 | Combate | **No próprio mapa. Nunca tela de batalha separada.** Estados IDLE, WALK, FOLLOW, ENGAGE, ATTACK, HURT, DEFEAT, RETURN. Lógica separada da apresentação; a animação nunca decide o resultado | ADR-009 |
 | Evoluções | Respeitam **continuidade e fonte**; nunca inventar relação canônica. O que não tem fonte é lacuna ou proposta da Camada B | fundador 13/11; Etapa 4 |
 | Equipe | Vários Digimon com progressão completa **e um parceiro especial** (papel de uma instância, não espécie; sem bônus arbitrário de atributo; os outros não ficam inferiores) | ADR-013 |
-| Protagonista | **Tamer original** (12 presets v13 aprovados). Não copiar protagonista de anime | ADR-007 §3, log 12/11 |
+| Protagonista | **Tamer jogável original e personalizável** (12 presets v13 aprovados). Personagens do anime entram como **NPCs** e no conteúdo narrativo; skins deles são ideia futura **[PROPOSTA]** (ADR-015) | ADR-007 §3, ADR-015 |
 | Diferenciais | Evolução e relacionamento; mundo vivo; Digimon reconhecíveis e bem animados | brief Etapa 5 §4; Reddit (Etapa 3b: parceiro com vínculo é o desejo nº 1) |
 | Direção visual | **GBA Plus** aprovada; a identidade visual atual **ainda não está homologada** (§4) | fundador 11/11 e 13/11 |
 | Decisões preservadas | Parceiro especial, equipe, afinidade, talentos, montarias, cuidados e reencarnação ficam **preservados como estão: nada é implementado nem modificado** sem tarefa autorizada | fundador 13/11 |
@@ -31,6 +31,29 @@ O fundador reconhece que o Digital Odyssey **não tem licença nem autorização
 7. **não há autorização de monetização**.
 
 A exceção vale **só para este projeto**. `GOVERNANCE.md` e `VISION.md` **não** foram alterados; a incompatibilidade entre eles e esta exceção está registrada (`studio-alignment/08` C1) para revisão posterior.
+
+### 1.2 Uso criativo da franquia (ADR-015, fundador, 2026-11-13)
+No planejamento e no desenvolvimento **interno**, é permitido usar e recriar elementos reconhecíveis de Digimon:
+- espécies e linhas evolutivas;
+- personagens do anime como NPCs e na narrativa;
+- locais, cidades, ilhas, estruturas e cenários;
+- acontecimentos das temporadas;
+- objetos e dispositivos;
+- recriação de ambientes e de elementos visuais.
+
+**Não** troque elementos de Digimon por alternativas "originais" por precaução genérica.
+
+O risco jurídico é **registrado** de forma objetiva, mas **não bloqueia** automaticamente o planejamento interno.
+
+Classifique cada elemento como **(1) oficial da franquia**, **(2) recriação ou adaptação** ou **(3) original do projeto**, e registre **(4) a fonte e o risco**. Essa classificação serve para rastrear, não para descaracterizar.
+
+Cada temporada pode inspirar uma região. A fidelidade visual e conceitual dos Digimon é obrigatória, e a nota mínima continua 8/10.
+
+**Ainda NÃO autorizado:** publicação, divulgação ou distribuição pública, monetização, contratação, crédito pago sem aprovação, mudança no jogo fora do escopo e mudança de permissões.
+
+**Ponto aberto:** recriar e adaptar está autorizado. **Extrair** frames ou imagens do anime para usar como asset não está explícito; até o fundador decidir, recrie e não extraia.
+
+A §1.1 e as condições abaixo continuam valendo. A §1.2 amplia o uso **criativo interno** e não muda nenhum limite público ou comercial.
 
 ### Condições do fangame (valem sempre)
 1. Sem monetização de nenhum tipo (venda, anúncio, doação vinculada, IAP, coleta comercial de dados).
