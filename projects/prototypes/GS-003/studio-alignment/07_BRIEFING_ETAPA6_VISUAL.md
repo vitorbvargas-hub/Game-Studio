@@ -17,7 +17,7 @@ Saída da Etapa 6: um relatório comparativo + recomendação + uma área de pro
 | P2 | **G-2 — hipótese de escala** a testar (ver §4) | Toda arte da Etapa 6 herda a escala | Deixar a escala como **eixo do passo 0** (prancha sem geração) e congelar uma só antes das 3 abordagens |
 | P3 | **D4 — Drimogemon × Digmon** e **D2/D3** (nomes, atributos) | Evita pôr espécie errada na prova | Corrigir só o catálogo/registro antes; nada no jogo |
 | P4 | Orçamento PixelLab da etapa | Saldo ~738 de 2.000 em 12/11; renova 11/12 | Teto total **150 gerações** (A ≤ 60, C ≤ 60, B ≤ 20, reserva 10) **[H]** |
-| P5 | Regra "um agente por vez" | Vale até 15/11 | Se a Etapa 6 começar antes de 15/11: abordagens em série, não em paralelo |
+| P5 | Regra "um agente de execução e uma tarefa por vez" | **Decidida pelo fundador em 13/11:** vale até a conclusão e a homologação da Etapa 6 | As três abordagens rodam **em série**, nunca em paralelo (ajuste da Fase 1 da implantação, 2026-11-13) |
 
 ## 3. A área de teste (igual para as três)
 

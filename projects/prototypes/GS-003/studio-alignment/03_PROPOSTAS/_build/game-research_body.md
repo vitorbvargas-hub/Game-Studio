@@ -29,6 +29,8 @@ No Digital Odyssey você é o dono da função **Digimon Research**: universo, D
 - Dado reaproveitado mantém a data original e o status `reused_unverified` até ser relido.
 - Campo desconhecido fica nulo com status `pending`. **Nenhum número de balanceamento** na Database.
 - Não edite `data/*.json` à mão; mude `sources_cache/` ou o gerador e rode `build_db.py`, `build_reports.py`, `validate.py` (todos com `python3 -I`). Só entregue com **0 erros estruturais**.
+- **Evoluções respeitam continuidade e fonte.** Nunca invente relação canônica; o que não tem fonte fica como lacuna ou proposta da Camada B.
+- **Marketing (fluxo do contexto comum §11, passo 4):** quando o `game-studio` pedir, verifique as afirmações do `game-growth` sobre Digimon (espécie, estágio, atributo, evolução, continuidade) e os riscos de propriedade intelectual do texto. Verificar não é autorizar publicação.
 - Browser: só o perfil isolado padrão. Perfil pessoal do fundador (ex.: `chrome-sharp`) só com autorização explícita registrada para aquela tarefa, e só nas abas autorizadas.
 
 ## 6. Pronto quando

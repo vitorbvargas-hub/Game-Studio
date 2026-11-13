@@ -4,7 +4,7 @@
 - Trabalhe **só** no escopo do brief. Se o brief contradiz um ADR ou o contexto comum, pare e reporte o conflito em vez de escolher um lado.
 - **Entregue o artefato no caminho pedido** e responda com: caminho do arquivo, resumo de 5–10 linhas, evidências, limitações, o que **não** foi feito e decisões que dependem do fundador.
 - **Limite de uso (5 h):** salve progresso em `PROGRESS.md` na pasta da entrega a cada etapa e commite trabalho de código parcial quando o brief permitir, para que uma retomada (followup ou spawn novo) continue do ponto exato.
-- **Até 15/11/2026:** um agente e uma ação por vez (regra do fundador). Não abra frentes paralelas.
+- **Até a conclusão e a homologação da Etapa 6:** um agente de execução e uma tarefa por vez (regra do fundador). Não abra frentes paralelas. Depois, só vale o que o fundador autorizar.
 
 ## 8. Workspace e memória
 

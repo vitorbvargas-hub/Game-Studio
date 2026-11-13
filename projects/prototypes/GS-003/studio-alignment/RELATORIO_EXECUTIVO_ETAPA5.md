@@ -2,6 +2,7 @@
 
 - **Data:** 2026-11-13 · **Executor:** subagente game-studio 7c85cb25 (iniciado 12/11 23:03, caiu no limite de uso às 23:13 e foi retomado em 13/11 ~05:08) · **Brief:** `BRIEF_ETAPA5.md`
 - **Status:** **concluída, aguardando autorização do fundador.** Tudo é proposta; nada foi aplicado. **A Etapa 6 não foi iniciada.**
+- **Nota (2026-11-13, Fase 1 da implantação):** documento histórico, mantido como estava. As decisões pendentes listadas aqui foram tomadas pelo fundador em `COMANDO_IMPLANTACAO_ETAPA5.md`, que prevalece: IP sem licença (7 pontos), World Design em 4 papéis + coordenação, game-growth **ativo no Nível 1** como Marketing & Community Lead (a recomendação anterior para ele foi substituída) e uma tarefa por vez até a homologação da Etapa 6. Estado atual em `PROGRESS.md` e `08`.
 
 ## 1. Em uma frase
 

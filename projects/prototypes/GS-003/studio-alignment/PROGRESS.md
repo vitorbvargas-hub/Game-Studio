@@ -36,3 +36,16 @@ Retomada: leia este arquivo, depois `BRIEF_ETAPA5.md`. Baseline de git em `_evid
 
 ## IMPLANTAÇÃO (script definitivo, autorizado pelo fundador em 2026-11-13; ver COMANDO_IMPLANTACAO_ETAPA5.md)
 - [x] Fase 0: aprovação registrada; commit isolado de studio-alignment/ (veja o hash abaixo)
+  - commit Fase 0: db58226
+- [x] Fase 1 (2026-11-13): ajuste das propostas com as decisões §3–§7 do COMANDO. **Sem commit** (o commit é do fundador).
+  - Fontes em `03_PROPOSTAS/_build/` editadas; SOULs e contexto passaram a ter fonte em `_build/` (`<agente>_soul.md`, `common_soul_bottom.md`, `shared_DIGITAL_ODYSSEY_CONTEXT.md`). Regeneração reproduzível: `python3 -I 03_PROPOSTAS/_build/assemble.py` (gera os 15 finais e imprime md5); `--check` → "15/15 iguais às fontes".
+  - Finais sem cabeçalho "PROPOSTA… não está em uso"; AGENTS com linha "v1.0 · 2026-11-13"; contexto v1.0 com precedência documental (decisões do fundador/ADRs > contexto > docs antigos).
+  - Docs: 02 (tabela 7 agentes, World Design, growth Nível 1, histórico §7), 05 (regra 6, §3.5 fluxo marketing), 06 (K2, K3, linhas de marketing, §3, §4), 07 (P5), 08 (C1, C8, C9, R7, R8, K2, K3, K4), 09 (P0 resolvidos, Q9–Q11, §2.1 G1–G12), RELATORIO_EXECUTIVO (nota de superado no topo; corpo intacto).
+  - **Gate 1:**
+    - [x] "dormente" sobre o game-growth: 0 em `03_PROPOSTAS/` e em 01–09 (`grep -rni dormente`). Restam só registros históricos: RELATORIO_EXECUTIVO_ETAPA5.md:31 e :57 (decisões pendentes de 12/11, com nota de superado) e COMANDO:151 (a própria instrução).
+    - [x] "4 simultâneas" como regra vigente: 0. Todas as ocorrências dizem "depois da homologação da Etapa 6, o fundador decide se autoriza até 4" (contexto §2, bloco comum §2 nos 7 AGENTS, game-studio §6, 02 §6.7, 05 §2.6, 06 §3/§4). 01:37/:101 descrevem o SOUL antigo (inventário); 08 R7/K4 marcados RESOLVIDO/CORRIGIDO.
+    - [x] Os 7 AGENTS.md citam `shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md` (`grep -c` = 3 em cada).
+    - [x] IP com os 7 pontos (§3.2) no contexto §1.1 e no bloco comum §2 dos 7 AGENTS, mais "não tem licença nem autorização" e "só para este projeto" (grep por frase-chave: ≥1 em cada).
+    - [x] git: `_evidence/git_status_FASE1_BEFORE.txt` × `_AFTER.txt` — fora de `studio-alignment/` o status é idêntico; só `studio-alignment/` mudou (no AFTER: 30 M + 10 novos em `_build/`; depois dele só RELATORIO_EXECUTIVO e PROGRESS, também em `studio-alignment/`; reconferido no fim: fora idêntico).
+  - Pendências para o fundador: `GOVERNANCE.md`/`VISION.md` incompatíveis com a exceção de IP (C1, não alterados por ordem); `USER.md` real do game-studio ainda diz "até 15/11" (preservado na Fase 3, atualizar só com o fundador); classificação de G2–G8 como críticas em `09` §2.1 é proposta minha; C4/C5/C6/C15 seguem abertos (Etapa 6).
+  - Próximo passo seguro: fundador revisa o diff e commita só `studio-alignment/`; depois Fase 2 (copiar o contexto para `shared/knowledge/`, md5 igual ao da proposta).

@@ -1,6 +1,6 @@
 ## 3. Sua função: Game Development
 
-Dono de arquitetura, implementação, integração e testes técnicos do Digital Odyssey (MAP-ENGINEER e GAME-INTEGRATOR no ADR-012).
+Dono de arquitetura, implementação, integração e testes técnicos do Digital Odyssey (MAP-ENGINEER e GAME-INTEGRATOR no ADR-012). No World Design (decisão do fundador, 2026-11-13) você faz a **engenharia e a integração técnica dos mapas** (formato, colisão, camadas, importadores, desempenho), a partir da estrutura do `game-design` e da composição do `game-art`. Não compõe mapa nem decide layout.
 
 | Faz | Não faz |
 |---|---|
@@ -29,6 +29,7 @@ Dono de arquitetura, implementação, integração e testes técnicos do Digital
 - Fonte de verdade de assets: `assets/GAME-ASSETS` diverge entre `qo` e master (T6). Não resolva por conta própria; aponte.
 - Não troque engine, renderer nem formato de mapa (ADR-012 §7).
 - Sem backend: não crie servidor, conta ou serviço pago. Servidor sempre ligado exige aprovação (ADR-008).
+- Você não participa do fluxo de marketing como verificador; se o `game-studio` pedir uma captura do estado real do jogo para o `game-growth`, entregue a captura com build, commit e data, sem retoque. Nada vai a rede social ou conta externa.
 
 ## 6. Pronto quando
 
