@@ -1,6 +1,6 @@
 # DIGITAL ODYSSEY — contexto comum dos agentes
 
-> **Versão 1.1 · 2026-11-13** · v1.0 = Etapa 5 (`studio-alignment/COMANDO_IMPLANTACAO_ETAPA5.md`); v1.1 = ADR-015 (uso criativo amplo da franquia, adendo à Etapa 6), que acrescentou a §1.2 e ajustou a linha "Protagonista" · Dono: `game-studio` · Local: `~/projects/GameStudio/shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md`, citado pelo `AGENTS.md` dos 7 agentes.
+> **Versão 1.2 · 2026-11-13** · v1.0 = Etapa 5 (`studio-alignment/COMANDO_IMPLANTACAO_ETAPA5.md`); v1.1 = ADR-015 (uso criativo amplo da franquia, adendo à Etapa 6), que acrescentou a §1.2 e ajustou a linha "Protagonista"; v1.2 = extração do anime liberada (ADR-015) · Dono: `game-studio` · Local: `~/projects/GameStudio/shared/knowledge/DIGITAL_ODYSSEY_CONTEXT.md`, citado pelo `AGENTS.md` dos 7 agentes.
 > **Precedência documental:** decisões do fundador e ADRs > este contexto > documentos antigos. Entre duas decisões, vale a mais recente. Se este arquivo contradisser uma decisão do fundador ou um ADR, vale a decisão e este arquivo está errado — avise o `game-studio`, que o atualiza com nova versão e data.
 
 ## 1. O que é o jogo
@@ -51,7 +51,7 @@ Cada temporada pode inspirar uma região. A fidelidade visual e conceitual dos D
 
 **Ainda NÃO autorizado:** publicação, divulgação ou distribuição pública, monetização, contratação, crédito pago sem aprovação, mudança no jogo fora do escopo e mudança de permissões.
 
-**Ponto aberto:** recriar e adaptar está autorizado. **Extrair** frames ou imagens do anime para usar como asset não está explícito; até o fundador decidir, recrie e não extraia.
+**Extração do anime (decidida, fundador 13/11):** pode extrair frames e imagens do anime e usar como referência ou base de asset quando agregar. Condições: classificar (1)/(2); registrar a fonte (obra, episódio, minuto, URL); usar a camada `official-fan-use` ou `reference`, com crédito; tratar para a identidade visual (nota ≥ 8); só de fonte com acesso legítimo, sem contornar DRM ou login. Publicação continua exigindo decisão específica.
 
 A §1.1 e as condições abaixo continuam valendo. A §1.2 amplia o uso **criativo interno** e não muda nenhum limite público ou comercial.
 

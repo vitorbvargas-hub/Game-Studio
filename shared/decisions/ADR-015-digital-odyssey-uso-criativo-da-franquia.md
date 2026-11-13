@@ -49,5 +49,14 @@ Esta decisão **não** autoriza:
 
 Toda atividade pública ou comercial exige decisão específica do fundador, com avaliação de risco.
 
-## Ponto a esclarecer (registrado pelo coordenador, sem bloquear)
-Este ADR autoriza **recriar e adaptar**. Os sprites oficiais extraídos de jogos já são permitidos pelo ADR-009. A **extração** de frames ou imagens do anime para usar diretamente como asset não está explícita nesta decisão. Até o fundador decidir, os agentes recriam e não extraem. As referências visuais podem ser consultadas e descritas.
+## Extração de material do anime (fundador, 2026-11-13: "pode extrair e usar se achar")
+**Decidido:** no desenvolvimento interno, é permitido extrair frames e imagens do anime e usá-los como referência ou como base de asset, quando o agente responsável julgar que isso agrega.
+
+Condições de rastreabilidade (não são bloqueio):
+- Todo material extraído recebe classe (1) oficial ou (2) adaptação.
+- Registrar a fonte: obra, episódio e minuto quando houver, e URL.
+- Usar a camada `official-fan-use` (ou `reference`, se for só referência), com crédito.
+- Seguir a qualidade mínima de 8/10 e a coerência com a identidade visual. Um frame do anime não vira sprite de jogo sem tratamento.
+- Extrair só de fonte a que o estúdio tenha acesso legítimo, sem contornar DRM, login ou bloqueio.
+
+Os limites públicos continuam: nada disso é publicado, distribuído ou monetizado sem decisão específica do fundador.
