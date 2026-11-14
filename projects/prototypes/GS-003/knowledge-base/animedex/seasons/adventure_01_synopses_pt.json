@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "series_id": "anime.digimon_adventure_1999",
+  "author": "game-research",
+  "date": "2026-11-14",
+  "method": "Paráfrase própria e curta, escrita a partir dos campos extraídos (Digimon listados, cadeias de evolução, Analyzer) e da leitura parcial do resumo da Wikimon de cada episódio. Não é tradução nem cópia do resumo.",
+  "category": 3,
+  "status": "verified_secondary",
+  "coverage": "episódios 1 a 13 (arco de File Island). Episódios 14 a 54 ficam com sinopse pendente neste lote.",
+  "confidence_scale": "alta = fatos do episódio conferidos em campos estruturados e no início do resumo; media = só parte do resumo foi lida, detalhe de enredo pode estar incompleto"
+ },
+ "synopses": {
+  "1": {
+   "text": "Num acampamento de verão, sete crianças recebem Digivices e são levadas para File Island, no Mundo Digital, onde conhecem seus parceiros no estágio bebê. Kuwagamon as persegue, e os bebês evoluem para o estágio Criança para protegê-las.",
+   "confidence": "alta"
+  },
+  "2": {
+   "text": "Depois de cair num rio, o grupo segue até uma praia onde há cabines telefônicas fincadas na areia. Shellmon surge de baixo da areia e ataca; Agumon evolui pela primeira vez para Greymon e o afasta.",
+   "confidence": "alta"
+  },
+  "3": {
+   "text": "Após fugir de um Monochromon, o grupo acampa numa ilhota de um lago. Seadramon arrasta a ilhota pela água, e Gabumon evolui para Garurumon para salvar Yamato.",
+   "confidence": "alta"
+  },
+  "4": {
+   "text": "Numa planície quente cheia de postes telefônicos, o grupo chega à vila dos Pyocomon. Meramon, descontrolado por uma Engrenagem Negra, ataca, e Piyomon evolui para Birdramon.",
+   "confidence": "alta"
+  },
+  "5": {
+   "text": "Numa fábrica, o grupo solta Andromon, que estava preso nas engrenagens, e depois precisa enfrentá-lo. Tentomon evolui pela primeira vez para Kabuterimon; Greymon e Garurumon também lutam.",
+   "confidence": "media"
+  },
+  "6": {
+   "text": "Depois de passar por esgotos cheios de Numemon, o grupo chega a Toy Town. Monzaemon, com uma Engrenagem Negra nas costas, faz os brinquedos perseguirem os outros; Palmon evolui pela primeira vez para Togemon e o liberta.",
+   "confidence": "alta"
+  },
+  "7": {
+   "text": "Perto da Montanha Infinita (Infinity Mountain), o tempo esfria e Engrenagens Negras saem da montanha. Unimon ataca, e Gomamon evolui pela primeira vez para Ikkakumon para proteger Jo.",
+   "confidence": "alta"
+  },
+  "8": {
+   "text": "No alto da Montanha Infinita, o grupo descobre que Devimon está por trás das Engrenagens Negras; Leomon e Ogremon também aparecem. Os seis parceiros evoluem, mas Devimon parte a ilha e espalha as crianças.",
+   "confidence": "media"
+  },
+  "9": {
+   "text": "Taichi e Agumon vão parar num fragmento gelado da ilha partida e encontram Yukidarumon e Mojyamon. Greymon e Garurumon lutam enquanto o grupo tenta se reunir.",
+   "confidence": "media"
+  },
+  "10": {
+   "text": "Koshiro e Mimi caem com seus parceiros em fragmentos diferentes da ilha. Koshiro explora ruínas antigas, onde Centalmon, com uma Engrenagem Negra, persegue o grupo; Togemon e Kabuterimon entram em combate.",
+   "confidence": "media"
+  },
+  "11": {
+   "text": "Jo e Gomamon, à deriva no mar, chegam a uma ilha onde estão Sora e Piyomon; numa igreja no alto do morro acontece um festival de oferendas aos Bakemon. Ikkakumon e Birdramon lutam contra os Bakemon e Ogremon.",
+   "confidence": "media"
+  },
+  "12": {
+   "text": "Takeru e Patamon caem perto da Vila dos Inícios (Village of Beginnings), onde bebês Digimon nascem de ovos e são cuidados por Elecmon. Devimon manda Leomon atrás de Takeru.",
+   "confidence": "alta"
+  },
+  "13": {
+   "text": "Na Vila dos Inícios, Leomon e Ogremon vão atrás de Takeru, e o grupo se reúne para enfrentar Devimon. Patamon evolui para Angemon, derrota Devimon e volta a ser um Digitama.",
+   "confidence": "alta"
+  }
+ }
+}

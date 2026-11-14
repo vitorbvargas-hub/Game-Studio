@@ -1,0 +1,96 @@
+ref_id,species_id,category,status,url_original,page_url,source,author,resolution,license_status,availability,verification_status,local_path,checked_at
+vr.koromon.ref01,sp.koromon,REF-01,present,https://wikimon.net/images/6/6e/Koromon.jpg,https://wikimon.net/File:Koromon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Digi-Brigade,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.koromon.ref02,sp.koromon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.koromon.ref03,sp.koromon,REF-03,present,https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40904/,https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40904/,The Spriters Resource (Wayback),Bandai Namco (DW Dawn/Dusk); ripper Shoda,folha 265x117,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/ds_dawndusk/sr40904_koromon.png,2026-11-14
+vr.koromon.ref04,sp.koromon,REF-04,present,https://github.com/dannyphang/digimon-up-sprites,https://github.com/dannyphang/digimon-up-sprites,"GitHub (repositório comunitário, sem licença)","Bandai Namco (Digimon Up), extraído por fã",,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.koromon.ref05,sp.koromon,REF-05,present,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/121213/,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/121213/,The Spriters Resource (Wayback),Bandai / Tom Create (WonderSwan),folha 352x344,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr121213_koromon.png,2026-11-14
+vr.tunomon.ref01,sp.tunomon,REF-01,present,https://wikimon.net/images/5/59/Tunomon.jpg,https://wikimon.net/File:Tunomon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Ainz,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.tunomon.ref02,sp.tunomon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.tunomon.ref03,sp.tunomon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.tunomon.ref04,sp.tunomon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.tunomon.ref05,sp.tunomon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.tokomon.ref01,sp.tokomon,REF-01,present,https://wikimon.net/images/e/ec/Tokomon.jpg,https://wikimon.net/File:Tokomon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Devkyu,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.tokomon.ref02,sp.tokomon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.tokomon.ref03,sp.tokomon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.tokomon.ref04,sp.tokomon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.tokomon.ref05,sp.tokomon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.gigimon.ref01,sp.gigimon,REF-01,present,https://wikimon.net/images/c/ca/Gigimon.jpg,https://wikimon.net/File:Gigimon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Ainz,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.gigimon.ref02,sp.gigimon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.gigimon.ref03,sp.gigimon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.gigimon.ref04,sp.gigimon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.gigimon.ref05,sp.gigimon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.dorimon.ref01,sp.dorimon,REF-01,present,https://wikimon.net/images/f/f0/Dorimon.jpg,https://wikimon.net/File:Dorimon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Ainz,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.dorimon.ref02,sp.dorimon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.dorimon.ref03,sp.dorimon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.dorimon.ref04,sp.dorimon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.dorimon.ref05,sp.dorimon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.agumon.ref01,sp.agumon,REF-01,present,https://wikimon.net/images/7/72/Agumon.jpg,https://wikimon.net/File:Agumon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,750x750,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.agumon.ref02,sp.agumon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.agumon.ref03,sp.agumon,REF-03,present,https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40907/,https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40907/,The Spriters Resource (Wayback no Comando 9),Bandai Namco (DW Dawn/Dusk); ripper Shoda,folha 344x149,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/ds_dawndusk/sr40907_agumon.png,2026-11-14
+vr.agumon.ref04,sp.agumon,REF-04,present,https://www.spriters-resource.com/playstation/digiworld3/asset/13315/,https://www.spriters-resource.com/playstation/digiworld3/asset/13315/,The Spriters Resource (Wayback),"Bandai (Digimon World 3, PS1); ripper Ragey",folha 539x183,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/dw3/dw3_agumon_13315.gif,2026-11-14
+vr.agumon.ref05,sp.agumon,REF-05,present,,,Ficha de anatomia do Digital Odyssey,game-research / Etapa 6,,documento_interno,local_file,reused_unverified,etapa6-lab/fase11-fichas-anatomia/FICHA_AGUMON.md,2026-11-14
+vr.greymon.ref01,sp.greymon,REF-01,present,https://wikimon.net/images/6/6c/Greymon.jpg,https://wikimon.net/File:Greymon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,730x730,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.greymon.ref02,sp.greymon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_02,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.greymon.ref03,sp.greymon,REF-03,present,https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64806/,https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64806/,The Spriters Resource (Wayback),"Bandai (Digimon Medley, WSC); ripper digistarDBZ",folha 460x453,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_medley/sr64806_agumon_greymon.png,2026-11-14
+vr.greymon.ref04,sp.greymon,REF-04,present,https://github.com/dannyphang/digimon-up-sprites,https://github.com/dannyphang/digimon-up-sprites,"GitHub (repositório comunitário, sem licença)","Bandai Namco (Digimon Up, 2026), extraído por fã",,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.greymon.ref05,sp.greymon,REF-05,present,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483663/,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483663/,The Spriters Resource (Wayback),Bandai / Tom Create (WonderSwan),folha 688x216,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483663_greymon_metalgreymon.png,2026-11-14
+vr.gabumon.ref01,sp.gabumon,REF-01,present,https://wikimon.net/images/7/71/Gabumon.jpg,https://wikimon.net/File:Gabumon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Keebo,421x421,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.gabumon.ref02,sp.gabumon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.gabumon.ref03,sp.gabumon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.gabumon.ref04,sp.gabumon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.gabumon.ref05,sp.gabumon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.garurumon.ref01,sp.garurumon,REF-01,present,https://wikimon.net/images/5/57/Garurumon.jpg,https://wikimon.net/File:Garurumon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Keebo,636x636,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.garurumon.ref02,sp.garurumon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_03,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.garurumon.ref03,sp.garurumon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.garurumon.ref04,sp.garurumon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.garurumon.ref05,sp.garurumon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.patamon.ref01,sp.patamon,REF-01,present,https://wikimon.net/images/7/7d/Patamon.jpg,https://wikimon.net/File:Patamon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Keebo,518x518,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.patamon.ref02,sp.patamon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.patamon.ref03,sp.patamon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.patamon.ref04,sp.patamon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.patamon.ref05,sp.patamon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.angemon.ref01,sp.angemon,REF-01,present,https://wikimon.net/images/1/1b/Angemon.jpg,https://wikimon.net/File:Angemon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,750x750,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.angemon.ref02,sp.angemon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_13,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.angemon.ref03,sp.angemon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.angemon.ref04,sp.angemon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.angemon.ref05,sp.angemon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.guilmon.ref01,sp.guilmon,REF-01,present,https://wikimon.net/images/c/c5/Guilmon.jpg,https://wikimon.net/File:Guilmon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por ISergey123,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.guilmon.ref02,sp.guilmon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.guilmon.ref03,sp.guilmon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.guilmon.ref04,sp.guilmon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.guilmon.ref05,sp.guilmon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.growmon.ref01,sp.growmon,REF-01,present,https://wikimon.net/images/0/06/Growmon.jpg,https://wikimon.net/File:Growmon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por BryanTheDM,730x730,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.growmon.ref02,sp.growmon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.growmon.ref03,sp.growmon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.growmon.ref04,sp.growmon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.growmon.ref05,sp.growmon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.dorumon.ref01,sp.dorumon,REF-01,present,https://wikimon.net/images/1/17/Dorumon.jpg,https://wikimon.net/File:Dorumon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,990x990,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.dorumon.ref02,sp.dorumon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.dorumon.ref03,sp.dorumon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.dorumon.ref04,sp.dorumon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.dorumon.ref05,sp.dorumon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.dorugamon.ref01,sp.dorugamon,REF-01,present,https://wikimon.net/images/e/e3/Dorugamon.jpg,https://wikimon.net/File:Dorugamon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,970x970,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.dorugamon.ref02,sp.dorugamon,REF-02,missing,,,,,,,,,,2026-11-14
+vr.dorugamon.ref03,sp.dorugamon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.dorugamon.ref04,sp.dorugamon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.dorugamon.ref05,sp.dorugamon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.gomamon.ref01,sp.gomamon,REF-01,present,https://wikimon.net/images/9/9b/Gomamon.jpg,https://wikimon.net/File:Gomamon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,405x405,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.gomamon.ref02,sp.gomamon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.gomamon.ref03,sp.gomamon,REF-03,present,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483615/,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483615/,The Spriters Resource (Wayback),Bandai / Tom Create (WonderSwan),,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483615_gomamon.png,2026-11-14
+vr.gomamon.ref04,sp.gomamon,REF-04,present,https://github.com/dannyphang/digimon-up-sprites,https://github.com/dannyphang/digimon-up-sprites,"GitHub (repositório comunitário, sem licença)","Bandai Namco (Digimon Up), extraído por fã",,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.gomamon.ref05,sp.gomamon,REF-05,present,,,Ficha de anatomia do Digital Odyssey,game-research / Etapa 6,,documento_interno,local_file,reused_unverified,etapa6-lab/fase11-fichas-anatomia/FICHA_GOMAMON.md,2026-11-14
+vr.ikkakumon.ref01,sp.ikkakumon,REF-01,present,https://wikimon.net/images/0/01/Ikkakumon.jpg,https://wikimon.net/File:Ikkakumon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por BryanTheDM,3200x3200,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.ikkakumon.ref02,sp.ikkakumon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_07,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.ikkakumon.ref03,sp.ikkakumon,REF-03,present,https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64816/,https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64816/,The Spriters Resource,"Bandai (Digimon Medley, WSC)",folha 440x345,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.ikkakumon.ref04,sp.ikkakumon,REF-04,present,https://github.com/dannyphang/digimon-up-sprites,https://github.com/dannyphang/digimon-up-sprites,"GitHub (repositório comunitário, sem licença)","Bandai Namco (Digimon Up), extraído por fã",,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.ikkakumon.ref05,sp.ikkakumon,REF-05,present,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483659/,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483659/,The Spriters Resource (Wayback),Bandai / Tom Create (WonderSwan),,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483659_ikkakumon_zudomon.png,2026-11-14
+vr.pukamon.ref01,sp.pukamon,REF-01,present,https://wikimon.net/images/7/73/Pukamon.jpg,https://wikimon.net/File:Pukamon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Yuetmoon,320x320,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.pukamon.ref02,sp.pukamon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_01,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.pukamon.ref03,sp.pukamon,REF-03,present,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483653/,https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483653/,The Spriters Resource (Wayback),Bandai / Tom Create (WonderSwan),folha 352x344,oficial_uso_interno,local_file,reused_unverified,etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483653_bukamon.png,2026-11-14
+vr.pukamon.ref04,sp.pukamon,REF-04,present,https://github.com/dannyphang/digimon-up-sprites,https://github.com/dannyphang/digimon-up-sprites,"GitHub (repositório comunitário, sem licença)","Bandai Namco (Digimon Up), extraído por fã",,oficial_uso_interno_so_link,link_only,reused_unverified,,2026-11-14
+vr.pukamon.ref05,sp.pukamon,REF-05,missing,,,,,,,,,,2026-11-14
+vr.shellmon.ref01,sp.shellmon,REF-01,present,https://wikimon.net/images/b/b1/Shellmon.jpg,https://wikimon.net/File:Shellmon.jpg,Wikimon (arte oficial hospedada na wiki),Bandai (arte oficial); enviado à wiki por Keebo,524x524,oficial_protegida_so_link,available,verified_metadata,,2026-11-14
+vr.shellmon.ref02,sp.shellmon,REF-02,present,,https://wikimon.net/Digimon_Adventure_-_Episode_02,Wikimon (página do episódio),Toei Animation (anime),,oficial_protegida_so_link,page_available,unverified,,2026-11-14
+vr.shellmon.ref03,sp.shellmon,REF-03,missing,,,,,,,,,,2026-11-14
+vr.shellmon.ref04,sp.shellmon,REF-04,missing,,,,,,,,,,2026-11-14
+vr.shellmon.ref05,sp.shellmon,REF-05,missing,,,,,,,,,,2026-11-14

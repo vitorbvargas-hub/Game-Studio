@@ -1,0 +1,1557 @@
+{
+ "_meta": {
+  "generated": "2026-11-14",
+  "note": "Fontes da Etapa 4 (mesmos ids) + fontes novas do GD-066."
+ },
+ "sources": [
+  {
+   "id": "src.refbook_en",
+   "name": "Digimon Reference Book (Digimon Encyclopedia, EN) — digimon.net",
+   "category": 1,
+   "url": "https://digimon.net/reference_en/",
+   "accessed_at": "2026-11-12",
+   "access": "web_fetch direto, página de detalhe por espécie",
+   "reliability": "alta",
+   "note": "Fonte oficial primária (Bandai). 81 páginas de detalhe lidas nesta sessão. O índice depende de JavaScript e não é listável."
+  },
+  {
+   "id": "src.refbook_ja",
+   "name": "デジモン図鑑 (Digimon Reference Book, JP) — digimon.net",
+   "category": 1,
+   "url": "https://digimon.net/reference/",
+   "accessed_at": "2026-11-12",
+   "access": "web_fetch direto (testado só com Agumon)",
+   "reliability": "alta",
+   "note": "Versão japonesa. Só 1 página lida nesta sessão; nomes em japonês das demais espécies vêm do Wikimon."
+  },
+  {
+   "id": "src.wikimon",
+   "name": "Wikimon",
+   "category": 3,
+   "url": "https://wikimon.net/",
+   "accessed_at": "2026-11-12",
+   "access": "API MediaWiki pública (api.php), requisições em lote, crawl-delay de 60 s do robots.txt (1 violação registrada em 03_REGISTRO_DE_FONTES.md)",
+   "reliability": "alta para wiki comunitária; cita fonte primária por item",
+   "note": "Fonte comunitária. Quando o infobox cita o Reference Book (ref=DRB), isso fica anotado na afirmação."
+  },
+  {
+   "id": "src.strategywiki_dawn_dusk",
+   "name": "StrategyWiki — Digimon World: Dawn and Dusk",
+   "category": 3,
+   "url": "https://strategywiki.org/wiki/Digimon_World:_Dawn_and_Dusk/Digivolution",
+   "accessed_at": "2026-11-09",
+   "access": "fase anterior (knowledge/), via proxy de leitura r.jina.ai por causa de bloqueio Cloudflare",
+   "reliability": "alta (segundo knowledge/SOURCE_REGISTRY.md)",
+   "note": "Reaproveitado de knowledge/evolution_requirements.json. NÃO reverificado nesta sessão. O método de acesso da fase anterior (proxy) não foi repetido: a Etapa 4 proíbe contornar bloqueios."
+  },
+  {
+   "id": "src.tamerdex_cs",
+   "name": "Tamerdex — Digimon Story: Cyber Sleuth",
+   "category": 3,
+   "url": "https://tamerdex.com/digimon-story-cyber-sleuth/",
+   "accessed_at": "2026-11-09",
+   "access": "fase anterior (knowledge/), acesso direto",
+   "reliability": "alta para números (segundo knowledge/SOURCE_REGISTRY.md)",
+   "note": "Reaproveitado. NÃO reverificado nesta sessão."
+  },
+  {
+   "id": "src.fandom_digimon",
+   "name": "Digimon Wiki (Fandom)",
+   "category": 3,
+   "url": "https://digimon.fandom.com/",
+   "accessed_at": "2026-11-09",
+   "access": "fase anterior (knowledge/), API MediaWiki por causa de bloqueio Cloudflare na página normal",
+   "reliability": "alta (segundo knowledge/SOURCE_REGISTRY.md)",
+   "note": "Reaproveitado (Next Order). NÃO reverificado nesta sessão."
+  },
+  {
+   "id": "src.fandom_dw",
+   "name": "Digimon World Wiki (Fandom)",
+   "category": 3,
+   "url": "https://digimonworld.fandom.com/",
+   "accessed_at": "2026-11-09",
+   "access": "fase anterior (knowledge/)",
+   "reliability": "média-baixa (muitos stubs)",
+   "note": "Reaproveitado (DW1). NÃO reverificado nesta sessão."
+  },
+  {
+   "id": "src.dmokb",
+   "name": "DMO Knowledge Base",
+   "category": 3,
+   "url": "https://dmokb.info/",
+   "accessed_at": "2026-11-09",
+   "access": "fase anterior (knowledge/)",
+   "reliability": "alta para texto estático; nula para árvore de evolução",
+   "note": "Reaproveitado. NÃO reverificado nesta sessão."
+  },
+  {
+   "id": "src.yt_tamers_video",
+   "name": "Vídeo de fã sobre Digimon Tamers (YouTube yxzcbmw9QBw)",
+   "category": 4,
+   "url": "https://www.youtube.com/watch?v=yxzcbmw9QBw",
+   "accessed_at": "2026-11-12",
+   "access": "transcrição automática lida na Etapa 3b (research/etapa3-imersao/sources/)",
+   "reliability": "baixa (legenda automática, nomes ruidosos)",
+   "note": "Usado só para o caso Biomerge × Matrix Evolution."
+  },
+  {
+   "id": "src.gs003_etapa3",
+   "name": "GS-003 — pesquisa da Etapa 3 (research/etapa3-imersao/)",
+   "category": 3,
+   "url": "projects/prototypes/GS-003/research/etapa3-imersao/01_UNIVERSO.md",
+   "accessed_at": "2026-11-12",
+   "access": "documento interno; cita Wikimon",
+   "reliability": "média (resumo interno de fonte comunitária)",
+   "note": "Afirmações gerais de evolução reaproveitadas sem reler a página original."
+  },
+  {
+   "id": "src.inference",
+   "name": "Inferência desta sessão (game-research, Etapa 4)",
+   "category": 5,
+   "url": "projects/prototypes/GS-003/database/02_ARQUITETURA.md",
+   "accessed_at": "2026-11-12",
+   "access": "raciocínio sobre as fontes acima",
+   "reliability": "baixa a média",
+   "note": "Sempre marcada como não verificada."
+  },
+  {
+   "id": "src.gs003_design",
+   "name": "GS-003 — propostas de game design e decisões do fundador",
+   "category": 6,
+   "url": "projects/prototypes/GS-003/knowledge/EVOLUTION_PROPOSAL.md",
+   "accessed_at": "2026-11-12",
+   "access": "documentos internos (EVOLUTION_PROPOSAL.md, 03_EVOLUCAO.md, ADR-013)",
+   "reliability": "n/a (não é fato da franquia)",
+   "note": "Nunca aparece como fonte de dado oficial."
+  },
+  {
+   "id": "src.gs003_game_data",
+   "name": "GS-003 — dados do protótipo (prototype/world/src/data/)",
+   "category": 6,
+   "url": "projects/prototypes/GS-003/prototype/world/src/data/world-species.json",
+   "accessed_at": "2026-11-12",
+   "access": "leitura local, sem alteração",
+   "reliability": "n/a (valores [H] de design)",
+   "note": "Usado só no mapeamento e nas contradições."
+  },
+  {
+   "id": "src.wikimon_list_of_digimon",
+   "name": "Wikimon — List of Digimon",
+   "category": 3,
+   "url": "https://wikimon.net/List_of_Digimon",
+   "accessed_at": "2026-11-14",
+   "access": "API MediaWiki (action=parse, wikitext), 1 requisição",
+   "robots": "Crawl-delay: 60; /Special: e /index.php? proibidos; api.php permitido"
+  },
+  {
+   "id": "src.wikimon_visual_list",
+   "name": "Wikimon — Visual List of Digimon",
+   "category": 3,
+   "url": "https://wikimon.net/Visual_List_of_Digimon",
+   "accessed_at": "2026-11-14",
+   "access": "API MediaWiki, 1 requisição"
+  },
+  {
+   "id": "src.wikimon_dub_names",
+   "name": "Wikimon — List of English Dub Names",
+   "category": 3,
+   "url": "https://wikimon.net/List_of_English_Dub_Names",
+   "accessed_at": "2026-11-14",
+   "access": "API MediaWiki, 2 requisições (redirect + página)"
+  },
+  {
+   "id": "src.wikimon_episode_pages",
+   "name": "Wikimon — páginas de episódio de Digimon Adventure (1999)",
+   "category": 3,
+   "url": "https://wikimon.net/Digimon_Adventure_-_Episode_01",
+   "accessed_at": "2026-11-14",
+   "access": "API MediaWiki (prop=revisions, várias páginas por requisição), 3 requisições para 54 episódios"
+  },
+  {
+   "id": "src.wikimon_file_island",
+   "name": "Wikimon — File Island",
+   "category": 3,
+   "url": "https://wikimon.net/File_Island",
+   "accessed_at": "2026-11-14",
+   "access": "mesma requisição do Shellmon"
+  },
+  {
+   "id": "src.wikimon_imageinfo",
+   "name": "Wikimon — metadados de imagem (imageinfo) do P0",
+   "category": 3,
+   "url": "https://wikimon.net/api.php?action=query&prop=imageinfo",
+   "accessed_at": "2026-11-14",
+   "access": "API MediaWiki, 1 requisição para 19 arquivos"
+  },
+  {
+   "id": "src.etapa6_comando9_catalogo",
+   "name": "Catálogo de referências de sprites (Comando 9, F1)",
+   "category": 6,
+   "url": null,
+   "local_path": "projects/prototypes/GS-003/etapa6-lab/fase12-comando9/f1/CATALOGO_REFERENCIAS.md",
+   "accessed_at": "2026-11-14",
+   "access": "documento interno, não versionado na master"
+  },
+  {
+   "id": "src.etapa6_fichas_anatomia",
+   "name": "Fichas de anatomia (Etapa 6, fase 11)",
+   "category": 6,
+   "url": null,
+   "local_path": "projects/prototypes/GS-003/etapa6-lab/fase11-fichas-anatomia/",
+   "accessed_at": "2026-11-14",
+   "access": "documento interno, não versionado na master"
+  }
+ ],
+ "contexts": [
+  {
+   "id": "ctx.anime_digimon_adventure",
+   "name": "Digimon Adventure",
+   "media_type": "anime",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.anime_digimon_adventure_02",
+   "name": "Digimon Adventure 02",
+   "media_type": "anime",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.anime_digimon_adventure_2020",
+   "name": "Digimon Adventure: (2020)",
+   "media_type": "anime",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.anime_digimon_beatbreak",
+   "name": "Digimon Beatbreak",
+   "media_type": "anime",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.anime_digimon_frontier",
+   "name": "Digimon Frontier",
+   "media_type": "anime",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.anime_digimon_ghost_game",
+   "name": "Digimon Ghost Game",
+   "media_type": "anime",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.anime_digimon_savers",
+   "name": "Digimon Savers",
+   "media_type": "anime",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.anime_digimon_tamers",
+   "name": "Digimon Tamers",
+   "media_type": "anime",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.battle_15",
+   "name": "Battle 15",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.battle_18",
+   "name": "Battle 18",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.bo_2j",
+   "name": "Bo-2j",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.bo_582",
+   "name": "Bo-582",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.bo_84",
+   "name": "Bo-84",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.bo_9l",
+   "name": "Bo-9L",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.bo_9v",
+   "name": "Bo-9v",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.card_games",
+   "name": "Jogos de cartas Digimon (várias linhas)",
+   "media_type": "card_game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_022",
+   "name": "Dα-022",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_024",
+   "name": "Dα-024",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_037",
+   "name": "Dα-037",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_075",
+   "name": "Dα-075",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_076",
+   "name": "Dα-076",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_079",
+   "name": "Dα-079",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_092",
+   "name": "Dα-092",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_102",
+   "name": "Dα-102",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_123",
+   "name": "Dα-123",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_127",
+   "name": "Dα-127",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_150",
+   "name": "Dα-150",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_152",
+   "name": "Dα-152",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_153",
+   "name": "Dα-153",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_170",
+   "name": "Dα-170",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_197",
+   "name": "Dα-197",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_200",
+   "name": "Dα-200",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_203",
+   "name": "Dα-203",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_213",
+   "name": "Dα-213",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_218",
+   "name": "Dα-218",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_219",
+   "name": "Dα-219",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_220",
+   "name": "Dα-220",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_232",
+   "name": "Dα-232",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_236",
+   "name": "Dα-236",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_245",
+   "name": "Dα-245",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_249",
+   "name": "Dα-249",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_251",
+   "name": "Dα-251",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_301",
+   "name": "Dα-301",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_3_25th_color_evolution",
+   "name": "D-3 -25th COLOR EVOLUTION-",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_3_ver_15th",
+   "name": "D-3 Ver.15th",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_3_version_3",
+   "name": "D-3 Version 3",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_422",
+   "name": "Dα-422",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_512",
+   "name": "Dα-512",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_519",
+   "name": "Dα-519",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_ark_25th_color_evolution",
+   "name": "D-Ark -25th Color Evolution-",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_ark_toy",
+   "name": "D-Ark Toy",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_cyber_chapter_01",
+   "name": "D-Cyber - Chapter 01",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.d_cyber_version_1_0",
+   "name": "D-Cyber Version 1.0",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.da_1",
+   "name": "Da-1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.da_1win",
+   "name": "Da-1win",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dar_1",
+   "name": "Dar-1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_accel_evil_genome",
+   "name": "Digimon Accel Evil Genome",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_accel_justice_genome",
+   "name": "Digimon Accel Justice Genome",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_accel_nature_genome",
+   "name": "Digimon Accel Nature Genome",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_accel_ultimate_genome",
+   "name": "Digimon Accel Ultimate Genome",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_02_d1_tamers",
+   "name": "Digimon Adventure 02: D1 Tamers",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_02_diablomon_strikes_back",
+   "name": "Digimon Adventure 02: Diablomon Strikes Back",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_02_digimon_hurricane_touchdown_supreme_evo",
+   "name": "Digimon Adventure 02: Digimon Hurricane Touchdown!! Supreme Evolution!! The Golden Digimentals",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_02_tag_tamers",
+   "name": "Digimon Adventure 02: Tag Tamers",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_02_vol_1_digimon_hurricane_landing_vol_2_t",
+   "name": "Digimon Adventure 02: Vol. 1: Digimon Hurricane Landing!!/Vol. 2: Transcendent Evolution!! The Golden Digimentals",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_anode_tamer",
+   "name": "Digimon Adventure: Anode Tamer",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_cathode_tamer",
+   "name": "Digimon Adventure: Cathode Tamer",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_character_song_mini_drama_1",
+   "name": "Digimon Adventure Character Song + Mini Drama 1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_episode_38",
+   "name": "Digimon Adventure - Episode 38",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_game",
+   "name": "Digimon Adventure (Game)",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_last_evolution_kizuna",
+   "name": "Digimon Adventure: Last Evolution Kizuna",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_movie",
+   "name": "Digimon Adventure (Movie)",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_our_war_game",
+   "name": "Digimon Adventure: Our War Game",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_tri_chapter_1",
+   "name": "Digimon Adventure tri. - Chapter 1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_adventure_tri_chapter_4",
+   "name": "Digimon Adventure tri. - Chapter 4",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_all_star_rumble",
+   "name": "Digimon All-Star Rumble",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_battle",
+   "name": "Digimon Battle",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_battle_chronicle",
+   "name": "Digimon Battle Chronicle",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_championship",
+   "name": "Digimon Championship",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_collectors",
+   "name": "Digimon Collectors",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_crusader",
+   "name": "Digimon Crusader",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_fusion_loader_toy",
+   "name": "Digimon Fusion Loader Toy",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_linkz",
+   "name": "Digimon Linkz",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_masters",
+   "name": "Digimon Masters",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_mini_greymon_blue",
+   "name": "Digimon Mini Greymon Blue",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_mini_ver_1_0",
+   "name": "Digimon Mini Ver. 1.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_mini_ver_2_0",
+   "name": "Digimon Mini Ver. 2.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_mini_ver_3_0",
+   "name": "Digimon Mini Ver. 3.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_neo_ver_1",
+   "name": "Digimon Neo Ver. 1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_new_century",
+   "name": "Digimon New Century",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_pendulum_color_godzilla_edition",
+   "name": "Digimon Pendulum COLOR Godzilla Edition",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_pendulum_cycle",
+   "name": "Digimon Pendulum Cycle",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_pendulum_ver_20th",
+   "name": "Digimon Pendulum Ver.20th",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_project_2021_episode_4",
+   "name": "Digimon Project 2021 - Episode 4",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_racing",
+   "name": "Digimon Racing",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_rearise",
+   "name": "Digimon ReArise",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_recollection",
+   "name": "Digimon ReCollection",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_rpg",
+   "name": "Digimon RPG",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_savers_another_mission",
+   "name": "Digimon Savers: Another Mission",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_seekers",
+   "name": "Digimon Seekers",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_soul_chaser",
+   "name": "Digimon Soul Chaser",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_source_code",
+   "name": "Digimon: Source Code",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story",
+   "name": "Digimon Story",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_cyber_sleuth",
+   "name": "Digimon Story: Cyber Sleuth",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+   "name": "Digimon Story: Cyber Sleuth Hacker's Memory",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_cyber_sleuth_hacker_s_memory_manga",
+   "name": "Digimon Story: Cyber Sleuth Hacker's Memory (Manga)",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_cyber_sleuth_manga",
+   "name": "Digimon Story: Cyber Sleuth (Manga)",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_lost_evolution",
+   "name": "Digimon Story: Lost Evolution",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_sunburst_digimon_story_moonlight",
+   "name": "Digimon Story: Sunburst & Digimon Story: Moonlight",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_super_xros_wars",
+   "name": "Digimon Story: Super Xros Wars",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_story_time_stranger",
+   "name": "Digimon Story: Time Stranger",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_super_rumble",
+   "name": "Digimon Super Rumble",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_survive",
+   "name": "Digimon Survive",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_tamers_battle_evolution",
+   "name": "Digimon Tamers: Battle Evolution",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_tamers_battle_spirit",
+   "name": "Digimon Tamers: Battle Spirit",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_tamers_battle_spirit_1_5",
+   "name": "Digimon Tamers: Battle Spirit 1.5",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_tamers_brave_tamer",
+   "name": "Digimon Tamers: Brave Tamer",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_twin_l",
+   "name": "Digimon Twin L",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_twin_r",
+   "name": "Digimon Twin R",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_up",
+   "name": "Digimon UP",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world",
+   "name": "Digimon World",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_2",
+   "name": "Digimon World 2",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_3",
+   "name": "Digimon World 3",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_digital_card_arena",
+   "name": "Digimon World Digital Card Arena",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_next_0rder",
+   "name": "Digimon World -next 0rder-",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_next_0rder_international_edition",
+   "name": "Digimon World -next 0rder- International Edition",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_re_digitize",
+   "name": "Digimon World Re:Digitize",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_world_re_digitize_decode",
+   "name": "Digimon World Re:Digitize Decode",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digimon_xros_loader_toy",
+   "name": "Digimon Xros Loader Toy",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_collaboration_product",
+   "name": "Digital Monster COLOR#Collaboration Product",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_godzilla_70th_edition",
+   "name": "Digital Monster COLOR Godzilla 70th Edition",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_ver_1",
+   "name": "Digital Monster COLOR Ver.1",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_ver_2",
+   "name": "Digital Monster COLOR Ver.2",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_ver_3",
+   "name": "Digital Monster COLOR Ver.3",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_color_ver_4",
+   "name": "Digital Monster COLOR Ver.4",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_d_project",
+   "name": "Digital Monster: D-Project",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_1",
+   "name": "Digital Monster Ver. 1",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_2",
+   "name": "Digital Monster Ver. 2",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_20th",
+   "name": "Digital Monster Ver.20th",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_20th_s_official_bandai_website",
+   "name": "Digital Monster ver.20th's Official Bandai Website",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_3",
+   "name": "Digital Monster Ver. 3",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_4",
+   "name": "Digital Monster Ver. 4",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_6",
+   "name": "Digital Monster Ver. 6",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_s",
+   "name": "Digital Monster Ver. S",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_ver_wonderswan",
+   "name": "Digital Monster Ver. WonderSwan",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_x_evolution",
+   "name": "Digital Monster X-evolution",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digital_monster_x_ver_3",
+   "name": "Digital Monster X Ver.3",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_25th_color_evolution",
+   "name": "Digivice -25th Color Evolution-",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_burst_toy",
+   "name": "Digivice Burst Toy",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_ic_10x",
+   "name": "Digivice iC 10X",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_ic_20x",
+   "name": "Digivice iC 20X",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_toy",
+   "name": "Digivice: Toy",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_ver_15th",
+   "name": "Digivice Ver.15th",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_ver_complete",
+   "name": "Digivice Ver.Complete",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_ver_revival",
+   "name": "Digivice Ver.Revival",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_version_1",
+   "name": "Digivice Version 1",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivice_version_2",
+   "name": "Digivice Version 2",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivolving_series",
+   "name": "Digivolving Series",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.digivolving_spirits_series",
+   "name": "Digivolving Spirits Series",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm02_022",
+   "name": "DM02-022",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm02_118",
+   "name": "DM02-118",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_022",
+   "name": "DM-022",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_085",
+   "name": "DM-085",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_131",
+   "name": "DM-131",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_144",
+   "name": "DM-144",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_152",
+   "name": "DM-152",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_181",
+   "name": "DM-181",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dm_207",
+   "name": "DM-207",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.dr_1",
+   "name": "DR-1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.franchise_general",
+   "name": "Franquia em geral (afirmação não atribuída a uma obra específica pela fonte)",
+   "media_type": "general",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.gs003",
+   "name": "GS-003 (proposta ou dado do nosso jogo)",
+   "media_type": "gs003",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.hk_1",
+   "name": "HK-1",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.m01",
+   "name": "M01",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.next_chapter_digivice_v",
+   "name": "Next Chapter: DIGIVICE-V-",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.nyalra_kaeru_dx_sloppy_otaku_talk_dx",
+   "name": "Nyalra × Kaeru DX Sloppy Otaku Talk DX",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_1_0",
+   "name": "Pendulum 1.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_1_0_nature_spirits",
+   "name": "Pendulum 1.0 Nature Spirits",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_1_0_pendulum_1_5_nature_spirits",
+   "name": "Pendulum 1.0 & Pendulum 1.5 Nature Spirits",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_1_5_nature_spirits",
+   "name": "Pendulum 1.5 Nature Spirits",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_2_0",
+   "name": "Pendulum 2.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_2_0_deep_savers",
+   "name": "Pendulum 2.0 Deep Savers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_2_0_pendulum_2_5_deep_savers",
+   "name": "Pendulum 2.0 & Pendulum 2.5 Deep Savers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_2_5_deep_savers",
+   "name": "Pendulum 2.5 Deep Savers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_3_0_nightmare_soldiers",
+   "name": "Pendulum 3.0 Nightmare Soldiers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_3_5_nightmare_soldiers",
+   "name": "Pendulum 3.5 Nightmare Soldiers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_4_0_wind_guardians",
+   "name": "Pendulum 4.0 Wind Guardians",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_4_5_wind_guardians",
+   "name": "Pendulum 4.5 Wind Guardians",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_5_0_metal_empire",
+   "name": "Pendulum 5.0 Metal Empire",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_5_5_metal_empire",
+   "name": "Pendulum 5.5 Metal Empire",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_1_nature_spirits",
+   "name": "Pendulum COLOR 1 Nature Spirits",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_2_deep_savers",
+   "name": "Pendulum COLOR 2 Deep Savers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_3_nightmare_soldiers",
+   "name": "Pendulum COLOR 3 Nightmare Soldiers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_4_wind_guardians",
+   "name": "Pendulum COLOR 4 Wind Guardians",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_5_metal_empire",
+   "name": "Pendulum COLOR 5 Metal Empire",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_color_zero_virus_busters",
+   "name": "Pendulum COLOR ZERO Virus Busters",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_progress_1_0",
+   "name": "Pendulum Progress 1.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_progress_2_0",
+   "name": "Pendulum Progress 2.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_progress_3_0",
+   "name": "Pendulum Progress 3.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_x_1_0",
+   "name": "Pendulum X 1.0",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_x_1_5",
+   "name": "Pendulum X 1.5",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_deep_savers",
+   "name": "Pendulum Z Deep Savers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_metal_empire",
+   "name": "Pendulum Z Metal Empire",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_nature_spirits",
+   "name": "Pendulum Z Nature Spirits",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_nightmare_soldiers",
+   "name": "Pendulum Z Nightmare Soldiers",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_virus_busters",
+   "name": "Pendulum Z Virus Busters",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_z_wind_guardians",
+   "name": "Pendulum Z Wind Guardians",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pendulum_zero_virus_busters",
+   "name": "Pendulum ZERO Virus Busters",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pocket_digimon_world",
+   "name": "Pocket Digimon World",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pocket_digimon_world_cool_nature_battle_disc",
+   "name": "Pocket Digimon World: Cool & Nature Battle Disc",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.pocket_digimon_world_wind_battle_disc",
+   "name": "Pocket Digimon World: Wind Battle Disc",
+   "media_type": "game",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.ref_name_dwdcb",
+   "name": "<ref name=DWDCB/>",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.reference_book",
+   "name": "Digimon Reference Book (perfil oficial, não ligado a uma obra)",
+   "media_type": "official_reference",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.rfe_ds_43_strong_justice_the_beast_knight_duftmon_b",
+   "name": "{{rfe|DS|43|''Strong Justice! The Beast Knight Duftmon''|b}}",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_10",
+   "name": "St-10",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_12",
+   "name": "St-12",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_128",
+   "name": "St-128",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_14",
+   "name": "St-14",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_236",
+   "name": "St-236",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.st_237",
+   "name": "St-237",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.super_evolution_stage_digimon_adventure_tri_adventure_of_aug",
+   "name": "Super Evolution Stage \"Digimon Adventure tri. ~Adventure of August 1~\"",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.unresolved",
+   "name": "Referência nomeada do Wikimon não resolvida no extrato",
+   "media_type": "unresolved",
+   "media_type_basis": "definição da Database"
+  },
+  {
+   "id": "ctx.v_18",
+   "name": "V-18",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.v_30",
+   "name": "V-30",
+   "media_type": "unclassified",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.vital_bracelet_be",
+   "name": "Vital Bracelet BE",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  },
+  {
+   "id": "ctx.vital_bracelet_digital_monster",
+   "name": "Vital Bracelet Digital Monster",
+   "media_type": "virtual_pet",
+   "media_type_basis": "classificação automática por palavra-chave (inferência, não verificada)"
+  }
+ ]
+}

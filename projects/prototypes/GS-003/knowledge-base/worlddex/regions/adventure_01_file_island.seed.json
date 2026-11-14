@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "author": "game-research",
+    "date": "2026-11-14",
+    "layer": "canonical",
+    "source_ids": ["src.wikimon_file_island", "src.wikimon_episode_pages"],
+    "note": "Regiões CANÔNICAS de Digimon Adventure (1999). Lista de áreas lida na página 'File Island' da Wikimon (seção Anime > Digimon Adventure) em 2026-11-14. Campos que nenhuma fonte deste lote descreve ficam nulos com status 'pending'. Os episódios ligados vêm dos links do resumo de cada episódio (gerado por build_kb.py) e de âncoras conferidas manualmente."
+  },
+  "regions": [
+    {"id": "wd.file_island", "name": "File Island", "name_ja": "ファイル島", "parent_id": null, "media": ["anime.digimon_adventure_1999"], "wikimon_title": "File Island",
+     "narrative_location": "Primeira ilha do Mundo Digital aonde as crianças escolhidas chegam; dividida em áreas de paisagens muito diferentes. Controlada por Devimon, que a parte em pedaços (ep. 8) antes de ela se juntar de novo.",
+     "biome": "misto (selva, floresta, savana, área gelada, montanha, praia)", "status": "verified_secondary"},
+    {"id": "wd.file_island_phone_booth_beach", "name": "Praia das cabines telefônicas (sem nome oficial)", "name_ja": null, "parent_id": "wd.file_island", "media": ["anime.digimon_adventure_1999"], "wikimon_title": null,
+     "narrative_location": "Praia aonde o grupo chega seguindo o som de um telefone; há cabines telefônicas fincadas na areia. Shellmon sai de baixo da areia e ataca (ep. 2); é citada de novo nos eps. 3 e 4.",
+     "biome": "praia / litoral", "water": "mar aberto junto à areia", "environmental_objects": ["cabines telefônicas na areia"],
+     "digimon_found": ["sp.shellmon"], "important_events": ["primeira evolução de Agumon para Greymon (ep. 2)"],
+     "nostalgic_elements": ["cabines telefônicas tocando na praia"], "anchor_episodes": [2, 3, 4], "status": "verified_secondary",
+     "naming_note": "A Wikimon não dá nome próprio a esta praia; a página File Island não a lista como área."},
+    {"id": "wd.tropical_jungle", "name": "Tropical Jungle", "parent_id": "wd.file_island", "wikimon_title": "Tropical Jungle", "status": "pending"},
+    {"id": "wd.ancient_dino_region", "name": "Ancient Dino Region", "parent_id": "wd.tropical_jungle", "wikimon_title": "Ancient Dino Region", "status": "pending"},
+    {"id": "wd.unwavering_forest", "name": "Unwavering Forest", "parent_id": "wd.file_island", "wikimon_title": "Unwavering Forest", "status": "pending"},
+    {"id": "wd.village_of_beginnings", "name": "Village of Beginnings (Primary Village na dublagem)", "name_ja": "はじまりの街", "parent_id": "wd.unwavering_forest", "wikimon_title": "Village of Beginnings",
+     "narrative_location": "Lugar onde os ovos (Digitama) eclodem e os bebês são cuidados por Elecmon.", "digimon_found": ["sp.botamon", "sp.koromon", "sp.poyomon", "sp.punimon", "sp.yuramon"],
+     "important_events": ["Patamon evolui para Angemon e derrota Devimon (ep. 13)"], "anchor_episodes": [12, 13], "status": "verified_secondary"},
+    {"id": "wd.dragon_eye_lake", "name": "Dragon Eye Lake", "parent_id": "wd.unwavering_forest", "wikimon_title": "Dragon Eye Lake", "status": "pending",
+     "note": "Provável lago do ep. 3 (Seadramon); a ligação não foi conferida neste lote."},
+    {"id": "wd.outlook_mountain", "name": "Outlook Mountain", "parent_id": "wd.unwavering_forest", "wikimon_title": "Outlook Mountain", "status": "pending"},
+    {"id": "wd.gear_savannah", "name": "Gear Savannah", "parent_id": "wd.file_island", "wikimon_title": "Gear Savannah",
+     "narrative_location": "Planície quente com postes telefônicos tortos espalhados (ep. 4).", "environmental_objects": ["postes telefônicos tortos com fios soltos"], "anchor_episodes": [4], "status": "verified_secondary",
+     "note": "A ligação 'planície dos postes' = Gear Savannah é inferência (categoria 5): o resumo do ep. 4 descreve a planície mas não a nomeia."},
+    {"id": "wd.pyocomon_village", "name": "Pyocomon Village", "parent_id": "wd.gear_savannah", "wikimon_title": "Pyocomon Village", "digimon_found": ["sp.pyocomon"], "anchor_episodes": [4], "status": "verified_secondary"},
+    {"id": "wd.factorial_town", "name": "Factorial Town", "parent_id": "wd.gear_savannah", "wikimon_title": "Factorial Town", "anchor_episodes": [5], "status": "pending"},
+    {"id": "wd.sewers", "name": "Sewers", "parent_id": "wd.factorial_town", "wikimon_title": "Sewers", "anchor_episodes": [6], "status": "pending"},
+    {"id": "wd.misty_trees", "name": "Misty Trees", "parent_id": "wd.file_island", "wikimon_title": "Misty Trees", "status": "pending"},
+    {"id": "wd.toy_town", "name": "Toy Town", "parent_id": "wd.misty_trees", "wikimon_title": "Toy Town", "anchor_episodes": [6], "digimon_found": ["sp.monzaemon", "sp.numemon"], "status": "verified_secondary"},
+    {"id": "wd.freezeland", "name": "Freezeland", "parent_id": "wd.file_island", "wikimon_title": "Freezeland", "status": "pending"},
+    {"id": "wd.great_canyon", "name": "Great Canyon", "parent_id": "wd.file_island", "wikimon_title": "Great Canyon", "status": "pending"},
+    {"id": "wd.overdell_cemetery", "name": "Overdell Cemetery", "parent_id": "wd.file_island", "wikimon_title": "Overdell Cemetery", "status": "pending"},
+    {"id": "wd.devimons_mansion", "name": "Devimon's Mansion", "parent_id": "wd.file_island", "wikimon_title": "Devimon's Mansion", "status": "pending"},
+    {"id": "wd.infinity_mountain", "name": "Infinity Mountain", "parent_id": "wd.file_island", "wikimon_title": "Infinity Mountain",
+     "narrative_location": "Montanha de onde saem as Engrenagens Negras; no topo o grupo encontra Devimon (eps. 7-8).", "anchor_episodes": [7, 8], "status": "verified_secondary"}
+  ]
+}

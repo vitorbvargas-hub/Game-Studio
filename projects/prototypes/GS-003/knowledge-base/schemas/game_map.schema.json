@@ -1,0 +1,38 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/game_map",
+ "title": "Mapa do Digital Odyssey com classificação canônico/inspirado/original",
+ "type": "object",
+ "required": [
+  "_meta",
+  "map",
+  "subareas"
+ ],
+ "properties": {
+  "subareas": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "classification",
+     "evidence_status"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^do\\.area\\."
+     },
+     "classification": {
+      "enum": [
+       "canonical",
+       "inspired",
+       "original"
+      ]
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,256 @@
+{
+ "_meta": {
+  "generated": "2026-11-14",
+  "note": "Conflitos e divergências encontrados. Nada foi resolvido em silêncio."
+ },
+ "conflicts": [
+  {
+   "kind": "link_target_differs",
+   "id": "sp.chibi_kamemon",
+   "names": [
+    "Chibi Kamemon",
+    "Kamemon"
+   ],
+   "reason": "na List of Digimon o nome exibido aponta para outra página da Wikimon",
+   "resolution": "id pelo nome exibido; page_title = alvo do link",
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "link_target_differs",
+   "id": "sp.dark_knightmon_blastmon",
+   "names": [
+    "Dark Knightmon (Blastmon)",
+    "Dark Knightmon + Blastmon"
+   ],
+   "reason": "na List of Digimon o nome exibido aponta para outra página da Wikimon",
+   "resolution": "id pelo nome exibido; page_title = alvo do link",
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "link_target_differs",
+   "id": "sp.dark_knightmon_duskmon",
+   "names": [
+    "Dark Knightmon (Duskmon)",
+    "Dark Knightmon + Duskmon"
+   ],
+   "reason": "na List of Digimon o nome exibido aponta para outra página da Wikimon",
+   "resolution": "id pelo nome exibido; page_title = alvo do link",
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "link_target_differs",
+   "id": "sp.dark_knightmon_gulfmon",
+   "names": [
+    "Dark Knightmon (Gulfmon)",
+    "Dark Knightmon + Gulfmon"
+   ],
+   "reason": "na List of Digimon o nome exibido aponta para outra página da Wikimon",
+   "resolution": "id pelo nome exibido; page_title = alvo do link",
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "link_target_differs",
+   "id": "sp.dark_knightmon_lilithmon",
+   "names": [
+    "Dark Knightmon (Lilithmon)",
+    "Dark Knightmon + Lilithmon"
+   ],
+   "reason": "na List of Digimon o nome exibido aponta para outra página da Wikimon",
+   "resolution": "id pelo nome exibido; page_title = alvo do link",
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.black_war_greymon_g_erosion_mode",
+   "names": [
+    "Black War Greymon: \"G\" Erosion Mode"
+   ],
+   "reason": "aparece só na Visual List, não na List of Digimon",
+   "source_ids": [
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "possible_duplicate",
+   "id": "sp.pickmons_slingshot",
+   "names": [
+    "Pickmons Slingshot",
+    "Digimon Slingshot"
+   ],
+   "resolution": "não fundido; só o nome da List of Digimon foi importado",
+   "reason": "nomes diferentes demais para fundir sem ler as páginas",
+   "source_ids": [
+    "src.wikimon_list_of_digimon",
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "name_spelling",
+   "id": "sp.dukemon_chaos_mode",
+   "names": [
+    "Dukemon: Chaos Mode",
+    "Gallantmon Chaos Mode"
+   ],
+   "resolution": "fundido",
+   "reason": "a Visual List usa o nome da dublagem (Gallantmon = Dukemon)",
+   "confidence": "alta",
+   "source_ids": [
+    "src.wikimon_list_of_digimon",
+    "src.wikimon_visual_list"
+   ],
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.greymon_g_erosion_mode",
+   "names": [
+    "Greymon: \"G\" Erosion Mode"
+   ],
+   "reason": "aparece só na Visual List, não na List of Digimon",
+   "source_ids": [
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "name_spelling",
+   "id": "sp.grottemon",
+   "names": [
+    "Grottemon",
+    "Grottomon"
+   ],
+   "resolution": "fundido",
+   "reason": "romanização diferente (Grottemon na lista, Grottomon na Visual List)",
+   "confidence": "media",
+   "source_ids": [
+    "src.wikimon_list_of_digimon",
+    "src.wikimon_visual_list"
+   ],
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "name_spelling",
+   "id": "sp.jiko_chuumon",
+   "names": [
+    "Jiko Chuumon",
+    "Jiko Tyumon"
+   ],
+   "resolution": "fundido",
+   "reason": "romanização diferente (Chuumon × Tyumon)",
+   "confidence": "alta",
+   "source_ids": [
+    "src.wikimon_list_of_digimon",
+    "src.wikimon_visual_list"
+   ],
+   "status": "resolved_with_note"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.metal_garurumon_g_erosion_mode",
+   "names": [
+    "Metal Garurumon: \"G\" Erosion Mode"
+   ],
+   "reason": "aparece só na Visual List, não na List of Digimon",
+   "source_ids": [
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.metal_greymon_virus_g_erosion_mode",
+   "names": [
+    "Metal Greymon (Virus): \"G\" Erosion Mode"
+   ],
+   "reason": "aparece só na Visual List, não na List of Digimon",
+   "source_ids": [
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.omegamon_g_fusion_mode",
+   "names": [
+    "Omegamon: \"G\" Fusion Mode"
+   ],
+   "reason": "aparece só na Visual List, não na List of Digimon",
+   "source_ids": [
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "possible_duplicate",
+   "id": "sp.shoutmon_x2_incomplete_x4",
+   "names": [
+    "Shoutmon X2 (Incomplete X4)",
+    "Shoutmon X2 (Incomplete X3)"
+   ],
+   "resolution": "não fundido; só o nome da List of Digimon foi importado",
+   "reason": "nomes diferentes demais para fundir sem ler as páginas",
+   "source_ids": [
+    "src.wikimon_list_of_digimon",
+    "src.wikimon_visual_list"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.pickmons_slingshot",
+   "names": [
+    "Pickmons Slingshot"
+   ],
+   "reason": "aparece só na List of Digimon, sem imagem na Visual List",
+   "source_ids": [
+    "src.wikimon_list_of_digimon"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.plutodumon",
+   "names": [
+    "Plutodumon"
+   ],
+   "reason": "aparece só na List of Digimon, sem imagem na Visual List",
+   "source_ids": [
+    "src.wikimon_list_of_digimon"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.shoutmon_x2_incomplete_x4",
+   "names": [
+    "Shoutmon X2 (Incomplete X4)"
+   ],
+   "reason": "aparece só na List of Digimon, sem imagem na Visual List",
+   "source_ids": [
+    "src.wikimon_list_of_digimon"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "index_coverage",
+   "id": "sp.shoutmon_rare_star_sword",
+   "names": [
+    "Shoutmon + Rare Star Sword"
+   ],
+   "reason": "aparece só na List of Digimon, sem imagem na Visual List",
+   "source_ids": [
+    "src.wikimon_list_of_digimon"
+   ],
+   "status": "open"
+  },
+  {
+   "kind": "count_mismatch",
+   "id": null,
+   "names": [],
+   "reason": "A List of Digimon declara 1,614 espécies (\"as of July 25th 2026\"); o parser leu 1623 blocos. A Visual List declara 1,606 (\"as of April 9, 2026\") e o parser leu 1626. Os contadores das páginas estão desatualizados em relação ao conteúdo.",
+   "status": "open"
+  }
+ ]
+}

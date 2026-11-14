@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "date": "2026-11-14",
+    "author": "game-research",
+    "method": "Checagem por amostragem com web_fetch (sem login, sem contornar bloqueio). As páginas da Wikimon foram confirmadas pela API MediaWiki, que devolve 'missing' quando a página não existe.",
+    "note": "Amostragem, não cobertura total. Os links da Etapa 4 (81 fichas do Reference Book) não foram todos reabertos."
+  },
+  "api_confirmed": [
+    {"what": "54 páginas de episódio de Digimon Adventure (1999)", "host": "wikimon.net", "result": "54 de 54 existem (prop=revisions devolveu conteúdo)"},
+    {"what": "19 arquivos de arte oficial do P0 (REF-01)", "host": "wikimon.net", "result": "19 de 19 existem; tamanho, MIME e URL lidos (prop=imageinfo); nome do arquivo bate com a espécie"},
+    {"what": "páginas Shellmon e File Island", "host": "wikimon.net", "result": "2 de 2 existem"}
+  ],
+  "sampled": [
+    {"url": "https://digimon.net/reference_en/detail.php?directory_name=shellmon", "status": 200, "check": "título 'Shellmon | Digimon Encyclopedia'; nível, tipo, atributo e golpe lidos", "result": "ok"},
+    {"url": "https://digimon.net/reference_en/detail.php?directory_name=agumon", "status": 200, "check": "título 'Agumon | Digimon Encyclopedia' (espécie certa)", "result": "ok"},
+    {"url": "https://digimon.net/reference_en/detail.php?directory_name=gomamon", "status": 200, "check": "título 'Gomamon | Digimon Encyclopedia' (espécie certa)", "result": "ok"},
+    {"url": "https://digimon.net/reference_en/", "status": 200, "check": "índice oficial", "result": "página depende de JavaScript; nenhuma lista de espécies no HTML. Índice oficial NÃO importado"},
+    {"url": "https://github.com/dannyphang/digimon-up-sprites", "status": 200, "check": "README confirma idle/walking/attack/faint por Digimon e diz que a arte é da Bandai Namco, uso de fã não comercial", "result": "ok (sem licença de reuso)"},
+    {"url": "https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40907/", "status": 403, "check": "Cloudflare 'Just a moment...'", "result": "bloqueado; não contornado. As referências do Spriters Resource continuam valendo pelas cópias do Wayback usadas no Comando 9"},
+    {"url": "https://digimon.fandom.com/robots.txt", "status": 403, "check": "Cloudflare 'Just a moment...'", "result": "bloqueado; Digimon Wiki (Fandom) não usada neste lote"}
+  ],
+  "totals": {"wikimon_pages_or_files_confirmed_via_api": 75, "urls_sampled_ok": 4, "urls_no_content_js": 1, "urls_blocked": 2, "urls_broken": 0}
+}

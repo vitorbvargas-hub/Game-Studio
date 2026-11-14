@@ -1,0 +1,70 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/episode",
+ "title": "Episódio (AnimeDex)",
+ "type": "object",
+ "required": [
+  "id",
+  "season_id",
+  "number",
+  "title_ja",
+  "synopsis_pt",
+  "synopsis_status",
+  "digimon_ids",
+  "location_ids",
+  "sources"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^ep\\.[a-z0-9]+\\.\\d{2}$"
+  },
+  "number": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "title_ja": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "synopsis_pt": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "maxLength": 500
+  },
+  "synopsis_status": {
+   "enum": [
+    "verified_primary",
+    "verified_secondary",
+    "reused_unverified",
+    "unverified",
+    "pending",
+    "inference",
+    "missing",
+    "verified_metadata"
+   ]
+  },
+  "digimon_ids": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "pattern": "^sp\\."
+   }
+  },
+  "location_ids": {
+   "type": "array",
+   "items": {
+    "type": "string",
+    "pattern": "^wd\\."
+   }
+  },
+  "sources": {
+   "type": "array",
+   "minItems": 1
+  }
+ }
+}

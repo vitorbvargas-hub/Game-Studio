@@ -1,0 +1,136 @@
+{
+ "id": "sp.growmon",
+ "name": "Growmon",
+ "names": {
+  "ja_kana": "グラウモン",
+  "dub_en": [
+   "Growlmon"
+  ],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "adult",
+  "en_official": "Champion",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "virus",
+  "en_official": "Virus",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Dark Dragon",
+ "family_groups": [],
+ "description_pt": "Dragão sombrio chamado de \"dragão carmesim profundo\"; mais feroz que Guilmon, pode ser leal conforme a criação do Tamer.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.plasma_blade",
+   "name_en_official": "Plasma Blade"
+  },
+  {
+   "id": "sk.exhaust_flame",
+   "name_en_official": "Exhaust Flame"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 2001,
+  "media": "Bo-407 (Booster 9)"
+ },
+ "anime_adventure_01_episodes": [],
+ "games_and_media_contexts": [
+  "ctx.anime_digimon_tamers",
+  "ctx.d_037",
+  "ctx.d_218",
+  "ctx.d_ark_25th_color_evolution",
+  "ctx.dar_1",
+  "ctx.digimon_battle_chronicle",
+  "ctx.digimon_crusader",
+  "ctx.digimon_linkz",
+  "ctx.digimon_masters",
+  "ctx.digimon_new_century",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_rearise",
+  "ctx.digimon_story_cyber_sleuth",
+  "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_super_xros_wars",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digimon_survive",
+  "ctx.digimon_twin_r",
+  "ctx.digimon_up",
+  "ctx.digimon_world_next_0rder",
+  "ctx.digimon_world_next_0rder_international_edition",
+  "ctx.digimon_world_re_digitize",
+  "ctx.digimon_world_re_digitize_decode",
+  "ctx.hk_1",
+  "ctx.pendulum_progress_1_0",
+  "ctx.pendulum_z_virus_busters",
+  "ctx.vital_bracelet_digital_monster"
+ ],
+ "evolves_from": [
+  "sp.agumon",
+  "sp.agumon_2006_anime_version",
+  "sp.gabumon",
+  "sp.goburimon",
+  "sp.gottsumon",
+  "sp.greymon",
+  "sp.guilmon",
+  "sp.hagurumon",
+  "sp.palmon"
+ ],
+ "evolves_to": [
+  "sp.doruguremon",
+  "sp.dukemon",
+  "sp.megalo_growmon",
+  "sp.metal_greymon",
+  "sp.rize_greymon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [
+  "Black Growmon",
+  "Growmon (Orange)"
+ ],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.growmon.ref01",
+  "vr.growmon.ref02",
+  "vr.growmon.ref03",
+  "vr.growmon.ref04",
+  "vr.growmon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Growmon",
+  "visual_list_image_file": "Growmon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=growmon"
+ },
+ "p0_groups": [
+  "primeiras_evolucoes_dos_starters"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}

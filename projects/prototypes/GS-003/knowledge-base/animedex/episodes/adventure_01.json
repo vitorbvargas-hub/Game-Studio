@@ -1,0 +1,5270 @@
+{
+ "_meta": {
+  "generated": "2026-11-14",
+  "generator": "scripts/build_kb.py",
+  "note": "Títulos literais e sinopses não são oficiais. Eventos, batalhas e objetos ficam pendentes neste lote."
+ },
+ "episodes": [
+  {
+   "id": "ep.da1999.01",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 1,
+   "title_ja": "漂流？冒険の島！",
+   "title_romaji": "Hyouryū? Bouken no Shima",
+   "title_literal_wiki": "Adrift? The Island of Adventure!",
+   "title_us_dub": "And so it Begins...",
+   "air_date_jp": "March 7, 1999",
+   "synopsis_pt": "Num acampamento de verão, sete crianças recebem Digivices e são levadas para File Island, no Mundo Digital, onde conhecem seus parceiros no estágio bebê. Kuwagamon as persegue, e os bebês evoluem para o estágio Criança para protegê-las.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.tokomon",
+    "sp.tunomon",
+    "sp.pukamon",
+    "sp.tanemon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.gabumon",
+    "sp.patamon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.kuwagamon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Koromon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.koromon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Tunomon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.tunomon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Tokomon",
+      "Patamon"
+     ],
+     "chain_ids": [
+      "sp.tokomon",
+      "sp.patamon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Tanemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.tanemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Pyocomon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.pyocomon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Pukamon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.pukamon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Mochimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.mochimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Koromon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Mochimon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Kuwagamon",
+     "level": "Adult",
+     "type": "Insect",
+     "attribute": "Virus",
+     "special_move_wiki": "Scissor Arms"
+    },
+    {
+     "name": "Pyocomon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Tokomon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Tunomon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Pukamon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Tanemon",
+     "level": "Baby1",
+     "type": "Lesser",
+     "attribute": "Data",
+     "special_move_wiki": "Awa"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_01",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.02",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 2,
+   "title_ja": "爆裂進化！ グレイモン",
+   "title_romaji": "Bakuretsu Shinka! Greymon",
+   "title_literal_wiki": "Explosive Evolution! Greymon",
+   "title_us_dub": "The Birth of Greymon",
+   "air_date_jp": "March 14, 1999",
+   "synopsis_pt": "Depois de cair num rio, o grupo segue até uma praia onde há cabines telefônicas fincadas na areia. Shellmon surge de baixo da areia e ataca; Agumon evolui pela primeira vez para Greymon e o afasta.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.piyomon",
+    "sp.gabumon",
+    "sp.patamon",
+    "sp.agumon",
+    "sp.kuwagamon",
+    "sp.shellmon",
+    "sp.greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Shellmon",
+     "level": "Adult",
+     "type": "Aquatic",
+     "attribute": "Data",
+     "special_move_wiki": "Hydro Pressure"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island_phone_booth_beach"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_02",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.03",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 3,
+   "title_ja": "蒼き狼! ガルルモン",
+   "title_romaji": "Aoki Ōkami! Garurumon",
+   "title_literal_wiki": "The Blue Wolf! Garurumon",
+   "title_us_dub": "Garurumon",
+   "air_date_jp": "March 21, 1999",
+   "synopsis_pt": "Após fugir de um Monochromon, o grupo acampa numa ilhota de um lago. Seadramon arrasta a ilhota pela água, e Gabumon evolui para Garurumon para salvar Yamato.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.shellmon",
+    "sp.greymon",
+    "sp.monochromon",
+    "sp.seadramon",
+    "sp.garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Monochromon",
+     "level": "Adult",
+     "type": "Ankylosaur",
+     "attribute": "Data",
+     "special_move_wiki": "Volcano Strike"
+    },
+    {
+     "name": "Seadramon",
+     "level": "Adult",
+     "type": "Aquatic",
+     "attribute": "Data",
+     "special_move_wiki": "Ice Arrow"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island_phone_booth_beach"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_03",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.04",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 4,
+   "title_ja": "灼熱! バードラモン",
+   "title_romaji": "Shakunetsu! Bādoramon",
+   "title_literal_wiki": "Red Hot! Birdramon",
+   "title_us_dub": "Biyomon Gets Firepower",
+   "air_date_jp": "March 28, 1999",
+   "synopsis_pt": "Numa planície quente cheia de postes telefônicos, o grupo chega à vila dos Pyocomon. Meramon, descontrolado por uma Engrenagem Negra, ataca, e Piyomon evolui para Birdramon.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.pyocomon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gabumon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.gomamon",
+    "sp.greymon",
+    "sp.shellmon",
+    "sp.garurumon",
+    "sp.meramon",
+    "sp.birdramon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Meramon",
+     "level": "Adult",
+     "type": "Flame",
+     "attribute": "Data",
+     "special_move_wiki": "Burning Fist"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island_phone_booth_beach",
+    "wd.gear_savannah",
+    "wd.pyocomon_village"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_04",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.05",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 5,
+   "title_ja": "電光! カブテリモン",
+   "title_romaji": "Denkou! Kabuterimon",
+   "title_literal_wiki": "Lightning! Kabuterimon",
+   "title_us_dub": "Kabuterimon's Electro Shocker",
+   "air_date_jp": "April 4, 1999",
+   "synopsis_pt": "Numa fábrica, o grupo solta Andromon, que estava preso nas engrenagens, e depois precisa enfrentá-lo. Tentomon evolui pela primeira vez para Kabuterimon; Greymon e Garurumon também lutam.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "media",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Kido Jo",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.patamon",
+    "sp.gomamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.palmon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.garurumon",
+    "sp.greymon",
+    "sp.kabuterimon",
+    "sp.andromon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Andromon",
+     "level": "Perfect",
+     "type": "Cyborg",
+     "attribute": "Data",
+     "special_move_wiki": "Spiral Sword"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island",
+    "wd.factorial_town"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_05",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.06",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 6,
+   "title_ja": "パルモン怒りの進化!",
+   "title_romaji": "Parumon Ikari no Shinka!",
+   "title_literal_wiki": "Palmon, Raging Evolution!",
+   "title_us_dub": "Togemon in Toy Town",
+   "air_date_jp": "April 11, 1999",
+   "synopsis_pt": "Depois de passar por esgotos cheios de Numemon, o grupo chega a Toy Town. Monzaemon, com uma Engrenagem Negra nas costas, faz os brinquedos perseguirem os outros; Palmon evolui pela primeira vez para Togemon e o liberta.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.numemon",
+    "sp.togemon",
+    "sp.monzaemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Numemon",
+     "level": "Adult",
+     "type": "Mollusk",
+     "attribute": "Data",
+     "special_move_wiki": "Unchi"
+    },
+    {
+     "name": "Monzaemon",
+     "level": "Perfect",
+     "type": "Puppet",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Lovely Attack"
+    }
+   ],
+   "location_ids": [
+    "wd.sewers",
+    "wd.toy_town"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_06",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.07",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 7,
+   "title_ja": "咆哮! イッカクモン",
+   "title_romaji": "Houkou! Ikkakumon",
+   "title_literal_wiki": "Roar! Ikkakumon",
+   "title_us_dub": "Ikkakumon's Harpoon Torpedo",
+   "air_date_jp": "April 18, 1999",
+   "synopsis_pt": "Perto da Montanha Infinita (Infinity Mountain), o tempo esfria e Engrenagens Negras saem da montanha. Unimon ataca, e Gomamon evolui pela primeira vez para Ikkakumon para proteger Jo.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.gomamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.palmon",
+    "sp.birdramon",
+    "sp.greymon",
+    "sp.unimon",
+    "sp.ikkakumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Unimon",
+     "level": "Adult",
+     "type": "Mythical Beast",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Holy Shot"
+    }
+   ],
+   "location_ids": [
+    "wd.infinity_mountain"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_07",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.08",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 8,
+   "title_ja": "闇の使者デビモン!",
+   "title_romaji": "Yami no Shisha Debimon!",
+   "title_literal_wiki": "The Messenger of Darkness, Devimon!",
+   "title_us_dub": "Evil Shows His Face",
+   "air_date_jp": "April 25, 1999",
+   "synopsis_pt": "No alto da Montanha Infinita, o grupo descobre que Devimon está por trás das Engrenagens Negras; Leomon e Ogremon também aparecem. Os seis parceiros evoluem, mas Devimon parte a ilha e espalha as crianças.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "media",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.gabumon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.agumon",
+    "sp.gomamon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.togemon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.ikkakumon",
+    "sp.leomon",
+    "sp.orgemon",
+    "sp.devimon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Leomon",
+     "level": "Adult",
+     "type": "Beast Man",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Jūouken"
+    },
+    {
+     "name": "Orgemon",
+     "level": "Adult",
+     "type": "Oni",
+     "attribute": "Virus",
+     "special_move_wiki": "Haouken"
+    },
+    {
+     "name": "Devimon",
+     "level": "Adult",
+     "type": "Fallen Angel",
+     "attribute": "Virus",
+     "special_move_wiki": "Death Claw"
+    }
+   ],
+   "location_ids": [
+    "wd.infinity_mountain"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_08",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.09",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 9,
+   "title_ja": "激突! 冷凍デジモン",
+   "title_romaji": "Gekitotsu! Reitou Dejimon",
+   "title_literal_wiki": "Clash! The Freezing Digimon",
+   "title_us_dub": "Subzero Ice Punch!",
+   "air_date_jp": "May 2, 1999",
+   "synopsis_pt": "Taichi e Agumon vão parar num fragmento gelado da ilha partida e encontram Yukidarumon e Mojyamon. Greymon e Garurumon lutam enquanto o grupo tenta se reunir.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "media",
+   "characters": [
+    "Ishida Yamato",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.devimon",
+    "sp.leomon",
+    "sp.orgemon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.yukidarumon",
+    "sp.mojyamon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Yukidarumon",
+     "level": "Adult",
+     "type": "Ice and Snow",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Zettai Reido Punch"
+    },
+    {
+     "name": "Mojyamon",
+     "level": "Adult",
+     "type": "Rare Beast",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Icicle Rod"
+    }
+   ],
+   "location_ids": [
+    "wd.infinity_mountain",
+    "wd.file_island"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_09",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.10",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 10,
+   "title_ja": "守護者ケンタルモン!",
+   "title_romaji": "Shugosha Kentarumon!",
+   "title_literal_wiki": "Centalmon the Guardian!",
+   "title_us_dub": "A Clue From The Digi-Past",
+   "air_date_jp": "May 9, 1999",
+   "synopsis_pt": "Koshiro e Mimi caem com seus parceiros em fragmentos diferentes da ilha. Koshiro explora ruínas antigas, onde Centalmon, com uma Engrenagem Negra, persegue o grupo; Togemon e Kabuterimon entram em combate.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "media",
+   "characters": [
+    "Izumi Koushirou",
+    "Tachikawa Mimi"
+   ],
+   "digimon_ids": [
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.togemon",
+    "sp.kabuterimon",
+    "sp.leomon",
+    "sp.tyumon",
+    "sp.scumon",
+    "sp.centalmon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Scumon",
+     "level": "Adult",
+     "type": "Mutant",
+     "attribute": "Virus",
+     "special_move_wiki": "Unchi"
+    },
+    {
+     "name": "Centalmon",
+     "level": "Adult",
+     "type": "Beast Man",
+     "attribute": "Data",
+     "special_move_wiki": "Hunting Cannon"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_10",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.11",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 11,
+   "title_ja": "踊る亡霊! バケモン",
+   "title_romaji": "Odoru Bourei! Bakemon",
+   "title_literal_wiki": "The Dancing Ghosts! Bakemon",
+   "title_us_dub": "The Dancing Digimon",
+   "air_date_jp": "May 16, 1999",
+   "synopsis_pt": "Jo e Gomamon, à deriva no mar, chegam a uma ilha onde estão Sora e Piyomon; numa igreja no alto do morro acontece um festival de oferendas aos Bakemon. Ikkakumon e Birdramon lutam contra os Bakemon e Ogremon.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "media",
+   "characters": [
+    "Kido Jou",
+    "Takenouchi Sora"
+   ],
+   "digimon_ids": [
+    "sp.gomamon",
+    "sp.piyomon",
+    "sp.devimon",
+    "sp.orgemon",
+    "sp.ikkakumon",
+    "sp.birdramon",
+    "sp.bakemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon",
+      "Ikkakumon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon",
+      "sp.ikkakumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Bakemon",
+     "level": "Adult",
+     "type": "Ghost",
+     "attribute": "Virus",
+     "special_move_wiki": "Hell's Hand"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_11",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.12",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 12,
+   "title_ja": "冒険! パタモンと僕",
+   "title_romaji": "Bouken! Patamon to Boku",
+   "title_literal_wiki": "Adventure! Patamon and I",
+   "title_us_dub": "DigiBaby Boom",
+   "air_date_jp": "May 23, 1999",
+   "synopsis_pt": "Takeru e Patamon caem perto da Vila dos Inícios (Village of Beginnings), onde bebês Digimon nascem de ovos e são cuidados por Elecmon. Devimon manda Leomon atrás de Takeru.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.devimon",
+    "sp.orgemon",
+    "sp.leomon",
+    "sp.birdramon",
+    "sp.ikkakumon",
+    "sp.botamon",
+    "sp.punimon",
+    "sp.yuramon",
+    "sp.poyomon",
+    "sp.elecmon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Botamon",
+      "Koromon"
+     ],
+     "chain_ids": [
+      "sp.botamon",
+      "sp.koromon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Elecmon",
+     "level": "Child",
+     "type": "Mammal",
+     "attribute": "Data",
+     "special_move_wiki": "Sparkling Thunder"
+    },
+    {
+     "name": "Patamon (Adventure)",
+     "level": "Adult",
+     "type": "Imaginary",
+     "attribute": "Image",
+     "special_move_wiki": "Bū Bū Attack"
+    },
+    {
+     "name": "Patamon (Adventure)",
+     "level": "Adult",
+     "type": "Imaginary",
+     "attribute": "Image",
+     "special_move_wiki": "Hippopota Vacuum"
+    }
+   ],
+   "location_ids": [
+    "wd.village_of_beginnings"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_12",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.13",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 13,
+   "title_ja": "エンジェモン覚醒!",
+   "title_romaji": "Enjemon Kakusei!",
+   "title_literal_wiki": "Angemon's Awakening!",
+   "title_us_dub": "The Legend of the DigiDestined",
+   "air_date_jp": "May 30, 1999",
+   "synopsis_pt": "Na Vila dos Inícios, Leomon e Ogremon vão atrás de Takeru, e o grupo se reúne para enfrentar Devimon. Patamon evolui para Angemon, derrota Devimon e volta a ser um Digitama.",
+   "synopsis_status": "verified_secondary",
+   "synopsis_confidence": "alta",
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.botamon",
+    "sp.poyomon",
+    "sp.punimon",
+    "sp.yuramon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.gomamon",
+    "sp.piyomon",
+    "sp.leomon",
+    "sp.orgemon",
+    "sp.garurumon",
+    "sp.greymon",
+    "sp.togemon",
+    "sp.kabuterimon",
+    "sp.devimon",
+    "sp.birdramon",
+    "sp.ikkakumon",
+    "sp.angemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Garurumon",
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.garurumon",
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Greymon",
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.greymon",
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Togemon",
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.togemon",
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Kabuterimon",
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.kabuterimon",
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Patamon",
+      "Angemon",
+      "Digitama"
+     ],
+     "chain_ids": [
+      "sp.patamon",
+      "sp.angemon",
+      "digitama"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [],
+   "location_ids": [
+    "wd.village_of_beginnings"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_13",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.14",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 14,
+   "title_ja": "出航・新大陸へ!",
+   "title_romaji": "Tabidachi Shin Tairiku he!",
+   "title_literal_wiki": "Departure - to a New Continent!",
+   "title_us_dub": "Departure for a New Continent",
+   "air_date_jp": "June 6, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.pyocomon",
+    "sp.poyomon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.elecmon",
+    "sp.leomon",
+    "sp.centalmon",
+    "sp.mojyamon",
+    "sp.yukidarumon",
+    "sp.meramon",
+    "sp.ikkakumon",
+    "sp.kabuterimon",
+    "sp.monzaemon",
+    "sp.whamon",
+    "sp.drimogemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Digitama",
+      "Poyomon"
+     ],
+     "chain_ids": [
+      "digitama",
+      "sp.poyomon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Poyomon",
+     "level": "Baby1",
+     "type": "Slime",
+     "attribute": null,
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Whamon",
+     "level": "Adult",
+     "type": "Aquatic",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Jet Arrow"
+    },
+    {
+     "name": "Drimogemon",
+     "level": "Adult",
+     "type": "Beast",
+     "attribute": "Data",
+     "special_move_wiki": "Drill Spin"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_14",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.15",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 15,
+   "title_ja": "エテモン! 悪の花道",
+   "title_romaji": "Etemon! Aku no Hanamichi",
+   "title_literal_wiki": "Etemon! The Stage Mounting of Evil",
+   "title_us_dub": "The Dark Network of Etemon",
+   "air_date_jp": "June 13, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.poyomon",
+    "sp.tokomon",
+    "sp.koromon",
+    "sp.botamon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.gomamon",
+    "sp.whamon",
+    "sp.monochromon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.pagumon",
+    "sp.gazimon",
+    "sp.etemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Poyomon",
+      "Tokomon"
+     ],
+     "chain_ids": [
+      "sp.poyomon",
+      "sp.tokomon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Pagumon",
+     "level": "Baby2",
+     "type": "Lesser",
+     "attribute": "Virus",
+     "special_move_wiki": "Awa"
+    },
+    {
+     "name": "Gazimon",
+     "level": "Child",
+     "type": "Mammal",
+     "attribute": "Virus",
+     "special_move_wiki": "Paralyze Breath"
+    },
+    {
+     "name": "Etemon",
+     "level": "Perfect",
+     "type": "Puppet",
+     "attribute": "Virus",
+     "special_move_wiki": "Dark Spirits"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_15",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.16",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 16,
+   "title_ja": "暗黒進化! スカルグレイモン",
+   "title_romaji": "Ankoku Shinka! Sukarugureimon",
+   "title_literal_wiki": "Dark Evolution! Skull Greymon",
+   "title_us_dub": "The Arrival of Skullgreymon",
+   "air_date_jp": "June 20, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.koromon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.gazimon",
+    "sp.monochromon",
+    "sp.greymon",
+    "sp.birdramon",
+    "sp.garurumon",
+    "sp.kabuterimon",
+    "sp.etemon",
+    "sp.skull_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Skull Greymon",
+      "Koromon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.skull_greymon",
+      "sp.koromon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Skull Greymon",
+     "level": "Perfect",
+     "type": "Skeleton",
+     "attribute": "Virus",
+     "special_move_wiki": "Ground Zero"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_16",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.17",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 17,
+   "title_ja": "幻船長コカトリモン!",
+   "title_romaji": "Maboroshi Senchou Kokatorimon!",
+   "title_literal_wiki": "Cockatrimon, the Illusionary Ship's Captain!",
+   "title_us_dub": "The Crest of Sincerity",
+   "air_date_jp": "June 27, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.koromon",
+    "sp.tentomon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.gazimon",
+    "sp.agumon",
+    "sp.togemon",
+    "sp.numemon",
+    "sp.monochromon",
+    "sp.birdramon",
+    "sp.etemon",
+    "sp.cockatrimon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Koromon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.koromon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Cockatrimon",
+     "level": "Adult",
+     "type": "Giant Bird",
+     "attribute": "Data",
+     "special_move_wiki": "Petrifier"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_17",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.18",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 18,
+   "title_ja": "妖精! ピッコロモン",
+   "title_romaji": "Yousei! Pikkoromon",
+   "title_literal_wiki": "The Fairy! Piccolomon",
+   "title_us_dub": "The Piximon Cometh",
+   "air_date_jp": "July 4, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.gabumon",
+    "sp.gazimon",
+    "sp.kuwagamon",
+    "sp.monochromon",
+    "sp.greymon",
+    "sp.skull_greymon",
+    "sp.etemon",
+    "sp.tyranomon",
+    "sp.piccolomon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Kuwagamon",
+     "level": "Adult",
+     "type": "Insect",
+     "attribute": "Virus",
+     "special_move_wiki": "Scissor Arms"
+    },
+    {
+     "name": "Piccolomon",
+     "level": "Perfect",
+     "type": "Fairy",
+     "attribute": "Data",
+     "special_move_wiki": "Bit Bomb"
+    },
+    {
+     "name": "Tyranomon",
+     "level": "Adult",
+     "type": "Dinosaur",
+     "attribute": "Data",
+     "special_move_wiki": "Fire Breath"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_18",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.19",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 19,
+   "title_ja": "迷宮のナノモン",
+   "title_romaji": "Meikyū no Nanomon",
+   "title_literal_wiki": "Nanomon of the Labyrinth",
+   "title_us_dub": "The Prisoner Of The Pyramid",
+   "air_date_jp": "July 11, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.gabumon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.gazimon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.monochromon",
+    "sp.greymon",
+    "sp.kabuterimon",
+    "sp.birdramon",
+    "sp.ikkakumon",
+    "sp.garurumon",
+    "sp.togemon",
+    "sp.etemon",
+    "sp.nanomon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Nanomon",
+     "level": "Perfect",
+     "type": "Machine",
+     "attribute": "Virus",
+     "special_move_wiki": "Plug Bomb"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_19",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.20",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 20,
+   "title_ja": "完全体進化! メタルグレイモン",
+   "title_romaji": "Kanzentai Shinka! Metarugureimon",
+   "title_literal_wiki": "Perfect Evolution! Metal Greymon",
+   "title_us_dub": "The Earthquake Of MetalGreymon",
+   "air_date_jp": "July 25, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.koromon",
+    "sp.gomamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.gazimon",
+    "sp.tyranomon",
+    "sp.monochromon",
+    "sp.ikkakumon",
+    "sp.garurumon",
+    "sp.togemon",
+    "sp.kabuterimon",
+    "sp.greymon",
+    "sp.birdramon",
+    "sp.nanomon",
+    "sp.etemon",
+    "sp.etemon_chaos",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Metal Greymon",
+      "Koromon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.metal_greymon",
+      "sp.koromon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Piyomon",
+      "Birdramon",
+      "Piyomon"
+     ],
+     "chain_ids": [
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.piyomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Etemon",
+      "Etemon Chaos"
+     ],
+     "chain_ids": [
+      "sp.etemon",
+      "sp.etemon_chaos"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Metal Greymon",
+     "level": "Perfect",
+     "type": "Cyborg",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Giga Destroyer"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_20",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.21",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 21,
+   "title_ja": "コロモン東京大激突!",
+   "title_romaji": "Koromon Tōkyō Daigekitotsu!",
+   "title_literal_wiki": "Koromon, the Great Clash in Tokyo!",
+   "title_us_dub": "Home Away From Home",
+   "air_date_jp": "August 1, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.agumon",
+    "sp.meramon",
+    "sp.seadramon",
+    "sp.yukidarumon",
+    "sp.tyranomon",
+    "sp.drimogemon",
+    "sp.orgemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Koromon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.koromon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_21",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.22",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 22,
+   "title_ja": "ささやく小悪魔ピコデビモン",
+   "title_romaji": "Sasayaku Koakuma Pikodebimon",
+   "title_literal_wiki": "The Whispering Imp, Pico Devimon",
+   "title_us_dub": "Forget About It!",
+   "air_date_jp": "August 8, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tokomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.gazimon",
+    "sp.patamon",
+    "sp.pico_devimon",
+    "sp.vamdemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Tokomon",
+      "Patamon"
+     ],
+     "chain_ids": [
+      "sp.tokomon",
+      "sp.patamon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Pico Devimon",
+     "level": "Child",
+     "type": "Small Devil",
+     "attribute": "Virus",
+     "special_move_wiki": "Pico Darts"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_22",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.23",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 23,
+   "title_ja": "友よ! ワーガルルモン",
+   "title_romaji": "Tomo yo! Wāgarurumon",
+   "title_literal_wiki": "Oh Friend! Were Garurumon",
+   "title_us_dub": "WereGarurumon's Diner",
+   "air_date_jp": "August 15, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.pagumon",
+    "sp.tunomon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.pico_devimon",
+    "sp.gazimon",
+    "sp.piyomon",
+    "sp.elecmon",
+    "sp.patamon",
+    "sp.agumon",
+    "sp.cockatrimon",
+    "sp.yukidarumon",
+    "sp.numemon",
+    "sp.bakemon",
+    "sp.mojyamon",
+    "sp.orgemon",
+    "sp.meramon",
+    "sp.garurumon",
+    "sp.ikkakumon",
+    "sp.monzaemon",
+    "sp.vamdemon",
+    "sp.betamon",
+    "sp.vegimon",
+    "sp.digitamamon",
+    "sp.were_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon",
+      "Were Garurumon",
+      "Tsunomon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon",
+      "sp.were_garurumon",
+      null
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Vegimon",
+     "level": "Adult",
+     "type": "Plant",
+     "attribute": "Virus",
+     "special_move_wiki": "Unchi"
+    },
+    {
+     "name": "Digitamamon",
+     "level": "Perfect",
+     "type": "Perfect",
+     "attribute": "Data",
+     "special_move_wiki": "Nightmare Syndrome"
+    },
+    {
+     "name": "Were Garurumon",
+     "level": "Perfect",
+     "type": "Beast Man",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Kaiser Nail"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_23",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.24",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 24,
+   "title_ja": "撃破! アトラーカブテリモン",
+   "title_romaji": "Gekiha! Atorākabuterimon",
+   "title_literal_wiki": "Breaking Through! Atlur Kabuterimon",
+   "title_us_dub": "No Questions, Please",
+   "air_date_jp": "August 22, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Takaishi Takeru",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.mochimon",
+    "sp.tunomon",
+    "sp.tentomon",
+    "sp.pico_devimon",
+    "sp.patamon",
+    "sp.kabuterimon",
+    "sp.vamdemon",
+    "sp.bubbmon",
+    "sp.vademon",
+    "sp.atlur_kabuterimon_red"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Tentomon",
+      "Mochimon",
+      "Bubbmon",
+      "Mochimon",
+      "Tentomon",
+      "Kabuterimon",
+      "Atlur Kabuterimon (Red)",
+      "Mochimon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.mochimon",
+      "sp.bubbmon",
+      "sp.mochimon",
+      "sp.tentomon",
+      "sp.kabuterimon",
+      "sp.atlur_kabuterimon_red",
+      "sp.mochimon"
+     ],
+     "first_time_in_series": true
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Vademon",
+     "level": "Perfect",
+     "type": "Alien",
+     "attribute": "Virus",
+     "special_move_wiki": "{{AT|Akuma no Nage Kissu|Devil's Blown Kiss}}"
+    },
+    {
+     "name": "Atlur Kabuterimon (Red)",
+     "level": "Perfect",
+     "type": "Insect",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Horn Buster"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_24",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.25",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 25,
+   "title_ja": "眠れる暴君! トノサマゲコモン",
+   "title_romaji": "Nemureru Boukun! Tonosamagekomon",
+   "title_literal_wiki": "The Sleeping Tyrant! Tonosama Gekomon",
+   "title_us_dub": "Princess Karaoke",
+   "air_date_jp": "August 29, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.agumon",
+    "sp.gomamon",
+    "sp.pico_devimon",
+    "sp.palmon",
+    "sp.togemon",
+    "sp.ikkakumon",
+    "sp.greymon",
+    "sp.vamdemon",
+    "sp.metal_greymon",
+    "sp.otamamon",
+    "sp.gekomon",
+    "sp.tonosama_gekomon",
+    "sp.devimon",
+    "sp.etemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Metal Greymon",
+      "Koromon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.metal_greymon",
+      "sp.koromon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Gekomon",
+     "level": "Adult",
+     "type": "Amphibian",
+     "attribute": "Virus",
+     "special_move_wiki": "Crash Symphony"
+    },
+    {
+     "name": "Otamamon",
+     "level": "Child",
+     "type": "Amphibian",
+     "attribute": "Virus",
+     "special_move_wiki": "Lullaby Bubble"
+    },
+    {
+     "name": "Tonosama Gekomon",
+     "level": "Perfect",
+     "type": "Amphibian",
+     "attribute": "Virus",
+     "special_move_wiki": "Kobushi Tone"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_25",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.26",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 26,
+   "title_ja": "輝く翼! ガルダモン",
+   "title_romaji": "Kagayaku Tsubasa! Garudamon",
+   "title_literal_wiki": "Shining Wings! Garudamon",
+   "title_us_dub": "Sora's Crest of Love",
+   "air_date_jp": "September 5, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.tunomon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.patamon",
+    "sp.agumon",
+    "sp.pico_devimon",
+    "sp.piyomon",
+    "sp.gabumon",
+    "sp.tentomon",
+    "sp.birdramon",
+    "sp.togemon",
+    "sp.ikkakumon",
+    "sp.vamdemon",
+    "sp.flymon",
+    "sp.devidramon",
+    "sp.fantomon",
+    "sp.garudamon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Koromon",
+      "Agumon"
+     ],
+     "chain_ids": [
+      "sp.koromon",
+      "sp.agumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tsunomon",
+      "Gabumon"
+     ],
+     "chain_ids": [
+      null,
+      "sp.gabumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Birdramon",
+      "Piyomon",
+      "Birdramon",
+      "Garudamon",
+      "Pyocomon"
+     ],
+     "chain_ids": [
+      "sp.birdramon",
+      "sp.piyomon",
+      "sp.birdramon",
+      "sp.garudamon",
+      "sp.pyocomon"
+     ],
+     "first_time_in_series": true
+    },
+    {
+     "chain_names": [
+      "Mochimon",
+      "Tentomon"
+     ],
+     "chain_ids": [
+      "sp.mochimon",
+      "sp.tentomon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon",
+      "Palmon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon",
+      "sp.palmon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon",
+      "Gomamon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon",
+      "sp.gomamon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Vamdemon",
+     "level": "Perfect",
+     "type": "Undead",
+     "attribute": "Virus",
+     "special_move_wiki": "Night Raid"
+    },
+    {
+     "name": "Flymon",
+     "level": "Adult",
+     "type": "Insect",
+     "attribute": "Virus",
+     "special_move_wiki": "Deadly Sting"
+    },
+    {
+     "name": "Garudamon",
+     "level": "Perfect",
+     "type": "Bird Man",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Shadow Wing"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_26",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.27",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 27,
+   "title_ja": "闇の城ヴァンデモン",
+   "title_romaji": "Yami no Shiro Vandemon",
+   "title_literal_wiki": "Vamdemon, the Castle of Darkness",
+   "title_us_dub": "The Gateway To Home",
+   "air_date_jp": "September 12, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.pyocomon",
+    "sp.koromon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.patamon",
+    "sp.tyumon",
+    "sp.pico_devimon",
+    "sp.vegimon",
+    "sp.numemon",
+    "sp.scumon",
+    "sp.bakemon",
+    "sp.devidramon",
+    "sp.greymon",
+    "sp.togemon",
+    "sp.garurumon",
+    "sp.kabuterimon",
+    "sp.ikkakumon",
+    "sp.vamdemon",
+    "sp.fantomon",
+    "sp.metal_greymon",
+    "sp.nanimon",
+    "sp.tailmon",
+    "sp.wizarmon",
+    "sp.gesomon",
+    "sp.death_meramon",
+    "sp.pumpmon",
+    "sp.mammon",
+    "sp.drimogemon",
+    "sp.tonosama_gekomon",
+    "sp.digitamamon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [
+    {
+     "chain_names": [
+      "Agumon",
+      "Greymon",
+      "Metal Greymon",
+      "Koromon"
+     ],
+     "chain_ids": [
+      "sp.agumon",
+      "sp.greymon",
+      "sp.metal_greymon",
+      "sp.koromon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Palmon",
+      "Togemon"
+     ],
+     "chain_ids": [
+      "sp.palmon",
+      "sp.togemon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gabumon",
+      "Garurumon"
+     ],
+     "chain_ids": [
+      "sp.gabumon",
+      "sp.garurumon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Tentomon",
+      "Kabuterimon"
+     ],
+     "chain_ids": [
+      "sp.tentomon",
+      "sp.kabuterimon"
+     ],
+     "first_time_in_series": false
+    },
+    {
+     "chain_names": [
+      "Gomamon",
+      "Ikkakumon"
+     ],
+     "chain_ids": [
+      "sp.gomamon",
+      "sp.ikkakumon"
+     ],
+     "first_time_in_series": false
+    }
+   ],
+   "analyzer": [
+    {
+     "name": "Nanimon",
+     "level": "Adult",
+     "type": "Invade",
+     "attribute": "Virus",
+     "special_move_wiki": "Unchi"
+    },
+    {
+     "name": "Tailmon",
+     "level": "Adult",
+     "type": "Holy Beast",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Neko Punch"
+    },
+    {
+     "name": "Devidramon",
+     "level": "Adult",
+     "type": "Evil Dragon",
+     "attribute": "Virus",
+     "special_move_wiki": "Crimson Nail"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_27",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.28",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 28,
+   "title_ja": "追撃! 日本へ急げ",
+   "title_romaji": "Tsuigeki! Nippon he Isoge",
+   "title_literal_wiki": "The Chase! Hurry to Japan",
+   "title_us_dub": "It's All In The Cards",
+   "air_date_jp": "September 19, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.pyocomon",
+    "sp.mochimon",
+    "sp.tunomon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.pico_devimon",
+    "sp.piyomon",
+    "sp.devidramon",
+    "sp.tailmon",
+    "sp.wizarmon",
+    "sp.bakemon",
+    "sp.kabuterimon",
+    "sp.ikkakumon",
+    "sp.togemon",
+    "sp.garurumon",
+    "sp.death_meramon",
+    "sp.pumpmon",
+    "sp.vamdemon",
+    "sp.atlur_kabuterimon_red",
+    "sp.were_garurumon",
+    "sp.kodokugumon_baby",
+    "sp.dokugumon",
+    "sp.agumon",
+    "sp.elecmon",
+    "sp.gazimon",
+    "sp.devimon",
+    "sp.leomon",
+    "sp.orgemon",
+    "sp.centalmon",
+    "sp.whamon",
+    "sp.unimon",
+    "sp.drimogemon",
+    "sp.kuwagamon",
+    "sp.etemon",
+    "sp.tonosama_gekomon",
+    "sp.andromon",
+    "sp.digitamamon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Dokugumon",
+     "level": "Adult",
+     "type": "Insect",
+     "attribute": "Virus",
+     "special_move_wiki": "Stinger Poration"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_28",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.29",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 29,
+   "title_ja": "マンモン光が丘大激突!",
+   "title_romaji": "Manmon Hikarigaoka Daigekitotsu!",
+   "title_literal_wiki": "Mammon, the Great Clash at Hikarigaoka!",
+   "title_us_dub": "Return to Highton View Terrace",
+   "air_date_jp": "September 26, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Fujiyama-sensei",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Tāko",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tunomon",
+    "sp.koromon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.patamon",
+    "sp.pico_devimon",
+    "sp.tailmon",
+    "sp.wizarmon",
+    "sp.bakemon",
+    "sp.birdramon",
+    "sp.greymon",
+    "sp.vamdemon",
+    "sp.death_meramon",
+    "sp.fantomon",
+    "sp.pumpmon",
+    "sp.mammon",
+    "sp.garudamon",
+    "sp.gottsumon",
+    "sp.parrotmon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Mammon",
+     "level": "Perfect",
+     "type": "Ancient Beast",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Tusk Strikes"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_29",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.30",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 30,
+   "title_ja": "デジモン東京大横断",
+   "title_romaji": "Dejimon Toukyou Daioudan",
+   "title_literal_wiki": "Digimon, the Great Tokyo Crossing",
+   "title_us_dub": "Almost Home Free",
+   "air_date_jp": "October 3, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.koromon",
+    "sp.tunomon",
+    "sp.pico_devimon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.tailmon",
+    "sp.wizarmon",
+    "sp.gesomon",
+    "sp.ikkakumon",
+    "sp.vamdemon",
+    "sp.death_meramon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Gesomon",
+     "level": "Adult",
+     "type": "Mollusk",
+     "attribute": "Virus",
+     "special_move_wiki": "Deadly Shade"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_30",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.31",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 31,
+   "title_ja": "レアモン! 東京湾襲撃",
+   "title_romaji": "Raremon! Toukyou-wan Shūgeki",
+   "title_literal_wiki": "Raremon! The Surprise Attack on Tokyo Bay",
+   "title_us_dub": "The Eighth Digivice",
+   "air_date_jp": "October 10, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.pyocomon",
+    "sp.tunomon",
+    "sp.pico_devimon",
+    "sp.tentomon",
+    "sp.tyumon",
+    "sp.ikkakumon",
+    "sp.gesomon",
+    "sp.yukidarumon",
+    "sp.numemon",
+    "sp.kabuterimon",
+    "sp.vamdemon",
+    "sp.monzaemon",
+    "sp.raremon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Raremon",
+     "level": "Adult",
+     "type": "Undead",
+     "attribute": "Virus",
+     "special_move_wiki": "Hedoro"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_31",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.32",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 32,
+   "title_ja": "熱いぜ東京タワー! デスメラモン",
+   "title_romaji": "Atsui ze Tōkyō Tower! Desumeramon",
+   "title_literal_wiki": "Tokyo Tower is Hot! Death Meramon",
+   "title_us_dub": "Gatomon Comes Calling",
+   "air_date_jp": "October 17, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.tunomon",
+    "sp.pico_devimon",
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.raremon",
+    "sp.greymon",
+    "sp.tailmon",
+    "sp.birdramon",
+    "sp.togemon",
+    "sp.kabuterimon",
+    "sp.vamdemon",
+    "sp.parrotmon",
+    "sp.death_meramon",
+    "sp.metal_greymon",
+    "sp.orgemon",
+    "sp.devimon",
+    "sp.kuwagamon",
+    "sp.shellmon",
+    "sp.seadramon",
+    "sp.vademon",
+    "sp.etemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Death Meramon",
+     "level": "Perfect",
+     "type": "Flame",
+     "attribute": "Data",
+     "special_move_wiki": "Heavy Metal Fire"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_32",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.33",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 33,
+   "title_ja": "パンプとゴツは渋谷系デジモン",
+   "title_romaji": "Panpu to Gotsu ha Shibuyakei Dejimon",
+   "title_literal_wiki": "Pump and Gottsu are Shibuya-type Digimon",
+   "title_us_dub": "Out On The Town",
+   "air_date_jp": "October 24, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Takaishi Takeru",
+    "Yagami Hikari"
+   ],
+   "digimon_ids": [
+    "sp.tunomon",
+    "sp.gottsumon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.garurumon",
+    "sp.angemon",
+    "sp.tailmon",
+    "sp.pumpmon",
+    "sp.vamdemon",
+    "sp.were_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Pumpmon",
+     "level": "Perfect",
+     "type": "Puppet",
+     "attribute": "Data",
+     "special_move_wiki": "Trick or Treat"
+    },
+    {
+     "name": "Gottsumon",
+     "level": "Child",
+     "type": "Ore",
+     "attribute": "Data",
+     "special_move_wiki": "Angry Rock"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_33",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.34",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 34,
+   "title_ja": "運命の絆! テイルモン",
+   "title_romaji": "Unmei no Kizuna! Teirumon",
+   "title_literal_wiki": "The Bond of Destiny! Tailmon",
+   "title_us_dub": "The Eighth Child Revealed",
+   "air_date_jp": "October 31, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.punimon",
+    "sp.yuramon",
+    "sp.poyomon",
+    "sp.pagumon",
+    "sp.botamon",
+    "sp.agumon",
+    "sp.pico_devimon",
+    "sp.gazimon",
+    "sp.tailmon",
+    "sp.wizarmon",
+    "sp.bakemon",
+    "sp.greymon",
+    "sp.vamdemon",
+    "sp.metal_greymon",
+    "sp.nyaromon",
+    "sp.plotmon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_34",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.35",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 35,
+   "title_ja": "お台場の妖精! リリモン開花",
+   "title_romaji": "Odaiba no Yousei! Ririmon Kaika",
+   "title_literal_wiki": "The Fairy of Odaiba! Lilimon Blossoms",
+   "title_us_dub": "Flower Power",
+   "air_date_jp": "November 7, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Chioka",
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Sakurada",
+    "Tachikawa Keisuke",
+    "Tachikawa Mimi",
+    "Tachikawa Satoe",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko",
+    "Yuki"
+   ],
+   "digimon_ids": [
+    "sp.pyocomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.pico_devimon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.bakemon",
+    "sp.tailmon",
+    "sp.greymon",
+    "sp.togemon",
+    "sp.birdramon",
+    "sp.vamdemon",
+    "sp.fantomon",
+    "sp.gizamon",
+    "sp.dark_tyranomon",
+    "sp.lilimon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Gizamon",
+     "level": "Child",
+     "type": "Aquatic Mammal",
+     "attribute": "Virus",
+     "special_move_wiki": "Spiral Edge"
+    },
+    {
+     "name": "Fantomon",
+     "level": "Perfect",
+     "type": "Ghost",
+     "attribute": "Virus",
+     "special_move_wiki": "Soul Chopper"
+    },
+    {
+     "name": "Dark Tyranomon",
+     "level": "Adult",
+     "type": "Dinosaur",
+     "attribute": "Virus",
+     "special_move_wiki": "Fire Blast"
+    },
+    {
+     "name": "Lilimon",
+     "level": "Perfect",
+     "type": "Fairy",
+     "attribute": "Data",
+     "special_move_wiki": "Flow' Cannon"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_35",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.36",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 36,
+   "title_ja": "結界突破! ズドモンスパーク！",
+   "title_romaji": "Kekkai Toppa! Zudomon Supāku!",
+   "title_literal_wiki": "Break through the Barrier! Zudomon Spark!",
+   "title_us_dub": "City Under Siege",
+   "air_date_jp": "November 14, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Kido Jo",
+    "Tachikawa Keisuke",
+    "Tachikawa Mimi",
+    "Tachikawa Satoe",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.pico_devimon",
+    "sp.gomamon",
+    "sp.bakemon",
+    "sp.birdramon",
+    "sp.tailmon",
+    "sp.ikkakumon",
+    "sp.wizarmon",
+    "sp.garurumon",
+    "sp.lilimon",
+    "sp.vamdemon",
+    "sp.fantomon",
+    "sp.garudamon",
+    "sp.tuskmon",
+    "sp.snimon",
+    "sp.mega_seadramon",
+    "sp.zudomon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Mega Seadramon",
+     "level": "Perfect",
+     "type": "Aquatic",
+     "attribute": "Data",
+     "special_move_wiki": "Thunder Javelin"
+    },
+    {
+     "name": "Zudomon",
+     "level": "Perfect",
+     "type": "Marine Beast",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Hammer Spark"
+    },
+    {
+     "name": "Tuskmon",
+     "level": "Adult",
+     "type": "Dinosaur",
+     "attribute": "Virus",
+     "special_move_wiki": "Panzer Knuckle"
+    },
+    {
+     "name": "Snimon",
+     "level": "Adult",
+     "type": "Insect",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Shadow Sickle"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_36",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.37",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 37,
+   "title_ja": "完全体総進撃! きらめくエンジェウーモン",
+   "title_romaji": "Kanzentai Sou Shingeki! Kirameku Enjeūmon",
+   "title_literal_wiki": "All Perfects Attack! Sparkling Angewomon",
+   "title_us_dub": "Wizardmon's Gift",
+   "air_date_jp": "November 21, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.pukamon",
+    "sp.pyocomon",
+    "sp.tanemon",
+    "sp.mochimon",
+    "sp.agumon",
+    "sp.pico_devimon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.garurumon",
+    "sp.tailmon",
+    "sp.bakemon",
+    "sp.greymon",
+    "sp.wizarmon",
+    "sp.snimon",
+    "sp.tuskmon",
+    "sp.kabuterimon",
+    "sp.angemon",
+    "sp.fantomon",
+    "sp.garudamon",
+    "sp.vamdemon",
+    "sp.lilimon",
+    "sp.zudomon",
+    "sp.were_garurumon",
+    "sp.atlur_kabuterimon_red",
+    "sp.metal_greymon",
+    "sp.angewomon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_37",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.38",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 38,
+   "title_ja": "復活! 魔王ヴェノムヴァンデモン",
+   "title_romaji": "Fukkatsu! Maou Venomuvandemon",
+   "title_literal_wiki": "Revival! The Devil Venom Vamdemon",
+   "title_us_dub": "Prophecy",
+   "air_date_jp": "November 28, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Kido Jo",
+    "Kido Shin",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tanemon",
+    "sp.pukamon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.gizamon",
+    "sp.pico_devimon",
+    "sp.tailmon",
+    "sp.bakemon",
+    "sp.tuskmon",
+    "sp.snimon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.angemon",
+    "sp.metal_greymon",
+    "sp.were_garurumon",
+    "sp.angewomon",
+    "sp.venom_vamdemon",
+    "sp.war_greymon",
+    "sp.metal_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Angemon",
+     "level": "Adult",
+     "type": "Angel",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Heaven's Knuckle"
+    },
+    {
+     "name": "Angewomon",
+     "level": "Perfect",
+     "type": "Angel",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Holy Arrow"
+    },
+    {
+     "name": "Venom Vamdemon",
+     "level": "Ultimate",
+     "type": "Undead",
+     "attribute": "Virus",
+     "special_move_wiki": "Venom Infuse"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_38",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.39",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 39,
+   "title_ja": "二大究極進化! 闇をぶっとばせ!",
+   "title_romaji": "Ni Daikyūkyoku Shinka! Yami wo Buttobase!",
+   "title_literal_wiki": "Two Great Ultimate Evolutions! Get Rid of the Darkness!",
+   "title_us_dub": "The Battle for Earth",
+   "air_date_jp": "December 5, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Kido Jo",
+    "Kido Shin",
+    "Tachikawa Keisuke",
+    "Tachikawa Mimi",
+    "Tachikawa Satoe",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.tunomon",
+    "sp.tokomon",
+    "sp.pyocomon",
+    "sp.mochimon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.plotmon",
+    "sp.angemon",
+    "sp.birdramon",
+    "sp.ikkakumon",
+    "sp.togemon",
+    "sp.kabuterimon",
+    "sp.kuwagamon",
+    "sp.tyranomon",
+    "sp.angewomon",
+    "sp.garudamon",
+    "sp.atlur_kabuterimon_red",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.venom_vamdemon",
+    "sp.gorimon",
+    "sp.airdramon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.metal_greymon",
+    "sp.were_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "War Greymon",
+     "level": "Ultimate",
+     "type": "Dragon Man",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Gaia Force"
+    },
+    {
+     "name": "Metal Garurumon",
+     "level": "Ultimate",
+     "type": "Cyborg",
+     "attribute": "Data",
+     "special_move_wiki": "Cocytus Breath"
+    },
+    {
+     "name": "Plotmon",
+     "level": "Child",
+     "type": "Mammal",
+     "attribute": "Data",
+     "special_move_wiki": "Puppy Howling"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_39",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.40",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 40,
+   "title_ja": "魔の山の四天王! ダークマスターズ",
+   "title_romaji": "Ma no Yama no Shitennou! Dāku Masutāzu",
+   "title_literal_wiki": "The Four Rulers of the Demonic Mountain! The Dark Masters!",
+   "title_us_dub": "Enter The Dark Masters",
+   "air_date_jp": "December 12, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.pyocomon",
+    "sp.mochimon",
+    "sp.tunomon",
+    "sp.tokomon",
+    "sp.pukamon",
+    "sp.tanemon",
+    "sp.palmon",
+    "sp.plotmon",
+    "sp.gomamon",
+    "sp.tyumon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.greymon",
+    "sp.garurumon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.ikkakumon",
+    "sp.togemon",
+    "sp.angemon",
+    "sp.tailmon",
+    "sp.metal_greymon",
+    "sp.were_garurumon",
+    "sp.atlur_kabuterimon_red",
+    "sp.garudamon",
+    "sp.lilimon",
+    "sp.zudomon",
+    "sp.angewomon",
+    "sp.piccolomon",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.piemon",
+    "sp.metal_seadramon",
+    "sp.pinochimon",
+    "sp.mugendramon",
+    "sp.scumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Metal Seadramon",
+     "level": "Ultimate",
+     "type": "Cyborg",
+     "attribute": "Data",
+     "special_move_wiki": "Ultimate Stream"
+    },
+    {
+     "name": "Mugendramon",
+     "level": "Ultimate",
+     "type": "Machine",
+     "attribute": "Virus",
+     "special_move_wiki": "Mugen Cannon"
+    },
+    {
+     "name": "Pinocchimon",
+     "level": "Ultimate",
+     "type": "Puppet",
+     "attribute": "Virus",
+     "special_move_wiki": "Bullet Hammer"
+    },
+    {
+     "name": "Piemon",
+     "level": "Ultimate",
+     "type": "Demon Man",
+     "attribute": "Virus",
+     "special_move_wiki": "Trump Sword"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_40",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.41",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 41,
+   "title_ja": "荒ぶる海の王! メタルシードラモン",
+   "title_romaji": "Araburu Umi no Ou! Metarushīdoramon",
+   "title_literal_wiki": "The Raging King of the Seas! Metal Seadramon",
+   "title_us_dub": "Sea-Sick and Tired",
+   "air_date_jp": "December 19, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tanemon",
+    "sp.pukamon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.patamon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.tailmon",
+    "sp.shellmon",
+    "sp.greymon",
+    "sp.togemon",
+    "sp.ikkakumon",
+    "sp.whamon",
+    "sp.piccolomon",
+    "sp.lilimon",
+    "sp.zudomon",
+    "sp.piemon",
+    "sp.metal_seadramon",
+    "sp.pinochimon",
+    "sp.mugendramon",
+    "sp.anomalocarimon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Anomalocarimon",
+     "level": "Perfect",
+     "type": "Ancient Crustacean",
+     "attribute": "Data",
+     "special_move_wiki": "Stinger Surprise"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_41",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.42",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 42,
+   "title_ja": "沈黙の海底ホエーモン",
+   "title_romaji": "Chinmoku no Kaitei Hoēmon",
+   "title_literal_wiki": "Silence at the Bottom of the Ocean, Whamon",
+   "title_us_dub": "Under Pressure",
+   "air_date_jp": "December 26, 1999",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.piyomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.whamon",
+    "sp.tailmon",
+    "sp.garurumon",
+    "sp.ikkakumon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.zudomon",
+    "sp.metal_seadramon",
+    "sp.war_greymon",
+    "sp.mugendramon",
+    "sp.piemon",
+    "sp.pinochimon",
+    "sp.hangyomon",
+    "sp.greymon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Hangyomon",
+     "level": "Perfect",
+     "type": "Aquatic Beast Man",
+     "attribute": "Data",
+     "special_move_wiki": "Strike Fishing"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_42",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.43",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 43,
+   "title_ja": "危険な遊戯! ピノッキモン",
+   "title_romaji": "Kiken na Yūgi! Pinokkimon",
+   "title_literal_wiki": "The Dangerous Game! Pinocchimon!",
+   "title_us_dub": "Playing Games",
+   "air_date_jp": "January 9, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.tailmon",
+    "sp.birdramon",
+    "sp.pinochimon",
+    "sp.chibi_kiwimon",
+    "sp.mushmon",
+    "sp.floramon",
+    "sp.kiwimon",
+    "sp.blossomon",
+    "sp.delumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Kiwimon",
+     "level": "Adult",
+     "type": "Ancient Bird",
+     "attribute": "Data",
+     "special_move_wiki": "Little Pecker"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_43",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.44",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 44,
+   "title_ja": "迷いの森のジュレイモン",
+   "title_romaji": "Mayoi no Mori no Jyureimon",
+   "title_literal_wiki": "Jyureimon of the Lost Forest",
+   "title_us_dub": "Trash Day",
+   "air_date_jp": "January 16, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.tunomon",
+    "sp.pyocomon",
+    "sp.tokomon",
+    "sp.koromon",
+    "sp.agumon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.gomamon",
+    "sp.piyomon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.tailmon",
+    "sp.angemon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.greymon",
+    "sp.ikkakumon",
+    "sp.togemon",
+    "sp.lilimon",
+    "sp.metal_greymon",
+    "sp.pinochimon",
+    "sp.metal_garurumon",
+    "sp.jyureimon",
+    "sp.gerbemon",
+    "sp.garurumon",
+    "sp.were_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Jyureimon",
+     "level": "Perfect",
+     "type": "Plant",
+     "attribute": "Virus",
+     "special_move_wiki": "Cherry Bomb"
+    },
+    {
+     "name": "Gerbemon",
+     "level": "Perfect",
+     "type": "Mutation",
+     "attribute": "Virus",
+     "special_move_wiki": "Unchi Bazooka"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_44",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.45",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 45,
+   "title_ja": "究極体激突! ウォーグレイモンVSメタルガルルモン",
+   "title_romaji": "Kyūkyokutai Gekitotsu! Wōgureimon tai Metarugarurumon",
+   "title_literal_wiki": "The Clashing Ultimates! War Greymon VS Metal Garurumon",
+   "title_us_dub": "The Ultimate Clash",
+   "air_date_jp": "January 23, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.tunomon",
+    "sp.botamon",
+    "sp.punimon",
+    "sp.bubbmon",
+    "sp.poyomon",
+    "sp.yuramon",
+    "sp.tanemon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.pukamon",
+    "sp.tokomon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.palmon",
+    "sp.tailmon",
+    "sp.greymon",
+    "sp.birdramon",
+    "sp.garurumon",
+    "sp.bakemon",
+    "sp.parrotmon",
+    "sp.skull_greymon",
+    "sp.metal_garurumon",
+    "sp.war_greymon",
+    "sp.pinochimon",
+    "sp.piemon",
+    "sp.nyokimon",
+    "sp.pitchmon",
+    "sp.mechanorimon",
+    "sp.guardromon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Parrotmon",
+     "level": "Perfect",
+     "type": "Giant Bird",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Sonic Destroyer"
+    },
+    {
+     "name": "Guardromon",
+     "level": "Adult",
+     "type": "Machine",
+     "attribute": "Data",
+     "special_move_wiki": "Destruction Grenade"
+    },
+    {
+     "name": "Mechanorimon",
+     "level": "Adult",
+     "type": "Machine",
+     "attribute": "Virus",
+     "special_move_wiki": "Twinkle Beam"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_45",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.46",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 46,
+   "title_ja": "メタルエテモンの逆襲",
+   "title_romaji": "Metaru Etemon no Gyakushū",
+   "title_literal_wiki": "Metal Etemon Strikes Back",
+   "title_us_dub": "Etemon's Comeback Tour",
+   "air_date_jp": "January 30, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Kido Shin",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.etemon_chaos",
+    "sp.koromon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.piyomon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.gabumon",
+    "sp.floramon",
+    "sp.agumon",
+    "sp.orgemon",
+    "sp.tailmon",
+    "sp.ikkakumon",
+    "sp.zudomon",
+    "sp.metal_greymon",
+    "sp.delumon",
+    "sp.pinochimon",
+    "sp.woodmon",
+    "sp.metal_etemon",
+    "sp.saber_leomon",
+    "sp.togemon",
+    "sp.etemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Woodmon",
+     "level": "Adult",
+     "type": "Plant",
+     "attribute": "Virus",
+     "special_move_wiki": "Branch Drain"
+    },
+    {
+     "name": "Metal Etemon",
+     "level": "Ultimate",
+     "type": "Cyborg",
+     "attribute": "Virus",
+     "special_move_wiki": "Banana Slip"
+    },
+    {
+     "name": "Floramon",
+     "level": "Child",
+     "type": "Plant",
+     "attribute": "Data",
+     "special_move_wiki": "Allergy Shower"
+    },
+    {
+     "name": "Delumon",
+     "level": "Perfect",
+     "type": "Bird",
+     "attribute": "Data",
+     "special_move_wiki": "Royal Nuts"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_46",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.47",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 47,
+   "title_ja": "風よ! 光よ! サーベルレオモン",
+   "title_romaji": "Kaze yo! Hikari yo! Sāberureomon",
+   "title_literal_wiki": "Oh Wind! Oh Light! Saber Leomon",
+   "title_us_dub": "Ogremon's Honor",
+   "air_date_jp": "February 6, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.etemon_chaos",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.otamamon",
+    "sp.floramon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.orgemon",
+    "sp.leomon",
+    "sp.gekomon",
+    "sp.tailmon",
+    "sp.devimon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.angemon",
+    "sp.ikkakumon",
+    "sp.digitamamon",
+    "sp.delumon",
+    "sp.angewomon",
+    "sp.atlur_kabuterimon_red",
+    "sp.garudamon",
+    "sp.jyureimon",
+    "sp.zudomon",
+    "sp.saber_leomon",
+    "sp.metal_etemon",
+    "sp.pinochimon",
+    "sp.venom_vamdemon",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.red_vegimon",
+    "sp.mechanorimon",
+    "sp.woodmon",
+    "sp.greymon",
+    "sp.tonosama_gekomon",
+    "sp.hangyomon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Red Vagimon",
+     "level": "Adult",
+     "type": "Plant",
+     "attribute": "Virus",
+     "special_move_wiki": "Hazard Breath"
+    },
+    {
+     "name": "Saber Leomon",
+     "level": "Ultimate",
+     "type": "Ancient Beast",
+     "attribute": "Data",
+     "special_move_wiki": "Nail Crusher"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_47",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.48",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 48,
+   "title_ja": "爆撃指令! ムゲンドラモン",
+   "title_romaji": "Bakugeki Shirei! Mugendoramon",
+   "title_literal_wiki": "Bombing Mission! Mugendramon",
+   "title_us_dub": "My Sister's Keeper",
+   "air_date_jp": "February 13, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Izumi Koushirou",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.tailmon",
+    "sp.kabuterimon",
+    "sp.mechanorimon",
+    "sp.greymon",
+    "sp.angemon",
+    "sp.metal_greymon",
+    "sp.mugendramon",
+    "sp.piemon",
+    "sp.hagurumon",
+    "sp.tankmon",
+    "sp.megadramon",
+    "sp.gigadramon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Mechanorimon",
+     "level": "Adult",
+     "type": "Machine",
+     "attribute": "Virus",
+     "special_move_wiki": "Twinkle Beam"
+    },
+    {
+     "name": "Tankmon",
+     "level": "Adult",
+     "type": "Cyborg",
+     "attribute": "Data",
+     "special_move_wiki": "Hyper Cannon"
+    },
+    {
+     "name": "Megadramon",
+     "level": "Perfect",
+     "type": "Cyborg",
+     "attribute": "Virus",
+     "special_move_wiki": "Genocide Attack"
+    },
+    {
+     "name": "Gigadramon",
+     "level": "Perfect",
+     "type": "Cyborg",
+     "attribute": "Virus",
+     "special_move_wiki": "Genocide Gear"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_48",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.49",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 49,
+   "title_ja": "さらばヌメモン",
+   "title_romaji": "Saraba Numemon",
+   "title_literal_wiki": "Farewell Numemon",
+   "title_us_dub": "The Crest of Light",
+   "air_date_jp": "February 20, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Izumi Koushirou",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.agumon",
+    "sp.tailmon",
+    "sp.numemon",
+    "sp.birdramon",
+    "sp.angemon",
+    "sp.angewomon",
+    "sp.andromon",
+    "sp.mugendramon",
+    "sp.war_greymon",
+    "sp.waru_monzaemon",
+    "sp.greymon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Waru Monzaemon",
+     "level": "Perfect",
+     "type": "Puppet",
+     "attribute": "Virus",
+     "special_move_wiki": "Heartbreak Attack"
+    },
+    {
+     "name": "Andromon",
+     "level": "Perfect",
+     "type": "Cyborg",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Spiral Sword"
+    }
+   ],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_49",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.50",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 50,
+   "title_ja": "女の闘い! レディデビモン",
+   "title_romaji": "Onna no Tatakai! Redidebimon",
+   "title_literal_wiki": "Catfight! Lady Devimon",
+   "title_us_dub": "Joe's Battle",
+   "air_date_jp": "February 27, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Kido Shin",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.koromon",
+    "sp.palmon",
+    "sp.gomamon",
+    "sp.otamamon",
+    "sp.patamon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.agumon",
+    "sp.elecmon",
+    "sp.gabumon",
+    "sp.yukidarumon",
+    "sp.orgemon",
+    "sp.gekomon",
+    "sp.meramon",
+    "sp.tailmon",
+    "sp.angemon",
+    "sp.birdramon",
+    "sp.kabuterimon",
+    "sp.ikkakumon",
+    "sp.andromon",
+    "sp.angewomon",
+    "sp.atlur_kabuterimon_red",
+    "sp.piemon",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.lady_devimon",
+    "sp.greymon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Lady Devimon",
+     "level": "Perfect",
+     "type": "Fallen Angel",
+     "attribute": "Virus",
+     "special_move_wiki": "Darkness Wave"
+    }
+   ],
+   "location_ids": [
+    "wd.village_of_beginnings"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_50",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.51",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 51,
+   "title_ja": "地獄の道化師 ピエモン",
+   "title_romaji": "Jigoku no Doukeshi Piemon",
+   "title_literal_wiki": "The Clown from Hell, Piemon",
+   "title_us_dub": "The Crest of Friendship",
+   "air_date_jp": "March 5, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.gabumon",
+    "sp.agumon",
+    "sp.piyomon",
+    "sp.tailmon",
+    "sp.birdramon",
+    "sp.garurumon",
+    "sp.andromon",
+    "sp.war_greymon",
+    "sp.piemon",
+    "sp.metal_garurumon",
+    "sp.were_garurumon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_51",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.52",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 52,
+   "title_ja": "聖剣士! ホーリーエンジェモン",
+   "title_romaji": "Seikenshi! Hōrīenjemon",
+   "title_literal_wiki": "The Holy Swordsman! Holy Angemon",
+   "title_us_dub": "\"Piedmon's Last Jest\"",
+   "air_date_jp": "March 12, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Yamato",
+    "Izumi Koushirou",
+    "Kido Jou",
+    "Tachikawa Mimi",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Yagami Hikari",
+    "Yagami Taichi"
+   ],
+   "digimon_ids": [
+    "sp.gomamon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.piyomon",
+    "sp.elecmon",
+    "sp.otamamon",
+    "sp.tailmon",
+    "sp.centalmon",
+    "sp.mechanorimon",
+    "sp.yukidarumon",
+    "sp.meramon",
+    "sp.orgemon",
+    "sp.gekomon",
+    "sp.angemon",
+    "sp.unimon",
+    "sp.ikkakumon",
+    "sp.kabuterimon",
+    "sp.andromon",
+    "sp.lilimon",
+    "sp.angewomon",
+    "sp.garudamon",
+    "sp.zudomon",
+    "sp.atlur_kabuterimon_red",
+    "sp.piemon",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.evilmon",
+    "sp.holy_angemon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Holy Angemon",
+     "level": "Perfect",
+     "type": "Archangel",
+     "attribute": "Vaccine",
+     "special_move_wiki": "Heaven's Gate"
+    },
+    {
+     "name": "Evilmon",
+     "level": "Adult",
+     "type": "Small Devil",
+     "attribute": "Virus",
+     "special_move_wiki": "Nightmare Shock"
+    }
+   ],
+   "location_ids": [
+    "wd.file_island"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_52",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.53",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 53,
+   "title_ja": "最後の暗黒デジモン",
+   "title_romaji": "Saigo no Ankoku Dejimon",
+   "title_literal_wiki": "The Final Dark Digimon",
+   "title_us_dub": "Now Apocalymon",
+   "air_date_jp": "March 19, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Izumi YKae",
+    "Kido Jo",
+    "Kido Shin",
+    "Tachikawa Keisuke",
+    "Tachikawa Mimi",
+    "Tachikawa Satoe",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.etemon_chaos",
+    "sp.pukamon",
+    "sp.mochimon",
+    "sp.pyocomon",
+    "sp.koromon",
+    "sp.tunomon",
+    "sp.tokomon",
+    "sp.tanemon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.palmon",
+    "sp.tentomon",
+    "sp.piyomon",
+    "sp.gomamon",
+    "sp.patamon",
+    "sp.centalmon",
+    "sp.mechanorimon",
+    "sp.tailmon",
+    "sp.kuwagamon",
+    "sp.dark_tyranomon",
+    "sp.bakemon",
+    "sp.devimon",
+    "sp.vegimon",
+    "sp.greymon",
+    "sp.wizarmon",
+    "sp.angemon",
+    "sp.kabuterimon",
+    "sp.togemon",
+    "sp.ikkakumon",
+    "sp.birdramon",
+    "sp.garudamon",
+    "sp.atlur_kabuterimon_red",
+    "sp.holy_angemon",
+    "sp.angewomon",
+    "sp.zudomon",
+    "sp.lilimon",
+    "sp.vamdemon",
+    "sp.vademon",
+    "sp.war_greymon",
+    "sp.metal_garurumon",
+    "sp.piemon",
+    "sp.apocalymon",
+    "sp.garurumon",
+    "sp.were_garurumon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [
+    {
+     "name": "Apocalymon",
+     "level": "Ultimate",
+     "type": "Unknown",
+     "attribute": "Unknown",
+     "special_move_wiki": "Darkness Zone"
+    }
+   ],
+   "location_ids": [
+    "wd.ancient_dino_region"
+   ],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_53",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "ep.da1999.54",
+   "season_id": "anime.digimon_adventure_1999",
+   "number": 54,
+   "title_ja": "新たな世界",
+   "title_romaji": "Aratana Sekai",
+   "title_literal_wiki": "A New World",
+   "title_us_dub": "The Fate of Two Worlds",
+   "air_date_jp": "March 26, 2000",
+   "synopsis_pt": null,
+   "synopsis_status": "pending",
+   "synopsis_confidence": null,
+   "characters": [
+    "Gennai",
+    "Ishida Hiroaki",
+    "Ishida Yamato",
+    "Izumi Kae",
+    "Izumi Kōshirō",
+    "Izumi Masami",
+    "Kido Jo",
+    "Kido Shin",
+    "Tachikawa Keisuke",
+    "Tachikawa Mimi",
+    "Tachikawa Satoe",
+    "Takaishi Natsuko",
+    "Takaishi Takeru",
+    "Takenouchi Sora",
+    "Takenouchi Toshiko",
+    "Yagami Hikari",
+    "Yagami Susumu",
+    "Yagami Taichi",
+    "Yagami Yuuko"
+   ],
+   "digimon_ids": [
+    "sp.botamon",
+    "sp.agumon",
+    "sp.gabumon",
+    "sp.elecmon",
+    "sp.gomamon",
+    "sp.palmon",
+    "sp.piyomon",
+    "sp.tentomon",
+    "sp.patamon",
+    "sp.tailmon",
+    "sp.orgemon",
+    "sp.seadramon",
+    "sp.tyranomon",
+    "sp.mechanorimon",
+    "sp.centalmon",
+    "sp.gekomon",
+    "sp.angewomon",
+    "sp.holy_angemon",
+    "sp.atlur_kabuterimon_red",
+    "sp.lilimon",
+    "sp.zudomon",
+    "sp.garudamon",
+    "sp.andromon",
+    "sp.metal_garurumon",
+    "sp.war_greymon",
+    "sp.apocalymon",
+    "sp.garurumon",
+    "sp.greymon",
+    "sp.were_garurumon",
+    "sp.metal_greymon"
+   ],
+   "digimon_unresolved_names": [],
+   "evolutions": [],
+   "analyzer": [],
+   "location_ids": [],
+   "events": null,
+   "battles": null,
+   "relevant_objects": null,
+   "environmental_refs": null,
+   "events_status": "pending",
+   "sources": [
+    {
+     "source_id": "src.wikimon_episode_pages",
+     "url": "https://wikimon.net/Digimon_Adventure_-_Episode_54",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  }
+ ]
+}

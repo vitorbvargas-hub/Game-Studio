@@ -1,0 +1,766 @@
+{
+ "_meta": {
+  "source_ids": [
+   "src.refbook_en",
+   "src.wikimon"
+  ],
+  "accessed_at": "2026-11-14",
+  "species_id": "sp.shellmon",
+  "note": "Fatos lidos hoje. Perfil oficial e perfil da wiki NÃO copiados; só nível, tipo, atributo, golpe e nomes das arestas."
+ },
+ "official": {
+  "url": "https://digimon.net/reference_en/detail.php?directory_name=shellmon",
+  "category": 1,
+  "validation_status": "verified_primary",
+  "name_en": "Shellmon",
+  "level_en": "Champion",
+  "type_en": "Mollusk",
+  "attribute_en": "Data",
+  "special_moves_en": [
+   "Hydro Blaster"
+  ],
+  "habitat_paraphrase_pt": "Vive no fundo do Net Ocean; o corpo cresce e ele troca de casca, até ficar do tamanho de um pequeno morro; se instala em qualquer coisa onde caiba.",
+  "personality_paraphrase_pt": "Pouca inteligência e temperamento briguento; perigoso de encontrar."
+ },
+ "wikimon": {
+  "url": "https://wikimon.net/Shellmon",
+  "category": 3,
+  "validation_status": "verified_secondary",
+  "title": "Shellmon",
+  "kana": "シェルモン",
+  "romaji": "Sherumon",
+  "levels": [
+   {
+    "value": "Adult",
+    "ref": "DRB"
+   }
+  ],
+  "attributes": [
+   {
+    "value": "Data",
+    "ref": "DRB"
+   }
+  ],
+  "types": [
+   {
+    "value": "Mollusk",
+    "ref": "DRB"
+   },
+   {
+    "value": "Aquatic",
+    "ref": "card Bo-9"
+   }
+  ],
+  "fields": [
+   {
+    "value": "Deep Savers",
+    "ref": "card Bo-9"
+   }
+  ],
+  "subspecies": [
+   "Mori Shellmon"
+  ],
+  "refbook_directory_name": "shellmon",
+  "special_move_wiki_translation": "Hydro Pressure",
+  "anime_analyzer_da02": {
+   "level": "Adult",
+   "type": "Aquatic",
+   "attribute": "Data",
+   "episode": "DA 02"
+  },
+  "evolves_from": [
+   {
+    "target": null,
+    "raw_generic": "Any Blue Lv.3 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Child Blue Digimon from the ''Battle Spirits Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Child Water Digimon from ''Digimon World: Digital Card Arena''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Child Water Digimon from ''Digimon World: Digital Card Battle''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Shambala Lv.3 Digimon from the ''Digimon Card Game''{{rfc|EX12|026 (DCG)}}"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any TS Lv.3 Digimon from the ''Digimon Card Game''{{rfc|BT24|025 (DCG)}}"
+   },
+   {
+    "target": "Armadimon",
+    "contexts": [
+     "Digimon Championship",
+     "Pendulum Z Deep Savers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Betamon",
+    "contexts": [
+     "Digimon World",
+     "Digimon Super Rumble"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Elecmon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Floramon",
+    "contexts": [],
+    "card_refs": [
+     "St|188"
+    ]
+   },
+   {
+    "target": "Ganimon",
+    "contexts": [
+     "Digimon World 2",
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers",
+     "Digimon Super Rumble",
+     "Digimon Story: Time Stranger"
+    ],
+    "card_refs": [
+     "Bo|1041"
+    ]
+   },
+   {
+    "target": "Ganimon (X-Antibody)",
+    "contexts": [],
+    "card_refs": [
+     "Bo|1041"
+    ]
+   },
+   {
+    "target": "Gasamon",
+    "contexts": [
+     "Pendulum COLOR 7 Toho Braves"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Gizamon",
+    "contexts": [
+     "Pendulum Z Deep Savers",
+     "Digimon Super Rumble"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Gomamon",
+    "contexts": [
+     "Digimon Survive"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Hanimon",
+    "contexts": [
+     "Pendulum COLOR 7 Toho Braves"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Kamemon",
+    "contexts": [
+     "Digimon Story: Time Stranger",
+     "Otamamon",
+     "Digimon Story: Super Xros Wars"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Koemon",
+    "contexts": [],
+    "card_refs": [
+     "Bo|772"
+    ]
+   },
+   {
+    "target": "Kunemon",
+    "contexts": [
+     "Digital Monster Ver. 3",
+     "Digital Monster Ver. S",
+     "Digital Monster COLOR Ver.3"
+    ],
+    "card_refs": [
+     "Bo|9"
+    ]
+   },
+   {
+    "target": "Modoki Betamon",
+    "contexts": [],
+    "card_refs": [
+     "Bo|772"
+    ]
+   },
+   {
+    "target": "Otamamon",
+    "contexts": [
+     "Kamemon",
+     "Digimon Story: Super Xros Wars"
+    ],
+    "card_refs": [
+     "St|188"
+    ]
+   },
+   {
+    "target": "Otamamon (Red)",
+    "contexts": [],
+    "card_refs": [
+     "St|188"
+    ]
+   },
+   {
+    "target": "Otamamon (X-Antibody)",
+    "contexts": [],
+    "card_refs": [
+     "St|188"
+    ]
+   },
+   {
+    "target": "Patamon",
+    "contexts": [
+     "Digimon Fortune"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Penmon",
+    "contexts": [
+     "Digimon World"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Pico Devimon",
+    "contexts": [
+     "Digimon Mini Ver. 3.0"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Shakomon (X-Antibody)",
+    "contexts": [],
+    "card_refs": [
+     "Bo|772"
+    ]
+   },
+   {
+    "target": "Wormmon",
+    "contexts": [],
+    "card_refs": []
+   }
+  ],
+  "evolves_to": [
+   {
+    "target": "Aero V-dramon",
+    "contexts": [
+     "Birdramon",
+     "V-dramon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Andromon",
+    "contexts": [
+     "Digital Monster Ver. 3",
+     "Digital Monster Ver. S",
+     "Digital Monster COLOR Ver.3",
+     "Revolmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": [
+     "Bo|11"
+    ]
+   },
+   {
+    "target": "Anomalocarimon",
+    "contexts": [
+     "Digimon New Century",
+     "Digimon Super Rumble",
+     "Digimon Story: Time Stranger",
+     "Coelamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Blue Lv.5 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from Aqua Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from Aquatic Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from Blue Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from Non-White Shambala Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from Shambala Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Digimon that also Evolves from TS Lv.4 Digimon from the ''Digimon Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Perfect Blue Digimon from the ''Battle Spirits Card Game''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Perfect Digimon that evolves from a Jogress in the ''Battle Spirits Card Game'' (with {{Wikia|Battle-spirits|Categor"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Perfect Water Digimon from ''Digimon World: Digital Card Arena''"
+   },
+   {
+    "target": null,
+    "raw_generic": "Any Perfect Water Digimon from ''Digimon World: Digital Card Battle''"
+   },
+   {
+    "target": "Asuramon",
+    "contexts": [
+     "Digital Monster Ver. WonderSwan",
+     "Greymon",
+     "Leomon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": [
+     "Bo|24"
+    ]
+   },
+   {
+    "target": "Beowolfmon",
+    "contexts": [
+     "Growmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Big Mamemon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers",
+     "Tankmon",
+     "Clockmon",
+     "Thunderballmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Blossomon",
+    "contexts": [],
+    "card_refs": [
+     "St|206"
+    ]
+   },
+   {
+    "target": "Chimairamon",
+    "contexts": [
+     "Digital Monster COLOR Ver.3"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Coelamon",
+    "contexts": [
+     "Digimon World"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Cyberdramon",
+    "contexts": [
+     "Greymon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Dagomon",
+    "contexts": [
+     "Gesomon",
+     "Octmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Dark Knightmon",
+    "contexts": [
+     "Porcupamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Duramon",
+    "contexts": [
+     "Bao Huckmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Fantomon",
+    "contexts": [
+     "Bakemon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Garudamon",
+    "contexts": [
+     "V-dramon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Gerbemon",
+    "contexts": [
+     "Red Vegimon",
+     "Woodmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Giromon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers",
+     "Digimon Fortune"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Groundramon",
+    "contexts": [
+     "Coredramon (Blue)",
+     "Devidramon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Gusokumon",
+    "contexts": [
+     "Digimon Pendulum Z Attributes and Levels#Vaccine Adult",
+     "Digimon Pendulum Z Attributes and Levels#Free Adult",
+     "Pendulum Z Deep Savers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Hangyomon",
+    "contexts": [
+     "Ebidramon",
+     "Seadramon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Herakle Kabuterimon",
+    "contexts": [
+     "Digimon World"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Hippogriffomon",
+    "contexts": [
+     "Cockatrimon",
+     "Diatrymon",
+     "Parasaurmon",
+     "Peckmon",
+     "Petermon",
+     "Pendulum Z Wind Guardians"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Jyagamon",
+    "contexts": [
+     "Kabuterimon",
+     "Tailmon",
+     "Tortamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Karakurumon",
+    "contexts": [
+     "Digimon Pendulum Color Attributes and Levels#Data Adult",
+     "Pendulum COLOR 7 Toho Braves"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Lady Devimon",
+    "contexts": [
+     "Devimon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Maildramon",
+    "contexts": [],
+    "card_refs": []
+   },
+   {
+    "target": "Mamemon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Mametyramon",
+    "contexts": [
+     "Monochromon",
+     "Ebidramon"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Marin Chimairamon",
+    "contexts": [
+     "Digital Monster Vital Bracelet Attributes and Levels#Virus Adult"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Marin Devimon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Megadramon",
+    "contexts": [
+     "Coredramon (Blue)",
+     "Coredramon (Green)",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Mega Seadramon",
+    "contexts": [
+     "Digimon World",
+     "Digimon RPG",
+     "Seadramon",
+     "Gesomon",
+     "Digimon Story: Super Xros Wars"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Mega Seadramon (X-Antibody)",
+    "contexts": [],
+    "card_refs": [
+     "Sx|59"
+    ]
+   },
+   {
+    "target": "Mermaimon",
+    "contexts": [
+     "Digimon Pendulum Z Attributes and Levels#Data Adult",
+     "Pendulum Z Deep Savers",
+     "Digital Monster Vital Bracelet Attributes and Levels#Vaccine Adult"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Metal Mamemon",
+    "contexts": [
+     "Digimon Adventure 02: Tag Tamers",
+     "Digimon Adventure 02: D1 Tamers",
+     "Igamon",
+     "Garurumon",
+     "Angemon",
+     "Tailmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Piccolomon",
+    "contexts": [
+     "Digimon Story: Time Stranger",
+     "Monochromon",
+     "Starmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Piranimon",
+    "contexts": [
+     "Digimon Pendulum Z Attributes and Levels#Virus Adult",
+     "Pendulum Z Deep Savers",
+     "Digital Monster Vital Bracelet Attributes and Levels#Free Adult"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Pumpmon",
+    "contexts": [
+     "Meramon",
+     "Wizarmon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Rize Greymon",
+    "contexts": [
+     "Reppamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Savior Huckmon",
+    "contexts": [
+     "Targetmon",
+     "Zubaeagermon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Sekkamon",
+    "contexts": [
+     "Digimon Pendulum Color Attributes and Levels#Virus Adult",
+     "Pendulum COLOR 7 Toho Braves"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Skull Satamon",
+    "contexts": [
+     "Digimon Fortune"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Tonosama Gekomon",
+    "contexts": [
+     "Hookmon",
+     "Gekomon",
+     "Kuwagamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Triceramon",
+    "contexts": [],
+    "card_refs": []
+   },
+   {
+    "target": "Vademon",
+    "contexts": [
+     "Digimon World"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Vamdemon",
+    "contexts": [
+     "Dokugumon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Waru Monzaemon",
+    "contexts": [
+     "Mechanorimon",
+     "Guardromon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Waru Seadramon",
+    "contexts": [
+     "Pendulum Z Deep Savers"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Were Garurumon",
+    "contexts": [
+     "Garurumon",
+     "Hanumon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Whamon Perfect",
+    "contexts": [
+     "Digimon Super Rumble",
+     "Digimon Story: Time Stranger",
+     "Ikkakumon",
+     "Rukamon",
+     "Digimon Pendulum Ver.20th"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Yatagaramon (2006 Anime Version)",
+    "contexts": [
+     "Digimon Pendulum Color Attributes and Levels#Vaccine Adult",
+     "Pendulum COLOR 7 Toho Braves"
+    ],
+    "card_refs": []
+   },
+   {
+    "target": "Zudomon",
+    "contexts": [
+     "Hyougamon"
+    ],
+    "card_refs": []
+   }
+  ]
+ }
+}

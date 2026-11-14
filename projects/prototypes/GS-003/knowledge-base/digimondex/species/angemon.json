@@ -1,0 +1,183 @@
+{
+ "id": "sp.angemon",
+ "name": "Angemon",
+ "names": {
+  "ja_kana": "エンジェモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "adult",
+  "en_official": "Champion",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "vaccine",
+  "en_official": "Vaccine",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Angel",
+ "family_groups": [
+  "Angemon-species",
+  "Angel Army"
+ ],
+ "description_pt": "Anjo de seis asas e vestes brancas; ser de bondade absoluta que combate o mal sem recuar.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.heaven_s_knuckle",
+   "name_en_official": "Heaven's Knuckle"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 1997,
+  "media": "Digital Monster Ver. 2"
+ },
+ "anime_adventure_01_episodes": [
+  13,
+  33,
+  37,
+  38,
+  39,
+  40,
+  44,
+  47,
+  48,
+  49,
+  50,
+  52,
+  53
+ ],
+ "games_and_media_contexts": [
+  "ctx.anime_digimon_adventure",
+  "ctx.anime_digimon_adventure_2020",
+  "ctx.bo_9v",
+  "ctx.d_213",
+  "ctx.d_232",
+  "ctx.d_301",
+  "ctx.d_3_25th_color_evolution",
+  "ctx.d_3_ver_15th",
+  "ctx.d_3_version_3",
+  "ctx.d_519",
+  "ctx.digimon_adventure_02_d1_tamers",
+  "ctx.digimon_adventure_02_digimon_hurricane_touchdown_supreme_evo",
+  "ctx.digimon_adventure_02_tag_tamers",
+  "ctx.digimon_adventure_02_vol_1_digimon_hurricane_landing_vol_2_t",
+  "ctx.digimon_adventure_game",
+  "ctx.digimon_championship",
+  "ctx.digimon_crusader",
+  "ctx.digimon_fusion_loader_toy",
+  "ctx.digimon_linkz",
+  "ctx.digimon_masters",
+  "ctx.digimon_mini_ver_3_0",
+  "ctx.digimon_new_century",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_rearise",
+  "ctx.digimon_rpg",
+  "ctx.digimon_soul_chaser",
+  "ctx.digimon_source_code",
+  "ctx.digimon_story",
+  "ctx.digimon_story_cyber_sleuth",
+  "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+  "ctx.digimon_story_lost_evolution",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_super_xros_wars",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digimon_survive",
+  "ctx.digimon_tamers_brave_tamer",
+  "ctx.digimon_up",
+  "ctx.digimon_world",
+  "ctx.digimon_world_2",
+  "ctx.digimon_world_3",
+  "ctx.digimon_world_next_0rder",
+  "ctx.digimon_world_next_0rder_international_edition",
+  "ctx.digimon_world_re_digitize",
+  "ctx.digimon_world_re_digitize_decode",
+  "ctx.digital_monster_color_ver_2",
+  "ctx.digital_monster_ver_2",
+  "ctx.digital_monster_ver_s",
+  "ctx.digivice_25th_color_evolution",
+  "ctx.digivice_toy",
+  "ctx.digivice_ver_15th",
+  "ctx.digivice_ver_complete",
+  "ctx.digivice_ver_revival",
+  "ctx.digivice_version_1",
+  "ctx.digivice_version_2",
+  "ctx.dm02_022",
+  "ctx.dm_022",
+  "ctx.dm_131",
+  "ctx.pendulum_color_zero_virus_busters",
+  "ctx.pendulum_progress_2_0",
+  "ctx.pendulum_z_virus_busters",
+  "ctx.pendulum_zero_virus_busters",
+  "ctx.pocket_digimon_world_wind_battle_disc",
+  "ctx.st_128",
+  "ctx.st_14",
+  "ctx.st_236",
+  "ctx.st_237",
+  "ctx.vital_bracelet_be"
+ ],
+ "evolves_from": [
+  "sp.agumon",
+  "sp.agumon_2006_anime_version",
+  "sp.floramon",
+  "sp.gabumon",
+  "sp.greymon",
+  "sp.palmon",
+  "sp.patamon",
+  "sp.piyomon"
+ ],
+ "evolves_to": [
+  "sp.holy_angemon",
+  "sp.rize_greymon",
+  "sp.seraphimon",
+  "sp.were_garurumon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [
+  "Pidmon"
+ ],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.angemon.ref01",
+  "vr.angemon.ref02",
+  "vr.angemon.ref03",
+  "vr.angemon.ref04",
+  "vr.angemon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Angemon",
+  "visual_list_image_file": "Angemon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=angemon"
+ },
+ "p0_groups": [
+  "primeiras_evolucoes_dos_starters"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}

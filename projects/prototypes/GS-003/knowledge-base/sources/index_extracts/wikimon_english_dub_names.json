@@ -1,0 +1,7956 @@
+{
+ "_meta": {
+  "source_id": "src.wikimon_dub_names",
+  "url": "https://wikimon.net/List_of_English_Dub_Names",
+  "accessed_at": "2026-11-14",
+  "category": 3,
+  "parsed_count": 1324,
+  "note": "n = nome da dublagem; j = título japonês (romanização Wikimon); a = grafia alternativa; p = aponta para outro nome."
+ },
+ "entries": [
+  {
+   "dub_name": "Aegiochusmon",
+   "ja_title": "Aegiochusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegiochusmon Blue",
+   "ja_title": "Aegiochusmon Blue",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegiochusmon Dark",
+   "ja_title": "Aegiochusmon Dark",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegiochusmon Green",
+   "ja_title": "Aegiochusmon Green",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegiochusmon Holy",
+   "ja_title": "Aegiochusmon Holy",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegiomon",
+   "ja_title": "Aegiomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aegisdramon",
+   "ja_title": "Aegisdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AeroVeedramon",
+   "ja_title": "Aero V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Agnimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Agunimon"
+  },
+  {
+   "dub_name": "Agumon",
+   "ja_title": "Agumon",
+   "alt": "Augumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Agumon X",
+   "ja_title": "Agumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Agumon (2006 Anime Version)",
+   "ja_title": "Agumon (2006 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Agumon Burst Mode",
+   "ja_title": "Agumon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Agumon Expert",
+   "ja_title": "Agumon Hakase",
+   "alt": "Agumon Hakase",
+   "points_to": null
+  },
+  {
+   "dub_name": "Agumon Hakase",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Agumon Expert"
+  },
+  {
+   "dub_name": "Agunimon",
+   "ja_title": "Agnimon",
+   "alt": "Agnimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Aircraft Carrier Whamon",
+   "ja_title": "Aircraft Carrier Whamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Airdramon",
+   "ja_title": "Airdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Akatorimon",
+   "ja_title": "Akatorimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aldamon",
+   "ja_title": "Aldamon",
+   "alt": "Ardhamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Allomon",
+   "ja_title": "Allomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Allomon X",
+   "ja_title": "Allomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Alphamon",
+   "ja_title": "Alphamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Alphamon Ouryuken",
+   "ja_title": "Alphamon Ouryuken",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Amon",
+   "ja_title": "Amon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientBeetlemon",
+   "ja_title": "Ancient Beetmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientGarurumon",
+   "ja_title": "Ancient Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientGreymon",
+   "ja_title": "Ancient Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientKazemon",
+   "ja_title": "Ancient Irismon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientMegatheriummon",
+   "ja_title": "Ancient Megatheriumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientMermaidmon",
+   "ja_title": "Ancient Mermaimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientSphinkmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Ancient Sphinxmon"
+  },
+  {
+   "dub_name": "AncientSphinxmon",
+   "ja_title": "Ancient Sphinxmon",
+   "alt": "AncientSphinkmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientTroiamon",
+   "ja_title": "Ancient Troiamon",
+   "alt": "AncientTroymon",
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientTroymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "AncientTroiamon"
+  },
+  {
+   "dub_name": "AncientVolcanomon",
+   "ja_title": "Ancient Volcamon",
+   "alt": "Volcanomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "AncientWisetmon",
+   "ja_title": "Ancient Wisemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Andromon",
+   "ja_title": "Andromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Angemon",
+   "ja_title": "Angemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Angewomon",
+   "ja_title": "Angewomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ankylomon",
+   "ja_title": "Ankylomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Antylamon",
+   "ja_title": "Andiramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Antylamon (Deva)",
+   "ja_title": "Andiramon (Deva)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Anubismon",
+   "ja_title": "Anubimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Apemon",
+   "ja_title": "Hanumon",
+   "alt": "Hanumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Apocalymon",
+   "ja_title": "Apocalymon",
+   "alt": "Apokarimon<br>Apoclymon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Apoclymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Apocalymon"
+  },
+  {
+   "dub_name": "Apokarimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Apocalymon"
+  },
+  {
+   "dub_name": "Apollomon",
+   "ja_title": "Apollomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Apollomon Darkness Mode",
+   "ja_title": "Apollomon Darkness Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Apollomon Whispered",
+   "ja_title": "Apollomon Whispered",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aquilamon",
+   "ja_title": "Aquilamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arbormon",
+   "ja_title": "Arbormon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arcadiamon",
+   "ja_title": "Arkadimon Ultimate",
+   "alt": "Arkadimon Ultimate",
+   "points_to": null
+  },
+  {
+   "dub_name": "Archelomon",
+   "ja_title": "Archelomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ardhamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Aldamon"
+  },
+  {
+   "dub_name": "Argomon",
+   "ja_title": "Algomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Argomon Mega",
+   "ja_title": "Algomon Ultimate",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arkadimon Baby",
+   "ja_title": "Arkadimon Baby",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arkadimon Child",
+   "ja_title": "Arkadimon Child",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arkadimon Adult",
+   "ja_title": "Arkadimon Adult",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arkadimon Perfect",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Arukadhimon"
+  },
+  {
+   "dub_name": "Arkadimon Ultimate",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Arcadiamon"
+  },
+  {
+   "dub_name": "Arkadimon Super Ultimate",
+   "ja_title": "Arkadimon Super Ultimate",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Armadillomon",
+   "ja_title": "Armadimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Armageddemon",
+   "ja_title": "Armagemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Armed MadLeomon",
+   "ja_title": "Mad Leomon: Armed Mode",
+   "alt": "MadLeomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Armormon",
+   "ja_title": "Assaultmon",
+   "alt": "Assaultmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Arresterdramon",
+   "ja_title": "Arresterdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arresterdramon Superior Mode",
+   "ja_title": "Arresterdramon Superior Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Arukadhimon",
+   "ja_title": "Arkadimon Perfect",
+   "alt": "Arkadimon Perfect",
+   "points_to": null
+  },
+  {
+   "dub_name": "Arukenimon",
+   "ja_title": "Archnemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Aruraumon",
+   "ja_title": "Alraumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Assaultmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Armormon"
+  },
+  {
+   "dub_name": "Astamon",
+   "ja_title": "Astamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Asuramon",
+   "ja_title": "Asuramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Atamadekachimon",
+   "ja_title": "Atamadekachimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AtlurBallistamon",
+   "ja_title": "Atlur Ballistamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Augumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Agumon"
+  },
+  {
+   "dub_name": "Aurumon",
+   "ja_title": "Owlmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AvengeKidmon",
+   "ja_title": "Avenge Kidmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "AxeKnightmon",
+   "ja_title": "Dark Knightmon",
+   "alt": "DarkKnightmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Axemon",
+   "ja_title": "Deadly Axemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Azulongmon",
+   "ja_title": "Qinglongmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Babamon",
+   "ja_title": "Babamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Babydmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Bebydomon"
+  },
+  {
+   "dub_name": "Bacchusmon",
+   "ja_title": "Bacchusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bagramon",
+   "ja_title": "Bagramon",
+   "alt": "Baguramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Baguramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Bagramon"
+  },
+  {
+   "dub_name": "Baihumon",
+   "ja_title": "Baihumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bakemon",
+   "ja_title": "Bakemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bakomon",
+   "ja_title": "Bakomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BalliBeastmon",
+   "ja_title": "Balli Bastemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ballistamon",
+   "ja_title": "Ballistamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ballistamon MC",
+   "ja_title": "Ballistamon MC",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ballistamon SR",
+   "ja_title": "Ballistamon SR",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Balongshou",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Baronmon"
+  },
+  {
+   "dub_name": "BanchoGolemon",
+   "ja_title": "Bancho Golemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BanchoLeomon",
+   "ja_title": "Bancho Leomon<br>Bantyo Liomon",
+   "alt": "BantyoLeomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "BanchoLeomon Burst Mode",
+   "ja_title": "Bancho Leomon Burst Mode<br>Bantyo Liomon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BanchoLillymon",
+   "ja_title": "Bancho Lilimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BanchoMamemon",
+   "ja_title": "Bancho Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BanchoStingmon",
+   "ja_title": "Bancho Stingmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BantyoLeomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "BanchoLeomon"
+  },
+  {
+   "dub_name": "BaoHackmon",
+   "ja_title": "Bao Huckmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Barbamon",
+   "ja_title": "Barbamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Baromon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Baronmon"
+  },
+  {
+   "dub_name": "Baronmon",
+   "ja_title": "Baromon",
+   "alt": "Baromon<br>Balongshou",
+   "points_to": null
+  },
+  {
+   "dub_name": "Bastemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Persiamon"
+  },
+  {
+   "dub_name": "Batterymon",
+   "ja_title": "Batterymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Battle Armament Trailmon",
+   "ja_title": "Battle Armament Trailmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bearmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kumamon"
+  },
+  {
+   "dub_name": "Beastmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Persiamon"
+  },
+  {
+   "dub_name": "Bebydomon",
+   "ja_title": "Babydmon",
+   "alt": "Babydmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Beetlemon",
+   "ja_title": "Blitzmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzemon",
+   "ja_title": "Beelzebumon",
+   "alt": "Beezlemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzemon Blast Mode",
+   "ja_title": "Beelzebumon Blast Mode",
+   "alt": "Beelzemon Bluster Mode<br>Beezlemon Blast Mode",
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzemon Bluster Mode",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Beelzemon Blast Mode"
+  },
+  {
+   "dub_name": "Beelzemon X",
+   "ja_title": "Beelzebumon X",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzebmon (2010 Anime Version)",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Beelzemon (2010 Anime Version)"
+  },
+  {
+   "dub_name": "Beelzemon (2010 Anime Version)",
+   "ja_title": "Beelzebumon (2010 Anime Version)",
+   "alt": "Beelzebmon (2010 Anime Version)",
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzemon + Deputymon",
+   "ja_title": "Beelzebumon + Revolmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Beelzemon + Starmons",
+   "ja_title": "Beelzebumon + Starmons",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Beezlemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Beelzemon"
+  },
+  {
+   "dub_name": "Beezlemon Blast Mode",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Beelzemon Blast Mode"
+  },
+  {
+   "dub_name": "BelialVamdemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MaloMyotismon"
+  },
+  {
+   "dub_name": "BelleStarmon",
+   "ja_title": "Beel Starrmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Belphemon Rage Mode",
+   "ja_title": "Belphemon Rage Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Belphemon Sleep Mode",
+   "ja_title": "Belphemon Sleep Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Beowolfmon",
+   "ja_title": "Beowolfmon<br>Beowulfmon",
+   "alt": "Beowulfmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Beowolfmon{{!}}Beowulfmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Beowolfmon"
+  },
+  {
+   "dub_name": "Betamon",
+   "ja_title": "Betamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Betamon X",
+   "ja_title": "Betamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Betsumon",
+   "ja_title": "Betsumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BigMamemon",
+   "ja_title": "Big Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioDarkdramon",
+   "ja_title": "Bio Darkdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioQuetzalmon",
+   "ja_title": "Bio Coatlmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioRotosmon",
+   "ja_title": "Bio Lotusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioStegomon",
+   "ja_title": "Bio Stegomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioSupinomon",
+   "ja_title": "Bio Spinomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BioThunderbirdmon",
+   "ja_title": "Bio Thunderbirmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Birdramon",
+   "ja_title": "Birdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BishopChessmon (Black)",
+   "ja_title": "Bishop Chessmon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BishopChessmon (White)",
+   "ja_title": "Bishop Chessmon (White)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Biyomon",
+   "ja_title": "Piyomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackAgumon",
+   "ja_title": "Agumon (Black)<br>Black Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackAgumon (2006 Anime Version)",
+   "ja_title": "Agumon (Black) (2006 Anime Version)<br>Black Agumon (2006 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackExVeemon",
+   "ja_title": "XV-mon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGabumon",
+   "ja_title": "Gabumon (Black)<br>Black Gabumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGargomon",
+   "ja_title": "Black Galgomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGarurumon",
+   "ja_title": "Garurumon (Black)<br>Black Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGatomon",
+   "ja_title": "Black Tailmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGreymon",
+   "ja_title": "Greymon (Black)<br>Black Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGrowlmon",
+   "ja_title": "Black Growmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackGuilmon",
+   "ja_title": "Black Guilmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackKingNumemon",
+   "ja_title": "Black King Numemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackMegaGargomon",
+   "ja_title": "Black Saint Galgomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackMetalGarurumon",
+   "ja_title": "Metal Garurumon (Black)<br>Black Metal Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackRapidmon",
+   "ja_title": "Black Rapidmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackSeraphimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "ShadowSeraphimon"
+  },
+  {
+   "dub_name": "BlackSeraphimon",
+   "ja_title": "Black Seraphimon (DW3)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackShoutmon X7",
+   "ja_title": "Black Shoutmon X7",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackVeedramon",
+   "ja_title": "V-dramon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackWarGreymon",
+   "ja_title": "Black War Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackWarGreymon X",
+   "ja_title": "Black War Greymon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackWarGrowlmon",
+   "ja_title": "Black Megalo Growmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlackWereGarurumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "ShadowWereGarurumon"
+  },
+  {
+   "dub_name": "BladeGarurumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "KendoGarurumon"
+  },
+  {
+   "dub_name": "BladeKuwagamon",
+   "ja_title": "Blade Kuwagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Blastmon",
+   "ja_title": "Blastmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Blikmon",
+   "ja_title": "Tinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Blimpmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Brimpmon"
+  },
+  {
+   "dub_name": "Blizzamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Korikakumon"
+  },
+  {
+   "dub_name": "Blizzarmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Korikakumon"
+  },
+  {
+   "dub_name": "Blossomon",
+   "ja_title": "Blossomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BlueMeramon",
+   "ja_title": "Blue Meramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Boarmon",
+   "ja_title": "Boarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bokomon",
+   "ja_title": "Bokomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Boltmon",
+   "ja_title": "Boltmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BomberNanimon",
+   "ja_title": "Bomber Nanimon",
+   "alt": "[[Citramon]]",
+   "points_to": null
+  },
+  {
+   "dub_name": "Bombmon",
+   "ja_title": "Bombmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bommon",
+   "ja_title": "Bommon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Boogeymon",
+   "ja_title": "Boogeymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Botamon",
+   "ja_title": "Botamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Brachiomon",
+   "ja_title": "Brachiomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Brakedramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Breakdramon"
+  },
+  {
+   "dub_name": "Breakdramon",
+   "ja_title": "Breakdramon",
+   "alt": "Brakedramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Brimpmon",
+   "ja_title": "Blimpmon",
+   "alt": "Blimpmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Bucchiemon",
+   "ja_title": "Pucchiemon<br>Puchiemon",
+   "alt": "Pucchiemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Bucchiemon (Green)",
+   "ja_title": "Pucchiemon (Green)<br>Puchiemon (Green)",
+   "alt": "Pucchiemon (Green)",
+   "points_to": null
+  },
+  {
+   "dub_name": "Budmon",
+   "ja_title": "Budmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bukamon",
+   "ja_title": "Pukamon",
+   "alt": "Pukamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Bulbmon",
+   "ja_title": "Valvemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bullmon",
+   "ja_title": "Bullmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Bun",
+   "ja_title": "Bun",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Buraimon",
+   "ja_title": "Buraimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Burgermon",
+   "ja_title": "Burgamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Burgermon Champion",
+   "ja_title": "Burgamon Adult",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BurningGreymon",
+   "ja_title": "Vritramon",
+   "alt": "Vritramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Burpmon",
+   "ja_title": "Burpmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "BushiAgumon",
+   "ja_title": "Bushi Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Butenmon",
+   "ja_title": "Butenmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Butterflymon",
+   "ja_title": "Butterflymon<br>Butterflamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Callismon",
+   "ja_title": "Callismon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Calumon",
+   "ja_title": "Culumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Calmaramon",
+   "ja_title": "Calmaramon<br>Calamaramon",
+   "alt": "Karumarramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Candlemon",
+   "ja_title": "Candmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "CannonBeemon",
+   "ja_title": "Cannonbeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "CannonBeemon (Aircraft Carrier)",
+   "ja_title": "Cannonbeemon (Aircraft Carrier)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cannondramon",
+   "ja_title": "Cannondramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "CaptainHookmon",
+   "ja_title": "Captain Hookmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon C1",
+   "ja_title": "Cardmon C1",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon C2",
+   "ja_title": "Cardmon C2",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon R1",
+   "ja_title": "Cardmon R1",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon R2",
+   "ja_title": "Cardmon R2",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon S1",
+   "ja_title": "Cardmon S1",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon S2",
+   "ja_title": "Cardmon S2",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon U1",
+   "ja_title": "Cardmon U1",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cardmon U2",
+   "ja_title": "Cardmon U2",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "CatchMamemon",
+   "ja_title": "Catch Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Caturamon",
+   "ja_title": "Caturamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Centarumon",
+   "ja_title": "Centalmon<br>Kentarumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cerberumon",
+   "ja_title": "Cerberumon",
+   "alt": "Cerberusmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Cerberumon Werewolf Mode",
+   "ja_title": "Cerberumon Jinrou Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cerberumon X",
+   "ja_title": "Cerberumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cerberusmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Cerberumon"
+  },
+  {
+   "dub_name": "Ceresmon",
+   "ja_title": "Ceresmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ceresmon Medium",
+   "ja_title": "Ceresmon Medium",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chackmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kumamon"
+  },
+  {
+   "dub_name": "Chameleonmon",
+   "ja_title": "Chamelemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaosdramon",
+   "ja_title": "Chaosdramon",
+   "alt": "Chaosdromon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaosdramon X",
+   "ja_title": "Chaosdramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaosdromon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Chaosdramon"
+  },
+  {
+   "dub_name": "ChaosGallantmon",
+   "ja_title": "Chaos Dukemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ChaosGallantmon Core",
+   "ja_title": "Chaos Dukemon Core",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ChaosGrimmon",
+   "ja_title": "Chaos Grimmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaos Lord",
+   "ja_title": "Chaos Lord",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ChaosMetalSeadramon",
+   "ja_title": "Chaos Seadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaosmon",
+   "ja_title": "Chaosmon<br>Khaosmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chaosmon Valdur Arm",
+   "ja_title": "Chaosmon Valdur Arm",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ChaosPiedmon",
+   "ja_title": "Chaos Piemon",
+   "alt": "ChaosPierrotmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "ChaosPierrotmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "ChaosPiedmon"
+  },
+  {
+   "dub_name": "ChaosWarGreymon",
+   "ja_title": "Chaos Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chapmon",
+   "ja_title": "Chapmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cherrymon",
+   "ja_title": "Jyureimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cherubimon (Evil)",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kerpymon (Virus)"
+  },
+  {
+   "dub_name": "Cherubimon (Good)",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kerpymon (Vaccine)"
+  },
+  {
+   "dub_name": "Chibickmon",
+   "ja_title": "Chibickmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chibikamemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Chibitortomon"
+  },
+  {
+   "dub_name": "Chibi Kamemon (Xros Wars){{!}}Chibitortomon",
+   "ja_title": "Chibi Kamemon",
+   "alt": "Chibikamemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Chibomon",
+   "ja_title": "Chicomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chicchimon",
+   "ja_title": "Chicchimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chikurimon",
+   "ja_title": "Chikurimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chirinmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Tyilinmon"
+  },
+  {
+   "dub_name": "Cho Hakkaimon",
+   "ja_title": "Cho·Hakkaimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Choromon",
+   "ja_title": "Choromon",
+   "alt": "MetalKoromon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Chronomon Destroy Mode",
+   "ja_title": "Chronomon Destroy Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chronomon Holy Mode",
+   "ja_title": "Chronomon Holy Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Chrysalimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kurisarimon"
+  },
+  {
+   "dub_name": "Chuchidarumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MudFrigimon"
+  },
+  {
+   "dub_name": "ChuuChuumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Tyutyumon"
+  },
+  {
+   "dub_name": "Chuumon",
+   "ja_title": "Chuumon<br>Tyumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Citramon",
+   "ja_title": "''N/A''{{Note|Character was heavily redrawn from [[Bomber Nanimon]] in [[Digimon Data Squad]]}}",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ClavisAngemon",
+   "ja_title": "Clavis Angemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ClearAgumon",
+   "ja_title": "Clear Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Clockmon",
+   "ja_title": "Clockmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Coelamon",
+   "ja_title": "Coelamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Commandramon",
+   "ja_title": "Commandramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Conomon",
+   "ja_title": "Cocomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Coredramon (Blue)",
+   "ja_title": "Coredramon (Blue)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Coredramon (Green)",
+   "ja_title": "Coredramon (Green)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Coronamon",
+   "ja_title": "Coronamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Crabmon",
+   "ja_title": "Ganimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Crabmon X",
+   "ja_title": "Ganimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Craniummon",
+   "ja_title": "Craniummon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Creepymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Daemon"
+  },
+  {
+   "dub_name": "Crescemon",
+   "ja_title": "Crescemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Crowmon",
+   "ja_title": "Yatagaramon (2006 Anime Version)",
+   "alt": "Yatagaramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Crusadermon",
+   "ja_title": "Lord Knightmon",
+   "alt": "LoadKnightmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Cutemon",
+   "ja_title": "Cutemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "CuteShoutmon",
+   "ja_title": "ShouCutemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cyberdramon",
+   "ja_title": "Cyberdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cyberdramon (2010 Anime Version)",
+   "ja_title": "Cyberdramon (2010 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Cyclonemon",
+   "ja_title": "Cyclomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper",
+   "ja_title": "D-Reaper",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-01",
+   "ja_title": "D-Reaper ADR-01",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-02",
+   "ja_title": "D-Reaper ADR-02",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-03",
+   "ja_title": "D-Reaper ADR-03",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-04",
+   "ja_title": "D-Reaper ADR-04",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-05",
+   "ja_title": "D-Reaper ADR-05",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-06",
+   "ja_title": "D-Reaper ADR-06",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-07",
+   "ja_title": "D-Reaper ADR-07",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-08",
+   "ja_title": "D-Reaper ADR-08",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "D-Reaper ADR-09",
+   "ja_title": "D-Reaper ADR-09",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Darcmon",
+   "ja_title": "Darcmon<br>d'Arcmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Daemon",
+   "ja_title": "Demon",
+   "alt": "Creepymon<br>Demon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Daemon Super Mega",
+   "ja_title": "Demon Super Ultimate",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Daipenmon",
+   "ja_title": "Daipenmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Damemon",
+   "ja_title": "Damemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Darkest AxeKnightmon",
+   "ja_title": "Dark Knightmon (Bagramon)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DarkKnightmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "AxeKnightmon"
+  },
+  {
+   "dub_name": "Dark Knightmon + Blastmon{{!}}DarkKnightmon (Blastmon)",
+   "ja_title": "Dark Knightmon (Blastmon)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dark Knightmon + Duskmon{{!}}DarkKnightmon (Duskmon)",
+   "ja_title": "Dark Knightmon (Duskmon)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dark Knightmon + Gulfmon{{!}}DarkKnightmon (Gulfmon)",
+   "ja_title": "Dark Knightmon (Gulfmon)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dark Knightmon + Lilithmon{{!}}DarkKnightmon (Lilithmon)",
+   "ja_title": "Dark Knightmon (Lilithmon)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DarkLizardmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Darkrizamon"
+  },
+  {
+   "dub_name": "Darkmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Devimon"
+  },
+  {
+   "dub_name": "Darkrizamon",
+   "ja_title": "Dark Lizarmon",
+   "alt": "DarkLizardmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "DarkSuperStarmon",
+   "ja_title": "Dark Super Starmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DarkTyrannomon",
+   "ja_title": "Dark Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DarkVolumon",
+   "ja_title": "Dark Volumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Darkdramon",
+   "ja_title": "Darkdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DarknessBagramon",
+   "ja_title": "Darkness Bagramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Datamon",
+   "ja_title": "Nanomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Datirimon",
+   "ja_title": "Pipimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Deathmon (C'mon Digimon  Version)",
+   "ja_title": "Deathmon (C'mon Digimon  Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathAirdramon",
+   "ja_title": "Death Airdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathDevimon",
+   "ja_title": "Death Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathMeramon (C'mon Digimon Version)",
+   "ja_title": "Death Meramon (C'mon Digimon Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathMetalGreymon",
+   "ja_title": "Death Metal Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathTyrannomon",
+   "ja_title": "Death Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DeathXmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Dexmon"
+  },
+  {
+   "dub_name": "Demon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Daemon"
+  },
+  {
+   "dub_name": "DexDorgoramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "DexDORUgoramon"
+  },
+  {
+   "dub_name": "DexDORUgamon",
+   "ja_title": "Death-X-DORUgamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DexDORUgoramon",
+   "ja_title": "Death-X-DORUgoramon",
+   "alt": "DexDorgoramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "DexDoruGreymon",
+   "ja_title": "Death-X-DORUguremon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dexmon",
+   "ja_title": "Death-X-mon",
+   "alt": "DeathXmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "DeckerGreymon",
+   "ja_title": "Decker Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Deckerdramon",
+   "ja_title": "Deckerdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Deltamon",
+   "ja_title": "Deltamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DemiDevimon",
+   "ja_title": "Pico Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DemiMeramon",
+   "ja_title": "Peti Meramon<br>Petit Meramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DemiVeemon",
+   "ja_title": "Chibimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Deramon",
+   "ja_title": "Delumon<br>Deramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Depthmon",
+   "ja_title": "Depthmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Deputymon",
+   "ja_title": "Revolmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Destromon",
+   "ja_title": "Destromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Devidramon",
+   "ja_title": "Devidramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Devimon",
+   "ja_title": "Devimon",
+   "alt": "Darkmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Devitamamon",
+   "ja_title": "Devitamamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Diaboromon",
+   "ja_title": "Diablomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dianamon",
+   "ja_title": "Dianamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Diatrymon",
+   "ja_title": "Diatrymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DigiGnome",
+   "ja_title": "DigiGnome",
+   "alt": "Diginom",
+   "points_to": null
+  },
+  {
+   "dub_name": "Diginom",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "DigiGnome"
+  },
+  {
+   "dub_name": "Diginorimon",
+   "ja_title": "Diginorimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Digitamamon",
+   "ja_title": "Digitamamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Digmon",
+   "ja_title": "Digmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DinoBeemon",
+   "ja_title": "Dinobeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dinohumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Dinohyumon"
+  },
+  {
+   "dub_name": "Dinohyumon",
+   "ja_title": "Dinohumon",
+   "alt": "Dinohumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "DinoRexmon",
+   "ja_title": "Dinorexmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DinoTigermon",
+   "ja_title": "Dinotigermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Divemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Divermon"
+  },
+  {
+   "dub_name": "Divermon",
+   "ja_title": "Hangyomon",
+   "alt": "Scubamon<br>Divemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Dobermon",
+   "ja_title": "Dobermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dobermon X",
+   "ja_title": "Dobermon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dodomon",
+   "ja_title": "Dodomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Doggymon",
+   "ja_title": "Dogmon",
+   "alt": "Dogmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Dogmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Doggymon"
+  },
+  {
+   "dub_name": "Dokugumon",
+   "ja_title": "Dokugumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dokunemon",
+   "ja_title": "Dokunemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dolphmon",
+   "ja_title": "Rukamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dominimon",
+   "ja_title": "Dominimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dondokomon",
+   "ja_title": "Dondokomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Donshoutmon",
+   "ja_title": "Donshoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorbickmon",
+   "ja_title": "Dorbickmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorbickmon Darkness Mode One",
+   "ja_title": "Dorbickmon + Dragon Army",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorbickmon Darkness Mode Two",
+   "ja_title": "Dorbickmon Darkness Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorbickmon Darkness Mode + Flare Lizarmon",
+   "ja_title": "Dorbickmon Darkness Mode + Flare Lizarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorimon",
+   "ja_title": "Dorimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DORUgamon",
+   "ja_title": "DORUgamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DORUgoramon",
+   "ja_title": "DORUgoramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorugreymon",
+   "ja_title": "DORUguremon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorulumon + Starmons",
+   "ja_title": "Dorulumon + Starmons",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dorulumon",
+   "ja_title": "Dorulumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DORUmon",
+   "ja_title": "DORUmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DotAgumon",
+   "ja_title": "Dot Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DotFalcomon",
+   "ja_title": "Dot Falcomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DotMirageGaogamon",
+   "ja_title": "Dot Mirage Gaogamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "DotShineGreymon",
+   "ja_title": "Dot Shine Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Doumon",
+   "ja_title": "Doumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dracomon",
+   "ja_title": "Dracomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dracumon{{!}}Dracomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Dracmon"
+  },
+  {
+   "dub_name": "Dracmon",
+   "ja_title": "Dracmon<br>Dracumon",
+   "alt": "Dracomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Dragomon",
+   "ja_title": "Dagomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Drimogemon",
+   "ja_title": "Drimogemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dunusmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Dynasmon"
+  },
+  {
+   "dub_name": "Duskmon",
+   "ja_title": "Duskmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Dynasmon",
+   "ja_title": "Dynasmon",
+   "alt": "Dunusmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Dynasmon X",
+   "ja_title": "Dynasmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Eaglemon",
+   "ja_title": "Crossmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Earthdramon",
+   "ja_title": "Earthdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Eater (Humanoid Mode)",
+   "ja_title": "Eater (Humanoid Mode)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Eater (Purebreed Mode)",
+   "ja_title": "Eater (Purebreed Mode)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Eater Adam",
+   "ja_title": "Eater Adam",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Eater Eve",
+   "ja_title": "Eater Eve",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ebemon",
+   "ja_title": "EBEmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ebemon X",
+   "ja_title": "EBEmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "EbiBurgamon",
+   "ja_title": "Ebi Burgamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ebonwumon",
+   "ja_title": "Xuanwumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ekakimon",
+   "ja_title": "Ekakimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ElDradimon",
+   "ja_title": "El Doradimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Elecmon",
+   "ja_title": "Elecmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Elephantmon",
+   "ja_title": "Elephamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "EmperorGreymon",
+   "ja_title": "Kaiser Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Endigomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Wendigomon"
+  },
+  {
+   "dub_name": "Etemon",
+   "ja_title": "Etemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Evilbeast Laylamon",
+   "ja_title": "Majuu Lilithmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ExTyrannomon",
+   "ja_title": "Ex-Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Examon",
+   "ja_title": "Examon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ex-Eraser α",
+   "ja_title": "Ex-Eraser α",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ex-Eraser β",
+   "ja_title": "Ex-Eraser β",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ex-Eraser γ",
+   "ja_title": "Ex-Eraser γ",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ex-Eraser Ω",
+   "ja_title": "Ex-Eraser Ω",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ExoGrimmon",
+   "ja_title": "Exo Grimmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ExVeemon",
+   "ja_title": "XV-mon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fairimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kazemon"
+  },
+  {
+   "dub_name": "Fake Agumon Expert",
+   "ja_title": "Nise Agumon Hakase",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Falcomon",
+   "ja_title": "Falcomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Falcomon (2006 Anime Version)",
+   "ja_title": "Falcomon (2006 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "FanBeemon",
+   "ja_title": "Funbeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fanglongmon",
+   "ja_title": "Huanglongmon",
+   "alt": "Huanglongmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Fangmon",
+   "ja_title": "Fangmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Feresmon",
+   "ja_title": "Phelesmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ferrarimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Prairiemon"
+  },
+  {
+   "dub_name": "Firamon",
+   "ja_title": "Firamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Flamedramon",
+   "ja_title": "Fladramon",
+   "alt": "Fradramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Flamemon",
+   "ja_title": "Flamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "FlameWizardmon",
+   "ja_title": "Fla Wizarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "FlareLizardmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Flarerizamon"
+  },
+  {
+   "dub_name": "Flarerizamon",
+   "ja_title": "Flare Lizarmon",
+   "alt": "FlareLizardmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Flaremon",
+   "ja_title": "Flaremon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Floramon",
+   "ja_title": "Floramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Flybeemon",
+   "ja_title": "Flybeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Flymon",
+   "ja_title": "Flymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Footmon",
+   "ja_title": "Footmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fradramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Flamedramon"
+  },
+  {
+   "dub_name": "Frigimon",
+   "ja_title": "Yukidarumon",
+   "alt": "Yukidarumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Frimon",
+   "ja_title": "Frimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Frogmon",
+   "ja_title": "Frogmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fufumon",
+   "ja_title": "Fufumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fugamon",
+   "ja_title": "Fugamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Fujinmon",
+   "ja_title": "Fujinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "FusedAncientVolcanomon",
+   "ja_title": "Gattai Ancient Volcamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "G-Cutemon",
+   "ja_title": "G-Cutemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gabumon",
+   "ja_title": "Gabumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gabumon X",
+   "ja_title": "Gabumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GAIA",
+   "ja_title": "GAIA",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gaiamon",
+   "ja_title": "Gaiamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gaiomon",
+   "ja_title": "Gaioumon",
+   "alt": "Samudramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Galacticmon",
+   "ja_title": "Ragnamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gallantmon",
+   "ja_title": "Dukemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gallantmon Crimson Mode",
+   "ja_title": "Dukemon Crimson Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gallantmon X",
+   "ja_title": "Dukemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ganemon",
+   "ja_title": "Ganemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gankoomon",
+   "ja_title": "Gankoomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gaogamon",
+   "ja_title": "Gaogamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gaomon",
+   "ja_title": "Gaomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gaossmon",
+   "ja_title": "Gaossmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Garbagemon",
+   "ja_title": "Gerbemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gardromon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Guardromon"
+  },
+  {
+   "dub_name": "Gargomon",
+   "ja_title": "Galgomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gargomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Gargoylemon"
+  },
+  {
+   "dub_name": "Gargoylemon",
+   "ja_title": "Gargomon",
+   "alt": "Gargomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Garudamon",
+   "ja_title": "Garudamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Garudamon X",
+   "ja_title": "Garudamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Garurumon",
+   "ja_title": "Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Garurumon X",
+   "ja_title": "Garurumon X-Antibody",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gatomon",
+   "ja_title": "Tailmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gatomon X",
+   "ja_title": "Tailmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gawappamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Gwappamon"
+  },
+  {
+   "dub_name": "Gazimon",
+   "ja_title": "Gazimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gazimon X",
+   "ja_title": "Gazimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gekomon",
+   "ja_title": "Gekomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Generamon",
+   "ja_title": "Generamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GeoGreymon",
+   "ja_title": "Geo Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Geremon",
+   "ja_title": "Geremon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gesomon",
+   "ja_title": "Gesomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gesomon X",
+   "ja_title": "Gesomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GigaBreakdramon",
+   "ja_title": "Giga Breakdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Giga Devast",
+   "ja_title": "Giga Devast",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gigadramon",
+   "ja_title": "Gigadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gigantic Numemon",
+   "ja_title": "Gigantic Numemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GigaSeadramon",
+   "ja_title": "Giga Seadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gigasmon",
+   "ja_title": "Gigasmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GigaWaruMonzaemon",
+   "ja_title": "Giga Waru Monzaemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gigimon",
+   "ja_title": "Gigimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ginkakumon",
+   "ja_title": "Ginkakumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ginkakumon Promote",
+   "ja_title": "Ginkakumon Promote",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ginryumon",
+   "ja_title": "Ginryumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Giromon",
+   "ja_title": "Giromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gizamon",
+   "ja_title": "Gizamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gizumon",
+   "ja_title": "Gizmon<br>Proto Gizmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gizumon AT",
+   "ja_title": "Gizmon: AT",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gizumon XT",
+   "ja_title": "Gizmon: XT",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gladimon",
+   "ja_title": "Gladimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Goatmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Oryxmon"
+  },
+  {
+   "dub_name": "Goblimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Goburimon"
+  },
+  {
+   "dub_name": "Goblinmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Goburimon"
+  },
+  {
+   "dub_name": "Goburimon",
+   "ja_title": "Goburimon",
+   "alt": "Goblimon<br>Goblinmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Gokuwmon",
+   "ja_title": "Gokuwmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GoldenRapidmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Rapidmon Armor"
+  },
+  {
+   "dub_name": "Goldramon",
+   "ja_title": "Goddramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Goldramon X",
+   "ja_title": "Goddramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GolemJijiKamemon",
+   "ja_title": "Golem Jiji Kamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Golemon",
+   "ja_title": "Golemon",
+   "alt": "Rockmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "GoldNumemon",
+   "ja_title": "Gold Numemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GoldVeedramon",
+   "ja_title": "Gold V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gomamon",
+   "ja_title": "Gomamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gomamon X",
+   "ja_title": "Gomamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gorillamon",
+   "ja_title": "Gorimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gotsumon",
+   "ja_title": "Gottsumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gotsumon X",
+   "ja_title": "Gottsumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ghoulmon",
+   "ja_title": "Deathmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ghoulmon (Black)",
+   "ja_title": "Deathmon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Grademon",
+   "ja_title": "Grademon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GrandGeneramon",
+   "ja_title": "Grand Generamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GranDracmon",
+   "ja_title": "Gran Dracmon<br>Grand Dracumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GranKuwagamon",
+   "ja_title": "Gran Kuwagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GrandisKuwagamon",
+   "ja_title": "Grandis Kuwagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GrandisKuwagamon Honeybee Mode",
+   "ja_title": "Grandis Kuwagamon Honey Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GrandLocomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "GranLocomon"
+  },
+  {
+   "dub_name": "GranLocomon",
+   "ja_title": "Grand Locomon",
+   "alt": "GrandLocomon<br>GroundLocomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "GrapLeomon",
+   "ja_title": "Grappu Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gravimon",
+   "ja_title": "Gravimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gravimon Darkness Mode",
+   "ja_title": "Gravimon Darkness Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "GreyKnightsmon",
+   "ja_title": "Grey Knightsmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Greymon",
+   "ja_title": "Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Greymon X",
+   "ja_title": "Greymon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Greymon (2010 Anime Version)",
+   "ja_title": "Greymon (2010 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Greymon (Orange)",
+   "ja_title": "Greymon (Orange)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Grimmon",
+   "ja_title": "Grimmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Grizzlymon",
+   "ja_title": "Gryzmon",
+   "alt": "Grizzmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Grizzmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Grizzlymon"
+  },
+  {
+   "dub_name": "Grottemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Grumblemon"
+  },
+  {
+   "dub_name": "GroundLocomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "GranLocomon"
+  },
+  {
+   "dub_name": "Groundramon",
+   "ja_title": "Groundramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Growlmon",
+   "ja_title": "Growmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Growlmon X",
+   "ja_title": "Growmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Growlmon (Orange)",
+   "ja_title": "Growmon (Orange)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Grumblemon",
+   "ja_title": "Grottomon",
+   "alt": "Grottemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Gryphomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Gryphonmon"
+  },
+  {
+   "dub_name": "Gryphonmon",
+   "ja_title": "Griffomon",
+   "alt": "Gryphomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "GuardiAngemon",
+   "ja_title": "Slash Angemon",
+   "alt": "SlushAngemon<br>SlashAngemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Guardramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Guardromon"
+  },
+  {
+   "dub_name": "Guardromon",
+   "ja_title": "Guardromon",
+   "alt": "Guardramon<br>Gardromon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Guardromon (Gold)",
+   "ja_title": "Guardromon (Gold)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Guidemon",
+   "ja_title": "Guidemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Guilmon",
+   "ja_title": "Guilmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Guilmon X",
+   "ja_title": "Guilmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gulfmon",
+   "ja_title": "Gulfmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gumdramon",
+   "ja_title": "Gumdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gummymon",
+   "ja_title": "Gummymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gundramon",
+   "ja_title": "Gundramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gururumon",
+   "ja_title": "Gururumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Gwappamon",
+   "ja_title": "Gawappamon",
+   "alt": "Gawappamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Hackmon",
+   "ja_title": "Huckmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hagurumon",
+   "ja_title": "Hagurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hagurumon X",
+   "ja_title": "Hagurumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Halsemon",
+   "ja_title": "Holsmon",
+   "alt": "Holsmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Hanumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Apemon"
+  },
+  {
+   "dub_name": "Harpymon",
+   "ja_title": "Harpymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hawkmon",
+   "ja_title": "Hawkmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "HerculesKabuterimon",
+   "ja_title": "Herakle Kabuterimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "HerculesKabuterimon X",
+   "ja_title": "Herakle Kabuterimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hermmon",
+   "ja_title": "Hermmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "HiAndromon",
+   "ja_title": "Hi Andromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "HiMachineDramon",
+   "ja_title": "Hi Mugendramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hisharumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Hisyarumon"
+  },
+  {
+   "dub_name": "Hisyarumon",
+   "ja_title": "Hisya Ryumon",
+   "alt": "Hisharumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Hi-VisionMonitamon",
+   "ja_title": "Hi-Vision Monitamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Holsmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Halsemon"
+  },
+  {
+   "dub_name": "HolyAngemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MagnaAngemon"
+  },
+  {
+   "dub_name": "HolyDigitamamon",
+   "ja_title": "Holy Digitamamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Honeybeemon",
+   "ja_title": "Honeybeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hookmon",
+   "ja_title": "Hookmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hopmon",
+   "ja_title": "Hopmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hououmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Phoenixmon"
+  },
+  {
+   "dub_name": "Huanglongmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Fanglongmon"
+  },
+  {
+   "dub_name": "Hubmon",
+   "ja_title": "Hubmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Huntermon",
+   "ja_title": "Huntermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "HustleNanimon",
+   "ja_title": "Hustle Nanimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hyogamon",
+   "ja_title": "Hyougamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hyokomon",
+   "ja_title": "Hyokomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Hippogriffomon",
+   "ja_title": "Hippogriffomon",
+   "alt": "HippoGryphonmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "IceDevimon",
+   "ja_title": "Ice Devimon",
+   "alt": "IceWingmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "IceDevimon Enhancement Absorbent{{!}}IceDevimon",
+   "ja_title": "Ice Devimon Enhancement Absorbent",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "IceDevimon-Daipenmon Enhancement",
+   "ja_title": "Ice Devimon Daipenmon Enhancement Absorbent",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "IceLeomon",
+   "ja_title": "Panjyamon",
+   "alt": "Panjyamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "IceLeomon X",
+   "ja_title": "Panjyamon (X-Antibody)",
+   "alt": "Panjyamon X",
+   "points_to": null
+  },
+  {
+   "dub_name": "Icemon",
+   "ja_title": "Icemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "IceWingmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "IceDevimon"
+  },
+  {
+   "dub_name": "Ignitemon",
+   "ja_title": "Ignitemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ikkakumon",
+   "ja_title": "Ikkakumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Imperialdramon",
+   "ja_title": "Imperialdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Imperialdramon Fighter Mode",
+   "ja_title": "Imperialdramon Fighter Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Imperialdramon Paladin Mode",
+   "ja_title": "Imperialdramon Paladin Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Impmon",
+   "ja_title": "Impmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Indramon",
+   "ja_title": "Indaramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Infermon",
+   "ja_title": "Infermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "J-Mojyamon",
+   "ja_title": "Jungle Mojyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JagerDorulumon",
+   "ja_title": "Yaeger Dorulumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JagerLoweemon",
+   "ja_title": "Kaiser Leomon",
+   "alt": "KaiserLeomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Jesmon",
+   "ja_title": "JESmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JetMervamon",
+   "ja_title": "Jet Mervamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JetSilphymon",
+   "ja_title": "Jet Silphymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JewelBeemon",
+   "ja_title": "Jewelbeemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jijimon",
+   "ja_title": "Jijimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JijiShoutmon",
+   "ja_title": "Jiji Shoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jokermon",
+   "ja_title": "Jokermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "JumboGamemon",
+   "ja_title": "Jumbo Gamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Junomon",
+   "ja_title": "Junomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Junomon Hysteric Mode",
+   "ja_title": "Junomon Hysteric Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jupitermon",
+   "ja_title": "Jupitermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jupitermon Wrath Mode",
+   "ja_title": "Jupitermon Wrath Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Justimon",
+   "ja_title": "Justimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jyagamon",
+   "ja_title": "Jyagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Jyarimon",
+   "ja_title": "Jyarimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kabukimon",
+   "ja_title": "Kabukimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kabuterimon",
+   "ja_title": "Kabuterimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KaiserLeomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "JagerLoweemon"
+  },
+  {
+   "dub_name": "Kamemon",
+   "ja_title": "Kamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kangarumon",
+   "ja_title": "Kangalmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kapurimon",
+   "ja_title": "Caprimon<br>Kapurimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Karatenmon",
+   "ja_title": "Karatenmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KaratsukiNumemon",
+   "ja_title": "Karatuki Numemon<br>Karatsuki Numemon",
+   "alt": "ShellNumemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Karumarramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Calmaramon"
+  },
+  {
+   "dub_name": "Kazemon",
+   "ja_title": "Fairimon",
+   "alt": "Fairimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "KendoGarurumon",
+   "ja_title": "Garmmon",
+   "alt": "BladeGarurumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Kenkimon",
+   "ja_title": "Kenkimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kentaurosmon",
+   "ja_title": "Sleipmon",
+   "alt": "Sleipmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Keramon",
+   "ja_title": "Keramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kerpymon (Black)",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kerpymon (Virus)"
+  },
+  {
+   "dub_name": "Kerpymon (Vaccine)",
+   "ja_title": "Cherubimon (Virtue)",
+   "alt": "Cherubimon (Good)",
+   "points_to": null
+  },
+  {
+   "dub_name": "Kerpymon (Virus)",
+   "ja_title": "Cherubimon (Vice)",
+   "alt": "Cherubimon (Evil)<br>Kerpymon (Black)",
+   "points_to": null
+  },
+  {
+   "dub_name": "Ketomon",
+   "ja_title": "Ketomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kiimon",
+   "ja_title": "Kiimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kimeramon",
+   "ja_title": "Chimairamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "King Drasil",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Yggdrasill"
+  },
+  {
+   "dub_name": "King Whalemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "King Whamon"
+  },
+  {
+   "dub_name": "King Whamon",
+   "ja_title": "King Whamon",
+   "alt": "King Whalemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "KingChessmon",
+   "ja_title": "King Chessmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KingEtemon",
+   "ja_title": "King Etemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KingSukamon",
+   "ja_title": "Great King Scumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kinkakumon",
+   "ja_title": "Kinkakumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kiwimon",
+   "ja_title": "Kiwimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KnightChessmon (Black)",
+   "ja_title": "Knight Chessmon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KnightChessmon (White)",
+   "ja_title": "KnightChessmon (White)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Knightmon",
+   "ja_title": "Knightmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Knightmon Wise Sword Mode",
+   "ja_title": "Knightmon Wise Sword Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KoDokugumon",
+   "ja_title": "Kodokugumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Koemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Monmon"
+  },
+  {
+   "dub_name": "Kohagurumon",
+   "ja_title": "Kohagurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "KoKabuterimon",
+   "ja_title": "Kokabuterimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kokatorimon",
+   "ja_title": "Cockatrimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kokuwamon",
+   "ja_title": "Kokuwamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kokuwamon X",
+   "ja_title": "Kokuwamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kongoumon",
+   "ja_title": "Kongoumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Korikakumon",
+   "ja_title": "Blizzarmon",
+   "alt": "Blizzamon<br>Blizzarmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Koromon",
+   "ja_title": "Koromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kotemon",
+   "ja_title": "Kotemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kogamon",
+   "ja_title": "Kougamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kozenimon",
+   "ja_title": "Kozenimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kudamon",
+   "ja_title": "Kudamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kudamon (2006 Anime Version)",
+   "ja_title": "Kudamon (2006 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kumamon",
+   "ja_title": "Bearmon",
+   "alt": "Bearmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Kumamon",
+   "ja_title": "Chackmon",
+   "alt": "Chackmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Kumbhiramon",
+   "ja_title": "Kumbhiramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kunemon",
+   "ja_title": "Kunemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kuramon",
+   "ja_title": "Kuramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kurisarimon",
+   "ja_title": "Chrysalimon",
+   "alt": "Chrysalimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Kuwagamon",
+   "ja_title": "Kuwagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kuwagamon X",
+   "ja_title": "Kuwagamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kuzuhamon",
+   "ja_title": "Kuzuhamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyaromon",
+   "ja_title": "Kyaromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyokyomon",
+   "ja_title": "Kyokyomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyubimon",
+   "ja_title": "Kyubimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyubimon (Silver)",
+   "ja_title": "Kyubimon (Silver)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyukimon",
+   "ja_title": "Kyūkimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Kyupimon",
+   "ja_title": "Cupimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Labramon",
+   "ja_title": "Labramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "LadyDevimon",
+   "ja_title": "Lady Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lalamon",
+   "ja_title": "Lalamon",
+   "alt": "Raramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lampmon",
+   "ja_title": "Lampmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lanamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Ranamon"
+  },
+  {
+   "dub_name": "Lanksmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lynxmon"
+  },
+  {
+   "dub_name": "Laylamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lilithmon"
+  },
+  {
+   "dub_name": "Laylamon Combined",
+   "ja_title": "Gattai Lilithmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leafmon",
+   "ja_title": "Leafmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lekismon",
+   "ja_title": "Lekismon",
+   "alt": "Rekisumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Leomon",
+   "ja_title": "Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leomon X",
+   "ja_title": "Leomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leopardmon",
+   "ja_title": "Duftmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leopardmon X",
+   "ja_title": "Duftmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leopardmon Leopard Mode",
+   "ja_title": "Duftmon Leopard Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Leviamon",
+   "ja_title": "Leviamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lighdramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Raidramon"
+  },
+  {
+   "dub_name": "Lilamon",
+   "ja_title": "Lilamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lilimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lillymon"
+  },
+  {
+   "dub_name": "Lillymon",
+   "ja_title": "Lilimon",
+   "alt": "Lilymon<br>Lilimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lilymon X",
+   "ja_title": "Lilimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lilithmon",
+   "ja_title": "Lilithmon",
+   "alt": "Laylamon<br>Rirismon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lilymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lillymon"
+  },
+  {
+   "dub_name": "Liollmon",
+   "ja_title": "Liollmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "LoaderLeomon",
+   "ja_title": "Loader Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "LoadKnightmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Crusadermon"
+  },
+  {
+   "dub_name": "Lobomon",
+   "ja_title": "Wolfmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Locomon",
+   "ja_title": "Locomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lopmon",
+   "ja_title": "Lopmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lotosmon",
+   "ja_title": "Lotusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Loweemon",
+   "ja_title": "Löwemon",
+   "alt": "Lowemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lowemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Loweemon"
+  },
+  {
+   "dub_name": "Lucemon",
+   "ja_title": "Lucemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lucemon Chaos Mode",
+   "ja_title": "Lucemon Falldown Mode",
+   "alt": "Lucemon Fallen Mode<br>Lucemon Wild 1st Mode",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lucemon Fallen Mode",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lucemon Chaos Mode"
+  },
+  {
+   "dub_name": "Lucemon Larva",
+   "ja_title": "Lucemon Larva",
+   "alt": "Lucemon Rival",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lucemon Rival",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lucemon Larva"
+  },
+  {
+   "dub_name": "Lucemon Shadow Lord Mode",
+   "ja_title": "Lucemon Satan Mode",
+   "alt": "Lucemon Wild 2nd Mode",
+   "points_to": null
+  },
+  {
+   "dub_name": "Lucemon Wild 1st Mode",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lucemon Chaos Mode"
+  },
+  {
+   "dub_name": "Lucemon Wild 2nd Mode",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lucemon Shadow Lord Mode"
+  },
+  {
+   "dub_name": "Luminamon",
+   "ja_title": "Luminamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lunamon",
+   "ja_title": "Lunamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lykamon",
+   "ja_title": "Lykamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Lynxmon",
+   "ja_title": "Lynxmon",
+   "alt": "Lanksmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MachGaogamon",
+   "ja_title": "Mach Gaogamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Machinedramon",
+   "ja_title": "Mugendramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MachLeomon",
+   "ja_title": "Mach Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MadLeomon",
+   "ja_title": "Mad Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MadLeomon: Armed Mode{{!}}MadLeomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Armed MadLeomon"
+  },
+  {
+   "dub_name": "MadLeomon (Final Mode)",
+   "ja_title": "Mad Leomon (Final Mode)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MadLeomon (Orochimode)",
+   "ja_title": "Mad Leomon (Orochi Mode)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MagnaAngemon",
+   "ja_title": "Holy Angemon",
+   "alt": "HolyAngemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Magnadramon",
+   "ja_title": "Holydramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Magnadramon X",
+   "ja_title": "Holydramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MagnaGarurumon",
+   "ja_title": "Magna Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MagnaKidmon",
+   "ja_title": "Magna Kidmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Magnamon",
+   "ja_title": "Magnamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Magnamon X",
+   "ja_title": "Magnamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MailBirdramon",
+   "ja_title": "Mail Birdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Maildramon",
+   "ja_title": "Maildramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Makuramon",
+   "ja_title": "Makuramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MaloMyotismon",
+   "ja_title": "Belial Vamdemon",
+   "alt": "BelialVamdemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Mamemon",
+   "ja_title": "Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mamemon X",
+   "ja_title": "Mamemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MameTyramon",
+   "ja_title": "Mametyramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mammothmon",
+   "ja_title": "Mammon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mammothmon X",
+   "ja_title": "Mammon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Manbomon",
+   "ja_title": "Manbomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mantaraymon",
+   "ja_title": "Mantaraymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mantaraymon X",
+   "ja_title": "Mantaraymon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MarinAngemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MarineAngemon"
+  },
+  {
+   "dub_name": "Marineanegemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MarineAngemon"
+  },
+  {
+   "dub_name": "MarineAngemon",
+   "ja_title": "Marin Angemon",
+   "alt": "Marineanegemon<br>MarinAngemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MarineDevimon",
+   "ja_title": "Marin Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Marsmon",
+   "ja_title": "Marsmon",
+   "alt": "Marusumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Marusumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Marsmon"
+  },
+  {
+   "dub_name": "Mastemon",
+   "ja_title": "Mastemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MasterTyrannomon",
+   "ja_title": "Master Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MasterVeedramon",
+   "ja_title": "Master V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Matadoramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Matadormon"
+  },
+  {
+   "dub_name": "Matadormon",
+   "ja_title": "Matadrmon",
+   "alt": "Matadoramon<br>Matadramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Matadramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Matadormon"
+  },
+  {
+   "dub_name": "MedicalGallantmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MedievalDukemon"
+  },
+  {
+   "dub_name": "MedievalDukemon",
+   "ja_title": "Medieval Dukemon",
+   "alt": "MedicalGallantmon<br>MedievalGallantmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaDeckerGreymon",
+   "ja_title": "MegaDeckerGreymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaGargomon",
+   "ja_title": "Saint Galgomon",
+   "alt": "SaintGargomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaKabuterimon (Blue)",
+   "ja_title": "AtlurKabuterimon (Blue)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaKabuterimon (Red)",
+   "ja_title": "Atlur Kabuterimon (Red)",
+   "alt": "MegaKabutierimon (Red)",
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaKabutierimon (Red)",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MegaKabuterimon (Red)"
+  },
+  {
+   "dub_name": "MegaSeadramon",
+   "ja_title": "Mega Seadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MegaSeadramon X",
+   "ja_title": "Mega Seadramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Megadramon",
+   "ja_title": "Megadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Megidramon",
+   "ja_title": "Megidramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Megidramon X",
+   "ja_title": "Megidramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Meicoomon",
+   "ja_title": "Meikuumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mekanorimon",
+   "ja_title": "Mechanorimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mephistomon",
+   "ja_title": "Mephismon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Meramon",
+   "ja_title": "Meramon",
+   "alt": "RedMeramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Mercuremon{{!}}Mercurymon",
+   "ja_title": "Mercuremon",
+   "alt": "Mercurmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Mercurimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Merukimon"
+  },
+  {
+   "dub_name": "Mercurmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Mercurymon"
+  },
+  {
+   "dub_name": "Mermaidmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Mermaimon"
+  },
+  {
+   "dub_name": "Mermaimon",
+   "ja_title": "Mermaimon",
+   "alt": "Mermaidmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Merukimon",
+   "ja_title": "Mercurymon",
+   "alt": "Mercurimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Mervamon",
+   "ja_title": "Mervamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mervamon Wide Hi-Vision Sword",
+   "ja_title": "Mervamon Wide Hi-Vision Sword",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Metal Greymon + Cyber Rancher",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MetalGreymon Cyberdramon"
+  },
+  {
+   "dub_name": "MetalEtemon",
+   "ja_title": "Metal Etemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalPhantomon",
+   "ja_title": "Metal Fantomon<br>Metal Phantomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGarurumon",
+   "ja_title": "Metal Garurumon",
+   "alt": "MetalGururumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGarurumon X",
+   "ja_title": "Metal Garurumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGreymon",
+   "ja_title": "MetalGreymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Metal Greymon + Cyber Launcher{{!}}MetalGreymon Cyberdramon",
+   "ja_title": "Metal Greymon + Cyber Launcher",
+   "alt": "Metal Greymon + Cyber Rancher<br>MetalGreymon + Cyberdramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGreymon X",
+   "ja_title": "Metal Greymon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGreymon (2010 Anime Version)",
+   "ja_title": "Metal Greymon (2010 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGreymon (Virus)",
+   "ja_title": "Metal Greymon (Virus)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalGreymon + Cyberdramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MetalGreymon Cyberdramon"
+  },
+  {
+   "dub_name": "MetalGururumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MetalGarurumon"
+  },
+  {
+   "dub_name": "MetalKabuterimon",
+   "ja_title": "Bolgmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalKoromon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Choromon"
+  },
+  {
+   "dub_name": "MetalMamemon",
+   "ja_title": "Metal Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalMamemon X",
+   "ja_title": "Metal Mamemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalPiranimon",
+   "ja_title": "Metal Piranimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalSeadramon",
+   "ja_title": "MetalSeadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalTyrannomon",
+   "ja_title": "Metal Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetalTyrannomon X",
+   "ja_title": "Metal Tyranomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MetallifeKuwagamon",
+   "ja_title": "Metallife Kuwagamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Metamormon",
+   "ja_title": "Metamormon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mihiramon",
+   "ja_title": "Mihiramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mikemon",
+   "ja_title": "Mikemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Millenniummon",
+   "ja_title": "Millenniumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Minervamon",
+   "ja_title": "Minervamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Minidekachimon",
+   "ja_title": "Minidekachimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Minomon",
+   "ja_title": "Minomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Minotarumon",
+   "ja_title": "Minotaurmon<br>Minotarumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MirageGaogamon",
+   "ja_title": "Mirage Gaogamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MirageGaogamon Burst Mode",
+   "ja_title": "Mirage Gaogamon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Missimon",
+   "ja_title": "Missimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mistymon",
+   "ja_title": "Mystimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ModokiBetamon",
+   "ja_title": "Modoki Betamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mojyamon",
+   "ja_title": "Mojyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mokumon",
+   "ja_title": "Mokumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monimon",
+   "ja_title": "Monimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monitamon",
+   "ja_title": "Monitamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monochromon",
+   "ja_title": "Monochromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monochromon X",
+   "ja_title": "Monochromon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monodramon",
+   "ja_title": "Monodramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Monzaemon",
+   "ja_title": "Monzaemon",
+   "alt": "Teddymon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Moon=Millenniummon",
+   "ja_title": "Moon Millenniumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Moonmon",
+   "ja_title": "Moonmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Moosemon",
+   "ja_title": "Moosemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MoriShellmon",
+   "ja_title": "Mori Shellmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mother D-Reaper",
+   "ja_title": "Mother D-Reaper",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mother Eater",
+   "ja_title": "Mother Eater",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mothmon",
+   "ja_title": "Mothmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Motimon",
+   "ja_title": "Mochimon<br>Motimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Muchomon",
+   "ja_title": "Muchomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MudFrigimon",
+   "ja_title": "Tsuchidarumon",
+   "alt": "Chuchidarumon<br>Tsuchidarumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Mummymon",
+   "ja_title": "Mummymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Murmuxmon",
+   "ja_title": "Murmuxmon<br>Murmukusmon<br>Murmusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mush-Upped MachLeomon",
+   "ja_title": "Mush-Upped Mach Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Mushroomon",
+   "ja_title": "Mushmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "MusoKnightmon",
+   "ja_title": "Muso Knightmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Musyamon",
+   "ja_title": "Musyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Myotismon",
+   "ja_title": "Vamdemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NEO",
+   "ja_title": "NEO",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Nanimon",
+   "ja_title": "Nanimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Neemon",
+   "ja_title": "Neamon",
+   "alt": "Ne-mon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Ne-mon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Neemon"
+  },
+  {
+   "dub_name": "Nefertimon",
+   "ja_title": "Nefertimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Nefertimon X",
+   "ja_title": "Nefertimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeneShademon",
+   "ja_title": "Nene Shademon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoCrimson",
+   "ja_title": "Neo Crimson",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoDevimon",
+   "ja_title": "Neo Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoMyotismon",
+   "ja_title": "Neo Vamdemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoMyotismon Darkness Mode One",
+   "ja_title": "Neo Vamdemon + Devimon + Lady Devimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoMyotismon Darkness Mode Two",
+   "ja_title": "Neo Vamdemon Darkness Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NeoMyotismon Darkness Mode + Shoutmon",
+   "ja_title": "Neo Vamdemon Darkness Mode + Shoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Neptunemon",
+   "ja_title": "Neptunemon",
+   "alt": "Neptunmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Neptunmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Neptunemon"
+  },
+  {
+   "dub_name": "Ninjamon",
+   "ja_title": "Igamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "NiseDrimogemon",
+   "ja_title": "Nise Drimogemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Nohemon",
+   "ja_title": "Nohemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Numemon",
+   "ja_title": "Numemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Nyaromon",
+   "ja_title": "Nyaromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Nyokimon",
+   "ja_title": "Nyokimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "OchiMusyamon",
+   "ja_title": "Ochi Musyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Octomon",
+   "ja_title": "Octmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ogremon",
+   "ja_title": "Orgemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ogudomon",
+   "ja_title": "Ogudomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ohakadamon",
+   "ja_title": "Ohakadamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Oinkmon",
+   "ja_title": "Būmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Okuwamon",
+   "ja_title": "Okuwamon",
+   "alt": "Ookuwamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Okuwamon X",
+   "ja_title": "Okuwamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Olegmon",
+   "ja_title": "Olegmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Omekamon",
+   "ja_title": "Omekamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "OmegaArmamon BM",
+   "ja_title": "Omega Armamon BM",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Omnimon",
+   "ja_title": "Omegamon",
+   "alt": "Omegamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Omegamon Alter-B",
+   "ja_title": "Omegamon Alter-B",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Omnimon X",
+   "ja_title": "Omegamon (X-Antibody)",
+   "alt": "Omegamon (X-Antibody)",
+   "points_to": null
+  },
+  {
+   "dub_name": "Omnimon Zwart",
+   "ja_title": "Omegamon Zwart",
+   "alt": "Omegamon Zwart",
+   "points_to": null
+  },
+  {
+   "dub_name": "Omegamon Zwart D",
+   "ja_title": "Omegamon Zwart D",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "OmniShoutmon",
+   "ja_title": "Omega Shoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ookuwamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Okuwamon"
+  },
+  {
+   "dub_name": "Ornismon",
+   "ja_title": "Ornismon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ophanimon",
+   "ja_title": "Ofanimon",
+   "alt": "Orphanimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Ophanimon Core",
+   "ja_title": "Ofanimon Core",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ophanimon Falldown Mode",
+   "ja_title": "Ofanimon Falldown Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Opossumon",
+   "ja_title": "Opossummon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Orcamon",
+   "ja_title": "Orcamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Orochimon",
+   "ja_title": "Orochimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Orphanimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Ophanimon"
+  },
+  {
+   "dub_name": "Oryxmon",
+   "ja_title": "Goatmon",
+   "alt": "Goatmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Otamamon",
+   "ja_title": "Otamamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Otamamon X",
+   "ja_title": "Otamamon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Otamamon (Red)",
+   "ja_title": "Otamamon (Red)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ouryumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Owryumon"
+  },
+  {
+   "dub_name": "Owryumon",
+   "ja_title": "Ouryumon",
+   "alt": "Ouryumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Pabumon",
+   "ja_title": "Bubbmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pafumon",
+   "ja_title": "Pafumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pagumon",
+   "ja_title": "Pagumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Paildramon",
+   "ja_title": "Paildramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pajiramon",
+   "ja_title": "Pajramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Palmon",
+   "ja_title": "Palmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Palmon X",
+   "ja_title": "Palmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Panbachimon",
+   "ja_title": "Panbachimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pandamon",
+   "ja_title": "Pandamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Panimon",
+   "ja_title": "Panimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Panjyamon",
+   "ja_title": "Panjyamon",
+   "alt": "IceLeomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Panjyamon X",
+   "ja_title": "Panjyamon (X-Antibody)",
+   "alt": "IceLeomon X",
+   "points_to": null
+  },
+  {
+   "dub_name": "Paomon",
+   "ja_title": "Paomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Parallelmon",
+   "ja_title": "Parallelmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Parasimon",
+   "ja_title": "Parasimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Parrotmon",
+   "ja_title": "Parrotmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Patamon",
+   "ja_title": "Patamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PawnChessmon (Black)",
+   "ja_title": "Pawn Chessmon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PawnChessmon (White)",
+   "ja_title": "Pawn Chessmon (White)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PawnShoutmon",
+   "ja_title": "Pawn Shoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Peacockmon",
+   "ja_title": "Peacockmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Peckmon",
+   "ja_title": "Peckmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pegasmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Pegasusmon"
+  },
+  {
+   "dub_name": "Pegasusmon",
+   "ja_title": "Pegasmon",
+   "alt": "Pegasmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Penguinmon",
+   "ja_title": "Penmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Persiamon",
+   "ja_title": "Bastemon",
+   "alt": "Beastmon<br>Bastemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Petaldramon",
+   "ja_title": "Petaldramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Petermon",
+   "ja_title": "Petermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PetitMamon",
+   "ja_title": "Petit Mamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Petitmon",
+   "ja_title": "Petitmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Petranamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Pteramon"
+  },
+  {
+   "dub_name": "Phantomon",
+   "ja_title": "Phantomon<br>Fantomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pharaohmon",
+   "ja_title": "Pharaohmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Phascomon",
+   "ja_title": "Phascomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Phoenixmon",
+   "ja_title": "Hououmon",
+   "alt": "Hououmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Piximon",
+   "ja_title": "Piccolomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pickmon",
+   "ja_title": "Pickmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Piddomon",
+   "ja_title": "Pidmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Piedmon",
+   "ja_title": "Piemon",
+   "alt": "Pierrotmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Pierrotmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Piedmon"
+  },
+  {
+   "dub_name": "PileVolcamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "PileVolcanomon"
+  },
+  {
+   "dub_name": "PileVolcanomon",
+   "ja_title": "Pile Volcamon",
+   "alt": "PileVolcamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Pinamon",
+   "ja_title": "Pinamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pipismon",
+   "ja_title": "Pipismon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pitimon",
+   "ja_title": "Pichimon<br>Pitchmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PlatinumNumemon",
+   "ja_title": "Platinum Numemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PlatinumSukamon",
+   "ja_title": "Platinum Scumon<br>Platiunum Sukamon<br>Platina Sukamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Plesiomon",
+   "ja_title": "Plesiomon",
+   "alt": "Preciomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Plesiomon X",
+   "ja_title": "Plesiomon (X-Antibody)",
+   "alt": "Preciomon X",
+   "points_to": null
+  },
+  {
+   "dub_name": "Plotmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Salamon"
+  },
+  {
+   "dub_name": "Plutomon",
+   "ja_title": "Plutomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pokomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Viximon"
+  },
+  {
+   "dub_name": "Ponchomon",
+   "ja_title": "Ponchomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Popomon",
+   "ja_title": "Popomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Porcupamon",
+   "ja_title": "Porcupamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Poromon",
+   "ja_title": "Poromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Poyomon",
+   "ja_title": "Poyomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Prairiemon",
+   "ja_title": "Prairiemon",
+   "alt": "Prariemon<br>Ferrarimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Prariemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Prairiemon"
+  },
+  {
+   "dub_name": "Preciomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Plesiomon"
+  },
+  {
+   "dub_name": "Preciomon X",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Plesiomon X"
+  },
+  {
+   "dub_name": "PrinceMamemon",
+   "ja_title": "Prince Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "PrinceMamemon X",
+   "ja_title": "Prince Mamemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Psychemon",
+   "ja_title": "Psychemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pteramon",
+   "ja_title": "Pteranomon",
+   "alt": "Petranamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Puteranomon X",
+   "ja_title": "Pteranimon X-Antibody",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pukamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Bukamon"
+  },
+  {
+   "dub_name": "Pukumon",
+   "ja_title": "Pukumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pumpkinmon",
+   "ja_title": "Pumpmon",
+   "alt": "Pumpmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Pumpmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Pumpkinmon"
+  },
+  {
+   "dub_name": "PunchNarabimon",
+   "ja_title": "Punch Narabimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Punimon",
+   "ja_title": "Punimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Puppetmon",
+   "ja_title": "Pinocchimon<br>Pinochimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pupumon",
+   "ja_title": "Pupumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Puroromon",
+   "ja_title": "Puroromon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Pururumon",
+   "ja_title": "Pururumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Puttimon",
+   "ja_title": "Puttimon<br>Puttomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Puwamon",
+   "ja_title": "Puwamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Quartzmon",
+   "ja_title": "Quartzmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "QueenChessmon",
+   "ja_title": "Queen Chessmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Quetzalmon",
+   "ja_title": "Coatlmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rabbitmon",
+   "ja_title": "Bitmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Raidenmon",
+   "ja_title": "Raidenmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Raidramon",
+   "ja_title": "Lighdramon",
+   "alt": "Lighdramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Raijinmon",
+   "ja_title": "Raijinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RampageGreymon",
+   "ja_title": "Rampage Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ranamon",
+   "ja_title": "Ranamon",
+   "alt": "Lanamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Rapidmon Armor",
+   "ja_title": "Rapidmon Armor",
+   "alt": "GoldenRapidmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Rapidmon Ultimate",
+   "ja_title": "Rapidmon Perfect",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RaptorSparrowmon",
+   "ja_title": "Raptor Sparrowmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Raramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lalamon"
+  },
+  {
+   "dub_name": "Raremon",
+   "ja_title": "Raremon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ravemon",
+   "ja_title": "Ravmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ravemon Burst Mode",
+   "ja_title": "Ravmon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Reptiledramon",
+   "ja_title": "Raptodramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Reaper",
+   "ja_title": "Reaper",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Reapermon",
+   "ja_title": "Gokumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Reapmon",
+   "ja_title": "Baalmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RedMeramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Meramon"
+  },
+  {
+   "dub_name": "RedVeedramon",
+   "ja_title": "Red V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RedVegiemon",
+   "ja_title": "Red Vegimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Regulumon",
+   "ja_title": "Regulumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rekisumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lekismon"
+  },
+  {
+   "dub_name": "Relemon",
+   "ja_title": "Relemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Renamon",
+   "ja_title": "Renamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Reppamon",
+   "ja_title": "Reppamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ReverseWeddinmon",
+   "ja_title": "Reverse Weddinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rhihimon",
+   "ja_title": "Raihimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RhinoKabuterimon",
+   "ja_title": "Rhino Kabuterimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rhinomon",
+   "ja_title": "Rhinomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rhinomon X",
+   "ja_title": "Rhinomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rinkmon",
+   "ja_title": "Linkmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rirismon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Lilithmon"
+  },
+  {
+   "dub_name": "RiseGreymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "RizeGreymon"
+  },
+  {
+   "dub_name": "RizeGreymon",
+   "ja_title": "Rize Greymon",
+   "alt": "RiseGreymon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Roachmon",
+   "ja_title": "Gokimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rockmon",
+   "ja_title": "Golemon (PS)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rockmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Golemon"
+  },
+  {
+   "dub_name": "RookChessmon (Black)",
+   "ja_title": "Rook Chessmon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RookChessmon (White)",
+   "ja_title": "Rook Chessmon (White",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rosemon",
+   "ja_title": "Rosemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rosemon X",
+   "ja_title": "Rosemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Rosemon Burst Mode",
+   "ja_title": "Rosemon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "RustTyranomon",
+   "ja_title": "Rust Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ruthless Tuwarmon",
+   "ja_title": "Deadly Tuwarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ruthless Tuwarmon Beast Mode",
+   "ja_title": "Deadly Tuwarmon Hell Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Ryudamon",
+   "ja_title": "Ryudamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SaberLeomon",
+   "ja_title": "Saber Leomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Saberdramon",
+   "ja_title": "Saberdramon<br>Sabirdramon",
+   "alt": "Sabirdramon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Sabirdramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Saberdramon"
+  },
+  {
+   "dub_name": "Sagittarimon",
+   "ja_title": "Sagittarimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SaintGargomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MegaGargomon"
+  },
+  {
+   "dub_name": "SakutekiMonitamon",
+   "ja_title": "Sakuteki Monitamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sakuyamon",
+   "ja_title": "Sakuyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Salamandermon",
+   "ja_title": "Salamandamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Salamon",
+   "ja_title": "Plotmon",
+   "alt": "Plotmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Salamon X",
+   "ja_title": "Plotmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Samudramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Gaiomon"
+  },
+  {
+   "dub_name": "SandYanmamon",
+   "ja_title": "Sand Yanmamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sandiramon",
+   "ja_title": "Sandiramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sangloupmon",
+   "ja_title": "Sangloupmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SantaAgumon",
+   "ja_title": "Santa Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sanzomon",
+   "ja_title": "Sanzomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Savior Huckmon",
+   "ja_title": "Savior Huckmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Scorpiomon",
+   "ja_title": "Anomalocarimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Scorpiomon X",
+   "ja_title": "Anomalocarimon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Scorpiomon{{!}}Scorpionmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "SkullScorpiomon"
+  },
+  {
+   "dub_name": "Scubamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Divermon"
+  },
+  {
+   "dub_name": "ScudMissimon",
+   "ja_title": "Scud Missimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Seadramon",
+   "ja_title": "Seadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Seadramon X",
+   "ja_title": "Seadramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Seahomon",
+   "ja_title": "Seahomon",
+   "alt": "Seahormon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Seahormon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Seahomon"
+  },
+  {
+   "dub_name": "Sealsdramon",
+   "ja_title": "Sealsdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Searchmon",
+   "ja_title": "Searchmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Seasarmon",
+   "ja_title": "Shīsamon<br>Siesamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sephirothmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sakkakumon"
+  },
+  {
+   "dub_name": "Sakkakumon",
+   "ja_title": "Sephirotmon",
+   "alt": "Sephirothmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Sepikmon",
+   "ja_title": "Sepikmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Seraphimon",
+   "ja_title": "Seraphimon",
+   "alt": "Seraphymon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Seraphymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Seraphimon"
+  },
+  {
+   "dub_name": "Sethmon",
+   "ja_title": "Setmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shademon",
+   "ja_title": "Shademon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShadowSeraphimon",
+   "ja_title": "Black Seraphimon",
+   "alt": "BlackSeraphimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "ShadowToyAgumon",
+   "ja_title": "Toy Agumon (Black)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShadowWereGarurumon",
+   "ja_title": "Were Garurumon (Black)<br>Black Were Garurumon",
+   "alt": "BlackWereGarurumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Shadramon",
+   "ja_title": "Shadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shakkoumon",
+   "ja_title": "Shakkoumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shamamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sharmamon"
+  },
+  {
+   "dub_name": "Shamanmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sharmamon"
+  },
+  {
+   "dub_name": "Shanitamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Shounitamon"
+  },
+  {
+   "dub_name": "Sharmamon",
+   "ja_title": "Shamamon",
+   "alt": "Shamanmon<br>Shamamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Shaujinmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Shawjamon"
+  },
+  {
+   "dub_name": "Shawjamon",
+   "ja_title": "Shawujinmon",
+   "alt": "Shaujinmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Sheepmon",
+   "ja_title": "Sheepmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shellmon",
+   "ja_title": "Shellmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShellNumemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "KaratsukiNumemon"
+  },
+  {
+   "dub_name": "ShimaUnimon",
+   "ja_title": "Shima Unimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShineGreymon Ruin Mode",
+   "ja_title": "Shine Greymon Ruin Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShineGreymon Burst Mode",
+   "ja_title": "Shine Greymon Burst Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ShogunGekomon",
+   "ja_title": "Tonosama Gekomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shortmon",
+   "ja_title": "Shortmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shounitamon",
+   "ja_title": "Shonitamon",
+   "alt": "Shanitamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon",
+   "ja_title": "Shoutmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon SH",
+   "ja_title": "Shoutmon SH",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X2",
+   "ja_title": "Shoutmon X2",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X2 Plus M",
+   "ja_title": "Shoutmon X2 Plus M",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X3",
+   "ja_title": "Shoutmon X3",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X3GM",
+   "ja_title": "Shoutmon X3GM",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X3SD",
+   "ja_title": "Shoutmon X3SD",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X4",
+   "ja_title": "Shoutmon X4",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X4B",
+   "ja_title": "Shoutmon X4B",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X4K",
+   "ja_title": "Shoutmon X4K",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X4S",
+   "ja_title": "Shoutmon X4S",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X5",
+   "ja_title": "Shoutmon X5",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X5B",
+   "ja_title": "Shoutmon X5B",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X5S",
+   "ja_title": "Shoutmon X5S",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X7",
+   "ja_title": "Shoutmon X7",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon X7F Superior Mode",
+   "ja_title": "Shoutmon X7 Superior Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon + Dorulu Cannon",
+   "ja_title": "Shoutmon + Dorulu Cannon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon + Jet Sparrow",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Shoutmon + Supersonic Sparrow"
+  },
+  {
+   "dub_name": "Shoutmon + Rare Star Sword",
+   "ja_title": "Shoutmon + Rare Star Sword",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon + Star Sword",
+   "ja_title": "Shoutmon + Star Sword",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shoutmon + Supersonic Sparrow",
+   "ja_title": "Shoutmon + Jet Sparrow",
+   "alt": "Shoutmon + Jet Sparrow",
+   "points_to": null
+  },
+  {
+   "dub_name": "Shurimon",
+   "ja_title": "Shurimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Shutsumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Zephyrmon"
+  },
+  {
+   "dub_name": "Shutumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Zephyrmon"
+  },
+  {
+   "dub_name": "Silphymon",
+   "ja_title": "Silphymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sinduramon",
+   "ja_title": "Sinduramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sirenmon",
+   "ja_title": "Sirenmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Blanc",
+   "ja_title": "Sistermon Blanc",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Blanc (Awake)",
+   "ja_title": "Sistermon Blanc (Awake)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Ciel",
+   "ja_title": "Sistermon Ciel",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Ciel (Awake)",
+   "ja_title": "Sistermon Ciel (Awake)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Noir",
+   "ja_title": "Sistermon Noir",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sistermon Noir (Awake)",
+   "ja_title": "Sistermon Noir (Awake)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullBaluchimon",
+   "ja_title": "Skull Baluchimon",
+   "alt": "SkullBarukimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullBarukimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "SkullBaluchimon"
+  },
+  {
+   "dub_name": "SkullGreymon",
+   "ja_title": "Skull Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullKnightmon",
+   "ja_title": "Skull Knightmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullKnightmon: Arrow Mode",
+   "ja_title": "Skull Knightmon: Arrow Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullKnightmon Mighty Axe Mode",
+   "ja_title": "Skull Knightmon: Big Axe Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullKnightmon: Naginata Mode",
+   "ja_title": "Skull Knightmon: Naginata Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullMammothmon",
+   "ja_title": "Skull Mammon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullMammothmon X",
+   "ja_title": "Skull Mammon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullMeramon",
+   "ja_title": "Death Meramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullSatamon",
+   "ja_title": "Skull Satamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullScorpiomon",
+   "ja_title": "Scorpiomon",
+   "alt": "SkullScorpionmon<br>Scorpionmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "SkullScorpionmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "SkullScorpiomon"
+  },
+  {
+   "dub_name": "Slayerdramon",
+   "ja_title": "Slayerdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sleipmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Kentaurosmon"
+  },
+  {
+   "dub_name": "SlashAngemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "GuardiAngemon"
+  },
+  {
+   "dub_name": "SlushAngemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "GuardiAngemon"
+  },
+  {
+   "dub_name": "Snimon",
+   "ja_title": "Snimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SnowAgumon",
+   "ja_title": "Yuki Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SnowAgumon (2006 Anime Version)",
+   "ja_title": "Yuki Agumon (2006 Anime Version)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SnowBotamon",
+   "ja_title": "Yukimi Botamon",
+   "alt": "YukimiBotamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "SnowGoburimon",
+   "ja_title": "Snow Goburimon<br>Snow Goblimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Socerimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sorcermon"
+  },
+  {
+   "dub_name": "Solarmon",
+   "ja_title": "Solarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sorcermon",
+   "ja_title": "Sorcerimon",
+   "alt": "Sorcerimon<br>Sorcerimon<br>Socerimon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Sorcerimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sorcermon"
+  },
+  {
+   "dub_name": "Sorcerimon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Sorcermon"
+  },
+  {
+   "dub_name": "Soulmon",
+   "ja_title": "Soulmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Spadamon",
+   "ja_title": "Spadamon<br>Supadamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sparrowmon",
+   "ja_title": "Sparrowmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Spinomon",
+   "ja_title": "Spinomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Starmon",
+   "ja_title": "Starmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Starmon X",
+   "ja_title": "Starmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Starmons",
+   "ja_title": "Starmons",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Stegomon",
+   "ja_title": "Stegomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Stingmon",
+   "ja_title": "Stingmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Strabimon",
+   "ja_title": "Strabimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Strikedramon",
+   "ja_title": "Strikedramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Submarimon",
+   "ja_title": "Submarimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Suijinmon",
+   "ja_title": "Suijinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sukamon",
+   "ja_title": "Scumon<br>Sukamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sunflowmon",
+   "ja_title": "Sunflowmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Sunmon",
+   "ja_title": "Sunmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "SuperStarmon",
+   "ja_title": "Super Starmon<br>Superstarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Surfymon",
+   "ja_title": "Surfymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Susanomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Susanoomon"
+  },
+  {
+   "dub_name": "Susanoomon",
+   "ja_title": "Susanoomon",
+   "alt": "Susanomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Swanmon",
+   "ja_title": "Swanmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Swimmon",
+   "ja_title": "Swimmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Syakomon",
+   "ja_title": "Shakomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Syakomon X",
+   "ja_title": "Shakomon X-Antibody",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tactimon",
+   "ja_title": "Tactimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tanemon",
+   "ja_title": "Tanemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tankdramon",
+   "ja_title": "Tankdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tankmon",
+   "ja_title": "Tankmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Taomon",
+   "ja_title": "Taomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Taomon (Silver)",
+   "ja_title": "Taomon (Silver)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tapirmon",
+   "ja_title": "Bakumon",
+   "alt": "Bakumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Technodramon",
+   "ja_title": "Technodramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Teddymon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Monzaemon"
+  },
+  {
+   "dub_name": "Tekkamon",
+   "ja_title": "Tekkamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tentomon",
+   "ja_title": "Tentomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Terriermon",
+   "ja_title": "Terriermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Thunderballmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Thundermon"
+  },
+  {
+   "dub_name": "Thundermon",
+   "ja_title": "Thunderballmon",
+   "alt": "Thunderballmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Thundermon X",
+   "ja_title": "Thunderballmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Thunderbirdmon",
+   "ja_title": "Thunderbirmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "TigerVespamon",
+   "ja_title": "Tiger Vespamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tinkermon",
+   "ja_title": "Tinkermon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Titamon",
+   "ja_title": "Titamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "TobuCatmon",
+   "ja_title": "Tobucatmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Togemogumon",
+   "ja_title": "Togemogumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Togemon",
+   "ja_title": "Togemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Togemon X",
+   "ja_title": "Togemon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tokomon",
+   "ja_title": "Tokomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tokomon X",
+   "ja_title": "Tokomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "TonosamaMamemon",
+   "ja_title": "Tonosama Mamemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "TorikaraBallmon",
+   "ja_title": "Torikara Ballmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tortomon",
+   "ja_title": "Tortamon<br>Tortomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Toucanmon",
+   "ja_title": "Toucanmon<br>Tocanmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ToyAgumon",
+   "ja_title": "Toy Agumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon",
+   "ja_title": "Trailmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Angler",
+   "ja_title": "Trailmon Angler",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Ball",
+   "ja_title": "Trailmon Ball",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Battle Form",
+   "ja_title": "Trailmon Battle Form",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Buffalo",
+   "ja_title": "Trailmon Buffalo",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon C-89",
+   "ja_title": "Trailmon C-89",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Franken",
+   "ja_title": "Trailmon Franken",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Kettle",
+   "ja_title": "Trailmon Kettle",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Mole",
+   "ja_title": "Trailmon Mole",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Raccoon Dog",
+   "ja_title": "Trailmon Raccoon Dog",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon Worm",
+   "ja_title": "Trailmon Worm",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Trailmon of Darkness",
+   "ja_title": "Trailmon of Darkness",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Triceramon",
+   "ja_title": "Triceramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Triceramon X",
+   "ja_title": "Triceramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Troopmon",
+   "ja_title": "Troopmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Truiemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Turuiemon"
+  },
+  {
+   "dub_name": "Tsubumon",
+   "ja_title": "Tsubumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tsuchidarumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "MudFrigimon"
+  },
+  {
+   "dub_name": "Tsukaimon",
+   "ja_title": "Tukaimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tsumemon",
+   "ja_title": "Tsumemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tsunomon",
+   "ja_title": "Tsunomon<br>Tunomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Turuiemon",
+   "ja_title": "Turuiemon",
+   "alt": "Truiemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Tuskmon",
+   "ja_title": "Tuskmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tyilinmon",
+   "ja_title": "Tyilinmon",
+   "alt": "Chirinmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Tylomon",
+   "ja_title": "Tylomon",
+   "alt": "Tyromon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Tylomon X",
+   "ja_title": "Tylomon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tyrannomon",
+   "ja_title": "Tyranomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "TyrantKabuterimon",
+   "ja_title": "Tyrant Kabuterimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Tyromon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Tylomon"
+  },
+  {
+   "dub_name": "Tyutyumon",
+   "ja_title": "Tyutyumon",
+   "alt": "ChuuChuumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "UlforceVeedramon",
+   "ja_title": "Ulforce V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "UlforceVeedramon Future Mode",
+   "ja_title": "Ulforce V-dramon Future Mode",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "UlforceVeedramon X",
+   "ja_title": "Ulforce V-dramon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "UltimateBrachiomon",
+   "ja_title": "Ultimate Brachiomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "UltimateKhaosmon",
+   "ja_title": "Ultimate Khaosmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Umon",
+   "ja_title": "Umon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Unimon",
+   "ja_title": "Unimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Upamon",
+   "ja_title": "Upamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vademon",
+   "ja_title": "Vademon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vademon X",
+   "ja_title": "Vademon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vajramon",
+   "ja_title": "Vajramon",
+   "alt": "Varjamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Valdurmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Varodurumon"
+  },
+  {
+   "dub_name": "Valkyrimon",
+   "ja_title": "Valkyrimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Varjamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Vajramon"
+  },
+  {
+   "dub_name": "Varodurumon",
+   "ja_title": "Valdurmon",
+   "alt": "Valdurmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Veedramon",
+   "ja_title": "V-dramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Veemon",
+   "ja_title": "V-mon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vegiemon",
+   "ja_title": "Vegimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Velgemon",
+   "ja_title": "Velgrmon",
+   "alt": "Velgrmon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Velgrmon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Velgemon"
+  },
+  {
+   "dub_name": "Vemmon",
+   "ja_title": "BEMmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VenomMyotismon",
+   "ja_title": "Venom Vamdemon",
+   "alt": "VenomVamdemon",
+   "points_to": null
+  },
+  {
+   "dub_name": "VenomVamdemon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "VenomMyotismon"
+  },
+  {
+   "dub_name": "Vermilimon",
+   "ja_title": "Vermillimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VictoryGreymon",
+   "ja_title": "Victory Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vi-Elecmon",
+   "ja_title": "Elecmon (Violet)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vilemon",
+   "ja_title": "Evilmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vikaralamon",
+   "ja_title": "Vikaralamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vikemon",
+   "ja_title": "Vikemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vitium Baby",
+   "ja_title": "Vitium Baby",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vitium Adult",
+   "ja_title": "Vitium Adult",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vitium Ultimate",
+   "ja_title": "Vitium Ultimate",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Volcamon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Volcanomon"
+  },
+  {
+   "dub_name": "Volcanomon",
+   "ja_title": "Volcamon",
+   "alt": "Volcamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Volcanomon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "AncientVolcanomon"
+  },
+  {
+   "dub_name": "Volcdramon",
+   "ja_title": "Volcdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Apocaly",
+   "ja_title": "VR-Apocaly",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-BWarGrey",
+   "ja_title": "VR-BWarGrey",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-CDuke",
+   "ja_title": "VR-CDuke",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Duke",
+   "ja_title": "VR-Duke",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Imperial",
+   "ja_title": "VR-Imperial",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-SaintGalgo",
+   "ja_title": "VR-SaintGalgo",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Omega",
+   "ja_title": "VR-Omega",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Sakuya",
+   "ja_title": "VR-Sakuya",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-Venom",
+   "ja_title": "VR-Venom",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "VR-WarGrey",
+   "ja_title": "VR-WarGrey",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Vritramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "BurningGreymon"
+  },
+  {
+   "dub_name": "Vulcanusmon",
+   "ja_title": "Vulcanusmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wanyamon",
+   "ja_title": "Wanyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WarGreymon",
+   "ja_title": "War Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WarGreymon X",
+   "ja_title": "War Greymon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WarGrowlmon",
+   "ja_title": "Megalo Growmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WarGrowlmon X",
+   "ja_title": "Megalo Growmon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WaruMonzaemon",
+   "ja_title": "Waru Monzaemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WaruSeadramon",
+   "ja_title": "Waru Seadramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Waspmon",
+   "ja_title": "Waspmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Weddinmon",
+   "ja_title": "Weddinmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Weedmon",
+   "ja_title": "Zassoumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wendigomon",
+   "ja_title": "Wendimon",
+   "alt": "Endigomon",
+   "points_to": null
+  },
+  {
+   "dub_name": "WereGarurumon",
+   "ja_title": "Were Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "WereGarurumon X",
+   "ja_title": "Were Garurumon (X-Antibody)",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Whamon",
+   "ja_title": "Whamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Whamon Ultimate",
+   "ja_title": "Whamon Perfect",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wingdramon",
+   "ja_title": "Wingdramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wisemon",
+   "ja_title": "Wisemon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Witchmon",
+   "ja_title": "Witchmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wizardmon",
+   "ja_title": "Wizarmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Woodmon",
+   "ja_title": "Woodmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Wormmon",
+   "ja_title": "Wormmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "XeedMillenniummon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "ZeedMillenniummon"
+  },
+  {
+   "dub_name": "Xiaomon",
+   "ja_title": "Xiaomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yaamon",
+   "ja_title": "Yaamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yakiimon",
+   "ja_title": "Yakiimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yaksamon",
+   "ja_title": "Yasyamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yanmamon",
+   "ja_title": "Yanmamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yasyamon",
+   "ja_title": "Yaksamon",
+   "alt": "Yaksamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Yatagaramon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Crowmon"
+  },
+  {
+   "dub_name": "Yatakaramon",
+   "ja_title": "Yatagaramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "King Drasil",
+   "ja_title": "Yggdrasill",
+   "alt": "",
+   "points_to": null
+  },
+  {
+   "dub_name": "King Drasil_7D6",
+   "ja_title": "Yggdrasill_7D6",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yo!Yo!mon",
+   "ja_title": "Yotxu!Yotxu!mon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yokomon",
+   "ja_title": "Pyocomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Youkomon",
+   "ja_title": "Youkomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Yukidarumon",
+   "ja_title": null,
+   "alt": null,
+   "points_to": "Frigimon"
+  },
+  {
+   "dub_name": "YukimiBotamon",
+   "ja_title": "Yukimi Botamon",
+   "alt": "SnowBotamon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Yuramon",
+   "ja_title": "Yuramon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zamielmon",
+   "ja_title": "Zamielmon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zanbamon",
+   "ja_title": "Zanbamon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ZeedGarurumon",
+   "ja_title": "Z'd Garurumon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "ZeedMillenniummon",
+   "ja_title": "Zeed Millenniummon",
+   "alt": "XeedMillenniummon",
+   "points_to": null
+  },
+  {
+   "dub_name": "ZekeGreymon",
+   "ja_title": "Zeke Greymon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zenimon",
+   "ja_title": "Zenimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zephyrmon",
+   "ja_title": "Shutumon",
+   "alt": "Shutsumon<br>Shutumon",
+   "points_to": null
+  },
+  {
+   "dub_name": "Zerimon",
+   "ja_title": "Zerimon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zhuqiaomon",
+   "ja_title": "Zhuqiaomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zudomon",
+   "ja_title": "Zudomon",
+   "alt": null,
+   "points_to": null
+  },
+  {
+   "dub_name": "Zurumon",
+   "ja_title": "Zurumon",
+   "alt": null,
+   "points_to": null
+  }
+ ]
+}

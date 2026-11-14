@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "author": "game-research",
+    "date": "2026-11-14",
+    "status": "piloto",
+    "warning": "A Costa do Despertar é uma CRIAÇÃO DO DIGITAL ODYSSEY. Não é local oficial do anime. O nome e as seis subáreas vêm do comando GD-066 (Fase 3); não há layout-brief do game-design para ela no repositório (busca em 2026-11-14). Este arquivo não define layout, spawn nem regra de jogo: só separa o que tem âncora canônica do que é inspiração e do que é criação.",
+    "classification_legend": {
+      "canonical": "existe na mídia oficial, com episódio e fonte",
+      "inspired": "elemento do Digital Odyssey que remete a algo canônico, sem ser o local oficial",
+      "original": "criação do Digital Odyssey sem âncora canônica encontrada neste lote"
+    }
+  },
+  "map": {
+    "id": "do.map.costa_do_despertar",
+    "name": "Costa do Despertar",
+    "classification": "original",
+    "canonical_anchor_region_ids": ["wd.file_island", "wd.file_island_phone_booth_beach"],
+    "related_game_region": {
+      "id": "praia_dos_postes",
+      "path": "prototype/world/src/data/content/regions.json",
+      "note": "Região do protótipo com papel parecido (litoral, chefe Shellmon). Relação entre as duas não definida: decisão do game-design."
+    }
+  },
+  "subareas": [
+    {"id": "do.area.costa.praia", "name": "Praia", "classification": "inspired",
+     "canonical_anchors": [{"region_id": "wd.file_island_phone_booth_beach", "episodes": [2, 3, 4], "what": "praia de File Island com cabines telefônicas na areia, onde Shellmon ataca"}],
+     "canonical_elements_usable_as_reference": ["cabines telefônicas fincadas na areia (elemento nostálgico do ep. 2)"],
+     "original_elements": ["nome 'Praia' da Costa do Despertar", "layout"],
+     "evidence_status": "verified_secondary"},
+    {"id": "do.area.costa.vila", "name": "Vila", "classification": "original",
+     "possible_inspirations": [{"region_id": "wd.village_of_beginnings", "episodes": [12, 13]}, {"region_id": "wd.pyocomon_village", "episodes": [4]}],
+     "conflict_note": "O protótipo já usa a Village of Beginnings como 'Vila dos Bebês' (regions.json). Usar a mesma âncora na Vila da Costa duplicaria o local canônico: game-design decide.",
+     "evidence_status": "inference"},
+    {"id": "do.area.costa.bosque", "name": "Bosque", "classification": "inspired",
+     "possible_inspirations": [{"region_id": "wd.unwavering_forest"}, {"region_id": "wd.tropical_jungle", "episodes": [1, 2]}],
+     "note": "O ep. 2 mostra o grupo descendo um rio pela floresta até o mar; a sequência floresta → rio → praia é canônica, a geografia exata não.",
+     "evidence_status": "verified_secondary"},
+    {"id": "do.area.costa.gruta", "name": "Gruta", "classification": "original",
+     "possible_inspirations": [{"what": "grutas usadas como abrigo em File Island", "episodes": [7, 9], "note": "não são costeiras"}, {"what": "Secret Beach Cave", "media": "Digimon World (jogo, 1999)", "note": "continuidade do jogo, não do anime; só citada na página File Island, não lida"}],
+     "evidence_status": "verified_secondary"},
+    {"id": "do.area.costa.farol", "name": "Farol", "classification": "original",
+     "canonical_anchors": [],
+     "note": "Nenhum farol achado nos resumos dos eps. 1-13 (busca por 'lighthouse') nem na lista de áreas de File Island. Tratar como criação do Digital Odyssey até prova em contrário.",
+     "evidence_status": "missing"},
+    {"id": "do.area.costa.recife_shellmon", "name": "Recife de Shellmon", "classification": "original",
+     "species_ids": ["sp.shellmon"],
+     "canonical_anchors": [{"what": "Shellmon ataca na praia saindo de baixo da areia", "episodes": [2], "region_id": "wd.file_island_phone_booth_beach"}],
+     "species_habitat_evidence": [
+       {"source_id": "src.refbook_en", "url": "https://digimon.net/reference_en/detail.php?directory_name=shellmon", "accessed_at": "2026-11-14", "category": 1, "paraphrase": "vive no fundo do Net Ocean e se instala em qualquer coisa onde caiba o corpo"},
+       {"source_id": "src.wikimon", "url": "https://wikimon.net/Shellmon", "accessed_at": "2026-11-14", "category": 3, "paraphrase": "a tradução da wiki do mesmo perfil diz fundo raso ('shallower seabeds')"}
+     ],
+     "divergence": "Fundo profundo (inglês oficial) × fundo raso (tradução da Wikimon). O recife raso é escolha do Digital Odyssey; não afirmar que é o habitat oficial.",
+     "evidence_status": "verified_primary"}
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "author": "game-research",
+    "date": "2026-11-14",
+    "origin": "Reaproveita a pesquisa de 2026-11-14 do Comando 9 F1 (etapa6-lab/fase12-comando9/f1/CATALOGO_REFERENCIAS.md) e as fichas de anatomia (etapa6-lab/fase11-fichas-anatomia/). Esses arquivos estão no checkout principal e NÃO estão versionados na master; os caminhos ficam como referência local.",
+    "rule": "Nenhuma imagem nova baixada neste lote. Sprites oficiais extraídos de jogo = 'oficial-uso interno' (estudo e entrada do PixelLab, D12): não redistribuir nem colocar no jogo."
+  },
+  "refs": {
+    "sp.agumon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40907/", "source": "The Spriters Resource (Wayback no Comando 9)", "author": "Bandai Namco (DW Dawn/Dusk); ripper Shoda", "description": "batalha + mini de campo frente/lado/costas", "resolution": "folha 344x149", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/ds_dawndusk/sr40907_agumon.png", "catalog_row": "A2"},
+      "REF-04": {"url": "https://www.spriters-resource.com/playstation/digiworld3/asset/13315/", "source": "The Spriters Resource (Wayback)", "author": "Bandai (Digimon World 3, PS1); ripper Ragey", "description": "8 direções: parado, andar, correr, ações de campo", "resolution": "folha 539x183", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/dw3/dw3_agumon_13315.gif", "catalog_row": "A1"},
+      "REF-05": {"url": null, "source": "Ficha de anatomia do Digital Odyssey", "author": "game-research / Etapa 6", "description": "ficha de anatomia e proporções", "license_status": "documento_interno", "local_path": "etapa6-lab/fase11-fichas-anatomia/FICHA_AGUMON.md"}
+    },
+    "sp.greymon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64806/", "source": "The Spriters Resource (Wayback)", "author": "Bandai (Digimon Medley, WSC); ripper digistarDBZ", "description": "batalha em cor, paleta curta", "resolution": "folha 460x453", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_medley/sr64806_agumon_greymon.png", "catalog_row": "G3"},
+      "REF-04": {"url": "https://github.com/dannyphang/digimon-up-sprites", "source": "GitHub (repositório comunitário, sem licença)", "author": "Bandai Namco (Digimon Up, 2026), extraído por fã", "description": "pasta baked/greymon: idle, walking, attack com fogo, faint; 1 direção", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "G2"},
+      "REF-05": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483663/", "source": "The Spriters Resource (Wayback)", "author": "Bandai / Tom Create (WonderSwan)", "description": "rotação frente, 3/4, perfil, costas (monocromático)", "resolution": "folha 688x216", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483663_greymon_metalgreymon.png", "catalog_row": "G1"}
+    },
+    "sp.gomamon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483615/", "source": "The Spriters Resource (Wayback)", "author": "Bandai / Tom Create (WonderSwan)", "description": "emoções, rastejar/nadar, mini de andar (monocromático)", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483615_gomamon.png", "catalog_row": "M1"},
+      "REF-04": {"url": "https://github.com/dannyphang/digimon-up-sprites", "source": "GitHub (repositório comunitário, sem licença)", "author": "Bandai Namco (Digimon Up), extraído por fã", "description": "pasta baked/gomamon: idle, walking (9 quadros), attack, faint", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "M2"},
+      "REF-05": {"url": null, "source": "Ficha de anatomia do Digital Odyssey", "author": "game-research / Etapa 6", "description": "ficha de anatomia e proporções (quadrúpede)", "license_status": "documento_interno", "local_path": "etapa6-lab/fase11-fichas-anatomia/FICHA_GOMAMON.md"}
+    },
+    "sp.ikkakumon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64816/", "source": "The Spriters Resource", "author": "Bandai (Digimon Medley, WSC)", "description": "batalha em cor; sem cópia no Wayback, só link", "resolution": "folha 440x345", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "I5"},
+      "REF-04": {"url": "https://github.com/dannyphang/digimon-up-sprites", "source": "GitHub (repositório comunitário, sem licença)", "author": "Bandai Namco (Digimon Up), extraído por fã", "description": "pasta baked/ikkakumon: idle, walking, attack, faint", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "I2"},
+      "REF-05": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483659/", "source": "The Spriters Resource (Wayback)", "author": "Bandai / Tom Create (WonderSwan)", "description": "rotação frente, 3/4, perfil, costas (monocromático); ficha de anatomia em etapa6-lab/fase11-fichas-anatomia/FICHA_IKKAKUMON.md", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483659_ikkakumon_zudomon.png", "catalog_row": "I1"}
+    },
+    "sp.koromon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40904/", "source": "The Spriters Resource (Wayback)", "author": "Bandai Namco (DW Dawn/Dusk); ripper Shoda", "description": "batalha + mini de campo frente/lado/costas", "resolution": "folha 265x117", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/ds_dawndusk/sr40904_koromon.png", "catalog_row": "K1"},
+      "REF-04": {"url": "https://github.com/dannyphang/digimon-up-sprites", "source": "GitHub (repositório comunitário, sem licença)", "author": "Bandai Namco (Digimon Up), extraído por fã", "description": "pasta baked/koromon: idle, walking (quique), attack, faint", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "K3"},
+      "REF-05": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/121213/", "source": "The Spriters Resource (Wayback)", "author": "Bandai / Tom Create (WonderSwan)", "description": "emoções, pulo e mini em 4 direções (monocromático)", "resolution": "folha 352x344", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr121213_koromon.png", "catalog_row": "K2"}
+    },
+    "sp.pukamon": {
+      "REF-03": {"url": "https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483653/", "source": "The Spriters Resource (Wayback)", "author": "Bandai / Tom Create (WonderSwan)", "description": "emoções, nado e mini em 4 direções (monocromático)", "resolution": "folha 352x344", "license_status": "oficial_uso_interno", "local_path": "etapa6-lab/fase12-comando9/f1/imagens/oficiais/wsc_digitalpartner/sr483653_bukamon.png", "catalog_row": "B1"},
+      "REF-04": {"url": "https://github.com/dannyphang/digimon-up-sprites", "source": "GitHub (repositório comunitário, sem licença)", "author": "Bandai Namco (Digimon Up), extraído por fã", "description": "pasta baked/bukamon: idle, walking (flutuar), attack, faint", "license_status": "oficial_uso_interno_so_link", "local_path": null, "catalog_row": "B2"}
+    }
+  }
+}

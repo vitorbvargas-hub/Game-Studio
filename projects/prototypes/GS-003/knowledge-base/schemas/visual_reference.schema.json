@@ -1,0 +1,64 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/visual_reference",
+ "title": "Referência visual (REF-01 a REF-05)",
+ "type": "object",
+ "required": [
+  "ref_id",
+  "species_id",
+  "category",
+  "status",
+  "checked_at"
+ ],
+ "properties": {
+  "ref_id": {
+   "type": "string",
+   "pattern": "^vr\\.[a-z0-9_]+\\.ref0[1-5]$"
+  },
+  "species_id": {
+   "type": "string",
+   "pattern": "^sp\\."
+  },
+  "category": {
+   "enum": [
+    "REF-01",
+    "REF-02",
+    "REF-03",
+    "REF-04",
+    "REF-05"
+   ]
+  },
+  "status": {
+   "enum": [
+    "present",
+    "missing",
+    "unverified"
+   ]
+  },
+  "checked_at": {
+   "type": "string"
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "status": {
+      "const": "present"
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "page_url",
+     "source",
+     "source_id",
+     "author",
+     "license_status",
+     "availability",
+     "verification_status"
+    ]
+   }
+  }
+ ]
+}

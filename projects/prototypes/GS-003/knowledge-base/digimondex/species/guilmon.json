@@ -1,0 +1,134 @@
+{
+ "id": "sp.guilmon",
+ "name": "Guilmon",
+ "names": {
+  "ja_kana": "ギルモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "child",
+  "en_official": "Rookie",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "virus",
+  "en_official": "Virus",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Reptile",
+ "family_groups": [],
+ "description_pt": "Parece um filhote de dinossauro; carnívoro de grande potencial de combate, traz no peito a marca Digital Hazard.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.rock_breaker",
+   "name_en_official": "Rock Breaker"
+  },
+  {
+   "id": "sk.fire_ball",
+   "name_en_official": "Fire Ball"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 2001,
+  "media": "Bo-406 (Booster 9)"
+ },
+ "anime_adventure_01_episodes": [],
+ "games_and_media_contexts": [
+  "ctx.anime_digimon_tamers",
+  "ctx.d_123",
+  "ctx.d_197",
+  "ctx.d_ark_25th_color_evolution",
+  "ctx.digimon_all_star_rumble",
+  "ctx.digimon_crusader",
+  "ctx.digimon_linkz",
+  "ctx.digimon_masters",
+  "ctx.digimon_new_century",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_rearise",
+  "ctx.digimon_story_cyber_sleuth",
+  "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_super_xros_wars",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digimon_survive",
+  "ctx.digimon_tamers_battle_evolution",
+  "ctx.digimon_twin_r",
+  "ctx.digimon_up",
+  "ctx.digimon_world_3",
+  "ctx.digimon_world_next_0rder",
+  "ctx.digimon_world_next_0rder_international_edition",
+  "ctx.digimon_world_re_digitize",
+  "ctx.digimon_world_re_digitize_decode",
+  "ctx.pendulum_progress_1_0",
+  "ctx.pendulum_z_virus_busters",
+  "ctx.vital_bracelet_digital_monster"
+ ],
+ "evolves_from": [
+  "sp.gigimon",
+  "sp.greymon",
+  "sp.koromon",
+  "sp.tokomon"
+ ],
+ "evolves_to": [
+  "sp.birdramon",
+  "sp.dukemon",
+  "sp.geo_greymon",
+  "sp.gesomon",
+  "sp.greymon",
+  "sp.growmon",
+  "sp.megalo_growmon",
+  "sp.monochromon",
+  "sp.numemon",
+  "sp.seadramon",
+  "sp.vegimon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [
+  "Black Guilmon"
+ ],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.guilmon.ref01",
+  "vr.guilmon.ref02",
+  "vr.guilmon.ref03",
+  "vr.guilmon.ref04",
+  "vr.guilmon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Guilmon",
+  "visual_list_image_file": "Guilmon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=guilmon"
+ },
+ "p0_groups": [
+  "primeiras_evolucoes_dos_starters"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}

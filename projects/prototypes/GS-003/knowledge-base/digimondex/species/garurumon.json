@@ -1,0 +1,188 @@
+{
+ "id": "sp.garurumon",
+ "name": "Garurumon",
+ "names": {
+  "ja_kana": "ガルルモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "adult",
+  "en_official": "Champion",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "vaccine",
+  "en_official": "Vaccine",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Beast",
+ "family_groups": [
+  "Garurumon-species"
+ ],
+ "description_pt": "Fera parecida com um lobo de pelo prateado e duro como metal, com lâminas nos ombros; forjado em regiões geladas.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.fox_fire",
+   "name_en_official": "Fox Fire"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 1997,
+  "media": "Digital Monster Ver. 2"
+ },
+ "anime_adventure_01_episodes": [
+  3,
+  4,
+  5,
+  8,
+  9,
+  13,
+  15,
+  16,
+  19,
+  20,
+  23,
+  27,
+  28,
+  33,
+  36,
+  37,
+  38,
+  39,
+  40,
+  42,
+  44,
+  45,
+  51,
+  53,
+  54
+ ],
+ "games_and_media_contexts": [
+  "ctx.anime_digimon_adventure",
+  "ctx.anime_digimon_adventure_2020",
+  "ctx.d_102",
+  "ctx.digimon_adventure_02_d1_tamers",
+  "ctx.digimon_adventure_02_tag_tamers",
+  "ctx.digimon_adventure_last_evolution_kizuna",
+  "ctx.digimon_championship",
+  "ctx.digimon_linkz",
+  "ctx.digimon_masters",
+  "ctx.digimon_mini_ver_1_0",
+  "ctx.digimon_new_century",
+  "ctx.digimon_pendulum_color_godzilla_edition",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_racing",
+  "ctx.digimon_rearise",
+  "ctx.digimon_rpg",
+  "ctx.digimon_soul_chaser",
+  "ctx.digimon_source_code",
+  "ctx.digimon_story",
+  "ctx.digimon_story_cyber_sleuth",
+  "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+  "ctx.digimon_story_lost_evolution",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_super_xros_wars",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digimon_survive",
+  "ctx.digimon_twin_l",
+  "ctx.digimon_up",
+  "ctx.digimon_world",
+  "ctx.digimon_world_2",
+  "ctx.digimon_world_next_0rder",
+  "ctx.digimon_world_next_0rder_international_edition",
+  "ctx.digimon_world_re_digitize",
+  "ctx.digimon_world_re_digitize_decode",
+  "ctx.digital_monster_color_ver_2",
+  "ctx.digital_monster_d_project",
+  "ctx.digital_monster_ver_2",
+  "ctx.digital_monster_ver_s",
+  "ctx.digivice_25th_color_evolution",
+  "ctx.digivice_toy",
+  "ctx.digivice_ver_15th",
+  "ctx.digivice_ver_complete",
+  "ctx.digivice_ver_revival",
+  "ctx.digivice_version_1",
+  "ctx.digivice_version_2",
+  "ctx.pendulum_3_5_nightmare_soldiers",
+  "ctx.pendulum_color_3_nightmare_soldiers",
+  "ctx.pendulum_color_zero_virus_busters",
+  "ctx.pendulum_z_metal_empire",
+  "ctx.pendulum_z_virus_busters",
+  "ctx.pendulum_z_wind_guardians",
+  "ctx.pendulum_zero_virus_busters",
+  "ctx.pocket_digimon_world_cool_nature_battle_disc",
+  "ctx.reference_book",
+  "ctx.vital_bracelet_digital_monster"
+ ],
+ "evolves_from": [
+  "sp.agumon",
+  "sp.agumon_2006_anime_version",
+  "sp.betamon",
+  "sp.dorumon",
+  "sp.gabumon",
+  "sp.gomamon",
+  "sp.gottsumon",
+  "sp.patamon",
+  "sp.penmon"
+ ],
+ "evolves_to": [
+  "sp.doruguremon",
+  "sp.holy_angemon",
+  "sp.metal_garurumon",
+  "sp.metal_greymon",
+  "sp.monzaemon",
+  "sp.omegamon",
+  "sp.rize_greymon",
+  "sp.were_garurumon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [
+  "Garurumon (Black)",
+  "Gururumon"
+ ],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.garurumon.ref01",
+  "vr.garurumon.ref02",
+  "vr.garurumon.ref03",
+  "vr.garurumon.ref04",
+  "vr.garurumon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Garurumon",
+  "visual_list_image_file": "Garurumon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=garurumon"
+ },
+ "p0_groups": [
+  "primeiras_evolucoes_dos_starters"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}

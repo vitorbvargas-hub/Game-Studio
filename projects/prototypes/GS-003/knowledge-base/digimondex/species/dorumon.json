@@ -1,0 +1,132 @@
+{
+ "id": "sp.dorumon",
+ "name": "DORUmon",
+ "names": {
+  "ja_kana": "ドルモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "child",
+  "en_official": "Rookie",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "data",
+  "en_official": "Data",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Beast",
+ "family_groups": [],
+ "description_pt": "Fera tida como \"Digimon protótipo\" experimental, com uma interface antiga na testa; forte instinto de combate.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.dash_metal",
+   "name_en_official": "Dash Metal"
+  },
+  {
+   "id": "sk.metal_cannon",
+   "name_en_official": "Metal Cannon"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 2003,
+  "media": "Sx-2 (Starter Ver. 9)"
+ },
+ "anime_adventure_01_episodes": [],
+ "games_and_media_contexts": [
+  "ctx.d_076",
+  "ctx.d_cyber_chapter_01",
+  "ctx.d_cyber_version_1_0",
+  "ctx.digimon_accel_ultimate_genome",
+  "ctx.digimon_crusader",
+  "ctx.digimon_linkz",
+  "ctx.digimon_masters",
+  "ctx.digimon_new_century",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_rearise",
+  "ctx.digimon_rpg",
+  "ctx.digimon_seekers",
+  "ctx.digimon_soul_chaser",
+  "ctx.digimon_story",
+  "ctx.digimon_story_cyber_sleuth",
+  "ctx.digimon_story_cyber_sleuth_hacker_s_memory",
+  "ctx.digimon_story_lost_evolution",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_super_xros_wars",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digimon_world_re_digitize_decode",
+  "ctx.digital_monster_ver_20th",
+  "ctx.digital_monster_ver_20th_s_official_bandai_website",
+  "ctx.digital_monster_x_evolution",
+  "ctx.digital_monster_x_ver_3",
+  "ctx.digivolving_spirits_series",
+  "ctx.pendulum_x_1_0",
+  "ctx.pendulum_x_1_5",
+  "ctx.vital_bracelet_be"
+ ],
+ "evolves_from": [
+  "sp.dorimon",
+  "sp.gigimon",
+  "sp.greymon"
+ ],
+ "evolves_to": [
+  "sp.alphamon",
+  "sp.coelamon",
+  "sp.dorugamon",
+  "sp.dorugoramon",
+  "sp.doruguremon",
+  "sp.drimogemon",
+  "sp.garurumon",
+  "sp.geo_greymon",
+  "sp.greymon",
+  "sp.guardromon",
+  "sp.numemon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.dorumon.ref01",
+  "vr.dorumon.ref02",
+  "vr.dorumon.ref03",
+  "vr.dorumon.ref04",
+  "vr.dorumon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/DORUmon",
+  "visual_list_image_file": "Dorumon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=dorumon"
+ },
+ "p0_groups": [
+  "primeiras_evolucoes_dos_starters"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}

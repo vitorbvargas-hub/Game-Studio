@@ -1,0 +1,39 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/region",
+ "title": "Região canônica (WorldDex)",
+ "type": "object",
+ "required": [
+  "id",
+  "name",
+  "layer",
+  "status",
+  "sources",
+  "pending_fields"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^wd\\."
+  },
+  "layer": {
+   "const": "canonical"
+  },
+  "status": {
+   "enum": [
+    "verified_primary",
+    "verified_secondary",
+    "reused_unverified",
+    "unverified",
+    "pending",
+    "inference",
+    "missing",
+    "verified_metadata"
+   ]
+  },
+  "sources": {
+   "type": "array",
+   "minItems": 1
+  }
+ }
+}

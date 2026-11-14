@@ -1,0 +1,227 @@
+{
+ "same_kana": {
+  "アレスタードラモン：スペリオルモード": [
+   "sp.arresterdramon_superior_mode",
+   "sp.arresterdramon_superior_mode_brave_snatcher"
+  ],
+  "ベルゼブモン": [
+   "sp.beelzebumon",
+   "sp.beelzebumon_2010_anime_version"
+  ],
+  "ブラックセラフィモン": [
+   "sp.black_seraphimon",
+   "sp.black_seraphimon_dw3"
+  ],
+  "ボムモン": [
+   "sp.bombmon",
+   "sp.bommon"
+  ],
+  "サイバードラモン": [
+   "sp.cyberdramon",
+   "sp.cyberdramon_2010_anime_version"
+  ],
+  "ダークナイトモン": [
+   "sp.dark_knightmon",
+   "sp.dark_knightmon_bagramon"
+  ],
+  "デスメラモン": [
+   "sp.death_meramon",
+   "sp.death_meramon_c_mon_digimon_version"
+  ],
+  "デスモン": [
+   "sp.deathmon",
+   "sp.deathmon_c_mon_digimon_version"
+  ],
+  "ゴールドヌメモン": [
+   "sp.gold_numemon",
+   "sp.gold_numemon_ultimate"
+  ],
+  "ゴーレモン": [
+   "sp.golemon",
+   "sp.golemon_ps"
+  ],
+  "グレイモン": [
+   "sp.greymon",
+   "sp.greymon_2010_anime_version"
+  ],
+  "グラウモン": [
+   "sp.growmon",
+   "sp.growmon_orange"
+  ],
+  "ジュレイモン": [
+   "sp.jyureimon",
+   "sp.jyureimon_christmas_tree"
+  ],
+  "カラクルモン": [
+   "sp.kaguyamon",
+   "sp.karakurumon"
+  ],
+  "コドクグモン": [
+   "sp.kodokugumon_baby",
+   "sp.kodokugumon_child"
+  ],
+  "メガログラウモン": [
+   "sp.megalo_growmon",
+   "sp.megalo_growmon_orange"
+  ],
+  "メタルガルルモン": [
+   "sp.metal_garurumon",
+   "sp.metal_garurumon_black"
+  ],
+  "メタルグレイモン": [
+   "sp.metal_greymon",
+   "sp.metal_greymon_2010_anime_version",
+   "sp.metal_greymon_virus"
+  ],
+  "ネガーモン": [
+   "sp.negamon",
+   "sp.negamon_evolved_form"
+  ],
+  "ラピッドモン": [
+   "sp.rapidmon_armor",
+   "sp.rapidmon_perfect"
+  ],
+  "スカルナイトモン": [
+   "sp.skull_knightmon",
+   "sp.skull_knightmon_white"
+  ],
+  "スプラッシュモンダークネスモード": [
+   "sp.splashmon_darkness_mode_drippins",
+   "sp.splashmon_darkness_mode"
+  ],
+  "スティングモン": [
+   "sp.stingmon",
+   "sp.stingmon_black"
+  ],
+  "トレイルモン": [
+   "sp.unnamed_trailmon_1_next",
+   "sp.unnamed_trailmon_2_next",
+   "sp.unnamed_trailmon_3_next"
+  ],
+  "クロスアップアレスタードラモン": [
+   "sp.xros_up_arresterdramon_astamon",
+   "sp.xros_up_arresterdramon_blossomon",
+   "sp.xros_up_arresterdramon_dobermon",
+   "sp.xros_up_arresterdramon_giga_breakdramon",
+   "sp.xros_up_arresterdramon_metal_tyranomon",
+   "sp.xros_up_arresterdramon_orgemon",
+   "sp.xros_up_arresterdramon_sagomon",
+   "sp.xros_up_arresterdramon_sparrowmon"
+  ],
+  "クロスアップアスタモン": [
+   "sp.xros_up_astamon_cerberumon",
+   "sp.xros_up_astamon_triceramon"
+  ],
+  "クロスアップシャウトモン": [
+   "sp.xros_up_shoutmon_chibi_kamemon",
+   "sp.xros_up_shoutmon_pinochimon"
+  ],
+  "ユキアグモン": [
+   "sp.yuki_agumon",
+   "sp.yuki_agumon_2006_anime_version"
+  ]
+ },
+ "same_normalized_name": {},
+ "same_image": {
+  "nüwashou.jpg": [
+   "sp.anhein_washou",
+   "sp.n_washou"
+  ],
+  "digimon_noimage.jpg": [
+   "sp.beso_bombmon",
+   "sp.cheer_galmon",
+   "sp.danmon",
+   "sp.earthdramon",
+   "sp.huntermon",
+   "sp.jiko_chuumon",
+   "sp.kandoushichaundamon",
+   "sp.kita_kitsunemon",
+   "sp.kyukanchoumon",
+   "sp.mirror_ballmon",
+   "sp.nikkorimon",
+   "sp.okunimon",
+   "sp.punch_narabimon",
+   "sp.rook_chessmon_white",
+   "sp.sakuradamon",
+   "sp.shoutmon_x10",
+   "sp.urashimamon",
+   "sp.zombiemon"
+  ],
+  "numemon.jpg": [
+   "sp.gigantic_numemon",
+   "sp.numemon"
+  ],
+  "goldnumemon.jpg": [
+   "sp.gold_numemon",
+   "sp.gold_numemon_ultimate"
+  ]
+ },
+ "dub_name_equals_other_species": [
+  {
+   "species": "sp.anomalocarimon",
+   "field": "dub_en",
+   "dub_name": "Scorpiomon",
+   "is_main_name_of": "sp.scorpiomon"
+  },
+  {
+   "species": "sp.black_seraphimon_dw3",
+   "field": "dub_en",
+   "dub_name": "BlackSeraphimon",
+   "is_main_name_of": "sp.black_seraphimon"
+  },
+  {
+   "species": "sp.bomber_nanimon",
+   "field": "dub_en_variants",
+   "dub_name": "Citramon",
+   "is_main_name_of": "sp.citramon"
+  },
+  {
+   "species": "sp.dracumon",
+   "field": "dub_en_variants",
+   "dub_name": "Dracomon",
+   "is_main_name_of": "sp.dracomon"
+  },
+  {
+   "species": "sp.galgomon",
+   "field": "dub_en",
+   "dub_name": "Gargomon",
+   "is_main_name_of": "sp.gargomon"
+  },
+  {
+   "species": "sp.hangyomon",
+   "field": "dub_en_variants",
+   "dub_name": "Divemon",
+   "is_main_name_of": "sp.divemon"
+  },
+  {
+   "species": "sp.ice_devimon_enhancement_absorbent",
+   "field": "dub_en",
+   "dub_name": "IceDevimon",
+   "is_main_name_of": "sp.ice_devimon"
+  },
+  {
+   "species": "sp.mad_leomon_armed_mode",
+   "field": "dub_en_variants",
+   "dub_name": "MadLeomon",
+   "is_main_name_of": "sp.mad_leomon"
+  },
+  {
+   "species": "sp.mercuremon",
+   "field": "dub_en",
+   "dub_name": "Mercurymon",
+   "is_main_name_of": "sp.mercurymon"
+  },
+  {
+   "species": "sp.yatagaramon_2006_anime_version",
+   "field": "dub_en_variants",
+   "dub_name": "Yatagaramon",
+   "is_main_name_of": "sp.yatagaramon"
+  }
+ ],
+ "_summary": {
+  "same_kana": 28,
+  "same_normalized_name": 0,
+  "same_image": 4,
+  "dub_name_equals_other_species": 10
+ }
+}

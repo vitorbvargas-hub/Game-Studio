@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "batch": "lote-piloto GD-066",
+    "date": "2026-11-14",
+    "author": "game-research",
+    "status": "proposta_de_escopo",
+    "warning": "A lista dos '12 parceiros candidatos' pedida no comando NÃO foi encontrada em nenhum documento do GS-003 (busca por '12 parceiros', 'parceiros candidatos', 'parceiros iniciais', 'starters' em shared/ e projects/prototypes/GS-003 em 2026-11-14). Existem só 5 bebês na tela de escolha (prototype/world/src/data/starters.json). O P0 abaixo foi montado com o que tem fonte no repositório; a lista de 12 depende do fundador ou do game-design.",
+    "map1_warning": "Não há layout-brief da 'Costa do Despertar' no repositório; o nome aparece só no comando GD-066. Usei como 'espécies do Mapa 1' as espécies de estudo do laboratório da Etapa 6 (fichas de anatomia e catálogo de sprites do Comando 9) e o Shellmon citado no comando."
+  },
+  "groups": [
+    {
+      "group": "starters_bebes",
+      "evidence": "projects/prototypes/GS-003/prototype/world/src/data/starters.json (5 bebês da tela 'Escolha seu parceiro')",
+      "species_ids": ["sp.koromon", "sp.tunomon", "sp.tokomon", "sp.gigimon", "sp.dorimon"]
+    },
+    {
+      "group": "primeiras_evolucoes_dos_starters",
+      "evidence": "starters.json, campo 'line' (Criança e Adulto de cada starter)",
+      "species_ids": ["sp.agumon", "sp.greymon", "sp.gabumon", "sp.garurumon", "sp.patamon", "sp.angemon", "sp.guilmon", "sp.growmon", "sp.dorumon", "sp.dorugamon"]
+    },
+    {
+      "group": "especies_do_laboratorio_mapa1",
+      "evidence": "etapa6-lab/fase11-fichas-anatomia (Agumon, Gomamon, Ikkakumon) e etapa6-lab/fase12-comando9/f1/CATALOGO_REFERENCIAS.md (Agumon, Greymon, Gomamon, Ikkakumon, Koromon, Bukamon); caminhos no checkout principal, não versionados na master",
+      "species_ids": ["sp.agumon", "sp.greymon", "sp.gomamon", "sp.ikkakumon", "sp.koromon", "sp.pukamon"]
+    },
+    {
+      "group": "chefe_costeiro",
+      "evidence": "comando GD-066 Fase 3 ('recife de Shellmon'); docs/GDD_MMO_V1.md (Shellmon chefe da Praia dos Postes)",
+      "species_ids": ["sp.shellmon"]
+    }
+  ],
+  "notes": {
+    "sp.pukamon": "Bukamon (nome da dublagem) = Pukamon (título japonês na Wikimon).",
+    "sp.tunomon": "Tsunomon (dublagem) = Tunomon (título Wikimon).",
+    "sp.growmon": "Growlmon (dublagem) = Growmon (título Wikimon)."
+  }
+}

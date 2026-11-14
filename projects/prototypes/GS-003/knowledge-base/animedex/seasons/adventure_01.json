@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "generated": "2026-11-14",
+  "generator": "scripts/build_kb.py"
+ },
+ "season": {
+  "id": "anime.digimon_adventure_1999",
+  "name": "Digimon Adventure",
+  "name_ja": "デジモンアドベンチャー",
+  "media": "anime (série de TV)",
+  "episodes_total": 54,
+  "first_air_jp": "March 7, 1999",
+  "last_air_jp": "March 26, 2000",
+  "arcs": [
+   {
+    "name": "File Island",
+    "episodes": [
+     1,
+     13
+    ]
+   },
+   {
+    "name": "Server Continent",
+    "episodes": [
+     14,
+     28
+    ]
+   },
+   {
+    "name": "Tokyo",
+    "episodes": [
+     29,
+     39
+    ]
+   },
+   {
+    "name": "Dark Masters",
+    "episodes": [
+     40,
+     54
+    ]
+   }
+  ],
+  "arcs_source": {
+   "source_id": "src.wikimon",
+   "url": "https://wikimon.net/Digimon_Adventure",
+   "accessed_at": "2026-11-14",
+   "category": 3
+  },
+  "synopses_written": 13
+ }
+}

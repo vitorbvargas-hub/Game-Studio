@@ -1,0 +1,220 @@
+{
+ "_meta": {
+  "source_id": "src.wikimon_imageinfo",
+  "accessed_at": "2026-11-14",
+  "category": 3,
+  "api_url": "https://wikimon.net/api.php?action=query&prop=imageinfo",
+  "note": "Metadados das imagens de arte usadas na Visual List para o P0. Nenhuma imagem baixada. O uploader é quem enviou o arquivo para a wiki, não o autor da arte (Bandai)."
+ },
+ "files": [
+  {
+   "file_title": "File:Agumon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/7/72/Agumon.jpg",
+   "description_url": "https://wikimon.net/File:Agumon.jpg",
+   "width": 750,
+   "height": 750,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2022-11-22T03:04:31Z"
+  },
+  {
+   "file_title": "File:Greymon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/6/6c/Greymon.jpg",
+   "description_url": "https://wikimon.net/File:Greymon.jpg",
+   "width": 730,
+   "height": 730,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2024-06-12T09:52:56Z"
+  },
+  {
+   "file_title": "File:Dorimon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/f/f0/Dorimon.jpg",
+   "description_url": "https://wikimon.net/File:Dorimon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Ainz",
+   "uploaded_at": "2008-10-24T05:36:07Z"
+  },
+  {
+   "file_title": "File:Dorugamon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/e/e3/Dorugamon.jpg",
+   "description_url": "https://wikimon.net/File:Dorugamon.jpg",
+   "width": 970,
+   "height": 970,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2020-03-11T08:31:06Z"
+  },
+  {
+   "file_title": "File:Dorumon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/1/17/Dorumon.jpg",
+   "description_url": "https://wikimon.net/File:Dorumon.jpg",
+   "width": 990,
+   "height": 990,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2020-03-11T04:04:44Z"
+  },
+  {
+   "file_title": "File:Patamon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/7/7d/Patamon.jpg",
+   "description_url": "https://wikimon.net/File:Patamon.jpg",
+   "width": 518,
+   "height": 518,
+   "mime": "image/jpeg",
+   "uploader": "Keebo",
+   "uploaded_at": "2023-03-14T08:50:09Z"
+  },
+  {
+   "file_title": "File:Angemon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/1/1b/Angemon.jpg",
+   "description_url": "https://wikimon.net/File:Angemon.jpg",
+   "width": 750,
+   "height": 750,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2023-01-11T08:30:21Z"
+  },
+  {
+   "file_title": "File:Guilmon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/c/c5/Guilmon.jpg",
+   "description_url": "https://wikimon.net/File:Guilmon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "ISergey123",
+   "uploaded_at": "2024-12-09T12:31:03Z"
+  },
+  {
+   "file_title": "File:Koromon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/6/6e/Koromon.jpg",
+   "description_url": "https://wikimon.net/File:Koromon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Digi-Brigade",
+   "uploaded_at": "2007-07-12T21:41:35Z"
+  },
+  {
+   "file_title": "File:Tokomon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/e/ec/Tokomon.jpg",
+   "description_url": "https://wikimon.net/File:Tokomon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Devkyu",
+   "uploaded_at": "2007-08-26T21:47:29Z"
+  },
+  {
+   "file_title": "File:Gomamon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/9/9b/Gomamon.jpg",
+   "description_url": "https://wikimon.net/File:Gomamon.jpg",
+   "width": 405,
+   "height": 405,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2025-11-12T09:43:03Z"
+  },
+  {
+   "file_title": "File:Garurumon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/5/57/Garurumon.jpg",
+   "description_url": "https://wikimon.net/File:Garurumon.jpg",
+   "width": 636,
+   "height": 636,
+   "mime": "image/jpeg",
+   "uploader": "Keebo",
+   "uploaded_at": "2022-10-05T05:52:48Z"
+  },
+  {
+   "file_title": "File:Gabumon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/7/71/Gabumon.jpg",
+   "description_url": "https://wikimon.net/File:Gabumon.jpg",
+   "width": 421,
+   "height": 421,
+   "mime": "image/jpeg",
+   "uploader": "Keebo",
+   "uploaded_at": "2022-10-05T05:41:54Z"
+  },
+  {
+   "file_title": "File:Tunomon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/5/59/Tunomon.jpg",
+   "description_url": "https://wikimon.net/File:Tunomon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Ainz",
+   "uploaded_at": "2007-10-23T17:57:58Z"
+  },
+  {
+   "file_title": "File:Shellmon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/b/b1/Shellmon.jpg",
+   "description_url": "https://wikimon.net/File:Shellmon.jpg",
+   "width": 524,
+   "height": 524,
+   "mime": "image/jpeg",
+   "uploader": "Keebo",
+   "uploaded_at": "2023-03-14T09:01:21Z"
+  },
+  {
+   "file_title": "File:Pukamon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/7/73/Pukamon.jpg",
+   "description_url": "https://wikimon.net/File:Pukamon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Yuetmoon",
+   "uploaded_at": "2021-05-06T03:28:15Z"
+  },
+  {
+   "file_title": "File:Gigimon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/c/ca/Gigimon.jpg",
+   "description_url": "https://wikimon.net/File:Gigimon.jpg",
+   "width": 320,
+   "height": 320,
+   "mime": "image/jpeg",
+   "uploader": "Ainz",
+   "uploaded_at": "2009-02-27T07:46:33Z"
+  },
+  {
+   "file_title": "File:Growmon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/0/06/Growmon.jpg",
+   "description_url": "https://wikimon.net/File:Growmon.jpg",
+   "width": 730,
+   "height": 730,
+   "mime": "image/jpeg",
+   "uploader": "BryanTheDM",
+   "uploaded_at": "2024-06-12T09:33:11Z"
+  },
+  {
+   "file_title": "File:Ikkakumon.jpg",
+   "missing": false,
+   "url": "https://wikimon.net/images/0/01/Ikkakumon.jpg",
+   "description_url": "https://wikimon.net/File:Ikkakumon.jpg",
+   "width": 3200,
+   "height": 3200,
+   "mime": "image/jpeg",
+   "uploader": "BryanTheDM",
+   "uploaded_at": "2024-05-27T21:10:37Z"
+  }
+ ]
+}

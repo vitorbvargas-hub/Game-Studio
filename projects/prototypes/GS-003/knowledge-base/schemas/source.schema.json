@@ -1,0 +1,23 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/source",
+ "title": "Fonte",
+ "type": "object",
+ "required": [
+  "id",
+  "name",
+  "category",
+  "accessed_at"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^src\\."
+  },
+  "category": {
+   "type": "integer",
+   "minimum": 1,
+   "maximum": 6
+  }
+ }
+}

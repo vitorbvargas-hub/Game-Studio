@@ -1,0 +1,1152 @@
+{
+ "_meta": {
+  "generated": "2026-11-14",
+  "generator": "scripts/build_kb.py",
+  "layer": "canonical"
+ },
+ "regions": [
+  {
+   "id": "wd.file_island",
+   "name": "File Island",
+   "name_ja": "ファイル島",
+   "layer": "canonical",
+   "parent_id": null,
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    1,
+    5,
+    9,
+    52
+   ],
+   "wikimon_url": "https://wikimon.net/File_Island",
+   "narrative_location": "Primeira ilha do Mundo Digital aonde as crianças escolhidas chegam; dividida em áreas de paisagens muito diferentes. Controlada por Devimon, que a parte em pedaços (ep. 8) antes de ela se juntar de novo.",
+   "biome": "misto (selva, floresta, savana, área gelada, montanha, praia)",
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.file_island_phone_booth_beach",
+   "name": "Praia das cabines telefônicas (sem nome oficial)",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    2,
+    3,
+    4
+   ],
+   "wikimon_url": null,
+   "narrative_location": "Praia aonde o grupo chega seguindo o som de um telefone; há cabines telefônicas fincadas na areia. Shellmon sai de baixo da areia e ataca (ep. 2); é citada de novo nos eps. 3 e 4.",
+   "biome": "praia / litoral",
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": "mar aberto junto à areia",
+   "environmental_objects": [
+    "cabines telefônicas na areia"
+   ],
+   "special_structures": null,
+   "digimon_found": [
+    "sp.shellmon"
+   ],
+   "npcs": null,
+   "important_events": [
+    "primeira evolução de Agumon para Greymon (ep. 2)"
+   ],
+   "nostalgic_elements": [
+    "cabines telefônicas tocando na praia"
+   ],
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "special_structures",
+    "npcs",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [
+    "A Wikimon não dá nome próprio a esta praia; a página File Island não a lista como área."
+   ],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.tropical_jungle",
+   "name": "Tropical Jungle",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Tropical_Jungle",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.ancient_dino_region",
+   "name": "Ancient Dino Region",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.tropical_jungle",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    53
+   ],
+   "wikimon_url": "https://wikimon.net/Ancient_Dino_Region",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.unwavering_forest",
+   "name": "Unwavering Forest",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Unwavering_Forest",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.village_of_beginnings",
+   "name": "Village of Beginnings (Primary Village na dublagem)",
+   "name_ja": "はじまりの街",
+   "layer": "canonical",
+   "parent_id": "wd.unwavering_forest",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    12,
+    13,
+    50
+   ],
+   "wikimon_url": "https://wikimon.net/Village_of_Beginnings",
+   "narrative_location": "Lugar onde os ovos (Digitama) eclodem e os bebês são cuidados por Elecmon.",
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": [
+    "sp.botamon",
+    "sp.koromon",
+    "sp.poyomon",
+    "sp.punimon",
+    "sp.yuramon"
+   ],
+   "npcs": null,
+   "important_events": [
+    "Patamon evolui para Angemon e derrota Devimon (ep. 13)"
+   ],
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "npcs",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.dragon_eye_lake",
+   "name": "Dragon Eye Lake",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.unwavering_forest",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Dragon_Eye_Lake",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [
+    "Provável lago do ep. 3 (Seadramon); a ligação não foi conferida neste lote."
+   ],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.outlook_mountain",
+   "name": "Outlook Mountain",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.unwavering_forest",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Outlook_Mountain",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.gear_savannah",
+   "name": "Gear Savannah",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    4
+   ],
+   "wikimon_url": "https://wikimon.net/Gear_Savannah",
+   "narrative_location": "Planície quente com postes telefônicos tortos espalhados (ep. 4).",
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": [
+    "postes telefônicos tortos com fios soltos"
+   ],
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [
+    "A ligação 'planície dos postes' = Gear Savannah é inferência (categoria 5): o resumo do ep. 4 descreve a planície mas não a nomeia."
+   ],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.pyocomon_village",
+   "name": "Pyocomon Village",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.gear_savannah",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    4
+   ],
+   "wikimon_url": "https://wikimon.net/Pyocomon_Village",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": [
+    "sp.pyocomon"
+   ],
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.factorial_town",
+   "name": "Factorial Town",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.gear_savannah",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    5
+   ],
+   "wikimon_url": "https://wikimon.net/Factorial_Town",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.sewers",
+   "name": "Sewers",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.factorial_town",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    6
+   ],
+   "wikimon_url": "https://wikimon.net/Sewers",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.misty_trees",
+   "name": "Misty Trees",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Misty_Trees",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.toy_town",
+   "name": "Toy Town",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.misty_trees",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    6
+   ],
+   "wikimon_url": "https://wikimon.net/Toy_Town",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": [
+    "sp.monzaemon",
+    "sp.numemon"
+   ],
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.freezeland",
+   "name": "Freezeland",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Freezeland",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.great_canyon",
+   "name": "Great Canyon",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Great_Canyon",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.overdell_cemetery",
+   "name": "Overdell Cemetery",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Overdell_Cemetery",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.devimons_mansion",
+   "name": "Devimon's Mansion",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [],
+   "wikimon_url": "https://wikimon.net/Devimon's_Mansion",
+   "narrative_location": null,
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "narrative_location",
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "pending",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  },
+  {
+   "id": "wd.infinity_mountain",
+   "name": "Infinity Mountain",
+   "name_ja": null,
+   "layer": "canonical",
+   "parent_id": "wd.file_island",
+   "media": [
+    "anime.digimon_adventure_1999"
+   ],
+   "episode_numbers": [
+    7,
+    8,
+    9
+   ],
+   "wikimon_url": "https://wikimon.net/Infinity_Mountain",
+   "narrative_location": "Montanha de onde saem as Engrenagens Negras; no topo o grupo encontra Devimon (eps. 7-8).",
+   "biome": null,
+   "topography": null,
+   "climate": null,
+   "day_night_cycle": null,
+   "architecture": null,
+   "vegetation": null,
+   "water": null,
+   "environmental_objects": null,
+   "special_structures": null,
+   "digimon_found": null,
+   "npcs": null,
+   "important_events": null,
+   "nostalgic_elements": null,
+   "visual_refs": null,
+   "sound_refs": null,
+   "game_adaptation_ideas": null,
+   "pending_fields": [
+    "biome",
+    "topography",
+    "climate",
+    "day_night_cycle",
+    "architecture",
+    "vegetation",
+    "water",
+    "environmental_objects",
+    "special_structures",
+    "digimon_found",
+    "npcs",
+    "important_events",
+    "nostalgic_elements",
+    "visual_refs",
+    "sound_refs",
+    "game_adaptation_ideas"
+   ],
+   "status": "verified_secondary",
+   "notes": [],
+   "sources": [
+    {
+     "source_id": "src.wikimon_file_island",
+     "url": "https://wikimon.net/File_Island",
+     "accessed_at": "2026-11-14",
+     "category": 3
+    }
+   ]
+  }
+ ]
+}

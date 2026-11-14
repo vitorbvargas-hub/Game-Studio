@@ -1,0 +1,32 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "kb/species_profile",
+ "title": "Ficha P0",
+ "type": "object",
+ "required": [
+  "id",
+  "name",
+  "level",
+  "attribute",
+  "first_appearance",
+  "evolves_from",
+  "evolves_to",
+  "visual_reference_ids",
+  "sources",
+  "last_checked",
+  "validation_status",
+  "divergences",
+  "pending"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^sp\\."
+  },
+  "visual_reference_ids": {
+   "type": "array",
+   "minItems": 5,
+   "maxItems": 5
+  }
+ }
+}

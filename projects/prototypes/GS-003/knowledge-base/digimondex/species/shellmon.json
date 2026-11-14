@@ -1,0 +1,229 @@
+{
+ "id": "sp.shellmon",
+ "name": "Shellmon",
+ "names": {
+  "ja_kana": "シェルモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "adult",
+  "en_official": "Champion",
+  "status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-14"
+ },
+ "attribute": {
+  "normalized": "data",
+  "en_official": "Data",
+  "status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-14"
+ },
+ "type_en_official": "Mollusk",
+ "family_groups": null,
+ "description_pt": "Digimon parecido com um ermitão (bernardo-eremita): parece uma tartaruga dentro da concha, mas tem corpo mole de molusco. Cresce trocando de casca até o tamanho de um morro pequeno.",
+ "description_status": "verified_primary (paráfrase própria do perfil oficial, lido em 2026-11-14)",
+ "techniques": [
+  {
+   "id": "sk.hydro_blaster",
+   "name_en_official": "Hydro Blaster",
+   "name_wiki_translation": "Hydro Pressure",
+   "source_id": "src.refbook_en"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": {
+  "text_pt": "Pouca inteligência e temperamento briguento; perigoso de encontrar.",
+  "source_id": "src.refbook_en",
+  "status": "verified_primary"
+ },
+ "habitat": {
+  "text_pt": "Vive no fundo do Net Ocean; o corpo cresce e ele troca de casca, até ficar do tamanho de um pequeno morro; se instala em qualquer coisa onde caiba.",
+  "source_id": "src.refbook_en",
+  "status": "verified_primary"
+ },
+ "first_appearance": {
+  "year": 1998,
+  "media": "Digital Monster Ver. 3"
+ },
+ "anime_adventure_01_episodes": [
+  2,
+  3,
+  4,
+  32,
+  41
+ ],
+ "games_and_media_contexts": null,
+ "evolves_from": [
+  "sp.gomamon",
+  "sp.patamon"
+ ],
+ "evolves_to": [],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [
+  "Mori Shellmon"
+ ],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.shellmon.ref01",
+  "vr.shellmon.ref02",
+  "vr.shellmon.ref03",
+  "vr.shellmon.ref04",
+  "vr.shellmon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Shellmon",
+  "visual_list_image_file": "Shellmon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=shellmon"
+ },
+ "p0_groups": [
+  "chefe_costeiro"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "verified_primary",
+ "divergences": [
+  {
+   "field": "special_move",
+   "official": "Hydro Blaster",
+   "wiki": "Hydro Pressure",
+   "note": "nome oficial em inglês × tradução da wiki"
+  },
+  {
+   "field": "habitat",
+   "official": "fundo (depths) do Net Ocean",
+   "wiki": "fundo raso (shallower seabeds)",
+   "note": "tradução diferente do mesmo perfil japonês"
+  },
+  {
+   "field": "type",
+   "official": "Mollusk",
+   "wiki": "Mollusk (DRB) e Aquatic (carta Bo-9; Analyzer do anime)",
+   "note": "Aquatic é de outras continuidades"
+  }
+ ],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "evolution_requirements"
+ ],
+ "types_wikimon": [
+  {
+   "value": "Mollusk",
+   "ref": "DRB"
+  },
+  {
+   "value": "Aquatic",
+   "ref": "card Bo-9"
+  }
+ ],
+ "fields_wikimon": [
+  {
+   "value": "Deep Savers",
+   "ref": "card Bo-9"
+  }
+ ],
+ "wikimon_evolves_from_names": [
+  "Armadimon",
+  "Betamon",
+  "Elecmon",
+  "Floramon",
+  "Ganimon",
+  "Ganimon (X-Antibody)",
+  "Gasamon",
+  "Gizamon",
+  "Gomamon",
+  "Hanimon",
+  "Kamemon",
+  "Koemon",
+  "Kunemon",
+  "Modoki Betamon",
+  "Otamamon",
+  "Otamamon (Red)",
+  "Otamamon (X-Antibody)",
+  "Patamon",
+  "Penmon",
+  "Pico Devimon",
+  "Shakomon (X-Antibody)",
+  "Wormmon"
+ ],
+ "wikimon_evolves_to_names": [
+  "Aero V-dramon",
+  "Andromon",
+  "Anomalocarimon",
+  "Asuramon",
+  "Beowolfmon",
+  "Big Mamemon",
+  "Blossomon",
+  "Chimairamon",
+  "Coelamon",
+  "Cyberdramon",
+  "Dagomon",
+  "Dark Knightmon",
+  "Duramon",
+  "Fantomon",
+  "Garudamon",
+  "Gerbemon",
+  "Giromon",
+  "Groundramon",
+  "Gusokumon",
+  "Hangyomon",
+  "Herakle Kabuterimon",
+  "Hippogriffomon",
+  "Jyagamon",
+  "Karakurumon",
+  "Lady Devimon",
+  "Maildramon",
+  "Mamemon",
+  "Mametyramon",
+  "Marin Chimairamon",
+  "Marin Devimon",
+  "Megadramon",
+  "Mega Seadramon",
+  "Mega Seadramon (X-Antibody)",
+  "Mermaimon",
+  "Metal Mamemon",
+  "Piccolomon",
+  "Piranimon",
+  "Pumpmon",
+  "Rize Greymon",
+  "Savior Huckmon",
+  "Sekkamon",
+  "Skull Satamon",
+  "Tonosama Gekomon",
+  "Triceramon",
+  "Vademon",
+  "Vamdemon",
+  "Waru Monzaemon",
+  "Waru Seadramon",
+  "Were Garurumon",
+  "Whamon Perfect",
+  "Yatagaramon (2006 Anime Version)",
+  "Zudomon"
+ ],
+ "wikimon_generic_evolution_rules": [
+  "Any Blue Lv.3 Digimon from the ''Digimon Card Game''",
+  "Any Child Blue Digimon from the ''Battle Spirits Card Game''",
+  "Any Child Water Digimon from ''Digimon World: Digital Card Arena''",
+  "Any Child Water Digimon from ''Digimon World: Digital Card Battle''",
+  "Any Shambala Lv.3 Digimon from the ''Digimon Card Game''{{rfc|EX12|026 (DCG)}}",
+  "Any TS Lv.3 Digimon from the ''Digimon Card Game''{{rfc|BT24|025 (DCG)}}",
+  "Any Blue Lv.5 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from Aqua Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from Aquatic Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from Blue Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from Non-White Shambala Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from Shambala Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Digimon that also Evolves from TS Lv.4 Digimon from the ''Digimon Card Game''",
+  "Any Perfect Blue Digimon from the ''Battle Spirits Card Game''",
+  "Any Perfect Digimon that evolves from a Jogress in the ''Battle Spirits Card Game'' (with {{Wikia|Battle-spirits|Categor",
+  "Any Perfect Water Digimon from ''Digimon World: Digital Card Arena''",
+  "Any Perfect Water Digimon from ''Digimon World: Digital Card Battle''"
+ ],
+ "evolution_contexts_note": "Gomamon → Shellmon só em Digimon Survive; Patamon → Shellmon só em Digimon Fortune (segundo a Wikimon). Nenhuma das duas é evolução universal."
+}

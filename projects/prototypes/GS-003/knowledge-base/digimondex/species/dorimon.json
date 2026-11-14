@@ -1,0 +1,100 @@
+{
+ "id": "sp.dorimon",
+ "name": "Dorimon",
+ "names": {
+  "ja_kana": "ドリモン",
+  "dub_en": [],
+  "dub_en_variants": [],
+  "alternatives": []
+ },
+ "level": {
+  "normalized": "baby_ii",
+  "en_official": "In-Training II",
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "attribute": {
+  "normalized": "none",
+  "en_official": null,
+  "status": "reused_unverified",
+  "original_status": "verified_primary",
+  "source_id": "src.refbook_en",
+  "accessed_at": "2026-11-12"
+ },
+ "type_en_official": "Lesser",
+ "family_groups": [],
+ "description_pt": "Corre em linha reta em alta velocidade e não gosta de ser domado; as orelhas duras servem de chifre na investida.",
+ "description_status": "reused_unverified (original: verified_primary, 2026-11-12)",
+ "techniques": [
+  {
+   "id": "sk.metal_drop",
+   "name_en_official": "Metal Drop"
+  }
+ ],
+ "physical_traits": null,
+ "personality_documented": null,
+ "habitat": null,
+ "first_appearance": {
+  "year": 2003,
+  "media": "Pendulum X 1.0"
+ },
+ "anime_adventure_01_episodes": [],
+ "games_and_media_contexts": [
+  "ctx.d_cyber_version_1_0",
+  "ctx.digimon_accel_ultimate_genome",
+  "ctx.digimon_pendulum_ver_20th",
+  "ctx.digimon_rearise",
+  "ctx.digimon_rpg",
+  "ctx.digimon_soul_chaser",
+  "ctx.digimon_story",
+  "ctx.digimon_story_lost_evolution",
+  "ctx.digimon_story_sunburst_digimon_story_moonlight",
+  "ctx.digimon_story_time_stranger",
+  "ctx.digimon_super_rumble",
+  "ctx.digital_monster_ver_20th",
+  "ctx.pendulum_x_1_0",
+  "ctx.vital_bracelet_be"
+ ],
+ "evolves_from": [
+  "sp.dodomon"
+ ],
+ "evolves_to": [
+  "sp.dorumon"
+ ],
+ "evolution_edges_file": "digimondex/evolutions/p0_edges.json",
+ "alternative_forms": [],
+ "evolution_requirements": "pending",
+ "visual_reference_ids": [
+  "vr.dorimon.ref01",
+  "vr.dorimon.ref02",
+  "vr.dorimon.ref03",
+  "vr.dorimon.ref04",
+  "vr.dorimon.ref05"
+ ],
+ "links": {
+  "wikimon": "https://wikimon.net/Dorimon",
+  "visual_list_image_file": "Dorimon.jpg",
+  "refbook_en": "https://digimon.net/reference_en/detail.php?directory_name=dorimon"
+ },
+ "p0_groups": [
+  "starters_bebes"
+ ],
+ "sources": [
+  "src.refbook_en",
+  "src.wikimon",
+  "src.wikimon_list_of_digimon",
+  "src.wikimon_episode_pages"
+ ],
+ "last_checked": "2026-11-14",
+ "validation_status": "reused_unverified",
+ "divergences": [],
+ "pending": [
+  "physical_traits (há só a descrição curta)",
+  "personality_documented",
+  "habitat",
+  "evolution_requirements",
+  "reler a ficha oficial para tirar o status reused_unverified"
+ ]
+}
