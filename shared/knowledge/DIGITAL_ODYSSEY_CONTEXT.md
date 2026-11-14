@@ -151,6 +151,20 @@ Na franquia o humano é parceiro, não dono; o Digimon tem personalidade própri
 - **Três estilos convivem no jogo** (rip DS, PixelLab cartoon, procedural v8–v12). Nada novo deve criar um quarto.
 - **PixelLab:** Tier 1 (2.000 gerações/mês, renova 11/12). Toda geração tem teto definido pelo coordenador e entra no `PROJECT_LOG.md`. Comprar créditos exige aprovação.
 
+## 4.1 PROTOCOLO OBRIGATÓRIO GS-003-DIGIMON-REFERENCE-GATE (fundador, 2026-11-14, GD-072)
+
+**Vale para todo agente, sempre que a tarefa envolver Digimon:** criar, redesenhar ou variar uma espécie; fazer sprite, animação, habilidade, efeito de espécie ou evolução; colocar um Digimon no motor; mudar aparência ou proporção. Antes de gerar ou modificar o asset, **leia e siga o texto central**: `~/projects/GameStudio/shared/knowledge/GS-003-DIGIMON-REFERENCE-GATE.md`. O texto central é esse; não crie outra versão.
+
+No resumo, o protocolo tem estas etapas:
+- **A. Identificação:** confirmar na Knowledge Base a espécie, a forma, a variante, as técnicas e as fontes. A Knowledge Base fica na branch `feat/gs003-knowledge-base`, em `projects/prototypes/GS-003/knowledge-base/`.
+- **B. Estudo visual:** usar as 5 referências (REF-01 a REF-05) e a ficha de anatomia (`etapa6-lab/fase11-fichas-anatomia/`).
+- **C. Adaptação ao GBA Plus.**
+- **D. `DIGIMON-REFERENCE-REPORT`:** antes de gerar ou modificar o asset.
+- **E. Bloqueio:** sem referências suficientes, não inventar; registrar pendência.
+- **F. Comparação final** com as referências, no tamanho real do jogo.
+
+Antes de produzir qualquer Digimon (regra do fundador, 2026-11-14), procure também pixel art pronta (Spriters Resource, DeviantArt, Pinterest, ArtStation). Use só o que tiver licença e peça permissão para o resto. O envio do pedido é do fundador. Um Digimon não está concluído só porque o arquivo existe.
+
 ## 5. Database (conceitual, sem runtime)
 
 Regras completas em `studio-alignment/04_REGRAS_CONSULTA_DATABASE.md` (após aprovação, no `database/README.md`). O essencial:
