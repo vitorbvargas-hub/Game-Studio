@@ -1,0 +1,70 @@
+{
+ "especie": "Ikkakumon v2 (champion)",
+ "personagem_pixellab": "66e46a25-df4c-426e-b210-83bfe9837379",
+ "obs": "traseira baixa pela FICHA_IKKAKUMON; sem ataque próprio",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]"
+ },
+ "f2": {
+  "log": [
+   {
+    "correcao": "walk/E dorso",
+    "detalhe": "pontos vermelhos no dorso (garra vazando pela anca) viram pelo: 17 px",
+    "quadros": 7
+   },
+   {
+    "correcao": "walk/S pé",
+    "detalhe": "sola [60, 61, 62] -> [61, 62] (alvo 62), dy por quadro [0, 0, 0, 0, 1, 1, 1, 1]",
+    "quadros": 4
+   },
+   {
+    "correcao": "walk/E pé",
+    "detalhe": "sola [60, 61, 62] -> [61, 62, 63] (alvo 62), dy por quadro [1, 1, 1, 1, 0, 1, 1, 0]",
+    "quadros": 6
+   },
+   {
+    "correcao": "walk/N pé",
+    "detalhe": "sola [59, 60, 61] -> [61] (alvo 61), dy por quadro [0, 0, 0, 1, 2, 0, 0, 0]",
+    "quadros": 2
+   },
+   {
+    "correcao": "walk/S soltos",
+    "detalhe": "0 px soltos removidos",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E soltos",
+    "detalhe": "0 px soltos removidos",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/N soltos",
+    "detalhe": "0 px soltos removidos",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/S paleta",
+    "detalhe": "82 -> 77 cores (1505 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E paleta",
+    "detalhe": "80 -> 76 cores (1025 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/N paleta",
+    "detalhe": "81 -> 77 cores (1358 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "W",
+    "detalhe": "oeste regenerado como espelho do leste corrigido",
+    "quadros": 8
+   }
+  ]
+ }
+}

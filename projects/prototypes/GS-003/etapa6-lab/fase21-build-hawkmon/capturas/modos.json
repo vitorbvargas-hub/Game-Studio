@@ -1,0 +1,173 @@
+{
+ "hawkmon": {
+  "antes": [
+   {
+    "player": "p1",
+    "especie": "LAB-HAWKMON",
+    "nivel": 8,
+    "golpes": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "visual": "Hawkmon (Link A — ficha v1 PixelLab, TES",
+    "walkPxPerFrame": 2
+   },
+   {
+    "player": "labcmp",
+    "especie": "CREATURE-0006",
+    "nivel": 20,
+    "golpes": [
+     "mach_jab",
+     "uppercut",
+     "baby_burner",
+     "triple_baby_flame"
+    ],
+    "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+    "walkPxPerFrame": null
+   }
+  ],
+  "banner": "Lab Etapa 6 · C14.3 · BUILD HAWKMON v1b (sem ataques) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "depoisTab": {
+   "player": "p1",
+   "especie": "CREATURE-0006",
+   "nivel": 20,
+   "golpes": [
+    "mach_jab",
+    "uppercut",
+    "baby_burner",
+    "triple_baby_flame"
+   ],
+   "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+   "walkPxPerFrame": null
+  },
+  "erros": [],
+  "rede": []
+ },
+ "agumon": {
+  "antes": [
+   {
+    "player": "p1",
+    "especie": "CREATURE-0006",
+    "nivel": 8,
+    "golpes": [
+     "pepper_breath",
+     "claw_attack",
+     null,
+     null
+    ],
+    "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+    "walkPxPerFrame": null
+   },
+   {
+    "player": "labcmp",
+    "especie": "LAB-HAWKMON",
+    "nivel": 20,
+    "golpes": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "visual": "Hawkmon (Link A — ficha v1 PixelLab, TES",
+    "walkPxPerFrame": 2
+   }
+  ],
+  "banner": "Lab Etapa 6 · C14.3 · BUILD HAWKMON v1b (sem ataques) · parceiro Agumon F7v2 · ao lado Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "depoisTab": {
+   "player": "p1",
+   "especie": "LAB-HAWKMON",
+   "nivel": 20,
+   "golpes": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "visual": "Hawkmon (Link A — ficha v1 PixelLab, TES",
+   "walkPxPerFrame": 2
+  },
+  "erros": [],
+  "rede": []
+ },
+ "sem_comparar": {
+  "antes": [
+   {
+    "player": "p1",
+    "especie": "LAB-HAWKMON",
+    "nivel": 8,
+    "golpes": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "visual": "Hawkmon (Link A — ficha v1 PixelLab, TES",
+    "walkPxPerFrame": 2
+   }
+  ],
+  "banner": "Lab Etapa 6 · C14.3 · BUILD HAWKMON v1b (sem ataques) · parceiro Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "depoisTab": {
+   "player": "p1",
+   "especie": "CREATURE-0006",
+   "nivel": 20,
+   "golpes": [
+    "mach_jab",
+    "uppercut",
+    "baby_burner",
+    "triple_baby_flame"
+   ],
+   "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+   "walkPxPerFrame": null
+  },
+  "erros": [],
+  "rede": []
+ },
+ "hawkms73": {
+  "antes": [
+   {
+    "player": "p1",
+    "especie": "LAB-HAWKMON",
+    "nivel": 8,
+    "golpes": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "visual": "Hawkmon (Link A — ficha v1 PixelLab, TES",
+    "walkPxPerFrame": 7.3
+   },
+   {
+    "player": "labcmp",
+    "especie": "CREATURE-0006",
+    "nivel": 20,
+    "golpes": [
+     "mach_jab",
+     "uppercut",
+     "baby_burner",
+     "triple_baby_flame"
+    ],
+    "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+    "walkPxPerFrame": null
+   }
+  ],
+  "banner": "Lab Etapa 6 · C14.3 · BUILD HAWKMON v1b (sem ataques) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "depoisTab": {
+   "player": "p1",
+   "especie": "CREATURE-0006",
+   "nivel": 20,
+   "golpes": [
+    "mach_jab",
+    "uppercut",
+    "baby_burner",
+    "triple_baby_flame"
+   ],
+   "visual": "Agumon (Link A — ficha v9 PixelLab, TEST",
+   "walkPxPerFrame": null
+  },
+  "erros": [],
+  "rede": []
+ }
+}

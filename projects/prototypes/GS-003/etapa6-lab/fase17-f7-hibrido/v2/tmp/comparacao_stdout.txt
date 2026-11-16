@@ -1,0 +1,7 @@
+delays do ciclo por direção (min): {'S': 110, 'N': 110, 'E': 110, 'W': 110}
+F7v2_ciclo_idle_walk_ataque_idle_SNEW_tick40ms_1x.gif 137 quadros 40 ms
+F7v2_ciclo_idle_walk_ataque_idle_SNEW_tick40ms_3x.gif 137 quadros 40 ms
+demo_ataque_com_projetil_SNEW_tick40ms_1x.gif 47 quadros 40 ms
+demo_ataque_com_projetil_SNEW_tick40ms_4x.gif 47 quadros 40 ms
+ok
+done

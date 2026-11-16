@@ -476,3 +476,56 @@ Entregável: `fase5-link-a/REVISAO_QA_LINK_A.md`; evidências próprias em `fase
 - Seção "Rechecagem v2" acrescentada em `fase5-link-a/REVISAO_QA_LINK_A.md`; evidências em `fase5-link-a/qa/v2/`.
 
 ### Status: CONCLUÍDO
+
+---
+
+## game-dev (2026-11-13) — Etapa 6, Fase 6: teste de evolução Agumon→Greymon nos Links A e B (pedido direto do fundador)
+
+1. Li `FASE2_BUILDS_LAB.md` e `FASE5_LINK_A.md`. Parti de `8dc7a0f` (C5 v2).
+2. `src/main.ts`: nova constante `LAB_EVO_PARTNER` — só nos Links A/B (nunca C), sem `?evo=0`: o parceiro de um jogo novo vira Agumon (CREATURE-0006) direto no Nv.20, usando o MESMO mecanismo que `?partner=`/`?team=compare` já usavam (`opts.partnerSpecies`/`opts.partnerLevel` em `createMapWorld`), só com 20 no lugar de `STARTER_LEVEL`. Nenhuma tabela de evolução/stat tocada; Auto-evoluir continua DESL. por padrão (evolução manual — confirmado que no Nv.20 os DOIS caminhos de Agumon ficam elegíveis, então a escolha é sempre do jogador).
+3. Chave de save nova por link (nada apagado): `lab-a.ts` `LAB_A_SLOT` vira `do.lab.a.save.v2:`; `lab-b.ts` (novo arquivo, só do Link B) com `do.lab.b.save.v2:`.
+4. `tests/fase6-evolucao.test.ts` (novo, 4 testes, nível da sim): Agumon Nv.20 nasce elegível para Greymon; sem Auto-evoluir a sim não evolui sozinha; o intent manual `evolve` (o mesmo do clique real em "Evoluir") evolui mantendo o nível; sem escolher o caminho com 2+ elegíveis a sim recusa.
+5. Verificação: `tsc --noEmit` sem erros · `vitest` **509/509** (505 + 4 novos) · `map:validate --no-write` PASS nos 9 mapas · rebuild de `dist-lab-a`/`dist-lab-b` · 5191/5192 reiniciados (5193 **não** tocado, mesmo processo desde 16:20) · `qo` limpo em `3289e32` · 0 gerações PixelLab · sem push/deploy.
+6. Capturado AO VIVO (Chromium headless + CDP, `NO_PROXY=127.0.0.1`, mesma técnica de `capture-lab-a.mjs`; precisei dessa variável porque o `fetch` do Node estava batendo num proxy que recusava `127.0.0.1` — sem ela, a conexão CDP falha com "no cdp"): Agumon Nv.20 (PV 131/131) nos dois links, o aviso de evolução abrindo sozinho (`checkEvolve`, regra já existente), clique real em "Evoluir" e Greymon depois (PV 180/180), 0 erros de console. Pranchas lado a lado A×B e GIFs em `fase6-evolucao/`.
+7. Host instável durante a sessão: processos em segundo plano (inclusive os servidores de preview) foram derrubados algumas vezes pelo OOM killer do Linux deste ambiente compartilhado; reiniciei pelo mecanismo de processo em segundo plano da ferramenta (mais estável) e confirmei as 3 portas respondendo ao final. Registrado em `TESTE_EVOLUCAO_A_B.md` para o caso de o fundador achar uma porta fora do ar.
+8. Commit local em `lab/etapa6`: `ca5f131`.
+
+### Status: CONCLUÍDO
+
+Entregável: `fase6-evolucao/TESTE_EVOLUCAO_A_B.md` (passo a passo para o fundador testar + todas as evidências).
+
+---
+
+## game-dev (2026-11-13) — Etapa 6, Fase 8: Agumon e Tamer do Fixer Neural no jogo (Link A, pedido direto do fundador: "coloca isso no game pra gente testar")
+
+1. Lidos `fase7-digimon-proprio/PESQUISA_E_TESTE_PRODUCAO_DIGIMON.md` e as pranchas em `fixer_neural/frames/` (48×48 por quadro, idle 4 quadros, walk 8, 4 pranchas por personagem com os nomes de direção trocados, conforme avisado no comando). Partido de `ca5f131`.
+2. Escrito `scripts/lab/slice-fixer-sheets.mjs` (fatia as pranchas na pasta "extraída" que o importador M2 já espera, com a correção de direção `frente→sul, costas→norte, perfil_dir→oeste, perfil_esq→leste`) e verificado visualmente antes de ligar (contact sheets por direção): direções confirmadas certas; achado o defeito já avisado no comando (quadros 4-7 da caminhada do Tamer menores/cabeça comprimida, medido por bounding box, consistente nas 4 direções) — usados só os quadros 0-3 do Tamer, em loop; os 8 quadros do Agumon ficaram consistentes.
+3. Pivô: a ficha declara x=24 fixo; y medido por varredura de alfa (idêntico, 43, em 100% dos 104 quadros) — usado fixo (não por quadro) para não introduzir um deslize lateral artificial que o x medido por quadro (variação de até 10px pela pose do passo) causaria.
+4. Estendido `import-lab-character.mjs` (M2) para também importar `animations/idle/<dir>/` como campo `idle` opcional do manifesto (sem quebrar quem não tem essa pasta). Rodado para o Agumon (saída em `lab-assets/a/digimon/CREATURE-0006/fixer/`, ao lado do `lab-creature.json` de pose única que continua existindo) e para o Tamer (`lab-assets/a/tamer/tamer_ficha_v4_fixer/`, preset novo, aditivo — os 2 presets A de antes continuam).
+5. Código: `lab-tamer.ts` (schema `idle?` exportado, `listLabTamerPresets`/`loadLabTamerVisual` usam idle real quando presente, fallback inalterado quando ausente), `lab-creatures.ts` (nova subpasta `digimon/<id>/fixer/`, reaproveitando o schema/importador do Tamer, ao lado da pose única; `loadLabCreatureVisuals(fixerEnabled)`; `?fixer=0` volta ao Comando 5), `main.ts` (liga o toggle). Greymon e as outras espécies do Método A não foram tocadas.
+6. Verificação: `tsc --noEmit` sem erros · `vitest` **509/509** (mesmo total de antes — mudança aditiva, nenhum teste quebrado nem criado) · rebuild `dist-lab-a` · preview 5191 reiniciado · **5192/5193 não tocados** (mesmos processos desde antes desta fase, `dist-lab-b`/`dist-lab-c` com a mesma data) · `qo` limpo em `3289e32` · 0 gerações PixelLab · sem push/deploy.
+7. Capturado ao vivo (Chromium headless + CDP, `NO_PROXY=127.0.0.1`, técnica de `capture-fase6-evo.mjs`): criador com o preset novo, Tamer+Agumon no mundo nas 4 direções, aviso de evolução abrindo sozinho, clique real em "Evoluir", Greymon depois (0 erros de console), toggle `?fixer=0` confirmado revertendo à pose única, GIF curto (556 KB). Achado durante a captura: o aviso de evolução (`checkEvolve`/núcleo do Digivice) reabre a cada passo salvo quando `evolveLockTicks` da parceira está travado — usei o próprio mecanismo do motor (`e.evolveLockTicks` + `hud.closeCore()`) para destravar só na hora certa, sem mexer no código do jogo.
+8. Commit local em `lab/etapa6`: **`7a2ca55`**.
+9. Problemas visuais registrados para o fundador (não resolvidos, não é desta tarefa): costas em formato de "bola" (sem rosto) no Agumon e no Tamer — traço da ficha v4 original, mais exposto agora que as 4 direções estão em uso; defeito dos quadros 4-7 do Tamer (contornado, não corrigido na origem); a parceira pode ficar um passo atrás do Tamer em trocas de direção muito curtas (regra de `FOLLOW` já existente no motor, não desta integração).
+
+### Status: CONCLUÍDO
+
+Entregável: `fase8-fixer-no-jogo/INTEGRACAO_FIXER.md` (o que mudou, como testar com URLs exatas, tabela de evidências, problemas visuais, o que não foi feito).
+
+---
+
+## game-dev (2026-11-13) — Etapa 6, Fase 8b: Agumon v5 (ChatGPT prompt padrão + Fixer Neural pixel 4,5) no Link A (pedido direto do fundador, em seguida à Fase 8)
+
+1. Entrada nova: 4 pranchas já com nomes de direção corretos (`agumon_v5_walk_{sul,oeste,leste,norte}_sheet.png`, 8 quadros de 48×48, sem idle separado). Partido de `7a2ca55` (Fase 8, v4).
+2. Script próprio `scripts/lab/import-agumon-v5.mjs` (não reaproveita `slice-fixer-sheets.mjs`, layout de entrada diferente): fatia as 4 pranchas, mede pivô por quadro (oscilava até 8px em x dentro da mesma direção — oeste 24–32, leste 21–25), usa pivô FIXO por direção (mediana dos 8 quadros; y=43 uniforme) para não deslizar ao andar, escreve `lab-character.json` direto em `lab-assets/a/digimon/CREATURE-0006/fixer5/` (subpasta irmã de `fixer/`, a v4 — nenhuma removida).
+3. Idle: sem prancha própria; `rotations/<dir>` = quadro 0 do andar. Com 1 único quadro de idle por direção, o motor já aplica sozinho o bob de 1px (regra existente em `animctl.ts`) — nenhuma respiração nova desenhada/simulada.
+4. Defeito de origem registrado, NÃO corrigido por escala (pedido explícito): perfis leste/oeste saem com ~44px de conteúdo contra ~33–38px em sul/norte.
+5. `lab-creatures.ts`: globs próprios para `fixer5/` ao lado de `fixer/`; `loadFixerDigimonVisuals`/`loadLabCreatureVisuals` agora recebem qual versão usar. `main.ts`: `?agumon=v4` volta à v4; sem o parâmetro usa v5 (padrão novo); `?fixer=0` continua voltando à pose única, como antes. Nenhuma outra espécie tocada.
+6. Verificação: `tsc --noEmit` sem erros · `vitest` **509/509** (mesmo total de antes; 1ª rodada teve 2 arquivos com timeout por carga do host — confirmado flaky, não regressão, numa rodada isolada e numa rodada cheia seguinte, ambas 509/509) · `map:validate --no-write` PASS nos 9 mapas · rebuild `dist-lab-a` · **5191 reiniciado como serviço de background do próprio `exec` (não setsid+nohup manual em shell comum — esse morreu ao fim da chamada; o padrão que sobrevive é o mesmo usado por 5192/5193)**, confirmado com `curl` (200) antes de encerrar · 5192/5193 e o worktree `qo` (`3289e32`) intocados · 0 gerações PixelLab · sem push/deploy.
+7. Confirmado por consulta direta ao estado do jogo (sem depender de UI): `manifest.name`/contagem de quadros de idle e walk batem com cada um dos 3 caminhos (`?novo=1` padrão = v5, `?agumon=v4`, `?fixer=0`).
+8. Capturado ao vivo (Chromium headless + CDP, técnica de `capture-fase8-fixer.mjs`, simplificada em `capture-fase8-agumon-v5.mjs`): Agumon v5 Nv.20 andando nas 4 direções, 0 erros de console, GIF curto (0,43 MB).
+9. Commit local em `lab/etapa6`: **`62aef2d`** (retomada após queda por erro de login da execução anterior — confirmado git status limpo, código/evidências já estavam corretos, só faltava o commit; recheck completo: tsc, vitest 509/509, map:validate 9/9, servidor 5191 e bundle servido confirmados com o label v5, B/C e `qo` intocados).
+
+### Status: CONCLUÍDO
+
+Entregável: `fase8-fixer-no-jogo/v5/INTEGRACAO_V5.md` (o que mudou, como testar, tabela de verificação dos 3 caminhos, defeito registrado, o que não foi feito).

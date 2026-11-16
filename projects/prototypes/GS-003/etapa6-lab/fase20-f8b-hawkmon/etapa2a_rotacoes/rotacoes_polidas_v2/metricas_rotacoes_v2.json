@@ -1,0 +1,119 @@
+{
+ "S": {
+  "bbox": [
+   14,
+   5,
+   33,
+   42
+  ],
+  "largura": 20,
+  "altura": 38,
+  "opacos": 492,
+  "cores": 24,
+  "fora_P1": 0,
+  "semitransparentes": 0,
+  "area_div_agumon_S_582": 0.845,
+  "area_div_propria_S": 1.0,
+  "agumon_mesma_direcao": 582,
+  "area_div_agumon_mesma_direcao": 0.845,
+  "topete_sobrepoe_corpo": 0,
+  "topete_bbox": [
+   22,
+   5,
+   25,
+   12
+  ],
+  "topete_igual_v1": true,
+  "v1_opacos": 492,
+  "pixels_diferentes_da_v1": 0,
+  "mascara_diferente_da_S": 0
+ },
+ "N": {
+  "bbox": [
+   14,
+   5,
+   33,
+   42
+  ],
+  "largura": 20,
+  "altura": 38,
+  "opacos": 500,
+  "cores": 19,
+  "fora_P1": 0,
+  "semitransparentes": 0,
+  "area_div_agumon_S_582": 0.859,
+  "area_div_propria_S": 1.016,
+  "agumon_mesma_direcao": 632,
+  "area_div_agumon_mesma_direcao": 0.791,
+  "topete_sobrepoe_corpo": 0,
+  "topete_bbox": [
+   22,
+   5,
+   25,
+   12
+  ],
+  "topete_igual_v1": true,
+  "v1_opacos": 494,
+  "pixels_diferentes_da_v1": 80,
+  "mascara_diferente_da_S": 16
+ },
+ "E": {
+  "bbox": [
+   12,
+   5,
+   35,
+   42
+  ],
+  "largura": 24,
+  "altura": 38,
+  "opacos": 466,
+  "cores": 23,
+  "fora_P1": 0,
+  "semitransparentes": 0,
+  "area_div_agumon_S_582": 0.801,
+  "area_div_propria_S": 0.947,
+  "agumon_mesma_direcao": 637,
+  "area_div_agumon_mesma_direcao": 0.732,
+  "topete_sobrepoe_corpo": 0,
+  "topete_bbox": [
+   22,
+   5,
+   26,
+   12
+  ],
+  "topete_igual_v1": true,
+  "v1_opacos": 454,
+  "pixels_diferentes_da_v1": 54,
+  "mascara_diferente_da_S": 152
+ },
+ "W": {
+  "bbox": [
+   12,
+   5,
+   35,
+   42
+  ],
+  "largura": 24,
+  "altura": 38,
+  "opacos": 466,
+  "cores": 23,
+  "fora_P1": 0,
+  "semitransparentes": 0,
+  "area_div_agumon_S_582": 0.801,
+  "area_div_propria_S": 0.947,
+  "agumon_mesma_direcao": 637,
+  "area_div_agumon_mesma_direcao": 0.732,
+  "topete_sobrepoe_corpo": 0,
+  "topete_bbox": [
+   21,
+   5,
+   25,
+   12
+  ],
+  "topete_igual_v1": true,
+  "v1_opacos": 454,
+  "pixels_diferentes_da_v1": 54,
+  "mascara_diferente_da_S": 152,
+  "dif_do_espelho_de_E": 0
+ }
+}

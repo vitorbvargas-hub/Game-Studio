@@ -1,0 +1,344 @@
+{
+ "passos": [
+  {
+   "tecla": "d",
+   "ms": 3000,
+   "pos": {
+    "hawk": {
+     "tx": 16.56,
+     "ty": 15.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 17.94,
+     "ty": 15.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 16.44,
+     "ty": 15.75,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 17.81,
+     "ty": 15.75,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "s",
+   "ms": 1500,
+   "pos": {
+    "hawk": {
+     "tx": 17.94,
+     "ty": 19.38,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 17.94,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 20.13,
+     "ty": 17.63,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 20.75,
+     "ty": 18.69,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "s",
+   "ms": 1500,
+   "pos": {
+    "hawk": {
+     "tx": 17.94,
+     "ty": 23.44,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 17.94,
+     "ty": 24.81,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 20.13,
+     "ty": 17.63,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 20.75,
+     "ty": 18.69,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "a",
+   "ms": 1200,
+   "pos": {
+    "hawk": {
+     "tx": 16.5,
+     "ty": 24.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 15.13,
+     "ty": 24.81,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 18.88,
+     "ty": 22.63,
+     "state": "FOLLOW"
+    },
+    "cmp": {
+     "tx": 18.31,
+     "ty": 24.31,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "s",
+   "ms": 1500,
+   "pos": {
+    "hawk": {
+     "tx": 16.5,
+     "ty": 24.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 15.13,
+     "ty": 25.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 18.31,
+     "ty": 24.38,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 18.13,
+     "ty": 25.75,
+     "state": "IDLE"
+    }
+   }
+  },
+  {
+   "tecla": "a",
+   "ms": 2500,
+   "pos": {
+    "hawk": {
+     "tx": 12.44,
+     "ty": 25.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 11.06,
+     "ty": 25.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 18.31,
+     "ty": 24.38,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 18.13,
+     "ty": 25.75,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "w",
+   "ms": 1500,
+   "pos": {
+    "hawk": {
+     "tx": 11.06,
+     "ty": 22.13,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 11.06,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 15.31,
+     "ty": 23.06,
+     "state": "FOLLOW"
+    },
+    "cmp": {
+     "tx": 14.25,
+     "ty": 21.19,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "a",
+   "ms": 1500,
+   "pos": {
+    "hawk": {
+     "tx": 7.13,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 5.75,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 10.13,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 8.75,
+     "ty": 20.75,
+     "state": "IDLE"
+    }
+   }
+  },
+  {
+   "tecla": "s",
+   "ms": 2000,
+   "pos": {
+    "hawk": {
+     "tx": 7.13,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 5.75,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 10.13,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 8.75,
+     "ty": 20.75,
+     "state": "IDLE"
+    }
+   }
+  },
+  {
+   "tecla": "d",
+   "ms": 2500,
+   "pos": {
+    "hawk": {
+     "tx": 15.06,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 14.19,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 18.06,
+     "ty": 20.75,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 17.19,
+     "ty": 20.75,
+     "state": "IDLE"
+    }
+   }
+  },
+  {
+   "tecla": "w",
+   "ms": 3000,
+   "pos": {
+    "hawk": {
+     "tx": 14.19,
+     "ty": 12.13,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 14.19,
+     "ty": 10.75,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 16.25,
+     "ty": 14.19,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 17.19,
+     "ty": 13.25,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "w",
+   "ms": 2500,
+   "pos": {
+    "hawk": {
+     "tx": 14.19,
+     "ty": 10.56,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 14.19,
+     "ty": 9.19,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 16.25,
+     "ty": 14.19,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 17.19,
+     "ty": 13.25,
+     "state": "WALK"
+    }
+   }
+  },
+  {
+   "tecla": "d",
+   "ms": 3500,
+   "pos": {
+    "hawk": {
+     "tx": 14.19,
+     "ty": 10.56,
+     "state": "IDLE"
+    },
+    "tamer": {
+     "tx": 14.81,
+     "ty": 9.19,
+     "state": "IDLE"
+    },
+    "agumon": {
+     "tx": 16.25,
+     "ty": 14.19,
+     "state": "IDLE"
+    },
+    "cmp": {
+     "tx": 17.44,
+     "ty": 13.25,
+     "state": "WALK"
+    }
+   }
+  }
+ ],
+ "erros": [],
+ "rede": []
+}

@@ -1,0 +1,25 @@
+{
+ "doc": "C14.4-B, game-dev. Recuo do pé de apoio na ARTE da walk E/W do Hawkmon v2 (lab-assets/a-hawkmon/.../pixellab2 = pacote_hawkmon_v2 byte a byte). Medida: centro x de cada bloco de contato opaco na linha do chão y=49 (pe_apoio_arte.json, campo quadros), com a identidade do pé atribuída à mão pela continuidade. Passo no mundo do build = 5 px/quadro (50 ms a 100 px/s). Escorregamento = 5 − recuo.",
+ "E": {
+  "centros_y49": {"q0": [31.5], "q1": [29.5], "q2": [28], "q3": [25], "q4": [23.5, 28], "q5": ["23-37 (bloco único: os dois pés)"], "q6": [30.5], "q7": [28]},
+  "pe_A_q0_q4": [2, 1.5, 3, 1.5],
+  "pe_B_q5_q7": {"q6_q7_centro": 2.5, "borda_da_frente_q5_q6_q7": [3, 3]},
+  "trocas_de_pe": ["q4→q5", "q7→q0"],
+  "recuo_medio_px": 2.2,
+  "escorrega_px_por_quadro": 2.8,
+  "escorrega_pct_da_velocidade": 56
+ },
+ "W": {
+  "centros_y49": {"q0": [30], "q1": [33.5], "q2": [35], "q3": [20.5, 37], "q4": [28.5], "q5": [25.5], "q6": [30], "q7": [19, 34]},
+  "coerentes": {"q0_q1": 3.5, "q1_q2": 1.5, "q2_q3": 2, "q5_q6": 4.5, "q6_q7": 4},
+  "irregulares": {"q3_q4": "+8 (o pé que pousou em q3 salta 8 px)", "q4_q5": "−3 (o pé de apoio anda para a frente)"},
+  "trocas_de_pe": ["q7→q0"],
+  "recuo_medio_px_coerentes": 3.1,
+  "escorrega_px_por_quadro": 1.9,
+  "escorrega_pct_da_velocidade": 38
+ },
+ "E_W_media": {"recuo_px": 2.6, "escorrega_px": 2.4, "escorrega_pct": 48},
+ "v1b_referencia": {"recuo_px": 2, "escorrega_px_a_5px": 3, "escorrega_pct": 60, "fonte": "pacote v1b (2 px por quadro, pé parado) e pe_apoio_arte.json"},
+ "passo_que_travaria_o_pe": {"E_px": "2–2,5 (≈20–25 ms/quadro a 100 px/s)", "W_px": "≈3 (≈30 ms/quadro)"},
+ "S_N": "sem medida de deslizamento lateral (mesma convenção do v1b e do pacote)"
+}

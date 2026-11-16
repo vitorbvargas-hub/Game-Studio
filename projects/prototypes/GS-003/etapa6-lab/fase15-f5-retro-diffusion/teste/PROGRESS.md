@@ -1,0 +1,21 @@
+# PROGRESS — Comando 11b, F5 prática (game-art)
+
+- 2026-11-14 18:15 — Início. Brief, RELATORIO_F5 e PROPOSTA lidos.
+- 18:25 — A ferramenta `browser` não veio na lista de ferramentas desta sessão. Conferi a política (perfil `full`, só `tts` negado: não é bloqueio deliberado) e uso o CLI equivalente `openclaw browser --browser-profile chrome-sharp`. Aba t35 logada, "Free usage 86% left".
+- 18:30 — Entradas preparadas em `entrada/` (F2b S e E, 48×48 originais e centralizadas em 64×64 sem reescalar) e copiadas para `/tmp/openclaw/uploads/`.
+- Próximo: experimento D (rotate) em Advanced Animations.
+- 18:19 — **D (rotate) gerado**, 1 tentativa, entrada `f2b_S_48.png` (margem ≥4 px, canvas original). Preço no painel: US$ 0,10. Saldo grátis 86% → 67%. Resultado baixado por `fetch()` na aba (sem tocar em Downloads): `D_rotate/original/D_rotate.gif` (48×48) e `D_rotate_sheet.png` (144×144).
+- 18:21 — **B (walking) gerado**, 1 tentativa, 1 clique, entrada `f2b_E_48.png`, 8 quadros. Preço no painel: US$ 0,14. Saldo grátis 67% → **5%** (consumiu 62 pontos, bem mais que a proporção do rotate; ver relatório). Site avisa "Not enough free usage for this job". Resultado em `B_walk/original/` (GIF 48×48 e folha 192×96).
+- **C e A NÃO serão gerados: o saldo grátis acabou para eles (teto do brief).**
+- 18:25 — Painel de uso: "Free daily usage", botão "Claim" gratuito (não clicado; teto do brief), Balance US$ 0,00. Popover fechado.
+- 18:30 — `scripts/f5_pratica.py` fatia as folhas, mede (mesmas definições de F6/C10) e gera `comparacao/` (folhas e GIFs 1× e 4×, pista) e `metricas_f5_pratica.json`.
+- 18:40 — `RELATORIO_F5_PRATICA.md` escrito. Autoavaliação 6,4. Recomendação: reservar.
+- Downloads do fundador: 834 itens antes e depois (não tocada). Arquivos temporários de upload removidos de `/tmp/openclaw/uploads/`.
+- PixelLab: 0 gerações. Retro Diffusion: US$ 0 pagos; cota grátis 86% → 5%.
+- **Estado: CONCLUÍDO (D e B feitos; C e A não feitos por falta de saldo grátis).** Próximo passo é do game-studio (acionar o game-qa; decisão do fundador sobre o "Claim").
+- 2026-11-14 18:36 — ADENDO C: início. Brief e QA lidos. Só o experimento C com o Claim diário.
+- 18:37 — Claim diário clicado (autorizado no adendo): cota grátis 5% → 38%. Balance não tocado.
+- 18:38 — ADENDO C: Attack selecionado, entrada f2b_E_48.png, preço US$ 0,14. Botão desabilitado: "Not enough free usage for this job" com 38%. Testei 4 e 6 quadros: mesmo preço e mesmo aviso.
+- 18:41 — VFX: não existe no site (conferi Advanced Animations, RD Fast, RD Mini, RD Pro). Só na API, que exige chave (proibida).
+- 18:45 — **ADENDO C ENCERRADO SEM GERAÇÃO.** Custo US$ 0; cota 5% → 38% (só o Claim). Próximo Claim ~21:00. Downloads 834 → 834. Temporário de upload removido. Seção "Adendo C" no RELATORIO_F5_PRATICA.md; `C_ataque/LEIA-ME.md`.
+- Próximo passo é do game-studio/fundador: esperar o próximo Claim e repetir o C, ou encerrar o RD.

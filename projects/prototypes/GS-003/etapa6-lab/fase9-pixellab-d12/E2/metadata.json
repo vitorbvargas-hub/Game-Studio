@@ -1,0 +1,32 @@
+{
+  "group_id": "9a3c62ef-cf4c-467b-801d-187e6fa59ed8",
+  "states": [
+    {
+      "character": {
+        "id": "c8fcb269-263b-4ee8-af84-4fd3bb0f9cc1",
+        "name": "Idle",
+        "prompt": "cute chibi orange-yellow baby dinosaur Digimon (Agumon): big round head, short rounded snout, big round green eyes, round belly, short thick legs, small white claws, short thick tail",
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "template_id": "mannequin",
+        "directions": 4,
+        "view": "low top-down",
+        "created_at": "2026-11-14T04:05:44.386239+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "west": "Idle/rotations/west.png",
+          "east": "Idle/rotations/east.png",
+          "north": "Idle/rotations/north.png"
+        },
+        "animations": {}
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T04:07:24.427700"
+}

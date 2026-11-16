@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0016",
+ "species": "wargreymon",
+ "source": "Método A (ChatGPT) wargreymon_retrato_A — pose única (frente (S)), parada; sem outras direções nem walk nesta fonte",
+ "file": "pose.png",
+ "w": 78,
+ "h": 76,
+ "pivot": {
+  "x": 39,
+  "y": 75
+ },
+ "anatomy": "biped",
+ "facing": "S",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

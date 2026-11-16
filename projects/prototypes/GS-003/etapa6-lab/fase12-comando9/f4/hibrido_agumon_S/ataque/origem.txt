@@ -1,0 +1,9 @@
+q0: rig: neutro (= idle q0)
+q1: rig: agacha 1 px
+q2: rig: agachado, braços 1 px para fora, boca nível 1
+q3: F2b attack/S q4: disparo (boca aberta, fogo)
+q4: F2b attack/S q5: fogo no chão
+q5: F2b attack/S q6: faísca
+q6: F2b attack/S q7: boca aberta, sem fogo
+q7: rig: braços 1 px para fora, boca nível 1
+q8: rig: neutro (= idle q0)

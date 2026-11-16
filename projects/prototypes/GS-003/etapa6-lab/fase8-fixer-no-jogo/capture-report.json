@@ -1,0 +1,23 @@
+{
+  "data": "2026-11-14T01:30:30.043Z",
+  "presetButtonFound": true,
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20
+  },
+  "coreOpenAfterLock": false,
+  "promptAutoOpened": true,
+  "clickedEvolveTo": true,
+  "partnerAfterEvolve": {
+    "speciesId": "CREATURE-0007",
+    "level": 20
+  },
+  "consoleErrors": [],
+  "gif": {
+    "frames": 8,
+    "bytes": 568252,
+    "mb": 0.54
+  },
+  "toggleFixer0PartnerSpecies": "CREATURE-0006"
+}

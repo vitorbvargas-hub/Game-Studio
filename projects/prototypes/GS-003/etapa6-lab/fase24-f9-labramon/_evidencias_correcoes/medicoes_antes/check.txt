@@ -1,0 +1,47 @@
+refs {"total":545,"faltando":1,"sha_divergente":0,"sha_ok":209,"sem_sha":335}
+faltando [
+  'rotacoes: rotacoes/arte_mestra/labramon_arte_mestra_v2_em_pe_chatgpt.png'
+]
+sha div []
+orfaos 3 [
+  'combat/attack_retriever_bark/composto_preview/_standing_96.png',
+  'combat/spritesheets/attack_retriever_bark_composto_preview.png',
+  'combat/spritesheets/attack_retriever_bark_fx.png'
+]
+movement/walk/S n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 36,36,37,36,36,36,36,37 bw 24,24,24,24,24,24,24,24 olho 7,7,7,7,7,7,7,7 marc 6,6,6,6,6,7,6,6 dif 73,386,398,180,64,176,393 fecho 440 dup [] q0rot 170 ultrot 440 cx 25.5,25.5,28,30,33.5,33.5,31,29 massa 628,627,658,646,627,625,641,663
+movement/walk/E n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 35,36,36,36,35,35,36,36 bw 38,39,39,39,39,38,39,38 olho 4,4,4,4,4,4,4,4 marc 7,7,7,7,7,7,7,7 dif 586,552,214,606,330,597,300 fecho 592 dup [] q0rot 393 ultrot 419 cx 30.5,28.5,28,27.5,31,29.5,31.5,30 massa 873,888,872,887,900,890,863,860
+movement/walk/N n 8 cv true semi 0 mag 0 cor 15 fora 0 pe 49,49,49,49,49,49,49,49 bh 38,38,38,38,38,38,38,38 bw 25,25,25,25,25,25,25,25 olho 0,0,0,0,0,0,0,0 marc 0,0,0,1,0,0,0,0 dif 454,468,265,395,453,480,301 fecho 399 dup [] q0rot 543 ultrot 577 cx 34.5,30,28,24,24.5,29,31,35 massa 671,675,685,658,671,675,685,657
+movement/walk/W n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 36,35,34,35,37,36,35,36 bw 40,40,40,40,40,40,40,40 olho 4,4,4,4,4,4,4,4 marc 8,8,8,9,8,8,8,8 dif 573,518,573,589,572,554,577 fecho 429 dup [] q0rot 486 ultrot 359 cx 36,27,27.5,30.5,33,27.5,29.5,32 massa 927,884,847,882,930,898,859,911
+movement/idle/S n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 36,35,35,36 bw 24,24,24,24 olho 7,7,7,7 marc 6,6,6,6 dif 272,49,272 fecho 50 dup [] q0rot 0 ultrot 50 cx 29.5,29.5,29.5,29.5 massa 665,646,648,667
+movement/idle/E n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 36,36,36,36 bw 39,40,39,38 olho 4,4,4,4 marc 7,7,7,7 dif 164,166,131 fecho 205 dup [] q0rot 147 ultrot 196 cx 29.5,29.5,29.5,29.5 massa 904,913,912,900
+movement/idle/N n 4 cv true semi 0 mag 0 cor 16 fora 0 pe 49,49,49,49 bh 36,35,35,36 bw 25,25,25,25 olho 0,0,0,0 marc 1,1,1,1 dif 287,51,288 fecho 51 dup [] q0rot 0 ultrot 51 cx 29.5,29.5,29.5,29.5 massa 686,664,665,687
+movement/idle/W n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 36,36,36,36 bw 40,40,40,39 olho 4,4,4,4 marc 8,8,8,8 dif 147,140,166 fecho 159 dup [] q0rot 166 ultrot 64 cx 29.5,29.5,29.5,29.5 massa 901,893,900,904
+emotions/happy/entrada n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 36,39 bw 38,38 olho 4,9 marc 7,7 dif 646 fecho null dup [] q0rot 23 ultrot 656 cx 29.5,29.5 massa 897,944
+emotions/happy/loop n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 40,40,40,40 bw 36,36,37,36 olho 9,9,9,9 marc 7,7,7,7 dif 171,149,162 fecho 9 dup [] q0rot 715 ultrot 715 cx 29.5,29.5,29.5,29.5 massa 930,952,957,930
+emotions/happy/saida n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 37,36 bw 38,38 olho 6,4 marc 7,7 dif 451 fecho null dup [] q0rot 454 ultrot 15 cx 29.5,29.5 massa 913,896
+emotions/sad/entrada n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 35,33 bw 40,41 olho 4,2 marc 7,5 dif 513 fecho null dup [] q0rot 445 ultrot 598 cx 29.5,29.5 massa 870,849
+emotions/sad/loop n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 31,31,31,31 bw 41,41,41,41 olho 3,3,3,3 marc 6,6,6,6 dif 11,7,7 fecho 11 dup [[1,3]] q0rot 671 ultrot 670 cx 29.5,29.5,29.5,29.5 massa 827,827,827,827
+emotions/sad/saida n 3 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49 bh 33,35,36 bw 41,40,38 olho 3,4,4 marc 5,7,7 dif 522,445 fecho null dup [] q0rot 601 ultrot 19 cx 29.5,29.5,29.5 massa 851,870,896
+emotions/angry/entrada n 1 cv true semi 0 mag 0 cor 19 fora 0 pe 49 bh 31 bw 38 olho 6 marc 6 dif  fecho null dup [] q0rot 853 ultrot 853 cx 29.5 massa 922
+emotions/angry/loop n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 32,31,32,31 bw 38,38,38,38 olho 6,6,6,6 marc 6,6,6,6 dif 433,433,432 fecho 436 dup [] q0rot 900 ultrot 892 cx 29.5,29.5,29.5,29.5 massa 919,904,919,904
+emotions/angry/saida n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 31,36 bw 38,38 olho 6,4 marc 6,7 dif 849 fecho null dup [] q0rot 850 ultrot 8 cx 29.5,29.5 massa 922,896
+emotions/scared/entrada n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 40,37 bw 37,37 olho 9,9 marc 7,5 dif 736 fecho null dup [] q0rot 843 ultrot 768 cx 22.5,26 massa 904,864
+emotions/scared/loop n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 34,34,34,34 bw 37,36,37,37 olho 4,4,4,4 marc 8,7,7,7 dif 434,111,461 fecho 238 dup [] q0rot 761 ultrot 735 cx 29.5,29.5,29.5,29.5 massa 830,824,830,834
+emotions/scared/saida n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 35,36 bw 38,38 olho 4,4 marc 7,7 dif 496 fecho null dup [] q0rot 500 ultrot 9 cx 29.5,29.5 massa 861,896
+rest/rest/stand_to_lie n 6 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49 bh 36,34,32,30,30,30 bw 38,38,38,42,42,42 olho 4,4,4,4,4,7 marc 7,8,7,7,7,7 dif 656,501,652,438,17 fecho null dup [] q0rot 695 ultrot 979 cx 31.5,27.5,25.5,29.5,31.5,31.5 massa 841,800,770,816,810,811
+rest/rest/lie_to_sleep n 4 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49 bh 30,29,24,24 bw 42,42,43,43 olho 7,0,0,0 marc 7,7,7,7 dif 293,422,74 fecho null dup [] q0rot 979 ultrot 1039 cx 31.5,31.5,31.5,31.5 massa 811,796,736,736
+rest/rest/sleep_loop n 4 cv true semi 0 mag 0 cor 17 fora 0 pe 49,49,49,49 bh 24,24,24,24 bw 43,43,43,43 olho 0,0,0,0 marc 7,8,7,7 dif 50,26,64 fecho 68 dup [] q0rot 1037 ultrot 1029 cx 31,31,31,31.5 massa 732,739,742,737
+rest/rest/sleep_to_wake n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 24,24,24,24,30,31,30,30 bw 45,44,43,43,42,42,42,42 olho 0,0,10,10,0,0,0,7 marc 4,7,5,4,7,7,7,7 dif 140,282,63,649,361,354,485 fecho null dup [] q0rot 1062 ultrot 976 cx 31,31,31.5,31.5,30.5,30.5,30.5,31.5 massa 755,742,743,742,837,839,827,810
+rest/rest/wake_to_stand n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 30,29,28,30,31,34,36,36 bw 41,41,42,42,42,41,38,38 olho 7,7,7,4,4,4,4,4 marc 7,7,7,7,7,7,7,7 dif 311,350,599,423,633,643,39 fecho null dup [] q0rot 952 ultrot 3 cx 30,28.5,28,31,31,30.5,29.5,29.5 massa 790,749,729,791,818,870,895,896
+interactions/petting/entrada n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 35,34 bw 39,41 olho 4,0 marc 7,7 dif 449 fecho null dup [] q0rot 409 ultrot 536 cx 29.5,29.5 massa 881,873
+interactions/petting/loop n 4 cv true semi 0 mag 0 cor 17 fora 0 pe 49,49,49,49 bh 34,34,34,34 bw 41,39,41,42 olho 0,0,0,0 marc 7,7,7,7 dif 159,166,157 fecho 145 dup [] q0rot 532 ultrot 561 cx 29.5,29.5,29.5,29.5 massa 868,857,877,876
+interactions/petting/saida n 2 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49 bh 34,36 bw 41,38 olho 2,4 marc 7,7 dif 531 fecho null dup [] q0rot 532 ultrot 28 cx 29.5,29.5 massa 869,895
+interactions/celebrate/comemoracao n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,46,43,45,49,49,49 bh 31,33,38,35,37,33,34,36 bw 41,41,37,36,36,39,41,38 olho 4,4,6,6,6,6,6,4 marc 7,7,8,8,7,8,7,7 dif 570,1065,759,788,1009,519,652 fecho null dup [] q0rot 764 ultrot 31 cx 30,30,21.5,19.5,19.5,30,30,29.5 massa 839,872,869,898,893,881,885,897
+combat/attack_retriever_bark/ataque n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 35,34,35,35,40,39,38,36 bw 39,39,39,39,39,38,38,38 olho 3,4,7,6,4,5,4,4 marc 7,8,7,7,8,8,8,7 dif 484,499,125,952,164,563,653 fecho null dup [] q0rot 510 ultrot 10 cx 29.5,29.5,29.5,29.5,29.5,29.5,29.5,29.5 massa 890,872,888,888,1029,980,937,896
+combat/hurt/dano n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 38,39,37,34,36,34,34,36 bw 36,34,35,37,37,37,37,38 olho 0,0,0,0,4,4,4,4 marc 8,8,7,7,7,7,7,7 dif 589,664,693,617,651,107,600 fecho null dup [] q0rot 889 ultrot 5 cx 26.5,22.5,27,29.5,29.5,29.5,29.5,29.5 massa 894,880,870,850,885,857,861,896
+combat/incapacitated/queda n 6 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49 bh 37,38,34,22,21,21 bw 37,38,39,44,46,46 olho 4,4,4,0,0,0 marc 7,7,7,7,5,5 dif 718,810,951,534,104 fecho null dup [] q0rot 566 ultrot 1072 cx 29.5,22.5,25,32.5,31,31 massa 912,896,839,716,674,685
+combat/incapacitated/estado n 4 cv true semi 0 mag 0 cor 17 fora 0 pe 49,49,49,49 bh 21,22,22,22 bw 46,46,46,46 olho 0,0,0,0 marc 5,8,8,8 dif 229,37,30 fecho 243 dup [] q0rot 1071 ultrot 1052 cx 31,31,31,31 massa 686,714,720,716
+combat/incapacitated/recuperacao n 8 cv true semi 0 mag 0 cor 19 fora 0 pe 49,49,49,49,49,49,49,49 bh 21,22,24,22,25,30,36,36 bw 46,45,44,43,43,43,39,38 olho 0,0,0,0,0,8,7,4 marc 4,6,6,5,8,7,9,7 dif 230,280,590,601,695,791,361 fecho null dup [] q0rot 1072 ultrot 80 cx 31,31,30,34.5,34,32,29.5,29.5 massa 685,688,720,711,788,868,912,905
+sheets ruins []
+gifs 92 0 com erro
+standing==rot [ true, true, true, true ]

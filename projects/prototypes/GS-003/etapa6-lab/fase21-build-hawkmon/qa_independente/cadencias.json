@@ -1,0 +1,56 @@
+{
+ "velocidade_px_s": 91,
+ "passo_sim_ms": 20,
+ "faixas": [
+  {
+   "faixa": "Hawkmon 2 px/q (padrão do build)",
+   "px_por_quadro": 2,
+   "ms_por_quadro": 22,
+   "ciclo_ms": 176,
+   "passos_por_s": 11.4,
+   "desliza_px_por_quadro": 0,
+   "desliza_pct_da_velocidade": 0,
+   "quadros_de_tela_60hz_por_quadro": 1.3
+  },
+  {
+   "faixa": "Hawkmon 4 px/q (hawkms=40)",
+   "px_por_quadro": 4,
+   "ms_por_quadro": 44,
+   "ciclo_ms": 352,
+   "passos_por_s": 5.7,
+   "desliza_px_por_quadro": 2,
+   "desliza_pct_da_velocidade": 50,
+   "quadros_de_tela_60hz_por_quadro": 2.6
+  },
+  {
+   "faixa": "Hawkmon 5 px/q (hawkms=50)",
+   "px_por_quadro": 5,
+   "ms_por_quadro": 54.9,
+   "ciclo_ms": 440,
+   "passos_por_s": 4.5,
+   "desliza_px_por_quadro": 3,
+   "desliza_pct_da_velocidade": 60,
+   "quadros_de_tela_60hz_por_quadro": 3.3
+  },
+  {
+   "faixa": "Hawkmon 7,3 px/q (hawkms=73)",
+   "px_por_quadro": 7.3,
+   "ms_por_quadro": 80.2,
+   "ciclo_ms": 642,
+   "passos_por_s": 3.1,
+   "desliza_px_por_quadro": 5.3,
+   "desliza_pct_da_velocidade": 73,
+   "quadros_de_tela_60hz_por_quadro": 4.8
+  },
+  {
+   "faixa": "Agumon F7v2 11 px/q (como no jogo)",
+   "px_por_quadro": 11,
+   "ms_por_quadro": 120.9,
+   "ciclo_ms": 967,
+   "passos_por_s": 2.1,
+   "desliza_px_por_quadro": 8,
+   "desliza_pct_da_velocidade": 73,
+   "quadros_de_tela_60hz_por_quadro": 7.3
+  }
+ ]
+}

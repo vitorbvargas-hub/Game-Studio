@@ -1,0 +1,43 @@
+{
+ "url": "http://127.0.0.1:5197/?novo=1&time=dia",
+ "tag": "v2",
+ "clipes": {
+  "walkE": {
+   "quadros_screencast": 208,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkE_v2.gif",
+   "gif": "walkE_v2.gif"
+  },
+  "walkW": {
+   "quadros_screencast": 211,
+   "intervalo_ms_mediana": 18,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkW_v2.gif",
+   "gif": "walkW_v2.gif"
+  },
+  "walkN": {
+   "quadros_screencast": 203,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkN_v2.gif",
+   "gif": "walkN_v2.gif"
+  },
+  "walkS": {
+   "quadros_screencast": 210,
+   "intervalo_ms_mediana": 18,
+   "registros_desenho": 857,
+   "gif_cena": "cena_walkS_v2.gif",
+   "gif": "walkS_v2.gif"
+  }
+ },
+ "ids": {
+  "hawk": "p1:partner",
+  "tamer": "p1",
+  "cmp": "labcmp:partner",
+  "cmpTamer": "labcmp"
+ },
+ "cssPerLogical": 2,
+ "erros": [],
+ "rede": []
+}

@@ -1,0 +1,89 @@
+{
+  "data": "2026-11-14T09:02:28.964Z",
+  "dirs": {
+    "S": {
+      "firstRunFrames": [
+        "attack_S_00",
+        "attack_S_01",
+        "attack_S_02",
+        "attack_S_03",
+        "attack_S_04",
+        "attack_S_05",
+        "attack_S_06",
+        "attack_S_07",
+        "attack_S_08"
+      ],
+      "firstRunLen": 9,
+      "returnedTo": [
+        "idle_S",
+        "idle_E",
+        "walk_E_05"
+      ],
+      "totalAttackKeys": 15
+    },
+    "W": {
+      "firstRunFrames": [
+        "attack_W_00",
+        "attack_W_01",
+        "attack_W_02",
+        "attack_W_03",
+        "attack_W_04",
+        "attack_W_05",
+        "attack_W_06",
+        "attack_W_07"
+      ],
+      "firstRunLen": 8,
+      "returnedTo": [
+        "idle_W",
+        "idle_S",
+        "attack_S_00"
+      ],
+      "totalAttackKeys": 17
+    },
+    "E": {
+      "firstRunFrames": [
+        "attack_E_00",
+        "attack_E_01",
+        "attack_E_02",
+        "attack_E_03",
+        "attack_E_04",
+        "attack_E_05",
+        "attack_E_06",
+        "attack_E_07"
+      ],
+      "firstRunLen": 8,
+      "returnedTo": [
+        "idle_E",
+        "attack_E_00",
+        "attack_E_01"
+      ],
+      "totalAttackKeys": 18
+    },
+    "N": {
+      "firstRunFrames": [
+        "attack_N_00",
+        "attack_N_01",
+        "attack_N_02",
+        "attack_N_03",
+        "attack_N_04",
+        "attack_N_05",
+        "attack_N_06",
+        "attack_N_07",
+        "attack_N_08"
+      ],
+      "firstRunLen": 9,
+      "returnedTo": [
+        "idle_N",
+        "walk_N_02",
+        "attack_N_00"
+      ],
+      "totalAttackKeys": 18
+    }
+  },
+  "worldReady": true,
+  "partner": {
+    "speciesId": "CREATURE-0105",
+    "level": 20
+  },
+  "consoleErrors": []
+}

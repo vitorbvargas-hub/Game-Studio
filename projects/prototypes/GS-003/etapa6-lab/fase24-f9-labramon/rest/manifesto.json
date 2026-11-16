@@ -1,0 +1,1080 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 6 — descanso e sono",
+ "data": "2026-11-16",
+ "direcao": "E (única direção nesta validação; standing/idle/walk nas 4 direções estão em movement/)",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49
+ },
+ "paleta": {
+  "limite": 24,
+  "doc": "Todos os quadros usam só cores da rotação E (19 cores); 0 semitransparência."
+ },
+ "idle_de_retorno": "movement/idle/E (ou movement/standing/E.png)",
+ "duracoes": "ms por quadro = sugestão de arte; parâmetro do motor",
+ "estados": {
+  "rest": {
+   "doc": "Cadeia: em pé → deitado → dormindo → (loop de sono) → acordando → em pé. Pose deitada desenhada (esfinge: barriga no chão, patas dianteiras à frente), não é o sprite achatado.",
+   "clipes": {
+    "stand_to_lie": {
+     "fonte": "f6-stand-to-lie",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      7
+     ],
+     "quadros": 6,
+     "duracao_ms_por_quadro": [
+      120,
+      120,
+      120,
+      120,
+      140,
+      200
+     ],
+     "duracao_total_ms": 820,
+     "loop": false,
+     "segue_para": "deitado (pose_mestra_deitado) ou lie_to_sleep",
+     "spritesheet": "spritesheets/rest_stand_to_lie.png",
+     "gifs": [
+      "gifs/rest_stand_to_lie_1x.gif",
+      "gifs/rest_stand_to_lie_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       30,
+       36
+      ],
+      "w_min_max": [
+       38,
+       42
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4,
+       4,
+       4,
+       4,
+       7
+      ],
+      "marcas_px": [
+       7,
+       8,
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       423,
+       807,
+       884,
+       997,
+       978,
+       979
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "rest/stand_to_lie/frame_000.png",
+       "sha256": "7166c893d11aabc1c4603d879278f13055bcee257230bfe26e6a0435f64dc341"
+      },
+      {
+       "arquivo": "rest/stand_to_lie/frame_001.png",
+       "sha256": "7df1681645bd0dfb0214178f434c0f111dbeda16013cdb30acb4b58ab0cc82c3"
+      },
+      {
+       "arquivo": "rest/stand_to_lie/frame_002.png",
+       "sha256": "59156d7892c8331c61fe6da4cc3d5ff54c0f159205a09b8b2cde4b910581a7f5"
+      },
+      {
+       "arquivo": "rest/stand_to_lie/frame_003.png",
+       "sha256": "5e01035d69d6103e7f5dd4ca80f40e4557b7b4f4a915bae88657dcaa81add885"
+      },
+      {
+       "arquivo": "rest/stand_to_lie/frame_004.png",
+       "sha256": "ee7898bdf70482875b8668c3d5629aaa99f6b4ec8c47f7bcf6faa9c410e2af64"
+      },
+      {
+       "arquivo": "rest/stand_to_lie/frame_005.png",
+       "sha256": "9b01bcc8166cb0c09b8c7cae41d52f868f8cc0684279bffc1322024a9be9a49d"
+      }
+     ]
+    },
+    "lie_to_sleep": {
+     "fonte": "f6-lie-to-sleep",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      320,
+      240,
+      240,
+      400
+     ],
+     "duracao_total_ms": 1200,
+     "loop": false,
+     "segue_para": "sleep_loop",
+     "spritesheet": "spritesheets/rest_lie_to_sleep.png",
+     "gifs": [
+      "gifs/rest_lie_to_sleep_1x.gif",
+      "gifs/rest_lie_to_sleep_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       24,
+       30
+      ],
+      "w_min_max": [
+       42,
+       43
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       7,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       979,
+       1002,
+       1041,
+       1039
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "rest/lie_to_sleep/frame_000.png",
+       "sha256": "9b01bcc8166cb0c09b8c7cae41d52f868f8cc0684279bffc1322024a9be9a49d"
+      },
+      {
+       "arquivo": "rest/lie_to_sleep/frame_001.png",
+       "sha256": "0e5aafab85a63be82873f2c646a98f360e4d54973ac5eee9c7168999f965e060"
+      },
+      {
+       "arquivo": "rest/lie_to_sleep/frame_002.png",
+       "sha256": "b9ebec2bcea6c879a39a6e0a368ea6ec7deb507de36e4e110ae8369c87a1928d"
+      },
+      {
+       "arquivo": "rest/lie_to_sleep/frame_003.png",
+       "sha256": "5d1533162cbb672290a141f1a579122b5cf6124cf12bbc562a5437dd2ed8358e"
+      }
+     ]
+    },
+    "sleep_loop": {
+     "fonte": "f6-sleep-loop",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      550,
+      550,
+      550,
+      550
+     ],
+     "duracao_total_ms": 2200,
+     "loop": true,
+     "doc": "Respiração: o dorso e a barriga mudam 26–68 px por quadro; cabeça, patas e cauda paradas; bbox constante.",
+     "spritesheet": "spritesheets/rest_sleep_loop.png",
+     "gifs": [
+      "gifs/rest_sleep_loop_1x.gif",
+      "gifs/rest_sleep_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       24,
+       24
+      ],
+      "w_min_max": [
+       43,
+       43
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 17,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       7,
+       8,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       1037,
+       1030,
+       1033,
+       1029
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "rest/sleep_loop/frame_000.png",
+       "sha256": "487ec3a1ec6972b7f557b1be37284870997c6e6728a84b804c94e6f757775761"
+      },
+      {
+       "arquivo": "rest/sleep_loop/frame_001.png",
+       "sha256": "e8d4d149355df362271ec83dc9b1eb93a5e76c085827aed49926139b53a8c115"
+      },
+      {
+       "arquivo": "rest/sleep_loop/frame_002.png",
+       "sha256": "134008d7c99fd4161c13386704db5efb038d043e4d47fb606e36d606ae283642"
+      },
+      {
+       "arquivo": "rest/sleep_loop/frame_003.png",
+       "sha256": "0102acd43537793a1e24ec2824eacd750cd4bae099d3be4759c3aaed2dccc1bc"
+      }
+     ]
+    },
+    "sleep_to_wake": {
+     "fonte": "f6-sleep-to-wake",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      220,
+      220,
+      260,
+      260,
+      180,
+      340,
+      180,
+      260
+     ],
+     "duracao_total_ms": 1920,
+     "loop": false,
+     "doc": "Dormindo → acordando: orelha mexe, olho abre, levanta a cabeça, boceja, termina deitado e acordado.",
+     "segue_para": "wake_to_stand",
+     "spritesheet": "spritesheets/rest_sleep_to_wake.png",
+     "gifs": [
+      "gifs/rest_sleep_to_wake_1x.gif",
+      "gifs/rest_sleep_to_wake_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       24,
+       31
+      ],
+      "w_min_max": [
+       42,
+       45
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       10,
+       10,
+       0,
+       0,
+       0,
+       7
+      ],
+      "marcas_px": [
+       4,
+       7,
+       5,
+       4,
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       1062,
+       1055,
+       1050,
+       1049,
+       950,
+       928,
+       961,
+       976
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "rest/sleep_to_wake/frame_000.png",
+       "sha256": "72efff3a4b168ff5b9cea290771e95d95bf0164afd9d58ad16ed864831dffd0a"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_001.png",
+       "sha256": "40592d8cda6e957b22efeb42e5f268053e6e181211e0c497ae71dd331b9cc5d0"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_002.png",
+       "sha256": "db6e9167fede278f2b0833e16924f3a0d66581e70a6262db709ab375701a2729"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_003.png",
+       "sha256": "b74f3de0675f69a1ae7966f3e895919cb13d5a96d9c629a574f657f5f6939b42"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_004.png",
+       "sha256": "75ed845d23c7dcb2183fc755eef75686bd27aa1a07f31bea5cfd2a5a69bc0045"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_005.png",
+       "sha256": "f0f53b4ca1373bf0563db567b8de44d8606f94d53101699fa5c161580223b07c"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_006.png",
+       "sha256": "160af2822e335d815c9dc112ee32cf4f7896f1865da356bf33d0f821a9b63311"
+      },
+      {
+       "arquivo": "rest/sleep_to_wake/frame_007.png",
+       "sha256": "b00b8a98456c5d81227718e6697f894901fa3cee93568336f4971063204857db"
+      }
+     ]
+    },
+    "wake_to_stand": {
+     "fonte": "f6-lie-to-stand",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      130,
+      130,
+      130,
+      120,
+      120,
+      110,
+      110,
+      130
+     ],
+     "duracao_total_ms": 980,
+     "loop": false,
+     "doc": "Acordando → em pé.",
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/rest_wake_to_stand.png",
+     "gifs": [
+      "gifs/rest_wake_to_stand_1x.gif",
+      "gifs/rest_wake_to_stand_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       28,
+       36
+      ],
+      "w_min_max": [
+       38,
+       42
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       7,
+       7,
+       7,
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       true,
+       true,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       952,
+       944,
+       916,
+       822,
+       796,
+       647,
+       41,
+       3
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "rest/wake_to_stand/frame_000.png",
+       "sha256": "5088d37459a9682851a4c8bb66ff2acd23287f4b33a7eacbd3c280c8ecbafd2e"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_001.png",
+       "sha256": "1f16a6051ade0a97a2fc8596487d06600a0991f39285cd122d3c5b91966d3afa"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_002.png",
+       "sha256": "8e0b888e280604ac06ce78c04a2208d261447cfe20b6eb78468c768aefe020e6"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_003.png",
+       "sha256": "b1170f2df3cb305a421257cd16136fd385571796f178f5eb0481373b5d85679c"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_004.png",
+       "sha256": "7e8a4eb499c50c71c784e3fa30c2abeaf63d7028e54d0ea3f08c96484478a034"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_005.png",
+       "sha256": "0c6307ace9a4b359b53c13c930299062c537bbcdb10c5ea6111bacc48c00e5fd"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_006.png",
+       "sha256": "b9bf21d3294dd433fa7c18b4f790784dae0494781ec7c75779302ca1bae4ff70"
+      },
+      {
+       "arquivo": "rest/wake_to_stand/frame_007.png",
+       "sha256": "cf0122d00f8db1754681088e58881f57b03b7e0d01e00334beab5adf54c9b17b"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "rest/pose_mestra_deitado.png",
+    "fonte": "f6-stand-to-lie q7",
+    "sha256": "9b01bcc8166cb0c09b8c7cae41d52f868f8cc0684279bffc1322024a9be9a49d"
+   },
+   "pose_mestra_dormindo": {
+    "arquivo": "rest/pose_mestra_dormindo.png",
+    "fonte": "f6-lie-to-sleep q3",
+    "sha256": "5d1533162cbb672290a141f1a579122b5cf6124cf12bbc562a5437dd2ed8358e"
+   }
+  }
+ },
+ "demos": {
+  "descanso_completo": {
+   "sequencia": [
+    "standing E 300 ms",
+    "rest/stand_to_lie",
+    "pausa no último quadro 500 ms",
+    "rest/lie_to_sleep",
+    "rest/sleep_loop",
+    "rest/sleep_loop",
+    "rest/sleep_loop",
+    "rest/sleep_to_wake",
+    "rest/wake_to_stand",
+    "standing E 400 ms"
+   ],
+   "quadros": 41,
+   "duracao_total_ms": 12720,
+   "gifs": [
+    "gifs/demo_descanso_completo_1x.gif",
+    "gifs/demo_descanso_completo_4x.gif"
+   ]
+  },
+  "sono_loop": {
+   "sequencia": [
+    "rest/sleep_loop"
+   ],
+   "quadros": 4,
+   "duracao_total_ms": 2200,
+   "gifs": [
+    "gifs/demo_sono_loop_1x.gif",
+    "gifs/demo_sono_loop_4x.gif"
+   ]
+  }
+ },
+ "bruto": {
+  "f6-lie-to-sleep": {
+   "pixellab_grupo": "8df1179c-479d-4030-852e-39e062090c8a",
+   "pixellab_job": "7a4c3d84-77b2-49b4-b476-bbf019520516",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = pose deitada",
+   "canvas_bruto": [
+    64,
+    60
+   ],
+   "recorte_dx": 2,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f6-lie-to-sleep"
+  },
+  "f6-lie-to-stand": {
+   "pixellab_grupo": "8e2db420-2ad8-4555-91d6-60d9a846947a",
+   "pixellab_job": "3f820ad3-c5e1-4fcf-b854-632082ad8b78",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = pose deitada; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f6-lie-to-stand"
+  },
+  "f6-sleep-loop": {
+   "pixellab_grupo": "2e0697b3-0c6c-4e5e-9a81-03e024884a92",
+   "pixellab_job": "fb351bda-8a76-4bb8-b177-c8a419c8f030",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 4,
+   "geracoes": 1,
+   "quadros_chave": "início = fim = pose dormindo",
+   "canvas_bruto": [
+    64,
+    60
+   ],
+   "recorte_dx": 2,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f6-sleep-loop"
+  },
+  "f6-sleep-to-wake": {
+   "pixellab_grupo": "66d41a31-ce6c-4c02-b792-b86374e18985",
+   "pixellab_job": "2ce11285-16d3-4e3c-aeef-1cac2f7b1107",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = pose dormindo; end_frame = pose deitada",
+   "canvas_bruto": [
+    68,
+    60
+   ],
+   "recorte_dx": 4,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f6-sleep-to-wake"
+  },
+  "f6-stand-to-lie": {
+   "pixellab_grupo": "0e7c0493-87de-4f51-92d8-94141089d719",
+   "pixellab_job": "75313d1a-695f-465e-a7db-618137b4cf1c",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A8_dx": 2,
+      "contorno_fechado_px": 0,
+      "px_alterados": 680
+     }
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A8_dx": 2,
+      "contorno_fechado_px": 0,
+      "px_alterados": 624
+     }
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A8_dx": 2,
+      "contorno_fechado_px": 0,
+      "px_alterados": 593
+     }
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A8_dx": 1,
+      "contorno_fechado_px": 0,
+      "px_alterados": 480
+     }
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f6-stand-to-lie"
+  }
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "geracoes_pixellab": 5,
+ "correcoes_pos_qa": {
+  "data": "2026-11-16",
+  "relatorio": "../RELATORIO_F9_CORRECOES.md",
+  "backup": "../_pre_correcao/rest",
+  "scripts": "../scripts_f9_correcoes/",
+  "A8": "em pé → deitar: quadros-fonte 0–3 deslocados +2,+2,+2,+1 px na horizontal (rampa), 4–7 sem mudança; a entrada a partir do idle fica alinhada e a pose deitada não muda"
+ }
+}

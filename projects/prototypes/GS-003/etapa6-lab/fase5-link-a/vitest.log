@@ -1,0 +1,107 @@
+
+ RUN  v3.2.7 /home/openclaw/projects/GameStudio/workspaces/game-dev/lab-etapa6/projects/prototypes/GS-003/prototype/world
+
+ ✓ tests/evolution.test.ts (14 tests) 987ms
+   ✓ UI (pt-BR) > aba Golpes / Evolução: ramificações da linha com a preferência; trocar o select manda set_evo_pref  789ms
+ ✓ tests/screens.test.ts (10 tests) 1067ms
+   ✓ Digivice / Inventário / Configurações > HUD: atalhos ligados chamam onShortcut (Mapa-múndi, Digivice, Inventário, Missões, Configurações)  643ms
+ ✓ tests/arena-ui.test.ts (6 tests) 1265ms
+   ✓ Arena — telas > entrada da Arena: troféu na barra do HUD e botão no Mapa-múndi  729ms
+   ✓ Arena — telas > seleção: só os Digimon do save, com nível/estágio/atributo/golpes/status; Nivelada desligada por padrão  391ms
+ ✓ tests/worldmap-v2.test.ts (10 tests) 1396ms
+   ✓ kit circuit-kit-v1 no HUD v2 > todas as peças existem no pacote do game-art e entram como --ck-* só com a flag  726ms
+ ✓ tests/evo-hud.test.ts (4 tests) 1624ms
+   ✓ HUD: barra de XP da parceira > ganho de XP: mesma barra (sem recriar), largura nova e "+N"  388ms
+   ✓ HUD: barra de XP da parceira > level up: enche até 100%, brilha o painel e recomeça do novo valor  438ms
+   ✓ HUD: aviso da digivolução > segura "digivolveu" e os golpes novos até releaseEvolve (o clarão no mapa)  446ms
+   ✓ HUD: aviso da digivolução > sem a parceira na tela, o aviso sai sozinho depois do prazo  349ms
+ ✓ tests/holo-card.test.ts (6 tests) 1656ms
+   ✓ ficha holográfica — no HUD > v2: o retrato do parceiro abre o núcleo do Digivice em Digimon → Perfil; 'Ver árvore' leva à Evolução  1247ms
+   ✓ ficha holográfica — no HUD > sem a flag não existe núcleo nem retrato clicável  323ms
+ ✓ tests/hud-v2.test.ts (12 tests) 2038ms
+   ✓ P8 HUD v2 — DOM > sem a flag: nenhum bloco/classe do v2 entra (HUD atual intacto)  516ms
+   ✓ P8 HUD v2 — DOM > §4.1/§10.2: bloco Tamer à esquerda do parceiro, com PV e Energia; moldura muda nos 3 limiares  644ms
+   ✓ P8 HUD v2 — DOM > §4.1/§10.2: parceiro em moldura nível 1 reativa + anel na cor do atributo  438ms
+   ✓ P8 HUD v2 — DOM > §4.4/§10.3: cada slot da hotbar pega a cor da categoria do golpe equipado  331ms
+ ✓ tests/hud.test.ts (13 tests) 4016ms
+   ✓ HUD (DOM, padrão IdleDex) > relógio do jogo: fase e hora; ícone de lua e borda noturna à noite  707ms
+   ✓ HUD (DOM, padrão IdleDex) > AUTO alterna (LIG./DESL.) e emite callback; Fugir emite callback  490ms
+   ✓ HUD (DOM, padrão IdleDex) > barra inferior: minimapa, inventário, grade de 12 atalhos, Digimon ativo e equipe de 5 slots  402ms
+   ✓ HUD (DOM, padrão IdleDex) > atalho Equipe abre o modal Equipe & Box (grade, ficha, ações desabilitadas) e fecha com transição  502ms
+   ✓ HUD — golpes (barra, aviso, aba Golpes, prioridade do AUTO) > aba Golpes: 4 slots, aprendidos, bloqueados por nível e "Trocar" → escolhe o slot → set_moves  383ms
+ ✓ tests/digivice.test.ts (17 tests) 4090ms
+   ✓ Digivice — hub e arco (HUD_IDENTITY_V3 §2) > v2 troca o .hud-tr pelo hub: faixa de bits + 1 objeto circular, sem botão '+', sem textos fixos do clone  831ms
+   ✓ Digivice — hub e arco (HUD_IDENTITY_V3 §2) > arco: 6 atalhos num círculo CENTRADO NO HUB, do pé do hub até a esquerda, com trilho (QA_HUD_FB1_COMPARE P1)  600ms
+   ✓ Digivice — hub e arco (HUD_IDENTITY_V3 §2) > clique no hub abre/fecha; H abre com foco no 1º atalho; Esc e clique fora fecham  495ms
+   ✓ Digivice — hub e arco (HUD_IDENTITY_V3 §2) > cada atalho abre um Panel e fecha o hub; nenhum atalho está mais bloqueado (Guilda, Correio, Passe e Fonte têm tela)  647ms
+   ✓ Digivice — hub e arco (HUD_IDENTITY_V3 §2) > atalhos antigos da grade (Guilda, Correio, Conquistas) levam ao mesmo painel do hub  302ms
+   ✓ Chefe Mundial (PANELS_SPEC §5) > DOM: aba abre em 'disponível', Despertar → timer ao vivo; coletar chama onGrantBits; estado persiste no save separado  355ms
+   ✓ Conquistas v1 (PANELS_SPEC §6) > DOM: abas por categoria, contador, coletar → onGrantBits; Social conta Guilda/Correio; mapas e nível contam  578ms
+ ✓ tests/digivice-core.test.ts (10 tests) 4603ms
+   ✓ núcleo do Digivice — estrutura (§4.1) > seções pendentes: aviso 'aguardando aprovação de regra', nenhuma barra/tabela/número inventado  638ms
+   ✓ núcleo do Digivice — três portas, uma sala (§2.2) > V → Banco de dados; retrato do parceiro → Digimon · Perfil; bloco do Tamer → Tamer · Perfil — o mesmo modal  1364ms
+   ✓ núcleo do Digivice — três portas, uma sala (§2.2) > Tamer · Perfil mostra exatamente hud.tamerProgress() (nome/nível/XP) pelas 3 portas  721ms
+   ✓ núcleo do Digivice — três portas, uma sala (§2.2) > a grade inferior no v2 não tem mais o atalho 'evo' duplicado; o v1 continua igual  389ms
+   ✓ núcleo do Digivice — seções com dado real > navegação lateral: item ativo marcado; grupo recolhe/abre; pendente abre o aviso  491ms
+ ✓ tests/digivice-panels.test.ts (18 tests) 4757ms
+   ✓ §1 Guilda > fundar grava {id, name, emblemId} no save; reabrir o jogo mantém a guilda  1639ms
+   ✓ §1 Guilda > nome até 18 caracteres e gate de nível 5 (abaixo disso os 2 botões aparecem desabilitados com o motivo)  384ms
+   ✓ §1 Guilda > toda guilda-bot mostra 'simulada — sem servidor ainda', na lista e depois de entrar  370ms
+   ✓ §2 Correio > carta de boas-vindas existe desde a 1ª sessão e nunca duplica nas seguintes  364ms
+   ✓ §2 Correio > Coletar usa os mesmos caminhos das Missões: itens → onGrantItems, bits → onGrantBits, missão → onClaimQuest  421ms
+ ✓ tests/starter.test.ts (5 tests) 139ms
+ ✓ tests/creator.test.ts (9 tests) 322ms
+ ✓ tests/map-factory-pilot.test.ts (11 tests) 358ms
+ ✓ tests/pathsmooth.test.ts (4 tests) 301ms
+ ✓ tests/canopy.test.ts (5 tests) 681ms
+ ✓ tests/p7-clareira.test.ts (11 tests) 728ms
+   ✓ P7: água sem ladrilho visível > a água animada não cobre a ponte (células com detalhe de chão ficam fora)  471ms
+ ✓ tests/presenter.test.ts (8 tests) 356ms
+ ✓ tests/encounters.test.ts (15 tests) 450ms
+ ✓ tests/forest-proof.test.ts (9 tests) 2456ms
+   ✓ cena forest-proof (prova visual GS-004 §4) > execução longa (base do progresso offline): 5 sementes × 20 000 ticks sem transição ilegal da FSM  2177ms
+ ✓ tests/map-factory.test.ts (13 tests) 465ms
+ ✓ tests/sim.test.ts (10 tests) 403ms
+ ✓ tests/moves.test.ts (20 tests) 271ms
+ ✓ tests/regions.test.ts (9 tests) 169ms
+ ✓ tests/fsm.test.ts (8 tests) 210ms
+ ✓ tests/scan-mult.test.ts (1 test) 130ms
+ ✓ tests/vfx.test.ts (24 tests) 239ms
+ ✓ tests/forest-v10.test.ts (5 tests) 232ms
+ ✓ tests/look-v8.test.ts (8 tests) 106ms
+ ✓ tests/map-factory-curves.test.ts (8 tests) 57ms
+ ✓ tests/forest-v12.test.ts (5 tests) 179ms
+ ✓ tests/spawn-reach.test.ts (2 tests) 51ms
+ ✓ tests/nightgrade.test.ts (6 tests) 206ms
+ ✓ tests/v2.test.ts (21 tests) 203ms
+ ✓ tests/look-v9.test.ts (11 tests) 4519ms
+   ✓ look v9: dados derivados do v8 > o derivador é determinístico (rodar de novo não muda os arquivos)  1155ms
+   ✓ look v9 no renderer > a água do riacho muda entre quadros no v9 e fica parada no v8  1273ms
+   ✓ look v9 no renderer > primeiro plano: cobre pernas e cintura e fica opaco; só fica translúcido quando esconderia a cabeça (P7 headFrac)  1003ms
+   ✓ look v9 no renderer > render completo do v9 de dia e de noite sem erro (copas e grama com vento)  740ms
+ ✓ tests/feedback1.test.ts (21 tests) 310ms
+ ✓ tests/gif.test.ts (1 test) 55ms
+ ✓ tests/evo-demo.test.ts (11 tests) 325ms
+ ✓ tests/official-mons.test.ts (8 tests) 319ms
+ ✓ tests/forest-v11.test.ts (5 tests) 113ms
+ ✓ tests/daynight.test.ts (3 tests) 7ms
+ ✓ tests/save.test.ts (9 tests) 1126ms
+   ✓ progresso offline (amostra da sim determinística + extrapolação, com teto) > teto de 4 h e determinismo (mesmo estado + tempo + semente → mesmo relatório)  624ms
+ ✓ tests/devserver.test.ts (3 tests) 6ms
+ ✓ tests/qo-phase2.test.ts (21 tests) 33ms
+ ✓ tests/labels.test.ts (4 tests) 4ms
+ ✓ tests/flags.test.ts (2 tests) 2ms
+ ✓ tests/wild.test.ts (4 tests) 34ms
+ ✓ tests/lab-a.test.ts (7 tests) 11ms
+ ✓ tests/tamer-presets.test.ts (8 tests) 39ms
+ ✓ tests/arena.test.ts (16 tests) 64ms
+ ✓ tests/assets.test.ts (7 tests) 26ms
+ ✓ tests/targetplate.test.ts (8 tests) 9ms
+ ✓ tests/partner.test.ts (7 tests) 43ms
+ ✓ tests/v15-integration.test.ts (10 tests) 42ms
+
+ Test Files  54 passed (54)
+      Tests  503 passed (503)
+   Start at  16:59:30
+   Duration  22.41s (transform 12.64s, setup 0ms, collect 165.73s, tests 43.30s, environment 7.67s, prepare 4.77s)
+

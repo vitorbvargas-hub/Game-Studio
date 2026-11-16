@@ -1,0 +1,51 @@
+{
+ "url": "http://127.0.0.1:5197/?novo=1&time=12:00&hawkms=73",
+ "tag": "ms73",
+ "clipes": {
+  "walkE": {
+   "quadros_screencast": 204,
+   "intervalo_ms_mediana": 20,
+   "registros_desenho": 576,
+   "gif": "walkE_ms73.gif"
+  },
+  "walkW": {
+   "quadros_screencast": 202,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 574,
+   "gif": "walkW_ms73.gif"
+  },
+  "walkN": {
+   "quadros_screencast": 197,
+   "intervalo_ms_mediana": 20,
+   "registros_desenho": 578,
+   "gif": "walkN_ms73.gif"
+  },
+  "walkS": {
+   "quadros_screencast": 204,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 580,
+   "gif": "walkS_ms73.gif"
+  },
+  "lentoE": {
+   "quadros_screencast": 279,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 778,
+   "gif": "lentoE_ms73.gif"
+  },
+  "lentoS": {
+   "quadros_screencast": 274,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 774,
+   "gif": "lentoS_ms73.gif"
+  }
+ },
+ "ids": {
+  "hawk": "p1:partner",
+  "tamer": "p1",
+  "cmp": "labcmp:partner",
+  "cmpTamer": "labcmp"
+ },
+ "cssPerLogical": 2,
+ "erros": [],
+ "rede": []
+}

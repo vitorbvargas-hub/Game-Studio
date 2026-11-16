@@ -1,0 +1,40 @@
+{
+  "id": "agumon",
+  "status": "beta-not-approved",
+  "frameSize": {
+    "w": 48,
+    "h": 48
+  },
+  "pivot": {
+    "x": 24,
+    "y": 44
+  },
+  "directions": [
+    "down",
+    "right",
+    "up",
+    "left"
+  ],
+  "rowOrder": [
+    "down",
+    "right",
+    "up",
+    "left"
+  ],
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "framesPerDirection": 4,
+      "fps": 5,
+      "loop": true
+    },
+    "walk": {
+      "file": "walk.png",
+      "framesPerDirection": 4,
+      "fps": 8,
+      "loop": true
+    }
+  },
+  "shadow": "shadow.png",
+  "source": "Alpha v1 visual reference sheet; cleanup only, not hand-drawn native animation"
+}

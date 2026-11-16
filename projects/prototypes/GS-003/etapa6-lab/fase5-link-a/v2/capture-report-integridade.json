@@ -1,0 +1,12 @@
+{
+  "data": "2026-11-13T20:27:56.968Z",
+  "cenas": {
+    "integridade": {
+      "port": 5192,
+      "tag": "novo_repeticao",
+      "banner": "Digital Odyssey — Laboratório Etapa 6, Comando 4, Fase 2 · Link B · Tamer P1/P2 v2 (PixelLab) + Agumon DS placeholder (D11) + mapa-piloto com água e encontros",
+      "mapa": "lab-piloto-v15b"
+    }
+  },
+  "errosConsole": []
+}

@@ -1,0 +1,430 @@
+{
+ "S": {
+  "rawName": "sul",
+  "measuredPerFrame": [
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 30,
+    "y": 43
+   },
+   {
+    "x": 27,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 27,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   }
+  ],
+  "fixedPivotUsed": {
+   "x": 29,
+   "y": 43
+  },
+  "bboxPerFrame": [
+   {
+    "minX": 11,
+    "maxX": 35,
+    "minY": 6,
+    "maxY": 43,
+    "width": 25,
+    "height": 38
+   },
+   {
+    "minX": 10,
+    "maxX": 37,
+    "minY": 6,
+    "maxY": 43,
+    "width": 28,
+    "height": 38
+   },
+   {
+    "minX": 11,
+    "maxX": 35,
+    "minY": 6,
+    "maxY": 43,
+    "width": 25,
+    "height": 38
+   },
+   {
+    "minX": 13,
+    "maxX": 34,
+    "minY": 6,
+    "maxY": 43,
+    "width": 22,
+    "height": 38
+   },
+   {
+    "minX": 12,
+    "maxX": 34,
+    "minY": 6,
+    "maxY": 43,
+    "width": 23,
+    "height": 38
+   },
+   {
+    "minX": 12,
+    "maxX": 35,
+    "minY": 6,
+    "maxY": 43,
+    "width": 24,
+    "height": 38
+   },
+   {
+    "minX": 12,
+    "maxX": 34,
+    "minY": 6,
+    "maxY": 43,
+    "width": 23,
+    "height": 38
+   },
+   {
+    "minX": 13,
+    "maxX": 34,
+    "minY": 6,
+    "maxY": 43,
+    "width": 22,
+    "height": 38
+   }
+  ]
+ },
+ "W": {
+  "rawName": "oeste",
+  "measuredPerFrame": [
+   {
+    "x": 27,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   },
+   {
+    "x": 24,
+    "y": 43
+   },
+   {
+    "x": 30,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 24,
+    "y": 43
+   },
+   {
+    "x": 24,
+    "y": 43
+   },
+   {
+    "x": 32,
+    "y": 43
+   }
+  ],
+  "fixedPivotUsed": {
+   "x": 28,
+   "y": 43
+  },
+  "bboxPerFrame": [
+   {
+    "minX": 3,
+    "maxX": 43,
+    "minY": 0,
+    "maxY": 43,
+    "width": 41,
+    "height": 44
+   },
+   {
+    "minX": 4,
+    "maxX": 43,
+    "minY": 0,
+    "maxY": 43,
+    "width": 40,
+    "height": 44
+   },
+   {
+    "minX": 2,
+    "maxX": 45,
+    "minY": 0,
+    "maxY": 43,
+    "width": 44,
+    "height": 44
+   },
+   {
+    "minX": 4,
+    "maxX": 43,
+    "minY": 0,
+    "maxY": 43,
+    "width": 40,
+    "height": 44
+   },
+   {
+    "minX": 4,
+    "maxX": 42,
+    "minY": 0,
+    "maxY": 43,
+    "width": 39,
+    "height": 44
+   },
+   {
+    "minX": 6,
+    "maxX": 40,
+    "minY": 0,
+    "maxY": 43,
+    "width": 35,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 41,
+    "minY": 0,
+    "maxY": 43,
+    "width": 37,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 42,
+    "minY": 0,
+    "maxY": 43,
+    "width": 38,
+    "height": 44
+   }
+  ]
+ },
+ "E": {
+  "rawName": "leste",
+  "measuredPerFrame": [
+   {
+    "x": 21,
+    "y": 43
+   },
+   {
+    "x": 22,
+    "y": 43
+   },
+   {
+    "x": 21,
+    "y": 43
+   },
+   {
+    "x": 25,
+    "y": 43
+   },
+   {
+    "x": 21,
+    "y": 43
+   },
+   {
+    "x": 23,
+    "y": 43
+   },
+   {
+    "x": 22,
+    "y": 43
+   },
+   {
+    "x": 23,
+    "y": 43
+   }
+  ],
+  "fixedPivotUsed": {
+   "x": 22,
+   "y": 43
+  },
+  "bboxPerFrame": [
+   {
+    "minX": 3,
+    "maxX": 43,
+    "minY": 0,
+    "maxY": 43,
+    "width": 41,
+    "height": 44
+   },
+   {
+    "minX": 4,
+    "maxX": 43,
+    "minY": 0,
+    "maxY": 43,
+    "width": 40,
+    "height": 44
+   },
+   {
+    "minX": 2,
+    "maxX": 45,
+    "minY": 0,
+    "maxY": 43,
+    "width": 44,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 42,
+    "minY": 0,
+    "maxY": 43,
+    "width": 38,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 42,
+    "minY": 0,
+    "maxY": 43,
+    "width": 38,
+    "height": 44
+   },
+   {
+    "minX": 6,
+    "maxX": 41,
+    "minY": 0,
+    "maxY": 43,
+    "width": 36,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 41,
+    "minY": 0,
+    "maxY": 43,
+    "width": 37,
+    "height": 44
+   },
+   {
+    "minX": 5,
+    "maxX": 41,
+    "minY": 0,
+    "maxY": 43,
+    "width": 37,
+    "height": 44
+   }
+  ]
+ },
+ "N": {
+  "rawName": "norte",
+  "measuredPerFrame": [
+   {
+    "x": 26,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 25,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 28,
+    "y": 43
+   },
+   {
+    "x": 29,
+    "y": 43
+   }
+  ],
+  "fixedPivotUsed": {
+   "x": 28,
+   "y": 43
+  },
+  "bboxPerFrame": [
+   {
+    "minX": 9,
+    "maxX": 37,
+    "minY": 11,
+    "maxY": 43,
+    "width": 29,
+    "height": 33
+   },
+   {
+    "minX": 9,
+    "maxX": 38,
+    "minY": 11,
+    "maxY": 43,
+    "width": 30,
+    "height": 33
+   },
+   {
+    "minX": 8,
+    "maxX": 38,
+    "minY": 11,
+    "maxY": 43,
+    "width": 31,
+    "height": 33
+   },
+   {
+    "minX": 10,
+    "maxX": 37,
+    "minY": 11,
+    "maxY": 43,
+    "width": 28,
+    "height": 33
+   },
+   {
+    "minX": 11,
+    "maxX": 36,
+    "minY": 11,
+    "maxY": 43,
+    "width": 26,
+    "height": 33
+   },
+   {
+    "minX": 10,
+    "maxX": 37,
+    "minY": 12,
+    "maxY": 43,
+    "width": 28,
+    "height": 32
+   },
+   {
+    "minX": 9,
+    "maxX": 37,
+    "minY": 11,
+    "maxY": 43,
+    "width": 29,
+    "height": 33
+   },
+   {
+    "minX": 10,
+    "maxX": 36,
+    "minY": 11,
+    "maxY": 43,
+    "width": 27,
+    "height": 33
+   }
+  ]
+ }
+}

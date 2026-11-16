@@ -1,0 +1,126 @@
+{
+  "data": "2026-11-14T09:27:31.550Z",
+  "lines": {
+    "koromon": {
+      "1_rookie": {
+        "prompted": true,
+        "info": {
+          "prompt": true,
+          "go": [
+            {
+              "to": "CREATURE-0006",
+              "text": "Evoluir",
+              "disabled": false
+            }
+          ]
+        },
+        "before": {
+          "speciesId": "CREATURE-0005",
+          "level": 16
+        },
+        "clicked": "CREATURE-0006",
+        "ok": true,
+        "settled": true,
+        "after": {
+          "speciesId": "CREATURE-0006",
+          "level": 16
+        },
+        "manifest": "Agumon (Link A — ficha v7 PixelLab, TESTE: 4 direções, caminhada + ataque (48x48 nativo; pose parada = rotação))"
+      },
+      "2_champion": {
+        "prompted": true,
+        "info": {
+          "prompt": true,
+          "go": [
+            {
+              "to": "CREATURE-0007",
+              "text": "Evoluir",
+              "disabled": false
+            }
+          ]
+        },
+        "before": {
+          "speciesId": "CREATURE-0006",
+          "level": 16
+        },
+        "clicked": "CREATURE-0007",
+        "ok": true,
+        "settled": true,
+        "after": {
+          "speciesId": "CREATURE-0007",
+          "level": 16
+        },
+        "manifest": "Greymon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada + ataque (64x64 nativo; pose parada = rotação))"
+      }
+    },
+    "bukamon": {
+      "1_rookie": {
+        "prompted": true,
+        "info": {
+          "prompt": true,
+          "go": [
+            {
+              "to": "CREATURE-0105",
+              "text": "Evoluir",
+              "disabled": false
+            }
+          ]
+        },
+        "before": {
+          "speciesId": "CREATURE-0120",
+          "level": 16
+        },
+        "clicked": "CREATURE-0105",
+        "ok": true,
+        "settled": true,
+        "after": {
+          "speciesId": "CREATURE-0105",
+          "level": 16
+        },
+        "manifest": "Gomamon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada + ataque (48x48 nativo; pose parada = rotação))"
+      },
+      "2_champion": {
+        "prompted": true,
+        "info": {
+          "prompt": true,
+          "go": [
+            {
+              "to": "CREATURE-0121",
+              "text": "Evoluir",
+              "disabled": false
+            }
+          ]
+        },
+        "before": {
+          "speciesId": "CREATURE-0105",
+          "level": 16
+        },
+        "clicked": "CREATURE-0121",
+        "ok": true,
+        "settled": true,
+        "after": {
+          "speciesId": "CREATURE-0121",
+          "level": 16
+        },
+        "manifest": "Ikkakumon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada (64x64 nativo; pose parada = rotação))"
+      }
+    }
+  },
+  "errors": [],
+  "worldReady": true,
+  "start": {
+    "partner": {
+      "speciesId": "CREATURE-0005",
+      "level": 16
+    },
+    "manifest": "Koromon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada (32x32 nativo; pose parada = rotação))",
+    "panel": "Ativo: Koromon Nv.16 · Reserva: Bukamon Nv.16"
+  },
+  "swap": {
+    "partner": {
+      "speciesId": "CREATURE-0120",
+      "level": 16
+    },
+    "panel": "Ativo: Bukamon Nv.16 · Reserva: Greymon Nv.16"
+  }
+}

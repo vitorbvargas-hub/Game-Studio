@@ -1,0 +1,1 @@
+Use arte_mestra/labramon_arte_mestra_v2_em_pe_chatgpt.png (EM PÉ, enviada pelo Vitor às ~23:40) como arte-mestra principal. A v1 sentada é só referência de descanso. Não gerar versão em pé a partir da v1.

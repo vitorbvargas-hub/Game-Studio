@@ -1,0 +1,904 @@
+{
+ "tag": "depois_ms73",
+ "entidades": {
+  "hawkmon": {
+   "normal_E": {
+    "quadros_walk": 34,
+    "dirs": {
+     "E": 34
+    },
+    "ms_por_quadro_mediana": 66.8,
+    "ms_por_quadro_media": 74,
+    "ms_min": 66.6,
+    "ms_max": 100,
+    "px_por_quadro_media": 7.3,
+    "px_por_quadro_mediana": 6.7,
+    "vel_px_s": 92,
+    "trocas": 33,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     67,
+     83,
+     67,
+     83,
+     67,
+     83,
+     83,
+     67
+    ],
+    "entrada": [
+     "idleanim_S_00@-34",
+     "idleanim_S_01@16",
+     "idleanim_S_02@200",
+     "idleanim_E_00@216",
+     "walk_E_00@250",
+     "walk_E_01@350",
+     "walk_E_02@433",
+     "walk_E_03@500",
+     "walk_E_04@583",
+     "walk_E_05@650"
+    ],
+    "saida": [
+     "walk_E_03@-260",
+     "walk_E_04@-177",
+     "walk_E_05@-110",
+     "walk_E_06@-27",
+     "walk_E_07@40",
+     "walk_E_00@107",
+     "walk_E_01@207",
+     "idleanim_E_03@406",
+     "idleanim_E_04@457",
+     "idleanim_E_05@656",
+     "idleanim_E_00@823",
+     "idleanim_E_01@1040",
+     "idleanim_E_02@1223",
+     "idleanim_E_03@1456"
+    ]
+   },
+   "normal_W": {
+    "quadros_walk": 33,
+    "dirs": {
+     "W": 33
+    },
+    "ms_por_quadro_mediana": 66.7,
+    "ms_por_quadro_media": 74.2,
+    "ms_min": 66.6,
+    "ms_max": 100,
+    "px_por_quadro_media": 7.3,
+    "px_por_quadro_mediana": 6.7,
+    "vel_px_s": 91,
+    "trocas": 32,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     83,
+     67,
+     83,
+     67,
+     83,
+     67,
+     83,
+     67
+    ],
+    "entrada": [
+     "idleanim_E_03@-46",
+     "idleanim_E_04@37",
+     "idleanim_W_00@104",
+     "walk_W_01@170",
+     "walk_W_02@220",
+     "walk_W_03@320",
+     "walk_W_04@404",
+     "walk_W_05@470",
+     "walk_W_06@554",
+     "walk_W_07@620",
+     "walk_W_00@687"
+    ],
+    "saida": [
+     "walk_W_05@-287",
+     "walk_W_06@-204",
+     "walk_W_07@-137",
+     "walk_W_00@-70",
+     "walk_W_01@13",
+     "idleanim_W_05@213",
+     "idleanim_W_00@246",
+     "idleanim_W_01@479",
+     "idleanim_W_02@646",
+     "idleanim_W_03@896",
+     "idleanim_W_04@1079",
+     "idleanim_W_05@1279",
+     "idleanim_W_00@1429"
+    ]
+   },
+   "normal_N": {
+    "quadros_walk": 26,
+    "dirs": {
+     "E": 3,
+     "N": 23
+    },
+    "ms_por_quadro_mediana": 66.7,
+    "ms_por_quadro_media": 71.5,
+    "ms_min": 16.6,
+    "ms_max": 83.5,
+    "px_por_quadro_media": 7,
+    "px_por_quadro_mediana": 6.7,
+    "vel_px_s": 89,
+    "trocas": 24,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     67,
+     67,
+     67,
+     67,
+     67,
+     67
+    ],
+    "entrada": [
+     "idleanim_W_00@-39",
+     "idleanim_W_01@44",
+     "idleanim_W_02@227",
+     "idleanim_W_03@477",
+     "idleanim_E_00@594",
+     "walk_E_01@627",
+     "walk_E_02@661"
+    ],
+    "saida": [
+     "walk_N_07@-294",
+     "walk_N_00@-211",
+     "walk_N_01@-128",
+     "idleanim_N_01@72",
+     "idleanim_N_02@89",
+     "idleanim_N_03@339",
+     "idleanim_N_04@522",
+     "idleanim_N_05@722",
+     "idleanim_N_00@872",
+     "idleanim_N_01@1089",
+     "idleanim_N_02@1272"
+    ]
+   },
+   "normal_S": {
+    "quadros_walk": 33,
+    "dirs": {
+     "S": 33
+    },
+    "ms_por_quadro_mediana": 66.7,
+    "ms_por_quadro_media": 74.2,
+    "ms_min": 66.6,
+    "ms_max": 99.9,
+    "px_por_quadro_media": 7.3,
+    "px_por_quadro_mediana": 6.7,
+    "vel_px_s": 91,
+    "trocas": 32,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     67,
+     83,
+     67,
+     83,
+     67,
+     83,
+     67,
+     83
+    ],
+    "entrada": [
+     "idleanim_N_03@-46",
+     "idleanim_N_04@104",
+     "idleanim_S_00@187",
+     "walk_S_01@254",
+     "walk_S_02@321",
+     "walk_S_03@421",
+     "walk_S_04@487",
+     "walk_S_05@571",
+     "walk_S_06@637"
+    ],
+    "saida": [
+     "walk_S_04@-266",
+     "walk_S_05@-183",
+     "walk_S_06@-116",
+     "walk_S_07@-33",
+     "walk_S_00@34",
+     "walk_S_01@117",
+     "idleanim_S_00@301",
+     "idleanim_S_01@517",
+     "idleanim_S_02@700",
+     "idleanim_S_03@967",
+     "idleanim_S_04@1150",
+     "idleanim_S_05@1334",
+     "idleanim_S_00@1484"
+    ]
+   },
+   "lento_E": {
+    "quadros_walk": 16,
+    "dirs": {
+     "N": 2,
+     "E": 14
+    },
+    "ms_por_quadro_mediana": 183.3,
+    "ms_por_quadro_media": 167.9,
+    "ms_min": 16.7,
+    "ms_max": 216.7,
+    "px_por_quadro_media": 6.8,
+    "px_por_quadro_mediana": 7.3,
+    "vel_px_s": 38,
+    "trocas": 14,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     150,
+     167,
+     167,
+     183
+    ],
+    "entrada": [
+     "idleanim_S_00@-42",
+     "idleanim_S_01@92",
+     "idleanim_S_02@275",
+     "idleanim_S_03@542"
+    ],
+    "saida": [
+     "walk_E_03@-282",
+     "walk_E_04@-98",
+     "walk_E_05@85",
+     "walk_E_06@252",
+     "walk_E_07@435",
+     "idleanim_E_03@685",
+     "idleanim_E_04@735",
+     "idleanim_E_05@935",
+     "idleanim_E_00@1085",
+     "idleanim_E_01@1302",
+     "idleanim_E_02@1485"
+    ]
+   },
+   "lento_W": {
+    "quadros_walk": 18,
+    "dirs": {
+     "W": 18
+    },
+    "ms_por_quadro_mediana": 183.3,
+    "ms_por_quadro_media": 183.3,
+    "ms_min": 166.7,
+    "ms_max": 200,
+    "px_por_quadro_media": 7.3,
+    "px_por_quadro_mediana": 7.3,
+    "vel_px_s": 38,
+    "trocas": 17,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     183,
+     183,
+     183,
+     183
+    ],
+    "entrada": [
+     "idleanim_E_02@-33",
+     "idleanim_E_03@133",
+     "idleanim_E_04@300",
+     "idleanim_W_00@467",
+     "walk_W_07@533",
+     "walk_W_00@550"
+    ],
+    "saida": [
+     "walk_W_07@-207",
+     "walk_W_00@-23",
+     "idleanim_W_03@227",
+     "idleanim_W_04@343",
+     "idleanim_W_05@543",
+     "idleanim_W_00@693",
+     "idleanim_W_01@927",
+     "idleanim_W_02@1093",
+     "idleanim_W_03@1343"
+    ]
+   },
+   "lento_N": {
+    "quadros_walk": 17,
+    "dirs": {
+     "E": 3,
+     "N": 14
+    },
+    "ms_por_quadro_mediana": 183.2,
+    "ms_por_quadro_media": 166.7,
+    "ms_min": 83.3,
+    "ms_max": 183.4,
+    "px_por_quadro_media": 6.8,
+    "px_por_quadro_mediana": 7.3,
+    "vel_px_s": 39,
+    "trocas": 15,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     167,
+     183,
+     183,
+     167
+    ],
+    "entrada": [
+     "idleanim_W_04@-43",
+     "idleanim_W_05@124",
+     "idleanim_W_00@274",
+     "idleanim_W_01@490",
+     "idleanim_W_02@674"
+    ],
+    "saida": [
+     "walk_N_03@-282",
+     "walk_N_04@-99",
+     "walk_N_05@85",
+     "walk_N_06@268",
+     "walk_N_07@435",
+     "idleanim_N_01@618",
+     "idleanim_N_02@718",
+     "idleanim_N_03@968",
+     "idleanim_N_04@1151",
+     "idleanim_N_05@1351",
+     "idleanim_N_00@1485"
+    ]
+   },
+   "lento_S": {
+    "quadros_walk": 18,
+    "dirs": {
+     "S": 18
+    },
+    "ms_por_quadro_mediana": 183.3,
+    "ms_por_quadro_media": 182.3,
+    "ms_min": 166.7,
+    "ms_max": 183.4,
+    "px_por_quadro_media": 7.3,
+    "px_por_quadro_mediana": 7.3,
+    "vel_px_s": 38,
+    "trocas": 17,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     183,
+     183,
+     183,
+     183
+    ],
+    "entrada": [
+     "idleanim_N_00@-37",
+     "idleanim_N_01@113",
+     "idleanim_N_02@279",
+     "idleanim_S_00@446",
+     "walk_S_07@513",
+     "walk_S_00@613"
+    ],
+    "saida": [
+     "walk_S_07@-158",
+     "walk_S_00@25",
+     "idleanim_S_01@208",
+     "idleanim_S_02@325",
+     "idleanim_S_03@575",
+     "idleanim_S_04@758",
+     "idleanim_S_05@958",
+     "idleanim_S_00@1108",
+     "idleanim_S_01@1325"
+    ]
+   }
+  },
+  "agumon": {
+   "normal_E": {
+    "quadros_walk": 25,
+    "dirs": {
+     "E": 20,
+     "W": 5
+    },
+    "ms_por_quadro_mediana": 116.7,
+    "ms_por_quadro_media": 117.4,
+    "ms_min": 83.4,
+    "ms_max": 183.3,
+    "px_por_quadro_media": 10,
+    "px_por_quadro_mediana": 10.4,
+    "vel_px_s": 81,
+    "trocas": 22,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     117,
+     100,
+     150,
+     83,
+     183,
+     117
+    ],
+    "entrada": [
+     "idleanim_S_00@-34",
+     "idleanim_S_01@16",
+     "idleanim_S_02@200",
+     "idleanim_E_00@316",
+     "walk_E_00@350",
+     "walk_E_01@500",
+     "walk_E_02@600"
+    ],
+    "saida": [
+     "walk_W_07@-277",
+     "walk_W_00@-160",
+     "walk_W_01@-43",
+     "walk_W_02@107",
+     "idleanim_W_02@223",
+     "idleanim_W_03@290",
+     "walk_E_02@340",
+     "walk_E_03@473",
+     "walk_E_04@590",
+     "walk_E_05@690",
+     "walk_E_06@807",
+     "idleanim_E_01@1090",
+     "idleanim_E_02@1223",
+     "idleanim_E_03@1456"
+    ]
+   },
+   "normal_W": {
+    "quadros_walk": 21,
+    "dirs": {
+     "W": 18,
+     "E": 3
+    },
+    "ms_por_quadro_mediana": 116.7,
+    "ms_por_quadro_media": 128.1,
+    "ms_min": 99.9,
+    "ms_max": 250,
+    "px_por_quadro_media": 10.3,
+    "px_por_quadro_mediana": 11.2,
+    "vel_px_s": 74,
+    "trocas": 18,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     117,
+     250,
+     100,
+     117
+    ],
+    "entrada": [
+     "idleanim_E_03@-46",
+     "idleanim_E_04@37",
+     "idleanim_W_00@104",
+     "walk_W_07@170",
+     "walk_W_00@337",
+     "walk_W_01@454",
+     "walk_W_02@570",
+     "walk_W_03@670"
+    ],
+    "saida": [
+     "walk_W_04@-220",
+     "walk_W_05@-104",
+     "walk_W_06@-4",
+     "walk_W_07@113",
+     "walk_W_00@213",
+     "walk_W_01@329",
+     "walk_W_02@446",
+     "idleanim_W_02@646",
+     "idleanim_W_03@896",
+     "idleanim_W_04@1079",
+     "idleanim_W_05@1279",
+     "idleanim_W_00@1429"
+    ]
+   },
+   "normal_N": {
+    "quadros_walk": 27,
+    "dirs": {
+     "W": 10,
+     "E": 2,
+     "N": 15
+    },
+    "ms_por_quadro_mediana": 116.7,
+    "ms_por_quadro_media": 113.3,
+    "ms_min": 33.3,
+    "ms_max": 266.6,
+    "px_por_quadro_media": 9.6,
+    "px_por_quadro_mediana": 10.5,
+    "vel_px_s": 83,
+    "trocas": 24,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     100,
+     117,
+     117,
+     117,
+     100,
+     117
+    ],
+    "entrada": [
+     "idleanim_W_00@-39",
+     "idleanim_W_01@44",
+     "idleanim_W_02@227",
+     "idleanim_W_03@477",
+     "walk_W_02@544",
+     "walk_W_03@661"
+    ],
+    "saida": [
+     "walk_N_04@-278",
+     "walk_N_05@-244",
+     "walk_N_06@-128",
+     "walk_N_07@-11",
+     "idleanim_N_02@256",
+     "walk_N_07@322",
+     "walk_N_00@372",
+     "walk_N_01@489",
+     "walk_N_02@606",
+     "walk_N_03@706",
+     "walk_N_04@822",
+     "walk_N_05@939",
+     "walk_N_06@1039",
+     "walk_N_07@1156",
+     "walk_N_00@1272",
+     "walk_N_01@1372"
+    ]
+   },
+   "normal_S": {
+    "quadros_walk": 24,
+    "dirs": {
+     "N": 6,
+     "W": 7,
+     "S": 11
+    },
+    "ms_por_quadro_mediana": 116.6,
+    "ms_por_quadro_media": 113.6,
+    "ms_min": 33.3,
+    "ms_max": 233.3,
+    "px_por_quadro_media": 9.4,
+    "px_por_quadro_mediana": 10.4,
+    "vel_px_s": 83,
+    "trocas": 21,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     233,
+     117,
+     167,
+     100,
+     100,
+     117,
+     117
+    ],
+    "entrada": [
+     "walk_N_02@-46",
+     "walk_N_03@-13",
+     "walk_N_04@104",
+     "walk_N_05@221",
+     "idleanim_N_00@454",
+     "idleanim_E_00@587"
+    ],
+    "saida": [
+     "walk_W_00@-266",
+     "walk_W_01@-149",
+     "walk_W_02@-49",
+     "walk_W_03@67",
+     "walk_W_04@167",
+     "walk_S_04@200",
+     "walk_S_05@284",
+     "walk_S_06@384",
+     "walk_S_07@501",
+     "walk_S_00@600",
+     "walk_S_01@717",
+     "walk_S_02@817",
+     "walk_S_03@934",
+     "walk_S_04@1051",
+     "walk_S_05@1150",
+     "walk_S_06@1267"
+    ]
+   },
+   "lento_E": {
+    "quadros_walk": 18,
+    "dirs": {
+     "S": 7,
+     "E": 11
+    },
+    "ms_por_quadro_mediana": 266.7,
+    "ms_por_quadro_media": 240.6,
+    "ms_min": 66.7,
+    "ms_max": 299.9,
+    "px_por_quadro_media": 10.2,
+    "px_por_quadro_mediana": 10.8,
+    "vel_px_s": 42,
+    "trocas": 16,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     283,
+     217,
+     67,
+     267,
+     283
+    ],
+    "entrada": [
+     "walk_S_00@-42",
+     "walk_S_01@8",
+     "walk_S_02@125",
+     "walk_S_03@342",
+     "walk_S_04@592"
+    ],
+    "saida": [
+     "walk_E_06@-198",
+     "walk_E_07@85",
+     "walk_E_00@352",
+     "idleanim_E_03@635",
+     "idleanim_E_04@735",
+     "idleanim_E_05@935",
+     "idleanim_E_00@1085",
+     "idleanim_E_01@1302",
+     "idleanim_E_02@1485"
+    ]
+   },
+   "lento_W": {
+    "quadros_walk": 12,
+    "dirs": {
+     "W": 12
+    },
+    "ms_por_quadro_mediana": 283.3,
+    "ms_por_quadro_media": 276.6,
+    "ms_min": 266.6,
+    "ms_max": 283.4,
+    "px_por_quadro_media": 11.1,
+    "px_por_quadro_mediana": 11.3,
+    "vel_px_s": 38,
+    "trocas": 11,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     267,
+     283
+    ],
+    "entrada": [
+     "idleanim_E_02@-33",
+     "idleanim_E_03@133",
+     "idleanim_E_04@300",
+     "idleanim_E_05@500",
+     "idleanim_W_00@567",
+     "walk_W_00@633"
+    ],
+    "saida": [
+     "walk_W_03@-23",
+     "idleanim_W_03@327",
+     "idleanim_W_04@343",
+     "idleanim_W_05@543",
+     "idleanim_W_00@693",
+     "idleanim_W_01@927",
+     "idleanim_W_02@1093",
+     "idleanim_W_03@1343"
+    ]
+   },
+   "lento_N": {
+    "quadros_walk": 7,
+    "dirs": {
+     "E": 2,
+     "N": 5
+    },
+    "ms_por_quadro_mediana": 266.6,
+    "ms_por_quadro_media": 236.7,
+    "ms_min": 50,
+    "ms_max": 316.7,
+    "px_por_quadro_media": 8.6,
+    "px_por_quadro_mediana": 10.4,
+    "vel_px_s": 36,
+    "trocas": 5,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     300,
+     50,
+     250
+    ],
+    "entrada": [
+     "idleanim_W_04@-43",
+     "idleanim_W_05@124",
+     "idleanim_W_00@274",
+     "idleanim_W_01@490",
+     "idleanim_W_02@674"
+    ],
+    "saida": [
+     "idleanim_N_02@-282",
+     "idleanim_N_03@-215",
+     "idleanim_W_00@-149",
+     "idleanim_W_04@68",
+     "idleanim_W_05@151",
+     "idleanim_W_00@318",
+     "idleanim_W_01@535",
+     "idleanim_W_02@718",
+     "idleanim_W_03@951",
+     "idleanim_W_04@1134",
+     "idleanim_W_05@1335",
+     "idleanim_W_00@1485"
+    ]
+   },
+   "lento_S": {
+    "quadros_walk": 13,
+    "dirs": {
+     "W": 8,
+     "N": 3,
+     "S": 2
+    },
+    "ms_por_quadro_mediana": 250.1,
+    "ms_por_quadro_media": 227.2,
+    "ms_min": 100,
+    "ms_max": 283.3,
+    "px_por_quadro_media": 8.9,
+    "px_por_quadro_mediana": 10.7,
+    "vel_px_s": 35,
+    "trocas": 10,
+    "pulos": 0,
+    "pulosEx": [],
+    "q5_q6_ms": [
+     283,
+     267
+    ],
+    "entrada": [
+     "idleanim_W_00@-37",
+     "idleanim_W_01@113",
+     "idleanim_W_02@279",
+     "idleanim_W_03@529"
+    ],
+    "saida": [
+     "walk_N_00@-175",
+     "walk_N_01@-75",
+     "walk_N_02@175",
+     "idleanim_N_01@308",
+     "idleanim_N_02@325",
+     "idleanim_W_00@458",
+     "idleanim_S_00@542",
+     "walk_S_02@608",
+     "walk_S_03@892",
+     "idleanim_S_00@1258",
+     "idleanim_S_01@1325",
+     "idleanim_W_00@1408"
+    ]
+   }
+  },
+  "tamer": {
+   "normal_E": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 93,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_S@-34",
+     "idle_E@16"
+    ],
+    "saida": []
+   },
+   "normal_W": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 93,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_E@-46",
+     "idle_W@4"
+    ],
+    "saida": []
+   },
+   "normal_N": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 92,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_W@-39",
+     "idle_N@94"
+    ],
+    "saida": []
+   },
+   "normal_S": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 93,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_N@-46",
+     "idle_S@87"
+    ],
+    "saida": []
+   },
+   "lento_E": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 38,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_S@-42",
+     "idle_E@75"
+    ],
+    "saida": []
+   },
+   "lento_W": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 38,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_E@-33",
+     "idle_W@67"
+    ],
+    "saida": []
+   },
+   "lento_N": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 38,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_W@-43",
+     "idle_N@57"
+    ],
+    "saida": []
+   },
+   "lento_S": {
+    "quadros_walk": 0,
+    "dirs": {},
+    "ms_por_quadro_mediana": null,
+    "ms_por_quadro_media": null,
+    "ms_min": null,
+    "ms_max": null,
+    "px_por_quadro_media": null,
+    "px_por_quadro_mediana": null,
+    "vel_px_s": 38,
+    "trocas": 0,
+    "pulos": 0,
+    "pulosEx": [],
+    "entrada": [
+     "idle_N@-37",
+     "idle_S@46"
+    ],
+    "saida": []
+   }
+  }
+ }
+}

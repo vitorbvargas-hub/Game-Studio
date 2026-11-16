@@ -1,0 +1,227 @@
+{
+ "f7v2": {
+  "manifest": {
+   "name": "Agumon (Link A — ficha v9 PixelLab, TESTE: 4 direções, caminhada + ataque (60x60 nativo; pose parada = rotação))",
+   "walkSpeedPxPerSec": null,
+   "walkMs": {
+    "S": [
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110
+    ],
+    "N": [
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110
+    ],
+    "W": [
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110
+    ],
+    "E": [
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110,
+     110
+    ]
+   }
+  },
+  "walkQuadro": {
+   "E": {
+    "n": 19,
+    "media_ms": 113,
+    "mediana_ms": 117,
+    "min_ms": 17,
+    "max_ms": 284,
+    "px_por_quadro": 10
+   },
+   "W": {
+    "n": 15,
+    "media_ms": 123,
+    "mediana_ms": 117,
+    "min_ms": 100,
+    "max_ms": 250,
+    "px_por_quadro": 10.9
+   },
+   "N": {
+    "n": 12,
+    "media_ms": 122,
+    "mediana_ms": 117,
+    "min_ms": 84,
+    "max_ms": 283,
+    "px_por_quadro": 10.7
+   },
+   "S": {
+    "n": 14,
+    "media_ms": 125,
+    "mediana_ms": 117,
+    "min_ms": 100,
+    "max_ms": 250,
+    "px_por_quadro": 10.9
+   }
+  },
+  "velTamer_px_s": 93,
+  "velParceira_px_s": 82,
+  "walkTrocas": 55,
+  "walkPulos": 0,
+  "seqS": [
+   "idleanim_N_04@78",
+   "idleanim_S_00@178",
+   "walk_S_04@245",
+   "walk_S_05@411",
+   "walk_S_06@528",
+   "walk_S_07@645",
+   "walk_S_00@745",
+   "walk_S_01@862",
+   "walk_S_02@962",
+   "walk_S_03@1078",
+   "walk_S_04@1195",
+   "walk_S_05@1295",
+   "walk_S_06@1411",
+   "walk_S_07@1511",
+   "walk_S_00@1628",
+   "walk_S_01@1745",
+   "idleanim_S_01@1995",
+   "idleanim_S_02@2011",
+   "idleanim_S_03@2261",
+   "idleanim_S_04@2445",
+   "idleanim_S_05@2645",
+   "idleanim_S_00@2778",
+   "idleanim_S_01@3011",
+   "idleanim_S_02@3178",
+   "idleanim_S_03@3445"
+  ],
+  "folha": "walk_S_entrada_saida_f7v2.png",
+  "erros": [],
+  "rede": []
+ },
+ "f2b": {
+  "manifest": {
+   "name": "Agumon (Link A — ficha v8 PixelLab, TESTE: 4 direções, caminhada + ataque (48x48 nativo; pose parada = rotação))",
+   "walkSpeedPxPerSec": null,
+   "walkMs": {
+    "S": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "N": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "W": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ],
+    "E": [
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100,
+     100
+    ]
+   }
+  },
+  "walkQuadro": {
+   "E": {
+    "n": 20,
+    "media_ms": 108,
+    "mediana_ms": 100,
+    "min_ms": 50,
+    "max_ms": 217,
+    "px_por_quadro": 9.5
+   },
+   "W": {
+    "n": 17,
+    "media_ms": 109,
+    "mediana_ms": 100,
+    "min_ms": 83,
+    "max_ms": 250,
+    "px_por_quadro": 9.6
+   },
+   "N": {
+    "n": 14,
+    "media_ms": 105,
+    "mediana_ms": 100,
+    "min_ms": 50,
+    "max_ms": 200,
+    "px_por_quadro": 9.2
+   },
+   "S": {
+    "n": 16,
+    "media_ms": 109,
+    "mediana_ms": 100,
+    "min_ms": 100,
+    "max_ms": 233,
+    "px_por_quadro": 9.6
+   }
+  },
+  "velTamer_px_s": 93,
+  "velParceira_px_s": 82,
+  "walkTrocas": 62,
+  "walkPulos": 0,
+  "seqS": [
+   "idle_S@157",
+   "walk_S_00@224",
+   "walk_S_01@341",
+   "walk_S_02@441",
+   "walk_S_03@541",
+   "walk_S_04@641",
+   "walk_S_05@741",
+   "walk_S_06@841",
+   "walk_S_07@941",
+   "walk_S_00@1041",
+   "walk_S_01@1141",
+   "walk_S_02@1241",
+   "walk_S_03@1341",
+   "walk_S_04@1441",
+   "walk_S_05@1541",
+   "walk_S_06@1641",
+   "walk_S_07@1741",
+   "idle_S@1974"
+  ],
+  "folha": "walk_S_entrada_saida_f2b.png",
+  "erros": [],
+  "rede": []
+ }
+}

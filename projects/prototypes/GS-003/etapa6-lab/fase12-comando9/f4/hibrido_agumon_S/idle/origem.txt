@@ -1,0 +1,6 @@
+q0: rig F3 idle q0
+q1: rig F3 idle q1
+q2: rig F3 idle q2
+q3: rig F3 idle q3
+q4: rig F3 idle q4
+q5: rig F3 idle q5

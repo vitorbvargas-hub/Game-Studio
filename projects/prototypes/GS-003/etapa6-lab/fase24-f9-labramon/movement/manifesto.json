@@ -1,0 +1,839 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 4 — movimento (standing, idle 4q, walk 8q) nas 4 direções — rodada de correções pós-QA (A5, A7), 2026-11-16",
+ "data": "2026-11-16",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49,
+  "doc": "Última linha opaca em y=49 em 48/48 quadros de walk/idle e nas 4 rotações."
+ },
+ "paleta": {
+  "limite": 24,
+  "usada": 19,
+  "semitransparentes": 0,
+  "doc": "Todos os quadros usam só cores da rotação da própria direção."
+ },
+ "standing": {
+  "doc": "Cópia byte a byte de rotacoes/labramon_{S,E,N,W}.png (Fase 3).",
+  "arquivos": [
+   {
+    "arquivo": "standing/E.png",
+    "sha256": "06de28d53e79685b72d3a3f94ba74f9ab81a9f114f9eaedbc10e47cbeb7800a0"
+   },
+   {
+    "arquivo": "standing/N.png",
+    "sha256": "be4bf348e28cbb79ccfa69dca70b5e87bed000707483082e57e6cebb2f1e9bf3"
+   },
+   {
+    "arquivo": "standing/S.png",
+    "sha256": "dee78b14c50d86f3e1881cced412a657a75d619f6457ef5a8b6c498372b243cb"
+   },
+   {
+    "arquivo": "standing/W.png",
+    "sha256": "6e4dd78c8d153472f5324c1f9cfd59cc6a6100e3b8a584670afc6be541e1f4e6"
+   }
+  ]
+ },
+ "animacoes": {
+  "walk/S": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    36,
+    37
+   ],
+   "w_min_max": [
+    24,
+    24
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    8
+   ],
+   "marcas_px_por_quadro": [
+    6,
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "walk/S/frame_000.png",
+     "sha256": "e68f7d7f1431060515f0a25373d26f3b3c96183f008eef49ede29ca9129b6db4"
+    },
+    {
+     "arquivo": "walk/S/frame_001.png",
+     "sha256": "eca2ffc438a16591a4e5eb8a438a33fab8104c5d7a2bf15186ca7eb91927815a"
+    },
+    {
+     "arquivo": "walk/S/frame_002.png",
+     "sha256": "367d1f531f5700807f27e6c4e92d8778943f8a7b1422961d5761e01aa14091ea"
+    },
+    {
+     "arquivo": "walk/S/frame_003.png",
+     "sha256": "462871db91a2513a0e7c12018084a1a45b94c592d838bcb4d7886f8f2d2e5a64"
+    },
+    {
+     "arquivo": "walk/S/frame_004.png",
+     "sha256": "80e490854b81b1dd42eafd14d8dda07281a73736189a88ed4c15cfa8f39faff4"
+    },
+    {
+     "arquivo": "walk/S/frame_005.png",
+     "sha256": "6f32f51289b4debe3f072dd59e46d25baa4845ff4ef429ab9523c8972f62a99d"
+    },
+    {
+     "arquivo": "walk/S/frame_006.png",
+     "sha256": "7c439d4efb0c78c157b0819d9fd92e01927f00c863435e7961390e3e8c297d9b"
+    },
+    {
+     "arquivo": "walk/S/frame_007.png",
+     "sha256": "009d33fa62e321e615070bf36025592cda1a32b28c1a9192f0de7daba619d6e9"
+    }
+   ]
+  },
+  "walk/E": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    38,
+    39
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": {
+    "media": 2.28,
+    "min": 2,
+    "max": 3.5
+   },
+   "arquivos": [
+    {
+     "arquivo": "walk/E/frame_000.png",
+     "sha256": "3c8a5bbc628081e94d7c77e55e5986d17eed04270c92774a596a49a5f194e797"
+    },
+    {
+     "arquivo": "walk/E/frame_001.png",
+     "sha256": "87db918d2fa60dfb43139028b15cd2634b14484e34108bab9793e412396f61d1"
+    },
+    {
+     "arquivo": "walk/E/frame_002.png",
+     "sha256": "00d4d307b5f24d0276d903c8e3e6abefd660e971e49fbf35cc29d40190cf8275"
+    },
+    {
+     "arquivo": "walk/E/frame_003.png",
+     "sha256": "8cf6c8f72d404e4e55078cc5beb8a208309c6278859b37b36e1d46bd99ebf04f"
+    },
+    {
+     "arquivo": "walk/E/frame_004.png",
+     "sha256": "98df5b1053270340bd41938a9fb21f17cc2b764db75f2b5915489f8ff811fb47"
+    },
+    {
+     "arquivo": "walk/E/frame_005.png",
+     "sha256": "52faab41d483196ead61d603df93d777ad2e9daa6e05823e011b4159df4dc635"
+    },
+    {
+     "arquivo": "walk/E/frame_006.png",
+     "sha256": "790a50a1674a4a69ea7f0db20fb306904c173d74b7ef08ef48e4da1895b3f02b"
+    },
+    {
+     "arquivo": "walk/E/frame_007.png",
+     "sha256": "6490e5a3402fac6accdeb4a9d226c670ceb43638800a578d4d9c14a85f1bbc2e"
+    }
+   ]
+  },
+  "walk/N": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    36,
+    36
+   ],
+   "w_min_max": [
+    25,
+    25
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 0,
+   "cores": 16,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    0
+   ],
+   "marcas_px_por_quadro": [
+    0,
+    1
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "walk/N/frame_000.png",
+     "sha256": "b53d1e4bab894cad14f26b19e16ef631071315e264606259cfed78e26e8824fb"
+    },
+    {
+     "arquivo": "walk/N/frame_001.png",
+     "sha256": "c9e4c7aa0b4203f39b31cabbfbd70c007a3d0edd0b365a06d2f11d7ce68e3d31"
+    },
+    {
+     "arquivo": "walk/N/frame_002.png",
+     "sha256": "7d1ee733c8264862d74c88563a3689df9f757ac59f9e3ee1ced423eecfcc052e"
+    },
+    {
+     "arquivo": "walk/N/frame_003.png",
+     "sha256": "5edae6e5fb3eb2646c628fbac9c8196b36683951fa0c68d67443266e467d0e4d"
+    },
+    {
+     "arquivo": "walk/N/frame_004.png",
+     "sha256": "f56d177af7c31c1e9596a5cb6e4f6e9547f0a8c8f3a533a72810cf41c332f62a"
+    },
+    {
+     "arquivo": "walk/N/frame_005.png",
+     "sha256": "219604ca348fffb625feb1529fc348f11744632129280f99c6dc033abcf27932"
+    },
+    {
+     "arquivo": "walk/N/frame_006.png",
+     "sha256": "4a9a34a2aa18c7bfcd207c37c2c28921a7b40529883bc41c1983cab79bfe1877"
+    },
+    {
+     "arquivo": "walk/N/frame_007.png",
+     "sha256": "73034750007da673a0f175735e3902925362e55ec569bce7d0594b67498fb7ee"
+    }
+   ]
+  },
+  "walk/W": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    34,
+    37
+   ],
+   "w_min_max": [
+    40,
+    40
+   ],
+   "maior_salto_h": 2,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    6,
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": {
+    "media": 3,
+    "min": 0,
+    "max": 5
+   },
+   "arquivos": [
+    {
+     "arquivo": "walk/W/frame_000.png",
+     "sha256": "2bcbc873fb7b2ab2031ad85916fffd488a0a3d3834fd7ff3c42baf0bb575a49b"
+    },
+    {
+     "arquivo": "walk/W/frame_001.png",
+     "sha256": "2df7f3d71f0fa0e55eb6c3c1e1756158d2f109caa1917c77b0146c9072c546a0"
+    },
+    {
+     "arquivo": "walk/W/frame_002.png",
+     "sha256": "45db71499a0909010893faf9d5f528d22e9f4c6b270081d6efcb0d7faf1e2c29"
+    },
+    {
+     "arquivo": "walk/W/frame_003.png",
+     "sha256": "6c5cdcc7594b2ed6da4c57bb4084d086eb75f73029c6dff8cca1c4f9e271d01e"
+    },
+    {
+     "arquivo": "walk/W/frame_004.png",
+     "sha256": "144f64440e2fd8c81f189c2a5a811a44ace24b4a3fb623334c8195bc6bf3eff3"
+    },
+    {
+     "arquivo": "walk/W/frame_005.png",
+     "sha256": "86ade90088fb1cf73b3373980eb494338ccad46bfe14f5edd8736bf73e8bd1de"
+    },
+    {
+     "arquivo": "walk/W/frame_006.png",
+     "sha256": "3464ef1ac4fb45b2c3dcd30dfcd54037990f6bc73e2d3dc8fe0c025f002cb426"
+    },
+    {
+     "arquivo": "walk/W/frame_007.png",
+     "sha256": "8cb208056e9a84b00a345c8b2949a04215280edd577e6479d2e26a51e2b0f44d"
+    }
+   ]
+  },
+  "idle/S": {
+   "fonte": "rig local (pixels da rotação, 0 gerações)",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    24,
+    24
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    8
+   ],
+   "marcas_px_por_quadro": [
+    6
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/S/frame_000.png",
+     "sha256": "dee78b14c50d86f3e1881cced412a657a75d619f6457ef5a8b6c498372b243cb"
+    },
+    {
+     "arquivo": "idle/S/frame_001.png",
+     "sha256": "f888382d105d4c8186a86ed2db7417e53c2499139cb0e4c97db8efa74d78b725"
+    },
+    {
+     "arquivo": "idle/S/frame_002.png",
+     "sha256": "081656c49aeea1e1a252dac26aa3fb25aed5d65fe7231a1a753673ccf512aff4"
+    },
+    {
+     "arquivo": "idle/S/frame_003.png",
+     "sha256": "2a11561224bd96b98ad12c7f3314643e787946f712c7e90dfdaeaec6ad2ca795"
+    }
+   ]
+  },
+  "idle/E": {
+   "fonte": "pixminimax custom 4q",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    36,
+    36
+   ],
+   "w_min_max": [
+    38,
+    40
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/E/frame_000.png",
+     "sha256": "a3be9eb6e36328924226820ce2c835b8ad26ec4b6245cbf9048eca854fdc48de"
+    },
+    {
+     "arquivo": "idle/E/frame_001.png",
+     "sha256": "cb467b72c359985d61966a519c36c04f4654eb720f9f89b98f18591417fdf729"
+    },
+    {
+     "arquivo": "idle/E/frame_002.png",
+     "sha256": "591d07d5aeb545f4ebb827d9638a41fdfe1eeaac0f04c84787741e7131af84aa"
+    },
+    {
+     "arquivo": "idle/E/frame_003.png",
+     "sha256": "955de612ba1df9e37ec5fa81478c25f5959bbaca1a996118f1d16bec96a04e37"
+    }
+   ]
+  },
+  "idle/N": {
+   "fonte": "rig local (pixels da rotação, 0 gerações)",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    25,
+    25
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 16,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    0
+   ],
+   "marcas_px_por_quadro": [
+    1
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/N/frame_000.png",
+     "sha256": "be4bf348e28cbb79ccfa69dca70b5e87bed000707483082e57e6cebb2f1e9bf3"
+    },
+    {
+     "arquivo": "idle/N/frame_001.png",
+     "sha256": "8e82f7671aa311401566d54174e3e25afe3b0c7a4f2f3395d83439f7daea9017"
+    },
+    {
+     "arquivo": "idle/N/frame_002.png",
+     "sha256": "d223aebe3186d33998caf1429dd170b56e7949a3e10274aa573c889e9ba148be"
+    },
+    {
+     "arquivo": "idle/N/frame_003.png",
+     "sha256": "b5e6833e1233ff92f3dc7f372653ea5da77936c9554e2c2d3b8be95ccfe2bdaf"
+    }
+   ]
+  },
+  "idle/W": {
+   "fonte": "pixminimax custom 4q",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    36,
+    36
+   ],
+   "w_min_max": [
+    39,
+    40
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    6
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/W/frame_000.png",
+     "sha256": "36b3ffd8abc17fe5fc2cb82982dc35742493cc4655f66866a88a6aed4c1f131f"
+    },
+    {
+     "arquivo": "idle/W/frame_001.png",
+     "sha256": "ec47b265491715dc6b0c1a77a38c717f5f12765862c908780ffc73d6fe514642"
+    },
+    {
+     "arquivo": "idle/W/frame_002.png",
+     "sha256": "50f3975273425f7d5cf9bf182d885061a83edcfd663c5e43eb79c930a39f223b"
+    },
+    {
+     "arquivo": "idle/W/frame_003.png",
+     "sha256": "4d2665a4fdf6a6cbe8b38608ee4a572e893a2daf7b36af018de9b027b34198ae"
+    }
+   ]
+  }
+ },
+ "spritesheets": {
+  "doc": "Tiras 1x, células 60x60, sem espaçamento. labramon_movement_sheet.png: linhas = walk S,E,N,W (8 col), idle S,E,N,W (4 col), standing S,E,N,W (1 linha, 4 col).",
+  "arquivos": [
+   {
+    "arquivo": "spritesheets/idle_E.png",
+    "sha256": "54ec9bd1e84e0a3e7724852c8db65b115b8024822fc1e12ca43d96bb902c6d5b"
+   },
+   {
+    "arquivo": "spritesheets/idle_N.png",
+    "sha256": "631a9748efea8c26a8d35cdcc609a60c8b31ea55d72085b8e5d3f86a41812f3c"
+   },
+   {
+    "arquivo": "spritesheets/idle_S.png",
+    "sha256": "c917d362b6fefbd97336c58c793dbd372843384c59f1ef6fdde6f3105676dd2b"
+   },
+   {
+    "arquivo": "spritesheets/idle_W.png",
+    "sha256": "f5e5e45fdbb8f36f0e8a6528302cfe8061b1310caeda27776f1ecd7e094a6384"
+   },
+   {
+    "arquivo": "spritesheets/labramon_movement_sheet.png",
+    "sha256": "01a24e4a060831ee2124fb54543f46fa849f0fd38af7b65026435d9aa419e11f"
+   },
+   {
+    "arquivo": "spritesheets/walk_E.png",
+    "sha256": "5a56c004131cd24cdf04d1099c549180078a31e711cc7adaf9665b7803a51447"
+   },
+   {
+    "arquivo": "spritesheets/walk_N.png",
+    "sha256": "50d463a3d992577c9ed02a8e9922a464cabd7fa6df0cb2ce2c65902da9430d6e"
+   },
+   {
+    "arquivo": "spritesheets/walk_S.png",
+    "sha256": "ee232a8acdefb798847e7f0ce2bd140541a610fe9338fc9d10ef852f6bbd3acc"
+   },
+   {
+    "arquivo": "spritesheets/walk_W.png",
+    "sha256": "7912011bb23a7216da2f8a634a2c89e92af485a9f2986c3dc15e5fa5aeb38590"
+   }
+  ]
+ },
+ "gifs": {
+  "doc": "walk 100 ms/quadro, idle 240 ms/quadro (sugestão de arte; o tempo no jogo é do game-dev). Codificador próprio; validados pelo decodificador local, não abertos num navegador.",
+  "arquivos": [
+   {
+    "arquivo": "gifs/idle_E_1x.gif",
+    "sha256": "4c1fab49ba4494be97ec8028057f086dfafd60a623b6c78271925021530e9c18"
+   },
+   {
+    "arquivo": "gifs/idle_E_4x.gif",
+    "sha256": "2fa41e34a678e720e728a6b805a8382dbeff855b481fd49c2bfae43d283b0159"
+   },
+   {
+    "arquivo": "gifs/idle_N_1x.gif",
+    "sha256": "bc9971939a772115a0ba40990ac03766030e061b94a1ff54a10743d3039b196c"
+   },
+   {
+    "arquivo": "gifs/idle_N_4x.gif",
+    "sha256": "803f94ce9a675680f0eb45fe464bee9d688b1ca35ffca34ea4b0a0237aeb5382"
+   },
+   {
+    "arquivo": "gifs/idle_S_1x.gif",
+    "sha256": "28dfd112bd9ceae74be4203e880aec4dee4f3b1bfe6a8d9e40867aebdd5649e5"
+   },
+   {
+    "arquivo": "gifs/idle_S_4x.gif",
+    "sha256": "68d8f592a6327069856ff1bd17eea57e6cd9d7d3e6b47207ec12f430f790104d"
+   },
+   {
+    "arquivo": "gifs/idle_W_1x.gif",
+    "sha256": "65ae6d6a83c5960e14a055f61969c4ea25e3946b806eec21ae5c0119e1e3bdd5"
+   },
+   {
+    "arquivo": "gifs/idle_W_4x.gif",
+    "sha256": "ae517ffa03b0968b2bbb2206f92fe4de5f644cdd6542a8409ffc15ba13673f1c"
+   },
+   {
+    "arquivo": "gifs/walk_E_1x.gif",
+    "sha256": "45f8f6aba3712396d71e03fb25de38df1331f44b146dbabff4e5911d007a2f27"
+   },
+   {
+    "arquivo": "gifs/walk_E_4x.gif",
+    "sha256": "e3291b710d879c13f0eb04ceb84212165111276570c828fb75897aef56c59ea7"
+   },
+   {
+    "arquivo": "gifs/walk_N_1x.gif",
+    "sha256": "c532cc9816bff75bea682994518b3285e8fa2f3ef02a2890dc362ac354ecbfc9"
+   },
+   {
+    "arquivo": "gifs/walk_N_4x.gif",
+    "sha256": "16ed9713bb50d088186f6fc449b45dff8415fd961be44a3a8282c807e1b93375"
+   },
+   {
+    "arquivo": "gifs/walk_S_1x.gif",
+    "sha256": "51b23a0d11fd13a6874c6e9ababeddb638ed3a24fb59f4eb737d0241a59c574e"
+   },
+   {
+    "arquivo": "gifs/walk_S_4x.gif",
+    "sha256": "952af64816711809aacb5ce9b4055f9c5cc7fc734c89f281697a42898165b292"
+   },
+   {
+    "arquivo": "gifs/walk_W_1x.gif",
+    "sha256": "43692d11291793d0d57716170c9a6c1078d5e6640cd032d492da5d97f773b0a5"
+   },
+   {
+    "arquivo": "gifs/walk_W_4x.gif",
+    "sha256": "6d4604ea7ee9383046f93e123a748da2dbe6a95b920c574ab55ee5b58231b76f"
+   }
+  ]
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "pixellab": {
+  "personagem": {
+   "id": "e7b2c58f-6ea0-4a49-bab1-7b2ecaa2052d",
+   "nome": "Labramon F9",
+   "modo": "v3 import (quadruped/dog, 4 direções, 60x60) — 0 pixel regenerado nas rotações"
+  },
+  "grupos_usados": {
+   "walk-pmm (S,E,N,W)": "348e2f75-230d-47b9-8973-fa50dcb5a14e",
+   "idle-pmm E": "7a13bfff-615f-4222-bdf9-363db344a035",
+   "idle-pmm W": "e7923fdb-4b8e-4837-a42f-fdae0720e95f",
+   "idle-pmm S (alternativa)": "7b51b2a6-b59c-44e2-9155-e161fcb3e105",
+   "idle-pmm N (alternativa)": "3889fc0c-d36c-4107-a681-7f266506b6ff"
+  },
+  "grupos_reprovados_ainda_na_conta": {
+   "walk v3 E": "a1163b49-7114-4754-a956-7111472ce501",
+   "walk v3 S": "da40d052-ecbf-4ec1-a735-0c7262e1eddd",
+   "idle v3 E": "261c943f-ae08-4760-a617-7f8e232774f9",
+   "idle v3 S": "110218f6-c829-40af-a9e2-853f55e91d57",
+   "walk-tpl E (template dog)": "fe5e0884-4832-424b-84d2-18f3baffc831",
+   "idle-tpl E (template dog)": "de14b7fa-86da-4f5d-b89f-8099a014b874"
+  },
+  "limpeza": {
+   "correct_pixelart": [
+    "b09377ec-73e6-4c07-9f75-4ee752cad3d9",
+    "6fce6886-71f1-47d4-82de-849bdf32765e",
+    "cce9271e-228a-4e1f-be8d-c26c0c22aa77",
+    "f84e552e-94f4-4f21-aef1-9dabfc4565d4"
+   ],
+   "reduce_colors": {
+    "S": "2fbd0c13-40d4-40ce-88c3-f46eb6939a30",
+    "E": "322ad01b-730d-4ed5-bd0d-92d24060856f",
+    "N": "1c811615-c321-4beb-bc5d-4fc7f01b64bd",
+    "W": "57c8ea69-474e-4ce5-bafd-a4587c8bf1c4"
+   }
+  },
+  "custo": [
+   {
+    "op": "create_character v3 import (4 rotações)",
+    "ger": 0.25
+   },
+   {
+    "op": "animate_character v3 custom: walk E, walk S, idle E, idle S (reprovados)",
+    "ger": 4
+   },
+   {
+    "op": "animate_character template dog: walk-8-frames E, idle E (reprovados)",
+    "ger": 2
+   },
+   {
+    "op": "animate_character pixminimax: walk S/E/N/W (template_action=walking)",
+    "ger": 4
+   },
+   {
+    "op": "animate_character pixminimax: idle S/E/N/W (custom 4q)",
+    "ger": 4
+   },
+   {
+    "op": "correct_pixelart ×4",
+    "ger": 0.4
+   },
+   {
+    "op": "reduce_colors ×4",
+    "ger": 0.4
+   }
+  ],
+  "geracoes_fase4": 15.05,
+  "teto_fase4": 20,
+  "saldo_antes": 544.8,
+  "saldo_depois": 529.75,
+  "acumulado_f9": 15.65,
+  "teto_f9": 60,
+  "piso_saldo": 485
+ },
+ "pos_processo_local": [
+  "paleta exata da rotação (reduce_colors devolveu 2 quase-pretos #020602/#020305 → #010101)",
+  "remoção de pontos soltos (walk W: 5 px em 4 quadros)",
+  "trava de cabeça/rosto: linhas do topo da cabeça e retângulo do rosto colados da rotação no deslocamento medido por quadro",
+  "walk N: sola rosa-escura da pata traseira (linhas ≥44) → #24241e",
+  "7 px claros encostados em transparência escurecidos (falha de contorno)",
+  "âncora: quadro inteiro deslocado na vertical até a última linha opaca = y49 (walk S: +1/+2 em 6 quadros; walk N: −1/−2 em 6; walk W: +1 em 2)"
+ ],
+ "escala": {
+  "tile": 32,
+  "labramon_standing_h": 36,
+  "labramon_walk_h": {
+   "S": "36–37",
+   "E": "35–36",
+   "N": "36",
+   "W": "34–37"
+  },
+  "tamer_v13_south_h": 34,
+  "doc": "Conflito G-2 segue ABERTO; números registrados, não resolvidos."
+ },
+ "medicoes": "qa_medicoes.json (por quadro: bbox, px, cores, pé, contato, deslocamento da cabeça, rosto, olho, marcas, mudança até o próximo quadro; recuo do pé em E/W)",
+ "correcoes_pos_qa": {
+  "data": "2026-11-16",
+  "relatorio": "../RELATORIO_F9_CORRECOES.md",
+  "geracoes": 0,
+  "backup": "../_pre_correcao/movement",
+  "A5": "Rotações S e W retocadas à mão (olho 2x2, presa 1 px branca, garras com 2 tons); standing S/W = rotações novas; trava de rosto reaplicada no walk S/W e idle W (post_mov.js: rosto S agora inclui a linha y=32 da presa); idle S refeito pelo rig a partir da rotação S nova.",
+  "A7": {
+   "doc": "Walk N: corpo desce 2 px (topo y=12 → 14, igual ao standing N) tirando as linhas y=44 e y=47 da zona das patas em todos os quadros; pata de apoio continua em y=49.",
+   "quadros": [
+    {
+     "q": 0,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      7,
+      2
+     ],
+     "bbox": [
+      19,
+      14,
+      43,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 1,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      6,
+      7
+     ],
+     "bbox": [
+      18,
+      14,
+      42,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 2,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      8,
+      6
+     ],
+     "bbox": [
+      16,
+      14,
+      40,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 3,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      5,
+      2
+     ],
+     "bbox": [
+      15,
+      14,
+      39,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 4,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      8,
+      2
+     ],
+     "bbox": [
+      16,
+      14,
+      40,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 5,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      6,
+      7
+     ],
+     "bbox": [
+      17,
+      14,
+      41,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 6,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      7,
+      6
+     ],
+     "bbox": [
+      19,
+      14,
+      43,
+      49
+     ],
+     "h": 36
+    },
+    {
+     "q": 7,
+     "linhas_removidas": [
+      44,
+      47
+     ],
+     "dif_linha": [
+      5,
+      2
+     ],
+     "bbox": [
+      20,
+      14,
+      44,
+      49
+     ],
+     "h": 36
+    }
+   ]
+  },
+  "limpeza_specks": {
+   "walk/S": "fin/walk/S \n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,23;28,30;36,30\n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,24;28,31;36,31\n  3(7px) g0 s0 23,23;28,30;36,30",
+   "walk/E": "fin/walk/E \n  2(4px) g0 s0 31,25;26,34\n  2(4px) g0 s0 31,24;27,34\n  2(6px) g0 s0 30,24;28,34\n  2(4px) g0 s0 30,24;28,34\n  2(4px) g0 s0 30,25;28,35\n  2(4px) g0 s0 30,25;27,35\n  2(4px) g0 s0 31,24;26,33\n  2(4px) g0 s0 31,24;26,33",
+   "walk/N": "fin/walk/N \n  2(2px) g0 s0 24,31;32,32\n  2(2px) g2 s15 23,31;31,32\n  4(8px) g0 s17 32,27;33,31;25,33;31,33\n  2(2px) g0 s0 34,31;26,32\n  2(2px) g0 s0 35,31;27,32\n  2(2px) g2 s15 36,31;28,32\n  3(5px) g0 s17 26,31;28,33;34,33\n  2(2px) g0 s0 25,31;33,32",
+   "walk/W": "fin/walk/W \n  1(3px) g0 s0 15,29\n  1(3px) g0 s0 15,30\n  1(3px) g0 s0 15,31\n  1(3px) g0 s0 15,30\n  1(3px) g1 s0 15,28\n  1(3px) g0 s0 15,29\n  1(3px) g1 s0 15,30\n  2(4px) g0 s0 15,29;26,36",
+   "idle/S": "fin/idle/S \n  3(7px) g0 s0 23,23;28,30;36,30\n  3(7px) g0 s0 23,23;28,30;36,30\n  2(5px) g0 s0 23,23;28,30\n  2(5px) g0 s0 23,24;28,31",
+   "idle/E": "fin/idle/E \n  1(1px) g0 s0 31,24\n  2(2px) g0 s0 31,24;28,33\n  2(2px) g0 s0 31,24;28,33\n  2(2px) g0 s0 31,24;28,33",
+   "idle/N": "fin/idle/N \n  1(2px) g0 s0 32,32\n  1(2px) g0 s0 32,32\n  1(2px) g0 s0 32,32\n  1(2px) g0 s0 32,32",
+   "idle/W": "fin/idle/W \n  1(3px) g0 s0 15,29\n  1(3px) g0 s0 15,29\n  1(3px) g0 s0 15,29\n  1(3px) g1 s0 15,29"
+  }
+ }
+}

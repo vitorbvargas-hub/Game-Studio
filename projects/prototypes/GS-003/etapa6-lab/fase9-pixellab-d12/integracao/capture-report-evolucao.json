@@ -1,0 +1,28 @@
+{
+  "data": "2026-11-14T04:47:33.904Z",
+  "extra": "&agumon=v6x",
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20
+  },
+  "manifestName": null,
+  "skippedWalk": true,
+  "walkErrors": [],
+  "attacks": {},
+  "evo": {
+    "antes": {
+      "species": "CREATURE-0006",
+      "manifest": "agumon (Link A — ficha v6 PixelLab, TESTE: 4 direções, caminhada 8q + ataque Pepper Breath 9q (56x56 nativo; pose parada = rotação))"
+    },
+    "greymon": {
+      "species": "CREATURE-0007",
+      "manifest": "greymon (Link A — pose única, placeholder)"
+    },
+    "agumonDeNovo": {
+      "species": "CREATURE-0006",
+      "manifest": "agumon (Link A — ficha v6 PixelLab, TESTE: 4 direções, caminhada 8q + ataque Pepper Breath 9q (56x56 nativo; pose parada = rotação))"
+    }
+  },
+  "consoleErrors": []
+}

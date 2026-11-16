@@ -1,0 +1,172 @@
+{
+ "regraPorGolpe": [
+  {
+   "id": "investida",
+   "nome": "Investida",
+   "tipo": "physical",
+   "elemento": "neutral",
+   "vfx": "tackle_impact",
+   "soltaProjetil": false
+  },
+  {
+   "id": "pepper_breath",
+   "nome": "Pepper Breath",
+   "tipo": "special",
+   "elemento": "fire",
+   "vfx": "fireball",
+   "soltaProjetil": true
+  },
+  {
+   "id": "claw_attack",
+   "nome": "Claw Attack",
+   "tipo": "physical",
+   "elemento": "neutral",
+   "vfx": "claw_slash",
+   "soltaProjetil": false
+  },
+  {
+   "id": "sharp_claws",
+   "nome": "Sharp Claws",
+   "tipo": "physical",
+   "elemento": "neutral",
+   "vfx": "claw_slash",
+   "soltaProjetil": false
+  },
+  {
+   "id": "spitfire",
+   "nome": "Spitfire",
+   "tipo": "special",
+   "elemento": "fire",
+   "vfx": "fireball",
+   "soltaProjetil": true
+  },
+  {
+   "id": "mach_jab",
+   "nome": "Mach Jab",
+   "tipo": "physical",
+   "elemento": "neutral",
+   "vfx": "multi_hit_flurry",
+   "soltaProjetil": false
+  },
+  {
+   "id": "uppercut",
+   "nome": "Uppercut",
+   "tipo": "physical",
+   "elemento": "fire",
+   "vfx": "claw_slash",
+   "soltaProjetil": false
+  },
+  {
+   "id": "baby_burner",
+   "nome": "Baby Burner",
+   "tipo": "special",
+   "elemento": "fire",
+   "vfx": "fireball",
+   "soltaProjetil": true
+  },
+  {
+   "id": "triple_baby_flame",
+   "nome": "Triple Baby Flame",
+   "tipo": "special",
+   "elemento": "fire",
+   "vfx": "fireball",
+   "soltaProjetil": true
+  }
+ ],
+ "teclaK": true,
+ "face": "S",
+ "recErr": null,
+ "ordem": {
+  "amostras": 64,
+  "dir": [
+   "S"
+  ],
+  "tamerAFrente": 64,
+  "fogoAtrasDoTamer_agora": 0,
+  "fogoAtrasDoTamer_semCorrecao": 25,
+  "amostra": [
+   {
+    "t": 1,
+    "dir": "S",
+    "fogo": 664.5,
+    "fogoSemCorrecao": 620.5,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": false
+   },
+   {
+    "t": 134,
+    "dir": "S",
+    "fogo": 664.5,
+    "fogoSemCorrecao": 622.7,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": false
+   },
+   {
+    "t": 268,
+    "dir": "S",
+    "fogo": 664.5,
+    "fogoSemCorrecao": 642.7,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": false
+   },
+   {
+    "t": 401,
+    "dir": "S",
+    "fogo": 664.5,
+    "fogoSemCorrecao": 662.7,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": false
+   },
+   {
+    "t": 534,
+    "dir": "S",
+    "fogo": 682.7,
+    "fogoSemCorrecao": 682.7,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": true
+   },
+   {
+    "t": 668,
+    "dir": "S",
+    "fogo": 702.7,
+    "fogoSemCorrecao": 702.7,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": true
+   },
+   {
+    "t": 801,
+    "dir": "S",
+    "fogo": 716.5,
+    "fogoSemCorrecao": 716.5,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": true
+   },
+   {
+    "t": 935,
+    "dir": "S",
+    "fogo": 716.5,
+    "fogoSemCorrecao": 716.5,
+    "tamer": 664,
+    "agumon": 620,
+    "frente": true,
+    "frenteSemCorrecao": true
+   }
+  ]
+ },
+ "erros": [],
+ "rede": []
+}

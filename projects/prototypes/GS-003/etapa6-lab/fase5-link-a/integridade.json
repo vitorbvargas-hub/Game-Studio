@@ -1,0 +1,19 @@
+{
+  "data": "2026-11-13",
+  "autor": "game-dev (subagente C5)",
+  "linkB": {
+    "metodo": "mesma URL determinística (?novo=1&criador=0&seed=4242&time=12:00&encounters=0), Chromium headless 1280x720, build anterior (dist-lab-b-antes = build de a944e80, servido temporariamente na 5194) × build novo (dist-lab-b refeito com o código da C5 — o que entrou em 63351a5; a única mudança posterior em main.ts é texto da faixa só do Link A — servido na 5192); cada build capturado 2 vezes para medir o ruído das animações",
+    "diffs": [
+      { "a": "integridade_B_antes.png", "b": "integridade_B_antes_repeticao.png", "pixelsDiferentes": 464, "pct": 0.05, "nota": "ruído do próprio build anterior (anel animado do minimapa, vaga-lume, texto do contador)" },
+      { "a": "integridade_B_novo.png", "b": "integridade_B_novo_repeticao.png", "pixelsDiferentes": 16, "pct": 0.002, "nota": "ruído do build novo" },
+      { "a": "integridade_B_antes.png", "b": "integridade_B_novo.png", "pixelsDiferentes": 464, "pct": 0.05, "nota": "igual ao ruído antes×antes" },
+      { "a": "integridade_B_antes_repeticao.png", "b": "integridade_B_novo.png", "pixelsDiferentes": 8, "pct": 0.001, "nota": "só o anel pulsante do minimapa" }
+    ],
+    "bundle": "dist-lab-b não contém nenhum PNG do Método A (0 arquivos com nomes dos assets A); o JS do B inclui o JSON do mapa A (registrado em regions.ts), nunca carregado sem ?map=lab-a-chatgpt",
+    "referenciaC4": "integridade_B_referenciaC4_x_novo.png: lado a lado com fase2-builds/link-b_mundo_01_apos_escolher_parceiro.png — mesmo mapa, HUD, Tamer e parceiro; a captura da C4 foi feita com outra escala de viewport, por isso a prova por pixel é a comparação determinística acima"
+  },
+  "qo": { "worktree": "workspaces/game-dev/qo", "head": "3289e32", "gitStatusLinhas": 0 },
+  "database": "não tocada",
+  "saves": "save do jogo principal não tocado; o Link A grava num slot próprio (prefixo lab-a-c5:) no localStorage do endereço 5191",
+  "pixellab": "0 gerações"
+}

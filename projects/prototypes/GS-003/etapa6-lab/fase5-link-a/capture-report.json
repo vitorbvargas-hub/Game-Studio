@@ -1,0 +1,125 @@
+{
+  "data": "2026-11-13T19:52:10.101Z",
+  "cenas": {
+    "fluxo": {
+      "inicio": {
+        "x": 9.5,
+        "y": 15.75
+      },
+      "depoisDeAndar": {
+        "x": 11.69,
+        "y": 14.5
+      },
+      "penhasco_paradoEm": {
+        "x": 9.5,
+        "y": 9
+      },
+      "agua_paradoEm": {
+        "x": 16.5,
+        "y": 13.06
+      }
+    },
+    "encontro": [
+      {
+        "sp": "CREATURE-0007",
+        "st": "WALK",
+        "lv": 16,
+        "hp": 128
+      },
+      {
+        "sp": "CREATURE-0016",
+        "st": "IDLE",
+        "lv": 14,
+        "hp": 195
+      },
+      {
+        "sp": "CREATURE-0004",
+        "st": "IDLE",
+        "lv": 12,
+        "hp": 119
+      },
+      {
+        "sp": "CREATURE-0016",
+        "st": "IDLE",
+        "lv": 14,
+        "hp": 195
+      }
+    ],
+    "encontroAleatorio": "nenhum no tempo da captura",
+    "ponte": {
+      "depoisDeAtravessar": {
+        "x": 27.63,
+        "y": 20.5
+      }
+    },
+    "fps": {
+      "parado": {
+        "fps": 60.1,
+        "maxFrameMs": 16.8,
+        "p95FrameMs": 16.7,
+        "frames": 301
+      },
+      "andando": {
+        "fps": 60.1,
+        "maxFrameMs": 16.8,
+        "p95FrameMs": 16.8,
+        "frames": 241
+      },
+      "hudQps": "60 qps"
+    },
+    "video": {
+      "quadros": 58,
+      "duracaoMs": 15881
+    },
+    "comparar": {
+      "A_spawn": {
+        "x": 9.5,
+        "y": 15.75
+      },
+      "A_c16x16": {
+        "x": 16.5,
+        "y": 16.5
+      },
+      "A_c8x14": {
+        "x": 8.5,
+        "y": 14.5
+      },
+      "A_c30x12": {
+        "x": 30.5,
+        "y": 12.5
+      },
+      "A_c33x14": {
+        "x": 33.5,
+        "y": 14.5
+      },
+      "B_spawn": {
+        "x": 20.5,
+        "y": 28.5
+      },
+      "B_c16x16": {
+        "x": 16.5,
+        "y": 16.5
+      },
+      "B_c8x14": {
+        "x": 8.5,
+        "y": 14.5
+      },
+      "B_c30x12": {
+        "x": 30.5,
+        "y": 12.5
+      },
+      "B_c33x14": {
+        "x": 33.5,
+        "y": 14.5
+      }
+    },
+    "integridade": {
+      "port": 5192,
+      "tag": "novo",
+      "banner": "Digital Odyssey — Laboratório Etapa 6, Comando 4, Fase 2 · Link B · Tamer P1/P2 v2 (PixelLab) + Agumon DS placeholder (D11) + mapa-piloto com água e encontros",
+      "mapa": "lab-piloto-v15b"
+    }
+  },
+  "mapa": "lab-a-chatgpt",
+  "errosConsole": []
+}

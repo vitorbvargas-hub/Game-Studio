@@ -1,0 +1,11 @@
+{
+  "data": "2026-11-13T20:01:24.011Z",
+  "cenas": {
+    "demo": {
+      "especie": "CREATURE-0005",
+      "nivel": 7,
+      "xp": 720
+    }
+  },
+  "errosConsole": []
+}

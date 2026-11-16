@@ -1,0 +1,16 @@
+{
+ "especie": "Agumon v7 (rookie)",
+ "personagem_pixellab": "4afbc5c8-198b-48ce-948d-f87fce747e96",
+ "ataque": "Pepper Breath, disparo ~quadro 4",
+ "obs": "substitui o v6 como padrão; manter ?agumon=v6",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/S": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/E": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/W": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/N": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+ }
+}

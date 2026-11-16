@@ -1,0 +1,191 @@
+{
+ "date": "2026-11-16T04:27:27.625Z",
+ "base": "http://127.0.0.1:5198",
+ "tests": {
+  "assets": {
+   "ready": true,
+   "assetSummary": {
+    "total": 180,
+    "ok": 180,
+    "erro": 0,
+    "errSrcs": []
+   }
+  },
+  "selfTest": {
+   "checks": [
+    {
+     "name": "standing-S",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/S.png"
+    },
+    {
+     "name": "idle-S",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/S/frame_000.png"
+    },
+    {
+     "name": "walk-S",
+     "ok": true,
+     "state": "walk S",
+     "src": "../movement/walk/S/frame_001.png"
+    },
+    {
+     "name": "standing-E",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/E.png"
+    },
+    {
+     "name": "idle-E",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/E/frame_000.png"
+    },
+    {
+     "name": "walk-E",
+     "ok": true,
+     "state": "walk E",
+     "src": "../movement/walk/E/frame_001.png"
+    },
+    {
+     "name": "standing-N",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/N.png"
+    },
+    {
+     "name": "idle-N",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/N/frame_000.png"
+    },
+    {
+     "name": "walk-N",
+     "ok": true,
+     "state": "walk N",
+     "src": "../movement/walk/N/frame_001.png"
+    },
+    {
+     "name": "standing-W",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/W.png"
+    },
+    {
+     "name": "idle-W",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/W/frame_000.png"
+    },
+    {
+     "name": "walk-W",
+     "ok": true,
+     "state": "walk W",
+     "src": "../movement/walk/W/frame_001.png"
+    },
+    {
+     "name": "feliz",
+     "ok": true,
+     "state": "feliz (entrada)",
+     "src": "../emotions/happy/entrada/frame_001.png"
+    },
+    {
+     "name": "feliz-saida",
+     "ok": true,
+     "state": "feliz (saída)",
+     "src": "../emotions/happy/saida/frame_001.png"
+    },
+    {
+     "name": "triste",
+     "ok": true,
+     "state": "triste (entrada)",
+     "src": "../emotions/sad/entrada/frame_000.png"
+    },
+    {
+     "name": "irritado",
+     "ok": true,
+     "state": "irritado (loop)",
+     "src": "../emotions/angry/loop/frame_000.png"
+    },
+    {
+     "name": "assustado",
+     "ok": true,
+     "state": "assustado (loop)",
+     "src": "../emotions/scared/loop/frame_000.png"
+    },
+    {
+     "name": "deitar",
+     "ok": true,
+     "state": "deitar",
+     "src": "../rest/rest/stand_to_lie/frame_001.png"
+    },
+    {
+     "name": "dormir",
+     "ok": true,
+     "state": "adormecendo",
+     "src": "../rest/rest/lie_to_sleep/frame_000.png"
+    },
+    {
+     "name": "acordar",
+     "ok": true,
+     "state": "adormecendo",
+     "src": "../rest/rest/lie_to_sleep/frame_003.png"
+    },
+    {
+     "name": "carinho",
+     "ok": true,
+     "state": "carinho (entrada)",
+     "src": "../interactions/petting/entrada/frame_001.png"
+    },
+    {
+     "name": "comemoracao",
+     "ok": true,
+     "state": "comemoracao",
+     "src": "../interactions/celebrate/frames/frame_002.png"
+    },
+    {
+     "name": "ataque",
+     "ok": true,
+     "state": "ataque (retriever bark)",
+     "src": "../combat/attack_retriever_bark/frames/frame_001.png"
+    },
+    {
+     "name": "dano",
+     "ok": true,
+     "state": "dano",
+     "src": "../combat/hurt/frames/frame_002.png"
+    },
+    {
+     "name": "incapacitacao",
+     "ok": true,
+     "state": "incapacitando (queda)",
+     "src": "../combat/incapacitated/queda/frame_001.png"
+    },
+    {
+     "name": "recuperacao",
+     "ok": true,
+     "state": "recuperação",
+     "src": "../combat/incapacitated/recuperacao/frame_000.png"
+    }
+   ],
+   "errorsBefore": 0,
+   "indisponibilidadeOk": true,
+   "errorsAfter": 0,
+   "newErrors": [],
+   "assetSummary": {
+    "total": 180,
+    "ok": 180,
+    "erro": 0,
+    "errSrcs": []
+   },
+   "passed": 26,
+   "failed": 0
+  },
+  "consoleErrorCount": 0,
+  "consoleMsgs": [],
+  "pageErrors": [],
+  "requestFailed": []
+ }
+}

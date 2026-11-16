@@ -1,0 +1,455 @@
+{
+ "E_pe_de_perto_x_mundo_quadros_0a3": [
+  32,
+  32,
+  32,
+  32
+ ],
+ "E_pe_de_tras_x_mundo": [
+  46,
+  46,
+  46
+ ],
+ "E_pe_de_tras_quadros_medidos": [
+  4,
+  5,
+  6
+ ],
+ "E_deslizamento_px": {
+  "perto": 0,
+  "tras": 0
+ },
+ "N_walk_ponta_central_do_leque_ultima_linha_vermelha": [
+  46,
+  46,
+  46,
+  46,
+  46,
+  46,
+  46,
+  46
+ ],
+ "N_linha_do_chao": 49,
+ "S_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49
+ ],
+ "N_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49
+ ],
+ "E_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  48,
+  48,
+  48,
+  48
+ ],
+ "E_walk_distancia_min_ponta_da_asa_h_ate_pes": [
+  7,
+  8,
+  7,
+  4,
+  5,
+  7,
+  9,
+  6
+ ],
+ "E_walk_cauda_vermelha_y_min_max_e_ponta_asa_h_y": [
+  [
+   39,
+   41,
+   44
+  ],
+  [
+   39,
+   41,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   39,
+   41,
+   44
+  ],
+  [
+   39,
+   41,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ]
+ ],
+ "N_walk_px_de_perna_e_pe_visiveis_esq_dir_v1b": [
+  [
+   10,
+   6
+  ],
+  [
+   12,
+   3
+  ],
+  [
+   12,
+   3
+  ],
+  [
+   12,
+   10
+  ],
+  [
+   6,
+   10
+  ],
+  [
+   3,
+   12
+  ],
+  [
+   3,
+   12
+  ],
+  [
+   10,
+   12
+  ]
+ ],
+ "N_walk_px_de_perna_e_pe_visiveis_esq_dir_v1": [
+  [
+   9,
+   4
+  ],
+  [
+   11,
+   1
+  ],
+  [
+   11,
+   0
+  ],
+  [
+   11,
+   9
+  ],
+  [
+   4,
+   9
+  ],
+  [
+   1,
+   11
+  ],
+  [
+   0,
+   11
+  ],
+  [
+   9,
+   11
+  ]
+ ],
+ "N_walk_quadros_com_os_dois_lados_com_3px_ou_mais": {
+  "v1b": 8,
+  "v1": 4
+ },
+ "N_walk_penas_laterais_ultima_linha_vermelha_esq_dir": [
+  [
+   44,
+   44
+  ],
+  [
+   43,
+   43
+  ],
+  [
+   43,
+   43
+  ],
+  [
+   43,
+   43
+  ],
+  [
+   44,
+   44
+  ],
+  [
+   43,
+   43
+  ],
+  [
+   43,
+   43
+  ],
+  [
+   43,
+   43
+  ]
+ ],
+ "S_walk_ponta_da_asa_h_y_esq_dir": {
+  "v1b": [
+   [
+    44,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    45
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    45,
+    43
+   ],
+   [
+    44,
+    43
+   ]
+  ],
+  "v1": [
+   [
+    44,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    43
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    43,
+    43
+   ]
+  ]
+ },
+ "N_walk_ponta_da_asa_h_y_esq_dir": {
+  "v1b": [
+   [
+    44,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    45
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    45,
+    43
+   ],
+   [
+    44,
+    43
+   ]
+  ],
+  "v1": [
+   [
+    44,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    44
+   ],
+   [
+    43,
+    43
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    44,
+    43
+   ],
+   [
+    43,
+    43
+   ]
+  ]
+ },
+ "S_walk_distancia_min_ponta_da_asa_h_ate_pes": [
+  3,
+  4,
+  4,
+  3,
+  3,
+  4,
+  4,
+  3
+ ],
+ "N_walk_distancia_min_ponta_da_asa_h_ate_pes": [
+  4,
+  4,
+  4,
+  3,
+  4,
+  4,
+  4,
+  3
+ ],
+ "walk_px_diferentes_v1_x_v1b": {
+  "S": [
+   0,
+   0,
+   5,
+   12,
+   0,
+   0,
+   5,
+   12
+  ],
+  "N": [
+   13,
+   15,
+   24,
+   24,
+   13,
+   15,
+   24,
+   24
+  ],
+  "E": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   22,
+   16,
+   0
+  ],
+  "W": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   22,
+   16,
+   0
+  ]
+ },
+ "idle_px_diferentes_v1_x_v1b": {
+  "S": 0,
+  "N": 0,
+  "E": 0,
+  "W": 0
+ },
+ "rotations_px_diferentes_v1_x_v1b": {
+  "S": 0,
+  "N": 0,
+  "E": 0,
+  "W": 0
+ },
+ "transicoes_px_trocados": {
+  "S": {
+   "idle_para_walk": 300,
+   "walk_para_idle": 40,
+   "ciclo_media": 158.2,
+   "ciclo_max": 317
+  },
+  "N": {
+   "idle_para_walk": 269,
+   "walk_para_idle": 44,
+   "ciclo_media": 144.0,
+   "ciclo_max": 288
+  },
+  "E": {
+   "idle_para_walk": 290,
+   "walk_para_idle": 55,
+   "ciclo_media": 171.9,
+   "ciclo_max": 294
+  }
+ }
+}

@@ -1,0 +1,212 @@
+[
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 5,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "4x180ms",
+   "N": "4x180ms",
+   "W": "4x180ms",
+   "E": "4x180ms"
+  },
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&hawk=v1b",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v1b (URL) (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 5,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "6x220ms",
+   "N": "6x220ms",
+   "W": "6x220ms",
+   "E": "6x220ms"
+  },
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&parceiro=agumon",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · ao lado Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 5,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "4x180ms",
+   "N": "4x180ms",
+   "W": "4x180ms",
+   "E": "4x180ms"
+  },
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&hawkms=73",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~73 ms/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 7.3,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "4x180ms",
+   "N": "4x180ms",
+   "W": "4x180ms",
+   "E": "4x180ms"
+  },
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&hawkpx=2",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk 2 px/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 2,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "4x180ms",
+   "N": "4x180ms",
+   "W": "4x180ms",
+   "E": "4x180ms"
+  },
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&comparar=0",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "ficha": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+  "walkPxPerFrame": 5,
+  "dim": {
+   "frameW": 60,
+   "frameH": 60,
+   "tile": 32
+  },
+  "pivot": {
+   "x": 30,
+   "y": 49
+  },
+  "sombra": {
+   "cx": 30,
+   "cy": 49,
+   "rx": 19,
+   "ry": 7
+  },
+  "walkQuadros": {
+   "S": 8,
+   "N": 8,
+   "W": 8,
+   "E": 8
+  },
+  "idleQuadros": {
+   "S": "4x180ms",
+   "N": "4x180ms",
+   "W": "4x180ms",
+   "E": "4x180ms"
+  },
+  "erros": 0,
+  "rede": 0
+ }
+]

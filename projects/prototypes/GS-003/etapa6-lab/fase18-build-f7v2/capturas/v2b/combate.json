@@ -1,0 +1,190 @@
+{
+ "url": "http://127.0.0.1:5196/?novo=1&linhas=rookie&time=12:00",
+ "golpes": {
+  "1": {
+   "porMove": {
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    },
+    "uppercut": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 1,
+     "move": "mach_jab",
+     "arch": "multi_hit_flurry",
+     "desenhado": true
+    },
+    {
+     "seq": 2,
+     "move": "uppercut",
+     "arch": "claw_slash",
+     "desenhado": true
+    }
+   ],
+   "captura": "combate_E_g1_mach_jab.png"
+  },
+  "2": {
+   "porMove": {
+    "uppercut": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 3,
+     "move": "uppercut",
+     "arch": "claw_slash",
+     "desenhado": true
+    }
+   ],
+   "captura": "combate_E_g2_uppercut.png"
+  },
+  "3": {
+   "porMove": {
+    "baby_burner": {
+     "ataques": 1,
+     "projeteis": 1
+    },
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 6,
+     "move": "baby_burner",
+     "arch": "fireball",
+     "desenhado": false
+    },
+    {
+     "seq": 7,
+     "move": "mach_jab",
+     "arch": "multi_hit_flurry",
+     "desenhado": true
+    }
+   ],
+   "captura": "combate_E_g3_baby_burner.png"
+  },
+  "4": {
+   "porMove": {
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [],
+   "captura": "combate_E_g4_triple_baby_flame.png"
+  }
+ },
+ "equipados": {
+  "nivel": 20,
+  "basico": "investida",
+  "golpes": [
+   {
+    "tecla": "1",
+    "id": "mach_jab",
+    "nome": "Mach Jab",
+    "tipo": "physical",
+    "elemento": "neutral",
+    "vfx": "multi_hit_flurry"
+   },
+   {
+    "tecla": "2",
+    "id": "uppercut",
+    "nome": "Uppercut",
+    "tipo": "physical",
+    "elemento": "fire",
+    "vfx": "claw_slash"
+   },
+   {
+    "tecla": "3",
+    "id": "baby_burner",
+    "nome": "Baby Burner",
+    "tipo": "special",
+    "elemento": "fire",
+    "vfx": "fireball"
+   },
+   {
+    "tecla": "4",
+    "id": "triple_baby_flame",
+    "nome": "Triple Baby Flame",
+    "tipo": "special",
+    "elemento": "fire",
+    "vfx": "fireball"
+   }
+  ]
+ },
+ "ordemS": {
+  "amostras": 63,
+  "tamerAFrente": 63,
+  "fogoAtrasDoTamerComTamerAFrente": 0,
+  "exemplo": [
+   {
+    "t": 1.3000000238389475,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 167.90000001787848,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 334.500000011918,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 501.10000000595755,
+    "fogo": 643.67,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 667.800000023839,
+    "fogo": 668.67,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 834.500000011918,
+    "fogo": 682.5,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   },
+   {
+    "t": 1001.1000000059576,
+    "fogo": 682.5,
+    "tamer": 630,
+    "agumon": 586,
+    "dir": "S",
+    "frente": true
+   }
+  ],
+  "capturas": 20
+ },
+ "erros": [],
+ "rede": []
+}

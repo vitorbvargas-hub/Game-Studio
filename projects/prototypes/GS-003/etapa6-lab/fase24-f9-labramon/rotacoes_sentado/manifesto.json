@@ -1,0 +1,25 @@
+{
+  "especie": "Labramon — pose SENTADA (referência para a Fase 6: descanso/sono)",
+  "fonte": "arte_mestra/labramon_arte_mestra_v1_chatgpt.png (sha256 9303e83a1d916cf1977601a39b52d08780f357b82dc31e47cfdd993c60a76ec2)",
+  "data": "2026-11-15",
+  "licenca": "private-prototype (fan game não oficial). NÃO homologado.",
+  "status": "REFERÊNCIA — não é asset final; a Fase 6 decide como usar",
+  "pixellab_geracoes": 0,
+  "pipeline": [
+    "recorte por bbox automático + margem 6 (bbox na folha: S 70,319-298,682; N 378,319-599,687; W 675,319-1044,687; E 1096,319-1466,687)",
+    "redução local por cor majoritária em blocos 3x3 (substitui o unzoom_image, sem custo)",
+    "chroma key por flood fill (tol 60)",
+    "box-filter com alfa correto na MESMA escala da v2 (34/351 da altura da folha; 37-38 px com contorno) + contorno externo 1 px + pivô no centro do contato",
+    "cores mapeadas para a paleta final de 19 cores das rotações em pé (rotacoes/manifesto.json) — sem correct_pixelart/reduce_colors pagos"
+  ],
+  "canvas": [60, 60],
+  "ancora": {"x": 29.5, "y_chao": 49},
+  "rotacoes": {
+    "S": {"arquivo": "labramon_sentado_S.png", "sha256": "29a41845ab29b2496b1d8d3a960bfbaaaced1ec8e849da94392fef74f84bbbe8", "bbox_wh": [24, 37], "contato_x": [21, 39], "cores": 18},
+    "N": {"arquivo": "labramon_sentado_N.png", "sha256": "b5ec6287eb9b8cdc83e87fd4b14f835796170338c012db2d250aaaaad4341205", "bbox_wh": [24, 38], "contato_x": [20, 39], "cores": 17},
+    "W": {"arquivo": "labramon_sentado_W.png", "sha256": "909e5cea966c43980b7e32b0b77fd63a5a430c91b70159f59e5283e88505a32d", "bbox_wh": [38, 38], "contato_x": [18, 42], "cores": 19},
+    "E": {"arquivo": "labramon_sentado_E.png", "sha256": "ceee77769fcadd861a2550265a1897ec96a5927b81fca5dd3137c85394cdc71f", "bbox_wh": [38, 38], "contato_x": [18, 41], "cores": 18}
+  },
+  "semitransparentes": 0,
+  "limitacoes": "Supõe que v1 e v2 foram desenhadas na mesma escala (largura da cabeça na frente: 229 vs 233 px na folha). Sem correct_pixelart, as bordas internas podem ser um pouco mais ruidosas que as da v2. O pivô do sentado ainda não foi casado com o do em pé para transição (trabalho da Fase 6)."
+}

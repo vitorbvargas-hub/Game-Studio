@@ -1,0 +1,29 @@
+{
+  "data": "2026-11-13T20:26:37.914Z",
+  "cenas": {
+    "fluxo": {
+      "inicio": {
+        "x": 9.5,
+        "y": 15.75
+      },
+      "depoisDeAndar": {
+        "x": 11.69,
+        "y": 14.5
+      },
+      "penhasco_paradoEm": {
+        "x": 9.5,
+        "y": 9
+      },
+      "agua_paradoEm": {
+        "x": 16.5,
+        "y": 13.06
+      }
+    },
+    "video": {
+      "quadros": 43,
+      "duracaoMs": 14047
+    }
+  },
+  "mapa": "lab-a-chatgpt",
+  "errosConsole": []
+}

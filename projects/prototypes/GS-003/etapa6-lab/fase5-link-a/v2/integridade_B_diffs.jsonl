@@ -1,0 +1,4 @@
+{"a":"integridade_B_antes.png","b":"integridade_B_antes_repeticao.png","pixels":921600,"diferentes":16,"pct":0.002,"bbox":[512,492,517,495]}
+{"a":"integridade_B_novo.png","b":"integridade_B_novo_repeticao.png","pixels":921600,"diferentes":457,"pct":0.05,"bbox":[512,35,1265,495]}
+{"a":"integridade_B_antes.png","b":"integridade_B_novo.png","pixels":921600,"diferentes":8,"pct":0.001,"bbox":[512,494,515,495]}
+{"a":"integridade_B_antes_repeticao.png","b":"integridade_B_novo.png","pixels":921600,"diferentes":16,"pct":0.002,"bbox":[512,492,517,495]}

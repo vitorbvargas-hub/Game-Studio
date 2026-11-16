@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "digital-odyssey/f9/contrato_animacao_estado.schema.json",
+  "title": "Contrato de animação por estado (candidato F9)",
+  "description": "Formato proposto pela direção de arte para um estado animado de Digimon (emoção, descanso, interação, combate). É um contrato de DADOS de animação. Não implementa nem define regras de afinidade, humor ou vínculo: só reserva os campos por onde esses sistemas, quando existirem e forem autorizados, escolherão um clipe. Candidato, não homologado.",
+  "type": "object",
+  "required": ["id", "especie", "categoria", "direcoes", "canvas", "ancora", "clipes", "retorno"],
+  "properties": {
+    "id": { "type": "string", "description": "Identificador do estado, ex.: labramon.interacao.carinho" },
+    "especie": { "type": "string", "description": "Id da espécie na Database (ex.: sp.labramon). Reações são por espécie: outro Digimon tem o seu próprio contrato." },
+    "categoria": { "enum": ["emocao", "descanso", "interacao", "combate"] },
+    "direcoes": { "type": "array", "items": { "enum": ["S", "E", "N", "W"] }, "description": "Direções que têm arte. Direção ausente = usar fallback." },
+    "fallback_direcao": { "type": "object", "description": "O que fazer quando a direção atual não tem arte.", "properties": { "politica": { "enum": ["virar_para_direcao_disponivel", "espelhar", "nao_tocar"] }, "doc": { "type": "string" } } },
+    "canvas": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+    "ancora": { "type": "object", "required": ["x", "y_chao"], "properties": { "x": { "type": "number" }, "y_chao": { "type": "integer" } } },
+    "clipes": {
+      "type": "object",
+      "description": "Estado contínuo: entrada + loop + saida. Estado de disparo único: um clipe com fases.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["pasta", "quadros", "duracao_ms_por_quadro", "loop"],
+        "properties": {
+          "pasta": { "type": "string" },
+          "quadros": { "type": "integer", "minimum": 1 },
+          "duracao_ms_por_quadro": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+          "loop": { "type": "boolean" },
+          "fases": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 }, "description": "Nome da fase → [quadro inicial, quadro final]." },
+          "eventos": { "type": "array", "items": { "type": "object", "required": ["quadro", "nome"], "properties": { "quadro": { "type": "integer" }, "nome": { "type": "string" }, "doc": { "type": "string" } } }, "description": "Marcadores para o motor (som, FX, aplicar dano, contato da mão)." },
+          "interrompivel": { "type": "boolean", "description": "Se o motor pode cortar o clipe antes do fim (ex.: dano interrompe emoção)." }
+        }
+      }
+    },
+    "retorno": { "type": "object", "required": ["para"], "properties": { "para": { "type": "string", "description": "Estado para onde volta (ex.: idle)." }, "via": { "type": "string", "description": "Clipe de saída." } } },
+    "pontos": { "type": "object", "description": "Pontos em pixels do canvas, por direção (ex.: onde a mão do Tamer toca).", "additionalProperties": { "type": "object" } },
+    "parceiro_de_cena": { "type": "object", "description": "Só para interações: o que se espera do Tamer. O Tamer NÃO é modificado por este contrato.", "properties": { "papel": { "type": "string" }, "posicao_relativa_px": { "type": "object" }, "direcao_do_tamer": { "type": "string" }, "animacao_do_tamer": { "type": ["string", "null"] }, "doc": { "type": "string" } } },
+    "gatilhos_reservados": {
+      "type": "object",
+      "description": "RESERVADO. Campos por onde sistemas futuros escolhem este estado. Valores null = não definido. Quem define é o game-design, com autorização do fundador (regras de jogo congeladas).",
+      "properties": {
+        "contexto": { "type": ["array", "null"], "items": { "type": "string" }, "description": "Rótulos de contexto (ex.: vitoria_em_batalha, carinho_do_tamer, acampamento_noite)." },
+        "afinidade": { "type": ["object", "null"], "properties": { "min": { "type": ["number", "null"] }, "max": { "type": ["number", "null"] } } },
+        "humor": { "type": ["array", "null"], "items": { "type": "string" } },
+        "vinculo": { "type": ["object", "null"], "properties": { "nivel_min": { "type": ["integer", "null"] } } },
+        "prioridade": { "type": ["integer", "null"] }
+      }
+    },
+    "variantes_reservadas": { "type": ["array", "null"], "description": "RESERVADO. Variações do mesmo estado por faixa de afinidade/vínculo (ex.: carinho com mais abano). Nenhuma produzida.", "items": { "type": "object" } },
+    "status": { "type": "string" }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20,
+    "hp": 131,
+    "maxHp": 131
+  },
+  "promptAutoOpened": true,
+  "clickedEvolveTo": true,
+  "partnerAfterEvolve": {
+    "speciesId": "CREATURE-0007",
+    "level": 20,
+    "hp": 180,
+    "maxHp": 180
+  },
+  "consoleErrors": []
+}

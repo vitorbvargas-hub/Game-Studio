@@ -1,0 +1,23 @@
+[
+  {
+    "label": "link-b",
+    "port": 5192,
+    "fps": "60 qps",
+    "bannerText": "Digital Odyssey — Laboratório Etapa 6, Comando 4, Fase 2 · Link B · Tamer P1 v2 (PixelLab) + Agumon DS placeholder (D11) + mapa-piloto com água",
+    "errors": []
+  },
+  {
+    "label": "link-a",
+    "port": 5191,
+    "fps": "60 qps",
+    "bannerText": "Digital Odyssey — Laboratório Etapa 6, Comando 4, Fase 2 · Link A · aguardando ZIP consolidado do ChatGPT (Método A) — estrutura pronta, nenhum asset inventado",
+    "errors": []
+  },
+  {
+    "label": "link-c",
+    "port": 5193,
+    "fps": "60 qps",
+    "bannerText": "Digital Odyssey — Laboratório Etapa 6, Comando 4, Fase 2 · Link C · aguardando resultados aproveitáveis de A e B (Método híbrido) — estrutura pronta, nenhum asset inventado",
+    "errors": []
+  }
+]

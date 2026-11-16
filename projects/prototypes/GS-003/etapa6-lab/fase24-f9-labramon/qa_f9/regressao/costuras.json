@@ -1,0 +1,453 @@
+[
+ {
+  "costura": "standing E → walk E q0",
+  "a": "rotacoes/labramon_E.png",
+  "b": "movement/walk/E/frame_000.png",
+  "px": 393,
+  "melhor_alinhamento": {
+   "n": 393,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "walk E q7 → standing E",
+  "a": "movement/walk/E/frame_007.png",
+  "b": "rotacoes/labramon_E.png",
+  "px": 419,
+  "melhor_alinhamento": {
+   "n": 419,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "standing N → walk N q0",
+  "a": "rotacoes/labramon_N.png",
+  "b": "movement/walk/N/frame_000.png",
+  "px": 353,
+  "melhor_alinhamento": {
+   "n": 353,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "standing S → walk S q0",
+  "a": "rotacoes/labramon_S.png",
+  "b": "movement/walk/S/frame_000.png",
+  "px": 177,
+  "melhor_alinhamento": {
+   "n": 177,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "standing W → walk W q0",
+  "a": "rotacoes/labramon_W.png",
+  "b": "movement/walk/W/frame_000.png",
+  "px": 486,
+  "melhor_alinhamento": {
+   "n": 486,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → feliz entrada q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "emotions/happy/entrada/frame_000.png",
+  "px": 156,
+  "melhor_alinhamento": {
+   "n": 156,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "feliz saída último → idle E q0",
+  "a": "emotions/happy/saida/frame_001.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 149,
+  "melhor_alinhamento": {
+   "n": 149,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → triste entrada q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "emotions/sad/entrada/frame_000.png",
+  "px": 432,
+  "melhor_alinhamento": {
+   "n": 432,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "triste saída último → idle E",
+  "a": "emotions/sad/saida/frame_002.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 161,
+  "melhor_alinhamento": {
+   "n": 161,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → irritado entrada q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "emotions/angry/entrada/frame_000.png",
+  "px": 664,
+  "melhor_alinhamento": {
+   "n": 664,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "irritado entrada → loop q0",
+  "a": "emotions/angry/entrada/frame_000.png",
+  "b": "emotions/angry/loop/frame_000.png",
+  "px": 488,
+  "melhor_alinhamento": {
+   "n": 442,
+   "dx": 0,
+   "dy": -1
+  }
+ },
+ {
+  "costura": "irritado saída último → idle E",
+  "a": "emotions/angry/saida/frame_001.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 147,
+  "melhor_alinhamento": {
+   "n": 147,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → assustado entrada q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "emotions/scared/entrada/frame_000.png",
+  "px": 847,
+  "melhor_alinhamento": {
+   "n": 627,
+   "dx": 1,
+   "dy": 3
+  }
+ },
+ {
+  "costura": "assustado saída último → idle E",
+  "a": "emotions/scared/saida/frame_001.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 155,
+  "melhor_alinhamento": {
+   "n": 155,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "feliz entrada último → loop q0",
+  "a": "emotions/happy/entrada/frame_001.png",
+  "b": "emotions/happy/loop/frame_000.png",
+  "px": 489,
+  "melhor_alinhamento": {
+   "n": 426,
+   "dx": 1,
+   "dy": 1
+  }
+ },
+ {
+  "costura": "feliz loop último → saída q0",
+  "a": "emotions/happy/loop/frame_003.png",
+  "b": "emotions/happy/saida/frame_000.png",
+  "px": 653,
+  "melhor_alinhamento": {
+   "n": 571,
+   "dx": -2,
+   "dy": -3
+  }
+ },
+ {
+  "costura": "triste entrada último → loop q0",
+  "a": "emotions/sad/entrada/frame_001.png",
+  "b": "emotions/sad/loop/frame_000.png",
+  "px": 439,
+  "melhor_alinhamento": {
+   "n": 439,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "triste loop último → saída q0",
+  "a": "emotions/sad/loop/frame_003.png",
+  "b": "emotions/sad/saida/frame_000.png",
+  "px": 439,
+  "melhor_alinhamento": {
+   "n": 439,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "irritado loop último → saída q0",
+  "a": "emotions/angry/loop/frame_003.png",
+  "b": "emotions/angry/saida/frame_000.png",
+  "px": 414,
+  "melhor_alinhamento": {
+   "n": 414,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "assustado entrada último → loop q0",
+  "a": "emotions/scared/entrada/frame_001.png",
+  "b": "emotions/scared/loop/frame_000.png",
+  "px": 788,
+  "melhor_alinhamento": {
+   "n": 553,
+   "dx": -1,
+   "dy": -3
+  }
+ },
+ {
+  "costura": "assustado loop último → saída q0",
+  "a": "emotions/scared/loop/frame_003.png",
+  "b": "emotions/scared/saida/frame_000.png",
+  "px": 606,
+  "melhor_alinhamento": {
+   "n": 328,
+   "dx": -2,
+   "dy": 1
+  }
+ },
+ {
+  "costura": "idle E q0 → em pé→deitado q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "rest/rest/stand_to_lie/frame_000.png",
+  "px": 439,
+  "melhor_alinhamento": {
+   "n": 439,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "deitado último → adormecer q0",
+  "a": "rest/rest/stand_to_lie/frame_005.png",
+  "b": "rest/rest/lie_to_sleep/frame_000.png",
+  "px": 0,
+  "melhor_alinhamento": {
+   "n": 0,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "adormecer último → loop sono q0",
+  "a": "rest/rest/lie_to_sleep/frame_003.png",
+  "b": "rest/rest/sleep_loop/frame_000.png",
+  "px": 80,
+  "melhor_alinhamento": {
+   "n": 80,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "loop sono último → acordar q0",
+  "a": "rest/rest/sleep_loop/frame_003.png",
+  "b": "rest/rest/sleep_to_wake/frame_000.png",
+  "px": 250,
+  "melhor_alinhamento": {
+   "n": 250,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "acordar último → levantar q0",
+  "a": "rest/rest/sleep_to_wake/frame_007.png",
+  "b": "rest/rest/wake_to_stand/frame_000.png",
+  "px": 153,
+  "melhor_alinhamento": {
+   "n": 153,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "levantar último → idle E q0",
+  "a": "rest/rest/wake_to_stand/frame_007.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 148,
+  "melhor_alinhamento": {
+   "n": 148,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → carinho entrada q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "interactions/petting/entrada/frame_000.png",
+  "px": 353,
+  "melhor_alinhamento": {
+   "n": 353,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "carinho entrada último → loop q0",
+  "a": "interactions/petting/entrada/frame_001.png",
+  "b": "interactions/petting/loop/frame_000.png",
+  "px": 46,
+  "melhor_alinhamento": {
+   "n": 46,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "carinho loop último → saída q0",
+  "a": "interactions/petting/loop/frame_003.png",
+  "b": "interactions/petting/saida/frame_000.png",
+  "px": 149,
+  "melhor_alinhamento": {
+   "n": 149,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "carinho saída último → idle E",
+  "a": "interactions/petting/saida/frame_001.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 166,
+  "melhor_alinhamento": {
+   "n": 166,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → comemoração q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "interactions/celebrate/frames/frame_000.png",
+  "px": 668,
+  "melhor_alinhamento": {
+   "n": 563,
+   "dx": -1,
+   "dy": -3
+  }
+ },
+ {
+  "costura": "comemoração último → idle E",
+  "a": "interactions/celebrate/frames/frame_008.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 178,
+  "melhor_alinhamento": {
+   "n": 178,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → ataque q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "combat/attack_retriever_bark/frames/frame_000.png",
+  "px": 479,
+  "melhor_alinhamento": {
+   "n": 396,
+   "dx": 1,
+   "dy": -1
+  }
+ },
+ {
+  "costura": "ataque último → idle E",
+  "a": "combat/attack_retriever_bark/frames/frame_007.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 157,
+  "melhor_alinhamento": {
+   "n": 157,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → dano q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "combat/hurt/frames/frame_000.png",
+  "px": 886,
+  "melhor_alinhamento": {
+   "n": 694,
+   "dx": 2,
+   "dy": 2
+  }
+ },
+ {
+  "costura": "dano último → idle E",
+  "a": "combat/hurt/frames/frame_007.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 152,
+  "melhor_alinhamento": {
+   "n": 152,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "idle E q0 → queda q0",
+  "a": "movement/idle/E/frame_000.png",
+  "b": "combat/incapacitated/queda/frame_000.png",
+  "px": 575,
+  "melhor_alinhamento": {
+   "n": 397,
+   "dx": 1,
+   "dy": 1
+  }
+ },
+ {
+  "costura": "queda último → estado q0",
+  "a": "combat/incapacitated/queda/frame_005.png",
+  "b": "combat/incapacitated/estado/frame_000.png",
+  "px": 37,
+  "melhor_alinhamento": {
+   "n": 37,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "estado último → recuperação q0",
+  "a": "combat/incapacitated/estado/frame_003.png",
+  "b": "combat/incapacitated/recuperacao/frame_000.png",
+  "px": 260,
+  "melhor_alinhamento": {
+   "n": 260,
+   "dx": 0,
+   "dy": 0
+  }
+ },
+ {
+  "costura": "recuperação último → idle E",
+  "a": "combat/incapacitated/recuperacao/frame_007.png",
+  "b": "movement/idle/E/frame_000.png",
+  "px": 221,
+  "melhor_alinhamento": {
+   "n": 221,
+   "dx": 0,
+   "dy": 0
+  }
+ }
+]

@@ -1,0 +1,12 @@
+{
+  "data": "2026-11-13T20:00:13.896Z",
+  "cenas": {
+    "integridade": {
+      "port": 5191,
+      "tag": "smoke_linkA_final",
+      "banner": "Digital Odyssey — Laboratório Etapa 6, Comando 5 · Link A · Método ChatGPT · mapa 40x30 próprio · Tamer/Digimon A = pose única (PLACEHOLDER, sem caminhada) · água A",
+      "mapa": "lab-a-chatgpt"
+    }
+  },
+  "errosConsole": []
+}

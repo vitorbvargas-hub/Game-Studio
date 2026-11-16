@@ -1,0 +1,112 @@
+{
+ "especie": "Gomamon v2 (rookie)",
+ "personagem_pixellab": "6c03b059-867d-4356-8ad7-eb870d49ac1d",
+ "obs": "4 patas pela FICHA_GOMAMON; walk S usa só os quadros limpos; ataque S/N reaproveitado do v1",
+ "anims": {
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/S": "walk-v3 quadros [1, 2, 3, 3, 2, 1, 1, 1]",
+  "attack/E": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/W": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+ },
+ "f2": {
+  "log": [
+   {
+    "correcao": "walk/S cabeça",
+    "detalhe": "cabeça, crina e orelhas do q0 recoladas (crina deixava de crescer/encolher); offsets [(0, -3), (0, -6), (0, -6), (0, -5), (0, -4), (0, -2), (0, -1)]",
+    "quadros": 7
+   },
+   {
+    "correcao": "walk/S garras",
+    "detalhe": "garras vermelhas viram escuras (#131c23)",
+    "quadros": 3
+   },
+   {
+    "correcao": "walk/S limpeza",
+    "detalhe": "manchas/pixels soltos fora do corpo removidos (6 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E cabeça",
+    "detalhe": "cabeça do q0 recolada (sem gota ciano, crina e orelha estáveis); offsets [(0, -1), (0, -2), (0, -1), (0, 0), (0, 0), (0, -1), (0, -2)]; ciano restante em 0 quadros",
+    "quadros": 7
+   },
+   {
+    "correcao": "walk/N costas",
+    "detalhe": "3 manchas roxas 2x2 no dorso (cor das manchas do próprio sprite, #765b8c/#634f85)",
+    "quadros": 8
+   },
+   {
+    "correcao": "attack/N crina",
+    "detalhe": "crina do q0 recolada nos q2-q8 (sumia nos q3-q7, encolhia nos q2 e q8)",
+    "quadros": 7
+   },
+   {
+    "correcao": "attack/S intermediário",
+    "detalhe": "q5 = golpe do q4 + faísca de impacto do próprio q5; q6 = q3; q7 = q2 (volta limpa)",
+    "quadros": 3
+   },
+   {
+    "correcao": "attack/S garras",
+    "detalhe": "garras vermelhas -> escuras",
+    "quadros": 0
+   },
+   {
+    "correcao": "attack/E garras",
+    "detalhe": "garras vermelhas -> escuras",
+    "quadros": 0
+   },
+   {
+    "correcao": "walk/S pé",
+    "detalhe": "sola [48, 49, 51, 52, 53, 54] -> [50, 52] (alvo 51), dy por quadro [-2, -1, 1, 2, 1, -1, -2, -2]",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E pé",
+    "detalhe": "sola [47] -> [46, 47] (alvo 47), dy por quadro [0, 0, 0, 0, -1, 0, 0, 0]",
+    "quadros": 1
+   },
+   {
+    "correcao": "walk/N pé",
+    "detalhe": "sola [44, 45, 46] -> [45] (alvo 45), dy por quadro [-1, 0, 0, 1, 0, -1, -1, 0]",
+    "quadros": 4
+   },
+   {
+    "correcao": "walk/S paleta",
+    "detalhe": "66 -> 60 cores (820 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E paleta",
+    "detalhe": "68 -> 60 cores (439 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/N paleta",
+    "detalhe": "54 -> 49 cores (1452 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "attack/S paleta",
+    "detalhe": "101 -> 93 cores (970 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "attack/E paleta",
+    "detalhe": "79 -> 70 cores (712 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "attack/N paleta",
+    "detalhe": "52 -> 47 cores (496 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "W",
+    "detalhe": "oeste regenerado como espelho do leste corrigido",
+    "quadros": 17
+   }
+  ]
+ }
+}

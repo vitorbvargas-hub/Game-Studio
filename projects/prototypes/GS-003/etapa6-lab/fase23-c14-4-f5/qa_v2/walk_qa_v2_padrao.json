@@ -1,0 +1,48 @@
+{
+ "url": "http://127.0.0.1:5197/?novo=1&time=12:00",
+ "tag": "qa_v2_padrao",
+ "ids": {
+  "hawk": "p1:partner",
+  "tamer": "p1",
+  "cmp": "labcmp:partner",
+  "cmpTamer": "labcmp"
+ },
+ "manifest": {
+  "hawk": {
+   "name": "Hawkmon (Link A — ficha v2 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))",
+   "walkPxPerFrame": 5,
+   "walkSpeedPxPerSec": null,
+   "walkMs": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ]
+  },
+  "cmp": {
+   "name": "Agumon (Link A — ficha v9 PixelLab, TESTE: 4 direções, caminhada + ataque (60x60 nativo; pose parada = rotação))",
+   "walkPxPerFrame": null,
+   "walkSpeedPxPerSec": null,
+   "walkMs": [
+    110,
+    110,
+    110,
+    110,
+    110,
+    110,
+    110,
+    110
+   ]
+  }
+ },
+ "erros": [],
+ "rede": [],
+ "avisos": [
+  "Tamers: cores de cabelo idênticas no disco (só as distintas aparecem no criador): LAB-tamer_a_cabelo_azul:1 LAB-tamer_a_cabelo_preto:1 LAB-tamer_ficha_v4_fixer:1"
+ ],
+ "linhas": 6996
+}

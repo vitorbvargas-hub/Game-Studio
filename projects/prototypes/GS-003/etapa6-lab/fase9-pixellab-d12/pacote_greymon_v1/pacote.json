@@ -1,0 +1,16 @@
+{
+ "especie": "Greymon (champion)",
+ "personagem_pixellab": "33a0fe49-a6d9-4e22-a112-3406087d8804",
+ "ataque": "Mega Flame, disparo ~quadro 4-5",
+ "obs": "substitui o Greymon de pose única",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/S": "mega-flame-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/E": "mega-flame-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/W": "mega-flame-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/N": "mega-flame-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+ }
+}

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Laboratório F9 — Labramon (Digital Odyssey / GS-003)</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <h1>Laboratório interativo F9 — Labramon</h1>
+  <p class="warn">
+    Protótipo isolado, uso local, <strong>não homologado</strong>, nada publicado. Fan game não oficial e sem
+    licença; Labramon é espécie oficial Bandai/Toei usada só sob a exceção de IP do Digital Odyssey
+    (ADR-007/009/014, §1.1 do contexto comum). Página estática autônoma: sem build, sem dependências externas.
+  </p>
+</header>
+
+<main>
+  <section id="stage-wrap">
+    <div class="stage-panel" data-player="0" id="panel0">
+      <div class="stage-bg" id="stageBg0">
+        <canvas id="canvas0" width="60" height="60"></canvas>
+      </div>
+      <div class="stage-toolbar">
+        <label>Direção
+          <select class="dirSelect" data-p="0">
+            <option value="S">S</option>
+            <option value="E" selected>E</option>
+            <option value="N">N</option>
+            <option value="W">W</option>
+          </select>
+        </label>
+        <span class="stateLabel" id="stateLabel0">idle</span>
+      </div>
+    </div>
+
+    <div class="stage-panel" data-player="1" id="panel1" hidden>
+      <div class="stage-bg" id="stageBg1">
+        <canvas id="canvas1" width="60" height="60"></canvas>
+      </div>
+      <div class="stage-toolbar">
+        <label>Direção
+          <select class="dirSelect" data-p="1">
+            <option value="S">S</option>
+            <option value="E">E</option>
+            <option value="N">N</option>
+            <option value="W" selected>W</option>
+          </select>
+        </label>
+        <span class="stateLabel" id="stateLabel1">idle</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="controls">
+    <fieldset data-group="movement">
+      <legend>Movimento (4 direções)</legend>
+      <button class="ctrl-btn" data-ctrl="standing" data-p="0">Standing</button>
+      <button class="ctrl-btn" data-ctrl="idle" data-p="0">Idle</button>
+      <div class="walk-hint">Segure <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> no painel esquerdo para andar, ou use os botões:</div>
+      <button class="ctrl-btn walk-btn" data-ctrl="walk" data-dir="N" data-p="0">▲ N</button>
+      <button class="ctrl-btn walk-btn" data-ctrl="walk" data-dir="W" data-p="0">◀ W</button>
+      <button class="ctrl-btn walk-btn" data-ctrl="walk" data-dir="S" data-p="0">▼ S</button>
+      <button class="ctrl-btn walk-btn" data-ctrl="walk" data-dir="E" data-p="0">▶ E</button>
+      <label class="cadence-label">Cadência da passada (ms/quadro)
+        <input type="number" id="cadenceInput" min="20" max="600" value="100" />
+      </label>
+      <div id="cadenceInfo" class="small-note"></div>
+    </fieldset>
+
+    <fieldset data-group="emotions" data-dir-required="E">
+      <legend>Emoções <span class="e-only">(só direção E)</span></legend>
+      <button class="ctrl-btn" data-ctrl="feliz" data-p="0">Feliz</button>
+      <button class="ctrl-btn" data-ctrl="triste" data-p="0">Triste</button>
+      <button class="ctrl-btn" data-ctrl="irritado" data-p="0">Irritado</button>
+      <button class="ctrl-btn" data-ctrl="assustado" data-p="0">Assustado</button>
+    </fieldset>
+
+    <fieldset data-group="rest" data-dir-required="E">
+      <legend>Descanso <span class="e-only">(só direção E)</span></legend>
+      <button class="ctrl-btn" data-ctrl="deitar" data-p="0">Deitar</button>
+      <button class="ctrl-btn" data-ctrl="dormir" data-p="0">Dormir</button>
+      <button class="ctrl-btn" data-ctrl="acordar" data-p="0">Acordar</button>
+    </fieldset>
+
+    <fieldset data-group="interactions" data-dir-required="E">
+      <legend>Interações com o Tamer <span class="e-only">(só direção E)</span></legend>
+      <button class="ctrl-btn" data-ctrl="carinho" data-p="0">Carinho</button>
+      <button class="ctrl-btn" data-ctrl="comemoracao" data-p="0">Comemoração</button>
+    </fieldset>
+
+    <fieldset data-group="combat" data-dir-required="E">
+      <legend>Combate <span class="e-only">(só direção E)</span></legend>
+      <button class="ctrl-btn" data-ctrl="ataque" data-p="0">Ataque</button>
+      <button class="ctrl-btn" data-ctrl="dano" data-p="0">Receber dano</button>
+      <button class="ctrl-btn" data-ctrl="incapacitacao" data-p="0">Incapacitação</button>
+      <button class="ctrl-btn" data-ctrl="recuperacao" data-p="0">Recuperação</button>
+    </fieldset>
+  </section>
+
+  <section id="viewOptions">
+    <fieldset>
+      <legend>Visualização</legend>
+      <label>Zoom
+        <select id="zoomSelect">
+          <option value="1">1x (escala real)</option>
+          <option value="2" selected>2x</option>
+          <option value="4">4x</option>
+        </select>
+      </label>
+      <label>Fundo
+        <select id="bgSelect">
+          <option value="transparente" selected>Transparente</option>
+          <option value="neutro">Neutro (cinza)</option>
+          <option value="grama">Grama (procedural, não é asset do jogo)</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="pivotToggle" /> Pivô e colisão</label>
+      <label><input type="checkbox" id="compareToggle" /> Comparar dois estados lado a lado</label>
+      <label id="tamerRefToggleWrap" hidden><input type="checkbox" id="tamerRefToggle" /> Tamer de referência no palco (escala)</label>
+      <button id="playPauseBtn">Pausar</button>
+      <button id="prevFrameBtn" title="Quadro anterior (pausa a reprodução)">◀ Quadro</button>
+      <button id="nextFrameBtn" title="Próximo quadro (pausa a reprodução)">Quadro ▶</button>
+      <div id="tamerRefNote" class="small-note" hidden>Tamer desenhado no palco, ao lado do Labramon, alinhado na mesma linha de chão (comparação de escala); o PNG original não é alterado.</div>
+    </fieldset>
+  </section>
+
+  <section id="diagnostics">
+    <h2>Diagnóstico</h2>
+    <table id="diagTable">
+      <tbody>
+        <tr><th>Estado atual</th><td id="dState">—</td><th>Direção</th><td id="dDir">—</td></tr>
+        <tr><th>Quadro</th><td id="dFrame">—</td><th>FPS</th><td id="dFps">—</td></tr>
+        <tr><th>Duração da animação</th><td id="dDuration">—</td><th>Dimensões (bbox real)</th><td id="dDims">—</td></tr>
+        <tr><th>Âncora (pivô)</th><td id="dAnchor">—</td><th>Nº de cores (medido agora)</th><td id="dColors">—</td></tr>
+        <tr><th>Status do asset</th><td id="dAssetStatus" colspan="3">—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Assets carregados</h3>
+    <div id="assetSummary">carregando…</div>
+
+    <h3>Disponibilidade por direção</h3>
+    <table id="availTable"></table>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    Digital Odyssey (GS-003) · F9 Labramon · Fase 9 — laboratório HTML. Gerado a partir dos manifesto.json reais
+    de <code>movement/</code>, <code>emotions/</code>, <code>rest/</code>, <code>interactions/</code>,
+    <code>combat/</code>. Estados ausentes aparecem como <strong>INDISPONÍVEL</strong>, nunca simulados.
+  </p>
+</footer>
+
+<script src="lab-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+ "especie": "Ikkakumon (champion)",
+ "personagem_pixellab": "f5be2bac-25c4-4ed3-9378-380a9cba9c78",
+ "obs": "walk v3 com presas fixas nas 4 direções (oeste espelhado); sem ataque ainda",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]"
+ }
+}

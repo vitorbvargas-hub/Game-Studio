@@ -1,0 +1,13 @@
+{
+ "especie": "Gomamon v2 (rookie)",
+ "personagem_pixellab": "6c03b059-867d-4356-8ad7-eb870d49ac1d",
+ "obs": "4 patas pela FICHA_GOMAMON; walk S usa só os quadros limpos; ataque S/N reaproveitado do v1",
+ "anims": {
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/S": "walk-v3 quadros [1, 2, 3, 3, 2, 1, 1, 1]",
+  "attack/E": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/W": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+ }
+}

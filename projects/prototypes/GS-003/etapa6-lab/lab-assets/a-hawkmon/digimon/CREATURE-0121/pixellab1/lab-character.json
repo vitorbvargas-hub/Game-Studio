@@ -1,0 +1,356 @@
+{
+ "id": "CREATURE-0121-pixellab1",
+ "speciesId": "CREATURE-0121",
+ "species": "Ikkakumon",
+ "anatomy": "quadruped",
+ "label": "Ikkakumon v1 (PixelLab, personagem f5be2bac): pacote pacote_ikkakumon_v1",
+ "source": "import-pixellab-line.mjs (Etapa 6, Fase 9)",
+ "rotations": {
+  "S": {
+   "file": "rotations/S.png",
+   "w": 64,
+   "h": 64,
+   "pivot": {
+    "x": 31,
+    "y": 56
+   }
+  },
+  "W": {
+   "file": "rotations/W.png",
+   "w": 64,
+   "h": 64,
+   "pivot": {
+    "x": 32,
+    "y": 56
+   }
+  },
+  "E": {
+   "file": "rotations/E.png",
+   "w": 64,
+   "h": 64,
+   "pivot": {
+    "x": 31,
+    "y": 56
+   }
+  },
+  "N": {
+   "file": "rotations/N.png",
+   "w": 64,
+   "h": 64,
+   "pivot": {
+    "x": 31,
+    "y": 56
+   }
+  }
+ },
+ "walk": {
+  "S": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/S/frame_000.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/S/frame_001.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/S/frame_002.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 60
+     }
+    },
+    {
+     "file": "walk/S/frame_003.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 59
+     }
+    },
+    {
+     "file": "walk/S/frame_004.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/S/frame_005.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/S/frame_006.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 63
+     }
+    },
+    {
+     "file": "walk/S/frame_007.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 63
+     }
+    }
+   ]
+  },
+  "W": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/W/frame_000.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/W/frame_001.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/W/frame_002.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/W/frame_003.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/W/frame_004.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/W/frame_005.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/W/frame_006.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/W/frame_007.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 37,
+      "y": 62
+     }
+    }
+   ]
+  },
+  "E": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/E/frame_000.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/E/frame_001.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/E/frame_002.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/E/frame_003.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/E/frame_004.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/E/frame_005.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/E/frame_006.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/E/frame_007.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    }
+   ]
+  },
+  "N": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/N/frame_000.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/N/frame_001.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    },
+    {
+     "file": "walk/N/frame_002.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/N/frame_003.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 60
+     }
+    },
+    {
+     "file": "walk/N/frame_004.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 59
+     }
+    },
+    {
+     "file": "walk/N/frame_005.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 61
+     }
+    },
+    {
+     "file": "walk/N/frame_006.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 63
+     }
+    },
+    {
+     "file": "walk/N/frame_007.png",
+     "w": 76,
+     "h": 76,
+     "pivot": {
+      "x": 38,
+      "y": 62
+     }
+    }
+   ]
+  }
+ }
+}

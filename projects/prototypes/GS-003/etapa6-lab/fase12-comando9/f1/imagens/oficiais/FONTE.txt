@@ -1,0 +1,20 @@
+Imagens oficiais (Bandai / Bandai Namco e desenvolvedoras), extraídas por terceiros e publicadas no The Spriters Resource.
+Uso: SOMENTE referência interna de estudo e entrada no PixelLab (decisão D12). NÃO redistribuir, NÃO colocar no jogo.
+Acesso: o site estava atrás de verificação Cloudflare em 2026-11-14 (não contornada); as cópias vieram do Internet Archive (Wayback Machine),
+pelo navegador chrome-sharp, em 2026-11-14. Timestamp do snapshot entre colchetes.
+
+dw3/dw3_agumon_13315.gif ............ Digimon World 3 (PS1). Asset 13315 "Agumon". Ripper: Ragey (crédito na própria folha). [20220815000747]
+dw3/dw3_various_digimon_01_187606.png  Digimon World 3. Asset 187606 "Various Digimon (01/02)". Uploader: Modata. [20230802110737]
+dw3/dw3_various_digimon_02_187607.png  Digimon World 3. Asset 187607 "Various Digimon (02/02)". Uploader: Modata. [20230731103331]
+ds_dawndusk/sr40907_agumon.png ...... Digimon World: Dawn/Dusk (DS). Asset 40907 "Agumon". Ripper: Shoda ("No credit needed" na folha). [20251126092831]
+ds_dawndusk/sr40904_koromon.png ..... Digimon World: Dawn/Dusk (DS). Asset 40904 "Koromon". Ripper: Shoda ("No credit needed"). [20260715072100]
+wsc_digitalpartner/sr121215_agumon.png  Digimon Adventure 02: Digital Partner (WonderSwan, Bandai/Tom Create). Asset 121215. Uploader: Pingus!, contrib. MetallicK2MK. [20251216003558]
+wsc_digitalpartner/sr121213_koromon.png Idem. Asset 121213 "Koromon". Uploader: Pingus!, contrib. MetallicK2MK. [20260309005201]
+wsc_digitalpartner/sr483615_gomamon.png Idem. Asset 483615 "Gomamon". Uploader: MetallicK2MK. [20251213103640]
+wsc_digitalpartner/sr483653_bukamon.png Idem. Asset 483653 "Bukamon". Uploader: MetallicK2MK. [20251217224325]
+wsc_digitalpartner/sr483663_greymon_metalgreymon.png Idem. Asset 483663. Uploader: MetallicK2MK. [20260505010256]
+wsc_digitalpartner/sr483659_ikkakumon_zudomon.png    Idem. Asset 483659. Uploader: MetallicK2MK. [20260226090514]
+wsc_medley/sr64806_agumon_greymon.png  Digimon Tamers: Digimon Medley (WonderSwan Color). Asset 64806. Uploader: DigistarDBZ; ripper "digistarDBZ" na folha. [20251119152222]
+
+Não copiado: Digimon Medley 64816 (Gomamon/Ikkakumon): sem snapshot no Wayback (404). Digimon Up: ficou só como link (repositório sem licença; ver CATALOGO_REFERENCIAS.md).
+O DW Championship (35037/35038) já está em etapa6-lab/fase10-fontes-sprites/dwchampionship/ e não foi duplicado.

@@ -1,0 +1,623 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 7 — interações com o Tamer (receber carinho, comemoração)",
+ "data": "2026-11-16",
+ "direcao": "E (única direção nesta validação; standing/idle/walk nas 4 direções estão em movement/)",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49
+ },
+ "paleta": {
+  "limite": 24,
+  "doc": "Todos os quadros usam só cores da rotação E (19 cores); 0 semitransparência."
+ },
+ "idle_de_retorno": "movement/idle/E (ou movement/standing/E.png)",
+ "duracoes": "ms por quadro = sugestão de arte; parâmetro do motor",
+ "estados": {
+  "petting": {
+   "doc": "Receber carinho: inclina e baixa a cabeça para o toque, fecha o olho, cauda abana; volta ao idle. A aproximação e a mão são do Tamer (não desenhadas aqui): ver contratos/. Ponto de contato da mão: topo do capuz.",
+   "clipes": {
+    "entrada": {
+     "fonte": "f7-petting",
+     "quadros_fonte": [
+      0,
+      1
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      110,
+      110
+     ],
+     "duracao_total_ms": 220,
+     "loop": false,
+     "spritesheet": "spritesheets/petting_entrada.png",
+     "gifs": [
+      "gifs/petting_entrada_1x.gif",
+      "gifs/petting_entrada_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       35
+      ],
+      "w_min_max": [
+       39,
+       41
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       0
+      ],
+      "marcas_px": [
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       409,
+       536
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "petting/entrada/frame_000.png",
+       "sha256": "33657bcf765b7e54a5e5baa0f183940ed1f92f5752267fa0a4585fb1739a4e65"
+      },
+      {
+       "arquivo": "petting/entrada/frame_001.png",
+       "sha256": "d7526bc19576533e94208efc31673e3ca8f1e652c85c0879fc781c16a61b4a0b"
+      }
+     ]
+    },
+    "loop": {
+     "fonte": "f7-petting",
+     "quadros_fonte": [
+      2,
+      3,
+      4,
+      5
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      130,
+      130,
+      130,
+      130
+     ],
+     "duracao_total_ms": 520,
+     "loop": true,
+     "spritesheet": "spritesheets/petting_loop.png",
+     "gifs": [
+      "gifs/petting_loop_1x.gif",
+      "gifs/petting_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       34
+      ],
+      "w_min_max": [
+       39,
+       42
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 17,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       532,
+       380,
+       538,
+       561
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "petting/loop/frame_000.png",
+       "sha256": "24163e191142764801a97e800e0d935f524cb7ddec39a77708416d53436723af"
+      },
+      {
+       "arquivo": "petting/loop/frame_001.png",
+       "sha256": "10397fc28d649753a7607eb5c78214fd31f3140800b47458fd4a44fb272222f1"
+      },
+      {
+       "arquivo": "petting/loop/frame_002.png",
+       "sha256": "a5fb3d221952360c703f1d97e72c08813675dc4b65a456ab9869e2e3b50499d3"
+      },
+      {
+       "arquivo": "petting/loop/frame_003.png",
+       "sha256": "c5e3fa3bd2cb3329471b951b28cc42d46e4aa570d5675efd368e39a8d034deb2"
+      }
+     ]
+    },
+    "saida": {
+     "fonte": "f7-petting",
+     "quadros_fonte": [
+      6,
+      7
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      120,
+      130
+     ],
+     "duracao_total_ms": 250,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/petting_saida.png",
+     "gifs": [
+      "gifs/petting_saida_1x.gif",
+      "gifs/petting_saida_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       36
+      ],
+      "w_min_max": [
+       38,
+       41
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       2,
+       4
+      ],
+      "marcas_px": [
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       532,
+       28
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "petting/saida/frame_000.png",
+       "sha256": "c3f3d623d9ed2626c5e051f2fd64f5359ed32b0b610bb48debe268b83ffc0642"
+      },
+      {
+       "arquivo": "petting/saida/frame_001.png",
+       "sha256": "c3fbeb9fc22cac7d955b6ac2f66d7f490d9017fd0984bd589c007301c0d18328"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "petting/pose_mestra.png",
+    "fonte": "f7-petting q3",
+    "sha256": "10397fc28d649753a7607eb5c78214fd31f3140800b47458fd4a44fb272222f1"
+   }
+  },
+  "celebrate": {
+   "doc": "Comemoração após vitória: agacha, pula com as 4 patas fora do chão (pé sobe até y=43), boca aberta, orelhas e cauda para cima, aterrissa e volta.",
+   "clipes": {
+    "comemoracao": {
+     "fonte": "f7-celebrate",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      80,
+      70,
+      70,
+      100,
+      70,
+      80,
+      90,
+      110
+     ],
+     "duracao_total_ms": 670,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "preparacao": [
+       0,
+       1
+      ],
+      "pulo": [
+       2,
+       4
+      ],
+      "aterrissagem": [
+       5,
+       6
+      ],
+      "retorno": [
+       7,
+       7
+      ]
+     },
+     "retorna_a": "idle",
+     "quadros_no_ar": [
+      2,
+      3,
+      4
+     ],
+     "repetivel": "quadros 0–6 podem repetir antes do retorno",
+     "spritesheet": "spritesheets/celebrate_comemoracao.png",
+     "gifs": [
+      "gifs/celebrate_comemoracao_1x.gif",
+      "gifs/celebrate_comemoracao_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       31,
+       38
+      ],
+      "w_min_max": [
+       36,
+       41
+      ],
+      "pe_y": [
+       49,
+       49,
+       46,
+       43,
+       45,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4,
+       6,
+       6,
+       6,
+       6,
+       6,
+       4
+      ],
+      "marcas_px": [
+       7,
+       7,
+       8,
+       8,
+       7,
+       8,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       true,
+       false,
+       false,
+       false,
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       764,
+       725,
+       945,
+       1086,
+       959,
+       682,
+       661,
+       31
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "celebrate/frames/frame_000.png",
+       "sha256": "5f7c98889d9b80b440b44e03edfe4c5b2e0f8c129cb5a5d731fdb3c4a50605a6"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_001.png",
+       "sha256": "98c9a81c2bec0f6ae99ae4a4c3dd12da7ad6b10ce4d14245bc2c6dd4893a39cd"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_002.png",
+       "sha256": "00040099477c3bbf5ebd114e70b83ffa209fbad9240eb0c4558fbc4b573b76f7"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_003.png",
+       "sha256": "a14b0759cebebe020bea1d35f63f0c7b38dc7d6d932afd1c57c46a1e0dc662fb"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_004.png",
+       "sha256": "971b4cebff78983dac811e640acf58e96cd73b7693b2a981174e153f704c8fc9"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_005.png",
+       "sha256": "7cbcbe5e72b9564dfea161440eb6a12d4c2d44dbb5ac3d46a87830d18ca4b792"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_006.png",
+       "sha256": "7cac7f6e3e6fb224f210ff27968db5b459ccf2cce8c83319174dac844ad635ff"
+      },
+      {
+       "arquivo": "celebrate/frames/frame_007.png",
+       "sha256": "69735955afcec24566bb634faa2d8252256a365fdd18e8286b8ab8a6d9683a08"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "celebrate/pose_mestra.png",
+    "fonte": "f7-celebrate q3",
+    "sha256": "a14b0759cebebe020bea1d35f63f0c7b38dc7d6d932afd1c57c46a1e0dc662fb"
+   }
+  }
+ },
+ "demos": {
+  "petting": {
+   "sequencia": [
+    "standing E 300 ms",
+    "petting/entrada",
+    "petting/loop",
+    "petting/loop",
+    "petting/loop",
+    "petting/saida",
+    "standing E 400 ms"
+   ],
+   "quadros": 18,
+   "duracao_total_ms": 2730,
+   "gifs": [
+    "gifs/demo_petting_1x.gif",
+    "gifs/demo_petting_4x.gif"
+   ]
+  },
+  "celebrate": {
+   "sequencia": [
+    "standing E 300 ms",
+    "celebrate/comemoracao",
+    "celebrate/comemoracao",
+    "standing E 400 ms"
+   ],
+   "quadros": 18,
+   "duracao_total_ms": 2040,
+   "gifs": [
+    "gifs/demo_celebrate_1x.gif",
+    "gifs/demo_celebrate_4x.gif"
+   ]
+  }
+ },
+ "bruto": {
+  "f7-celebrate": {
+   "pixellab_grupo": "7a8b76c3-ec0f-4628-a68a-3ef88664749c",
+   "pixellab_job": "a01776db-8f10-4ad0-a55b-1690da466982",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f7-celebrate"
+  },
+  "f7-petting": {
+   "pixellab_grupo": "b5cfa1de-e59f-404a-a6e7-553490741ec0",
+   "pixellab_job": "d23576e0-30e3-4f49-a3ae-5de4a280d56a",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 3,
+     "topo_cabeca_px": 47,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 12,
+     "topo_cabeca_px": 57,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 15,
+     "topo_cabeca_px": 51,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 15,
+     "topo_cabeca_px": 55,
+     "rosto_travado": false,
+     "contorno_fechado_px": 3
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 14,
+     "topo_cabeca_px": 57,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 13,
+     "topo_cabeca_px": 58,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 11,
+     "topo_cabeca_px": 57,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f7-petting"
+  }
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "geracoes_pixellab": 2
+}

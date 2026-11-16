@@ -1,0 +1,221 @@
+{
+  "data": "2026-11-14T04:45:35.884Z",
+  "extra": "",
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20
+  },
+  "manifestName": null,
+  "walkErrors": [],
+  "attacks": {
+    "S": {
+      "wildId": "wild-1",
+      "wp": {
+        "x": 596,
+        "y": 352
+      },
+      "shots": [
+        "03"
+      ],
+      "wpAfter": {
+        "x": 596,
+        "y": 352
+      },
+      "keys": [
+        "idle:idle_S",
+        "attack:attack_S_00",
+        "attack:attack_S_01",
+        "attack:attack_S_02",
+        "attack:attack_S_03",
+        "attack:attack_S_05",
+        "attack:attack_S_06",
+        "attack:attack_S_07",
+        "attack:attack_S_08",
+        "idle:idle_S"
+      ]
+    },
+    "W": {
+      "wildId": "wild-1",
+      "wp": {
+        "x": 460,
+        "y": 304
+      },
+      "shots": [
+        "03",
+        "04"
+      ],
+      "wpAfter": {
+        "x": 460,
+        "y": 304
+      },
+      "keys": [
+        "idle:idle_W",
+        "attack:attack_W_00",
+        "attack:attack_W_01",
+        "attack:attack_W_02",
+        "attack:attack_W_03",
+        "attack:attack_W_04",
+        "attack:attack_W_06",
+        "attack:attack_W_07",
+        "attack:attack_W_08",
+        "idle:idle_W"
+      ]
+    },
+    "E": {
+      "wildId": "wild-1",
+      "wp": {
+        "x": 732,
+        "y": 304
+      },
+      "shots": [
+        "03",
+        "04"
+      ],
+      "wpAfter": {
+        "x": 732,
+        "y": 304
+      },
+      "keys": [
+        "idle:idle_E",
+        "attack:attack_E_00",
+        "attack:attack_E_01",
+        "attack:attack_E_02",
+        "attack:attack_E_03",
+        "attack:attack_E_05",
+        "attack:attack_E_06",
+        "attack:attack_E_07",
+        "attack:attack_E_00",
+        "attack:attack_E_01",
+        "attack:attack_E_02",
+        "attack:attack_E_03",
+        "attack:attack_E_04",
+        "attack:attack_E_05",
+        "attack:attack_E_06",
+        "attack:attack_E_07",
+        "skill:attack_E_00",
+        "skill:attack_E_01",
+        "skill:attack_E_02",
+        "skill:attack_E_03",
+        "skill:attack_E_04",
+        "skill:attack_E_05",
+        "skill:attack_E_06",
+        "skill:attack_E_07",
+        "skill:attack_E_08",
+        "skill:attack_E_00",
+        "skill:attack_E_01",
+        "skill:attack_E_02",
+        "skill:attack_E_03",
+        "skill:attack_E_04",
+        "skill:attack_E_05",
+        "skill:attack_E_06",
+        "skill:attack_E_07",
+        "skill:attack_E_08",
+        "attack:attack_E_00",
+        "attack:attack_E_01",
+        "attack:attack_E_02",
+        "attack:attack_E_03",
+        "attack:attack_E_04",
+        "attack:attack_E_05",
+        "attack:attack_E_06",
+        "attack:attack_E_07",
+        "attack:attack_E_00",
+        "attack:attack_E_01",
+        "attack:attack_E_02",
+        "attack:attack_E_03",
+        "attack:attack_E_04",
+        "attack:attack_E_05",
+        "attack:attack_E_06",
+        "attack:attack_E_07",
+        "attack:attack_E_00",
+        "attack:attack_E_01",
+        "attack:attack_E_02",
+        "attack:attack_E_03",
+        "attack:attack_E_04",
+        "attack:attack_E_05",
+        "attack:attack_E_06",
+        "attack:attack_E_07",
+        "skill:attack_E_00",
+        "skill:attack_E_01"
+      ]
+    },
+    "N": {
+      "wildId": "wild-2",
+      "wp": {
+        "x": 596,
+        "y": 168
+      },
+      "shots": [
+        "03",
+        "04"
+      ],
+      "wpAfter": {
+        "x": 596,
+        "y": 168
+      },
+      "keys": [
+        "idle:idle_N",
+        "attack:attack_N_00",
+        "attack:attack_N_01",
+        "attack:attack_N_02",
+        "attack:attack_N_03",
+        "attack:attack_N_05",
+        "attack:attack_N_06",
+        "attack:attack_N_07",
+        "attack:attack_N_00",
+        "attack:attack_N_01",
+        "attack:attack_N_02",
+        "attack:attack_N_03",
+        "attack:attack_N_04",
+        "attack:attack_N_05",
+        "attack:attack_N_06",
+        "attack:attack_N_07",
+        "skill:attack_N_00",
+        "skill:attack_N_01",
+        "skill:attack_N_02",
+        "skill:attack_N_03",
+        "skill:attack_N_04",
+        "skill:attack_N_05",
+        "skill:attack_N_06",
+        "skill:attack_N_07",
+        "skill:attack_N_08",
+        "skill:attack_N_00",
+        "skill:attack_N_01",
+        "skill:attack_N_02",
+        "skill:attack_N_03",
+        "skill:attack_N_04",
+        "skill:attack_N_05",
+        "skill:attack_N_06",
+        "skill:attack_N_07",
+        "skill:attack_N_08",
+        "attack:attack_N_00",
+        "attack:attack_N_01",
+        "attack:attack_N_02",
+        "attack:attack_N_03",
+        "attack:attack_N_04",
+        "attack:attack_N_05",
+        "attack:attack_N_06",
+        "attack:attack_N_07",
+        "attack:attack_N_00",
+        "attack:attack_N_01",
+        "attack:attack_N_02",
+        "attack:attack_N_03",
+        "attack:attack_N_04",
+        "attack:attack_N_05",
+        "attack:attack_N_06",
+        "attack:attack_N_07",
+        "attack:attack_N_00",
+        "attack:attack_N_01",
+        "attack:attack_N_02",
+        "attack:attack_N_03",
+        "attack:attack_N_04",
+        "attack:attack_N_05",
+        "attack:attack_N_06",
+        "attack:attack_N_07",
+        "skill:attack_N_00",
+        "skill:attack_N_01"
+      ]
+    }
+  },
+  "consoleErrors": []
+}

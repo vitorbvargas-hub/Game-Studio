@@ -1,0 +1,105 @@
+{
+  "group_id": "b40b1dac-0249-47db-a0e0-c3d464ded314",
+  "states": [
+    {
+      "character": {
+        "id": "f5be2bac-25c4-4ed3-9378-380a9cba9c78",
+        "name": "Idle",
+        "prompt": "Ikkakumon, a big champion Digimon like a white furry walrus-mammoth standing on all four legs, facing the viewer: shaggy long white fur, a single long dark horn on top of its head, two long cream walrus tusks, blue eyes with dark fur patches around them, dark brown paws with red claws, sturdy and bulky, cute chibi game sprite with dark outline",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "bear",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-11-14T04:35:40.585497+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "walk-v3": {
+            "south": [
+              "Idle/animations/walk-v3/south/frame_000.png",
+              "Idle/animations/walk-v3/south/frame_001.png",
+              "Idle/animations/walk-v3/south/frame_002.png",
+              "Idle/animations/walk-v3/south/frame_003.png",
+              "Idle/animations/walk-v3/south/frame_004.png",
+              "Idle/animations/walk-v3/south/frame_005.png",
+              "Idle/animations/walk-v3/south/frame_006.png",
+              "Idle/animations/walk-v3/south/frame_007.png",
+              "Idle/animations/walk-v3/south/frame_008.png"
+            ],
+            "north": [
+              "Idle/animations/walk-v3/north/frame_000.png",
+              "Idle/animations/walk-v3/north/frame_001.png",
+              "Idle/animations/walk-v3/north/frame_002.png",
+              "Idle/animations/walk-v3/north/frame_003.png",
+              "Idle/animations/walk-v3/north/frame_004.png",
+              "Idle/animations/walk-v3/north/frame_005.png",
+              "Idle/animations/walk-v3/north/frame_006.png",
+              "Idle/animations/walk-v3/north/frame_007.png",
+              "Idle/animations/walk-v3/north/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/walk-v3/west/frame_000.png",
+              "Idle/animations/walk-v3/west/frame_001.png",
+              "Idle/animations/walk-v3/west/frame_002.png",
+              "Idle/animations/walk-v3/west/frame_003.png",
+              "Idle/animations/walk-v3/west/frame_004.png",
+              "Idle/animations/walk-v3/west/frame_005.png",
+              "Idle/animations/walk-v3/west/frame_006.png",
+              "Idle/animations/walk-v3/west/frame_007.png",
+              "Idle/animations/walk-v3/west/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/walk-v3/east/frame_000.png",
+              "Idle/animations/walk-v3/east/frame_001.png",
+              "Idle/animations/walk-v3/east/frame_002.png",
+              "Idle/animations/walk-v3/east/frame_003.png",
+              "Idle/animations/walk-v3/east/frame_004.png",
+              "Idle/animations/walk-v3/east/frame_005.png",
+              "Idle/animations/walk-v3/east/frame_006.png",
+              "Idle/animations/walk-v3/east/frame_007.png",
+              "Idle/animations/walk-v3/east/frame_008.png"
+            ]
+          },
+          "walk": {
+            "west": [
+              "Idle/animations/walk/west/frame_000.png",
+              "Idle/animations/walk/west/frame_001.png",
+              "Idle/animations/walk/west/frame_002.png",
+              "Idle/animations/walk/west/frame_003.png",
+              "Idle/animations/walk/west/frame_004.png",
+              "Idle/animations/walk/west/frame_005.png",
+              "Idle/animations/walk/west/frame_006.png",
+              "Idle/animations/walk/west/frame_007.png"
+            ],
+            "east": [
+              "Idle/animations/walk/east/frame_000.png",
+              "Idle/animations/walk/east/frame_001.png",
+              "Idle/animations/walk/east/frame_002.png",
+              "Idle/animations/walk/east/frame_003.png",
+              "Idle/animations/walk/east/frame_004.png",
+              "Idle/animations/walk/east/frame_005.png",
+              "Idle/animations/walk/east/frame_006.png",
+              "Idle/animations/walk/east/frame_007.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T08:37:51.069258"
+}

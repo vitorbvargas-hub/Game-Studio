@@ -1,0 +1,768 @@
+{
+ "data": "2026-11-16T08:44:01.745Z",
+ "base": "http://127.0.0.1:5198",
+ "resultados": {
+  "carga": {
+   "ms_ate_pronto": 537,
+   "ativos": {
+    "total": 182,
+    "ok": 182,
+    "erro": 0,
+    "errSrcs": []
+   }
+  },
+  "inicial": {
+   "state": "idle",
+   "dir": "E",
+   "frame": 2,
+   "n": 4,
+   "src": "../movement/idle/E/frame_002.png",
+   "rest": "despertou",
+   "combat": "normal",
+   "done": false,
+   "paused": false,
+   "label": "idle",
+   "acordarDis": true,
+   "recDis": true,
+   "durations": [
+    240,
+    240,
+    240,
+    240
+   ],
+   "frames": [
+    "../movement/idle/E/frame_000.png",
+    "../movement/idle/E/frame_001.png",
+    "../movement/idle/E/frame_002.png",
+    "../movement/idle/E/frame_003.png"
+   ]
+  },
+  "render_pixel_exato": {
+   "standing": {
+    "estado": "standing",
+    "quadros": 1,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "idle": {
+    "estado": "idle",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "feliz": {
+    "estado": "feliz (loop)",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "triste": {
+    "estado": "triste (loop)",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "irritado": {
+    "estado": "irritado (loop)",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "assustado": {
+    "estado": "assustado (loop)",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "deitar": {
+    "estado": "deitar",
+    "quadros": 6,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "carinho": {
+    "estado": "carinho (loop)",
+    "quadros": 4,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "comemoracao": {
+    "estado": "comemoracao",
+    "quadros": 9,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "ataque": {
+    "estado": "ataque (retriever bark)",
+    "quadros": 8,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "dano": {
+    "estado": "dano",
+    "quadros": 8,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "incapacitacao": {
+    "estado": "incapacitando (queda)",
+    "quadros": 6,
+    "difs_canvas": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "linha_do_tempo": {
+   "ataque": [
+    {
+     "t": 4,
+     "s": "ataque (retriever bark)",
+     "i": 0,
+     "src": "attack_retriever_bark/frames/frame_000.png"
+    },
+    {
+     "t": 104,
+     "s": "ataque (retriever bark)",
+     "i": 1,
+     "src": "attack_retriever_bark/frames/frame_001.png"
+    },
+    {
+     "t": 188,
+     "s": "ataque (retriever bark)",
+     "i": 2,
+     "src": "attack_retriever_bark/frames/frame_002.png"
+    },
+    {
+     "t": 288,
+     "s": "ataque (retriever bark)",
+     "i": 3,
+     "src": "attack_retriever_bark/frames/frame_003.png"
+    },
+    {
+     "t": 404,
+     "s": "ataque (retriever bark)",
+     "i": 4,
+     "src": "attack_retriever_bark/frames/frame_004.png"
+    },
+    {
+     "t": 471,
+     "s": "ataque (retriever bark)",
+     "i": 5,
+     "src": "attack_retriever_bark/frames/frame_005.png"
+    },
+    {
+     "t": 654,
+     "s": "ataque (retriever bark)",
+     "i": 6,
+     "src": "attack_retriever_bark/frames/frame_006.png"
+    },
+    {
+     "t": 754,
+     "s": "ataque (retriever bark)",
+     "i": 7,
+     "src": "attack_retriever_bark/frames/frame_007.png"
+    },
+    {
+     "t": 871,
+     "s": "idle",
+     "i": 0,
+     "src": "idle/E/frame_000.png"
+    },
+    {
+     "t": 1121,
+     "s": "idle",
+     "i": 1,
+     "src": "idle/E/frame_001.png"
+    },
+    {
+     "t": 1354,
+     "s": "idle",
+     "i": 2,
+     "src": "idle/E/frame_002.png"
+    },
+    {
+     "t": 1604,
+     "s": "idle",
+     "i": 3,
+     "src": "idle/E/frame_003.png"
+    }
+   ],
+   "dano": [
+    {
+     "t": 14,
+     "s": "dano",
+     "i": 0,
+     "src": "hurt/frames/frame_000.png"
+    },
+    {
+     "t": 64,
+     "s": "dano",
+     "i": 1,
+     "src": "hurt/frames/frame_001.png"
+    },
+    {
+     "t": 148,
+     "s": "dano",
+     "i": 2,
+     "src": "hurt/frames/frame_002.png"
+    },
+    {
+     "t": 248,
+     "s": "dano",
+     "i": 3,
+     "src": "hurt/frames/frame_003.png"
+    },
+    {
+     "t": 348,
+     "s": "dano",
+     "i": 4,
+     "src": "hurt/frames/frame_004.png"
+    },
+    {
+     "t": 431,
+     "s": "dano",
+     "i": 5,
+     "src": "hurt/frames/frame_005.png"
+    },
+    {
+     "t": 531,
+     "s": "dano",
+     "i": 6,
+     "src": "hurt/frames/frame_006.png"
+    },
+    {
+     "t": 614,
+     "s": "dano",
+     "i": 7,
+     "src": "hurt/frames/frame_007.png"
+    },
+    {
+     "t": 714,
+     "s": "idle",
+     "i": 0,
+     "src": "idle/E/frame_000.png"
+    },
+    {
+     "t": 964,
+     "s": "idle",
+     "i": 1,
+     "src": "idle/E/frame_001.png"
+    },
+    {
+     "t": 1197,
+     "s": "idle",
+     "i": 2,
+     "src": "idle/E/frame_002.png"
+    },
+    {
+     "t": 1448,
+     "s": "idle",
+     "i": 3,
+     "src": "idle/E/frame_003.png"
+    }
+   ],
+   "comemoracao": [
+    {
+     "t": 12,
+     "s": "comemoracao",
+     "i": 0,
+     "src": "celebrate/frames/frame_000.png"
+    },
+    {
+     "t": 79,
+     "s": "comemoracao",
+     "i": 1,
+     "src": "celebrate/frames/frame_001.png"
+    },
+    {
+     "t": 162,
+     "s": "comemoracao",
+     "i": 2,
+     "src": "celebrate/frames/frame_002.png"
+    },
+    {
+     "t": 229,
+     "s": "comemoracao",
+     "i": 3,
+     "src": "celebrate/frames/frame_003.png"
+    },
+    {
+     "t": 295,
+     "s": "comemoracao",
+     "i": 4,
+     "src": "celebrate/frames/frame_004.png"
+    },
+    {
+     "t": 395,
+     "s": "comemoracao",
+     "i": 5,
+     "src": "celebrate/frames/frame_005.png"
+    },
+    {
+     "t": 462,
+     "s": "comemoracao",
+     "i": 6,
+     "src": "celebrate/frames/frame_006.png"
+    },
+    {
+     "t": 545,
+     "s": "comemoracao",
+     "i": 7,
+     "src": "celebrate/frames/frame_007.png"
+    },
+    {
+     "t": 629,
+     "s": "comemoracao",
+     "i": 8,
+     "src": "celebrate/frames/frame_008.png"
+    },
+    {
+     "t": 745,
+     "s": "idle",
+     "i": 0,
+     "src": "idle/E/frame_000.png"
+    },
+    {
+     "t": 995,
+     "s": "idle",
+     "i": 1,
+     "src": "idle/E/frame_001.png"
+    },
+    {
+     "t": 1229,
+     "s": "idle",
+     "i": 2,
+     "src": "idle/E/frame_002.png"
+    },
+    {
+     "t": 1479,
+     "s": "idle",
+     "i": 3,
+     "src": "idle/E/frame_003.png"
+    }
+   ]
+  },
+  "cadeia_dormir": {
+   "trace": [
+    "13:deitar (auto, antes de dormir)#0",
+    "130:deitar (auto, antes de dormir)#1",
+    "247:deitar (auto, antes de dormir)#2",
+    "363:deitar (auto, antes de dormir)#3",
+    "480:deitar (auto, antes de dormir)#4",
+    "630:deitar (auto, antes de dormir)#5",
+    "830:adormecendo#0",
+    "1163:adormecendo#1",
+    "1397:adormecendo#2",
+    "1647:adormecendo#3",
+    "2047:dormindo (loop)#0",
+    "2613:dormindo (loop)#1",
+    "3163:dormindo (loop)#2",
+    "3713:dormindo (loop)#3",
+    "4263:dormindo (loop)#0"
+   ],
+   "st": {
+    "state": "dormindo (loop)",
+    "dir": "E",
+    "frame": 0,
+    "n": 4,
+    "src": "../rest/rest/sleep_loop/frame_000.png",
+    "rest": "dormindo",
+    "combat": "normal",
+    "done": false,
+    "paused": false,
+    "label": "dormir",
+    "acordarDis": false,
+    "recDis": true,
+    "durations": [
+     550,
+     550,
+     550,
+     550
+    ],
+    "frames": [
+     "../rest/rest/sleep_loop/frame_000.png",
+     "../rest/rest/sleep_loop/frame_001.png",
+     "../rest/rest/sleep_loop/frame_002.png",
+     "../rest/rest/sleep_loop/frame_003.png"
+    ]
+   }
+  },
+  "cadeia_acordar": {
+   "trace": [
+    "15:acordando#0",
+    "232:acordando#1",
+    "448:acordando#2",
+    "698:acordando#3",
+    "965:acordando#4",
+    "1148:acordando#5",
+    "1482:acordando#6",
+    "1665:acordando#7",
+    "1932:levantando#0",
+    "2065:levantando#1",
+    "2198:levantando#2",
+    "2332:levantando#3",
+    "2448:levantando#4",
+    "2565:levantando#5",
+    "2682:levantando#6",
+    "2798:levantando#7",
+    "2915:idle#0",
+    "3165:idle#1",
+    "3398:idle#2",
+    "3648:idle#3",
+    "3882:idle#0"
+   ],
+   "st": {
+    "state": "idle",
+    "dir": "E",
+    "frame": 0,
+    "n": 4,
+    "src": "../movement/idle/E/frame_000.png",
+    "rest": "despertou",
+    "combat": "normal",
+    "done": false,
+    "paused": false,
+    "label": "acordar",
+    "acordarDis": true,
+    "recDis": true,
+    "durations": [
+     240,
+     240,
+     240,
+     240
+    ],
+    "frames": [
+     "../movement/idle/E/frame_000.png",
+     "../movement/idle/E/frame_001.png",
+     "../movement/idle/E/frame_002.png",
+     "../movement/idle/E/frame_003.png"
+    ]
+   }
+  },
+  "incapacitado": {
+   "state": "incapacitado (loop)",
+   "dir": "E",
+   "frame": 1,
+   "n": 4,
+   "src": "../combat/incapacitated/estado/frame_001.png",
+   "rest": "despertou",
+   "combat": "incapacitado",
+   "done": false,
+   "paused": false,
+   "label": "incapacitacao",
+   "acordarDis": true,
+   "recDis": false,
+   "durations": [
+    600,
+    220,
+    220,
+    220
+   ],
+   "frames": [
+    "../combat/incapacitated/estado/frame_000.png",
+    "../combat/incapacitated/estado/frame_001.png",
+    "../combat/incapacitated/estado/frame_002.png",
+    "../combat/incapacitated/estado/frame_003.png"
+   ]
+  },
+  "recuperado": {
+   "state": "idle",
+   "dir": "E",
+   "frame": 1,
+   "n": 4,
+   "src": "../movement/idle/E/frame_001.png",
+   "rest": "despertou",
+   "combat": "normal",
+   "done": false,
+   "paused": false,
+   "label": "recuperacao",
+   "acordarDis": true,
+   "recDis": true,
+   "durations": [
+    240,
+    240,
+    240,
+    240
+   ],
+   "frames": [
+    "../movement/idle/E/frame_000.png",
+    "../movement/idle/E/frame_001.png",
+    "../movement/idle/E/frame_002.png",
+    "../movement/idle/E/frame_003.png"
+   ]
+  },
+  "maquina_estados": {
+   "dormindo": {
+    "state": "dormindo (loop)",
+    "rest": "dormindo",
+    "combat": "normal",
+    "acordarDis": false,
+    "recDis": true,
+    "src": "../rest/rest/sleep_loop/frame_002.png"
+   },
+   "dormindo_depois_ataque": {
+    "state": "dormindo (loop)",
+    "rest": "dormindo",
+    "combat": "normal",
+    "acordarDis": false,
+    "recDis": true,
+    "src": "../rest/rest/sleep_loop/frame_000.png"
+   },
+   "acordar_apos_ataque_q0": {
+    "state": "acordando",
+    "rest": "dormindo",
+    "combat": "normal",
+    "acordarDis": false,
+    "recDis": true,
+    "src": "../rest/rest/sleep_to_wake/frame_000.png"
+   },
+   "incapacitado_depois_feliz": {
+    "state": "incapacitado (loop)",
+    "rest": "despertou",
+    "combat": "incapacitado",
+    "acordarDis": true,
+    "recDis": false,
+    "src": "../combat/incapacitated/estado/frame_000.png"
+   },
+   "recuperacao_de_pe": {
+    "state": "recuperação",
+    "rest": "despertou",
+    "combat": "incapacitado",
+    "acordarDis": true,
+    "recDis": false,
+    "src": "../combat/incapacitated/recuperacao/frame_000.png"
+   },
+   "deitar_quando_deitado": {
+    "state": "levantando (lie_to_stand)",
+    "rest": "deitado",
+    "combat": "normal",
+    "acordarDis": true,
+    "recDis": true,
+    "src": "../rest/rest/stand_to_lie/frame_005.png"
+   },
+   "wasd_quando_deitado": {
+    "state": "walk E",
+    "rest": "despertou",
+    "combat": "normal",
+    "acordarDis": true,
+    "recDis": true,
+    "src": "../movement/walk/E/frame_004.png"
+   },
+   "apos_soltar": {
+    "state": "idle",
+    "rest": "despertou",
+    "combat": "normal",
+    "acordarDis": true,
+    "recDis": true,
+    "src": "../movement/idle/E/frame_001.png"
+   }
+  },
+  "wasd": {
+   "w": {
+    "state": "walk N",
+    "dir": "N",
+    "dur": 100
+   },
+   "w_solto": "idle",
+   "a": {
+    "state": "walk W",
+    "dir": "W",
+    "dur": 100
+   },
+   "a_solto": "idle",
+   "s": {
+    "state": "walk S",
+    "dir": "S",
+    "dur": 100
+   },
+   "s_solto": "idle",
+   "d": {
+    "state": "walk E",
+    "dir": "E",
+    "dur": 100
+   },
+   "d_solto": "idle",
+   "d_a_soltaD": "walk W",
+   "ataque_apos_botao_walk": "ataque (retriever bark)"
+  },
+  "indisponivel": {
+   "S_feliz": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "S_deitar": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "S_carinho": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (carinho só existe em E)"
+   },
+   "S_ataque": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (ataque só existe em E)"
+   },
+   "N_feliz": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "N_deitar": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "N_carinho": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (carinho só existe em E)"
+   },
+   "N_ataque": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (ataque só existe em E)"
+   },
+   "W_feliz": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "W_deitar": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (feliz só existe em E)"
+   },
+   "W_carinho": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (carinho só existe em E)"
+   },
+   "W_ataque": {
+    "trocou": false,
+    "label": "INDISPONÍVEL (ataque só existe em E)"
+   }
+  },
+  "visualizacao": {
+   "zoom1": [
+    "60px",
+    "crisp-edges"
+   ],
+   "zoom2": [
+    "120px",
+    "crisp-edges"
+   ],
+   "zoom4": [
+    "240px",
+    "crisp-edges"
+   ],
+   "pausa": {
+    "f1": 5,
+    "f2": 5,
+    "parado": true,
+    "proximo": 6,
+    "anterior": 5
+   },
+   "diag": {
+    "dState": "idle",
+    "dDir": "E",
+    "dFrame": "1/4",
+    "dFps": "60",
+    "dDuration": "960 ms total (quadro: 240 ms)",
+    "dDims": "39×36 px (canvas 60×60)",
+    "dAnchor": "pivô (29.5, 49) — pé em y_chão ✓",
+    "dColors": "19",
+    "dAssetStatus": "../movement/idle/E/frame_000.png → ok"
+   }
+  },
+  "desempenho": {
+   "fps_amostras": [
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60
+   ],
+   "JSHeapUsedMB": 0.9,
+   "Nodes": 727,
+   "TaskDuration_s": 2.78,
+   "ScriptDuration_s": 0.72
+  },
+  "console": {
+   "erros": [],
+   "avisos": 0,
+   "total": 0,
+   "excecoes": [],
+   "falhas_rede": [],
+   "http_4xx_5xx": [],
+   "labErrors": []
+  }
+ }
+}

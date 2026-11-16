@@ -1,0 +1,103 @@
+{
+  "group_id": "0531dc8b-b0b6-45e7-a00d-40c6eb4b8b16",
+  "states": [
+    {
+      "character": {
+        "id": "6c03b059-867d-4356-8ad7-eb870d49ac1d",
+        "name": "Idle",
+        "prompt": "Gomamon: white seal-like Digimon lying low on its belly with FOUR legs (long front legs with black claws and short bent hind legs with black claws), red-orange spiky mane from head down the back, purple markings, green eyes, thin pointed tail; from behind: mane down the back, tail and the two short hind legs visible",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "dog",
+        "directions": 4,
+        "view": "low top-down",
+        "created_at": "2026-11-14T10:23:56.992923+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "west": "Idle/rotations/west.png",
+          "east": "Idle/rotations/east.png",
+          "north": "Idle/rotations/north.png"
+        },
+        "animations": {
+          "walk-v3": {
+            "west": [
+              "Idle/animations/walk-v3/west/frame_000.png",
+              "Idle/animations/walk-v3/west/frame_001.png",
+              "Idle/animations/walk-v3/west/frame_002.png",
+              "Idle/animations/walk-v3/west/frame_003.png",
+              "Idle/animations/walk-v3/west/frame_004.png",
+              "Idle/animations/walk-v3/west/frame_005.png",
+              "Idle/animations/walk-v3/west/frame_006.png",
+              "Idle/animations/walk-v3/west/frame_007.png",
+              "Idle/animations/walk-v3/west/frame_008.png"
+            ],
+            "south": [
+              "Idle/animations/walk-v3/south/frame_000.png",
+              "Idle/animations/walk-v3/south/frame_001.png",
+              "Idle/animations/walk-v3/south/frame_002.png",
+              "Idle/animations/walk-v3/south/frame_003.png",
+              "Idle/animations/walk-v3/south/frame_004.png",
+              "Idle/animations/walk-v3/south/frame_005.png",
+              "Idle/animations/walk-v3/south/frame_006.png",
+              "Idle/animations/walk-v3/south/frame_007.png",
+              "Idle/animations/walk-v3/south/frame_008.png"
+            ],
+            "north": [
+              "Idle/animations/walk-v3/north/frame_000.png",
+              "Idle/animations/walk-v3/north/frame_001.png",
+              "Idle/animations/walk-v3/north/frame_002.png",
+              "Idle/animations/walk-v3/north/frame_003.png",
+              "Idle/animations/walk-v3/north/frame_004.png",
+              "Idle/animations/walk-v3/north/frame_005.png",
+              "Idle/animations/walk-v3/north/frame_006.png",
+              "Idle/animations/walk-v3/north/frame_007.png",
+              "Idle/animations/walk-v3/north/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/walk-v3/east/frame_000.png",
+              "Idle/animations/walk-v3/east/frame_001.png",
+              "Idle/animations/walk-v3/east/frame_002.png",
+              "Idle/animations/walk-v3/east/frame_003.png",
+              "Idle/animations/walk-v3/east/frame_004.png",
+              "Idle/animations/walk-v3/east/frame_005.png",
+              "Idle/animations/walk-v3/east/frame_006.png",
+              "Idle/animations/walk-v3/east/frame_007.png",
+              "Idle/animations/walk-v3/east/frame_008.png"
+            ]
+          },
+          "attack-claw-v3": {
+            "east": [
+              "Idle/animations/attack-claw-v3/east/frame_000.png",
+              "Idle/animations/attack-claw-v3/east/frame_001.png",
+              "Idle/animations/attack-claw-v3/east/frame_002.png",
+              "Idle/animations/attack-claw-v3/east/frame_003.png",
+              "Idle/animations/attack-claw-v3/east/frame_004.png",
+              "Idle/animations/attack-claw-v3/east/frame_005.png",
+              "Idle/animations/attack-claw-v3/east/frame_006.png",
+              "Idle/animations/attack-claw-v3/east/frame_007.png",
+              "Idle/animations/attack-claw-v3/east/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/attack-claw-v3/west/frame_000.png",
+              "Idle/animations/attack-claw-v3/west/frame_001.png",
+              "Idle/animations/attack-claw-v3/west/frame_002.png",
+              "Idle/animations/attack-claw-v3/west/frame_003.png",
+              "Idle/animations/attack-claw-v3/west/frame_004.png",
+              "Idle/animations/attack-claw-v3/west/frame_005.png",
+              "Idle/animations/attack-claw-v3/west/frame_006.png",
+              "Idle/animations/attack-claw-v3/west/frame_007.png",
+              "Idle/animations/attack-claw-v3/west/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T10:28:08.871171"
+}

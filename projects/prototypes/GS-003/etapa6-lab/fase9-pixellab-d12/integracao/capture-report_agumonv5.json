@@ -1,0 +1,13 @@
+{
+  "data": "2026-11-14T04:47:53.392Z",
+  "extra": "&agumon=v5",
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20
+  },
+  "manifestName": "agumon (Link A — ficha v5 ChatGPT prompt padrão + Fixer Neural pixel 4,5, TESTE: 4 direções, caminhada (sem idle próprio — pose parada é o 1º quadro do andar, com o bob de 1px automático do motor))",
+  "walkErrors": [],
+  "attacks": {},
+  "consoleErrors": []
+}

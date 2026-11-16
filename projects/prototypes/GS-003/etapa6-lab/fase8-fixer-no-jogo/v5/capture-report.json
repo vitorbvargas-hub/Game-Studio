@@ -1,0 +1,14 @@
+{
+  "data": "2026-11-14T02:05:52.287Z",
+  "worldReady": true,
+  "partnerAfterLoad": {
+    "speciesId": "CREATURE-0006",
+    "level": 20
+  },
+  "consoleErrors": [],
+  "gif": {
+    "frames": 5,
+    "bytes": 448806,
+    "mb": 0.43
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "group_id": "536bf99f-dbfd-4920-9cec-3c78923291a3",
+  "states": [
+    {
+      "character": {
+        "id": "4afbc5c8-198b-48ce-948d-f87fce747e96",
+        "name": "Idle",
+        "prompt": "Agumon: cute chibi orange-yellow dinosaur Digimon standing upright, big round head, short rounded snout, green eyes, round belly, big silver-white claws on hands and feet, short thick tail",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 4,
+        "view": "low top-down",
+        "created_at": "2026-11-14T08:37:30.807001+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "west": "Idle/rotations/west.png",
+          "east": "Idle/rotations/east.png",
+          "north": "Idle/rotations/north.png"
+        },
+        "animations": {
+          "pepper-breath-v3": {
+            "east": [
+              "Idle/animations/pepper-breath-v3/east/frame_000.png",
+              "Idle/animations/pepper-breath-v3/east/frame_001.png",
+              "Idle/animations/pepper-breath-v3/east/frame_002.png",
+              "Idle/animations/pepper-breath-v3/east/frame_003.png",
+              "Idle/animations/pepper-breath-v3/east/frame_004.png",
+              "Idle/animations/pepper-breath-v3/east/frame_005.png",
+              "Idle/animations/pepper-breath-v3/east/frame_006.png",
+              "Idle/animations/pepper-breath-v3/east/frame_007.png",
+              "Idle/animations/pepper-breath-v3/east/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/pepper-breath-v3/west/frame_000.png",
+              "Idle/animations/pepper-breath-v3/west/frame_001.png",
+              "Idle/animations/pepper-breath-v3/west/frame_002.png",
+              "Idle/animations/pepper-breath-v3/west/frame_003.png",
+              "Idle/animations/pepper-breath-v3/west/frame_004.png",
+              "Idle/animations/pepper-breath-v3/west/frame_005.png",
+              "Idle/animations/pepper-breath-v3/west/frame_006.png",
+              "Idle/animations/pepper-breath-v3/west/frame_007.png",
+              "Idle/animations/pepper-breath-v3/west/frame_008.png"
+            ],
+            "south": [
+              "Idle/animations/pepper-breath-v3/south/frame_000.png",
+              "Idle/animations/pepper-breath-v3/south/frame_001.png",
+              "Idle/animations/pepper-breath-v3/south/frame_002.png",
+              "Idle/animations/pepper-breath-v3/south/frame_003.png",
+              "Idle/animations/pepper-breath-v3/south/frame_004.png",
+              "Idle/animations/pepper-breath-v3/south/frame_005.png",
+              "Idle/animations/pepper-breath-v3/south/frame_006.png",
+              "Idle/animations/pepper-breath-v3/south/frame_007.png",
+              "Idle/animations/pepper-breath-v3/south/frame_008.png"
+            ],
+            "north": [
+              "Idle/animations/pepper-breath-v3/north/frame_000.png",
+              "Idle/animations/pepper-breath-v3/north/frame_001.png",
+              "Idle/animations/pepper-breath-v3/north/frame_002.png",
+              "Idle/animations/pepper-breath-v3/north/frame_003.png",
+              "Idle/animations/pepper-breath-v3/north/frame_004.png",
+              "Idle/animations/pepper-breath-v3/north/frame_005.png",
+              "Idle/animations/pepper-breath-v3/north/frame_006.png",
+              "Idle/animations/pepper-breath-v3/north/frame_007.png",
+              "Idle/animations/pepper-breath-v3/north/frame_008.png"
+            ]
+          },
+          "pepper-v7b": {
+            "east": [
+              "Idle/animations/pepper-v7b/east/frame_000.png",
+              "Idle/animations/pepper-v7b/east/frame_001.png",
+              "Idle/animations/pepper-v7b/east/frame_002.png",
+              "Idle/animations/pepper-v7b/east/frame_003.png",
+              "Idle/animations/pepper-v7b/east/frame_004.png",
+              "Idle/animations/pepper-v7b/east/frame_005.png",
+              "Idle/animations/pepper-v7b/east/frame_006.png",
+              "Idle/animations/pepper-v7b/east/frame_007.png",
+              "Idle/animations/pepper-v7b/east/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/pepper-v7b/west/frame_000.png",
+              "Idle/animations/pepper-v7b/west/frame_001.png",
+              "Idle/animations/pepper-v7b/west/frame_002.png",
+              "Idle/animations/pepper-v7b/west/frame_003.png",
+              "Idle/animations/pepper-v7b/west/frame_004.png",
+              "Idle/animations/pepper-v7b/west/frame_005.png",
+              "Idle/animations/pepper-v7b/west/frame_006.png",
+              "Idle/animations/pepper-v7b/west/frame_007.png",
+              "Idle/animations/pepper-v7b/west/frame_008.png"
+            ]
+          },
+          "happy-v3": {
+            "south": [
+              "Idle/animations/happy-v3/south/frame_000.png",
+              "Idle/animations/happy-v3/south/frame_001.png",
+              "Idle/animations/happy-v3/south/frame_002.png",
+              "Idle/animations/happy-v3/south/frame_003.png",
+              "Idle/animations/happy-v3/south/frame_004.png",
+              "Idle/animations/happy-v3/south/frame_005.png",
+              "Idle/animations/happy-v3/south/frame_006.png",
+              "Idle/animations/happy-v3/south/frame_007.png",
+              "Idle/animations/happy-v3/south/frame_008.png"
+            ]
+          },
+          "happy-skeleton": {
+            "south": [
+              "Idle/animations/happy-skeleton/south/frame_000.png",
+              "Idle/animations/happy-skeleton/south/frame_001.png",
+              "Idle/animations/happy-skeleton/south/frame_002.png",
+              "Idle/animations/happy-skeleton/south/frame_003.png",
+              "Idle/animations/happy-skeleton/south/frame_004.png",
+              "Idle/animations/happy-skeleton/south/frame_005.png",
+              "Idle/animations/happy-skeleton/south/frame_006.png",
+              "Idle/animations/happy-skeleton/south/frame_007.png",
+              "Idle/animations/happy-skeleton/south/frame_008.png"
+            ]
+          },
+          "walk-v3": {
+            "north": [
+              "Idle/animations/walk-v3/north/frame_000.png",
+              "Idle/animations/walk-v3/north/frame_001.png",
+              "Idle/animations/walk-v3/north/frame_002.png",
+              "Idle/animations/walk-v3/north/frame_003.png",
+              "Idle/animations/walk-v3/north/frame_004.png",
+              "Idle/animations/walk-v3/north/frame_005.png",
+              "Idle/animations/walk-v3/north/frame_006.png",
+              "Idle/animations/walk-v3/north/frame_007.png",
+              "Idle/animations/walk-v3/north/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/walk-v3/west/frame_000.png",
+              "Idle/animations/walk-v3/west/frame_001.png",
+              "Idle/animations/walk-v3/west/frame_002.png",
+              "Idle/animations/walk-v3/west/frame_003.png",
+              "Idle/animations/walk-v3/west/frame_004.png",
+              "Idle/animations/walk-v3/west/frame_005.png",
+              "Idle/animations/walk-v3/west/frame_006.png",
+              "Idle/animations/walk-v3/west/frame_007.png",
+              "Idle/animations/walk-v3/west/frame_008.png"
+            ],
+            "south": [
+              "Idle/animations/walk-v3/south/frame_000.png",
+              "Idle/animations/walk-v3/south/frame_001.png",
+              "Idle/animations/walk-v3/south/frame_002.png",
+              "Idle/animations/walk-v3/south/frame_003.png",
+              "Idle/animations/walk-v3/south/frame_004.png",
+              "Idle/animations/walk-v3/south/frame_005.png",
+              "Idle/animations/walk-v3/south/frame_006.png",
+              "Idle/animations/walk-v3/south/frame_007.png",
+              "Idle/animations/walk-v3/south/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/walk-v3/east/frame_000.png",
+              "Idle/animations/walk-v3/east/frame_001.png",
+              "Idle/animations/walk-v3/east/frame_002.png",
+              "Idle/animations/walk-v3/east/frame_003.png",
+              "Idle/animations/walk-v3/east/frame_004.png",
+              "Idle/animations/walk-v3/east/frame_005.png",
+              "Idle/animations/walk-v3/east/frame_006.png",
+              "Idle/animations/walk-v3/east/frame_007.png",
+              "Idle/animations/walk-v3/east/frame_008.png"
+            ]
+          },
+          "walk-v7b": {
+            "west": [
+              "Idle/animations/walk-v7b/west/frame_000.png",
+              "Idle/animations/walk-v7b/west/frame_001.png",
+              "Idle/animations/walk-v7b/west/frame_002.png",
+              "Idle/animations/walk-v7b/west/frame_003.png",
+              "Idle/animations/walk-v7b/west/frame_004.png",
+              "Idle/animations/walk-v7b/west/frame_005.png",
+              "Idle/animations/walk-v7b/west/frame_006.png",
+              "Idle/animations/walk-v7b/west/frame_007.png",
+              "Idle/animations/walk-v7b/west/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/walk-v7b/east/frame_000.png",
+              "Idle/animations/walk-v7b/east/frame_001.png",
+              "Idle/animations/walk-v7b/east/frame_002.png",
+              "Idle/animations/walk-v7b/east/frame_003.png",
+              "Idle/animations/walk-v7b/east/frame_004.png",
+              "Idle/animations/walk-v7b/east/frame_005.png",
+              "Idle/animations/walk-v7b/east/frame_006.png",
+              "Idle/animations/walk-v7b/east/frame_007.png",
+              "Idle/animations/walk-v7b/east/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T10:20:08.653814"
+}

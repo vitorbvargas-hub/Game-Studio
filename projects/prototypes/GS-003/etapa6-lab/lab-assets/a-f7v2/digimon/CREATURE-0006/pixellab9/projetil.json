@@ -1,0 +1,179 @@
+{
+ "nome": "Pepper Breath (projétil independente)",
+ "versao": "F7v2 (Comando 12.1)",
+ "data": "2026-11-14",
+ "licenca": "private-prototype (fangame não oficial; sem integração)",
+ "pixellab_geracoes": 0,
+ "canvas": [
+  24,
+  24
+ ],
+ "ancora_pixel": [
+  12,
+  12
+ ],
+ "ancora_doc": "O centro da bola é o pixel (12,12) do canvas 24x24 em todos os quadros. Posicione o projétil por esse pixel.",
+ "folha": {
+  "arquivo": "folha_projetil_1x.png",
+  "celula": [
+   24,
+   24
+  ],
+  "colunas": 6,
+  "linhas": [
+   "S: nascer 0-1, voo 2-5",
+   "N: nascer 0-1, voo 2-5",
+   "E: nascer 0-1, voo 2-5",
+   "W: nascer 0-1, voo 2-5",
+   "impacto 0-3 (igual para todas as direções)"
+  ]
+ },
+ "anims": {
+  "nascer": {
+   "quadros": 2,
+   "delays_ms": [
+    60,
+    60
+   ],
+   "loop": false,
+   "doc": "preso à boca, sem deslocar"
+  },
+  "voo": {
+   "quadros": 4,
+   "delays_ms": [
+    80,
+    80,
+    80,
+    80
+   ],
+   "loop": true,
+   "doc": "a cauda aponta para de onde ele veio"
+  },
+  "impacto": {
+   "quadros": 4,
+   "delays_ms": [
+    60,
+    70,
+    80,
+    90
+   ],
+   "loop": false,
+   "doc": "o jogo toca ao colidir ou no fim do alcance"
+  }
+ },
+ "disparo": {
+  "quadro_do_ataque": {
+   "S": 3,
+   "N": 3,
+   "E": 2,
+   "W": 2
+  },
+  "tempo_desde_o_inicio_do_ataque_ms": {
+   "S": 460,
+   "N": 420,
+   "E": 320,
+   "W": 320
+  },
+  "origem_boca_no_canvas_do_sprite": {
+   "S": [
+    30,
+    29
+   ],
+   "N": [
+    30,
+    12
+   ],
+   "E": [
+    38,
+    24
+   ],
+   "W": [
+    21,
+    24
+   ]
+  },
+  "offset_da_ancora_do_sprite": {
+   "S": [
+    0.5,
+    -20
+   ],
+   "N": [
+    0.5,
+    -37
+   ],
+   "E": [
+    8.5,
+    -25
+   ],
+   "W": [
+    -8.5,
+    -25
+   ]
+  },
+  "canto_do_canvas_do_projetil_no_canvas_do_sprite": {
+   "S": [
+    18,
+    17
+   ],
+   "N": [
+    18,
+    0
+   ],
+   "E": [
+    26,
+    12
+   ],
+   "W": [
+    9,
+    12
+   ]
+  },
+  "doc": "No INÍCIO do quadro `quadro_do_ataque` do attack/<dir>, crie o projétil com o pixel-âncora (12,12) sobre o pixel `origem_boca` do canvas 60x60 do Agumon (ou: âncora do sprite (29.5, 49) + offset). Toque `nascer` parado e depois `voo` em loop, deslocando."
+ },
+ "direcao": {
+  "S": [
+   0,
+   1
+  ],
+  "N": [
+   0,
+   -1
+  ],
+  "E": [
+   1,
+   0
+  ],
+  "W": [
+   -1,
+   0
+  ]
+ },
+ "ordem_de_desenho": {
+  "S": "na frente do Agumon",
+  "E": "na frente do Agumon",
+  "W": "na frente do Agumon",
+  "N": "ATRÁS do Agumon enquanto houver sobreposição (ele atira para o fundo)"
+ },
+ "a_cargo_do_jogo": [
+  "deslocamento e velocidade",
+  "alcance",
+  "colisão",
+  "quando tocar o impacto",
+  "dano"
+ ],
+ "sugestoes_nao_validadas": {
+  "velocidade_px_s": 100,
+  "hitbox": "8x8 centrada no pixel-âncora",
+  "alcance_px": "definir no jogo",
+  "doc": "[H] valores usados só na simulação dos GIFs de demonstração; não testados no jogo"
+ },
+ "cores": [
+  "#e20704",
+  "#fb1903",
+  "#fcf6cf",
+  "#fcfffe",
+  "#fd8c35",
+  "#fdd66f"
+ ],
+ "fonte": "desenho por código próprio (scripts/projetil.py, mesma função fireball da F7), só cores de fogo já presentes no F2b"
+}

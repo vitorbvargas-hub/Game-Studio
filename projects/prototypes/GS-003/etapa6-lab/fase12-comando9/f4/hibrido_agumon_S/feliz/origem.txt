@@ -1,0 +1,10 @@
+q0: v3 custom feliz q0 polido
+q1: v3 custom feliz q1 polido
+q2: v3 custom feliz q2 polido
+q3: v3 custom feliz q3 polido
+q4: v3 custom feliz q4 polido
+q5: v3 custom feliz q5 polido
+q6: v3 custom feliz q6 polido
+q7: v3 custom feliz q7 polido
+q8: v3 custom feliz q8 polido
+q9: = q0 (volta ao neutro)

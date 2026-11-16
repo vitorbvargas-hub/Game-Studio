@@ -1,0 +1,22 @@
+Imagens oficiais (Bandai / Bandai Namco e desenvolvedoras), extraídas por terceiros e publicadas no The Spriters Resource.
+Uso: SOMENTE referência interna de estudo (decisão D12 / ADR-009, camada official-fan-use para estudo). NÃO redistribuir, NÃO colocar no jogo.
+Origem desta cópia: o estúdio já tinha estas folhas em assets/GAME-ASSETS/10-source-files/spriters-resource/ (baixadas em 2026-11-08,
+manifesto _manifest.json da mesma pasta). Copiadas sem alteração (cp -p) em 2026-11-14 para a F8A. Não houve novo download.
+Hoje (2026-11-14) o Spriters Resource responde com verificação Cloudflare; não foi contornada.
+
+ds_dawndusk/sr40896_hawkmon.png ........ Digimon World: Dawn / Dusk (DS, Bandai Namco, 2007). Asset 40896 "Hawkmon". Ripper: Shoda ("No credit needed" na folha).
+                                          URL: https://www.spriters-resource.com/ds_dsi/digimonworldds2/asset/40896/   sha256 f6a99398…d6ad
+dw_ds/sr48517_hawkmon.png .............. Digimon World DS (DS, Bandai, 2006). Asset 48517 "Hawkmon". Ripped by Dazz, arranged by Mighty Jetters ("Credit is not required").
+                                          URL: https://www.spriters-resource.com/ds_dsi/dgmnworldds/asset/48517/   sha256 6e6f33c9…125a
+wsc_medley/sr64825_hawkmon.png ......... Digimon Tamers: Digimon Medley (WonderSwan Color, Bandai). Asset 64825 "Hawkmon" (a folha inclui Holsmon, Shurimon e Aquilamon).
+                                          URL: https://www.spriters-resource.com/wonderswan_wsc/digimonmedley/asset/64825/   sha256 b866bff9…1eaf
+wsc_digitalpartner/sr483619_hawkmon.png  Digimon Adventure 02: Digital Partner (WonderSwan, Bandai / Tom Create). Asset 483619 "Hawkmon".
+                                          URL: https://www.spriters-resource.com/wonderswan_wsc/digimonadventure02digitalpartner/asset/483619/   sha256 939753bb…c94e
+
+Arte oficial vista só por link (Wikimon, view_image, sem cópia local porque o proxy do exec recusa download):
+  https://wikimon.net/images/7/7f/Hawkmon.jpg ............................ Digimon Reference Book
+  https://wikimon.net/images/9/9d/Hawkmon_adv02_reference_art.jpg ......... folha de modelo do anime Adventure 02 (costas, frente, 3/4)
+  https://wikimon.net/images/1/1d/Hawkmon_adv02_reference_art_2.jpg ....... folha "決定稿" do anime: Feather Slash
+  https://wikimon.net/images/f/f0/Hawkmon_dot.png ......................... "dot" oficial (legenda da galeria: Digimon ReArise)
+  https://wikimon.net/images/f/fb/Hawkmon_Model_DSR.png ................... modelo 3D (Digimon Super Rumble)
+Digimon UP (repositório de fã com sprites oficiais extraídos, sem licença): só link, não baixado.

@@ -1,0 +1,218 @@
+{
+ "E": {
+  "pares": [
+   {
+    "par": "0->1",
+    "dx": -2,
+    "sobreposicao": 27,
+    "contato": 30
+   },
+   {
+    "par": "1->2",
+    "dx": -3,
+    "sobreposicao": 18,
+    "contato": 27
+   },
+   {
+    "par": "2->3",
+    "dx": -2,
+    "sobreposicao": 16,
+    "contato": 20
+   },
+   {
+    "par": "3->4",
+    "dx": -2,
+    "sobreposicao": 16,
+    "contato": 16
+   },
+   {
+    "par": "4->5",
+    "dx": -3,
+    "sobreposicao": 21,
+    "contato": 24
+   },
+   {
+    "par": "5->6",
+    "dx": -2,
+    "sobreposicao": 21,
+    "contato": 22
+   },
+   {
+    "par": "6->7",
+    "dx": -2,
+    "sobreposicao": 20,
+    "contato": 21
+   },
+   {
+    "par": "7->0",
+    "dx": -2,
+    "sobreposicao": 15,
+    "contato": 21
+   }
+  ],
+  "media_abs_dx": 2.25,
+  "dx": "-2,-3,-2,-2,-3,-2,-2,-2"
+ },
+ "W": {
+  "pares": [
+   {
+    "par": "0->1",
+    "dx": 2,
+    "sobreposicao": 10,
+    "contato": 26
+   },
+   {
+    "par": "1->2",
+    "dx": 3,
+    "sobreposicao": 17,
+    "contato": 17
+   },
+   {
+    "par": "2->3",
+    "dx": 3,
+    "sobreposicao": 35,
+    "contato": 35
+   },
+   {
+    "par": "3->4",
+    "dx": 1,
+    "sobreposicao": 21,
+    "contato": 40
+   },
+   {
+    "par": "4->5",
+    "dx": 3,
+    "sobreposicao": 17,
+    "contato": 23
+   },
+   {
+    "par": "5->6",
+    "dx": 3,
+    "sobreposicao": 26,
+    "contato": 30
+   },
+   {
+    "par": "6->7",
+    "dx": 3,
+    "sobreposicao": 28,
+    "contato": 28
+   },
+   {
+    "par": "7->0",
+    "dx": 4,
+    "sobreposicao": 24,
+    "contato": 28
+   }
+  ],
+  "media_abs_dx": 2.75,
+  "dx": "2,3,3,1,3,3,3,4"
+ },
+ "S": {
+  "pares": [
+   {
+    "par": "0->1",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   },
+   {
+    "par": "1->2",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   },
+   {
+    "par": "2->3",
+    "dx": 8,
+    "sobreposicao": 12,
+    "contato": 14
+   },
+   {
+    "par": "3->4",
+    "dx": 0,
+    "sobreposicao": 12,
+    "contato": 18
+   },
+   {
+    "par": "4->5",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   },
+   {
+    "par": "5->6",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   },
+   {
+    "par": "6->7",
+    "dx": -8,
+    "sobreposicao": 12,
+    "contato": 14
+   },
+   {
+    "par": "7->0",
+    "dx": 0,
+    "sobreposicao": 12,
+    "contato": 18
+   }
+  ],
+  "media_abs_dx": 2,
+  "dx": "0,0,8,0,0,0,-8,0"
+ },
+ "N": {
+  "pares": [
+   {
+    "par": "0->1",
+    "dx": 0,
+    "sobreposicao": 8,
+    "contato": 14
+   },
+   {
+    "par": "1->2",
+    "dx": -8,
+    "sobreposicao": 8,
+    "contato": 8
+   },
+   {
+    "par": "2->3",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 18
+   },
+   {
+    "par": "3->4",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   },
+   {
+    "par": "4->5",
+    "dx": 0,
+    "sobreposicao": 8,
+    "contato": 14
+   },
+   {
+    "par": "5->6",
+    "dx": 8,
+    "sobreposicao": 8,
+    "contato": 8
+   },
+   {
+    "par": "6->7",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 18
+   },
+   {
+    "par": "7->0",
+    "dx": 0,
+    "sobreposicao": 14,
+    "contato": 14
+   }
+  ],
+  "media_abs_dx": 2,
+  "dx": "0,-8,0,0,0,8,0,0"
+ }
+}

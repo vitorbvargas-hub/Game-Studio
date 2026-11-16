@@ -1,0 +1,129 @@
+{
+  "group_id": "61a5429d-518a-4ae3-8a1f-5b86703de3a6",
+  "states": [
+    {
+      "character": {
+        "id": "33a0fe49-a6d9-4e22-a112-3406087d8804",
+        "name": "Idle",
+        "prompt": "Greymon, a big champion Digimon: orange dinosaur standing upright on two legs facing the viewer, with blue stripes on the body, a dark brown skull helmet with three horns (one on the nose, two on the sides), red eyes, big white claws, thick tail, strong but cute chibi game sprite with dark outline",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-11-14T08:34:10.771986+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "walk-v3": {
+            "east": [
+              "Idle/animations/walk-v3/east/frame_000.png",
+              "Idle/animations/walk-v3/east/frame_001.png",
+              "Idle/animations/walk-v3/east/frame_002.png",
+              "Idle/animations/walk-v3/east/frame_003.png",
+              "Idle/animations/walk-v3/east/frame_004.png",
+              "Idle/animations/walk-v3/east/frame_005.png",
+              "Idle/animations/walk-v3/east/frame_006.png",
+              "Idle/animations/walk-v3/east/frame_007.png",
+              "Idle/animations/walk-v3/east/frame_008.png"
+            ],
+            "south": [
+              "Idle/animations/walk-v3/south/frame_000.png",
+              "Idle/animations/walk-v3/south/frame_001.png",
+              "Idle/animations/walk-v3/south/frame_002.png",
+              "Idle/animations/walk-v3/south/frame_003.png",
+              "Idle/animations/walk-v3/south/frame_004.png",
+              "Idle/animations/walk-v3/south/frame_005.png",
+              "Idle/animations/walk-v3/south/frame_006.png",
+              "Idle/animations/walk-v3/south/frame_007.png",
+              "Idle/animations/walk-v3/south/frame_008.png"
+            ],
+            "north": [
+              "Idle/animations/walk-v3/north/frame_000.png",
+              "Idle/animations/walk-v3/north/frame_001.png",
+              "Idle/animations/walk-v3/north/frame_002.png",
+              "Idle/animations/walk-v3/north/frame_003.png",
+              "Idle/animations/walk-v3/north/frame_004.png",
+              "Idle/animations/walk-v3/north/frame_005.png",
+              "Idle/animations/walk-v3/north/frame_006.png",
+              "Idle/animations/walk-v3/north/frame_007.png",
+              "Idle/animations/walk-v3/north/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/walk-v3/west/frame_000.png",
+              "Idle/animations/walk-v3/west/frame_001.png",
+              "Idle/animations/walk-v3/west/frame_002.png",
+              "Idle/animations/walk-v3/west/frame_003.png",
+              "Idle/animations/walk-v3/west/frame_004.png",
+              "Idle/animations/walk-v3/west/frame_005.png",
+              "Idle/animations/walk-v3/west/frame_006.png",
+              "Idle/animations/walk-v3/west/frame_007.png",
+              "Idle/animations/walk-v3/west/frame_008.png"
+            ]
+          },
+          "mega-flame-v3": {
+            "south": [
+              "Idle/animations/mega-flame-v3/south/frame_000.png",
+              "Idle/animations/mega-flame-v3/south/frame_001.png",
+              "Idle/animations/mega-flame-v3/south/frame_002.png",
+              "Idle/animations/mega-flame-v3/south/frame_003.png",
+              "Idle/animations/mega-flame-v3/south/frame_004.png",
+              "Idle/animations/mega-flame-v3/south/frame_005.png",
+              "Idle/animations/mega-flame-v3/south/frame_006.png",
+              "Idle/animations/mega-flame-v3/south/frame_007.png",
+              "Idle/animations/mega-flame-v3/south/frame_008.png"
+            ],
+            "north": [
+              "Idle/animations/mega-flame-v3/north/frame_000.png",
+              "Idle/animations/mega-flame-v3/north/frame_001.png",
+              "Idle/animations/mega-flame-v3/north/frame_002.png",
+              "Idle/animations/mega-flame-v3/north/frame_003.png",
+              "Idle/animations/mega-flame-v3/north/frame_004.png",
+              "Idle/animations/mega-flame-v3/north/frame_005.png",
+              "Idle/animations/mega-flame-v3/north/frame_006.png",
+              "Idle/animations/mega-flame-v3/north/frame_007.png",
+              "Idle/animations/mega-flame-v3/north/frame_008.png"
+            ],
+            "west": [
+              "Idle/animations/mega-flame-v3/west/frame_000.png",
+              "Idle/animations/mega-flame-v3/west/frame_001.png",
+              "Idle/animations/mega-flame-v3/west/frame_002.png",
+              "Idle/animations/mega-flame-v3/west/frame_003.png",
+              "Idle/animations/mega-flame-v3/west/frame_004.png",
+              "Idle/animations/mega-flame-v3/west/frame_005.png",
+              "Idle/animations/mega-flame-v3/west/frame_006.png",
+              "Idle/animations/mega-flame-v3/west/frame_007.png",
+              "Idle/animations/mega-flame-v3/west/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/mega-flame-v3/east/frame_000.png",
+              "Idle/animations/mega-flame-v3/east/frame_001.png",
+              "Idle/animations/mega-flame-v3/east/frame_002.png",
+              "Idle/animations/mega-flame-v3/east/frame_003.png",
+              "Idle/animations/mega-flame-v3/east/frame_004.png",
+              "Idle/animations/mega-flame-v3/east/frame_005.png",
+              "Idle/animations/mega-flame-v3/east/frame_006.png",
+              "Idle/animations/mega-flame-v3/east/frame_007.png",
+              "Idle/animations/mega-flame-v3/east/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T08:43:29.732072"
+}

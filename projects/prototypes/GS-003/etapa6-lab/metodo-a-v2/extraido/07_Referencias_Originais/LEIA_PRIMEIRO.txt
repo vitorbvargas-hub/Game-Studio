@@ -1,0 +1,1 @@
+Referência visual conceitual. NÃO é spritesheet game-ready. Não importar automaticamente para o motor.

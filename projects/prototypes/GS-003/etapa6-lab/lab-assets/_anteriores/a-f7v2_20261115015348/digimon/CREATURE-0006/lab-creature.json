@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0006",
+ "species": "agumon",
+ "source": "Método A (ChatGPT) agumon_retrato_A — pose única (3/4 voltado para a esquerda (SO)), parada; sem outras direções nem walk nesta fonte",
+ "file": "pose.png",
+ "w": 32,
+ "h": 34,
+ "pivot": {
+  "x": 16,
+  "y": 33
+ },
+ "anatomy": "biped",
+ "facing": "W",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

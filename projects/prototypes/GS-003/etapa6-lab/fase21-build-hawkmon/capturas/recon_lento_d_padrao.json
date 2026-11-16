@@ -1,0 +1,111 @@
+{
+ "tag": "padrao",
+ "segmento": "lento:d",
+ "gif": "recon_lento_d_padrao.gif",
+ "folha": "recon_lento_d_padrao_folha.png",
+ "quadros_gif": 255,
+ "deslizamento_px": {
+  "n": 51,
+  "media": 0,
+  "min": -2,
+  "max": 0.8,
+  "amostra": [
+   {
+    "de": 4,
+    "para": 5,
+    "anda_px": 1.4,
+    "desliza_px": -0.6
+   },
+   {
+    "de": 5,
+    "para": 6,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 6,
+    "para": 7,
+    "anda_px": 1.4,
+    "desliza_px": -0.6
+   },
+   {
+    "de": 7,
+    "para": 0,
+    "anda_px": 2.8,
+    "desliza_px": 0.8
+   },
+   {
+    "de": 0,
+    "para": 1,
+    "anda_px": 0,
+    "desliza_px": -2
+   },
+   {
+    "de": 1,
+    "para": 2,
+    "anda_px": 2.8,
+    "desliza_px": 0.8
+   },
+   {
+    "de": 2,
+    "para": 3,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 3,
+    "para": 4,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 4,
+    "para": 5,
+    "anda_px": 1.4,
+    "desliza_px": -0.6
+   },
+   {
+    "de": 5,
+    "para": 6,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 6,
+    "para": 7,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 7,
+    "para": 0,
+    "anda_px": 2,
+    "desliza_px": 0
+   },
+   {
+    "de": 0,
+    "para": 1,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 1,
+    "para": 2,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   },
+   {
+    "de": 2,
+    "para": 3,
+    "anda_px": 1.4,
+    "desliza_px": -0.6
+   },
+   {
+    "de": 3,
+    "para": 4,
+    "anda_px": 2.2,
+    "desliza_px": 0.2
+   }
+  ]
+ }
+}

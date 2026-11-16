@@ -1,0 +1,32 @@
+{
+  "package": "Digital Odyssey Metodo A v2",
+  "tile_size": 32,
+  "frames_water": 8,
+  "sprites": {
+    "tamer": {
+      "path": "01_Tamers/tamer_original_placeholder_4dir_4frames_48x64.png",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "framesPerDirection": 4
+    },
+    "water": {
+      "path": "05_Agua_Cachoeira/water_32x32_8frames.png",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "frames": 8
+    },
+    "waterfall": {
+      "path": "05_Agua_Cachoeira/waterfall_64x96_8frames.png",
+      "frameWidth": 64,
+      "frameHeight": 96,
+      "frames": 8
+    }
+  },
+  "status": "technical demo only, NOT game-integrated, Digimon assets not game-ready"
+}

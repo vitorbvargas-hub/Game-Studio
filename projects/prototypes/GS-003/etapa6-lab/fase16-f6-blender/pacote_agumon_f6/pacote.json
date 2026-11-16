@@ -1,0 +1,13 @@
+{
+ "especie": "Agumon (rookie), F6 Blender 3D -> pixel art, PROVA DE CONCEITO, NAO HOMOLOGADO",
+ "origem": "modelo low-poly próprio por script (scripts/agumon_blender.py), Blender 4.5.16 LTS",
+ "licenca": "original (modelo e scripts do estúdio); espécie de terceiros, fangame não oficial",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora_pe_linha": 46,
+ "walk": "8 quadros, pé de apoio recua 3.0 px por quadro",
+ "attack": "9 quadros, Pepper Breath, disparo no quadro 4",
+ "W": "espelho exato de E"
+}

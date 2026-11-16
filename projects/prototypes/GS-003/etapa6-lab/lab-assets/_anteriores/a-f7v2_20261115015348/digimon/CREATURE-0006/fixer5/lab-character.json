@@ -1,0 +1,353 @@
+{
+ "id": "CREATURE-0006-fixer5",
+ "label": "Agumon v5 (ChatGPT prompt padrão + Fixer Neural pixel 4,5)",
+ "source": "import-agumon-v5.mjs (Etapa 6, Fase 8b, pedido direto do fundador)",
+ "rotations": {
+  "S": {
+   "file": "rotations/S.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 29,
+    "y": 43
+   }
+  },
+  "W": {
+   "file": "rotations/W.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 28,
+    "y": 43
+   }
+  },
+  "E": {
+   "file": "rotations/E.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 22,
+    "y": 43
+   }
+  },
+  "N": {
+   "file": "rotations/N.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 28,
+    "y": 43
+   }
+  }
+ },
+ "walk": {
+  "S": {
+   "ms": 110,
+   "frames": [
+    {
+     "file": "walk/S/frame_000.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_001.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_002.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_003.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_004.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_005.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_006.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/S/frame_007.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 29,
+      "y": 43
+     }
+    }
+   ]
+  },
+  "W": {
+   "ms": 110,
+   "frames": [
+    {
+     "file": "walk/W/frame_000.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_001.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_002.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_003.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_004.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_005.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_006.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/W/frame_007.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    }
+   ]
+  },
+  "E": {
+   "ms": 110,
+   "frames": [
+    {
+     "file": "walk/E/frame_000.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_001.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_002.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_003.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_004.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_005.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_006.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/E/frame_007.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 22,
+      "y": 43
+     }
+    }
+   ]
+  },
+  "N": {
+   "ms": 110,
+   "frames": [
+    {
+     "file": "walk/N/frame_000.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_001.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_002.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_003.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_004.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_005.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_006.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    },
+    {
+     "file": "walk/N/frame_007.png",
+     "w": 48,
+     "h": 48,
+     "pivot": {
+      "x": 28,
+      "y": 43
+     }
+    }
+   ]
+  }
+ }
+}

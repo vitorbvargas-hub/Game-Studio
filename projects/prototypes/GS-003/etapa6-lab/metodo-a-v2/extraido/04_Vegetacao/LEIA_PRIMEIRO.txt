@@ -1,0 +1,1 @@
+Tres objetos originais RGBA 64x80, sem colisao; requer posicionamento/oclusao no motor.

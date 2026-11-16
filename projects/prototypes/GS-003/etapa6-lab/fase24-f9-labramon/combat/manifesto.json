@@ -1,0 +1,1817 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 8 — combate (ataque Retriever Bark, receber dano, incapacitação com recuperação)",
+ "data": "2026-11-16",
+ "direcao": "E (única direção nesta validação; standing/idle/walk nas 4 direções estão em movement/)",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49
+ },
+ "paleta": {
+  "limite": 24,
+  "doc": "Todos os quadros usam só cores da rotação E (19 cores); 0 semitransparência."
+ },
+ "idle_de_retorno": "movement/idle/E (ou movement/standing/E.png)",
+ "duracoes": "ms por quadro = sugestão de arte; parâmetro do motor",
+ "estados": {
+  "attack_retriever_bark": {
+   "doc": "Técnica oficial Retriever Bark (digimon.net: latido intenso que gera hiper-oscilação). Sem contato físico. A onda é camada FX separada (fx/), desenhada localmente.",
+   "clipes": {
+    "ataque": {
+     "fonte": "f8-attack-bark",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      90,
+      90,
+      100,
+      120,
+      70,
+      180,
+      100,
+      110
+     ],
+     "duracao_total_ms": 860,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "preparacao": [
+       0,
+       3
+      ],
+      "execucao": [
+       4,
+       5
+      ],
+      "recuperacao": [
+       6,
+       7
+      ]
+     },
+     "quadro_de_impacto": 4,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/attack_retriever_bark_ataque.png",
+     "gifs": [
+      "gifs/attack_retriever_bark_ataque_1x.gif",
+      "gifs/attack_retriever_bark_ataque_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       38
+      ],
+      "w_min_max": [
+       38,
+       39
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       3,
+       4,
+       7,
+       6,
+       4,
+       5,
+       4,
+       4
+      ],
+      "marcas_px": [
+       7,
+       8,
+       7,
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       510,
+       649,
+       731,
+       746,
+       786,
+       775,
+       658,
+       10
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_000.png",
+       "sha256": "b6b38cdcf5de112562726c240bb059667799e61994146ee94b58dcb5e173a8f6"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_001.png",
+       "sha256": "94cf6a743d352f24a473f025b01033595de81c558821bd78083331e51dcf4fef"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_002.png",
+       "sha256": "57ed731ab2ad602c5c27d733c5efa4ed5a5e08675754b1ff72194fa7aa821372"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_003.png",
+       "sha256": "b31b6e85cf3dbb4b49e6f7da6872a6d91b9717b59851594dfcb2c131e9d18b8b"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_004.png",
+       "sha256": "49a7bf2912b1007f6551a3d36473824c0be7eb7fdf7456ac1b3bed5f0efee625"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_005.png",
+       "sha256": "208b842cf0bf11048af8a39d771f1fc014a95f826c8d50ce3bef5d76c9bca49b"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_006.png",
+       "sha256": "3c4521d95234eab9da5844eb22c3523a7cd6620edcf712aeeb45dbe5aed40b13"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_007.png",
+       "sha256": "28cfd40133498f6202bd15a5fed62b734a0a26d17157a6b3dd0ad4f96ccdf744"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "attack_retriever_bark/pose_mestra.png",
+    "fonte": "f8-attack-bark q5",
+    "sha256": "208b842cf0bf11048af8a39d771f1fc014a95f826c8d50ce3bef5d76c9bca49b"
+   },
+   "fx_onda_de_choque": {
+    "doc": "Camada FX separada, desenhada localmente (0 gerações), só cores da paleta (#f6f2e8, #d5d2c6, #010101), sem semitransparência (o apagar é por tracejado). Canvas 96x60 com a MESMA origem do sprite 60x60 (o sprite ocupa x 0–59). Origem da onda = boca no quadro de execução.",
+    "canvas": [
+     96,
+     60
+    ],
+    "origem_boca_xy": [
+     52,
+     24
+    ],
+    "alcance_max_x": 78,
+    "linha_do_tempo": [
+     {
+      "quadro_sprite": 0,
+      "quadro_fx": null,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 1,
+      "quadro_fx": null,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 2,
+      "quadro_fx": null,
+      "ms": 100
+     },
+     {
+      "quadro_sprite": 3,
+      "quadro_fx": null,
+      "ms": 120
+     },
+     {
+      "quadro_sprite": 4,
+      "quadro_fx": 0,
+      "ms": 70
+     },
+     {
+      "quadro_sprite": 5,
+      "quadro_fx": 1,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 5,
+      "quadro_fx": 2,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 6,
+      "quadro_fx": 3,
+      "ms": 100
+     },
+     {
+      "quadro_sprite": 7,
+      "quadro_fx": 4,
+      "ms": 110
+     }
+    ],
+    "arquivos": [
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_000.png",
+      "sha256": "832f155932b0336f1b049a86dbed0129887002fe9951b15399aedfaaf3514ee4"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_001.png",
+      "sha256": "23b62ef1c6a079b674dccc90e9af5aebc3f024389c30ec1397cadcd223c72b96"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_002.png",
+      "sha256": "88358d661b9361b4e4b6565100fb4996f14ed5588c1e93341bada89bb3753167"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_003.png",
+      "sha256": "e52f9c0d04c3663b238c74af35789e4034bc781f4aa72bd09e6ff698f5f1a4c8"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_004.png",
+      "sha256": "22ec8339c8c377a9232665d409bd67f114d2c5d11499b432a9bad8998bacf37d"
+     }
+    ],
+    "preview_composto": [
+     "attack_retriever_bark/composto_preview/frame_000.png",
+     "attack_retriever_bark/composto_preview/frame_001.png",
+     "attack_retriever_bark/composto_preview/frame_002.png",
+     "attack_retriever_bark/composto_preview/frame_003.png",
+     "attack_retriever_bark/composto_preview/frame_004.png",
+     "attack_retriever_bark/composto_preview/frame_005.png",
+     "attack_retriever_bark/composto_preview/frame_006.png",
+     "attack_retriever_bark/composto_preview/frame_007.png",
+     "attack_retriever_bark/composto_preview/frame_008.png"
+    ],
+    "gifs": [
+     "gifs/demo_ataque_com_fx_1x.gif",
+     "gifs/demo_ataque_com_fx_4x.gif"
+    ],
+    "espelhar_para_W": "não validado: W não foi produzido nesta fase"
+   }
+  },
+  "hurt": {
+   "doc": "Receber dano: recuo com olho fechado, depois sacode e volta. Não cai.",
+   "clipes": {
+    "dano": {
+     "fonte": "f8-hurt",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      60,
+      80,
+      100,
+      100,
+      90,
+      90,
+      90,
+      100
+     ],
+     "duracao_total_ms": 710,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "impacto": [
+       0,
+       2
+      ],
+      "recuperacao": [
+       3,
+       7
+      ]
+     },
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/hurt_dano.png",
+     "gifs": [
+      "gifs/hurt_dano_1x.gif",
+      "gifs/hurt_dano_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       38
+      ],
+      "w_min_max": [
+       34,
+       38
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0,
+       4,
+       4,
+       4,
+       4
+      ],
+      "marcas_px": [
+       8,
+       8,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       true,
+       true,
+       true,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       885,
+       940,
+       838,
+       727,
+       535,
+       590,
+       600,
+       5
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "hurt/frames/frame_000.png",
+       "sha256": "a537b043108309a5115cb93530d62fee9811c3792bc5de0547e7586c80e51890"
+      },
+      {
+       "arquivo": "hurt/frames/frame_001.png",
+       "sha256": "df1ba59bc8344aafe626471771f598a5bfe3940154880422a79e88f7d3cf2404"
+      },
+      {
+       "arquivo": "hurt/frames/frame_002.png",
+       "sha256": "40bf86076fbbf21336cd69dddf4ab7c33dc54868614db61957e660451ea08192"
+      },
+      {
+       "arquivo": "hurt/frames/frame_003.png",
+       "sha256": "fe60f1bde839d63f845cfa6671bf7bf49da7ace12820c112d1b92485f7ae30db"
+      },
+      {
+       "arquivo": "hurt/frames/frame_004.png",
+       "sha256": "f0e075b96b7e9ca1e145c21b71cdb9e7b6cf87138b3bfe7454afc732096844ef"
+      },
+      {
+       "arquivo": "hurt/frames/frame_005.png",
+       "sha256": "69cd1c34ec53dadbfcd8572ce2268ac1690ee14fa76062819353d78adfe0207f"
+      },
+      {
+       "arquivo": "hurt/frames/frame_006.png",
+       "sha256": "6c545616926b437e98a6cf913069d4605704b723fcf3956a8ba38038543c4674"
+      },
+      {
+       "arquivo": "hurt/frames/frame_007.png",
+       "sha256": "d6c9ebe807ca4268769d48818edbe33282a762b834cc5d7f0b1b888819ae8d0e"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "hurt/pose_mestra.png",
+    "fonte": "f8-hurt q1",
+    "sha256": "df1ba59bc8344aafe626471771f598a5bfe3940154880422a79e88f7d3cf2404"
+   }
+  },
+  "incapacitated": {
+   "doc": "Incapacitação (derrota normal): perde a postura e desaba de bruços, fica ofegante e se recupera. NÃO é morte nem retorno a Digiovo.",
+   "clipes": {
+    "queda": {
+     "fonte": "f8-ko-fall",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      7
+     ],
+     "quadros": 6,
+     "duracao_ms_por_quadro": [
+      90,
+      90,
+      90,
+      100,
+      130,
+      220
+     ],
+     "duracao_total_ms": 720,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "perda_de_postura": [
+       0,
+       3
+      ],
+      "assentar": [
+       4,
+       5
+      ]
+     },
+     "segue_para": "estado",
+     "spritesheet": "spritesheets/incapacitated_queda.png",
+     "gifs": [
+      "gifs/incapacitated_queda_1x.gif",
+      "gifs/incapacitated_queda_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       20,
+       38
+      ],
+      "w_min_max": [
+       37,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4,
+       4,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7,
+       5,
+       5
+      ],
+      "rosto_travado": [
+       true,
+       true,
+       true,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       566,
+       780,
+       797,
+       1001,
+       1074,
+       1072
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/queda/frame_000.png",
+       "sha256": "a23e148e07ebe4f58b104ef9c146b2a2557c34f4f506ef49287ec597c2aa5d3e"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_001.png",
+       "sha256": "b8be140908625027a8f76d95a144c460aacea76909158e6be8f3fa47327c1183"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_002.png",
+       "sha256": "97e5e212c6511d68c091384d0dd6ef3dc6f3ba302c5b6ae8591a2fe6323bacfe"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_003.png",
+       "sha256": "1872213e113c94cb01fd562b3a0d6245d8bfd7f76a6b2a7d64fde4d57766ae5e"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_004.png",
+       "sha256": "535a952d73b14b7ae5121f532dc475d92c63b070f5cfce4b2e479f95be630c0f"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_005.png",
+       "sha256": "b288745b9f8f216944da2b45afee42608475e2433f09db1d8d79d62165882196"
+      }
+     ]
+    },
+    "estado": {
+     "fonte": "f8-ko-loop",
+     "quadros_fonte": [
+      3,
+      0,
+      1,
+      2
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      600,
+      220,
+      220,
+      220
+     ],
+     "duracao_total_ms": 1260,
+     "loop": true,
+     "doc": "Estado incapacitado: parado no chão (600 ms) e uma arfada de boca aberta (3 quadros). Quadro 0 do clipe ≈ último quadro da queda.",
+     "spritesheet": "spritesheets/incapacitated_estado.png",
+     "gifs": [
+      "gifs/incapacitated_estado_1x.gif",
+      "gifs/incapacitated_estado_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       20,
+       21
+      ],
+      "w_min_max": [
+       46,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 17,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       5,
+       8,
+       8,
+       8
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       1071,
+       1060,
+       1056,
+       1053
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/estado/frame_000.png",
+       "sha256": "ff2883e5c8497370417be867553f4c54ed2d67d2bd87052925faf2bc7c003f1d"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_001.png",
+       "sha256": "fe90872ef708f28d71a839ad8b2c72c8e433d5f655c9485effdb1a96fc5c45a1"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_002.png",
+       "sha256": "68d844fd901af8f8baa7a247f72e87c45e4e5e0e62f8e3d16d7f58f565b7dac9"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_003.png",
+       "sha256": "7c5d53b5f31a505f0379c7c7163000f2a9f1c3b6bbae0e14cb9bee18037e0b4b"
+      }
+     ]
+    },
+    "recuperacao": {
+     "fonte": "f8-ko-recover",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      220,
+      160,
+      140,
+      140,
+      120,
+      120,
+      110,
+      120
+     ],
+     "duracao_total_ms": 1130,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/incapacitated_recuperacao.png",
+     "gifs": [
+      "gifs/incapacitated_recuperacao_1x.gif",
+      "gifs/incapacitated_recuperacao_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       20,
+       36
+      ],
+      "w_min_max": [
+       38,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       8,
+       7,
+       4
+      ],
+      "marcas_px": [
+       4,
+       6,
+       6,
+       5,
+       8,
+       7,
+       9,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       1072,
+       1045,
+       1035,
+       982,
+       932,
+       827,
+       386,
+       86
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/recuperacao/frame_000.png",
+       "sha256": "6dc8d67a7029ebc80773b07317222a795a8471a5d6d489a9b63121da49ac0106"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_001.png",
+       "sha256": "4ec85b478181cb47fa39d6057622a478cd28e0e09413dbedcdaa9226bf86a58a"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_002.png",
+       "sha256": "a6d03e960447d191f0619384627dac734a326e2b859e6296657d5abbd8450526"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_003.png",
+       "sha256": "6f56546ac7a81243718604868041b8c183461ca006ac1c11e1b34b71b9de0731"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_004.png",
+       "sha256": "d0a8fb2f7bf08b2bc2c20606cc964a172ae5c3437f42415f147787c5c4c9c355"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_005.png",
+       "sha256": "6d8f38d8013ef8731d11790709c751e9e8ad6b392b35742d8f8a6acd6ac80fa8"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_006.png",
+       "sha256": "a4eb5ddaedcd19a5062ba2fa2f46b821756e55b5f3d9a29166c8dcae0a081758"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_007.png",
+       "sha256": "b4a488df074ef56ea87891183b2e6ba5465ba62e0a24ff28cc9080616da7782d"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "incapacitated/pose_mestra.png",
+    "fonte": "f8-ko-fall q7",
+    "sha256": "b288745b9f8f216944da2b45afee42608475e2433f09db1d8d79d62165882196"
+   }
+  }
+ },
+ "demos": {
+  "ataque_sem_fx": {
+   "sequencia": [
+    "standing E 250 ms",
+    "attack_retriever_bark/ataque",
+    "standing E 350 ms"
+   ],
+   "quadros": 10,
+   "duracao_total_ms": 1460,
+   "gifs": [
+    "gifs/demo_ataque_sem_fx_1x.gif",
+    "gifs/demo_ataque_sem_fx_4x.gif"
+   ]
+  },
+  "dano": {
+   "sequencia": [
+    "standing E 250 ms",
+    "hurt/dano",
+    "standing E 350 ms"
+   ],
+   "quadros": 10,
+   "duracao_total_ms": 1310,
+   "gifs": [
+    "gifs/demo_dano_1x.gif",
+    "gifs/demo_dano_4x.gif"
+   ]
+  },
+  "incapacitacao_completa": {
+   "sequencia": [
+    "standing E 250 ms",
+    "incapacitated/queda",
+    "incapacitated/estado",
+    "incapacitated/estado",
+    "incapacitated/recuperacao",
+    "standing E 400 ms"
+   ],
+   "quadros": 24,
+   "duracao_total_ms": 5020,
+   "gifs": [
+    "gifs/demo_incapacitacao_completa_1x.gif",
+    "gifs/demo_incapacitacao_completa_4x.gif"
+   ]
+  }
+ },
+ "bruto": {
+  "f8-attack-bark": {
+   "pixellab_grupo": "7e9ea826-9575-4a4e-9892-c7e725ab32f4",
+   "pixellab_job": "d0c68b3b-cf3c-4e78-9189-dac1298bfac9",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    72,
+    60
+   ],
+   "recorte_dx": 6,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 12,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         29,
+         8,
+         38,
+         15
+        ],
+        "tuft_px": 20,
+        "viraram_contorno": 0,
+        "escuros_removidos": 13
+       },
+       {
+        "box": [
+         39,
+         8,
+         44,
+         13
+        ],
+        "tuft_px": 3,
+        "viraram_contorno": 2,
+        "escuros_removidos": 5
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "topo_capuz": {
+        "dx": 3,
+        "dy": -2,
+        "silhueta_dif": 10,
+        "faixa_rot": [
+         31,
+         0,
+         48,
+         20
+        ],
+        "px": 15,
+        "sobras_escuras_px": 1
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 45
+     }
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         32,
+         9,
+         44,
+         13
+        ],
+        "tuft_px": 7,
+        "viraram_contorno": 3,
+        "escuros_removidos": 12
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "topo_capuz": {
+        "dx": 3,
+        "dy": -2,
+        "silhueta_dif": 14,
+        "faixa_rot": [
+         31,
+         0,
+         48,
+         20
+        ],
+        "px": 15,
+        "sobras_escuras_px": 2
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 20
+     }
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A4": {
+       "topo_capuz": {
+        "dx": 2,
+        "dy": -2,
+        "silhueta_dif": 0,
+        "faixa_rot": [
+         31,
+         0,
+         48,
+         20
+        ],
+        "px": 0,
+        "sobras_escuras_px": 0
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 0
+     }
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-attack-bark"
+  },
+  "f8-hurt": {
+   "pixellab_grupo": "80061d3b-80de-492d-976b-6e8292d4bd8c",
+   "pixellab_job": "353928a0-df8a-4f09-afcc-d3254cce60c6",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    64,
+    60
+   ],
+   "recorte_dx": 2,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 21,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         38,
+         17,
+         45,
+         24
+        ],
+        "tuft_px": 19,
+        "viraram_contorno": 4,
+        "escuros_removidos": 13
+       },
+       {
+        "box": [
+         29,
+         12,
+         36,
+         13
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 38
+     }
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         37,
+         15,
+         42,
+         20
+        ],
+        "tuft_px": 12,
+        "viraram_contorno": 4,
+        "escuros_removidos": 6
+       },
+       {
+        "box": [
+         26,
+         10,
+         36,
+         12
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 5
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 25
+     }
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         39,
+         18,
+         42,
+         22
+        ],
+        "tuft_px": 7,
+        "viraram_contorno": 4,
+        "escuros_removidos": 6
+       },
+       {
+        "box": [
+         29,
+         13,
+         36,
+         14
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 5
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 20
+     }
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-hurt"
+  },
+  "f8-ko-fall": {
+   "pixellab_grupo": "b763a8e9-f56b-4d47-98f5-afb9a8581d57",
+   "pixellab_job": "3deef405-8d56-4081-8760-b18eae906dc2",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 6,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 42,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 3,
+        "viraram_contorno": 3,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 42,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 25
+     }
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 3,
+        "viraram_contorno": 3,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 42,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 25
+     }
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 42,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-fall"
+  },
+  "f8-ko-loop": {
+   "pixellab_grupo": "72740c14-54cc-48b6-8b94-962ff72b8203",
+   "pixellab_job": "06b79d23-cc9b-4a96-98f3-129dddc68e26",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 4,
+   "geracoes": 1,
+   "quadros_chave": "início = fim = último quadro da queda",
+   "canvas_bruto": [
+    68,
+    60
+   ],
+   "recorte_dx": 4,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         28,
+         55,
+         30
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 41,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         28,
+         55,
+         30
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 41,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         28,
+         55,
+         30
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 41,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "olho_fechado": {
+        "aplicado": true,
+        "linha_olho_y": 42,
+        "linha_x": [
+         40,
+         43
+        ],
+        "px": 22
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 24
+     }
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-loop"
+  },
+  "f8-ko-recover": {
+   "pixellab_grupo": "a1c50e45-e8ee-401d-ac2d-4923e4c77ed8",
+   "pixellab_job": "7be04e34-5487-437c-b68c-01e644b01439",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = último quadro da queda; end_frame = rotação E",
+   "canvas_bruto": [
+    68,
+    60
+   ],
+   "recorte_dx": 4,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         29,
+         55,
+         31
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         28,
+         55,
+         30
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         26,
+         55,
+         28
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         28,
+         55,
+         30
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 3
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 5
+     }
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         25,
+         55,
+         27
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         20,
+         55,
+         22
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         14,
+         55,
+         16
+        ],
+        "tuft_px": 2,
+        "viraram_contorno": 2,
+        "escuros_removidos": 4
+       }
+      ],
+      "A3_soltos": 0,
+      "A4": {
+       "topo_capuz": {
+        "dx": 2,
+        "dy": 0,
+        "silhueta_dif": 6,
+        "faixa_rot": [
+         31,
+         0,
+         48,
+         20
+        ],
+        "px": 24,
+        "sobras_escuras_px": 0
+       }
+      },
+      "contorno_fechado_px": 0,
+      "px_alterados": 22
+     }
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": {
+      "A3": [
+       {
+        "box": [
+         30,
+         14,
+         55,
+         16
+        ],
+        "tuft_px": 1,
+        "viraram_contorno": 1,
+        "escuros_removidos": 5
+       }
+      ],
+      "A3_soltos": 0,
+      "contorno_fechado_px": 0,
+      "px_alterados": 6
+     }
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-recover"
+  }
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "geracoes_pixellab": 5,
+ "correcoes_pos_qa": {
+  "data": "2026-11-16",
+  "relatorio": "../RELATORIO_F9_CORRECOES.md",
+  "backup": "../_pre_correcao/combat",
+  "scripts": "../scripts_f9_correcoes/",
+  "A3": "tufo vinho da orelha oposta apagado: latido q4–q5, dano q0–q2, queda q4–q7, estado q0–q3, recuperação q0–q7 (vinho no contorno do alto da cabeça)",
+  "A4": "topo do capuz travado na rotação E (faixa y≤20, x 31–48, no deslocamento medido pela silhueta) no latido q4–q6 e na recuperação q6; boca/olho/focinho intocados. Estado incapacitado e queda q4–q7: mancha cinza sobre o olho trocada por olho fechado limpo (linha escura de 4 px)"
+ }
+}

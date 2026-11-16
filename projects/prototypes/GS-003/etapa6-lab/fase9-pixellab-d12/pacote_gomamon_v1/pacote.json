@@ -1,0 +1,16 @@
+{
+ "especie": "Gomamon (rookie)",
+ "personagem_pixellab": "f49c708b-6e32-4d06-9a51-1555c0a4df9d",
+ "ataque": "garra (Surudoi Tsume); evento no quadro 3",
+ "obs": "canvas varia por direção (60-68 px): alinhar pelo pé",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/S": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/N": "attack-claw-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/E": "attack-claw-v3 quadros [0, 1, 2, 3, 3, 2, 1, 0]",
+  "attack/W": "attack-claw-v3 (espelho de east) quadros [0, 1, 2, 3, 3, 2, 1, 0]"
+ }
+}

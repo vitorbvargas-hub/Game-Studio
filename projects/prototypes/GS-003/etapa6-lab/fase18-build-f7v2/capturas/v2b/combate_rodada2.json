@@ -1,0 +1,210 @@
+{
+ "url": "http://127.0.0.1:5196/?novo=1&linhas=rookie&time=12:00",
+ "golpes": {
+  "1": {
+   "porMove": {
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    },
+    "uppercut": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 1,
+     "move": "mach_jab",
+     "arch": "multi_hit_flurry",
+     "desenhado": true
+    },
+    {
+     "seq": 3,
+     "move": "uppercut",
+     "arch": "claw_slash",
+     "desenhado": true
+    }
+   ],
+   "captura": "combate_E_g1_mach_jab.png"
+  },
+  "2": {
+   "porMove": {
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    },
+    "uppercut": {
+     "ataques": 1,
+     "projeteis": 0
+    },
+    "baby_burner": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 4,
+     "move": "mach_jab",
+     "arch": "multi_hit_flurry",
+     "desenhado": true
+    },
+    {
+     "seq": 5,
+     "move": "uppercut",
+     "arch": "claw_slash",
+     "desenhado": true
+    },
+    {
+     "seq": 7,
+     "move": "baby_burner",
+     "arch": "fireball",
+     "desenhado": false
+    }
+   ],
+   "captura": "combate_E_g2_uppercut.png"
+  },
+  "4": {
+   "porMove": {
+    "mach_jab": {
+     "ataques": 1,
+     "projeteis": 0
+    },
+    "triple_baby_flame": {
+     "ataques": 1,
+     "projeteis": 1
+    },
+    "uppercut": {
+     "ataques": 1,
+     "projeteis": 0
+    }
+   },
+   "casts": [
+    {
+     "seq": 8,
+     "move": "mach_jab",
+     "arch": "multi_hit_flurry",
+     "desenhado": true
+    },
+    {
+     "seq": 9,
+     "move": "triple_baby_flame",
+     "arch": "fireball",
+     "desenhado": false
+    },
+    {
+     "seq": 11,
+     "move": "uppercut",
+     "arch": "claw_slash",
+     "desenhado": true
+    }
+   ],
+   "captura": "combate_E_g4_triple_baby_flame.png"
+  }
+ },
+ "equipados": {
+  "nivel": 20,
+  "basico": "investida",
+  "golpes": [
+   {
+    "tecla": "1",
+    "id": "mach_jab",
+    "nome": "Mach Jab",
+    "tipo": "physical",
+    "elemento": "neutral",
+    "vfx": "multi_hit_flurry"
+   },
+   {
+    "tecla": "2",
+    "id": "uppercut",
+    "nome": "Uppercut",
+    "tipo": "physical",
+    "elemento": "fire",
+    "vfx": "claw_slash"
+   },
+   {
+    "tecla": "3",
+    "id": "baby_burner",
+    "nome": "Baby Burner",
+    "tipo": "special",
+    "elemento": "fire",
+    "vfx": "fireball"
+   },
+   {
+    "tecla": "4",
+    "id": "triple_baby_flame",
+    "nome": "Triple Baby Flame",
+    "tipo": "special",
+    "elemento": "fire",
+    "vfx": "fireball"
+   }
+  ]
+ },
+ "ordemS": {
+  "amostras": 64,
+  "tamerAFrente": 64,
+  "fogoAtrasDoTamerComTamerAFrente": 0,
+  "exemplo": [
+   {
+    "t": 1.1999999940380803,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 167.79999998807762,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 334.7999999880776,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 501.1999999940381,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 667.8999999821172,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 834.4999999761567,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   },
+   {
+    "t": 1001.3999999821172,
+    "fogo": 630.5,
+    "tamer": 630,
+    "agumon": 588,
+    "dir": "E",
+    "frente": true
+   }
+  ],
+  "capturas": 21
+ },
+ "erros": [],
+ "rede": []
+}

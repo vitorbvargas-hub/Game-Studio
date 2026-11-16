@@ -1,0 +1,37 @@
+[
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A · BUILD HAWKMON v1b (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "hawkPx": 5,
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&hawkms=73",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A · BUILD HAWKMON v1b (sem ataques; walk ~73 ms/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "hawkPx": 7.3,
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&hawkpx=2",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A · BUILD HAWKMON v1b (sem ataques; walk 2 px/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial",
+  "hawkPx": 2,
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&parceiro=agumon",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A · BUILD HAWKMON v1b (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · ao lado Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "hawkPx": 5,
+  "erros": 0,
+  "rede": 0
+ },
+ {
+  "url": "http://127.0.0.1:5197/?novo=1&time=dia&comparar=0",
+  "faixa": "Lab Etapa 6 · C14.3 + C14.4-A · BUILD HAWKMON v1b (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · Shift = lento · não homologado · fan game não oficial",
+  "hawkPx": 5,
+  "erros": 0,
+  "rede": 0
+ }
+]

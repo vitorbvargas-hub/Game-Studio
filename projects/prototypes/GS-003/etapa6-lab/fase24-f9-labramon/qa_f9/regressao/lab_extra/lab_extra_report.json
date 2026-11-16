@@ -1,0 +1,94 @@
+{
+ "data": "2026-11-16T08:46:19.728Z",
+ "base": "http://127.0.0.1:5198",
+ "resultados": {
+  "L3": {
+   "deitado": {
+    "state": "deitado (parado — sem loop de repouso acordado na produção)",
+    "rest": "deitado",
+    "combat": "normal",
+    "label": "deitar",
+    "src": "rest/stand_to_lie/frame_005.png"
+   },
+   "botao_deitar_rotulo": "Levantar",
+   "wasd_deitado": {
+    "state": "deitado (parado — sem loop de repouso acordado na produção)",
+    "rest": "deitado",
+    "combat": "normal",
+    "label": "INDISPONÍVEL (caminhar: toque Deitar/Levantar primeiro)",
+    "src": "rest/stand_to_lie/frame_005.png"
+   },
+   "ataque_deitado": {
+    "state": "deitado (parado — sem loop de repouso acordado na produção)",
+    "rest": "deitado",
+    "combat": "normal",
+    "label": "INDISPONÍVEL (ataque: toque Deitar/Levantar primeiro)",
+    "src": "rest/stand_to_lie/frame_005.png"
+   },
+   "dormir_de_deitado_primeiros": [
+    "adormecendo#0 rest/lie_to_sleep/frame_000.png",
+    "adormecendo#1 rest/lie_to_sleep/frame_001.png",
+    "adormecendo#2 rest/lie_to_sleep/frame_002.png"
+   ],
+   "apos_acordar": {
+    "state": "idle",
+    "rest": "despertou",
+    "combat": "normal",
+    "label": "acordar",
+    "src": "idle/E/frame_001.png"
+   },
+   "levantar_trace": [
+    "5:levantando (lie_to_stand)#0 rest/stand_to_lie/frame_005.png",
+    "205:levantando (lie_to_stand)#1 rest/stand_to_lie/frame_004.png",
+    "355:levantando (lie_to_stand)#2 rest/stand_to_lie/frame_003.png",
+    "472:levantando (lie_to_stand)#3 rest/stand_to_lie/frame_002.png",
+    "589:levantando (lie_to_stand)#4 rest/stand_to_lie/frame_001.png",
+    "705:levantando (lie_to_stand)#5 rest/stand_to_lie/frame_000.png",
+    "822:idle#0 idle/E/frame_000.png",
+    "1072:idle#1 idle/E/frame_001.png",
+    "1305:idle#2 idle/E/frame_002.png"
+   ],
+   "apos_levantar": {
+    "state": "idle",
+    "rest": "despertou",
+    "combat": "normal",
+    "label": "levantando",
+    "src": "idle/E/frame_002.png"
+   }
+  },
+  "L6": {
+   "aviso": "INDISPONÍVEL (carinho só existe em E)",
+   "rotulos": [
+    "450ms: ataque | ataque (retriever bark)",
+    "900ms: ataque | idle",
+    "1350ms: ataque | idle",
+    "1800ms: ataque | idle",
+    "2250ms: ataque | idle",
+    "2700ms: ataque | idle"
+   ]
+  },
+  "L7": {
+   "toggle_visivel": true,
+   "largura_antes": 60,
+   "largura_depois": 102,
+   "altura": 60,
+   "medida": {
+    "fundo": [
+     0,
+     0,
+     0
+    ],
+    "ultimo_y_labramon": 49,
+    "ultimo_y_tamer": 48,
+    "px_tamer": 350
+   }
+  },
+  "console": {
+   "erros": [],
+   "excecoes": [],
+   "falhas_rede": [],
+   "http": [],
+   "labErrors": []
+  }
+ }
+}

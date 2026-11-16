@@ -1,0 +1,372 @@
+{
+ "data": "2026-11-15T01:26:39.333Z",
+ "url": "http://127.0.0.1:5196/?novo=1&linhas=rookie&time=12:00&agumon=v8",
+ "dirs": {
+  "S": {
+   "posAntes": {
+    "t": [
+     216,
+     248
+    ],
+    "d": [
+     203,
+     254
+    ],
+    "state": "IDLE"
+   },
+   "posDepois": {
+    "t": [
+     216,
+     323
+    ],
+    "d": [
+     215,
+     295
+    ],
+    "state": "FOLLOW"
+   },
+   "capturas": 105,
+   "disparoNaCaptura": 65,
+   "primeiraComProjetil": -1,
+   "projetilNoDisparo": null,
+   "pick": {
+    "a_idle": 10,
+    "b_walk_entrada": 11,
+    "c_walk_meio": 17,
+    "d_walk_saida": 42,
+    "e_disparo": 65,
+    "f_voo": -1,
+    "g_recuperacao": 77
+   },
+   "seq": [
+    "50ms idle idle_W shots=0",
+    "599ms walk idle_W shots=0",
+    "849ms walk walk_W_02 shots=0",
+    "899ms walk idle_W shots=0",
+    "1299ms walk idle_E shots=0",
+    "1350ms walk walk_E_02 shots=0",
+    "1399ms walk walk_E_03 shots=0",
+    "1549ms walk walk_S_04 shots=0",
+    "1649ms walk walk_S_05 shots=0",
+    "1749ms walk walk_S_06 shots=0",
+    "1849ms walk walk_S_07 shots=0",
+    "1949ms walk walk_S_00 shots=0",
+    "2049ms walk walk_S_01 shots=0",
+    "2148ms parou walk_S_02 shots=0",
+    "2249ms parou walk_S_03 shots=0",
+    "2349ms parou walk_S_04 shots=0",
+    "2598ms parou idle_S shots=0",
+    "2899ms ataque idle_S shots=0",
+    "2949ms ataque attack_S_00 shots=0",
+    "3048ms ataque attack_S_01 shots=0",
+    "3198ms ataque attack_S_02 shots=0",
+    "3299ms ataque attack_S_03 shots=0",
+    "3399ms ataque attack_S_04 shots=0",
+    "3549ms ataque attack_S_05 shots=0",
+    "3698ms ataque attack_S_06 shots=0",
+    "3799ms ataque attack_S_07 shots=0",
+    "3899ms ataque attack_S_08 shots=0",
+    "4048ms ataque idle_S shots=0",
+    "4848ms idle idle_S shots=0"
+   ]
+  },
+  "N": {
+   "posAntes": {
+    "t": [
+     216,
+     312
+    ],
+    "d": [
+     205,
+     317
+    ],
+    "state": "IDLE"
+   },
+   "posDepois": {
+    "t": [
+     216,
+     237
+    ],
+    "d": [
+     215,
+     269
+    ],
+    "state": "FOLLOW"
+   },
+   "capturas": 103,
+   "disparoNaCaptura": 64,
+   "primeiraComProjetil": -1,
+   "projetilNoDisparo": null,
+   "pick": {
+    "a_idle": 9,
+    "b_walk_entrada": 10,
+    "c_walk_meio": 16,
+    "d_walk_saida": 41,
+    "e_disparo": 64,
+    "f_voo": -1,
+    "g_recuperacao": 77
+   },
+   "seq": [
+    "51ms idle idle_W shots=0",
+    "554ms walk idle_W shots=0",
+    "1151ms walk idle_E shots=0",
+    "1201ms walk walk_N_00 shots=0",
+    "1251ms walk walk_N_01 shots=0",
+    "1351ms walk walk_N_02 shots=0",
+    "1451ms walk walk_N_03 shots=0",
+    "1551ms walk walk_N_04 shots=0",
+    "1651ms walk walk_N_05 shots=0",
+    "1751ms walk walk_N_06 shots=0",
+    "1851ms walk walk_N_07 shots=0",
+    "1950ms walk walk_N_00 shots=0",
+    "2051ms walk walk_N_01 shots=0",
+    "2101ms parou walk_N_01 shots=0",
+    "2151ms parou walk_N_02 shots=0",
+    "2251ms parou walk_N_03 shots=0",
+    "2351ms parou walk_N_04 shots=0",
+    "2600ms parou idle_N shots=0",
+    "2851ms ataque idle_N shots=0",
+    "2901ms ataque attack_N_00 shots=0",
+    "3001ms ataque attack_N_01 shots=0",
+    "3101ms ataque attack_N_02 shots=0",
+    "3252ms ataque attack_N_03 shots=0",
+    "3351ms ataque attack_N_04 shots=0",
+    "3500ms ataque attack_N_05 shots=0",
+    "3601ms ataque attack_N_06 shots=0",
+    "3751ms ataque attack_N_07 shots=0",
+    "3901ms ataque attack_N_08 shots=0",
+    "4001ms ataque idle_N shots=0",
+    "4801ms idle idle_N shots=0"
+   ]
+  },
+  "E": {
+   "posAntes": {
+    "t": [
+     184,
+     280
+    ],
+    "d": [
+     171,
+     286
+    ],
+    "state": "IDLE"
+   },
+   "posDepois": {
+    "t": [
+     199,
+     280
+    ],
+    "d": [
+     171,
+     286
+    ],
+    "state": "IDLE"
+   },
+   "capturas": 79,
+   "disparoNaCaptura": -1,
+   "primeiraComProjetil": -1,
+   "projetilNoDisparo": null,
+   "pick": {
+    "a_idle": 10,
+    "b_walk_entrada": 11,
+    "c_walk_meio": 17,
+    "d_walk_saida": 17,
+    "e_disparo": -1,
+    "f_voo": -1,
+    "g_recuperacao": 52
+   },
+   "seq": [
+    "47ms idle idle_W shots=0",
+    "596ms walk idle_W shots=0",
+    "4484ms parou idle_W shots=0",
+    "5233ms ataque idle_W shots=0",
+    "5283ms ataque attack_W_00 shots=0",
+    "5383ms ataque attack_W_01 shots=0",
+    "5484ms ataque attack_W_02 shots=0",
+    "5633ms ataque attack_W_03 shots=0",
+    "5783ms ataque attack_W_04 shots=0",
+    "5883ms ataque attack_W_05 shots=0",
+    "6034ms ataque attack_W_06 shots=0",
+    "6133ms ataque attack_W_07 shots=0",
+    "6234ms ataque attack_W_08 shots=0",
+    "6383ms ataque idle_W shots=0",
+    "7183ms idle idle_W shots=0"
+   ]
+  },
+  "W": {
+   "posAntes": {
+    "t": [
+     248,
+     280
+    ],
+    "d": [
+     235,
+     286
+    ],
+    "state": "IDLE"
+   },
+   "posDepois": {
+    "t": [
+     173,
+     280
+    ],
+    "d": [
+     203,
+     281
+    ],
+    "state": "FOLLOW"
+   },
+   "capturas": 102,
+   "disparoNaCaptura": 60,
+   "primeiraComProjetil": -1,
+   "projetilNoDisparo": null,
+   "pick": {
+    "a_idle": 9,
+    "b_walk_entrada": 10,
+    "c_walk_meio": 16,
+    "d_walk_saida": 40,
+    "e_disparo": 60,
+    "f_voo": -1,
+    "g_recuperacao": 75
+   },
+   "seq": [
+    "52ms idle idle_W shots=0",
+    "552ms walk idle_W shots=0",
+    "652ms walk walk_W_02 shots=0",
+    "702ms walk walk_W_03 shots=0",
+    "802ms walk walk_S_03 shots=0",
+    "852ms walk walk_S_04 shots=0",
+    "1102ms walk idle_S shots=0",
+    "1502ms walk idle_W shots=0",
+    "1551ms walk walk_N_05 shots=0",
+    "1701ms walk walk_W_06 shots=0",
+    "1802ms walk walk_W_07 shots=0",
+    "1901ms walk walk_W_00 shots=0",
+    "2003ms walk walk_W_01 shots=0",
+    "2052ms parou walk_W_01 shots=0",
+    "2102ms parou walk_W_02 shots=0",
+    "2202ms parou walk_W_03 shots=0",
+    "2302ms parou walk_W_04 shots=0",
+    "2502ms parou idle_W shots=0",
+    "2802ms ataque idle_W shots=0",
+    "2852ms ataque attack_W_00 shots=0",
+    "2951ms ataque attack_W_01 shots=0",
+    "3052ms ataque attack_W_02 shots=0",
+    "3202ms ataque attack_W_03 shots=0",
+    "3302ms ataque attack_W_04 shots=0",
+    "3451ms ataque attack_W_05 shots=0",
+    "3601ms ataque attack_W_06 shots=0",
+    "3702ms ataque attack_W_07 shots=0",
+    "3802ms ataque attack_W_08 shots=0",
+    "3951ms ataque idle_W shots=0",
+    "4751ms idle idle_W shots=0"
+   ]
+  }
+ },
+ "banner": "Digital Odyssey — Laboratório Etapa 6, Comando 12.2 · BUILD ISOLADO F7v2 (Agumon F7v2 + Pepper Breath; F2b: ?agumon=v8) · K = ataque de teste · fan game não oficial",
+ "partner": {
+  "speciesId": "CREATURE-0006",
+  "level": 20,
+  "manifest": "Agumon (Link A — ficha v8 PixelLab, TESTE: 4 direções, caminhada + ataque (48x48 nativo; pose parada = rotação))",
+  "walkSpeedPxPerSec": null,
+  "projectile": false,
+  "attackMs": {
+   "S": [
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125
+   ],
+   "N": [
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125
+   ],
+   "W": [
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125
+   ],
+   "E": [
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125,
+    125
+   ]
+  }
+ },
+ "cssPerLogical": 2,
+ "combate": {
+  "S": {
+   "wildId": "wild-1",
+   "quadros": [
+    "idle_S",
+    "attack_S_00",
+    "attack_S_01",
+    "attack_S_02",
+    "attack_S_03",
+    "attack_S_04",
+    "attack_S_05",
+    "attack_S_06",
+    "attack_S_07",
+    "attack_S_00",
+    "attack_S_01",
+    "attack_S_02",
+    "attack_S_03",
+    "attack_S_04",
+    "attack_S_05",
+    "attack_S_06",
+    "attack_S_07",
+    "attack_S_00",
+    "attack_S_01",
+    "attack_S_02",
+    "attack_S_03",
+    "attack_S_04",
+    "attack_S_05",
+    "attack_S_06",
+    "attack_S_07",
+    "attack_S_08",
+    "attack_S_00",
+    "attack_S_01",
+    "attack_S_02",
+    "attack_S_03",
+    "attack_S_04",
+    "attack_S_05",
+    "attack_S_06",
+    "attack_S_07",
+    "attack_S_08",
+    "attack_S_00",
+    "attack_S_01",
+    "attack_S_02",
+    "attack_S_03",
+    "attack_S_04"
+   ],
+   "projeteisMax": 0,
+   "castsDoAgumon": 1,
+   "captura": false
+  }
+ },
+ "consoleErrors": []
+}

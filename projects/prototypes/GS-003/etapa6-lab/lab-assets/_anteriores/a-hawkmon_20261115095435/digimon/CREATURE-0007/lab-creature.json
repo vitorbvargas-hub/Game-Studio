@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0007",
+ "species": "greymon",
+ "source": "Método A (ChatGPT) greymon_retrato_A — pose única (3/4 voltado para a esquerda (SO)), parada; sem outras direções nem walk nesta fonte",
+ "file": "pose.png",
+ "w": 51,
+ "h": 52,
+ "pivot": {
+  "x": 25,
+  "y": 51
+ },
+ "anatomy": "biped",
+ "facing": "W",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

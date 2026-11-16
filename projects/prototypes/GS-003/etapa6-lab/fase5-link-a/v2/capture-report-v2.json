@@ -1,0 +1,46 @@
+{
+  "data": "2026-11-13T20:26:21.608Z",
+  "cenas": {
+    "v2": {
+      "spawn": {
+        "x": 9.5,
+        "y": 15.75
+      },
+      "selvagensVisiveis": [
+        {
+          "sp": "CREATURE-0010",
+          "lv": 14,
+          "distTiles": 20.2
+        },
+        {
+          "sp": "CREATURE-0013",
+          "lv": 11,
+          "distTiles": 23.3
+        },
+        {
+          "sp": "CREATURE-0016",
+          "lv": 10,
+          "distTiles": 26
+        },
+        {
+          "sp": "CREATURE-0010",
+          "lv": 15,
+          "distTiles": 27.4
+        }
+      ],
+      "naPonte": {
+        "x": 22.94,
+        "y": 20.5
+      },
+      "abaixoDaPonte": {
+        "x": 26.19,
+        "y": 21.5
+      },
+      "aguaParadoEm": {
+        "x": 16.5,
+        "y": 13.06
+      }
+    }
+  },
+  "errosConsole": []
+}

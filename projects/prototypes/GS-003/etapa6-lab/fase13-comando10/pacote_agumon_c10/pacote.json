@@ -1,0 +1,141 @@
+{
+ "especie": "Agumon v7 (rookie)",
+ "personagem_pixellab": "4afbc5c8-198b-48ce-948d-f87fce747e96",
+ "ataque": "Pepper Breath, disparo ~quadro 4",
+ "obs": "substitui o v6 como padrão; manter ?agumon=v6",
+ "anims": {
+  "walk/S": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "walk-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/S": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/E": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/W": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]",
+  "attack/N": "pepper-breath-v3 quadros [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+ },
+ "f2": {
+  "log": [
+   {
+    "correcao": "walk/S cabeça",
+    "detalhe": "cabeça do quadro 0 recolada (sem crista, olhos/boca estáveis); offsets [(0, 0), (0, -1), (0, -2), (0, -2), (0, -1), (0, 0), (0, 2), (0, 2)]",
+    "quadros": 7
+   },
+   {
+    "correcao": "walk/S pés",
+    "detalhe": "pés marrons (#50261b/#3a2022) viram o laranja do corpo",
+    "quadros": 5
+   },
+   {
+    "correcao": "attack/S efeito",
+    "detalhe": "chama solta acima da cabeça removida (3+40+24 px); topo da cabeça do q4 refeito com o contorno do q6",
+    "quadros": 3
+   },
+   {
+    "correcao": "attack/N intermediário",
+    "detalhe": "q3-q6 refeitos: costas do q2 (sem rosto) + bola de fogo do próprio sprite subindo atrás da cabeça; bola 16x16; F2b: trajetória dentro do canvas (topo >= 1), q5 com o miolo 10px da própria bola",
+    "quadros": 4
+   },
+   {
+    "correcao": "barriga",
+    "detalhe": "creme/branco da barriga (696 px) vira laranja claro #f6cb6a",
+    "quadros": 36
+   },
+   {
+    "correcao": "walk/E pé de trás",
+    "detalhe": "ferrugem (#cd6624 e vizinhas a <=12 RGB) da perna de trás vira a sombra laranja #d88126 (208 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/S pé",
+    "detalhe": "sola [47, 48, 50] -> [49] (alvo 50), dy por quadro [-1, -1, 1, 2, 1, -1, -1, -1]",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E pé",
+    "detalhe": "sola [48, 49, 50] -> [49, 50] (alvo 49), dy por quadro [0, 0, 0, 0, 0, 0, 1, -1]",
+    "quadros": 2
+   },
+   {
+    "correcao": "walk/N pé",
+    "detalhe": "sola [45, 46, 47] -> [46] (alvo 46), dy por quadro [-1, -1, 0, 0, 0, 1, 1, 0]",
+    "quadros": 4
+   },
+   {
+    "correcao": "walk/W pé",
+    "detalhe": "sola [48, 49, 50] -> [49, 50] (alvo 49), dy por quadro [0, 0, 0, 0, 0, 0, 1, -1]",
+    "quadros": 2
+   },
+   {
+    "correcao": "walk/S paleta",
+    "detalhe": "67 -> 55 cores (1143 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/E paleta",
+    "detalhe": "49 -> 39 cores (579 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/N paleta",
+    "detalhe": "48 -> 37 cores (713 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/W paleta",
+    "detalhe": "49 -> 39 cores (736 px)",
+    "quadros": 8
+   },
+   {
+    "correcao": "attack/S paleta",
+    "detalhe": "117 -> 105 cores (906 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "attack/E paleta",
+    "detalhe": "63 -> 56 cores (530 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "attack/N paleta",
+    "detalhe": "53 -> 42 cores (968 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "attack/W paleta",
+    "detalhe": "63 -> 56 cores (530 px)",
+    "quadros": 9
+   },
+   {
+    "correcao": "W",
+    "detalhe": "oeste = espelho exato do leste corrigido (como no original)",
+    "quadros": 17
+   }
+  ]
+ },
+ "c10": {
+  "data": "2026-11-14",
+  "base": "F2b (fase12-comando9/f2/pacote_agumon_f2), backup em fase13-comando10/backup_f2b",
+  "log": [
+   {
+    "correcao": "walk/E recomposta",
+    "detalhe": "cabeça, pescoço e cauda = pixels do F2b walk/E q0; tronco, braço (3 poses, braço de longe atrás) e pernas (contato/descida/passagem/subida) redesenhados em pixel com a paleta do pacote; pé plantado recua 4 px/quadro; dy do corpo [0,1,0,-1,0,1,0,-1]",
+    "quadros": 8
+   },
+   {
+    "correcao": "walk/W",
+    "detalhe": "espelho exato do walk/E C10",
+    "quadros": 8
+   },
+   {
+    "correcao": "rotations/E e W",
+    "detalhe": "pose de pé com o mesmo tronco/braço/pernas da caminhada (antes: braço colado); cabeça da caminhada; registro (-6,-5) no canvas 48",
+    "quadros": 2
+   },
+   {
+    "correcao": "attack/*, walk/S, walk/N, rotations/S e N",
+    "detalhe": "inalterados (cópia do F2b)",
+    "quadros": 0
+   }
+  ]
+ }
+}

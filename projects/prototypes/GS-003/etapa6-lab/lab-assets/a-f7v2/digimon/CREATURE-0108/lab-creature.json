@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0108",
+ "species": "betamon",
+ "source": "Método A (ChatGPT) betamon_retrato_A — pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+ "file": "pose.png",
+ "w": 39,
+ "h": 32,
+ "pivot": {
+  "x": 19,
+  "y": 31
+ },
+ "anatomy": "quadruped",
+ "facing": "S",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

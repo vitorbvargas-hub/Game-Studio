@@ -1,0 +1,673 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 4 — movimento (standing, idle 4q, walk 8q) nas 4 direções",
+ "data": "2026-11-16",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49,
+  "doc": "Última linha opaca em y=49 em 48/48 quadros de walk/idle e nas 4 rotações."
+ },
+ "paleta": {
+  "limite": 24,
+  "usada": 19,
+  "semitransparentes": 0,
+  "doc": "Todos os quadros usam só cores da rotação da própria direção."
+ },
+ "standing": {
+  "doc": "Cópia byte a byte de rotacoes/labramon_{S,E,N,W}.png (Fase 3).",
+  "arquivos": [
+   {
+    "arquivo": "standing/E.png",
+    "sha256": "06de28d53e79685b72d3a3f94ba74f9ab81a9f114f9eaedbc10e47cbeb7800a0"
+   },
+   {
+    "arquivo": "standing/N.png",
+    "sha256": "be4bf348e28cbb79ccfa69dca70b5e87bed000707483082e57e6cebb2f1e9bf3"
+   },
+   {
+    "arquivo": "standing/S.png",
+    "sha256": "156449a3789625a09cd75c41b581b369a3a37edb93f6a44f631bee90a7aa4cf6"
+   },
+   {
+    "arquivo": "standing/W.png",
+    "sha256": "687b1459955ac99ef0cb71980566c830b3b4761cfcf67dcfe6d727e6171246bc"
+   }
+  ]
+ },
+ "animacoes": {
+  "walk/S": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    36,
+    37
+   ],
+   "w_min_max": [
+    24,
+    24
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    7
+   ],
+   "marcas_px_por_quadro": [
+    6,
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "walk/S/frame_000.png",
+     "sha256": "2db1fe5b2353c281ebbd5482fe93524a8defa5cb6915293f1019f62172d5b638"
+    },
+    {
+     "arquivo": "walk/S/frame_001.png",
+     "sha256": "2f88c9ec8bdfb6085997f27aa626fcbb5aceab211ac163dff21e399017489990"
+    },
+    {
+     "arquivo": "walk/S/frame_002.png",
+     "sha256": "1ab916b3ff297075a28c619a0401ce63909b024e1424919b7d3b63ba94dd89c5"
+    },
+    {
+     "arquivo": "walk/S/frame_003.png",
+     "sha256": "e8d7278082e400d2cfbc92f4e58035e997d7a754557779f1c52dec76d8d51c8f"
+    },
+    {
+     "arquivo": "walk/S/frame_004.png",
+     "sha256": "dd36975120d81eb38b0d4b28267d618b12e381c4d0dd46ee922f1c9dc73665df"
+    },
+    {
+     "arquivo": "walk/S/frame_005.png",
+     "sha256": "77456f2750f1abdbdec84cedce842b75232d76baeeb62113123a2776202587a2"
+    },
+    {
+     "arquivo": "walk/S/frame_006.png",
+     "sha256": "1f25cfdcb6d9dd0e9aefa437840d1f56565fab3e3a1fd03d54b07de79b7c99b2"
+    },
+    {
+     "arquivo": "walk/S/frame_007.png",
+     "sha256": "854a617b06bf80f7ced1d17ea1e6d38536ac1c7e71b1ace5cfe428253ce6c71c"
+    }
+   ]
+  },
+  "walk/E": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    38,
+    39
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": {
+    "media": 2.28,
+    "min": 2,
+    "max": 3.5
+   },
+   "arquivos": [
+    {
+     "arquivo": "walk/E/frame_000.png",
+     "sha256": "3c8a5bbc628081e94d7c77e55e5986d17eed04270c92774a596a49a5f194e797"
+    },
+    {
+     "arquivo": "walk/E/frame_001.png",
+     "sha256": "87db918d2fa60dfb43139028b15cd2634b14484e34108bab9793e412396f61d1"
+    },
+    {
+     "arquivo": "walk/E/frame_002.png",
+     "sha256": "00d4d307b5f24d0276d903c8e3e6abefd660e971e49fbf35cc29d40190cf8275"
+    },
+    {
+     "arquivo": "walk/E/frame_003.png",
+     "sha256": "8cf6c8f72d404e4e55078cc5beb8a208309c6278859b37b36e1d46bd99ebf04f"
+    },
+    {
+     "arquivo": "walk/E/frame_004.png",
+     "sha256": "98df5b1053270340bd41938a9fb21f17cc2b764db75f2b5915489f8ff811fb47"
+    },
+    {
+     "arquivo": "walk/E/frame_005.png",
+     "sha256": "52faab41d483196ead61d603df93d777ad2e9daa6e05823e011b4159df4dc635"
+    },
+    {
+     "arquivo": "walk/E/frame_006.png",
+     "sha256": "790a50a1674a4a69ea7f0db20fb306904c173d74b7ef08ef48e4da1895b3f02b"
+    },
+    {
+     "arquivo": "walk/E/frame_007.png",
+     "sha256": "6490e5a3402fac6accdeb4a9d226c670ceb43638800a578d4d9c14a85f1bbc2e"
+    }
+   ]
+  },
+  "walk/N": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    38,
+    38
+   ],
+   "w_min_max": [
+    25,
+    25
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 0,
+   "cores": 16,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    0
+   ],
+   "marcas_px_por_quadro": [
+    0,
+    1
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "walk/N/frame_000.png",
+     "sha256": "c6fbb23b4d1ec0d9d089cb13619d40bef210d5733eae5c44713199a1c3625ea2"
+    },
+    {
+     "arquivo": "walk/N/frame_001.png",
+     "sha256": "19db7eef8cceddddc44a0944491d4d64e34289521d57a6cb7d99da6603d6b0b1"
+    },
+    {
+     "arquivo": "walk/N/frame_002.png",
+     "sha256": "6bcb933b4df2cd70f9d48b768b259067a236a7ec6f3dc5644b4d8a633a80ac95"
+    },
+    {
+     "arquivo": "walk/N/frame_003.png",
+     "sha256": "2668fe569d629129d09ccd454e5ad15c14379da19d241fa65a8b66adb3008e1a"
+    },
+    {
+     "arquivo": "walk/N/frame_004.png",
+     "sha256": "465b29412772789175a69759e4eb0f6e410fc452be1b30a1de409cee61bcb143"
+    },
+    {
+     "arquivo": "walk/N/frame_005.png",
+     "sha256": "8bea10a164b045d9bb6f1635153dbe61f1521ac14a32e10b801ae4bb4a051423"
+    },
+    {
+     "arquivo": "walk/N/frame_006.png",
+     "sha256": "96098b585fb538eb71eec1ef82c72653f51465a3acced77e794fef58dd09f329"
+    },
+    {
+     "arquivo": "walk/N/frame_007.png",
+     "sha256": "516921243e84a3f4d9c076a5067c2bd7f681c2911e87451ad9883acfb213290d"
+    }
+   ]
+  },
+  "walk/W": {
+   "fonte": "pixminimax template_action=walking",
+   "quadros": 8,
+   "duracao_sugerida_ms_por_quadro": 100,
+   "loop": true,
+   "h_min_max": [
+    34,
+    37
+   ],
+   "w_min_max": [
+    40,
+    40
+   ],
+   "maior_salto_h": 2,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "8/8",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    8,
+    9
+   ],
+   "recuo_pe_apoio_px_quadro": {
+    "media": 3,
+    "min": 0,
+    "max": 5
+   },
+   "arquivos": [
+    {
+     "arquivo": "walk/W/frame_000.png",
+     "sha256": "cd90f34612425f71ca5b97ad7696211bb4b632b661a49bec982a0414b5670b8a"
+    },
+    {
+     "arquivo": "walk/W/frame_001.png",
+     "sha256": "2698977dfa3d4f249a65ff0728e481ae45656092a921a17aa1aa01e670bed3cf"
+    },
+    {
+     "arquivo": "walk/W/frame_002.png",
+     "sha256": "491e8e0e0d1a7d9d4577ba98d87cb2ecab58117e245847f58f9f437d69a15170"
+    },
+    {
+     "arquivo": "walk/W/frame_003.png",
+     "sha256": "69d3ffe03eee938cbbfed05c6a4042ca5a9567581b4004dd64196c78860a5c90"
+    },
+    {
+     "arquivo": "walk/W/frame_004.png",
+     "sha256": "e6cdc24c2ef6d8f89a29997c0404ef32d1239c81789778a678ee608ad8896858"
+    },
+    {
+     "arquivo": "walk/W/frame_005.png",
+     "sha256": "d24a28cb7f7e932761a359bd0718c16b6bdda86c8ace30c859429aceb15e0a34"
+    },
+    {
+     "arquivo": "walk/W/frame_006.png",
+     "sha256": "1ff97b5ae67564a0170f7cebc0e487f183954242b99fdaff0e0474ce656dd06d"
+    },
+    {
+     "arquivo": "walk/W/frame_007.png",
+     "sha256": "7668bab9670328d6f99ca4995c73d8013ed9d3cecd1310ae46ebcaba4c8348cc"
+    }
+   ]
+  },
+  "idle/S": {
+   "fonte": "rig local (pixels da rotação, 0 gerações)",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    24,
+    24
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    7
+   ],
+   "marcas_px_por_quadro": [
+    6
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/S/frame_000.png",
+     "sha256": "156449a3789625a09cd75c41b581b369a3a37edb93f6a44f631bee90a7aa4cf6"
+    },
+    {
+     "arquivo": "idle/S/frame_001.png",
+     "sha256": "af975daa48bedd6a3e3132386668ac2e153ca77803a81f8451eae00516072ee2"
+    },
+    {
+     "arquivo": "idle/S/frame_002.png",
+     "sha256": "97a77df80efce84e9cd9c309aab9d6bf21b47eaec07e1474a2bf057a35b84b0a"
+    },
+    {
+     "arquivo": "idle/S/frame_003.png",
+     "sha256": "10f11574a211bd5d5117fb9c6fbb4c15f74d361310669671c215a961e4f55a22"
+    }
+   ]
+  },
+  "idle/E": {
+   "fonte": "pixminimax custom 4q",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    36,
+    36
+   ],
+   "w_min_max": [
+    38,
+    40
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    7
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/E/frame_000.png",
+     "sha256": "a3be9eb6e36328924226820ce2c835b8ad26ec4b6245cbf9048eca854fdc48de"
+    },
+    {
+     "arquivo": "idle/E/frame_001.png",
+     "sha256": "cb467b72c359985d61966a519c36c04f4654eb720f9f89b98f18591417fdf729"
+    },
+    {
+     "arquivo": "idle/E/frame_002.png",
+     "sha256": "591d07d5aeb545f4ebb827d9638a41fdfe1eeaac0f04c84787741e7131af84aa"
+    },
+    {
+     "arquivo": "idle/E/frame_003.png",
+     "sha256": "955de612ba1df9e37ec5fa81478c25f5959bbaca1a996118f1d16bec96a04e37"
+    }
+   ]
+  },
+  "idle/N": {
+   "fonte": "rig local (pixels da rotação, 0 gerações)",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    35,
+    36
+   ],
+   "w_min_max": [
+    25,
+    25
+   ],
+   "maior_salto_h": 1,
+   "maior_salto_w": 0,
+   "cores": 16,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    0
+   ],
+   "marcas_px_por_quadro": [
+    1
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/N/frame_000.png",
+     "sha256": "be4bf348e28cbb79ccfa69dca70b5e87bed000707483082e57e6cebb2f1e9bf3"
+    },
+    {
+     "arquivo": "idle/N/frame_001.png",
+     "sha256": "8e82f7671aa311401566d54174e3e25afe3b0c7a4f2f3395d83439f7daea9017"
+    },
+    {
+     "arquivo": "idle/N/frame_002.png",
+     "sha256": "d223aebe3186d33998caf1429dd170b56e7949a3e10274aa573c889e9ba148be"
+    },
+    {
+     "arquivo": "idle/N/frame_003.png",
+     "sha256": "b5e6833e1233ff92f3dc7f372653ea5da77936c9554e2c2d3b8be95ccfe2bdaf"
+    }
+   ]
+  },
+  "idle/W": {
+   "fonte": "pixminimax custom 4q",
+   "quadros": 4,
+   "duracao_sugerida_ms_por_quadro": 240,
+   "loop": true,
+   "h_min_max": [
+    36,
+    36
+   ],
+   "w_min_max": [
+    39,
+    40
+   ],
+   "maior_salto_h": 0,
+   "maior_salto_w": 1,
+   "cores": 19,
+   "pe_y49": "4/4",
+   "olho_px_por_quadro": [
+    4
+   ],
+   "marcas_px_por_quadro": [
+    8
+   ],
+   "recuo_pe_apoio_px_quadro": "n/a (frente/costas: sem deslizamento lateral)",
+   "arquivos": [
+    {
+     "arquivo": "idle/W/frame_000.png",
+     "sha256": "a0e363aa8200643cc0b8b824df380152cf80c3cfd3b6c408d274c443b13e2d69"
+    },
+    {
+     "arquivo": "idle/W/frame_001.png",
+     "sha256": "3d9db913681940bc7f3bb7b65ee4632c9eaa8966073b2e68bcb759b9f62ed7ec"
+    },
+    {
+     "arquivo": "idle/W/frame_002.png",
+     "sha256": "d258320b0dcbef6ff184e773b2458d911355f49607b7fc38b9ba9c27a07de09f"
+    },
+    {
+     "arquivo": "idle/W/frame_003.png",
+     "sha256": "498d6f94f955d90996c2f29cf0ab2f0ae14e6d394373c2b4733c319e244952f9"
+    }
+   ]
+  }
+ },
+ "spritesheets": {
+  "doc": "Tiras 1x, células 60x60, sem espaçamento. labramon_movement_sheet.png: linhas = walk S,E,N,W (8 col), idle S,E,N,W (4 col), standing S,E,N,W (1 linha, 4 col).",
+  "arquivos": [
+   {
+    "arquivo": "spritesheets/idle_E.png",
+    "sha256": "54ec9bd1e84e0a3e7724852c8db65b115b8024822fc1e12ca43d96bb902c6d5b"
+   },
+   {
+    "arquivo": "spritesheets/idle_N.png",
+    "sha256": "7e2dafcd3856c18293eed28fb2acf4ef23572cd620e2a0c3db3bdd77b09b977b"
+   },
+   {
+    "arquivo": "spritesheets/idle_S.png",
+    "sha256": "628b7d6fe8dc8c16d1bd6e9e7f13d76d31a420a0d21c3d07b6d719654adbb80c"
+   },
+   {
+    "arquivo": "spritesheets/idle_W.png",
+    "sha256": "f066e4cc9d616f35c59dce9d6fed4a74884cab924967e2cdae639edaf5cd6132"
+   },
+   {
+    "arquivo": "spritesheets/labramon_movement_sheet.png",
+    "sha256": "651107c02c8d17291f7a8eb81c4dc7f957bd7c6be80c2cdd464122e075d59413"
+   },
+   {
+    "arquivo": "spritesheets/walk_E.png",
+    "sha256": "5a56c004131cd24cdf04d1099c549180078a31e711cc7adaf9665b7803a51447"
+   },
+   {
+    "arquivo": "spritesheets/walk_N.png",
+    "sha256": "77720cfd38cb303df37f5030b793881227ad6c8de83cb4e70bfc31a71c8e405a"
+   },
+   {
+    "arquivo": "spritesheets/walk_S.png",
+    "sha256": "ccb61bc28ba3e3e967f1757d4f77eae4ef13cb43b2a2706842634cafb1e94abc"
+   },
+   {
+    "arquivo": "spritesheets/walk_W.png",
+    "sha256": "951893d416153f7067cfc284ef1d9e74880a1ab77d015eb007ba360819e64da6"
+   }
+  ]
+ },
+ "gifs": {
+  "doc": "walk 100 ms/quadro, idle 240 ms/quadro (sugestão de arte; o tempo no jogo é do game-dev). Codificador próprio; validados pelo decodificador local, não abertos num navegador.",
+  "arquivos": [
+   {
+    "arquivo": "gifs/idle_E_1x.gif",
+    "sha256": "70fa6a5cb30b0269c3917949af88828a3c4ba0a3b58ded8ed2d7fdf42c8bb9cb"
+   },
+   {
+    "arquivo": "gifs/idle_E_4x.gif",
+    "sha256": "149be391132a910401b5669d07fe08fa39a4e5e88ffca85631bc12bfd873bbd1"
+   },
+   {
+    "arquivo": "gifs/idle_N_1x.gif",
+    "sha256": "cb9381f8aab49224f8b7590bb8cddf33e331d9d150170e6804ac5019f42513ff"
+   },
+   {
+    "arquivo": "gifs/idle_N_4x.gif",
+    "sha256": "c76db38dd580e531fd9162b24be7f14b1a69c840fb47c4a573f5144780f55870"
+   },
+   {
+    "arquivo": "gifs/idle_S_1x.gif",
+    "sha256": "aa9b84cbdae0c00df7c01285e023ccbd21044365456441234dc5a3e9d98db81c"
+   },
+   {
+    "arquivo": "gifs/idle_S_4x.gif",
+    "sha256": "b92f878da4be4cb0b0127c3298f2998876e0a4c9ea2a35e7995b02853482cdb6"
+   },
+   {
+    "arquivo": "gifs/idle_W_1x.gif",
+    "sha256": "e36891c8941cc44f9f338e711c618fe43013ffd98db64d275d49081057a9b8e5"
+   },
+   {
+    "arquivo": "gifs/idle_W_4x.gif",
+    "sha256": "b8d9ddc80543afdabe56bb648c82f786ba390d71028a8f8cf374a79c61edf9ec"
+   },
+   {
+    "arquivo": "gifs/walk_E_1x.gif",
+    "sha256": "45f8f6aba3712396d71e03fb25de38df1331f44b146dbabff4e5911d007a2f27"
+   },
+   {
+    "arquivo": "gifs/walk_E_4x.gif",
+    "sha256": "e3291b710d879c13f0eb04ceb84212165111276570c828fb75897aef56c59ea7"
+   },
+   {
+    "arquivo": "gifs/walk_N_1x.gif",
+    "sha256": "0f9434c84a69c4f3c108e430d425349b6c45abe4693447661f788fbcbabe66da"
+   },
+   {
+    "arquivo": "gifs/walk_N_4x.gif",
+    "sha256": "5ac3e5173489af10c215f50f479d59f34dd9e2c624bb55f99e10d900ba710727"
+   },
+   {
+    "arquivo": "gifs/walk_S_1x.gif",
+    "sha256": "8eb7bdb23163dc27c5d5e8968a41cac5a66d0836ff91ad609beebd4ed8c9ffe7"
+   },
+   {
+    "arquivo": "gifs/walk_S_4x.gif",
+    "sha256": "c1143428db2895016a2ed309778656844484e50bdbca0a84c50e22d1ee9a819f"
+   },
+   {
+    "arquivo": "gifs/walk_W_1x.gif",
+    "sha256": "f80b551a9976e695bd2417f94ab2cbf2f752ca8004a69b4d6babc13f995584e0"
+   },
+   {
+    "arquivo": "gifs/walk_W_4x.gif",
+    "sha256": "03cecac40c1149d916e9f80e9a47a4abc8f4c4420b2d2788439a57ec29493557"
+   }
+  ]
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "pixellab": {
+  "personagem": {
+   "id": "e7b2c58f-6ea0-4a49-bab1-7b2ecaa2052d",
+   "nome": "Labramon F9",
+   "modo": "v3 import (quadruped/dog, 4 direções, 60x60) — 0 pixel regenerado nas rotações"
+  },
+  "grupos_usados": {
+   "walk-pmm (S,E,N,W)": "348e2f75-230d-47b9-8973-fa50dcb5a14e",
+   "idle-pmm E": "7a13bfff-615f-4222-bdf9-363db344a035",
+   "idle-pmm W": "e7923fdb-4b8e-4837-a42f-fdae0720e95f",
+   "idle-pmm S (alternativa)": "7b51b2a6-b59c-44e2-9155-e161fcb3e105",
+   "idle-pmm N (alternativa)": "3889fc0c-d36c-4107-a681-7f266506b6ff"
+  },
+  "grupos_reprovados_ainda_na_conta": {
+   "walk v3 E": "a1163b49-7114-4754-a956-7111472ce501",
+   "walk v3 S": "da40d052-ecbf-4ec1-a735-0c7262e1eddd",
+   "idle v3 E": "261c943f-ae08-4760-a617-7f8e232774f9",
+   "idle v3 S": "110218f6-c829-40af-a9e2-853f55e91d57",
+   "walk-tpl E (template dog)": "fe5e0884-4832-424b-84d2-18f3baffc831",
+   "idle-tpl E (template dog)": "de14b7fa-86da-4f5d-b89f-8099a014b874"
+  },
+  "limpeza": {
+   "correct_pixelart": [
+    "b09377ec-73e6-4c07-9f75-4ee752cad3d9",
+    "6fce6886-71f1-47d4-82de-849bdf32765e",
+    "cce9271e-228a-4e1f-be8d-c26c0c22aa77",
+    "f84e552e-94f4-4f21-aef1-9dabfc4565d4"
+   ],
+   "reduce_colors": {
+    "S": "2fbd0c13-40d4-40ce-88c3-f46eb6939a30",
+    "E": "322ad01b-730d-4ed5-bd0d-92d24060856f",
+    "N": "1c811615-c321-4beb-bc5d-4fc7f01b64bd",
+    "W": "57c8ea69-474e-4ce5-bafd-a4587c8bf1c4"
+   }
+  },
+  "custo": [
+   {
+    "op": "create_character v3 import (4 rotações)",
+    "ger": 0.25
+   },
+   {
+    "op": "animate_character v3 custom: walk E, walk S, idle E, idle S (reprovados)",
+    "ger": 4
+   },
+   {
+    "op": "animate_character template dog: walk-8-frames E, idle E (reprovados)",
+    "ger": 2
+   },
+   {
+    "op": "animate_character pixminimax: walk S/E/N/W (template_action=walking)",
+    "ger": 4
+   },
+   {
+    "op": "animate_character pixminimax: idle S/E/N/W (custom 4q)",
+    "ger": 4
+   },
+   {
+    "op": "correct_pixelart ×4",
+    "ger": 0.4
+   },
+   {
+    "op": "reduce_colors ×4",
+    "ger": 0.4
+   }
+  ],
+  "geracoes_fase4": 15.05,
+  "teto_fase4": 20,
+  "saldo_antes": 544.8,
+  "saldo_depois": 529.75,
+  "acumulado_f9": 15.65,
+  "teto_f9": 60,
+  "piso_saldo": 485
+ },
+ "pos_processo_local": [
+  "paleta exata da rotação (reduce_colors devolveu 2 quase-pretos #020602/#020305 → #010101)",
+  "remoção de pontos soltos (walk W: 5 px em 4 quadros)",
+  "trava de cabeça/rosto: linhas do topo da cabeça e retângulo do rosto colados da rotação no deslocamento medido por quadro",
+  "walk N: sola rosa-escura da pata traseira (linhas ≥44) → #24241e",
+  "7 px claros encostados em transparência escurecidos (falha de contorno)",
+  "âncora: quadro inteiro deslocado na vertical até a última linha opaca = y49 (walk S: +1/+2 em 6 quadros; walk N: −1/−2 em 6; walk W: +1 em 2)"
+ ],
+ "escala": {
+  "tile": 32,
+  "labramon_standing_h": 36,
+  "labramon_walk_h": {
+   "S": "36–37",
+   "E": "35–36",
+   "N": "38",
+   "W": "34–37"
+  },
+  "tamer_v13_south_h": 34,
+  "doc": "Conflito G-2 segue ABERTO; números registrados, não resolvidos."
+ },
+ "medicoes": "qa_medicoes.json (por quadro: bbox, px, cores, pé, contato, deslocamento da cabeça, rosto, olho, marcas, mudança até o próximo quadro; recuo do pé em E/W)"
+}

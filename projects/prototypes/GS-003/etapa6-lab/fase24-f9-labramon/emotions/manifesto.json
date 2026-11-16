@@ -1,0 +1,1418 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 5 — emoções (feliz, triste, irritado, assustado)",
+ "data": "2026-11-16",
+ "direcao": "E (única direção nesta validação; standing/idle/walk nas 4 direções estão em movement/)",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49
+ },
+ "paleta": {
+  "limite": 24,
+  "doc": "Todos os quadros usam só cores da rotação E (19 cores); 0 semitransparência."
+ },
+ "idle_de_retorno": "movement/idle/E (ou movement/standing/E.png)",
+ "duracoes": "ms por quadro = sugestão de arte; parâmetro do motor",
+ "estados": {
+  "happy": {
+   "doc": "Feliz: cabeça erguida, boca aberta, cauda abanando (movimento só na cauda durante o loop), postura receptiva.",
+   "clipes": {
+    "entrada": {
+     "fonte": "f5-happy",
+     "quadros_fonte": [
+      0,
+      1
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      90,
+      90
+     ],
+     "duracao_total_ms": 180,
+     "loop": false,
+     "spritesheet": "spritesheets/happy_entrada.png",
+     "gifs": [
+      "gifs/happy_entrada_1x.gif",
+      "gifs/happy_entrada_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       36,
+       39
+      ],
+      "w_min_max": [
+       38,
+       38
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       9
+      ],
+      "marcas_px": [
+       7,
+       7
+      ],
+      "rosto_travado": [
+       true,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       23,
+       656
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "happy/entrada/frame_000.png",
+       "sha256": "4eb93e87d731a19dd7a4ecd845328ad0bce6c8d35c020569b8f8ecc950f10585"
+      },
+      {
+       "arquivo": "happy/entrada/frame_001.png",
+       "sha256": "0e1ff5acf762462093cd509c26cb7a729c1ba513d327fe022fd66e2c593617c7"
+      }
+     ]
+    },
+    "loop": {
+     "fonte": "f5-happy",
+     "quadros_fonte": [
+      2,
+      3,
+      4,
+      5
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      120,
+      120,
+      120,
+      120
+     ],
+     "duracao_total_ms": 480,
+     "loop": true,
+     "spritesheet": "spritesheets/happy_loop.png",
+     "gifs": [
+      "gifs/happy_loop_1x.gif",
+      "gifs/happy_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       40,
+       40
+      ],
+      "w_min_max": [
+       36,
+       37
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       9,
+       9,
+       9,
+       9
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       715,
+       637,
+       712,
+       715
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "happy/loop/frame_000.png",
+       "sha256": "5004fd14e1fb989c710c67837be88126c8a209cdf936a9aa3171f3864b99d894"
+      },
+      {
+       "arquivo": "happy/loop/frame_001.png",
+       "sha256": "151217eebd4d81f07a3cd97a7b889b577d4980756c8c90504527749cc2457895"
+      },
+      {
+       "arquivo": "happy/loop/frame_002.png",
+       "sha256": "fe12708178505d9212ded49e69cf978d2c8e4dd8e8a0973c29f9c9d97f81c1b9"
+      },
+      {
+       "arquivo": "happy/loop/frame_003.png",
+       "sha256": "06f658031d78e3b5482d0d5dd88cc1aee077c6c1ec1f47b82df71d4e9a514572"
+      }
+     ]
+    },
+    "saida": {
+     "fonte": "f5-happy",
+     "quadros_fonte": [
+      6,
+      7
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      100,
+      110
+     ],
+     "duracao_total_ms": 210,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/happy_saida.png",
+     "gifs": [
+      "gifs/happy_saida_1x.gif",
+      "gifs/happy_saida_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       36,
+       37
+      ],
+      "w_min_max": [
+       38,
+       38
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       6,
+       4
+      ],
+      "marcas_px": [
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       454,
+       15
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "happy/saida/frame_000.png",
+       "sha256": "dea1661cec3c5325a6e54230bd0aa1df818f0527dd1fe02ade96cc2e38bf1433"
+      },
+      {
+       "arquivo": "happy/saida/frame_001.png",
+       "sha256": "b1122ba3ca8d981bc2ad4ac4e918cab144b57f4fecb8b2e460efe964c50a107f"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "happy/pose_mestra.png",
+    "fonte": "f5-happy q3",
+    "sha256": "151217eebd4d81f07a3cd97a7b889b577d4980756c8c90504527749cc2457895"
+   }
+  },
+  "sad": {
+   "doc": "Triste: cabeça baixa, dorso abatido, olho semicerrado. Movimento reduzido de propósito: no loop mudam 7–11 px por quadro.",
+   "clipes": {
+    "entrada": {
+     "fonte": "f5-sad",
+     "quadros_fonte": [
+      0,
+      1
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      180,
+      180
+     ],
+     "duracao_total_ms": 360,
+     "loop": false,
+     "spritesheet": "spritesheets/sad_entrada.png",
+     "gifs": [
+      "gifs/sad_entrada_1x.gif",
+      "gifs/sad_entrada_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       33,
+       35
+      ],
+      "w_min_max": [
+       40,
+       41
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       2
+      ],
+      "marcas_px": [
+       7,
+       5
+      ],
+      "rosto_travado": [
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       445,
+       598
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "sad/entrada/frame_000.png",
+       "sha256": "a3f5d85a8507f33d482ddc849ff7a32968f26b7b42c4705ce83ebc492881b906"
+      },
+      {
+       "arquivo": "sad/entrada/frame_001.png",
+       "sha256": "72c27278933b71ccbbe381d7d5c9a555b223f6b5d3b059e3244efd1312f0aaf1"
+      }
+     ]
+    },
+    "loop": {
+     "fonte": "f5-sad",
+     "quadros_fonte": [
+      2,
+      3,
+      4,
+      3
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      450,
+      450,
+      450,
+      450
+     ],
+     "duracao_total_ms": 1800,
+     "loop": true,
+     "spritesheet": "spritesheets/sad_loop.png",
+     "gifs": [
+      "gifs/sad_loop_1x.gif",
+      "gifs/sad_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       31,
+       31
+      ],
+      "w_min_max": [
+       41,
+       41
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       3,
+       3,
+       3,
+       3
+      ],
+      "marcas_px": [
+       6,
+       6,
+       6,
+       6
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       671,
+       670,
+       670,
+       670
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "sad/loop/frame_000.png",
+       "sha256": "9953201766cb9ea1131434cbc99a7afeaac33cf64db27a8061e16277c39d0050"
+      },
+      {
+       "arquivo": "sad/loop/frame_001.png",
+       "sha256": "d4dfebed3ce15436885a72d7dc904873872e5648ff5510ef6368317fbb275c59"
+      },
+      {
+       "arquivo": "sad/loop/frame_002.png",
+       "sha256": "c2191007700058cca2aa756e2dd6d17e0b0a8fe48e65bd7bd7db78d1a12cea27"
+      },
+      {
+       "arquivo": "sad/loop/frame_003.png",
+       "sha256": "d4dfebed3ce15436885a72d7dc904873872e5648ff5510ef6368317fbb275c59"
+      }
+     ]
+    },
+    "saida": {
+     "fonte": "f5-sad",
+     "quadros_fonte": [
+      5,
+      6,
+      7
+     ],
+     "quadros": 3,
+     "duracao_ms_por_quadro": [
+      180,
+      160,
+      160
+     ],
+     "duracao_total_ms": 500,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/sad_saida.png",
+     "gifs": [
+      "gifs/sad_saida_1x.gif",
+      "gifs/sad_saida_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       33,
+       36
+      ],
+      "w_min_max": [
+       38,
+       41
+      ],
+      "pe_y": [
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       3,
+       4,
+       4
+      ],
+      "marcas_px": [
+       5,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       601,
+       443,
+       19
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "sad/saida/frame_000.png",
+       "sha256": "08191a675bb12d4e9aea7a112dfd9033c5ee64bef6bf1bfa648f94660b9f9627"
+      },
+      {
+       "arquivo": "sad/saida/frame_001.png",
+       "sha256": "0ba62249439e6d00f1ab21da0f14c1d5d951c888d3ae13c947a596c04ba38bd8"
+      },
+      {
+       "arquivo": "sad/saida/frame_002.png",
+       "sha256": "201e646945bc24144f7d285ce6f6eb3ae3272bf9d5027f442bb9ed25a6f8c0d5"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "sad/pose_mestra.png",
+    "fonte": "f5-sad q2",
+    "sha256": "9953201766cb9ea1131434cbc99a7afeaac33cf64db27a8061e16277c39d0050"
+   }
+  },
+  "angry": {
+   "doc": "Irritado: postura defensiva baixa, patas abertas, dentes à mostra, cauda erguida e rígida; rosna tremendo. Não late (o latido é o ataque).",
+   "clipes": {
+    "entrada": {
+     "fonte": "f5-angry",
+     "quadros_fonte": [
+      8,
+      0
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      80,
+      90
+     ],
+     "duracao_total_ms": 170,
+     "loop": false,
+     "doc": "Entrada em 2 quadros (correção A2): q8 = intermediário local (a pose do q0 com a cauda ainda na posição do idle: a cauda sobe 1 quadro depois), depois q0. Leitura: reação rápida.",
+     "spritesheet": "spritesheets/angry_entrada.png",
+     "gifs": [
+      "gifs/angry_entrada_1x.gif",
+      "gifs/angry_entrada_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       31,
+       31
+      ],
+      "w_min_max": [
+       38,
+       39
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       6,
+       6
+      ],
+      "marcas_px": [
+       6,
+       6
+      ],
+      "rosto_travado": [
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       757,
+       853
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "angry/entrada/frame_000.png",
+       "sha256": "f46997ec43dd740b233e000d148582fc6c8108ca8b310dffbcc45590d05ccf24"
+      },
+      {
+       "arquivo": "angry/entrada/frame_001.png",
+       "sha256": "2fd6b8ba6ebcd2a33821b617695e0003694674f57b79e2483b13d304089c25be"
+      }
+     ]
+    },
+    "loop": {
+     "fonte": "f5-angry",
+     "quadros_fonte": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      90,
+      90,
+      90,
+      90
+     ],
+     "duracao_total_ms": 360,
+     "loop": true,
+     "spritesheet": "spritesheets/angry_loop.png",
+     "gifs": [
+      "gifs/angry_loop_1x.gif",
+      "gifs/angry_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       31,
+       32
+      ],
+      "w_min_max": [
+       38,
+       38
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       6,
+       6,
+       6,
+       6
+      ],
+      "marcas_px": [
+       6,
+       6,
+       6,
+       6
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       900,
+       893,
+       900,
+       892
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "angry/loop/frame_000.png",
+       "sha256": "4a68e3620c868c48fac74709b02a45c47567a95b21860f7d50951be6fb3a5909"
+      },
+      {
+       "arquivo": "angry/loop/frame_001.png",
+       "sha256": "f2188441c1d7aeda9b716db31141e3db2666dd28092be70686cb2df0a64c62b9"
+      },
+      {
+       "arquivo": "angry/loop/frame_002.png",
+       "sha256": "8f59bc8cc4ba44269edfb31bab23faec4c4c9df262b23265fba21c8d6aa7d6a1"
+      },
+      {
+       "arquivo": "angry/loop/frame_003.png",
+       "sha256": "2c2b609d1e5251eeb1ba746f097c9f9f0938307687463625ff642228c45beb35"
+      }
+     ]
+    },
+    "saida": {
+     "fonte": "f5-angry",
+     "quadros_fonte": [
+      6,
+      7
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      120,
+      130
+     ],
+     "duracao_total_ms": 250,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/angry_saida.png",
+     "gifs": [
+      "gifs/angry_saida_1x.gif",
+      "gifs/angry_saida_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       31,
+       36
+      ],
+      "w_min_max": [
+       38,
+       38
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       6,
+       4
+      ],
+      "marcas_px": [
+       6,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       850,
+       8
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "angry/saida/frame_000.png",
+       "sha256": "0bef2ce9caa7ffc60901df027e310eb60c22dea873af702ca3489d37374ed6f1"
+      },
+      {
+       "arquivo": "angry/saida/frame_001.png",
+       "sha256": "a86d1323962f0b5ef6310138344a717905967f2f1f39266ecd11eb72a2ee7639"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "angry/pose_mestra.png",
+    "fonte": "f5-angry q2",
+    "sha256": "f2188441c1d7aeda9b716db31141e3db2666dd28092be70686cb2df0a64c62b9"
+   }
+  },
+  "scared": {
+   "doc": "Assustado: sobressalto (olho arregalado), recua e se encolhe tremendo, depois volta com cautela.",
+   "clipes": {
+    "entrada": {
+     "fonte": "f5-scared",
+     "quadros_fonte": [
+      0,
+      1
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      60,
+      80
+     ],
+     "duracao_total_ms": 140,
+     "loop": false,
+     "doc": "Reação rápida.",
+     "spritesheet": "spritesheets/scared_entrada.png",
+     "gifs": [
+      "gifs/scared_entrada_1x.gif",
+      "gifs/scared_entrada_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       37,
+       40
+      ],
+      "w_min_max": [
+       37,
+       37
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       9,
+       9
+      ],
+      "marcas_px": [
+       7,
+       5
+      ],
+      "rosto_travado": [
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       843,
+       768
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "scared/entrada/frame_000.png",
+       "sha256": "3e715267389caf6d6d10e303a43f1b49f08b60dedab1cfd69c547375f0b28500"
+      },
+      {
+       "arquivo": "scared/entrada/frame_001.png",
+       "sha256": "49bfab1b1650d739092ea015c74919132d7c9e8f469ff9092f3be747d82ec8b0"
+      }
+     ]
+    },
+    "loop": {
+     "fonte": "f5-scared",
+     "quadros_fonte": [
+      2,
+      3,
+      4,
+      5
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      80,
+      80,
+      80,
+      80
+     ],
+     "duracao_total_ms": 320,
+     "loop": true,
+     "spritesheet": "spritesheets/scared_loop.png",
+     "gifs": [
+      "gifs/scared_loop_1x.gif",
+      "gifs/scared_loop_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       34
+      ],
+      "w_min_max": [
+       36,
+       37
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4,
+       4,
+       4
+      ],
+      "marcas_px": [
+       8,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       true,
+       true,
+       true,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       761,
+       772,
+       793,
+       735
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "scared/loop/frame_000.png",
+       "sha256": "dbbeeadfe48f70f489c45e569ec16ba2b0df4d73ea4c8a15338d94f67b3c722c"
+      },
+      {
+       "arquivo": "scared/loop/frame_001.png",
+       "sha256": "e8bc55bde33a16955af7c18bf7417c8873d637eade49efab8482ecf0515fb75b"
+      },
+      {
+       "arquivo": "scared/loop/frame_002.png",
+       "sha256": "a54f12565f282574f6519f963a2ed5fcb29f6019f6b4c87bfb35596ddd6d70f7"
+      },
+      {
+       "arquivo": "scared/loop/frame_003.png",
+       "sha256": "b7ef2cc24f5615cfc32809231aaf828faca6d45cfa75265a3b9f87d0fe1de7e0"
+      }
+     ]
+    },
+    "saida": {
+     "fonte": "f5-scared",
+     "quadros_fonte": [
+      6,
+      7
+     ],
+     "quadros": 2,
+     "duracao_ms_por_quadro": [
+      140,
+      150
+     ],
+     "duracao_total_ms": 290,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/scared_saida.png",
+     "gifs": [
+      "gifs/scared_saida_1x.gif",
+      "gifs/scared_saida_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       35,
+       36
+      ],
+      "w_min_max": [
+       38,
+       38
+      ],
+      "pe_y": [
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4
+      ],
+      "marcas_px": [
+       7,
+       7
+      ],
+      "rosto_travado": [
+       true,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       500,
+       9
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "scared/saida/frame_000.png",
+       "sha256": "4e12950e5cc888623b72440b473185e82824ac56f10c04977aa987476f295c48"
+      },
+      {
+       "arquivo": "scared/saida/frame_001.png",
+       "sha256": "34ab86d8285636a04fed80e26aba6389a784f0e6a4d688303ae6d2037b39b4a9"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "scared/pose_mestra.png",
+    "fonte": "f5-scared q3",
+    "sha256": "e8bc55bde33a16955af7c18bf7417c8873d637eade49efab8482ecf0515fb75b"
+   }
+  }
+ },
+ "demos": {
+  "happy": {
+   "sequencia": [
+    "standing E 300 ms",
+    "happy/entrada",
+    "happy/loop",
+    "happy/loop",
+    "happy/loop",
+    "happy/saida",
+    "standing E 400 ms"
+   ],
+   "quadros": 18,
+   "duracao_total_ms": 2530,
+   "gifs": [
+    "gifs/demo_happy_1x.gif",
+    "gifs/demo_happy_4x.gif"
+   ]
+  },
+  "sad": {
+   "sequencia": [
+    "standing E 300 ms",
+    "sad/entrada",
+    "sad/loop",
+    "sad/loop",
+    "sad/saida",
+    "standing E 400 ms"
+   ],
+   "quadros": 15,
+   "duracao_total_ms": 5160,
+   "gifs": [
+    "gifs/demo_sad_1x.gif",
+    "gifs/demo_sad_4x.gif"
+   ]
+  },
+  "angry": {
+   "sequencia": [
+    "standing E 300 ms",
+    "angry/entrada",
+    "angry/loop",
+    "angry/loop",
+    "angry/loop",
+    "angry/saida",
+    "standing E 400 ms"
+   ],
+   "quadros": 18,
+   "duracao_total_ms": 2200,
+   "gifs": [
+    "gifs/demo_angry_1x.gif",
+    "gifs/demo_angry_4x.gif"
+   ]
+  },
+  "scared": {
+   "sequencia": [
+    "standing E 300 ms",
+    "scared/entrada",
+    "scared/loop",
+    "scared/loop",
+    "scared/loop",
+    "scared/saida",
+    "standing E 400 ms"
+   ],
+   "quadros": 18,
+   "duracao_total_ms": 2090,
+   "gifs": [
+    "gifs/demo_scared_1x.gif",
+    "gifs/demo_scared_4x.gif"
+   ]
+  }
+ },
+ "bruto": {
+  "f5-angry": {
+   "pixellab_grupo": "990801d5-5fcb-4f4d-bbf6-dbe6b42d20c3",
+   "pixellab_job": "a9d2f5f1-59d4-4e0a-baa9-9a20431659f5",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 8,
+     "quadro_extra_correcao": {
+      "A2": "intermediario_local",
+      "doc": "pose do irritado q0 com a cauda do idle E q0 (a cauda atrasa 1 quadro; intermed_f9.js modo cauda; idle_E_q0.png = movement/idle/E/frame_000.png)",
+      "medida": {
+       "modo": "cauda",
+       "cauda_alvo_px": 116,
+       "cauda_idle_px": 101,
+       "sobras_contorno_px": 8,
+       "contorno_fechado_px": 0,
+       "idle_para_X_px": 664,
+       "X_para_alvo_px": 196,
+       "idle_para_alvo_px": 859,
+       "bbox": [
+        11,
+        19,
+        49,
+        49
+       ],
+       "cores": 19,
+       "semi": 0
+      },
+      "soltos": 0,
+      "contorno_fechado_px": 0
+     }
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f5-angry"
+  },
+  "f5-happy": {
+   "pixellab_grupo": "bd1aabfa-cb91-4789-81ec-b3c28993c8fe",
+   "pixellab_job": "6d0912d3-a2de-40df-83d4-12d5e00f9e73",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f5-happy"
+  },
+  "f5-sad": {
+   "pixellab_grupo": "e76ceda9-4073-4feb-9835-d71afbb97fcb",
+   "pixellab_job": "549d9866-97fb-4727-93bb-d080fa9c2ca3",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 20,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 24,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 25,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 25,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 25,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 22,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 20,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f5-sad"
+  },
+  "f5-scared": {
+   "pixellab_grupo": "bfba21fd-7e65-4b61-9bfd-4b69204afd55",
+   "pixellab_job": "b33ca810-bbaf-4583-b241-6bf582a59b94",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 2,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0,
+     "correcoes_pos_qa": null
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f5-scared"
+  },
+  "f9c-angry-entry": {
+   "pixellab_grupo": "9253c30e-9dc0-4f87-b527-fc2e23382645",
+   "pixellab_job": "8fa7612b-9121-4852-b269-667cdb7e427e",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false, start = rotação E (upload)",
+   "quadros_gerados": 4,
+   "geracoes": 1,
+   "quadros_chave": "correção A2: início = rotação E; end_frame = irritado q0 (pós-processado). REPROVADA como intermediário: q0 ≈ rotação e q1–q3 ≈ pose final (o modelo salta em 1 quadro); nenhum quadro usado",
+   "pasta": "_evidencias/bruto_pixminimax/f9c-angry-entry",
+   "rodada": "correções pós-QA 2026-11-16"
+  }
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "geracoes_pixellab": 5,
+ "correcoes_pos_qa": {
+  "data": "2026-11-16",
+  "relatorio": "../RELATORIO_F9_CORRECOES.md",
+  "backup": "../_pre_correcao/emotions",
+  "scripts": "../scripts_f9_correcoes/",
+  "A2": "irritado: entrada em 2 quadros (intermediário local, 0 gerações). A geração f9c-angry-entry (1 geração) foi reprovada como intermediário e fica só como evidência."
+ }
+}

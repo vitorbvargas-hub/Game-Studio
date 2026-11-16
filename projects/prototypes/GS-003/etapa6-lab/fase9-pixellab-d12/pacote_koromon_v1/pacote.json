@@ -1,0 +1,11 @@
+{
+ "especie": "Koromon (baby II)",
+ "personagem_pixellab": "a1b0d76e-0d43-4aaf-bfa4-87f9eabd2d90",
+ "obs": "walk = pular; norte estático; sem ataque",
+ "anims": {
+  "walk/S": "hop-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/E": "hop-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/W": "hop-v3 quadros [1, 2, 3, 4, 5, 6, 7, 8]",
+  "walk/N": "estatico (rotacao)"
+ }
+}

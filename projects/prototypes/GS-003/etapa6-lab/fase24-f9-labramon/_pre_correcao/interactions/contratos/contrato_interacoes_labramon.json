@@ -1,0 +1,57 @@
+{
+  "contrato": "contrato_animacao_estado.schema.json",
+  "versao": "F9 Fase 7 — candidato",
+  "data": "2026-11-16",
+  "status": "CANDIDATO — não homologado. Contrato de dados de animação; nenhum sistema de afinidade, humor ou vínculo foi implementado ou definido.",
+  "aviso": "As decisões do fundador sobre parceiro, afinidade, cuidados e vínculo estão preservadas e as regras de jogo estão congeladas. Todos os campos em gatilhos_reservados estão null de propósito: quem preenche é o game-design, em tarefa autorizada.",
+  "estados": [
+    {
+      "id": "labramon.interacao.carinho",
+      "especie": "sp.labramon",
+      "categoria": "interacao",
+      "direcoes": ["E"],
+      "fallback_direcao": { "politica": "virar_para_direcao_disponivel", "doc": "Só E tem arte. Proposta: antes do carinho o Labramon vira para E (ou W, se o QA aceitar espelhar; o espelho troca o lado da orelha/olho e não foi validado)." },
+      "canvas": [60, 60],
+      "ancora": { "x": 29.5, "y_chao": 49 },
+      "clipes": {
+        "entrada": { "pasta": "interactions/petting/entrada", "quadros": 2, "duracao_ms_por_quadro": [110, 110], "loop": false, "interrompivel": true },
+        "loop": { "pasta": "interactions/petting/loop", "quadros": 4, "duracao_ms_por_quadro": [130, 130, 130, 130], "loop": true, "interrompivel": true, "eventos": [{ "quadro": 0, "nome": "mao_em_contato", "doc": "A mão do Tamer deve estar no ponto 'contato_mao' enquanto o loop toca." }] },
+        "saida": { "pasta": "interactions/petting/saida", "quadros": 2, "duracao_ms_por_quadro": [120, 130], "loop": false, "interrompivel": false }
+      },
+      "retorno": { "para": "idle", "via": "saida" },
+      "pontos": { "E": { "contato_mao": { "x": 40, "y": 16, "doc": "Topo do capuz durante o loop (medido: linha mais alta em y=16, x 38–42)." } } },
+      "parceiro_de_cena": {
+        "papel": "Tamer faz o carinho",
+        "posicao_relativa_px": { "dx": 26, "dy": 0, "doc": "PROPOSTA não testada: pé do Tamer ~26 px à frente (leste) do pivô do Labramon, na mesma linha de chão. Ajustar no laboratório (Fase 9)." },
+        "direcao_do_tamer": "W",
+        "animacao_do_tamer": null,
+        "doc": "O Tamer provisório não tem animação de carinho e não foi modificado. No laboratório ele serve só de referência de posição; a mão não é desenhada no sprite do Labramon."
+      },
+      "gatilhos_reservados": { "contexto": ["carinho_do_tamer"], "afinidade": null, "humor": null, "vinculo": null, "prioridade": null },
+      "variantes_reservadas": null,
+      "status": "candidato"
+    },
+    {
+      "id": "labramon.interacao.comemoracao",
+      "especie": "sp.labramon",
+      "categoria": "interacao",
+      "direcoes": ["E"],
+      "fallback_direcao": { "politica": "virar_para_direcao_disponivel", "doc": "Só E tem arte." },
+      "canvas": [60, 60],
+      "ancora": { "x": 29.5, "y_chao": 49 },
+      "clipes": {
+        "comemoracao": {
+          "pasta": "interactions/celebrate/frames", "quadros": 8, "duracao_ms_por_quadro": [80, 70, 70, 100, 70, 80, 90, 110], "loop": false, "interrompivel": false,
+          "fases": { "preparacao": [0, 1], "pulo": [2, 4], "aterrissagem": [5, 6], "retorno": [7, 7] },
+          "eventos": [{ "quadro": 2, "nome": "sai_do_chao", "doc": "Quadros 2–4 no ar (pé em y=46, 43, 45). A sombra de contato fica no chão (y=49) e pode encolher." }, { "quadro": 5, "nome": "aterrissa" }]
+        }
+      },
+      "retorno": { "para": "idle", "via": "comemoracao (quadro 7)" },
+      "pontos": {},
+      "parceiro_de_cena": { "papel": "nenhum obrigatório", "posicao_relativa_px": {}, "direcao_do_tamer": "livre", "animacao_do_tamer": null, "doc": "Reação após vitória; não depende do Tamer." },
+      "gatilhos_reservados": { "contexto": ["vitoria_em_batalha"], "afinidade": null, "humor": null, "vinculo": null, "prioridade": null },
+      "variantes_reservadas": null,
+      "status": "candidato"
+    }
+  ]
+}

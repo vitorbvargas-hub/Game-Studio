@@ -1,0 +1,43 @@
+{
+ "url": "http://127.0.0.1:5197/?novo=1&time=dia",
+ "tag": "qa_v2_independente",
+ "clipes": {
+  "walkE": {
+   "quadros_screencast": 209,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkE_qa_v2_independente.gif",
+   "gif": "walkE_qa_v2_independente.gif"
+  },
+  "walkW": {
+   "quadros_screencast": 207,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkW_qa_v2_independente.gif",
+   "gif": "walkW_qa_v2_independente.gif"
+  },
+  "walkN": {
+   "quadros_screencast": 209,
+   "intervalo_ms_mediana": 19,
+   "registros_desenho": 864,
+   "gif_cena": "cena_walkN_qa_v2_independente.gif",
+   "gif": "walkN_qa_v2_independente.gif"
+  },
+  "walkS": {
+   "quadros_screencast": 211,
+   "intervalo_ms_mediana": 18,
+   "registros_desenho": 860,
+   "gif_cena": "cena_walkS_qa_v2_independente.gif",
+   "gif": "walkS_qa_v2_independente.gif"
+  }
+ },
+ "ids": {
+  "hawk": "p1:partner",
+  "tamer": "p1",
+  "cmp": "labcmp:partner",
+  "cmpTamer": "labcmp"
+ },
+ "cssPerLogical": 2,
+ "erros": [],
+ "rede": []
+}

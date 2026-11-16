@@ -1,0 +1,1 @@
+JSON mapa original demonstrativo 40x30 e preview.html; NAO e export do mapa v15b. Integracao no jogo principal nao realizada.

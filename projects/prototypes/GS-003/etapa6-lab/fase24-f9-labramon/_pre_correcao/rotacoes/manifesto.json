@@ -1,0 +1,83 @@
+{
+  "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+  "versao": "F9 Fase 3 — rotações técnicas a partir da arte-mestra v2 EM PÉ (ChatGPT, enviada pelo Vitor 2026-11-15 ~23:40)",
+  "data": "2026-11-15",
+  "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+  "status": "CANDIDATO — aguardando QA independente (game-qa) e homologação do fundador",
+  "fonte": {
+    "arte_mestra": "arte_mestra/labramon_arte_mestra_v2_em_pe_chatgpt.png",
+    "sha256": "f56030d732da68c9c0d17b879c9f4fac637ef2f39a388a6149d381f20895a7a2",
+    "ordem_na_folha": ["S (frente)", "N (costas)", "W (virado à esquerda)", "E (virado à direita)"],
+    "bbox_origem_px": {
+      "S": [63, 338, 295, 688],
+      "N": [365, 338, 595, 688],
+      "W": [656, 338, 1042, 688],
+      "E": [1096, 338, 1472, 688]
+    },
+    "altura_origem_px": 351
+  },
+  "canvas": [60, 60],
+  "ancora": {
+    "tipo": "centro do contato das patas com o chão",
+    "x": 29.5,
+    "y_chao": 49,
+    "doc": "Última linha opaca em y=49 nas 4 direções. Pivô X = centro do vão ocupado pelas patas nas 3 linhas mais baixas (contato), NÃO o centro do bbox: num quadrúpede de perfil a cauda desloca o bbox e faria o corpo 'pular' ao trocar de direção. Centro de contato medido = 30,0 nas 4 direções (pixel 29/30)."
+  },
+  "colisao_proposta": {
+    "tipo": "caixa de pegada no chão (footprint), igual nas 4 direções",
+    "x": [19, 40],
+    "y": [40, 49],
+    "tamanho": [22, 10],
+    "doc": "Proposta da direção de arte; a engenharia (game-dev) decide. Cabe num tile 32."
+  },
+  "rotacoes": {
+    "S": {"arquivo": "labramon_S.png", "sha256": "156449a3789625a09cd75c41b581b369a3a37edb93f6a44f631bee90a7aa4cf6", "bbox_wh": [24, 36], "bbox": [18, 14, 41, 49], "contato_x": [21, 38], "cores": 19, "semitransparentes": 0},
+    "N": {"arquivo": "labramon_N.png", "sha256": "be4bf348e28cbb79ccfa69dca70b5e87bed000707483082e57e6cebb2f1e9bf3", "bbox_wh": [25, 36], "bbox": [18, 14, 42, 49], "contato_x": [20, 39], "cores": 16, "semitransparentes": 0},
+    "W": {"arquivo": "labramon_W.png", "sha256": "687b1459955ac99ef0cb71980566c830b3b4761cfcf67dcfe6d727e6171246bc", "bbox_wh": [39, 36], "bbox": [10, 14, 48, 49], "contato_x": [18, 41], "cores": 19, "semitransparentes": 0},
+    "E": {"arquivo": "labramon_E.png", "sha256": "06de28d53e79685b72d3a3f94ba74f9ab81a9f114f9eaedbc10e47cbeb7800a0", "bbox_wh": [38, 36], "bbox": [12, 14, 49, 49], "contato_x": [17, 42], "cores": 19, "semitransparentes": 0}
+  },
+  "e_w_independentes": "Sim. E comparado com W espelhado: 486/922 pixels diferentes (52,7%) no melhor alinhamento — não são espelho.",
+  "paleta": {
+    "total_compartilhado": 19,
+    "limite": 24,
+    "hex": ["#f6f2e8", "#010101", "#d94182", "#d5d2c6", "#b1afa3", "#8e8c81", "#6b6b5c", "#ac2d64", "#24241e", "#7a2044", "#434a39", "#58444b", "#4b192d", "#250d20", "#a4a370", "#b97191", "#dc9aa3", "#81231d", "#c63239"],
+    "endesga32": "0 de 3151 pixels com cor exata da Endesga-32; distância média RGB à Endesga-32 = 37,6",
+    "ref05_vpet_oficial": "distância média RGB à paleta do sprite oficial V-pet (REF-05) = 22,5"
+  },
+  "pipeline": [
+    "1 recorte por bbox automático (margem 6 px) + padding magenta até ≥256 px (limite do unzoom) — local",
+    "2 unzoom_image x4 (PixelLab, 0,1 cada; quantize=-1) — saídas 64x91 (S), 43x60 (N), 65x60 (W), 100x94 (E)",
+    "3 chroma key por flood fill da borda (tol 60) — local",
+    "4 box-filter com alfa correto para 34 px de altura interna + contorno externo 1 px (altura final 36) + pivô nas patas; limiar de alfa rígido — local",
+    "5 franja magenta escura (r>g+40, b≥0,8r, r+g+b<330) recolorida para contorno: 12/10/24/26 px (S/N/W/E) — local",
+    "6 correct_pixelart (PixelLab, 0,1, 4 quadros juntos, strength 0,15) — ANTES da quantização",
+    "7 reduce_colors (PixelLab, 0,1, 4 quadros juntos, num_colors=22, sem dithering)",
+    "8 pretos quase iguais fundidos em #010101 (319 px) e 1 pixel magenta (#ab02a2, W) trocado pela moda dos vizinhos — local"
+  ],
+  "pixellab": {
+    "jobs": {
+      "unzoom_S": "4d85558c-f33b-4c0c-ab8d-77622f2732f2",
+      "unzoom_N": "a41bf819-988e-4eac-bee9-0cbd4db675e9",
+      "unzoom_W": "be0b8856-6f7d-4b96-8399-333ed8c98499",
+      "unzoom_E": "e4abc7b1-5a9a-4f54-9e49-db53b9b61b37",
+      "correct_pixelart": "9b94852e-a525-46fc-a397-a196f06a5f6b",
+      "reduce_colors": "22de06b5-8458-417d-9eb2-8f80dcb5224e"
+    },
+    "geracoes": 0.6,
+    "saldo_antes": 545.40,
+    "saldo_depois": 544.80,
+    "personagem_pixellab": "nenhum criado (é a Fase 4)"
+  },
+  "escala": {
+    "tile": 32,
+    "tamer_v13_south_h": 34,
+    "agumon_f7v2_S_h": 35,
+    "hawkmon_v2_S_h": 38,
+    "labramon_h": 36,
+    "labramon_largura_perfil": 39,
+    "razao_labramon_tamer_altura": 1.06,
+    "razao_labramon_tile_altura": 1.125,
+    "doc": "Conflito G-2 (escala Tamer/Digimon) segue ABERTO; números registrados, não resolvidos."
+  },
+  "sentado_v1": "rotacoes_sentado/ — v1 sentada processada só localmente (0 gerações), mesma escala da v2 e paleta mapeada para a da v2; referência para a Fase 6."
+}

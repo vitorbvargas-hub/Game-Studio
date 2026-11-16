@@ -1,0 +1,1365 @@
+{
+ "paleta_F2b_cores": 254,
+ "F2b": {
+  "walk_S": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    31.1,
+    30.1,
+    30.9,
+    31.3,
+    31.2,
+    30.4,
+    32.1,
+    32.1
+   ],
+   "amp_centroide": 2.0,
+   "topo": [
+    13,
+    12,
+    13,
+    14,
+    14,
+    13,
+    15,
+    15
+   ],
+   "amp_topo": 3,
+   "px_mais_baixo": [
+    49,
+    49,
+    50,
+    49,
+    49,
+    49,
+    49,
+    49
+   ],
+   "amp_px_mais_baixo": 1,
+   "linhas_de_sola": [
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    109,
+    84,
+    85,
+    93,
+    96,
+    79,
+    99,
+    109
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    420,
+    418,
+    339,
+    160,
+    395,
+    465,
+    132,
+    407
+   ],
+   "cores": 55,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_E": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    29.1,
+    29.4,
+    30.5,
+    30.5,
+    29.0,
+    29.1,
+    30.2,
+    29.3
+   ],
+   "amp_centroide": 1.5,
+   "topo": [
+    9,
+    9,
+    11,
+    11,
+    10,
+    9,
+    10,
+    9
+   ],
+   "amp_topo": 2,
+   "px_mais_baixo": [
+    50,
+    50,
+    49,
+    50,
+    49,
+    49,
+    50,
+    49
+   ],
+   "amp_px_mais_baixo": 1,
+   "linhas_de_sola": [
+    [
+     46,
+     50
+    ],
+    [
+     45,
+     48
+    ],
+    [
+     46,
+     48,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     49
+    ],
+    [
+     47,
+     48,
+     49
+    ],
+    [
+     46,
+     48,
+     49
+    ],
+    [
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    1,
+    1,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    41,
+    36,
+    49,
+    49,
+    36,
+    31,
+    48,
+    31
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 1,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    1,
+    4,
+    4,
+    4,
+    10,
+    15,
+    12
+   ],
+   "cortes_entre_quadros": [
+    234,
+    424,
+    244,
+    348,
+    405,
+    372,
+    383,
+    305
+   ],
+   "cores": 39,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_N": {
+   "canvas": [
+    56,
+    56
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    26.3,
+    25.8,
+    26.6,
+    26.1,
+    26.1,
+    26.4,
+    26.3,
+    26.3
+   ],
+   "amp_centroide": 0.8,
+   "topo": [
+    7,
+    7,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "amp_topo": 1,
+   "px_mais_baixo": [
+    46,
+    46,
+    46,
+    46,
+    46,
+    46,
+    46,
+    46
+   ],
+   "amp_px_mais_baixo": 0,
+   "linhas_de_sola": [
+    [
+     45,
+     46
+    ],
+    [
+     44,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     43,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     43,
+     46
+    ],
+    [
+     45,
+     46
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    2,
+    1,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    58,
+    53,
+    46,
+    40,
+    44,
+    43,
+    44,
+    43
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 1,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    5,
+    7,
+    6,
+    3,
+    8,
+    8,
+    5
+   ],
+   "cortes_entre_quadros": [
+    120,
+    273,
+    136,
+    153,
+    139,
+    87,
+    144,
+    281
+   ],
+   "cores": 37,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "W_igual_flip_E": true,
+  "rotations": {
+   "S": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 35,
+    "largura": 22,
+    "largura_cabeca_topo12": 18,
+    "cores": 59,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 184
+   },
+   "E": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 41,
+    "largura": 36,
+    "largura_cabeca_topo12": 23,
+    "cores": 32,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 57
+   },
+   "N": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 39,
+    "largura": 22,
+    "largura_cabeca_topo12": 18,
+    "cores": 36,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 146
+   },
+   "W": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 41,
+    "largura": 36,
+    "largura_cabeca_topo12": 23,
+    "cores": 32,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 57
+   }
+  },
+  "cores_pacote_inteiro": 254,
+  "cores_pacote_fora_da_paleta_F2b": 0
+ },
+ "B_C10": {
+  "walk_S": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    31.1,
+    30.1,
+    30.9,
+    31.3,
+    31.2,
+    30.4,
+    32.1,
+    32.1
+   ],
+   "amp_centroide": 2.0,
+   "topo": [
+    13,
+    12,
+    13,
+    14,
+    14,
+    13,
+    15,
+    15
+   ],
+   "amp_topo": 3,
+   "px_mais_baixo": [
+    49,
+    49,
+    50,
+    49,
+    49,
+    49,
+    49,
+    49
+   ],
+   "amp_px_mais_baixo": 1,
+   "linhas_de_sola": [
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    109,
+    84,
+    85,
+    93,
+    96,
+    79,
+    99,
+    109
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    420,
+    418,
+    339,
+    160,
+    395,
+    465,
+    132,
+    407
+   ],
+   "cores": 55,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_E": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    30.4,
+    30.2,
+    28.9,
+    29.2,
+    30.4,
+    30.3,
+    28.9,
+    29.2
+   ],
+   "amp_centroide": 1.5,
+   "topo": [
+    9,
+    10,
+    9,
+    8,
+    9,
+    10,
+    9,
+    8
+   ],
+   "amp_topo": 2,
+   "px_mais_baixo": [
+    49,
+    49,
+    49,
+    49,
+    49,
+    49,
+    49,
+    49
+   ],
+   "amp_px_mais_baixo": 0,
+   "linhas_de_sola": [
+    [
+     46,
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     46,
+     48,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     48,
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    2,
+    1,
+    1,
+    2,
+    2,
+    1,
+    1,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    35,
+    31,
+    33,
+    32,
+    32,
+    33,
+    32,
+    37
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    402,
+    385,
+    410,
+    392,
+    407,
+    374,
+    398,
+    393
+   ],
+   "cores": 24,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_N": {
+   "canvas": [
+    56,
+    56
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    26.3,
+    25.8,
+    26.6,
+    26.1,
+    26.1,
+    26.4,
+    26.3,
+    26.3
+   ],
+   "amp_centroide": 0.8,
+   "topo": [
+    7,
+    7,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "amp_topo": 1,
+   "px_mais_baixo": [
+    46,
+    46,
+    46,
+    46,
+    46,
+    46,
+    46,
+    46
+   ],
+   "amp_px_mais_baixo": 0,
+   "linhas_de_sola": [
+    [
+     45,
+     46
+    ],
+    [
+     44,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     43,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     43,
+     46
+    ],
+    [
+     45,
+     46
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    2,
+    1,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    58,
+    53,
+    46,
+    40,
+    44,
+    43,
+    44,
+    43
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 1,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    5,
+    7,
+    6,
+    3,
+    8,
+    8,
+    5
+   ],
+   "cortes_entre_quadros": [
+    120,
+    273,
+    136,
+    153,
+    139,
+    87,
+    144,
+    281
+   ],
+   "cores": 37,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "W_igual_flip_E": true,
+  "rotations": {
+   "S": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 35,
+    "largura": 22,
+    "largura_cabeca_topo12": 18,
+    "cores": 59,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 184
+   },
+   "E": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 41,
+    "largura": 36,
+    "largura_cabeca_topo12": 23,
+    "cores": 24,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 31
+   },
+   "N": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 39,
+    "largura": 22,
+    "largura_cabeca_topo12": 18,
+    "cores": 36,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 146
+   },
+   "W": {
+    "canvas": [
+     48,
+     48
+    ],
+    "altura": 41,
+    "largura": 36,
+    "largura_cabeca_topo12": 23,
+    "cores": 24,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 31
+   }
+  },
+  "cores_pacote_inteiro": 233,
+  "cores_pacote_fora_da_paleta_F2b": 0
+ },
+ "F6": {
+  "walk_S": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    31.4,
+    31.5,
+    30.8,
+    30.7,
+    31.4,
+    31.5,
+    30.8,
+    30.7
+   ],
+   "amp_centroide": 0.8,
+   "topo": [
+    15,
+    16,
+    15,
+    14,
+    15,
+    16,
+    15,
+    14
+   ],
+   "amp_topo": 2,
+   "px_mais_baixo": [
+    51,
+    50,
+    49,
+    50,
+    51,
+    50,
+    49,
+    50
+   ],
+   "amp_px_mais_baixo": 2,
+   "linhas_de_sola": [
+    [
+     47,
+     51
+    ],
+    [
+     50
+    ],
+    [
+     45,
+     46,
+     49
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     47,
+     51
+    ],
+    [
+     50
+    ],
+    [
+     45,
+     46,
+     49
+    ],
+    [
+     48,
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    3,
+    4,
+    7,
+    6,
+    3,
+    7,
+    8,
+    4
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    279,
+    254,
+    302,
+    266,
+    275,
+    258,
+    296,
+    269
+   ],
+   "cores": 11,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_E": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    31.4,
+    31.0,
+    29.5,
+    29.8,
+    31.1,
+    31.1,
+    30.2,
+    30.2
+   ],
+   "amp_centroide": 1.9,
+   "topo": [
+    13,
+    14,
+    13,
+    12,
+    13,
+    14,
+    13,
+    12
+   ],
+   "amp_topo": 2,
+   "px_mais_baixo": [
+    49,
+    48,
+    46,
+    49,
+    49,
+    49,
+    49,
+    49
+   ],
+   "amp_px_mais_baixo": 3,
+   "linhas_de_sola": [
+    [
+     46,
+     49
+    ],
+    [
+     46,
+     47
+    ],
+    [
+     46
+    ],
+    [
+     46,
+     48
+    ],
+    [
+     46,
+     49
+    ],
+    [
+     49
+    ],
+    [
+     49
+    ],
+    [
+     45,
+     49
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    4,
+    3,
+    4,
+    2,
+    2,
+    3,
+    4,
+    4
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    356,
+    334,
+    314,
+    334,
+    317,
+    367,
+    336,
+    378
+   ],
+   "cores": 12,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "walk_N": {
+   "canvas": [
+    60,
+    60
+   ],
+   "quadros": 8,
+   "centroide_y": [
+    30.5,
+    30.7,
+    29.9,
+    29.5,
+    30.5,
+    30.7,
+    29.9,
+    29.5
+   ],
+   "amp_centroide": 1.2,
+   "topo": [
+    15,
+    16,
+    15,
+    14,
+    15,
+    16,
+    15,
+    14
+   ],
+   "amp_topo": 2,
+   "px_mais_baixo": [
+    49,
+    47,
+    47,
+    48,
+    49,
+    47,
+    47,
+    48
+   ],
+   "amp_px_mais_baixo": 2,
+   "linhas_de_sola": [
+    [
+     45,
+     49
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     47
+    ],
+    [
+     48
+    ],
+    [
+     45,
+     49
+    ],
+    [
+     45,
+     46
+    ],
+    [
+     47
+    ],
+    [
+     48
+    ]
+   ],
+   "grupos_de_pe_no_chao": [
+    1,
+    2,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1
+   ],
+   "componentes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "pixels_de_cor_isolados": [
+    2,
+    4,
+    9,
+    4,
+    5,
+    5,
+    8,
+    4
+   ],
+   "semitransparentes": 0,
+   "px_na_borda": 0,
+   "cabeca_identica_ao_q0": 8,
+   "cabeca_px_diferentes_do_q0": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cortes_entre_quadros": [
+    237,
+    246,
+    225,
+    238,
+    240,
+    254,
+    219,
+    225
+   ],
+   "cores": 8,
+   "cores_fora_da_paleta_F2b": 0
+  },
+  "W_igual_flip_E": true,
+  "rotations": {
+   "S": {
+    "canvas": [
+     60,
+     60
+    ],
+    "altura": 36,
+    "largura": 22,
+    "largura_cabeca_topo12": 20,
+    "cores": 11,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 7
+   },
+   "E": {
+    "canvas": [
+     60,
+     60
+    ],
+    "altura": 38,
+    "largura": 36,
+    "largura_cabeca_topo12": 25,
+    "cores": 11,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 1
+   },
+   "N": {
+    "canvas": [
+     60,
+     60
+    ],
+    "altura": 34,
+    "largura": 22,
+    "largura_cabeca_topo12": 20,
+    "cores": 8,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 4
+   },
+   "W": {
+    "canvas": [
+     60,
+     60
+    ],
+    "altura": 38,
+    "largura": 36,
+    "largura_cabeca_topo12": 25,
+    "cores": 11,
+    "cores_fora": 0,
+    "componentes": 1,
+    "isolados": 1
+   }
+  },
+  "cores_pacote_inteiro": 15,
+  "cores_pacote_fora_da_paleta_F2b": 0,
+  "pe_de_apoio_E_modelo": {
+   "x_tornozelo_L_q0a4": [
+    36.09,
+    33.09,
+    30.09,
+    27.09,
+    24.09
+   ],
+   "passo_por_quadro": [
+    -3.0,
+    -3.0,
+    -3.0,
+    -3.0
+   ],
+   "altura_tornozelo_q0a4": [
+    1.8,
+    1.8,
+    1.8,
+    1.8,
+    1.8
+   ]
+  },
+  "modelo": {
+   "pecas": 48,
+   "ossos": 19,
+   "vertices": 4996,
+   "faces": 5536,
+   "blender": "4.5.16 LTS",
+   "tempos_s": {
+    "rotations": 0.4211118221282959,
+    "walk": 0.8817894458770752,
+    "attack": 0.991222620010376,
+    "total_script": 2.3805737495422363
+   },
+   "pitch": 20.0,
+   "px": 1.09
+  }
+ }
+}

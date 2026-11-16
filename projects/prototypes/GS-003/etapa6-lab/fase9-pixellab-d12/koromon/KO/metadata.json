@@ -1,0 +1,68 @@
+{
+  "group_id": "6cb9b0f4-a458-4556-bbaf-ff7a2227d58b",
+  "states": [
+    {
+      "character": {
+        "id": "a1b0d76e-0d43-4aaf-bfa4-87f9eabd2d90",
+        "name": "Idle",
+        "prompt": "Koromon: tiny round pink blob baby Digimon with no arms and no legs, two long floppy pink ear-antennae on top, big red eyes, wide grin with small fangs; from behind it is a smooth pink round blob with the two ears",
+        "size": {
+          "width": 32,
+          "height": 32
+        },
+        "template_id": "mannequin",
+        "directions": 4,
+        "view": "low top-down",
+        "created_at": "2026-11-14T08:37:32.664814+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "west": "Idle/rotations/west.png",
+          "east": "Idle/rotations/east.png",
+          "north": "Idle/rotations/north.png"
+        },
+        "animations": {
+          "hop-v3": {
+            "west": [
+              "Idle/animations/hop-v3/west/frame_000.png",
+              "Idle/animations/hop-v3/west/frame_001.png",
+              "Idle/animations/hop-v3/west/frame_002.png",
+              "Idle/animations/hop-v3/west/frame_003.png",
+              "Idle/animations/hop-v3/west/frame_004.png",
+              "Idle/animations/hop-v3/west/frame_005.png",
+              "Idle/animations/hop-v3/west/frame_006.png",
+              "Idle/animations/hop-v3/west/frame_007.png",
+              "Idle/animations/hop-v3/west/frame_008.png"
+            ],
+            "south": [
+              "Idle/animations/hop-v3/south/frame_000.png",
+              "Idle/animations/hop-v3/south/frame_001.png",
+              "Idle/animations/hop-v3/south/frame_002.png",
+              "Idle/animations/hop-v3/south/frame_003.png",
+              "Idle/animations/hop-v3/south/frame_004.png",
+              "Idle/animations/hop-v3/south/frame_005.png",
+              "Idle/animations/hop-v3/south/frame_006.png",
+              "Idle/animations/hop-v3/south/frame_007.png",
+              "Idle/animations/hop-v3/south/frame_008.png"
+            ],
+            "east": [
+              "Idle/animations/hop-v3/east/frame_000.png",
+              "Idle/animations/hop-v3/east/frame_001.png",
+              "Idle/animations/hop-v3/east/frame_002.png",
+              "Idle/animations/hop-v3/east/frame_003.png",
+              "Idle/animations/hop-v3/east/frame_004.png",
+              "Idle/animations/hop-v3/east/frame_005.png",
+              "Idle/animations/hop-v3/east/frame_006.png",
+              "Idle/animations/hop-v3/east/frame_007.png",
+              "Idle/animations/hop-v3/east/frame_008.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-11-14T08:43:28.525523"
+}

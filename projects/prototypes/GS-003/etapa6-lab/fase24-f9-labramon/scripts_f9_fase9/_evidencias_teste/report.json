@@ -1,0 +1,326 @@
+{
+ "date": "2026-11-16T08:37:39.349Z",
+ "base": "http://127.0.0.1:5198",
+ "tests": {
+  "assets": {
+   "ready": true,
+   "assetSummary": {
+    "total": 182,
+    "ok": 182,
+    "erro": 0,
+    "errSrcs": []
+   }
+  },
+  "selfTest": {
+   "checks": [
+    {
+     "name": "standing-S",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/S.png"
+    },
+    {
+     "name": "idle-S",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/S/frame_000.png"
+    },
+    {
+     "name": "walk-S",
+     "ok": true,
+     "state": "walk S",
+     "src": "../movement/walk/S/frame_001.png"
+    },
+    {
+     "name": "standing-E",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/E.png"
+    },
+    {
+     "name": "idle-E",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/E/frame_000.png"
+    },
+    {
+     "name": "walk-E",
+     "ok": true,
+     "state": "walk E",
+     "src": "../movement/walk/E/frame_001.png"
+    },
+    {
+     "name": "standing-N",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/N.png"
+    },
+    {
+     "name": "idle-N",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/N/frame_000.png"
+    },
+    {
+     "name": "walk-N",
+     "ok": true,
+     "state": "walk N",
+     "src": "../movement/walk/N/frame_001.png"
+    },
+    {
+     "name": "standing-W",
+     "ok": true,
+     "state": "standing",
+     "src": "../movement/standing/W.png"
+    },
+    {
+     "name": "idle-W",
+     "ok": true,
+     "state": "idle",
+     "src": "../movement/idle/W/frame_000.png"
+    },
+    {
+     "name": "walk-W",
+     "ok": true,
+     "state": "walk W",
+     "src": "../movement/walk/W/frame_001.png"
+    },
+    {
+     "name": "feliz",
+     "ok": true,
+     "state": "feliz (entrada)",
+     "src": "../emotions/happy/entrada/frame_001.png"
+    },
+    {
+     "name": "feliz-saida",
+     "ok": true,
+     "state": "feliz (saída)",
+     "src": "../emotions/happy/saida/frame_001.png"
+    },
+    {
+     "name": "triste",
+     "ok": true,
+     "state": "triste (entrada)",
+     "src": "../emotions/sad/entrada/frame_000.png"
+    },
+    {
+     "name": "irritado",
+     "ok": true,
+     "state": "irritado (entrada)",
+     "src": "../emotions/angry/entrada/frame_001.png"
+    },
+    {
+     "name": "assustado",
+     "ok": true,
+     "state": "assustado (loop)",
+     "src": "../emotions/scared/loop/frame_000.png"
+    },
+    {
+     "name": "deitar",
+     "ok": true,
+     "state": "deitar",
+     "src": "../rest/rest/stand_to_lie/frame_001.png"
+    },
+    {
+     "name": "dormir",
+     "ok": true,
+     "state": "adormecendo",
+     "src": "../rest/rest/lie_to_sleep/frame_000.png"
+    },
+    {
+     "name": "acordar",
+     "ok": true,
+     "state": "acordando",
+     "src": "../rest/rest/sleep_to_wake/frame_000.png"
+    },
+    {
+     "name": "carinho",
+     "ok": true,
+     "state": "carinho (entrada)",
+     "src": "../interactions/petting/entrada/frame_001.png"
+    },
+    {
+     "name": "comemoracao",
+     "ok": true,
+     "state": "comemoracao",
+     "src": "../interactions/celebrate/frames/frame_002.png"
+    },
+    {
+     "name": "ataque",
+     "ok": true,
+     "state": "ataque (retriever bark)",
+     "src": "../combat/attack_retriever_bark/frames/frame_001.png"
+    },
+    {
+     "name": "dano",
+     "ok": true,
+     "state": "dano",
+     "src": "../combat/hurt/frames/frame_002.png"
+    },
+    {
+     "name": "incapacitacao",
+     "ok": true,
+     "state": "incapacitando (queda)",
+     "src": "../combat/incapacitated/queda/frame_001.png"
+    },
+    {
+     "name": "recuperacao",
+     "ok": true,
+     "state": "recuperação",
+     "src": "../combat/incapacitated/recuperacao/frame_000.png"
+    },
+    {
+     "name": "l1-deitar",
+     "ok": true,
+     "state": "deitar",
+     "src": "../rest/rest/stand_to_lie/frame_001.png"
+    },
+    {
+     "name": "l1-dormir",
+     "ok": true,
+     "state": "adormecendo",
+     "src": "../rest/rest/lie_to_sleep/frame_000.png"
+    },
+    {
+     "name": "l1-acordar",
+     "ok": true,
+     "state": "acordando",
+     "src": "../rest/rest/sleep_to_wake/frame_000.png"
+    },
+    {
+     "name": "l2-incapacitar",
+     "ok": true,
+     "state": "incapacitando (queda)",
+     "src": "../combat/incapacitated/queda/frame_001.png"
+    },
+    {
+     "name": "l2-recuperacao",
+     "ok": true,
+     "state": "recuperação",
+     "src": "../combat/incapacitated/recuperacao/frame_000.png"
+    },
+    {
+     "name": "l3-deitar",
+     "ok": true,
+     "state": "deitar",
+     "src": "../rest/rest/stand_to_lie/frame_001.png"
+    },
+    {
+     "name": "l3-deitar-levanta",
+     "ok": true,
+     "state": "levantando (lie_to_stand)",
+     "src": "../rest/rest/stand_to_lie/frame_005.png"
+    },
+    {
+     "name": "l4-ataque-apos-clique-walk",
+     "ok": true,
+     "state": "ataque (retriever bark)",
+     "src": "../combat/attack_retriever_bark/frames/frame_001.png"
+    },
+    {
+     "name": "l6-ataque-apos-flash",
+     "ok": true,
+     "state": "ataque (retriever bark)",
+     "src": "../combat/attack_retriever_bark/frames/frame_001.png"
+    }
+   ],
+   "errorsBefore": 0,
+   "indisponibilidadeOk": true,
+   "Lchecks": [
+    {
+     "name": "L1-dormindo-antes-do-teste",
+     "ok": true
+    },
+    {
+     "name": "L1-ataque-bloqueado-dormindo",
+     "ok": true,
+     "restState": "dormindo",
+     "stateName": "dormindo (loop)"
+    },
+    {
+     "name": "L1-acordar-completo",
+     "ok": true,
+     "restState": "despertou"
+    },
+    {
+     "name": "L2-incapacitado-antes-do-teste",
+     "ok": true
+    },
+    {
+     "name": "L2-emocao-bloqueada-incapacitado",
+     "ok": true,
+     "combatState": "incapacitado",
+     "stateName": "incapacitado (loop)"
+    },
+    {
+     "name": "L2-recuperacao-completa",
+     "ok": true,
+     "combatState": "normal"
+    },
+    {
+     "name": "L3-deitado-antes-do-teste",
+     "ok": true
+    },
+    {
+     "name": "L3-walk-bloqueado-deitado",
+     "ok": true,
+     "restState": "deitado",
+     "stateName": "deitado (parado — sem loop de repouso acordado na produção)"
+    },
+    {
+     "name": "L3-levantou",
+     "ok": true,
+     "restState": "despertou"
+    },
+    {
+     "name": "L4-walk-nao-corta-ataque",
+     "ok": true,
+     "stateName": "ataque (retriever bark)"
+    },
+    {
+     "name": "L5-pilha-wasd-continua-andando",
+     "ok": true,
+     "stateName": "walk W"
+    },
+    {
+     "name": "L5-pilha-wasd-solta-tudo-vira-idle",
+     "ok": true,
+     "stateName": "idle"
+    },
+    {
+     "name": "L6-rotulo-nao-preso",
+     "ok": true,
+     "label": "ataque"
+    },
+    {
+     "name": "L7-tamer-no-palco",
+     "ok": true,
+     "canvasWidth": 102,
+     "tamerStatus": "ok"
+    }
+   ],
+   "LfailedCount": 0,
+   "errorsAfter": 0,
+   "newErrors": [],
+   "assetSummary": {
+    "total": 182,
+    "ok": 182,
+    "erro": 0,
+    "errSrcs": []
+   },
+   "passed": 35,
+   "failed": 0
+  },
+  "consoleErrorCount": 0,
+  "consoleMsgs": [],
+  "pageErrors": [],
+  "requestFailed": []
+ },
+ "ok": true,
+ "okBreakdown": {
+  "assetsOk": true,
+  "selfTestOk": true,
+  "noPageErrors": true,
+  "noConsoleErrors": true
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "rotas": {
+  "arvores": {
+   "erros": [],
+   "rede": [],
+   "pos": [
+    {
+     "x": 301.9999887075099,
+     "y": 111.99990605673122
+    },
+    {
+     "x": 303.9999876225426,
+     "y": 111.99993264138539
+    },
+    {
+     "x": 303.99999999999994,
+     "y": 129.99984515830806
+    },
+    {
+     "x": 258.00014871138836,
+     "y": 171.9999491042114
+    },
+    {
+     "x": 168.00002941219978,
+     "y": 173.99999459171158
+    },
+    {
+     "x": 126.0000028995399,
+     "y": 198.00000289466425
+    },
+    {
+     "x": 126,
+     "y": 198.0000000000001
+    },
+    {
+     "x": 169.99953736718862,
+     "y": 158.00040034189965
+    },
+    {
+     "x": 259.9999703836098,
+     "y": 156.00000544580826
+    },
+    {
+     "x": 275.9991859226227,
+     "y": 156.0000000000001
+    },
+    {
+     "x": 317.99997753140644,
+     "y": 149.9999343339863
+    },
+    {
+     "x": 319.9999999999992,
+     "y": 179.9999999999958
+    },
+    {
+     "x": 319.99999999999994,
+     "y": 128.00000239726387
+    },
+    {
+     "x": 319.99999999999994,
+     "y": 183.99999999991587
+    },
+    {
+     "x": 319.99999999999994,
+     "y": 183.9999999999999
+    },
+    {
+     "x": 348.0000469079619,
+     "y": 156.00002260775977
+    }
+   ]
+  }
+ },
+ "modos": {
+  "&parceiro=agumon": {
+   "antes": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · ao lado Hawkmon · Shift = lento · não homologado · fan game não oficial"
+   },
+   "depois_tab": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · ao lado Hawkmon · Shift = lento · não homologado · fan game não oficial"
+   },
+   "hud": "Ativo: Hawkmon Nv.20 · Reserva: Agumon Nv.8",
+   "erros": [],
+   "rede": []
+  },
+  "&comparar=0": {
+   "antes": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 1,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · Shift = lento · não homologado · fan game não oficial"
+   },
+   "depois_tab": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 1,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · Shift = lento · não homologado · fan game não oficial"
+   },
+   "hud": "Ativo: Agumon Nv.20 · Reserva: Hawkmon Nv.8",
+   "erros": [],
+   "rede": []
+  },
+  "&parceiro=agumon&comparar=0": {
+   "antes": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 1,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "depois_tab": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 1,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "hud": "Ativo: Hawkmon Nv.20 · Reserva: Agumon Nv.8",
+   "erros": [],
+   "rede": []
+  },
+  "&hawkms=73": {
+   "antes": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~73 ms/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "depois_tab": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~73 ms/quadro (URL)) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "hud": "Ativo: Agumon Nv.20 · Reserva: Hawkmon Nv.8",
+   "erros": [],
+   "rede": []
+  },
+  "padrao": {
+   "antes": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "depois_tab": {
+    "partnerId": "p1:partner",
+    "especie": null,
+    "jogadores": 2,
+    "faixa": "Lab Etapa 6 · C14.3 + C14.4-A/B · BUILD HAWKMON v2 (sem ataques; walk ~50 ms/quadro) · parceiro Hawkmon · ao lado Agumon F7v2 · Shift = lento · não homologado · fan game não oficial"
+   },
+   "hud": "Ativo: Agumon Nv.20 · Reserva: Hawkmon Nv.8",
+   "erros": [],
+   "rede": []
+  }
+ }
+}

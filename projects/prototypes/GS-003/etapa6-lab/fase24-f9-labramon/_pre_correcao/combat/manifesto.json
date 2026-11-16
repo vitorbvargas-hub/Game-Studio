@@ -1,0 +1,1221 @@
+{
+ "especie": "Labramon (sp.labramon) — Rookie/child, Beast, Vaccine",
+ "versao": "F9 Fase 8 — combate (ataque Retriever Bark, receber dano, incapacitação com recuperação)",
+ "data": "2026-11-16",
+ "direcao": "E (única direção nesta validação; standing/idle/walk nas 4 direções estão em movement/)",
+ "licenca": "private-prototype (fan game não oficial, sem licença, sem monetização). Espécie oficial Bandai/Toei. NÃO homologado. Nada publicado.",
+ "status": "CANDIDATO — aguardando QA independente (game-qa, Fase 10) e homologação do fundador",
+ "canvas": [
+  60,
+  60
+ ],
+ "ancora": {
+  "x": 29.5,
+  "y_chao": 49
+ },
+ "paleta": {
+  "limite": 24,
+  "doc": "Todos os quadros usam só cores da rotação E (19 cores); 0 semitransparência."
+ },
+ "idle_de_retorno": "movement/idle/E (ou movement/standing/E.png)",
+ "duracoes": "ms por quadro = sugestão de arte; parâmetro do motor",
+ "estados": {
+  "attack_retriever_bark": {
+   "doc": "Técnica oficial Retriever Bark (digimon.net: latido intenso que gera hiper-oscilação). Sem contato físico. A onda é camada FX separada (fx/), desenhada localmente.",
+   "clipes": {
+    "ataque": {
+     "fonte": "f8-attack-bark",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      90,
+      90,
+      100,
+      120,
+      70,
+      180,
+      100,
+      110
+     ],
+     "duracao_total_ms": 860,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "preparacao": [
+       0,
+       3
+      ],
+      "execucao": [
+       4,
+       5
+      ],
+      "recuperacao": [
+       6,
+       7
+      ]
+     },
+     "quadro_de_impacto": 4,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/attack_retriever_bark_ataque.png",
+     "gifs": [
+      "gifs/attack_retriever_bark_ataque_1x.gif",
+      "gifs/attack_retriever_bark_ataque_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       40
+      ],
+      "w_min_max": [
+       38,
+       39
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       3,
+       4,
+       7,
+       6,
+       4,
+       5,
+       4,
+       4
+      ],
+      "marcas_px": [
+       7,
+       8,
+       7,
+       7,
+       8,
+       8,
+       8,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       510,
+       649,
+       731,
+       746,
+       818,
+       791,
+       658,
+       10
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_000.png",
+       "sha256": "b6b38cdcf5de112562726c240bb059667799e61994146ee94b58dcb5e173a8f6"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_001.png",
+       "sha256": "94cf6a743d352f24a473f025b01033595de81c558821bd78083331e51dcf4fef"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_002.png",
+       "sha256": "57ed731ab2ad602c5c27d733c5efa4ed5a5e08675754b1ff72194fa7aa821372"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_003.png",
+       "sha256": "b31b6e85cf3dbb4b49e6f7da6872a6d91b9717b59851594dfcb2c131e9d18b8b"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_004.png",
+       "sha256": "efdc4432bdd6fba9ce1cd95faa28bb5a24b8d6b84ed16462180d7508d46e33c9"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_005.png",
+       "sha256": "c24a600a265e442b935e87f1ac927130b5691e8465c5a7e24b381d35a19771d2"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_006.png",
+       "sha256": "3c4521d95234eab9da5844eb22c3523a7cd6620edcf712aeeb45dbe5aed40b13"
+      },
+      {
+       "arquivo": "attack_retriever_bark/frames/frame_007.png",
+       "sha256": "28cfd40133498f6202bd15a5fed62b734a0a26d17157a6b3dd0ad4f96ccdf744"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "attack_retriever_bark/pose_mestra.png",
+    "fonte": "f8-attack-bark q5",
+    "sha256": "c24a600a265e442b935e87f1ac927130b5691e8465c5a7e24b381d35a19771d2"
+   },
+   "fx_onda_de_choque": {
+    "doc": "Camada FX separada, desenhada localmente (0 gerações), só cores da paleta (#f6f2e8, #d5d2c6, #010101), sem semitransparência (o apagar é por tracejado). Canvas 96x60 com a MESMA origem do sprite 60x60 (o sprite ocupa x 0–59). Origem da onda = boca no quadro de execução.",
+    "canvas": [
+     96,
+     60
+    ],
+    "origem_boca_xy": [
+     52,
+     24
+    ],
+    "alcance_max_x": 78,
+    "linha_do_tempo": [
+     {
+      "quadro_sprite": 0,
+      "quadro_fx": null,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 1,
+      "quadro_fx": null,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 2,
+      "quadro_fx": null,
+      "ms": 100
+     },
+     {
+      "quadro_sprite": 3,
+      "quadro_fx": null,
+      "ms": 120
+     },
+     {
+      "quadro_sprite": 4,
+      "quadro_fx": 0,
+      "ms": 70
+     },
+     {
+      "quadro_sprite": 5,
+      "quadro_fx": 1,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 5,
+      "quadro_fx": 2,
+      "ms": 90
+     },
+     {
+      "quadro_sprite": 6,
+      "quadro_fx": 3,
+      "ms": 100
+     },
+     {
+      "quadro_sprite": 7,
+      "quadro_fx": 4,
+      "ms": 110
+     }
+    ],
+    "arquivos": [
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_000.png",
+      "sha256": "832f155932b0336f1b049a86dbed0129887002fe9951b15399aedfaaf3514ee4"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_001.png",
+      "sha256": "23b62ef1c6a079b674dccc90e9af5aebc3f024389c30ec1397cadcd223c72b96"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_002.png",
+      "sha256": "88358d661b9361b4e4b6565100fb4996f14ed5588c1e93341bada89bb3753167"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_003.png",
+      "sha256": "e52f9c0d04c3663b238c74af35789e4034bc781f4aa72bd09e6ff698f5f1a4c8"
+     },
+     {
+      "arquivo": "attack_retriever_bark/fx/fx_004.png",
+      "sha256": "22ec8339c8c377a9232665d409bd67f114d2c5d11499b432a9bad8998bacf37d"
+     }
+    ],
+    "preview_composto": [
+     "attack_retriever_bark/composto_preview/frame_000.png",
+     "attack_retriever_bark/composto_preview/frame_001.png",
+     "attack_retriever_bark/composto_preview/frame_002.png",
+     "attack_retriever_bark/composto_preview/frame_003.png",
+     "attack_retriever_bark/composto_preview/frame_004.png",
+     "attack_retriever_bark/composto_preview/frame_005.png",
+     "attack_retriever_bark/composto_preview/frame_006.png",
+     "attack_retriever_bark/composto_preview/frame_007.png",
+     "attack_retriever_bark/composto_preview/frame_008.png"
+    ],
+    "gifs": [
+     "gifs/demo_ataque_com_fx_1x.gif",
+     "gifs/demo_ataque_com_fx_4x.gif"
+    ],
+    "espelhar_para_W": "não validado: W não foi produzido nesta fase"
+   }
+  },
+  "hurt": {
+   "doc": "Receber dano: recuo com olho fechado, depois sacode e volta. Não cai.",
+   "clipes": {
+    "dano": {
+     "fonte": "f8-hurt",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      60,
+      80,
+      100,
+      100,
+      90,
+      90,
+      90,
+      100
+     ],
+     "duracao_total_ms": 710,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "impacto": [
+       0,
+       2
+      ],
+      "recuperacao": [
+       3,
+       7
+      ]
+     },
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/hurt_dano.png",
+     "gifs": [
+      "gifs/hurt_dano_1x.gif",
+      "gifs/hurt_dano_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       34,
+       39
+      ],
+      "w_min_max": [
+       34,
+       38
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0,
+       4,
+       4,
+       4,
+       4
+      ],
+      "marcas_px": [
+       8,
+       8,
+       7,
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       true,
+       true,
+       true,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       889,
+       945,
+       843,
+       727,
+       535,
+       590,
+       600,
+       5
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "hurt/frames/frame_000.png",
+       "sha256": "cf5a3bf23ec9a895f7cad9fddf98ff7308c9d2cb1bf3b797328f12a13a564597"
+      },
+      {
+       "arquivo": "hurt/frames/frame_001.png",
+       "sha256": "4514605c138fb366de926b9446ca1ac16eb9b1d5ef6a71e4b2c73869c840c757"
+      },
+      {
+       "arquivo": "hurt/frames/frame_002.png",
+       "sha256": "4292c953c8476e446bada452522f78d31a5da81e7dc5a0e9d047cf20831900af"
+      },
+      {
+       "arquivo": "hurt/frames/frame_003.png",
+       "sha256": "fe60f1bde839d63f845cfa6671bf7bf49da7ace12820c112d1b92485f7ae30db"
+      },
+      {
+       "arquivo": "hurt/frames/frame_004.png",
+       "sha256": "f0e075b96b7e9ca1e145c21b71cdb9e7b6cf87138b3bfe7454afc732096844ef"
+      },
+      {
+       "arquivo": "hurt/frames/frame_005.png",
+       "sha256": "69cd1c34ec53dadbfcd8572ce2268ac1690ee14fa76062819353d78adfe0207f"
+      },
+      {
+       "arquivo": "hurt/frames/frame_006.png",
+       "sha256": "6c545616926b437e98a6cf913069d4605704b723fcf3956a8ba38038543c4674"
+      },
+      {
+       "arquivo": "hurt/frames/frame_007.png",
+       "sha256": "d6c9ebe807ca4268769d48818edbe33282a762b834cc5d7f0b1b888819ae8d0e"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "hurt/pose_mestra.png",
+    "fonte": "f8-hurt q1",
+    "sha256": "4514605c138fb366de926b9446ca1ac16eb9b1d5ef6a71e4b2c73869c840c757"
+   }
+  },
+  "incapacitated": {
+   "doc": "Incapacitação (derrota normal): perde a postura e desaba de bruços, fica ofegante e se recupera. NÃO é morte nem retorno a Digiovo.",
+   "clipes": {
+    "queda": {
+     "fonte": "f8-ko-fall",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      7
+     ],
+     "quadros": 6,
+     "duracao_ms_por_quadro": [
+      90,
+      90,
+      90,
+      100,
+      130,
+      220
+     ],
+     "duracao_total_ms": 720,
+     "loop": false,
+     "fases_quadros_inicio_fim": {
+      "perda_de_postura": [
+       0,
+       3
+      ],
+      "assentar": [
+       4,
+       5
+      ]
+     },
+     "segue_para": "estado",
+     "spritesheet": "spritesheets/incapacitated_queda.png",
+     "gifs": [
+      "gifs/incapacitated_queda_1x.gif",
+      "gifs/incapacitated_queda_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       21,
+       38
+      ],
+      "w_min_max": [
+       37,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       4,
+       4,
+       4,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       7,
+       7,
+       7,
+       7,
+       5,
+       5
+      ],
+      "rosto_travado": [
+       true,
+       true,
+       true,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       566,
+       780,
+       797,
+       1001,
+       1074,
+       1072
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/queda/frame_000.png",
+       "sha256": "a23e148e07ebe4f58b104ef9c146b2a2557c34f4f506ef49287ec597c2aa5d3e"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_001.png",
+       "sha256": "b8be140908625027a8f76d95a144c460aacea76909158e6be8f3fa47327c1183"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_002.png",
+       "sha256": "97e5e212c6511d68c091384d0dd6ef3dc6f3ba302c5b6ae8591a2fe6323bacfe"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_003.png",
+       "sha256": "1872213e113c94cb01fd562b3a0d6245d8bfd7f76a6b2a7d64fde4d57766ae5e"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_004.png",
+       "sha256": "e3c08181d49cf19bc363e3807390470a1c03efca2f72620b4124b94abff40313"
+      },
+      {
+       "arquivo": "incapacitated/queda/frame_005.png",
+       "sha256": "8761a898de427c3e82e114661b75bd3f8d8ec89885c44ae61cad68949e984917"
+      }
+     ]
+    },
+    "estado": {
+     "fonte": "f8-ko-loop",
+     "quadros_fonte": [
+      3,
+      0,
+      1,
+      2
+     ],
+     "quadros": 4,
+     "duracao_ms_por_quadro": [
+      600,
+      220,
+      220,
+      220
+     ],
+     "duracao_total_ms": 1260,
+     "loop": true,
+     "doc": "Estado incapacitado: parado no chão (600 ms) e uma arfada de boca aberta (3 quadros). Quadro 0 do clipe ≈ último quadro da queda.",
+     "spritesheet": "spritesheets/incapacitated_estado.png",
+     "gifs": [
+      "gifs/incapacitated_estado_1x.gif",
+      "gifs/incapacitated_estado_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       21,
+       22
+      ],
+      "w_min_max": [
+       46,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 17,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "marcas_px": [
+       5,
+       8,
+       8,
+       8
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false
+      ],
+      "dif_px_vs_rotacao_E": [
+       1071,
+       1059,
+       1055,
+       1052
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/estado/frame_000.png",
+       "sha256": "a7a95ed3f614a4336b8a2dcc2144907647775d8d92f7cefce971dede1d399e89"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_001.png",
+       "sha256": "ad2484c4b72bb63f1f9393f963666323c0415194773975ad4fbc50774c3260b4"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_002.png",
+       "sha256": "e83f1b407a515dce80a44100456c902b1a4cab2936d90933b9bf41075772265c"
+      },
+      {
+       "arquivo": "incapacitated/estado/frame_003.png",
+       "sha256": "83e34801593e05fb4ca8ad254af304a2e7e0350b7622f7ff30d445931f389222"
+      }
+     ]
+    },
+    "recuperacao": {
+     "fonte": "f8-ko-recover",
+     "quadros_fonte": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "quadros": 8,
+     "duracao_ms_por_quadro": [
+      220,
+      160,
+      140,
+      140,
+      120,
+      120,
+      110,
+      120
+     ],
+     "duracao_total_ms": 1130,
+     "loop": false,
+     "retorna_a": "idle",
+     "spritesheet": "spritesheets/incapacitated_recuperacao.png",
+     "gifs": [
+      "gifs/incapacitated_recuperacao_1x.gif",
+      "gifs/incapacitated_recuperacao_4x.gif"
+     ],
+     "medidas": {
+      "h_min_max": [
+       21,
+       36
+      ],
+      "w_min_max": [
+       38,
+       46
+      ],
+      "pe_y": [
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49,
+       49
+      ],
+      "cores_max": 19,
+      "fora_da_paleta": 0,
+      "semitransparentes": 0,
+      "olho_px": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       8,
+       7,
+       4
+      ],
+      "marcas_px": [
+       4,
+       6,
+       6,
+       5,
+       8,
+       7,
+       9,
+       7
+      ],
+      "rosto_travado": [
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       false,
+       true
+      ],
+      "dif_px_vs_rotacao_E": [
+       1072,
+       1045,
+       1035,
+       982,
+       932,
+       827,
+       385,
+       80
+      ]
+     },
+     "arquivos": [
+      {
+       "arquivo": "incapacitated/recuperacao/frame_000.png",
+       "sha256": "c9d3ffcfb8a09712b3d518dcf542fa1d6b84d95bcf0bdaa7973cef4d043a6bf5"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_001.png",
+       "sha256": "b1d8e229cf72d34877bf8cba58eb6911719e52e5157f046a02d9bd2e48c7f7c9"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_002.png",
+       "sha256": "22425e2e24480bdb3e46b1dcc4d9f2fc5ec5f378d3ca7b56dd8b9e34663d5d72"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_003.png",
+       "sha256": "70be75cba1e6af0b3b8f1c60816f5e5e01b53f65fead472844201c6089e5c76a"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_004.png",
+       "sha256": "4a3f6cd34c27970cc1b05f5abc6ad02c272284962775694805c4013b98e32cb3"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_005.png",
+       "sha256": "1f850a4a42215086571ac209274fd420a67dddac3c7f37cbfadb65a058341573"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_006.png",
+       "sha256": "3368eb2875e6f1a3e0a8d801f7b5cf263681288a0f7d8d5a1c12ae2f05718cd8"
+      },
+      {
+       "arquivo": "incapacitated/recuperacao/frame_007.png",
+       "sha256": "923d9aca481cdd7d2bb8bf7b2b53a6188e8aa6bce78f15c0c1b4ca4a220629e0"
+      }
+     ]
+    }
+   },
+   "pose_mestra": {
+    "arquivo": "incapacitated/pose_mestra.png",
+    "fonte": "f8-ko-fall q7",
+    "sha256": "8761a898de427c3e82e114661b75bd3f8d8ec89885c44ae61cad68949e984917"
+   }
+  }
+ },
+ "demos": {
+  "ataque_sem_fx": {
+   "sequencia": [
+    "standing E 250 ms",
+    "attack_retriever_bark/ataque",
+    "standing E 350 ms"
+   ],
+   "quadros": 10,
+   "duracao_total_ms": 1460,
+   "gifs": [
+    "gifs/demo_ataque_sem_fx_1x.gif",
+    "gifs/demo_ataque_sem_fx_4x.gif"
+   ]
+  },
+  "dano": {
+   "sequencia": [
+    "standing E 250 ms",
+    "hurt/dano",
+    "standing E 350 ms"
+   ],
+   "quadros": 10,
+   "duracao_total_ms": 1310,
+   "gifs": [
+    "gifs/demo_dano_1x.gif",
+    "gifs/demo_dano_4x.gif"
+   ]
+  },
+  "incapacitacao_completa": {
+   "sequencia": [
+    "standing E 250 ms",
+    "incapacitated/queda",
+    "incapacitated/estado",
+    "incapacitated/estado",
+    "incapacitated/recuperacao",
+    "standing E 400 ms"
+   ],
+   "quadros": 24,
+   "duracao_total_ms": 5020,
+   "gifs": [
+    "gifs/demo_incapacitacao_completa_1x.gif",
+    "gifs/demo_incapacitacao_completa_4x.gif"
+   ]
+  }
+ },
+ "bruto": {
+  "f8-attack-bark": {
+   "pixellab_grupo": "7e9ea826-9575-4a4e-9892-c7e725ab32f4",
+   "pixellab_job": "d0c68b3b-cf3c-4e78-9189-dac1298bfac9",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    72,
+    60
+   ],
+   "recorte_dx": 6,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 12,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-attack-bark"
+  },
+  "f8-hurt": {
+   "pixellab_grupo": "80061d3b-80de-492d-976b-6e8292d4bd8c",
+   "pixellab_job": "353928a0-df8a-4f09-afcc-d3254cce60c6",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E; end_frame = rotação E",
+   "canvas_bruto": [
+    64,
+    60
+   ],
+   "recorte_dx": 2,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 21,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-hurt"
+  },
+  "f8-ko-fall": {
+   "pixellab_grupo": "b763a8e9-f56b-4d47-98f5-afb9a8581d57",
+   "pixellab_job": "3deef405-8d56-4081-8760-b18eae906dc2",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = rotação E",
+   "canvas_bruto": [
+    60,
+    60
+   ],
+   "recorte_dx": 0,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 6
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": -1,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-fall"
+  },
+  "f8-ko-loop": {
+   "pixellab_grupo": "72740c14-54cc-48b6-8b94-962ff72b8203",
+   "pixellab_job": "06b79d23-cc9b-4a96-98f3-129dddc68e26",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 4,
+   "geracoes": 1,
+   "quadros_chave": "início = fim = último quadro da queda",
+   "canvas_bruto": [
+    68,
+    60
+   ],
+   "recorte_dx": 4,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 1
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-loop"
+  },
+  "f8-ko-recover": {
+   "pixellab_grupo": "a1c50e45-e8ee-401d-ac2d-4923e4c77ed8",
+   "pixellab_job": "7be04e34-5487-437c-b68c-01e644b01439",
+   "modo": "animate_character pixminimax, direção east, palette 19 cores, keep_first_frame=false",
+   "quadros_gerados": 8,
+   "geracoes": 1,
+   "quadros_chave": "início = último quadro da queda; end_frame = rotação E",
+   "canvas_bruto": [
+    68,
+    60
+   ],
+   "recorte_dx": 4,
+   "pos_processo": [
+    {
+     "q": 0,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 1,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 2,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 3,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 4,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 5,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 6,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": false,
+     "contorno_fechado_px": 0
+    },
+    {
+     "q": 7,
+     "px_soltos_removidos": 0,
+     "ancora_dy": 0,
+     "queixo_px": 0,
+     "topo_cabeca_px": 0,
+     "rosto_travado": true,
+     "contorno_fechado_px": 0
+    }
+   ],
+   "pasta": "_evidencias/bruto_pixminimax/f8-ko-recover"
+  }
+ },
+ "folhas": [
+  "folha_contato_1x.png",
+  "folha_contato_4x.png",
+  "folha_contato_3x_transparente.png"
+ ],
+ "geracoes_pixellab": 5
+}

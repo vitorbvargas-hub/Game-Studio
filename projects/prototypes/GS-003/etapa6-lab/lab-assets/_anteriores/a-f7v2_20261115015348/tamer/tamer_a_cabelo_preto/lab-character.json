@@ -1,0 +1,48 @@
+{
+ "id": "tamer_a_cabelo_preto",
+ "label": "Tamer A — cabelo preto (ChatGPT, placeholder: só a vista sul nas 4 direções)",
+ "source": "Método A (ChatGPT) — game-ready C5; Etapa 6 C5: a vista sul vale para N/W/E (placeholder, D13: sem redimensionar)",
+ "placeholder": true,
+ "rotations": {
+  "S": {
+   "file": "rotations/south.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 23,
+    "y": 45
+   }
+  },
+  "N": {
+   "file": "rotations/south.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 23,
+    "y": 45
+   },
+   "placeholderOf": "S"
+  },
+  "W": {
+   "file": "rotations/south.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 23,
+    "y": 45
+   },
+   "placeholderOf": "S"
+  },
+  "E": {
+   "file": "rotations/south.png",
+   "w": 48,
+   "h": 48,
+   "pivot": {
+    "x": 23,
+    "y": 45
+   },
+   "placeholderOf": "S"
+  }
+ },
+ "walk": {}
+}

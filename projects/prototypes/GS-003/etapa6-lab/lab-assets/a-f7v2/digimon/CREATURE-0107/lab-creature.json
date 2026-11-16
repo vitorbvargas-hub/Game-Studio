@@ -1,0 +1,15 @@
+{
+ "speciesId": "CREATURE-0107",
+ "species": "palmon",
+ "source": "Método A (ChatGPT) palmon_retrato_A — pose única 3/4, parada; quadros pequenos da 06 abaixo da escala E5, não extraídos",
+ "file": "pose.png",
+ "w": 31,
+ "h": 38,
+ "pivot": {
+  "x": 15,
+  "y": 37
+ },
+ "anatomy": "biped",
+ "facing": "S",
+ "placeholder": "pose única: idle = walk; leste espelhado; norte/sul = mesma pose"
+}

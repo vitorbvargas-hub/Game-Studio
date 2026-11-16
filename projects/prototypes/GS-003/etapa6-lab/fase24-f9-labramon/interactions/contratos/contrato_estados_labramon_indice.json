@@ -1,0 +1,38 @@
+{
+  "versao": "F9 Fases 5–8 — índice de estados animados do Labramon (candidato)",
+  "data": "2026-11-16",
+  "status": "CANDIDATO — não homologado. Índice para o laboratório (Fase 9) e para sistemas futuros; não implementa nada.",
+  "doc": "Um estado = id + pasta + manifesto. Os sistemas de humor/afinidade/vínculo, quando autorizados, escolhem um id; a arte não conhece as regras. 'humor_sugerido' é só um rótulo de leitura visual da direção de arte, não uma regra de jogo.",
+  "especie": "sp.labramon",
+  "direcao_disponivel": "E",
+  "base": { "idle": "movement/idle/E", "standing": "movement/standing/E.png", "walk": "movement/walk/E" },
+  "estados": [
+    { "id": "labramon.emocao.feliz", "pasta": "emotions/happy", "manifesto": "emotions/manifesto.json", "forma": "entrada+loop+saida", "humor_sugerido": "feliz" },
+    { "id": "labramon.emocao.triste", "pasta": "emotions/sad", "manifesto": "emotions/manifesto.json", "forma": "entrada+loop+saida", "humor_sugerido": "triste" },
+    { "id": "labramon.emocao.irritado", "pasta": "emotions/angry", "manifesto": "emotions/manifesto.json", "forma": "entrada+loop+saida", "humor_sugerido": "irritado" },
+    { "id": "labramon.emocao.assustado", "pasta": "emotions/scared", "manifesto": "emotions/manifesto.json", "forma": "entrada+loop+saida", "humor_sugerido": "assustado" },
+    { "id": "labramon.descanso.deitar", "pasta": "rest/rest/stand_to_lie", "manifesto": "rest/manifesto.json", "forma": "transicao" },
+    { "id": "labramon.descanso.adormecer", "pasta": "rest/rest/lie_to_sleep", "manifesto": "rest/manifesto.json", "forma": "transicao" },
+    { "id": "labramon.descanso.sono", "pasta": "rest/rest/sleep_loop", "manifesto": "rest/manifesto.json", "forma": "loop" },
+    { "id": "labramon.descanso.acordar", "pasta": "rest/rest/sleep_to_wake", "manifesto": "rest/manifesto.json", "forma": "transicao" },
+    { "id": "labramon.descanso.levantar", "pasta": "rest/rest/wake_to_stand", "manifesto": "rest/manifesto.json", "forma": "transicao" },
+    { "id": "labramon.interacao.carinho", "pasta": "interactions/petting", "manifesto": "interactions/manifesto.json", "contrato": "interactions/contratos/contrato_interacoes_labramon.json", "forma": "entrada+loop+saida" },
+    { "id": "labramon.interacao.comemoracao", "pasta": "interactions/celebrate", "manifesto": "interactions/manifesto.json", "contrato": "interactions/contratos/contrato_interacoes_labramon.json", "forma": "disparo_unico" },
+    { "id": "labramon.combate.ataque.retriever_bark", "pasta": "combat/attack_retriever_bark", "manifesto": "combat/manifesto.json", "forma": "disparo_unico+fx", "tecnica_oficial": "Retriever Bark (digimon.net Reference Book)" },
+    { "id": "labramon.combate.dano", "pasta": "combat/hurt", "manifesto": "combat/manifesto.json", "forma": "disparo_unico" },
+    { "id": "labramon.combate.incapacitado", "pasta": "combat/incapacitated", "manifesto": "combat/manifesto.json", "forma": "queda+estado(loop)+recuperacao", "doc": "Incapacitação e recuperação. Sem morte, sem Digiovo." }
+  ],
+  "transicoes_validas": [
+    ["idle", "qualquer estado de emocao/interacao/combate (pelo clipe de entrada ou quadro 0)"],
+    ["idle", "labramon.descanso.deitar"],
+    ["labramon.descanso.deitar", "labramon.descanso.adormecer | labramon.descanso.levantar"],
+    ["labramon.descanso.adormecer", "labramon.descanso.sono"],
+    ["labramon.descanso.sono", "labramon.descanso.acordar"],
+    ["labramon.descanso.acordar", "labramon.descanso.levantar | labramon.descanso.adormecer"],
+    ["labramon.descanso.levantar", "idle"],
+    ["labramon.combate.incapacitado/queda", "labramon.combate.incapacitado/estado"],
+    ["labramon.combate.incapacitado/estado", "labramon.combate.incapacitado/recuperacao"],
+    ["labramon.combate.incapacitado/recuperacao", "idle"]
+  ],
+  "campos_reservados_para_sistemas_futuros": { "afinidade": null, "humor": null, "vinculo": null, "interacoes_contextuais": null, "reacoes_por_especie": "um índice como este por espécie" }
+}

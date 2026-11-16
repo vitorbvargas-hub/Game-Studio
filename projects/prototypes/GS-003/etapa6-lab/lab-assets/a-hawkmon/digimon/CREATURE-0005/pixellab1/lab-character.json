@@ -1,0 +1,293 @@
+{
+ "id": "CREATURE-0005-pixellab1",
+ "speciesId": "CREATURE-0005",
+ "species": "Koromon",
+ "anatomy": "biped",
+ "label": "Koromon v1 (PixelLab, personagem a1b0d76e): pacote pacote_koromon_v1",
+ "source": "import-pixellab-line.mjs (Etapa 6, Fase 9)",
+ "rotations": {
+  "S": {
+   "file": "rotations/S.png",
+   "w": 32,
+   "h": 32,
+   "pivot": {
+    "x": 15,
+    "y": 29
+   }
+  },
+  "W": {
+   "file": "rotations/W.png",
+   "w": 32,
+   "h": 32,
+   "pivot": {
+    "x": 15,
+    "y": 28
+   }
+  },
+  "E": {
+   "file": "rotations/E.png",
+   "w": 32,
+   "h": 32,
+   "pivot": {
+    "x": 15,
+    "y": 28
+   }
+  },
+  "N": {
+   "file": "rotations/N.png",
+   "w": 32,
+   "h": 32,
+   "pivot": {
+    "x": 16,
+    "y": 29
+   }
+  }
+ },
+ "walk": {
+  "S": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/S/frame_000.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_001.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_002.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_003.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_004.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_005.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_006.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    },
+    {
+     "file": "walk/S/frame_007.png",
+     "w": 44,
+     "h": 44,
+     "pivot": {
+      "x": 22,
+      "y": 35
+     }
+    }
+   ]
+  },
+  "W": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/W/frame_000.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_001.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_002.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_003.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_004.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_005.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_006.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/W/frame_007.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 20,
+      "y": 32
+     }
+    }
+   ]
+  },
+  "E": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/E/frame_000.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_001.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_002.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_003.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_004.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_005.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_006.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    },
+    {
+     "file": "walk/E/frame_007.png",
+     "w": 40,
+     "h": 40,
+     "pivot": {
+      "x": 19,
+      "y": 32
+     }
+    }
+   ]
+  },
+  "N": {
+   "ms": 100,
+   "frames": [
+    {
+     "file": "walk/N/frame_000.png",
+     "w": 32,
+     "h": 32,
+     "pivot": {
+      "x": 16,
+      "y": 29
+     }
+    }
+   ]
+  }
+ }
+}

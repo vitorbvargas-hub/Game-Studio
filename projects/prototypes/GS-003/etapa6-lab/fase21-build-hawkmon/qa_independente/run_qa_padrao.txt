@@ -1,0 +1,28 @@
+{"url":"http://127.0.0.1:5197/?novo=1&time=12:00","tag":"qa_padrao","ids":{"hawk":"p1:partner","tamer":"p1","cmp":"labcmp:partner","cmpTamer":"labcmp"},"manifest":{"hawk":{"name":"Hawkmon (Link A — ficha v1 PixelLab, TESTE: 4 direções, caminhada (60x60 nativo; pose parada = rotação))","walkPxPerFrame":2,"walkSpeedPxPerSec":null,"walkMs":[110,110,110,110,110,110,110,110]},"cmp":{"name":"Agumon (Link A — ficha v9 PixelLab, TESTE: 4 direções, caminhada + ataque (60x60 nativo; pose parada = rotação))","walkPxPerFrame":null,"walkSpeedPxPerSec":null,"walkMs":[110,110,110,110,110,110,110,110]}},"erros":[],"rede":[],"avisos":1,"linhas":6996}
+== hawkmon
+normal_E  walk 123 ms med 16.7 (16.5-50) px/q 2 vel 92 pulos 0/122  q56 17,17,17,17,17,33,17,17,33,17,17,17
+normal_W  walk 117 ms med 16.7 (16.5-50) px/q 2 vel 91 pulos 0/116  q56 33,17,17,17,17,33,17,17,33,17,17,17
+normal_N  walk  88 ms med 16.7 (16.5-50.1) px/q 2 vel 88 pulos 0/86  q56 17,17,17,33,17,17,17,17,17,17,17,33
+normal_S  walk 117 ms med 16.7 (16.5-33.4) px/q 2 vel 91 pulos 0/116  q56 17,17,33,17,17,17,17,17,17,33,17,17
+lento_E   walk  53 ms med 50 (33.2-66.7) px/q 2 vel 38 pulos 0/51  q56 67,67,33,50,50,50,50,50,50,50,50,50
+lento_W   walk  62 ms med 50 (49.9-66.7) px/q 2 vel 38 pulos 0/61  q56 50,50,50,50,50,50,50,50,50,50,50,50
+lento_N   walk  55 ms med 50 (33.2-83.4) px/q 2 vel 39 pulos 0/53  q56 33,50,50,33,50,50,50,50,50,50,50,50
+lento_S   walk  63 ms med 50 (49.9-83.4) px/q 2 vel 38 pulos 0/62  q56 50,50,50,50,50,50,50,50,50,50,50,50
+== agumon
+normal_E  walk  16 ms med 116.7 (99.9-183.3) px/q 11 vel 88 pulos 0/15  q56 117,100,100,183
+normal_W  walk  15 ms med 116.6 (100-150) px/q 11 vel 86 pulos 0/14  q56 100,117
+normal_N  walk   0 ms med null (null-null) px/q null vel null pulos 0/0  q56 
+normal_S  walk   0 ms med null (null-null) px/q null vel null pulos 0/0  q56 
+lento_E   walk  13 ms med 266.7 (250-333.4) px/q 10.9 vel 39 pulos 0/12  q56 267,267,267
+lento_W   walk  11 ms med 266.6 (116.7-283.4) px/q 8.8 vel 35 pulos 0/9  q56 283,267
+lento_N   walk   7 ms med 283.4 (66.7-333.3) px/q 7.5 vel 29 pulos 0/4  q56 333
+lento_S   walk   4 ms med 400 (333.4-400) px/q 11 vel 28 pulos 0/3  q56 
+== tamer
+normal_E  walk   0 ms med null (null-null) px/q null vel 93 pulos 0/0  q56 
+normal_W  walk   0 ms med null (null-null) px/q null vel 93 pulos 0/0  q56 
+normal_N  walk   0 ms med null (null-null) px/q null vel 91 pulos 0/0  q56 
+normal_S  walk   0 ms med null (null-null) px/q null vel 93 pulos 0/0  q56 
+lento_E   walk   0 ms med null (null-null) px/q null vel 38 pulos 0/0  q56 
+lento_W   walk   0 ms med null (null-null) px/q null vel 38 pulos 0/0  q56 
+lento_N   walk   0 ms med null (null-null) px/q null vel 38 pulos 0/0  q56 
+lento_S   walk   0 ms med null (null-null) px/q null vel 38 pulos 0/0  q56 

@@ -1,0 +1,74 @@
+{
+ "especie": "Hawkmon (rookie) — base \"estilo ChatGPT\" (C15a)",
+ "versao": "v2 (Comando C15b: walk 8 quadros + idle 4 quadros, a partir das rotações C15a)",
+ "data": "2026-11-15",
+ "licenca": "private-prototype (fangame não oficial, sem licença; sem integração). NÃO homologado.",
+ "status": "COMPLETO: walk e idle nas 4 direções (S,E,N,W). Idle N/W gerado em tarefa de continuação (C15b-2, 2026-11-15), mesmo prompt usado em S/E, mesmo funil de limpeza (correct_pixelart + reduce_colors com palette_image da rotação original). Não homologado.",
+ "pixellab_geracoes": {
+  "personagem_base_import": 0.25,
+  "walk_s_e_n_w": "6 gerações animate_character (v3 custom): S=1, E=2 (1ª tentativa descartada + 2ª usada), N=2 (1ª tentativa descartada por colapso de altura + 2ª usada), W=1",
+  "idle_s_e": "2 gerações animate_character (v3 custom) + 2 gerações descartadas (tentativa template breathing-idle, reprovada por âncora/escala erradas)",
+  "idle_n_w": "2 gerações animate_character (v3 custom, mesmo prompt de S/E, tarefa de continuação C15b-2) + 1 chamada correct_pixelart combinando os 8 quadros (0,1) + 2 chamadas reduce_colors (0,1 cada, paleta separada por direção) = 2,3 gerações",
+  "limpeza_correct_pixelart": "6 chamadas x 0,1 = 0,6 (C15b) + 1 chamada combinada x 0,1 = 0,1 (C15b-2)",
+  "limpeza_reduce_colors": "6 chamadas x 0,1 = 0,6 (C15b) + 2 chamadas x 0,1 = 0,2 (C15b-2)",
+  "total_gasto": 13.75,
+  "uso": "gabarito de pose + redesenho de cor/âncora; nenhum pixel entra sem passar por correct_pixelart + reduce_colors travado na paleta da própria rotação C15a"
+ },
+ "canvas": [60, 60],
+ "registro": "rotações, walk e idle no mesmo canvas 60x60, igual ao v1b.",
+ "ancora": {
+  "tipo": "pé de apoio",
+  "x": 29.5,
+  "y_chao": 49,
+  "doc": "Mesma âncora do v1b/Agumon F7v2: última linha opaca (pé de apoio) sempre em y=49 — confirmado, 0 quadros fora disso, em todos os 8 quadros de walk x 4 direções e todos os 4 quadros de idle x 4 direções (48 imagens auditadas). Correção manual de deslocamento vertical (shift_y.js, script local, grátis) aplicada em 11 dos 40 quadros do C15b; idle N/W (C15b-2) saiu em y=49 direto da geração, sem precisar de correção."
+ },
+ "massa": {
+  "doc": "Altura do bbox (y_min a 49) por quadro: walk/S 38-41px, walk/E 37-41px, walk/N 37-42px, walk/W 38-40px, idle/S 38-41px, idle/E 38px (constante nos 4 quadros), idle/N 38-40px, idle/W 36-40px. Variação de até 4px em torno dos 38px da C15a — atribuída à extensão natural da perna durante a passada/respiração (mesmo princípio do v1b, que já variava a altura entre os quadros 0/4), não a um erro de escala."
+ },
+ "cores": {
+  "doc": "Toda imagem final foi travada (reduce_colors com palette_image = PNG original C15a da própria direção) na paleta de 18 cores da C15a. Nenhum quadro usa cor fora desse conjunto. walk/N e walk/W usam um subconjunto de 14-16 cores; idle/N usa 15-16 cores (total 16 no conjunto das 4 quadros) e idle/W usa 17-18 cores (total 18, conjunto completo) — faltam, no caso de N, os tons de olho/marca facial, que também não existem na rotação N — coerente com a C15a. 0 pixels semitransparentes nos 8 quadros de idle N/W (auditoria local)."
+ },
+ "anims": {
+  "walk": {
+   "dirs": ["S", "E", "N", "W"],
+   "quadros": 8,
+   "delay_ms_alvo_jogo": 50,
+   "loop": true,
+   "metodo": "animate_character(mode=\"v3\", action_description=...) sobre o personagem importado das 4 rotações C15a (sem regeneração nas rotações-base); gabarito limpo com correct_pixelart + reduce_colors (paleta travada) + correção de âncora local.",
+   "passada_pe_apoio": {
+    "doc": "Objetivo do brief: pé de apoio recuando ~3-5 px/quadro (passada mais longa que o v1b, que tinha 2 px fixo). MEDIDO (não é meta cumprida com uniformidade perfeita — ver RELATORIO_C15B.md §3 para a medição completa, quadro a quadro):",
+    "E": "1ª tentativa (prompt neutro): ~2 px/quadro, igual ao v1b — REJEITADA. 2ª tentativa (prompt pedindo passada exagerada): quadros finais do passo medem 4, 3.5 e 3 px/quadro de recuo (dentro da meta); a primeira metade do ciclo recua só ~1,75 px/quadro em média, e há 1 quadro de duplo apoio (transição). Usada como walk/E final.",
+    "W": "mesmo prompt de passada longa; recuo medido entre 1.5 e 4.5 px/quadro conforme o trecho do ciclo (ver relatório); não uniforme.",
+    "S_N": "sem medida de deslizamento lateral — mesma convenção do v1b (o pé de apoio fica parado no lugar; a perna que avança é que se move, visto de frente/costas)."
+   },
+   "fonte": {
+    "S": "v3 custom, prompt de passada confiante (sem exagero) — 1 geração, usada direto.",
+    "E": "v3 custom, 2 tentativas: a 1ª (passada curta, descartada) e a 2ª (prompt de passada exagerada, usada).",
+    "N": "v3 custom, 2 tentativas: a 1ª (prompt de passada exagerada) colapsou a altura do corpo (37→27px) e a âncora (y49→y45) — descartada; a 2ª (prompt sem exagero, igual ao da S) ficou estável e foi usada.",
+    "W": "v3 custom, prompt de passada exagerada (igual à E 2ª tentativa) — 1 geração, usada direto."
+   }
+  },
+  "idle": {
+   "dirs": ["S", "E", "N", "W"],
+   "quadros": 4,
+   "loop": true,
+   "delay_ms_por_quadro": 180,
+   "metodo": "animate_character(mode=\"v3\", action_description=\"idle breathing, standing still on both feet, feet planted flat on the ground, the body and crest feathers gently rising and settling down by a small amount, wings folded closed against the body, blinking once\"); a 1ª tentativa (S/E) usou mode=\"template\" (breathing-idle) e foi REPROVADA (âncora caiu para y41-44, altura encolheu de 38 para 33-35 — o template humano não respeita a proporção/canvas do Hawkmon). Apagada com delete_animation; refeita em v3 custom, que manteve âncora e altura corretas.",
+   "fonte": {
+    "S": "v3 custom, tarefa C15b (2026-11-15) — 1 geração, aprovado direto após a tentativa template descartada.",
+    "E": "v3 custom, tarefa C15b (2026-11-15) — 1 geração, mesmo prompt de S.",
+    "N": "v3 custom, tarefa de continuação C15b-2 (2026-11-15) — 1 geração, prompt idêntico ao de S/E; âncora e paleta confirmadas em y=49 e dentro das 18 cores sem correção adicional.",
+    "W": "v3 custom, tarefa de continuação C15b-2 (2026-11-15) — 1 geração, prompt idêntico ao de S/E; âncora e paleta confirmadas em y=49 e dentro das 18 cores sem correção adicional."
+   }
+  }
+ },
+ "nao_incluido": [
+  "ataque",
+  "diagonais",
+  "feliz",
+  "camadas/ (corpo+topete separados) — não pedido no brief C15b; se precisar para a Feather Slash futura, é trabalho novo",
+  "integração no jogo",
+  "sombra de contato (a cargo do jogo, como no Agumon F7v2 e no Hawkmon v1b)"
+ ],
+ "credito": "Hawkmon é espécie oficial de Digimon (Bandai/Toei). Base C15a: extraída e limpa de referência de imagem gerada por IA (ChatGPT) sob direção do Vitor; animação desta entrega: PixelLab (animate_character v3) + limpeza/correção local (scripts próprios, sem geração). Fangame não oficial."
+}

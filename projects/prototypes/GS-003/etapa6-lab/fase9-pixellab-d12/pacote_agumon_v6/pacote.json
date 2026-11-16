@@ -1,0 +1,164 @@
+{
+ "personagem_pixellab": "05b98801-7e63-4959-ac5c-4dc9c74491db",
+ "canvas": "56x56",
+ "fps_sugerido": {
+  "walk": 10,
+  "attack": 8
+ },
+ "evento_ataque": "quadro 3-4 = disparo do Pepper Breath",
+ "anims": {
+  "walk/S": {
+   "src": "walk-v6",
+   "frames": 8,
+   "alturas": [
+    35,
+    35,
+    34,
+    34,
+    35,
+    35,
+    35,
+    35
+   ],
+   "pe_y": [
+    46,
+    47
+   ]
+  },
+  "walk/W": {
+   "src": "walk-v3",
+   "frames": 8,
+   "alturas": [
+    39,
+    39,
+    39,
+    38,
+    36,
+    36,
+    36,
+    36
+   ],
+   "pe_y": [
+    45,
+    47
+   ]
+  },
+  "walk/E": {
+   "src": "walk-v3",
+   "frames": 8,
+   "alturas": [
+    39,
+    40,
+    38,
+    38,
+    38,
+    38,
+    36,
+    38
+   ],
+   "pe_y": [
+    44,
+    46,
+    47
+   ]
+  },
+  "walk/N": {
+   "src": "walk-v6",
+   "frames": 8,
+   "alturas": [
+    40,
+    39,
+    38,
+    37,
+    39,
+    40,
+    38,
+    38
+   ],
+   "pe_y": [
+    44,
+    45,
+    46,
+    47
+   ]
+  },
+  "attack/S": {
+   "src": "pepper-breath-v3",
+   "frames": 9,
+   "alturas": [
+    35,
+    36,
+    36,
+    37,
+    36,
+    37,
+    36,
+    35,
+    35
+   ],
+   "pe_y": [
+    45,
+    46,
+    47
+   ]
+  },
+  "attack/W": {
+   "src": "pepper-breath-v3",
+   "frames": 9,
+   "alturas": [
+    38,
+    38,
+    37,
+    39,
+    39,
+    39,
+    38,
+    34,
+    34
+   ],
+   "pe_y": [
+    45,
+    46,
+    47
+   ]
+  },
+  "attack/E": {
+   "src": "pepper-breath-v3",
+   "frames": 9,
+   "alturas": [
+    38,
+    39,
+    40,
+    40,
+    39,
+    39,
+    40,
+    39,
+    38
+   ],
+   "pe_y": [
+    47
+   ]
+  },
+  "attack/N": {
+   "src": "pepper-v6-north",
+   "frames": 9,
+   "alturas": [
+    39,
+    39,
+    36,
+    33,
+    32,
+    34,
+    35,
+    37,
+    39
+   ],
+   "pe_y": [
+    44,
+    46,
+    47
+   ]
+  }
+ }
+}

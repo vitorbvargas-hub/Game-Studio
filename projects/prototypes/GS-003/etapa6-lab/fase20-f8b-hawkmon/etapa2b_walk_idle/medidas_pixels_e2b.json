@@ -1,0 +1,115 @@
+{
+ "E_pe_de_perto_x_mundo_quadros_0a3": [
+  32,
+  32,
+  32,
+  32
+ ],
+ "E_pe_de_tras_x_mundo": [
+  46,
+  46,
+  46
+ ],
+ "E_pe_de_tras_quadros_medidos": [
+  4,
+  5,
+  6
+ ],
+ "E_deslizamento_px": {
+  "perto": 0,
+  "tras": 0
+ },
+ "N_walk_ponta_central_do_leque_ultima_linha_vermelha": [
+  46,
+  46,
+  46,
+  46,
+  46,
+  46,
+  46,
+  46
+ ],
+ "N_linha_do_chao": 49,
+ "S_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49
+ ],
+ "N_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49,
+  49
+ ],
+ "E_walk_ultima_linha_opaca": [
+  49,
+  49,
+  49,
+  49,
+  48,
+  48,
+  48,
+  48
+ ],
+ "E_walk_distancia_min_ponta_da_asa_h_ate_pes": [
+  7,
+  8,
+  7,
+  4,
+  5,
+  8,
+  9,
+  6
+ ],
+ "E_walk_cauda_vermelha_y_min_max_e_ponta_asa_h_y": [
+  [
+   39,
+   41,
+   44
+  ],
+  [
+   39,
+   41,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   39,
+   41,
+   44
+  ],
+  [
+   39,
+   41,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ],
+  [
+   38,
+   40,
+   43
+  ]
+ ]
+}

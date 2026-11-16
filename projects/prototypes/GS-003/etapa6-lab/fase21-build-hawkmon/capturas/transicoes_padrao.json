@@ -1,0 +1,38 @@
+{
+ "hawkmon": [
+  "ANDA idleanim_E_00 > walk_E_00 (1817 ms)",
+  "PARA walk_E_02 > idleanim_E_03 (4467 ms)",
+  "ANDA idleanim_W_00 > walk_W_03 (5833 ms)",
+  "PARA walk_W_07 > idleanim_W_05 (8383 ms)",
+  "ANDA idleanim_E_00 > walk_E_00 (10316 ms)",
+  "PARA walk_N_06 > idleanim_N_00 (12250 ms)",
+  "ANDA idleanim_S_00 > walk_S_07 (14033 ms)",
+  "PARA walk_S_03 > idleanim_S_04 (16583 ms)",
+  "ANDA idleanim_E_00 > walk_N_04 (19433 ms)",
+  "PARA walk_E_07 > idleanim_E_02 (22099 ms)",
+  "ANDA idleanim_W_00 > walk_W_00 (23533 ms)",
+  "PARA walk_W_05 > idleanim_W_02 (26732 ms)",
+  "ANDA idleanim_E_00 > walk_E_06 (29532 ms)",
+  "PARA walk_N_03 > idleanim_N_00 (32232 ms)",
+  "ANDA idleanim_S_00 > walk_S_03 (33732 ms)",
+  "PARA walk_S_01 > idleanim_S_00 (36932 ms)"
+ ],
+ "agumon": [
+  "ANDA idleanim_E_00 > walk_E_00 (1817 ms)",
+  "PARA walk_E_07 > idleanim_E_05 (3667 ms)",
+  "ANDA idleanim_W_00 > walk_W_07 (5833 ms)",
+  "PARA walk_W_04 > idleanim_W_05 (8383 ms)",
+  "ANDA idleanim_E_00 > walk_E_04 (10316 ms)",
+  "PARA walk_N_04 > idleanim_N_00 (12250 ms)",
+  "ANDA idleanim_S_00 > walk_S_04 (14033 ms)",
+  "PARA walk_S_01 > idleanim_S_04 (16583 ms)",
+  "ANDA idleanim_E_00 > walk_N_01 (19433 ms)",
+  "PARA walk_E_02 > idleanim_E_02 (22099 ms)",
+  "ANDA idleanim_W_00 > walk_W_02 (23533 ms)",
+  "PARA walk_W_06 > idleanim_W_02 (26732 ms)",
+  "ANDA idleanim_E_00 > walk_E_06 (29532 ms)",
+  "PARA walk_N_07 > idleanim_N_00 (32232 ms)",
+  "ANDA idleanim_S_00 > walk_S_07 (33732 ms)",
+  "PARA walk_S_03 > idleanim_S_00 (36932 ms)"
+ ]
+}
